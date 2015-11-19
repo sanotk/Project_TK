@@ -18,6 +18,9 @@ public class MyPjGdxGame extends ApplicationAdapter {
 	TextureAtlas tileAtlas;
 	List<IntArray> mapData;
 
+	private static final int TILE_WIDTH = 32;
+	private static final int TILE_HEIGHT = 32;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -35,10 +38,10 @@ public class MyPjGdxGame extends ApplicationAdapter {
 		for (int row = 0; row < mapData.size(); ++row) {
 		    for (int column = 0; column < mapData.get(row).size; ++column) {
 		        batch.draw(findTileRegion(mapData.get(row).get(column)), x, y);
-		        x += 32;
+		        x += TILE_WIDTH;
 		    }
 		    x = 0;
-		    y += 32;
+		    y += TILE_HEIGHT;
 		}
 		batch.end();
 	}
