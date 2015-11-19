@@ -38,7 +38,7 @@ public class MyPjGdxGame extends ApplicationAdapter {
 
 		int x = 0, y = 0;
 		batch.begin();
-		for (int row = 0; row < mapData.size(); ++row) {
+		for (int row = mapData.size()-1; row >= 0; --row) {
 		    for (int column = 0; column < mapData.get(row).size; ++column) {
 		        batch.draw(findTileRegion(mapData.get(row).get(column)), x, y);
 		        x += TILE_WIDTH;

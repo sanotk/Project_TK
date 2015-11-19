@@ -18,7 +18,7 @@ public class LevelLoader {
             for (String tileNum : rowString.split(",")) {
                 rowInt.add(Integer.parseInt(tileNum.replaceAll("\\s+","")));
             }
-            mapData.add(0, rowInt);
+            mapData.add(rowInt);
         }
         return mapData;
     }
