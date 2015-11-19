@@ -18,6 +18,8 @@ public class MyPjGdxGame extends ApplicationAdapter {
 	TextureAtlas tileAtlas;
 	List<IntArray> mapData;
 
+	private static TextureRegion emptyTile;
+
 	private static final int TILE_WIDTH = 32;
 	private static final int TILE_HEIGHT = 32;
 
@@ -26,6 +28,7 @@ public class MyPjGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		tileAtlas = new TextureAtlas(Gdx.files.internal("tile.atlas"));
 		mapData = LevelLoader.loadMap(Gdx.files.internal("map.csv"));
+		emptyTile = new TextureRegion(new Texture(new Pixmap(0, 0, Format.Alpha)));
 	}
 
 	@Override
@@ -49,7 +52,7 @@ public class MyPjGdxGame extends ApplicationAdapter {
 	public TextureRegion findTileRegion(int tileNum) {
 	    switch(tileNum) {
 	    case 0:
-	        return tileAtlas.findRegion("blue");
+            return tileAtlas.findRegion("blue");
 	    case 1:
             return tileAtlas.findRegion("green");
 	    case 2:
@@ -59,6 +62,6 @@ public class MyPjGdxGame extends ApplicationAdapter {
 	    default:
 	        break;
 	    }
-	    return new TextureRegion(new Texture(new Pixmap(0, 0, Format.Alpha)));
+	    return emptyTile;
 	}
 }
