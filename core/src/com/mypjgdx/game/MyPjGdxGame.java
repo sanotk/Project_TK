@@ -51,14 +51,10 @@ public class MyPjGdxGame extends ApplicationAdapter {
 
 	public TextureRegion findTileRegion(int tileNum) {
 	    switch(tileNum) {
-	    case 0:
-            return tileAtlas.findRegion("blue");
-	    case 1:
-            return tileAtlas.findRegion("green");
-	    case 2:
-            return tileAtlas.findRegion("red");
-	    case 3:
-            return tileAtlas.findRegion("yellow");
+	    case 0: return tileAtlas.findRegion("blue");
+	    case 1: return tileAtlas.findRegion("green");
+	    case 2: return tileAtlas.findRegion("red");
+	    case 3: return tileAtlas.findRegion("yellow");
 	    default:
 	        break;
 	    }
