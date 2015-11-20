@@ -12,11 +12,12 @@ import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class MyPjGdxGame extends ApplicationAdapter {
+    public static final String TAG = MyPjGdxGame.class.getName();
 
     private static final int SCENE_WIDTH = 1280;
     private static final int SCENE_HEIGHT = 720;
 
-    private static final float CAMERA_SPEED = 2.0f;
+    private static final float CAMERA_SPEED = 200.0f;
     private static final float CAMERA_MOVE_EDGE = 0.2f; // 20 %
 
     private OrthographicCamera camera;
@@ -32,8 +33,10 @@ public class MyPjGdxGame extends ApplicationAdapter {
 	    camera = new OrthographicCamera();
         viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT, camera);
 		batch = new SpriteBatch();
-		backMapData = LevelLoader.loadMap(Gdx.files.internal("")); //TODO map csv file
-		frontMapData = LevelLoader.loadMap(Gdx.files.internal(""));
+		touch = new Vector3();
+
+		backMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_1.csv"));
+		frontMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_2.csv"));
 	}
 
     @Override
