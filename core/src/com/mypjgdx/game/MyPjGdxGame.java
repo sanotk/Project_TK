@@ -91,7 +91,7 @@ public class MyPjGdxGame extends ApplicationAdapter {
             for (int column = 0; column < mapData.get(row).size; ++column) {
                 int tileNum = mapData.get(row).get(column);
                 Tiled tile = Tiled.get(tileNum);
-                batch.draw(tile.getTexture(), x, y);
+                batch.draw(tile.getRegion(), x, y);
                 x += Tiled.TILE_WIDTH;
             }
             x = 0;
