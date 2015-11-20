@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -73,6 +74,12 @@ public class MyPjGdxGame extends ApplicationAdapter {
                 camera.position.y -= CAMERA_SPEED * deltaTime;
             }
         }
+
+        if (Gdx.input.isKeyPressed(Keys.UP)) camera.position.y += CAMERA_SPEED * deltaTime;
+        else if (Gdx.input.isKeyPressed(Keys.DOWN)) camera.position.y -= CAMERA_SPEED * deltaTime;
+        else if (Gdx.input.isKeyPressed(Keys.LEFT)) camera.position.x -= CAMERA_SPEED * deltaTime;
+        else if (Gdx.input.isKeyPressed(Keys.RIGHT)) camera.position.x += CAMERA_SPEED * deltaTime;
+
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
