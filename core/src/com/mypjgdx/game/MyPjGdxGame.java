@@ -10,25 +10,28 @@ import com.badlogic.gdx.utils.IntArray;
 
 public class MyPjGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
-	List<IntArray> mapData;
+	List<IntArray> backMapData;
+	List<IntArray> frontMapData;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		mapData = LevelLoader.loadMap(Gdx.files.internal("map.csv"));
+		backMapData = LevelLoader.loadMap(Gdx.files.internal("")); //TODO map csv file
+		frontMapData = LevelLoader.loadMap(Gdx.files.internal(""));
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		batch.begin();
-		renderMap();
+		renderMap(backMapData);
+		renderMap(frontMapData);
 		batch.end();
 	}
 
-	public void renderMap() {
+	public void renderMap(List<IntArray> mapData) {
 	    int x = 0;
 	    int y = 0;
 
