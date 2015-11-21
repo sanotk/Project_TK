@@ -19,52 +19,53 @@ public class MyPjGdxGame extends ApplicationAdapter  {
     private SpriteBatch batch;
     private WorldController worldController;
 
-	private List<IntArray> backMapData;
-	private List<IntArray> frontMapData;
+    private List<IntArray> backMapData;
+    private List<IntArray> frontMapData;
 
-	@Override
-	public void create () {
-	    camera = new OrthographicCamera();
+    @Override
+    public void create () {
+        camera = new OrthographicCamera();
         viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT, camera);
-		batch = new SpriteBatch();
-		worldController = new WorldController(viewport);
+        batch = new SpriteBatch();
 
-		backMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_1.csv"));
-		frontMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_2.csv"));
-	}
+        worldController = new WorldController(viewport);
+
+        backMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_1.csv"));
+        frontMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_2.csv"));
+    }
 
     @Override
     public void resize(int width, int height) {
-        worldController.update(width, height);
+        viewport.update(width, height);
     }
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    @Override
+    public void render () {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		worldController.handleInput(Gdx.graphics.getDeltaTime());
+        worldController.handleInput(Gdx.graphics.getDeltaTime());
 
-		camera.update();
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
+        worldController.getCameraHelper().applyTo(camera);
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
 
-		renderMap(backMapData);
-		renderMap(frontMapData);
+        renderMap(backMapData);
+        renderMap(frontMapData);
 
-		batch.end();
-	}
+        batch.end();
+    }
 
-	@Override
-	public void dispose() {
-	    batch.dispose();
-	}
+    @Override
+    public void dispose() {
+        batch.dispose();
+    }
 
-	private void renderMap(List<IntArray> mapData) {
-	    int x = 0;
-	    int y = 0;
+    private void renderMap(List<IntArray> mapData) {
+        int x = 0;
+        int y = 0;
 
-	    for (int row = mapData.size()-1; row >= 0; --row) {
+        for (int row = mapData.size()-1; row >= 0; --row) {
             for (int column = 0; column < mapData.get(row).size; ++column) {
                 int tileId= mapData.get(row).get(column);
                 Tiled tile = Tiled.get(tileId);
@@ -74,7 +75,7 @@ public class MyPjGdxGame extends ApplicationAdapter  {
             x = 0;
             y += Tiled.TILE_HEIGHT;
         }
-	}
+    }
 
 
 
