@@ -1,7 +1,7 @@
 
 char_pack.png
 format: RGBA8888
-filter: Linear,Nearest
+filter: MipMapLinearNearest, Linear
 repeat: none
 char_l
   rotate: false
@@ -85,31 +85,5 @@ char_front
   xy: 704, 2
   size: 209, 392
   orig: 209, 392
-  offset: 0, 0
-  index: 2
-
-char_pack2.png
-format: RGBA8888
-filter: Linear,Nearest
-repeat: none
-Originals/char_l
-  rotate: false
-  xy: 1, 1
-  size: 244, 391
-  orig: 244, 391
-  offset: 0, 0
-  index: 3
-Originals/char_l
-  rotate: false
-  xy: 247, 4
-  size: 244, 388
-  orig: 244, 388
-  offset: 0, 0
-  index: 1
-Originals/char_l
-  rotate: false
-  xy: 493, 7
-  size: 244, 385
-  orig: 244, 385
   offset: 0, 0
   index: 2
