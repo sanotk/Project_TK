@@ -28,14 +28,14 @@ public class MyPjGdxGame extends ApplicationAdapter  {
         viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT, camera); //สร้างออปเจ็คการมองของกล้องเก็บไว้ในตัวแปร
         batch = new SpriteBatch();//สร้างออปเจ็คไว้วาดสิ่งต่างๆ
 
-        worldController = new WorldController(viewport); //สร้างออปเจ็คควบคุมเกมพร้อมส่งค่ามุมกล้องและเก็บไว้ในตัวแปร
+        worldController = new WorldController(viewport); //สร้าง อินสแตนซ์ viewpoint
 
         backMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_1.csv")); //โหลดแมพหลัง
         frontMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_2.csv")); //โหลดแมพหน้า
     }
 
     @Override
-    public void resize(int width, int height) { //ปรับขนาดมุมกล้อง
+    public void resize(int width, int height) { //ปรับขนาด viewport ให้เหมาะสมกับขนาดจอที่เปลี่ยนไป
         viewport.update(width, height);
     }
 
@@ -44,7 +44,7 @@ public class MyPjGdxGame extends ApplicationAdapter  {
         Gdx.gl.glClearColor(0, 0, 0, 1); //เคลียหน้าจอ
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //เคลียหน้าจอ
 
-        worldController.handleInput(Gdx.graphics.getDeltaTime()); //รับค่าเวลาต่อวิในการเล่นเฟรม
+        worldController.handleInput(Gdx.graphics.getDeltaTime()); //จัดการ/ตอบสนองต่อพวก input ต่างๆที่เข้ามา
 
         worldController.getCameraHelper().applyTo(camera); //อัพเดทมุมกล้อง
         batch.setProjectionMatrix(camera.combined); //เรนเดอร์ภาพให้สอดคล้องกับมุมกล้อง

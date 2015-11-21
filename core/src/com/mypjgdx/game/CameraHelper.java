@@ -12,7 +12,7 @@ public class CameraHelper {
     private Vector2 position; //ตำแหน่ง 2 มิติ
     private float zoom; //ตัวแปรซูม
 
-    public CameraHelper () { //เรียกใช้ ตำแหน่ง 2 มิติ เก็บไว้ในตัวแปร position และเซ็ตค่า zoom
+    public CameraHelper () { //สร้าง instance ของ class Vector2 เพื่อใช้เก็บตำแหน่งตัวช่วยมุมกล้อง
         position = new Vector2();
         zoom = 1.0f;
     }
@@ -41,7 +41,7 @@ public class CameraHelper {
         return zoom;
     }
 
-    public void applyTo (OrthographicCamera camera) { //อัพเทดตำแหน่ง
+    public void applyTo (OrthographicCamera camera) { //ปรับมุมกล้องจริงให้ตรงกับตัวช่วยมุมกล้อง
         camera.position.x = position.x; //
         camera.position.y = position.y; //
         camera.zoom = zoom; //
