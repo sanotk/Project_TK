@@ -2,30 +2,22 @@ package com.mypjgdx.game;
 
 import java.util.List;
 
-import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-public class MyPjGdxGame extends InputAdapter implements ApplicationListener {
-    public static final String TAG = MyPjGdxGame.class.getName();
-
-    private static final int SCENE_WIDTH = 1280;
-    private static final int SCENE_HEIGHT = 720;
-
-    private static final float CAMERA_SPEED = 200.0f;
-    private static final float CAMERA_MOVE_EDGE = 0.2f; // 20 %
+public class MyPjGdxGame extends ApplicationAdapter  {
+    public static final int SCENE_WIDTH = 1280;
+    public static final int SCENE_HEIGHT = 720;
 
     private OrthographicCamera camera;
     private FitViewport viewport;
     private SpriteBatch batch;
-	private Vector3 touch;
+    private WorldController worldController;
 
 	private List<IntArray> backMapData;
 	private List<IntArray> frontMapData;
@@ -35,17 +27,15 @@ public class MyPjGdxGame extends InputAdapter implements ApplicationListener {
 	    camera = new OrthographicCamera();
         viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT, camera);
 		batch = new SpriteBatch();
-		touch = new Vector3();
+		worldController = new WorldController(viewport);
 
 		backMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_1.csv"));
 		frontMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_2.csv"));
-
-		Gdx.input.setInputProcessor(this);
 	}
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        worldController.update(width, height);
     }
 
 	@Override
@@ -53,8 +43,7 @@ public class MyPjGdxGame extends InputAdapter implements ApplicationListener {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		float deltaTime = Gdx.graphics.getDeltaTime();
-		handleInput (deltaTime);
+		worldController.handleInput(Gdx.graphics.getDeltaTime());
 
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
@@ -66,34 +55,9 @@ public class MyPjGdxGame extends InputAdapter implements ApplicationListener {
 		batch.end();
 	}
 
-	private void handleInput(float deltaTime) {
-	    float halfWidth = SCENE_WIDTH * 0.5f;
-        float halfHeight = SCENE_HEIGHT * 0.5f;
-
-        if (Gdx.input.isTouched()) {
-            touch.set(Gdx.input.getX(), Gdx.input.getY(), 0.0f);
-            camera.unproject(touch);
-            touch.add(halfWidth - camera.position.x, halfHeight - camera.position.y, 0.0f);
-
-            if (touch.x > SCENE_WIDTH * (1.0f - CAMERA_MOVE_EDGE)) {
-                camera.position.x += CAMERA_SPEED * deltaTime;
-            }
-            else if (touch.x < SCENE_WIDTH * CAMERA_MOVE_EDGE) {
-                camera.position.x -= CAMERA_SPEED * deltaTime;
-            }
-
-            if (touch.y > SCENE_HEIGHT * (1.0f - CAMERA_MOVE_EDGE)) {
-                camera.position.y += CAMERA_SPEED * deltaTime;
-            }
-            else if (touch.y < SCENE_HEIGHT * CAMERA_MOVE_EDGE) {
-                camera.position.y -= CAMERA_SPEED * deltaTime;
-            }
-        }
-
-        if (Gdx.input.isKeyPressed(Keys.UP)) camera.position.y += CAMERA_SPEED * deltaTime;
-        if (Gdx.input.isKeyPressed(Keys.DOWN)) camera.position.y -= CAMERA_SPEED * deltaTime;
-        if (Gdx.input.isKeyPressed(Keys.LEFT)) camera.position.x -= CAMERA_SPEED * deltaTime;
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)) camera.position.x += CAMERA_SPEED * deltaTime;
+	@Override
+	public void dispose() {
+	    batch.dispose();
 	}
 
 	private void renderMap(List<IntArray> mapData) {
@@ -111,23 +75,5 @@ public class MyPjGdxGame extends InputAdapter implements ApplicationListener {
             y += Tiled.TILE_HEIGHT;
         }
 	}
-
-    @Override
-    public void pause() {}
-
-    @Override
-    public void resume() {}
-
-    @Override
-    public void dispose() {}
-
-    @Override
-    public boolean keyDown(int keycode) {
-        if (keycode == Keys.R) {
-            camera.position.x = 0;
-            camera.position.y = 0;
-        }
-        return false;
-    }
 
 }
