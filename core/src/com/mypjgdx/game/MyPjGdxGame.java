@@ -22,13 +22,16 @@ public class MyPjGdxGame extends ApplicationAdapter  {
     private List<IntArray> backMapData;// ตัวแปรเก็บแผนที่ด้านหลัง
     private List<IntArray> frontMapData;// ตัวแปรเก็บแผนที่ด้านหน้า
 
+    private Sano sano;  // ตัวละคร
+
     @Override
     public void create () {
         camera = new OrthographicCamera(); //สร้างออปเจ็คกล้องเก็บไว้ในตัวแปร camera
         viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT, camera); //สร้างออปเจ็คการมองของกล้องเก็บไว้ในตัวแปร
         batch = new SpriteBatch();//สร้างออปเจ็คไว้วาดสิ่งต่างๆ
+        sano = new Sano();  // SANO IS COMING !!!!
 
-        worldController = new WorldController(viewport); //สร้าง อินสแตนซ์ viewpoint
+        worldController = new WorldController(sano); //สร้าง อินสแตนซ์ viewpoint
 
         backMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_1.csv")); //โหลดแมพหลัง
         frontMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_2.csv")); //โหลดแมพหน้า
@@ -44,7 +47,7 @@ public class MyPjGdxGame extends ApplicationAdapter  {
         Gdx.gl.glClearColor(0, 0, 0, 1); //เคลียหน้าจอ
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //เคลียหน้าจอ
 
-        worldController.handleInput(Gdx.graphics.getDeltaTime()); //จัดการ/ตอบสนองต่อพวก input ต่างๆที่เข้ามา
+        worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
 
         worldController.getCameraHelper().applyTo(camera); //อัพเดทมุมกล้อง
         batch.setProjectionMatrix(camera.combined); //เรนเดอร์ภาพให้สอดคล้องกับมุมกล้อง
@@ -52,6 +55,7 @@ public class MyPjGdxGame extends ApplicationAdapter  {
 
         renderMap(backMapData); //เรนเดอร์แมพหลัง
         renderMap(frontMapData); //เรนเดอร์แมพหน้า
+        sano.render(batch); // วาด Sano
 
         batch.end(); //สิ้นสุดการวาด
     }

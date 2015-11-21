@@ -1,7 +1,7 @@
 
 map_first.png
 format: RGBA8888
-filter: Linear,Nearest
+filter: MipMapLinearNearest, Linear
 repeat: none
 map01
   rotate: false
