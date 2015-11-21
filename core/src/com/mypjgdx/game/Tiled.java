@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public enum Tiled {
+public enum Tiled { //กำหนดไอดีให้ตรงกับภาพในโปรแกรม Tiled
 
     MAP_1("map01", 38),
     MAP_2("map02", 0),
@@ -55,7 +55,7 @@ public enum Tiled {
 
     EMPTY(-1);
 
-    public static final int TILE_WIDTH = 25;
+    public static final int TILE_WIDTH = 25; //ขนาดของภาพ 25px * 25px
     public static final int TILE_HEIGHT = 25;
 
     private static final TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("map_first.atlas")); //TODO atlas file
@@ -64,7 +64,7 @@ public enum Tiled {
     private String regionName;
     private int id;
 
-    public static Tiled get(int id) {
+    public static Tiled get(int id) { //รับไอดีมา
         for (Tiled t : Tiled.values()) {
             if(t.getId() == id) return t;
         }

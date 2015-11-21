@@ -8,10 +8,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class WorldController extends InputAdapter {
 
-    private static final float CAMERA_SPEED = 200.0f;
-    private static final float CAMERA_MOVE_EDGE = 1/10f;
+    private static final float CAMERA_SPEED = 200.0f; //กำหนดความเร็วในการเคลื่อนที่ของกล้อง
+    private static final float CAMERA_MOVE_EDGE = 1/10f; //
 
-    private static final float CAMERA_ZOOM_SPEED = 1.0f;
+    private static final float CAMERA_ZOOM_SPEED = 1.0f; //ความเร็วของการซูม
 
     private final Vector3 touch;
     private final Viewport viewport;

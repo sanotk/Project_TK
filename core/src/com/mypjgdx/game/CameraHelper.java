@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 public class CameraHelper {
 
     private final float MAX_ZOOM_IN = 0.25f; //ตัวแปรอัตราการซูมเข้าสูงสุด
-    private final float MAX_ZOOM_OUT = 10.0f; //ตัวแปรอัตราการซูมออกสูงสุด
+    private final float MAX_ZOOM_OUT = 5.0f; //ตัวแปรอัตราการซูมออกสูงสุด
 
     private Vector2 position; //ตำแหน่ง 2 มิติ
     private float zoom; //ตัวแปรซูม
