@@ -1,89 +1,89 @@
 
 char_pack.png
 format: RGBA8888
-filter: MipMapLinearNearest, Linear
+filter: Linear,Nearest
 repeat: none
-char_l
-  rotate: false
-  xy: 1, 405
-  size: 244, 391
-  orig: 244, 391
-  offset: 0, 0
-  index: 3
-char_r
-  rotate: false
-  xy: 1, 12
-  size: 244, 391
-  orig: 244, 391
-  offset: 0, 0
-  index: 3
-char_l
-  rotate: false
-  xy: 247, 408
-  size: 244, 388
-  orig: 244, 388
-  offset: 0, 0
-  index: 1
-char_r
-  rotate: false
-  xy: 247, 18
-  size: 244, 388
-  orig: 244, 388
-  offset: 0, 0
-  index: 1
-char_front
-  rotate: false
-  xy: 493, 396
-  size: 229, 400
-  orig: 229, 400
-  offset: 0, 0
-  index: 3
-char_l
-  rotate: false
-  xy: 724, 411
-  size: 244, 385
-  orig: 244, 385
-  offset: 0, 0
-  index: 2
-char_r
-  rotate: false
-  xy: 970, 411
-  size: 244, 385
-  orig: 244, 385
-  offset: 0, 0
-  index: 2
 char_back
   rotate: false
-  xy: 1216, 397
-  size: 228, 399
-  orig: 228, 399
-  offset: 0, 0
-  index: 3
-char_back
-  rotate: false
-  xy: 1446, 397
-  size: 209, 399
-  orig: 209, 399
-  offset: 0, 0
-  index: 1
-char_front
-  rotate: false
-  xy: 1657, 396
-  size: 209, 400
-  orig: 209, 400
+  xy: 1, 605
+  size: 150, 300
+  orig: 150, 300
   offset: 0, 0
   index: 1
 char_back
   rotate: false
-  xy: 493, 1
-  size: 209, 393
-  orig: 209, 393
+  xy: 1, 303
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: 2
+char_back
+  rotate: false
+  xy: 153, 605
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: 3
+char_front
+  rotate: false
+  xy: 1, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: 1
+char_front
+  rotate: false
+  xy: 153, 303
+  size: 150, 300
+  orig: 150, 300
   offset: 0, 0
   index: 2
 char_front
   rotate: false
-  xy: 704, 2
-  size: 209, 392
-  orig: 209, 392
+  xy: 305, 605
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: 3
+char_l
+  rotate: false
+  xy: 153, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: 1
+char_l
+  rotate: false
+  xy: 305, 303
+  size: 150, 300
+  orig: 150, 300
   offset: 0, 0
   index: 2
+char_l
+  rotate: false
+  xy: 457, 605
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: 3
+char_r
+  rotate: false
+  xy: 305, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: 1
+char_r
+  rotate: false
+  xy: 457, 303
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: 2
+char_r
+  rotate: false
+  xy: 609, 605
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: 3

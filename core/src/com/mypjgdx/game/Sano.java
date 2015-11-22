@@ -66,10 +66,10 @@ public class Sano extends AbstractGameObject {
         sanoWalkDownRegions.addAll(sanoRegions, 3, 3);
         sanoWalkLeftRegions.addAll(sanoRegions, 6, 3);
         sanoWalkRightRegions.addAll(sanoRegions, 9, 3);
-        sanoStandbyUpRegions.addAll(sanoRegions, 0, 1);
-        sanoStandbyDownRegions.addAll(sanoRegions, 3, 1);
-        sanoStandbyLeftRegions.addAll(sanoRegions, 6, 1);
-        sanoStandbyRightRegions.addAll(sanoRegions, 9, 1);
+        sanoStandbyUpRegions.addAll(sanoRegions, 0, 0);
+        sanoStandbyDownRegions.addAll(sanoRegions, 3, 0);
+        sanoStandbyLeftRegions.addAll(sanoRegions, 6, 0);
+        sanoStandbyRightRegions.addAll(sanoRegions, 9, 0);
 
 
         // สร้าง Animation ทิศการเดินต่างๆ
@@ -118,11 +118,13 @@ public class Sano extends AbstractGameObject {
     private void updateRegion() {
         // อัพเดท TextureRegion ของ Sano
         switch(viewDirection) {
+
         case DOWN: sanoRegion = walkDown.getKeyFrame(animationTime); break;
         case LEFT: sanoRegion = walkLeft.getKeyFrame(animationTime); break;
         case RIGHT: sanoRegion = walkRight.getKeyFrame(animationTime); break;
         case UP: sanoRegion = walkUp.getKeyFrame(animationTime); break;
-  /*
+
+/*
         case DOWN: sanoRegion = standbyDown.getKeyFrame(animationTime); break;
         case LEFT: sanoRegion = standbyLeft.getKeyFrame(animationTime); break;
         case RIGHT: sanoRegion = standbyRight.getKeyFrame(animationTime); break;
