@@ -52,6 +52,7 @@ public class Sano extends AbstractGameObject {
         Array<AtlasRegion> sanoWalkDownRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> sanoWalkUpRegions = new Array<AtlasRegion>();
 
+        // เซ็ตค่าอนิเมชั่นของตัวละคร
         sanoWalkUpRegions.addAll(sanoRegions, 0, 3);
         sanoWalkDownRegions.addAll(sanoRegions, 3, 3);
         sanoWalkLeftRegions.addAll(sanoRegions, 6, 3);
