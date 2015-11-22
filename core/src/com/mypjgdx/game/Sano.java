@@ -66,10 +66,10 @@ public class Sano extends AbstractGameObject {
         sanoWalkDownRegions.addAll(sanoRegions, 3, 3);
         sanoWalkLeftRegions.addAll(sanoRegions, 6, 3);
         sanoWalkRightRegions.addAll(sanoRegions, 9, 3);
-        sanoStandbyUpRegions.addAll(sanoRegions, 0, 3);
-        sanoStandbyDownRegions.addAll(sanoRegions, 3, 3);
-        sanoStandbyLeftRegions.addAll(sanoRegions, 6, 3);
-        sanoStandbyRightRegions.addAll(sanoRegions, 9, 3);
+        sanoStandbyUpRegions.addAll(sanoRegions, 0, 1);
+        sanoStandbyDownRegions.addAll(sanoRegions, 3, 1);
+        sanoStandbyLeftRegions.addAll(sanoRegions, 6, 1);
+        sanoStandbyRightRegions.addAll(sanoRegions, 9, 1);
 
 
         // สร้าง Animation ทิศการเดินต่างๆ
@@ -77,10 +77,10 @@ public class Sano extends AbstractGameObject {
         walkRight = new Animation(FRAME_DURATION, sanoWalkRightRegions, PlayMode.LOOP);
         walkDown = new Animation(FRAME_DURATION, sanoWalkDownRegions, PlayMode.LOOP);
         walkUp = new Animation(FRAME_DURATION, sanoWalkUpRegions, PlayMode.LOOP);
-        standbyLeft = new Animation(FRAME_DURATION, sanoWalkLeftRegions, PlayMode.LOOP);
-        standbyRight = new Animation(FRAME_DURATION, sanoWalkRightRegions, PlayMode.LOOP);
-        standbyDown = new Animation(FRAME_DURATION, sanoWalkDownRegions, PlayMode.LOOP);
-        standbyUp = new Animation(FRAME_DURATION, sanoWalkUpRegions, PlayMode.LOOP);
+        standbyLeft = new Animation(FRAME_DURATION, sanoWalkLeftRegions, PlayMode.NORMAL);
+        standbyRight = new Animation(FRAME_DURATION, sanoWalkRightRegions, PlayMode.NORMAL);
+        standbyDown = new Animation(FRAME_DURATION, sanoWalkDownRegions, PlayMode.NORMAL);
+        standbyUp = new Animation(FRAME_DURATION, sanoWalkUpRegions, PlayMode.NORMAL);
 
 
         // กำหนดค่าทางฟิสิกส์
@@ -122,6 +122,12 @@ public class Sano extends AbstractGameObject {
         case LEFT: sanoRegion = walkLeft.getKeyFrame(animationTime); break;
         case RIGHT: sanoRegion = walkRight.getKeyFrame(animationTime); break;
         case UP: sanoRegion = walkUp.getKeyFrame(animationTime); break;
+  /*
+        case DOWN: sanoRegion = standbyDown.getKeyFrame(animationTime); break;
+        case LEFT: sanoRegion = standbyLeft.getKeyFrame(animationTime); break;
+        case RIGHT: sanoRegion = standbyRight.getKeyFrame(animationTime); break;
+        case UP: sanoRegion = standbyUp.getKeyFrame(animationTime); break;
+*/
         default:
             break;
         }
