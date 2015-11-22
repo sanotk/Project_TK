@@ -40,7 +40,7 @@ public class Sano extends AbstractGameObject {
 
     public void init() {
         // Load Texture ทั้งหมดของตัวละคร
-        sanoAtlas = new TextureAtlas(Gdx.files.internal("char_test.atlas"));
+        sanoAtlas = new TextureAtlas(Gdx.files.internal("char_pack.atlas"));
 
         // สร้างกลุ่มของ Region ของ Sano พร้อมทั้ง เรียงชื่อ Region ตามลำดับตัวอักษร
         Array<AtlasRegion> sanoRegions = new Array<AtlasRegion>(sanoAtlas.getRegions());
@@ -52,10 +52,10 @@ public class Sano extends AbstractGameObject {
         Array<AtlasRegion> sanoWalkDownRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> sanoWalkUpRegions = new Array<AtlasRegion>();
 
-        sanoWalkLeftRegions.addAll(sanoRegions, 0, 3);
-        sanoWalkRightRegions.addAll(sanoRegions, 3, 3);
-        sanoWalkDownRegions.addAll(sanoRegions, 6, 3);
-        sanoWalkUpRegions.addAll(sanoRegions, 9, 3);
+        sanoWalkUpRegions.addAll(sanoRegions, 0, 3);
+        sanoWalkDownRegions.addAll(sanoRegions, 3, 3);
+        sanoWalkLeftRegions.addAll(sanoRegions, 6, 3);
+        sanoWalkRightRegions.addAll(sanoRegions, 9, 3);
 
         // สร้าง Animation ทิศการเดินต่างๆ
         walkLeft = new Animation(FRAME_DURATION, sanoWalkLeftRegions, PlayMode.LOOP);
