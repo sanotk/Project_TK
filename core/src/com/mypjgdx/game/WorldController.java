@@ -60,7 +60,7 @@ public class WorldController extends InputAdapter {
     public boolean keyDown(int keycode) {
         if (keycode == Keys.R) {    // กด R เพื่อ Reset มุมกล้อง ยกเลิกการมุมกล้องติดตาม Sano
             cameraHelper.setPosition(0, 0);
-            cameraHelper.setZoom(0.5f);
+            cameraHelper.setZoom(1.0f);
             cameraHelper.setTarget(null);
         }
         else if (keycode == Keys.SPACE) { // กด Spacebar เพื่อให้มุมกล้องติดตาม/เลิกติดตาม Sano
