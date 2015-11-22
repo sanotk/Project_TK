@@ -20,16 +20,16 @@ public abstract class AbstractGameObject {
     public Rectangle bounds;
 
     public AbstractGameObject () {
-        position = new Vector2();
-        dimension = new Vector2(1, 1);
-        origin = new Vector2();
-        scale = new Vector2(1, 1);
-        rotation = 0;
+        position = new Vector2(); //ตำแหน่ง
+        dimension = new Vector2(1, 1); //
+        origin = new Vector2(); //
+        scale = new Vector2(1, 1); //
+        rotation = 0; //
 
-        velocity = new Vector2();
-        friction = new Vector2();
-        acceleration = new Vector2();
-        bounds = new Rectangle();
+        velocity = new Vector2(); //
+        friction = new Vector2(); //
+        acceleration = new Vector2(); //
+        bounds = new Rectangle(); //
     }
 
     public void update (float deltaTime) {

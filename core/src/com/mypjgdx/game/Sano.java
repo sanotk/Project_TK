@@ -110,6 +110,8 @@ public class Sano extends AbstractGameObject {
         // อัพเดทขนาดของตัวละครตาม Region
         dimension.set(sanoRegion.getRegionWidth(), sanoRegion.getRegionHeight());
 
+        scale.set(5f,5f);
+
         // อัพเดทจุดกำเนิด (จุดหมุน) อยู่ตรงกึ่งกลางภาพ
         origin.set(dimension.x / 2, dimension.y / 2);
 
