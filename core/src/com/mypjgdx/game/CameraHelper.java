@@ -15,7 +15,7 @@ public class CameraHelper {
 
     public CameraHelper () { //สร้าง instance ของ class Vector2 เพื่อใช้เก็บตำแหน่งตัวช่วยมุมกล้อง
         position = new Vector2();
-        zoom = 1.0f;
+        zoom = 0.8f;
     }
 
     public void setPosition (float x, float y) { //เซ็ตตำแหน่ง
