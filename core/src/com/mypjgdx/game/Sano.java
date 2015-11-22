@@ -85,7 +85,6 @@ public class Sano extends AbstractGameObject {
         if (velocity.x != 0 || velocity.y != 0) animationTime += deltaTime; // คำนวณเวลา Animation ใหม่
         else  animationTime = 0;
         updateRegion(); // update Region ของ Sano ตามทิศที่มอง และ Keyframe
-
     }
 
     private void updateViewDirection() { // update ทิศที่ Sano มองอยู่  โดยยึดการมองด้านแกน X  เป็นหลักหากมีการเดินเฉียง
