@@ -30,6 +30,10 @@ public class Sano extends AbstractGameObject {
     private Animation walkRight;
     private Animation walkUp;
     private Animation walkDown;
+    private Animation standbyLeft;
+    private Animation standbyRight;
+    private Animation standbyUp;
+    private Animation standbyDown;
 
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
@@ -51,18 +55,33 @@ public class Sano extends AbstractGameObject {
         Array<AtlasRegion> sanoWalkRightRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> sanoWalkDownRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> sanoWalkUpRegions = new Array<AtlasRegion>();
+        Array<AtlasRegion> sanoStandbyLeftRegions = new Array<AtlasRegion>();
+        Array<AtlasRegion> sanoStandbyRightRegions = new Array<AtlasRegion>();
+        Array<AtlasRegion> sanoStandbyDownRegions = new Array<AtlasRegion>();
+        Array<AtlasRegion> sanoStandbyUpRegions = new Array<AtlasRegion>();
+
 
         // เซ็ตค่าอนิเมชั่นของตัวละคร
         sanoWalkUpRegions.addAll(sanoRegions, 0, 3);
         sanoWalkDownRegions.addAll(sanoRegions, 3, 3);
         sanoWalkLeftRegions.addAll(sanoRegions, 6, 3);
         sanoWalkRightRegions.addAll(sanoRegions, 9, 3);
+        sanoStandbyUpRegions.addAll(sanoRegions, 0, 3);
+        sanoStandbyDownRegions.addAll(sanoRegions, 3, 3);
+        sanoStandbyLeftRegions.addAll(sanoRegions, 6, 3);
+        sanoStandbyRightRegions.addAll(sanoRegions, 9, 3);
+
 
         // สร้าง Animation ทิศการเดินต่างๆ
         walkLeft = new Animation(FRAME_DURATION, sanoWalkLeftRegions, PlayMode.LOOP);
         walkRight = new Animation(FRAME_DURATION, sanoWalkRightRegions, PlayMode.LOOP);
         walkDown = new Animation(FRAME_DURATION, sanoWalkDownRegions, PlayMode.LOOP);
         walkUp = new Animation(FRAME_DURATION, sanoWalkUpRegions, PlayMode.LOOP);
+        standbyLeft = new Animation(FRAME_DURATION, sanoWalkLeftRegions, PlayMode.LOOP);
+        standbyRight = new Animation(FRAME_DURATION, sanoWalkRightRegions, PlayMode.LOOP);
+        standbyDown = new Animation(FRAME_DURATION, sanoWalkDownRegions, PlayMode.LOOP);
+        standbyUp = new Animation(FRAME_DURATION, sanoWalkUpRegions, PlayMode.LOOP);
+
 
         // กำหนดค่าทางฟิสิกส์
         friction.set(400.0f, 400.0f);
