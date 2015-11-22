@@ -18,7 +18,7 @@ public class Sano extends AbstractGameObject {
 
     // ทิศที่ตัวละครมอง
     public enum ViewDirection {
-        LEFT, RIGHT, UP, DOWN, StandbyUP, StandbyDOWN, StandbyLEFT, StandbyRIGHT
+        LEFT, RIGHT, UP, DOWN
     }
 
     private ViewDirection viewDirection;  // ทิศที่ตัวละครกำลังมองอยู่
@@ -30,10 +30,6 @@ public class Sano extends AbstractGameObject {
     private Animation walkRight;
     private Animation walkUp;
     private Animation walkDown;
-    private Animation standbyLeft;
-    private Animation standbyRight;
-    private Animation standbyUp;
-    private Animation standbyDown;
 
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
@@ -55,33 +51,18 @@ public class Sano extends AbstractGameObject {
         Array<AtlasRegion> sanoWalkRightRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> sanoWalkDownRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> sanoWalkUpRegions = new Array<AtlasRegion>();
-        Array<AtlasRegion> sanoStandbyLeftRegions = new Array<AtlasRegion>();
-        Array<AtlasRegion> sanoStandbyRightRegions = new Array<AtlasRegion>();
-        Array<AtlasRegion> sanoStandbyDownRegions = new Array<AtlasRegion>();
-        Array<AtlasRegion> sanoStandbyUpRegions = new Array<AtlasRegion>();
-
 
         // เซ็ตค่าอนิเมชั่นของตัวละคร
         sanoWalkUpRegions.addAll(sanoRegions, 0, 3);
         sanoWalkDownRegions.addAll(sanoRegions, 3, 3);
         sanoWalkLeftRegions.addAll(sanoRegions, 6, 3);
         sanoWalkRightRegions.addAll(sanoRegions, 9, 3);
-        sanoStandbyUpRegions.addAll(sanoRegions, 0, 3);
-        sanoStandbyDownRegions.addAll(sanoRegions, 3, 3);
-        sanoStandbyLeftRegions.addAll(sanoRegions, 6, 3);
-        sanoStandbyRightRegions.addAll(sanoRegions, 9, 3);
-
 
         // สร้าง Animation ทิศการเดินต่างๆ
         walkLeft = new Animation(FRAME_DURATION, sanoWalkLeftRegions, PlayMode.LOOP);
         walkRight = new Animation(FRAME_DURATION, sanoWalkRightRegions, PlayMode.LOOP);
         walkDown = new Animation(FRAME_DURATION, sanoWalkDownRegions, PlayMode.LOOP);
         walkUp = new Animation(FRAME_DURATION, sanoWalkUpRegions, PlayMode.LOOP);
-        standbyLeft = new Animation(FRAME_DURATION, sanoWalkLeftRegions, PlayMode.NORMAL);
-        standbyRight = new Animation(FRAME_DURATION, sanoWalkRightRegions, PlayMode.NORMAL);
-        standbyDown = new Animation(FRAME_DURATION, sanoWalkDownRegions, PlayMode.NORMAL);
-        standbyUp = new Animation(FRAME_DURATION, sanoWalkUpRegions, PlayMode.NORMAL);
-
 
         // กำหนดค่าทางฟิสิกส์
         friction.set(400.0f, 400.0f);
@@ -101,9 +82,9 @@ public class Sano extends AbstractGameObject {
     public void update(float deltaTime) {
         super.update(deltaTime); // update ตำแหน่ง Sano โดยเรียกใช้ method ของ superclass (AbstractGameObject)
         updateViewDirection(); // update ทิศที่ Sano มองอยู่
-        animationTime += deltaTime; // คำนวณเวลา Animation ใหม่
+        if (velocity.x != 0 || velocity.y != 0) animationTime += deltaTime; // คำนวณเวลา Animation ใหม่
+        else  animationTime = 0;
         updateRegion(); // update Region ของ Sano ตามทิศที่มอง และ Keyframe
-
     }
 
     private void updateViewDirection() { // update ทิศที่ Sano มองอยู่  โดยยึดการมองด้านแกน X  เป็นหลักหากมีการเดินเฉียง
@@ -113,27 +94,15 @@ public class Sano extends AbstractGameObject {
         else if (velocity.y != 0) {
             viewDirection = velocity.y < 0 ?  ViewDirection.DOWN : ViewDirection.UP;
         }
-        else if(velocity.x == 0) {
-            viewDirection = velocity.x < 0 ?  ViewDirection.StandbyLEFT : ViewDirection.StandbyRIGHT;
-        }
-        else if (velocity.y == 0) {
-            viewDirection = velocity.y < 0 ?  ViewDirection.StandbyDOWN : ViewDirection.StandbyUP;
-        }
     }
 
     private void updateRegion() {
         // อัพเดท TextureRegion ของ Sano
         switch(viewDirection) {
-
         case DOWN: sanoRegion = walkDown.getKeyFrame(animationTime); break;
         case LEFT: sanoRegion = walkLeft.getKeyFrame(animationTime); break;
         case RIGHT: sanoRegion = walkRight.getKeyFrame(animationTime); break;
         case UP: sanoRegion = walkUp.getKeyFrame(animationTime); break;
-        case StandbyDOWN: sanoRegion = standbyDown.getKeyFrame(animationTime); break;
-        case StandbyLEFT: sanoRegion = standbyLeft.getKeyFrame(animationTime); break;
-        case StandbyRIGHT: sanoRegion = standbyRight.getKeyFrame(animationTime); break;
-        case StandbyUP: sanoRegion = standbyUp.getKeyFrame(animationTime); break;
-
         default:
             break;
         }
