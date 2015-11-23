@@ -4,6 +4,8 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 
@@ -16,11 +18,18 @@ public class WorldController extends InputAdapter implements GestureListener  {
     private final CameraHelper cameraHelper;
 
     private final Sano sano;
+    private String message = "No gesture performed yet";
 
     public WorldController(Sano sano) {
         this.sano = sano;
         cameraHelper = new CameraHelper();
         Gdx.input.setInputProcessor(this);
+        InputMultiplexer im = new InputMultiplexer();
+        GestureDetector gd = new GestureDetector(this);
+        im.addProcessor(gd);
+        im.addProcessor(this);
+        Gdx.input.setInputProcessor(im);
+
     }
 
     public CameraHelper getCameraHelper() { return cameraHelper; }
@@ -75,32 +84,39 @@ public class WorldController extends InputAdapter implements GestureListener  {
 
 	@Override
 	public boolean touchDown(float x, float y, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
+        message = "Touch down!";
+        Gdx.app.log("INFO", message);
+        return true;
 	}
 
 	@Override
 	public boolean tap(float x, float y, int count, int button) {
-		// TODO Auto-generated method stub
-		return false;
+        message = "Tap performed, finger" + Integer.toString(button);
+        Gdx.app.log("INFO", message);
+        return false;
 	}
 
 	@Override
 	public boolean longPress(float x, float y) {
-		// TODO Auto-generated method stub
-		return false;
+        message = "Long press performed";
+        Gdx.app.log("INFO", message);
+        return true;
 	}
 
 	@Override
 	public boolean fling(float velocityX, float velocityY, int button) {
-		// TODO Auto-generated method stub
-		return false;
+        message = "Fling performed, velocity:" + Float.toString(velocityX) +
+                "," + Float.toString(velocityY);
+        Gdx.app.log("INFO", message);
+        return true;
 	}
 
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
-		// TODO Auto-generated method stub
-		return false;
+        message = "Pan performed, delta:" + Float.toString(deltaX) +
+                "," + Float.toString(deltaY);
+        Gdx.app.log("INFO", message);
+        return true;
 	}
 
 	@Override
@@ -111,8 +127,10 @@ public class WorldController extends InputAdapter implements GestureListener  {
 
 	@Override
 	public boolean zoom(float initialDistance, float distance) {
-		// TODO Auto-generated method stub
-		return false;
+        message = "Zoom performed, initial Distance:" + Float.toString(initialDistance) +
+                " Distance: " + Float.toString(distance);
+        Gdx.app.log("INFO", message);
+        return true;
 	}
 
 	@Override
