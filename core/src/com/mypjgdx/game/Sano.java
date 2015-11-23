@@ -71,6 +71,9 @@ public class Sano extends AbstractGameObject {
         // กำหนดค่าเริ่มต้นให้  sano หันไปหน้าไปทิศใต้
         viewDirection = ViewDirection.DOWN;
 
+        // กำหนดค่าเริ่มต้นให้  sano อยู่ที่จุด 0, 0
+        position.set(0f, 0f);
+
         // กำหนดเวลา Animation เริ่มต้นเท่ากับ 0
         animationTime = 0.0f;
 
@@ -116,7 +119,7 @@ public class Sano extends AbstractGameObject {
         origin.set(dimension.x / 2, dimension.y / 2);
 
         // อัพเดทกรอบ  Sano เพื่อใช้เช็คการชน
-        bounds.set(0, 0, dimension.x, dimension.y);
+        bounds.set(position.x, position.y, dimension.x, dimension.y);
     }
 
     @Override
