@@ -35,7 +35,15 @@ public class MyPjGdxGame extends ApplicationAdapter  {
 
         worldController = new WorldController(sano); //สร้าง อินสแตนซ์ viewpoint
 
-        Sound sound = Gdx.audio.newSound(Gdx.files.internal("data/mysound.mp3"));//โหลดเสียง
+        Sound sound = Gdx.audio.newSound(Gdx.files.internal("Breaktime_Silent_Film_Light.mp3"));//โหลดเสียง
+
+        sound.play();
+        sound.setVolume(0,1.0f);
+        sound.pause();
+        sound.stop();
+        sound.play();
+        //Gdx.app.log("SONG",Float.toString(sound.getPosition()));
+
         backMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_1.csv")); //โหลดแมพหลัง
         frontMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_2.csv")); //โหลดแมพหน้า
     }
