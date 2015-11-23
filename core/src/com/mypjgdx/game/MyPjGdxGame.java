@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,6 +20,7 @@ public class MyPjGdxGame extends ApplicationAdapter  {
     private SpriteBatch batch; //ตัวแปรการวาด
     private WorldController worldController; //ส่วนควบคุมเกม
 
+
     private List<IntArray> backMapData;// ตัวแปรเก็บแผนที่ด้านหลัง
     private List<IntArray> frontMapData;// ตัวแปรเก็บแผนที่ด้านหน้า
 
@@ -33,6 +35,7 @@ public class MyPjGdxGame extends ApplicationAdapter  {
 
         worldController = new WorldController(sano); //สร้าง อินสแตนซ์ viewpoint
 
+        Sound sound = Gdx.audio.newSound(Gdx.files.internal("data/mysound.mp3"));//โหลดเสียง
         backMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_1.csv")); //โหลดแมพหลัง
         frontMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_2.csv")); //โหลดแมพหน้า
     }
