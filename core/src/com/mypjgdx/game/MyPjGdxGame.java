@@ -37,11 +37,9 @@ public class MyPjGdxGame extends ApplicationAdapter  {
 
         Sound sound = Gdx.audio.newSound(Gdx.files.internal("Breaktime_Silent_Film_Light.mp3"));//โหลดเสียง
 
-        sound.play();
+        //sound.loop();
         sound.setVolume(0,1.0f);
-        sound.pause();
-        sound.stop();
-        sound.play();
+        sound.loop();
         //Gdx.app.log("SONG",Float.toString(sound.getPosition()));
 
         backMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_1.csv")); //โหลดแมพหลัง
