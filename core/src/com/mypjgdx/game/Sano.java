@@ -13,8 +13,18 @@ import com.badlogic.gdx.utils.Array;
 
 public class Sano extends AbstractGameObject {
 
-    // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/10 วินาทีต่อเฟรม หรือ 10 เฟรมต่อวินาที (FPS)
-    private static final float FRAME_DURATION = 1.0f / 10.0f;
+    // จำนวนเฟรมต่อ 1 ทิศ
+    private static final int FRAME_PER_DIRECTION = 3;
+
+    // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
+    private static final float FRAME_DURATION = 1.0f / 8.0f;
+
+    // อัตราการขยายภาพ Sano
+    private static final float SCALE = 0.2f;
+
+    private static final float INTITAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
+    private static final float INTITAL_X_POSITION = 75f;         // ตำแหน่งเริ่มต้นแกน X
+    private static final float INTITAL_Y_POSITION  = 120f;      // ตำแหน่งเริ่มต้นแกน Y
 
     // ทิศที่ตัวละครมอง
     public enum ViewDirection {
@@ -24,7 +34,6 @@ public class Sano extends AbstractGameObject {
     private ViewDirection viewDirection;  // ทิศที่ตัวละครกำลังมองอยู่
     private TextureAtlas sanoAtlas;       // Texture ทั้งหมดของตัวละคร
     private TextureRegion sanoRegion;   // ส่วน Texture ของตัวละครที่จะใช้แสดง
-
 
     private Animation walkLeft;
     private Animation walkRight;
@@ -53,10 +62,10 @@ public class Sano extends AbstractGameObject {
         Array<AtlasRegion> sanoWalkUpRegions = new Array<AtlasRegion>();
 
         // เซ็ตค่าอนิเมชั่นของตัวละคร
-        sanoWalkUpRegions.addAll(sanoRegions, 0, 3);
-        sanoWalkDownRegions.addAll(sanoRegions, 3, 3);
-        sanoWalkLeftRegions.addAll(sanoRegions, 6, 3);
-        sanoWalkRightRegions.addAll(sanoRegions, 9, 3);
+        sanoWalkUpRegions.addAll(sanoRegions, 0 * FRAME_PER_DIRECTION,  FRAME_PER_DIRECTION);
+        sanoWalkDownRegions.addAll(sanoRegions, 1 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
+        sanoWalkLeftRegions.addAll(sanoRegions, 2 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
+        sanoWalkRightRegions.addAll(sanoRegions, 3 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
 
         // สร้าง Animation ทิศการเดินต่างๆ
         walkLeft = new Animation(FRAME_DURATION, sanoWalkLeftRegions, PlayMode.LOOP);
@@ -65,29 +74,27 @@ public class Sano extends AbstractGameObject {
         walkUp = new Animation(FRAME_DURATION, sanoWalkUpRegions, PlayMode.LOOP);
 
         // กำหนดค่าทางฟิสิกส์
-        friction.set(400.0f, 400.0f);
+        friction.set(INTITAL_FRICTION, INTITAL_FRICTION);
         acceleration.set(0.0f, 0.0f);
 
         // กำหนดค่าเริ่มต้นให้  sano หันไปหน้าไปทิศใต้
         viewDirection = ViewDirection.DOWN;
 
-        // กำหนดค่าเริ่มต้นให้  sano อยู่ที่จุด 0, 0
-        position.set(0f, 0f);
-
         // กำหนดเวลา Animation เริ่มต้นเท่ากับ 0
         animationTime = 0.0f;
 
-        // อัพเดท Region ของ Sano
-        updateRegion();
+        // กำหนดขนาดสเกลของ Sano
+        scale.set(SCALE, SCALE);
+
+        // กำหนดตำแหน่งเริ่มต้น
+        position.set(INTITAL_X_POSITION, INTITAL_Y_POSITION);
     }
 
     @Override
     public void update(float deltaTime) {
-        super.update(deltaTime); // update ตำแหน่ง Sano โดยเรียกใช้ method ของ superclass (AbstractGameObject)
+        super.update(deltaTime); // update ตำแหน่ง Sano
         updateViewDirection(); // update ทิศที่ Sano มองอยู่
-        if (velocity.x != 0 || velocity.y != 0) animationTime += deltaTime; // คำนวณเวลา Animation ใหม่
-        else  animationTime = 0;
-        updateRegion(); // update Region ของ Sano ตามทิศที่มอง และ Keyframe
+        updateKeyFrame(deltaTime); // update Region ของ Sano ตามทิศที่มอง และ Keyframe
     }
 
     private void updateViewDirection() { // update ทิศที่ Sano มองอยู่  โดยยึดการมองด้านแกน X  เป็นหลักหากมีการเดินเฉียง
@@ -99,7 +106,12 @@ public class Sano extends AbstractGameObject {
         }
     }
 
-    private void updateRegion() {
+    private void updateKeyFrame(float deltaTime) {
+
+        // ถ้าตัวละครเคลื่อนที่อยู่ ในเพิ่มเวลา Animation ถ้าไม่เคลื่อนที่ให้เวลาเป็น 0 ( Frame ท่ายืน)
+        if (velocity.x != 0 || velocity.y != 0) animationTime += deltaTime;
+        else  animationTime = 0;
+
         // อัพเดท TextureRegion ของ Sano
         switch(viewDirection) {
         case DOWN: sanoRegion = walkDown.getKeyFrame(animationTime); break;
@@ -111,28 +123,17 @@ public class Sano extends AbstractGameObject {
         }
 
         // อัพเดทขนาดของตัวละครตาม Region
-        dimension.set(sanoRegion.getRegionWidth(), sanoRegion.getRegionHeight());
-
-        scale.set(0.2f,0.2f);
-
-        // อัพเดทจุดกำเนิด (จุดหมุน) อยู่ตรงกึ่งกลางภาพ
-        origin.set(dimension.x / 2, dimension.y / 2);
-
-        // อัพเดทกรอบ  Sano เพื่อใช้เช็คการชน
-        bounds.set(position.x, position.y, dimension.x, dimension.y);
+        setDimension(sanoRegion.getRegionWidth(), sanoRegion.getRegionHeight());
     }
 
     @Override
     public void render(SpriteBatch batch) {
 
         // วาดตัวละคร ตามตำแหน่ง ขนาด และองศาตามที่กำหนด
-        batch.draw(sanoRegion, position.x, position.y,
-                origin.x, origin.y, dimension.x, dimension.y,
-                scale.x, scale.y, rotation);
+        draw(batch, sanoRegion);
     }
 
-    /* คลาสสร้างเองภายใน ที่ใช้เรียงชื่อของออปเจค AtlasRegion ตามลำดับอักษร*/
-
+    // คลาสสร้างเองภายใน ที่ใช้เรียงชื่อของออปเจค AtlasRegion ตามลำดับอักษร
     private static class SanoRegionComparator implements Comparator<AtlasRegion> {
         @Override
         public int compare(AtlasRegion region1, AtlasRegion region2) {
