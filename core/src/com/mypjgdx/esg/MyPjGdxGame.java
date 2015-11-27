@@ -19,7 +19,8 @@ public class MyPjGdxGame extends ApplicationAdapter  {
         worldController = new WorldController();
         worldRenderer = new WorldRenderer(worldController);
 
-        Assets.instance.backgroundMusic.play();
+        Assets.instance.music.play();
+        Assets.instance.music.setLooping(true);
     }
 
     @Override
