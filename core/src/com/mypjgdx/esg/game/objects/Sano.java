@@ -1,4 +1,4 @@
-package com.mypjgdx.game;
+package com.mypjgdx.esg.game.objects;
 
 import java.util.Comparator;
 
@@ -95,6 +95,7 @@ public class Sano extends AbstractGameObject {
         super.update(deltaTime); // update ตำแหน่ง Sano
         updateViewDirection(); // update ทิศที่ Sano มองอยู่
         updateKeyFrame(deltaTime); // update Region ของ Sano ตามทิศที่มอง และ Keyframe
+
     }
 
     private void updateViewDirection() { // update ทิศที่ Sano มองอยู่  โดยยึดการมองด้านแกน X  เป็นหลักหากมีการเดินเฉียง
@@ -130,7 +131,7 @@ public class Sano extends AbstractGameObject {
     public void render(SpriteBatch batch) {
 
         // วาดตัวละคร ตามตำแหน่ง ขนาด และองศาตามที่กำหนด
-        draw(batch, sanoRegion);
+        render(batch, sanoRegion);
     }
 
     // คลาสสร้างเองภายใน ที่ใช้เรียงชื่อของออปเจค AtlasRegion ตามลำดับอักษร

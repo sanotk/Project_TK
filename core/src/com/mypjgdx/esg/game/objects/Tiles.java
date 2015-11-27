@@ -1,13 +1,10 @@
-package com.mypjgdx.game;
+package com.mypjgdx.esg.game.objects;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mypjgdx.esg.game.Assets;
 
-public enum Tiled { //กำหนดไอดีให้ตรงกับภาพในโปรแกรม Tiled
+public enum Tiles { //กำหนดไอดีให้ตรงกับภาพในโปรแกรม Tiled
 
     MAP_1("map01", 38),
     MAP_2("map02", 0),
@@ -58,24 +55,21 @@ public enum Tiled { //กำหนดไอดีให้ตรงกับภ�
     public static final int TILE_WIDTH = 25; //ขนาดของภาพ 25px * 25px
     public static final int TILE_HEIGHT = 25;
 
-    private static final TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("map_first.atlas")); //TODO atlas file
-    private static final TextureRegion emptyRegion = new TextureRegion(new Texture(new Pixmap(0, 0, Format.Alpha)));
-
     private String regionName;
     private int id;
 
-    public static Tiled get(int id) { //รับไอดีมา
-        for (Tiled t : Tiled.values()) {
+    public static Tiles get(int id) { //รับไอดีมา
+        for (Tiles t : Tiles.values()) {
             if(t.getId() == id) return t;
         }
         return EMPTY;
     }
 
-    private Tiled(int id) {
+    private Tiles(int id) {
         this("", id);
     }
 
-    private Tiled(String regionName, int id) {
+    private Tiles(String regionName, int id) {
         this.regionName = regionName;
         this.id = id;
     }
@@ -84,9 +78,9 @@ public enum Tiled { //กำหนดไอดีให้ตรงกับภ�
         return id;
     }
 
-    public TextureRegion getRegion() {
-        TextureRegion region = atlas.findRegion(regionName);
-        if (region != null) return region;
-        return emptyRegion;
+    public void render(SpriteBatch batch, int x, int y) {
+        TextureRegion region = Assets.instance.levelAtlas.findRegion(regionName);
+        if (region != null) batch.draw(region, x, y);
     }
+
 }
