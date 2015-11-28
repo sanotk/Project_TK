@@ -2,7 +2,6 @@ package com.mypjgdx.esg.game.objects;
 
 import java.util.Comparator;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.mypjgdx.esg.game.Assets;
 
 public class Sano extends AbstractGameObject {
 
@@ -44,12 +44,18 @@ public class Sano extends AbstractGameObject {
     private float animationTime;
 
     public Sano() {
-        init(); // method กำหนดค่าเริ่มต้น เวลาสร้างตัวละครใหม่
+        this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
+    }
+
+    public Sano(float xPosition, float yPosition) {
+        // กำหนดค่าเริ่มต้น เวลาสร้างตัวละครใหม่
+        init();
+        position.set(xPosition, yPosition);
     }
 
     public void init() {
         // Load Texture ทั้งหมดของตัวละคร
-        sanoAtlas = new TextureAtlas(Gdx.files.internal("char_pack.atlas"));
+        sanoAtlas = Assets.instance.sanoAltas;
 
         // สร้างกลุ่มของ Region ของ Sano พร้อมทั้ง เรียงชื่อ Region ตามลำดับตัวอักษร
         Array<AtlasRegion> sanoRegions = new Array<AtlasRegion>(sanoAtlas.getRegions());
@@ -85,9 +91,6 @@ public class Sano extends AbstractGameObject {
 
         // กำหนดขนาดสเกลของ Sano
         scale.set(SCALE, SCALE);
-
-        // กำหนดตำแหน่งเริ่มต้น
-        position.set(INTITAL_X_POSITION, INTITAL_Y_POSITION);
     }
 
     @Override

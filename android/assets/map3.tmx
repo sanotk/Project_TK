@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="30" height="30" tilewidth="25" tileheight="25" backgroundcolor="#000000" nextobjectid="1">
+ <tileset firstgid="1" name="map" tilewidth="25" tileheight="25" spacing="2" tilecount="76">
+  <image source="map.png" width="1024" height="64"/>
+ </tileset>
+ <layer name="Ground" width="30" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt0kEKACAIBEDPPcX+/79OQYhRVK4SCnusYTMmInZKASeiO87t/dKw6KvtUDrId053/6w2N38A0TddjNUn3T/dbqf7r1sCuSe+HJTr1XeVKjJzLTvPXAt7p+/KZiWv+qL365EGHzo1xw==
+  </data>
+ </layer>
+ <layer name="Object" width="30" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztlkkOwyAMRTlCBzhF9p3g/uequ7AUuZ5DssqTLLUG/C2wIaWcHM0D7AL2dPjrRN0r2Avs5vB3Jac9dZuxJsIb7A72cfiHoTvzHDikXPEcFkeMRbEoeA6RtVgrGT0kkzueGZ2bqd1I7pIul38V/BldrBUuBtfHUuyqjGlwurR2mxJbyymqS/dzCH4rp6iuBNcDo+R1K/kv1bNWixa0T35r+mpc2s+t9azd/9I4It2XHri4Y/U7Gtv7NtC42n0dtSNp9hQ3kXd12FP+kN6AHpibQapdbu9mfOtYsbi9m6kb6ZktvXuyL1+HxSB7
+  </data>
+ </layer>
+</map>

@@ -28,7 +28,7 @@ public class WorldRenderer implements Disposable {
         viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT, camera); //สร้างออปเจ็คการมองของกล้องเก็บไว้ในตัวแปร
         batch = new SpriteBatch();//สร้างออปเจ็คไว้วาดสิ่งต่างๆ
 
-        tiledRenderer = new OrthogonalTiledMapRenderer( worldController.level.map);
+        tiledRenderer = new OrthogonalTiledMapRenderer(null);
     }
 
     public void render () {
@@ -36,20 +36,14 @@ public class WorldRenderer implements Disposable {
         renderGui();
     }
 
-    public void renderWorld() {
+    private void renderWorld() {
         worldController.cameraHelper.applyTo(camera); //อัพเดทมุมกล้อง
         tiledRenderer.setView(camera);
-        tiledRenderer.render();
-
         batch.setProjectionMatrix(camera.combined); //เรนเดอร์ภาพให้สอดคล้องกับมุมกล้อง
-        batch.begin(); //เริ่มวาด
-        worldController.level.render(batch); // วาด Game World
-        batch.end(); //สิ้นสุดการวาด
-
-        tiledRenderer.setView(camera);
+        worldController.level.render(tiledRenderer, batch); // วาด Game World
     }
 
-    public void renderGui() {
+    private void renderGui() {
 
     }
 
@@ -59,7 +53,8 @@ public class WorldRenderer implements Disposable {
 
     @Override
     public void dispose() {
-        batch.dispose(); //คืนหน่วยความจำ
+        tiledRenderer.dispose();
+        batch.dispose();
     }
 
 }
