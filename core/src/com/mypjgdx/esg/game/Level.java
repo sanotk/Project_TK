@@ -1,27 +1,21 @@
 package com.mypjgdx.esg.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mypjgdx.esg.game.objects.Sano;
 
 public class Level {
 
     public final Sano sano; // ตัวละครที่ผู้เล่นจะได้ควบคุม
-    private TiledMap map;   // แผนที่ในเกม
+    public final Map map;   // แผนที่ในเกม
 
-    public Level () {
-        this(null, new Sano());
-        setMap(Map.MAP_01);
-    }
-
-    public Level (TiledMap map, Sano sano) {
-        this.sano = sano;
+    public Level (Map map) {
         this.map = map;
+        sano = new Sano();
     }
 
     public void render (OrthogonalTiledMapRenderer tiledRenderer, SpriteBatch batch) {
-        tiledRenderer.setMap(map);
+        tiledRenderer.setMap(map.getTiledMap());
         tiledRenderer.render();
 
         batch.begin();
@@ -29,12 +23,8 @@ public class Level {
         batch.end();
     }
 
-    public void nextMap() {
-        this.map = Map.getMap(map).next().getTiledMap();
-    }
-
-    public void setMap(Map map) {
-        this.map = map.getTiledMap();
+    public void update(float deltaTime) {
+        sano.update(deltaTime);
     }
 
 }

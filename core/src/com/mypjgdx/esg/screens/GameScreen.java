@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.mypjgdx.esg.game.Level;
+import com.mypjgdx.esg.game.Map;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
 
@@ -32,7 +33,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
-        worldController = new WorldController(new Level());
+        worldController = new WorldController(new Level(Map.MAP_01));
         worldRenderer = new WorldRenderer(worldController);
     }
 

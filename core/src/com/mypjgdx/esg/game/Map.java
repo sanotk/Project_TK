@@ -31,5 +31,4 @@ public enum Map {
         return vals[(this.ordinal()+1) % vals.length];
     }
 
-
 }

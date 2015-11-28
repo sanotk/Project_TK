@@ -6,16 +6,19 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.mypjgdx.esg.utils.CameraHelper;
 
-
 public class WorldController extends InputAdapter {
 
     private static final float CAMERA_SPEED = 200.0f; //กำหนดความเร็วในการเคลื่อนที่ของกล้อง
     private static final float CAMERA_ZOOM_SPEED = 1.0f; //ความเร็วของการซูม
 
-    public final CameraHelper cameraHelper;
-    public final Level level;
+    public CameraHelper cameraHelper;
+    public Level level;
 
     public WorldController (Level level) {
+        init(level);
+    }
+
+    public void init(Level level) {
         this.level = level;
 
         cameraHelper = new CameraHelper();
@@ -26,7 +29,7 @@ public class WorldController extends InputAdapter {
 
     public void update (float deltaTime) {
         handleInput(deltaTime);
-        level.sano.update(deltaTime);
+        level.update(deltaTime);
         cameraHelper.update(deltaTime);
     }
 
@@ -71,9 +74,8 @@ public class WorldController extends InputAdapter {
             else cameraHelper.setTarget(null);
             break;
         case Keys.ENTER: // กด Enter เพื่อเปลี่ยน Map
-            level.nextMap();
+            init(new Level(level.map.next()));
             break;
-
         }
 
         return true;
