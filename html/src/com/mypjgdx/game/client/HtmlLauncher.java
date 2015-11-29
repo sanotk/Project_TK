@@ -3,17 +3,17 @@ package com.mypjgdx.game.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.mypjgdx.game.MyPjGdxGame;
+import com.mypjgdx.esg.MyPjGdxGame;
 
 public class HtmlLauncher extends GwtApplication {
 
-    @Override
-    public GwtApplicationConfiguration getConfig () {
-        return new GwtApplicationConfiguration(1280, 720);
-    }
+        @Override
+        public GwtApplicationConfiguration getConfig () {
+                return new GwtApplicationConfiguration(480, 320);
+        }
 
-    @Override
-    public ApplicationListener getApplicationListener () {
-        return new MyPjGdxGame();
-    }
+        @Override
+        public ApplicationListener getApplicationListener () {
+                return new MyPjGdxGame();
+        }
 }
