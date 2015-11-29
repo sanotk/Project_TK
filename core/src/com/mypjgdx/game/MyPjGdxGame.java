@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,6 +20,7 @@ public class MyPjGdxGame extends ApplicationAdapter  {
     private SpriteBatch batch; //ตัวแปรการวาด
     private WorldController worldController; //ส่วนควบคุมเกม
 
+    private Music music;
 
     private List<IntArray> backMapData;// ตัวแปรเก็บแผนที่ด้านหลัง
     private List<IntArray> frontMapData;// ตัวแปรเก็บแผนที่ด้านหน้า
@@ -35,12 +36,8 @@ public class MyPjGdxGame extends ApplicationAdapter  {
 
         worldController = new WorldController(sano); //สร้าง อินสแตนซ์ viewpoint
 
-        Sound sound = Gdx.audio.newSound(Gdx.files.internal("Breaktime_Silent_Film_Light.mp3"));//โหลดเสียง
-
-        //sound.loop();
-        sound.setVolume(0,1.0f);
-        sound.loop();
-        //Gdx.app.log("SONG",Float.toString(sound.getPosition()));
+        music = Gdx.audio.newMusic(Gdx.files.internal("Breaktime_Silent_Film_Light.mp3"));//โหลดเสียง
+        music.play();
 
         backMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_1.csv")); //โหลดแมพหลัง
         frontMapData = LevelLoader.loadMap(Gdx.files.internal("mix_map_2.csv")); //โหลดแมพหน้า
@@ -72,6 +69,7 @@ public class MyPjGdxGame extends ApplicationAdapter  {
     @Override
     public void dispose() {
         batch.dispose(); //คืนหน่วยความจำ
+        music.dispose();
     }
 
     private void renderMap(List<IntArray> mapData) {

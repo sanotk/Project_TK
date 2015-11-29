@@ -1,6 +1,7 @@
 package com.mypjgdx.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -8,7 +9,7 @@ public abstract class AbstractGameObject {
 
     // ตำแหน่ง ขนาด จุดกำเนิด ระดับการขยาย องศาการหมุน
     public Vector2 position;
-    public Vector2 dimension;
+    private Vector2 dimension;
     public Vector2 origin;
     public Vector2 scale;
     public float rotation;
@@ -21,7 +22,7 @@ public abstract class AbstractGameObject {
 
     public AbstractGameObject () {
         position = new Vector2(); //ตำแหน่ง
-        dimension = new Vector2(1, 1); //
+        dimension = new Vector2(); //
         origin = new Vector2(); //
         scale = new Vector2(1, 1); //
         rotation = 0; //
@@ -35,12 +36,23 @@ public abstract class AbstractGameObject {
     public void update (float deltaTime) {
         updateMotionX(deltaTime);
         updateMotionY(deltaTime);
+
         // อัพเดทตำแหน่ง
         position.x += velocity.x * deltaTime;
         position.y += velocity.y * deltaTime;
+
+        // อัพเดทกรอบวัตถุ
+        updateBounds();
     }
 
     public abstract void render (SpriteBatch batch);
+
+    protected void draw(SpriteBatch batch, TextureRegion region) {
+        batch.draw(region,
+                position.x, position.y, origin.x, origin.y,
+                dimension.x, dimension.y,
+                1.0f, 1.0f, rotation);
+    }
 
     protected void updateMotionX (float deltaTime) {
         if (velocity.x != 0) {
@@ -75,4 +87,18 @@ public abstract class AbstractGameObject {
         // คิดความเร่งแกน Y
         velocity.y += acceleration.y * deltaTime;
     }
+
+    protected void updateBounds() { // อัพเดทกรอบวัตถุหลังจากเคลื่อนที่แล้ว
+        bounds.set(position.x, position.y, dimension.x, dimension.y);
+    }
+
+    protected void setDimension(float width, float height) {
+        dimension.x =  width * scale.x;
+        dimension.y =  height * scale.y;
+
+        // อัพเดทจุด origin อยู่ตรงกึ่งกลางภาพ
+        origin.set(dimension.x / 2, dimension.y / 2);
+    }
+
+
 }

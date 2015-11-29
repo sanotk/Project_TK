@@ -1,7 +1,7 @@
 
 char_pack.png
 format: RGBA8888
-filter: MipMapNearestNearest,Linear
+filter: MipMapLinearNearest,Linear
 repeat: none
 char_back
   rotate: false

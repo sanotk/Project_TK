@@ -27,6 +27,8 @@ public class WorldController extends InputAdapter implements GestureListener  {
             Gdx.input.setInputProcessor(gestureDetector);
         }
         else  Gdx.input.setInputProcessor(this);
+
+        cameraHelper.setTarget(sano);
     }
 
     public CameraHelper getCameraHelper() { return cameraHelper; }
@@ -85,7 +87,7 @@ public class WorldController extends InputAdapter implements GestureListener  {
     public boolean keyDown(int keycode) {
         if (keycode == Keys.R) {    // กด R เพื่อ Reset มุมกล้อง ยกเลิกการมุมกล้องติดตาม Sano
             cameraHelper.setPosition(0, 0);
-            cameraHelper.setZoom(0.8f);
+            cameraHelper.setZoom(1.0f);
             sano.init();
         }
         else if (keycode == Keys.SPACE) { // กด Spacebar เพื่อให้มุมกล้องติดตาม/เลิกติดตาม Sano
@@ -102,14 +104,6 @@ public class WorldController extends InputAdapter implements GestureListener  {
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
-        if (count == 2) {
-            if (!cameraHelper.hasTarget()) cameraHelper.setTarget(sano);
-            else {
-                cameraHelper.setPosition(0, 0);
-                cameraHelper.setZoom(0.8f);
-                sano.init();
-            }
-        }
         return false;
     }
 
