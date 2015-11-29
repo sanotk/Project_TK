@@ -3,7 +3,7 @@ package com.mypjgdx.game.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.mypjgdx.esg.MyPjGdxGame;
+import com.mypjgdx.game.MyPjGdxGame;
 
 public class HtmlLauncher extends GwtApplication {
 

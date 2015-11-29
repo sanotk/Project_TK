@@ -1,7 +1,8 @@
-package com.mypjgdx.esg.game.objects;
+package com.mypjgdx.game;
 
 import java.util.Comparator;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-import com.mypjgdx.esg.game.Assets;
 
 public class Sano extends AbstractGameObject {
 
@@ -23,8 +23,8 @@ public class Sano extends AbstractGameObject {
     private static final float SCALE = 0.2f;
 
     private static final float INTITAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
-    private static final float INTITAL_X_POSITION = 0f;         // ตำแหน่งเริ่มต้นแกน X
-    private static final float INTITAL_Y_POSITION = 0f;      // ตำแหน่งเริ่มต้นแกน Y
+    private static final float INTITAL_X_POSITION = 75f;         // ตำแหน่งเริ่มต้นแกน X
+    private static final float INTITAL_Y_POSITION  = 120f;      // ตำแหน่งเริ่มต้นแกน Y
 
     // ทิศที่ตัวละครมอง
     public enum ViewDirection {
@@ -44,18 +44,12 @@ public class Sano extends AbstractGameObject {
     private float animationTime;
 
     public Sano() {
-        this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
-    }
-
-    public Sano(float xPosition, float yPosition) {
-        // กำหนดค่าเริ่มต้น เวลาสร้างตัวละครใหม่
-        init();
-        position.set(xPosition, yPosition);
+        init(); // method กำหนดค่าเริ่มต้น เวลาสร้างตัวละครใหม่
     }
 
     public void init() {
         // Load Texture ทั้งหมดของตัวละคร
-        sanoAtlas = Assets.instance.sanoAltas;
+        sanoAtlas = new TextureAtlas(Gdx.files.internal("char_pack.atlas"));
 
         // สร้างกลุ่มของ Region ของ Sano พร้อมทั้ง เรียงชื่อ Region ตามลำดับตัวอักษร
         Array<AtlasRegion> sanoRegions = new Array<AtlasRegion>(sanoAtlas.getRegions());
@@ -91,6 +85,9 @@ public class Sano extends AbstractGameObject {
 
         // กำหนดขนาดสเกลของ Sano
         scale.set(SCALE, SCALE);
+
+        // กำหนดตำแหน่งเริ่มต้น
+        position.set(INTITAL_X_POSITION, INTITAL_Y_POSITION);
     }
 
     @Override
@@ -98,7 +95,6 @@ public class Sano extends AbstractGameObject {
         super.update(deltaTime); // update ตำแหน่ง Sano
         updateViewDirection(); // update ทิศที่ Sano มองอยู่
         updateKeyFrame(deltaTime); // update Region ของ Sano ตามทิศที่มอง และ Keyframe
-
     }
 
     private void updateViewDirection() { // update ทิศที่ Sano มองอยู่  โดยยึดการมองด้านแกน X  เป็นหลักหากมีการเดินเฉียง
@@ -134,7 +130,7 @@ public class Sano extends AbstractGameObject {
     public void render(SpriteBatch batch) {
 
         // วาดตัวละคร ตามตำแหน่ง ขนาด และองศาตามที่กำหนด
-        render(batch, sanoRegion);
+        draw(batch, sanoRegion);
     }
 
     // คลาสสร้างเองภายใน ที่ใช้เรียงชื่อของออปเจค AtlasRegion ตามลำดับอักษร
