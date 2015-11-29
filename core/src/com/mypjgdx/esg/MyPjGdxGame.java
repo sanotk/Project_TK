@@ -21,4 +21,5 @@ public class MyPjGdxGame extends Game  {
     }
 
     // comment
+    // comment2
 }
