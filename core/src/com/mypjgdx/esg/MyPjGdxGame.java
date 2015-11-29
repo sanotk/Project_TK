@@ -20,4 +20,5 @@ public class MyPjGdxGame extends Game  {
         Assets.instance.dispose();
     }
 
+    // comment
 }
