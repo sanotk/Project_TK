@@ -1,4 +1,4 @@
-package com.mypjgdx.esg.game.objects;
+package com.mypjgdx.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -47,7 +47,7 @@ public abstract class AbstractGameObject {
 
     public abstract void render (SpriteBatch batch);
 
-    protected void render(SpriteBatch batch, TextureRegion region) {
+    protected void draw(SpriteBatch batch, TextureRegion region) {
         batch.draw(region,
                 position.x, position.y, origin.x, origin.y,
                 dimension.x, dimension.y,
