@@ -10,13 +10,12 @@
  </layer>
  <layer name="Object" width="30" height="30">
   <data encoding="base64" compression="zlib">
-   eJztlkkOwyAMRTlCBzhF9p3g/uequ7AUuZ5DssqTLLUG/C2wIaWcHM0D7AL2dPjrRN0r2Avs5vB3Jac9dZuxJsIb7A72cfiHoTvzHDikXPEcFkeMRbEoeA6RtVgrGT0kkzueGZ2bqd1I7pIul38V/BldrBUuBtfHUuyqjGlwurR2mxJbyymqS/dzCH4rp6iuBNcDo+R1K/kv1bNWixa0T35r+mpc2s+t9azd/9I4It2XHri4Y/U7Gtv7NtC42n0dtSNp9hQ3kXd12FP+kN6AHpibQapdbu9mfOtYsbi9m6kb6ZktvXuyL1+HxSB7
+   eJzlVkkOwyAM5NxTF3hF7t3g/+8qPVhC1OMtaiK1I43UGuOxjA1J6Tex7KRp0b12HjtvBnt2aGs4dd47zwZ7VXL9lm5R9pCmpdaPzkvn02Bviq71HKJAudI5WOq8CPSCzsGzl3plzexFcqczm3213kX6ViBdLv8M7BFd6hUuBjfHKHYW1iRwunPvFiG2lJNXd65nA3YtJ68uAjcDLcV18/Qf9bPUixrmOXnvqcM6qufafpbuf7ROQPelBVzcNvz2xra+DXNc6b628DBwSxTdxQzPu9p0lw+gN6A6fCOzi3qXqx3nG323kS5XO+Qb0fXMDPLd85ud5unf8QKbxCLS
   </data>
  </layer>
  <objectgroup name="Collisions">
   <object id="9" x="75" y="200" width="175" height="25"/>
   <object id="10" x="175" y="225" width="25" height="225"/>
-  <object id="11" x="175" y="500" width="475" height="25"/>
   <object id="12" x="275" y="275" width="100" height="25"/>
   <object id="13" x="275" y="300" width="25" height="150"/>
   <object id="15" x="300" y="350" width="75" height="25"/>
