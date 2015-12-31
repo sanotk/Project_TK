@@ -5,7 +5,7 @@
  </tileset>
  <layer name="Ground" width="30" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt0kEKACAIBEDPPcX+/79OQYhRVK4SCnusYTMmInZKASeiO87t/dKw6KvtUDrId053/6w2N38A0TddjNUn3T/dbqf7r1sCuSe+HJTr1XeVKjJzLTvPXAt7p+/KZiWv+qL365EGHzo1xw==
+   eJzt1j0KwCAMBeAMdslR4v3vVzoIoURibX5EDDx0+3y6SABAwUG2eqayYKDLfc3lY92X3/eflI99Ldwy4Gb3RWP3yeXoSjNzRsu+x13DbXPcPd1mH3dfFxdyZ/z3RLlZfbVU6P9hSdh7pOd62CN9NZuEWPWNft+M3LwRNTU=
   </data>
  </layer>
  <layer name="Object" width="30" height="30">

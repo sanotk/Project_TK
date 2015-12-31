@@ -8,18 +8,18 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.mypjgdx.esg.game.objects.Sano;
+import com.mypjgdx.esg.game.objects.Player;
 
 public class Level {
 
-    public final Sano sano; // ตัวละครที่ผู้เล่นจะได้ควบคุม
+    public final Player player; // ตัวละครที่ผู้เล่นจะได้ควบคุม
     public final Map map;   // แผนที่ในเกม
 
     private MapObjects collisionBoxes; // กล่องกำแพง
 
     public Level (Map map) {
         this.map = map;
-        sano = new Sano();
+        player = new Player();
 
         collisionBoxes = map.getTiledMap().getLayers().get("Collisions").getObjects();
     }
@@ -29,7 +29,7 @@ public class Level {
         tiledRenderer.render();
 
         batch.begin();
-        sano.render(batch);
+        player.render(batch);
         batch.end();
 
         shapeRenderer.begin(ShapeType.Line);
@@ -38,12 +38,12 @@ public class Level {
             Rectangle box = collisionBox.getRectangle();
             shapeRenderer.rect(box.x, box.y, box.width, box.height);
         }
-        shapeRenderer.rect(sano.bounds.x, sano.bounds.y, sano.bounds.width, sano.bounds.height);
+        //shapeRenderer.rect(player.bounds.x, player.bounds.y, player.bounds.width, player.bounds.height);
         shapeRenderer.end();
     }
 
     public void update(float deltaTime) {
-        sano.update(deltaTime);
+        player.update(deltaTime);
     }
 
 }

@@ -2,6 +2,7 @@ package com.mypjgdx.esg.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.mypjgdx.esg.game.Level;
 import com.mypjgdx.esg.game.Map;
@@ -24,6 +25,9 @@ public class GameScreen extends AbstractGameScreen {
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
         worldRenderer.render();
+
+        if(Gdx.input.isKeyJustPressed(Keys.M))
+            game.setScreen(new MenuScreen(game));
     }
 
     @Override

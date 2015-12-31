@@ -22,7 +22,7 @@ public class WorldController extends InputAdapter {
         this.level = level;
 
         cameraHelper = new CameraHelper();
-        cameraHelper.setTarget(this.level.sano);
+        cameraHelper.setTarget(this.level.player);
 
         Gdx.input.setInputProcessor(this);
     }
@@ -35,11 +35,11 @@ public class WorldController extends InputAdapter {
 
     private void handleInput (float deltaTime) {
         handleCameraInput(deltaTime);
-        handleSanoInput();
+        handleplayerInput();
     }
 
     private void handleCameraInput (float deltaTime) {
-        if (cameraHelper.hasTarget()) return; // มุมกล้องติดตาม Sano อยู่จะใช้ Input เลื่อนมุมกล้องเองไม่ได้
+        if (cameraHelper.hasTarget()) return; // มุมกล้องติดตาม player อยู่จะใช้ Input เลื่อนมุมกล้องเองไม่ได้
 
         if (Gdx.input.isKeyPressed(Keys.UP)) cameraHelper.addPostion(0, CAMERA_SPEED * deltaTime); //กดลูกศรขึ้น
         if (Gdx.input.isKeyPressed(Keys.DOWN)) cameraHelper.addPostion(0, -CAMERA_SPEED * deltaTime);//กดลูกศรลง
@@ -49,28 +49,28 @@ public class WorldController extends InputAdapter {
         if (Gdx.input.isKeyPressed(Keys.X)) cameraHelper.addZoom(-CAMERA_ZOOM_SPEED * deltaTime); // กด x
     }
 
-    private void handleSanoInput()  { // ควบคุม Sano
-        if (!cameraHelper.hasTarget()) return; // มุมกล้องติดตาม Sano อยู่ถึงจะควมคุม Sano ได้
+    private void handleplayerInput()  { // ควบคุม player
+        if (!cameraHelper.hasTarget()) return; // มุมกล้องติดตาม player อยู่ถึงจะควมคุม player ได้
 
-        final float SANO_SPEED = 100.0f;
-        final Vector2 sanoVelocity = level.sano.velocity;
+        final float player_SPEED = 100.0f;
+        final Vector2 playerVelocity = level.player.velocity;
 
-        if (Gdx.input.isKeyPressed(Keys.UP)) sanoVelocity.y = SANO_SPEED ;       //กดลูกศรขึ้น
-        if (Gdx.input.isKeyPressed(Keys.DOWN)) sanoVelocity.y = -SANO_SPEED ;      //กดลูกศรลง
-        if (Gdx.input.isKeyPressed(Keys.LEFT)) sanoVelocity.x = -SANO_SPEED ;      //กดลูกศรซ้าย
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)) sanoVelocity.x = SANO_SPEED ;     //กดลูกศรขวา
+        if (Gdx.input.isKeyPressed(Keys.UP)) playerVelocity.y = player_SPEED ;       //กดลูกศรขึ้น
+        if (Gdx.input.isKeyPressed(Keys.DOWN)) playerVelocity.y = -player_SPEED ;      //กดลูกศรลง
+        if (Gdx.input.isKeyPressed(Keys.LEFT)) playerVelocity.x = -player_SPEED ;      //กดลูกศรซ้าย
+        if (Gdx.input.isKeyPressed(Keys.RIGHT)) playerVelocity.x = player_SPEED ;     //กดลูกศรขวา
     }
 
     @Override
     public boolean keyDown (int keycode) {
         switch(keycode) {
-        case Keys.R:  // กด R เพื่อ Reset มุมกล้อง ยกเลิกการมุมกล้องติดตาม Sano
+        case Keys.R:  // กด R เพื่อ Reset มุมกล้อง ยกเลิกการมุมกล้องติดตาม player
             cameraHelper.setPosition(0, 0);
             cameraHelper.setZoom(1.0f);
-            level.sano.init();
+            level.player.init();
             break;
-        case Keys.SPACE: // กด Spacebar เพื่อให้มุมกล้องติดตาม/เลิกติดตาม Sano
-            if (!cameraHelper.hasTarget()) cameraHelper.setTarget(level.sano);
+        case Keys.SPACE: // กด Spacebar เพื่อให้มุมกล้องติดตาม/เลิกติดตาม player
+            if (!cameraHelper.hasTarget()) cameraHelper.setTarget(level.player);
             else cameraHelper.setTarget(null);
             break;
         case Keys.ENTER: // กด Enter เพื่อเปลี่ยน Map

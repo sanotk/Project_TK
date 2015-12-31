@@ -7,8 +7,10 @@ import com.mypjgdx.esg.MyPjGdxGame;
 public class DesktopLauncher {
     public static void main (String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.title = "Energy Saving Game";
         config.width = 1280;
         config.height = 720;
+        //config.addIcon("assets/globe.png", Files.FileType.Internal);
         new LwjglApplication(new MyPjGdxGame(), config);
     }
 }
