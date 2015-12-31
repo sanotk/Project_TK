@@ -13,8 +13,8 @@ public class MenuScreen extends AbstractGameScreen {
 
     public static final int SCENE_WIDTH = 1280; //เซตค่าความกว้างของจอ
     public static final int SCENE_HEIGHT = 720; //เซตค่าความสูงของจอ
-    private Stage stage;
-    private Skin skin;
+    private Stage stage; //
+    private Skin skin; //
 
     public MenuScreen(final Game game) {
         super(game);
@@ -80,7 +80,7 @@ public class MenuScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-
+                System.exit(0);
             }
         });
 

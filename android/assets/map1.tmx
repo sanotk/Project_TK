@@ -5,28 +5,7 @@
  </tileset>
  <layer name="Ground" width="30" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt1aEBADAIwLBqXsFxEf9fMbsHNhAV1ZFN6BwqgJ/pvq90dXV1dVe6oaurq6u70r2/MNEB5bVfpQ==
+   eJzt1aEVADAMAlF0VsF1ou4/RUVNJggRJ07/h8LSdaiSNJl/CTe1d9w9uLi4uLgr3cLFxcXFXen2X0j0APkKX0U=
   </data>
  </layer>
- <layer name="Object" width="30" height="30">
-  <data encoding="base64" compression="zlib">
-   eJzlVkkOwyAM5NxTF3hF7t3g/+8qPVhC1OMtaiK1I43UGuOxjA1J6Tex7KRp0b12HjtvBnt2aGs4dd47zwZ7VXL9lm5R9pCmpdaPzkvn02Bviq71HKJAudI5WOq8CPSCzsGzl3plzexFcqczm3213kX6ViBdLv8M7BFd6hUuBjfHKHYW1iRwunPvFiG2lJNXd65nA3YtJ68uAjcDLcV18/Qf9bPUixrmOXnvqcM6qufafpbuf7ROQPelBVzcNvz2xra+DXNc6b628DBwSxTdxQzPu9p0lw+gN6A6fCOzi3qXqx3nG323kS5XO+Qb0fXMDPLd85ud5unf8QKbxCLS
-  </data>
- </layer>
- <objectgroup name="Collisions">
-  <object id="9" x="75" y="200" width="175" height="25"/>
-  <object id="10" x="175" y="225" width="25" height="225"/>
-  <object id="12" x="275" y="275" width="100" height="25"/>
-  <object id="13" x="275" y="300" width="25" height="150"/>
-  <object id="15" x="300" y="350" width="75" height="25"/>
-  <object id="19" x="300" y="425" width="75" height="25"/>
-  <object id="21" x="425" y="425" width="100" height="25"/>
-  <object id="23" x="500" y="350" width="25" height="75"/>
-  <object id="26" x="425" y="350" width="75" height="25"/>
-  <object id="27" x="425" y="275" width="25" height="75"/>
-  <object id="28" x="450" y="275" width="75" height="25"/>
-  <object id="29" x="600" y="175" width="25" height="275"/>
-  <object id="30" x="550" y="225" width="50" height="25"/>
-  <object id="31" x="625" y="225" width="50" height="25"/>
- </objectgroup>
 </map>
