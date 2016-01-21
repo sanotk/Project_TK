@@ -4,7 +4,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 
 public enum Map {
 
-    MAP_01, MAP_02, MAP_03;
+    MAP_01, MAP_02, MAP_03, MAP_04;
 
     private static Map[] vals = values();
 
@@ -21,6 +21,7 @@ public enum Map {
         case MAP_01: return Assets.instance.map1;
         case MAP_02: return Assets.instance.map2;
         case MAP_03: return Assets.instance.map3;
+        case MAP_04: return Assets.instance.map4;
         default:
             break;
         }
