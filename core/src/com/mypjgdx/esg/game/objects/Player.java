@@ -27,7 +27,7 @@ public class Player extends AbstractGameObject {
     private static final float INTITAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
     private static final float INTITAL_X_POSITION = 0f;         // ตำแหน่งเริ่มต้นแกน X
     private static final float INTITAL_Y_POSITION = 0f;      // ตำแหน่งเริ่มต้นแกน Y
-    private Vector2 dimension;
+
     // ทิศที่ตัวละครมอง
     public enum ViewDirection {
         LEFT, RIGHT, UP, DOWN
@@ -49,6 +49,7 @@ public class Player extends AbstractGameObject {
     public Player(TiledMapTileLayer mapLayer) {
 
         this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
+        oldPosition = new Vector2();
         this.mapLayer = mapLayer;
     }
 
@@ -136,14 +137,13 @@ public class Player extends AbstractGameObject {
             break;
         }
         // อัพเดทขนาดของตัวละครตาม Region
-        dimension.x =  playerRegion.getRegionWidth() * scale.x;
-        dimension.y =  playerRegion.getRegionHeight() * scale.y;
+
         setDimension(playerRegion.getRegionWidth(), playerRegion.getRegionHeight());
     }
 
     private boolean isCellBlocked(float x, float y) {
         int cellX = (int) (x/ mapLayer.getTileWidth());
-        int cellY = (int) (y / mapLayer.getTileHeight());
+        int cellY = (int) (y/ mapLayer.getTileHeight());
         if (cellX < mapLayer.getWidth() && cellX > 0 && cellY < mapLayer.getHeight() && cellY > 0) {
             return mapLayer.getCell(cellX, cellY).getTile().getProperties().containsKey("blocked");
         }

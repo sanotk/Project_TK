@@ -22,7 +22,7 @@ public class Level {
         this.map = map;
         player = new Player((TiledMapTileLayer) map.getTiledMap().getLayers().get(0));
 
-        collisionBoxes = map.getTiledMap().getLayers().get("Collisions").getObjects();
+        //collisionBoxes = map.getTiledMap().getLayers().get("Collisions").getObjects();
     }
 
     public void render (SpriteBatch batch, OrthogonalTiledMapRenderer tiledRenderer, ShapeRenderer shapeRenderer) {
@@ -33,14 +33,6 @@ public class Level {
         player.render(batch);
         batch.end();
 
-        shapeRenderer.begin(ShapeType.Line);
-        for (MapObject object : collisionBoxes) {
-            RectangleMapObject collisionBox = (RectangleMapObject) object;
-            Rectangle box = collisionBox.getRectangle();
-            shapeRenderer.rect(box.x, box.y, box.width, box.height);
-        }
-        //shapeRenderer.rect(player.bounds.x, player.bounds.y, player.bounds.width, player.bounds.height);
-        shapeRenderer.end();
     }
 
     public void update(float deltaTime) {
