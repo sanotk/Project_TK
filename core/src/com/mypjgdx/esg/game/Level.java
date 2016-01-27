@@ -3,12 +3,9 @@ package com.mypjgdx.esg.game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.mypjgdx.esg.game.objects.Player;
 
 public class Level {
@@ -33,6 +30,9 @@ public class Level {
         player.render(batch);
         batch.end();
 
+        shapeRenderer.begin(ShapeType.Line);
+        shapeRenderer.rect(player.bounds.x, player.bounds.y, player.bounds.width, player.bounds.height);
+        shapeRenderer.end();
     }
 
     public void update(float deltaTime) {

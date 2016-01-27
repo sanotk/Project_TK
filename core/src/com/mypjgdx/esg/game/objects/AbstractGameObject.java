@@ -2,7 +2,6 @@ package com.mypjgdx.esg.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -14,8 +13,6 @@ public abstract class AbstractGameObject {
     public Vector2 origin;
     public Vector2 scale;
     public float rotation;
-
-    TiledMapTileLayer mapLayer;
 
     // ความเร็ว แรงเสียดทาน ความเร่ง กรอบวัตถุ
     public Vector2 velocity;

@@ -42,7 +42,7 @@ public class Player extends AbstractGameObject {
     private Animation walkUp;
     private Animation walkDown;
 
-    TiledMapTileLayer mapLayer;
+    private TiledMapTileLayer mapLayer;
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
     Vector2 oldPosition;
@@ -103,10 +103,34 @@ public class Player extends AbstractGameObject {
     public void update(float deltaTime) {
 		oldPosition.set(position);
         super.update(deltaTime); // update ตำแหน่ง player
-        if (collidesLeft() || collidesRight())
+        if (collidesTop() || collidesBottom()){
+        	//velocity.y = 0;
+        	position.y = oldPosition.y;
+        	updateBounds();
+        }
+        if (collidesLeft() || collidesRight()){
+        	//velocity.x = 0;
+        	position.x = oldPosition.x;
+        	updateBounds();
+        }
+
+
+        /*
+        if (collidesLeft() && collidesRight()){
             position.x = oldPosition.x;
-        if (collidesTop() || collidesBottom())
+            if (collidesTop() || collidesBottom()){
+                //position.y = oldPosition.y;
+            }
+        }
+        else if (collidesTop() || collidesBottom()){
             position.y = oldPosition.y;
+            if (collidesLeft() || collidesRight()){
+                //position.x = oldPosition.x;
+            }
+        }
+        */
+
+
         updateViewDirection(); // update ทิศที่ player มองอยู่
         updateKeyFrame(deltaTime); // update Region ของ player ตามทิศที่มอง และ Keyframe
 
@@ -141,41 +165,41 @@ public class Player extends AbstractGameObject {
         setDimension(playerRegion.getRegionWidth(), playerRegion.getRegionHeight());
     }
 
-    private boolean isCellBlocked(float x, float y) {
-        int cellX = (int) (x/ mapLayer.getTileWidth());
-        int cellY = (int) (y/ mapLayer.getTileHeight());
-        if (cellX < mapLayer.getWidth() && cellX > 0 && cellY < mapLayer.getHeight() && cellY > 0) {
-            return mapLayer.getCell(cellX, cellY).getTile().getProperties().containsKey("blocked");
-        }
-        return false;
-    }
-
     public boolean collidesRight() {
-        for (float step = 0; step < dimension.y; step += mapLayer.getTileHeight())
-            if (isCellBlocked (position.x + dimension.x, position.y + step))
+        for (float step = 0; step < bounds.height; step += mapLayer.getTileHeight())
+            if (isCellBlocked (bounds.x + bounds.width, bounds.y + step))
                 return true;
-        return isCellBlocked (position.x + dimension.x, position.y + dimension.y);
+        return isCellBlocked (bounds.x + bounds.width, bounds.y + bounds.height);
     }
 
     public boolean collidesLeft() {
-        for (float step = 0; step < dimension.y; step += mapLayer.getTileHeight())
-            if (isCellBlocked (position.x, position.y + step))
+        for (float step = 0; step < bounds.height; step += mapLayer.getTileHeight())
+            if (isCellBlocked (bounds.x, bounds.y + step))
                 return true;
-        return isCellBlocked (position.x, position.y + dimension.y);
+        return isCellBlocked (bounds.x, bounds.y + bounds.height);
     }
 
     public boolean collidesTop() {
-        for(float step = 0; step < dimension.x; step += mapLayer.getTileWidth())
-            if (isCellBlocked(position.x + step, position.y + dimension.y))
+        for(float step = 0; step < bounds.width; step += mapLayer.getTileWidth())
+            if (isCellBlocked(bounds.x + step, bounds.y + bounds.height))
                 return true;
-        return isCellBlocked(position.x + dimension.x, position.y + dimension.y);
+        return isCellBlocked(bounds.x + bounds.width, bounds.y + bounds.height);
     }
 
     public boolean collidesBottom() {
-        for(float step = 0; step < dimension.x; step += mapLayer.getTileWidth())
-            if (isCellBlocked(position.x + step, position.y))
+        for(float step = 0; step < bounds.width; step += mapLayer.getTileWidth())
+            if (isCellBlocked(bounds.x + step, bounds.y))
                 return true;
-        return isCellBlocked(position.x + dimension.x, position.y);
+        return isCellBlocked(bounds.x + bounds.width, bounds.y);
+    }
+
+    private boolean isCellBlocked(float x, float y) {
+        int cellX = (int) (x/ mapLayer.getTileWidth());
+        int cellY = (int) (y/ mapLayer.getTileHeight());
+        if (cellX < mapLayer.getWidth() && cellX >= 0 && cellY <= mapLayer.getHeight() && cellY >= 0) {
+            return mapLayer.getCell(cellX, cellY).getTile().getProperties().containsKey("blocked");
+        }
+        return false;
     }
 
     @Override
