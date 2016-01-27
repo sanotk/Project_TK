@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mypjgdx.esg.game.objects.Player;
@@ -19,7 +20,7 @@ public class Level {
 
     public Level (Map map) {
         this.map = map;
-        player = new Player();
+        player = new Player((TiledMapTileLayer) map.getTiledMap().getLayers().get(0));
 
         collisionBoxes = map.getTiledMap().getLayers().get("Collisions").getObjects();
     }

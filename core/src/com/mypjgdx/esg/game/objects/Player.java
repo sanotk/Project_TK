@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mypjgdx.esg.game.Assets;
 
@@ -25,7 +27,7 @@ public class Player extends AbstractGameObject {
     private static final float INTITAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
     private static final float INTITAL_X_POSITION = 0f;         // ตำแหน่งเริ่มต้นแกน X
     private static final float INTITAL_Y_POSITION = 0f;      // ตำแหน่งเริ่มต้นแกน Y
-
+    private Vector2 dimension;
     // ทิศที่ตัวละครมอง
     public enum ViewDirection {
         LEFT, RIGHT, UP, DOWN
@@ -40,11 +42,14 @@ public class Player extends AbstractGameObject {
     private Animation walkUp;
     private Animation walkDown;
 
+    TiledMapTileLayer mapLayer;
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
+    Vector2 oldPosition;
+    public Player(TiledMapTileLayer mapLayer) {
 
-    public Player() {
         this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
+        this.mapLayer = mapLayer;
     }
 
     public Player(float xPosition, float yPosition) {
@@ -95,7 +100,12 @@ public class Player extends AbstractGameObject {
 
     @Override
     public void update(float deltaTime) {
+		oldPosition.set(position);
         super.update(deltaTime); // update ตำแหน่ง player
+        if (collidesLeft() || collidesRight())
+            position.x = oldPosition.x;
+        if (collidesTop() || collidesBottom())
+            position.y = oldPosition.y;
         updateViewDirection(); // update ทิศที่ player มองอยู่
         updateKeyFrame(deltaTime); // update Region ของ player ตามทิศที่มอง และ Keyframe
 
@@ -125,9 +135,47 @@ public class Player extends AbstractGameObject {
         default:
             break;
         }
-
         // อัพเดทขนาดของตัวละครตาม Region
+        dimension.x =  playerRegion.getRegionWidth() * scale.x;
+        dimension.y =  playerRegion.getRegionHeight() * scale.y;
         setDimension(playerRegion.getRegionWidth(), playerRegion.getRegionHeight());
+    }
+
+    private boolean isCellBlocked(float x, float y) {
+        int cellX = (int) (x/ mapLayer.getTileWidth());
+        int cellY = (int) (y / mapLayer.getTileHeight());
+        if (cellX < mapLayer.getWidth() && cellX > 0 && cellY < mapLayer.getHeight() && cellY > 0) {
+            return mapLayer.getCell(cellX, cellY).getTile().getProperties().containsKey("blocked");
+        }
+        return false;
+    }
+
+    public boolean collidesRight() {
+        for (float step = 0; step < dimension.y; step += mapLayer.getTileHeight())
+            if (isCellBlocked (position.x + dimension.x, position.y + step))
+                return true;
+        return isCellBlocked (position.x + dimension.x, position.y + dimension.y);
+    }
+
+    public boolean collidesLeft() {
+        for (float step = 0; step < dimension.y; step += mapLayer.getTileHeight())
+            if (isCellBlocked (position.x, position.y + step))
+                return true;
+        return isCellBlocked (position.x, position.y + dimension.y);
+    }
+
+    public boolean collidesTop() {
+        for(float step = 0; step < dimension.x; step += mapLayer.getTileWidth())
+            if (isCellBlocked(position.x + step, position.y + dimension.y))
+                return true;
+        return isCellBlocked(position.x + dimension.x, position.y + dimension.y);
+    }
+
+    public boolean collidesBottom() {
+        for(float step = 0; step < dimension.x; step += mapLayer.getTileWidth())
+            if (isCellBlocked(position.x + step, position.y))
+                return true;
+        return isCellBlocked(position.x + dimension.x, position.y);
     }
 
     @Override
