@@ -101,40 +101,28 @@ public class Player extends AbstractGameObject {
 
     @Override
     public void update(float deltaTime) {
-		oldPosition.set(position);
-        super.update(deltaTime); // update ตำแหน่ง player
-        if (collidesTop() || collidesBottom()){
-        	//velocity.y = 0;
-        	position.y = oldPosition.y;
-        	updateBounds();
-        }
-        if (collidesLeft() || collidesRight()){
-        	//velocity.x = 0;
-        	position.x = oldPosition.x;
-        	updateBounds();
-        }
+        oldPosition.set(position);
+        updateMotionX(deltaTime);
+        updateMotionY(deltaTime);
 
-
-        /*
-        if (collidesLeft() && collidesRight()){
+        position.x += velocity.x * deltaTime;
+        updateBounds();
+        if (collidesLeft() || collidesRight()) {
             position.x = oldPosition.x;
-            if (collidesTop() || collidesBottom()){
-                //position.y = oldPosition.y;
-            }
+            updateBounds();
         }
-        else if (collidesTop() || collidesBottom()){
+
+        position.y += velocity.y * deltaTime;
+        updateBounds();
+        if (collidesTop() || collidesBottom()) {
             position.y = oldPosition.y;
-            if (collidesLeft() || collidesRight()){
-                //position.x = oldPosition.x;
-            }
+            updateBounds();
         }
-        */
 
-
-        updateViewDirection(); // update ทิศที่ player มองอยู่
-        updateKeyFrame(deltaTime); // update Region ของ player ตามทิศที่มอง และ Keyframe
-
+        updateViewDirection();
+        updateKeyFrame(deltaTime);
     }
+
 
     private void updateViewDirection() { // update ทิศที่ player มองอยู่  โดยยึดการมองด้านแกน X  เป็นหลักหากมีการเดินเฉียง
         if (velocity.x != 0) {

@@ -3,7 +3,6 @@ package com.mypjgdx.esg.game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mypjgdx.esg.game.objects.Player;
@@ -12,8 +11,6 @@ public class Level {
 
     public final Player player; // ตัวละครที่ผู้เล่นจะได้ควบคุม
     public final Map map;   // แผนที่ในเกม
-
-    private MapObjects collisionBoxes; // กล่องกำแพง
 
     public Level (Map map) {
         this.map = map;
