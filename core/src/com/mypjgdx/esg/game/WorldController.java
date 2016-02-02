@@ -1,5 +1,6 @@
 package com.mypjgdx.esg.game;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
@@ -55,11 +56,26 @@ public class WorldController extends InputAdapter {
         final float player_SPEED = 100.0f;
         final Vector2 playerVelocity = level.player.velocity;
 
-        if (Gdx.input.isKeyPressed(Keys.UP)) playerVelocity.y = player_SPEED ;       //กดลูกศรขึ้น
-        if (Gdx.input.isKeyPressed(Keys.DOWN)) playerVelocity.y = -player_SPEED ;      //กดลูกศรลง
-        if (Gdx.input.isKeyPressed(Keys.LEFT)) playerVelocity.x = -player_SPEED ;      //กดลูกศรซ้าย
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)) playerVelocity.x = player_SPEED ;     //กดลูกศรขวา
-    }
+        if (Gdx.app.getType() == ApplicationType.Android && Gdx.input.isTouched())  {
+            int screenWidth = Gdx.graphics.getWidth();
+            int screenHeight = Gdx.graphics.getHeight();
+            float x = Gdx.input.getX();
+            float filppedY = screenHeight- Gdx.input.getY();
+            final float SCREEN_MOVE_EGDE = 0.4f;
+
+            if (x > screenWidth * (1.0f - SCREEN_MOVE_EGDE)) playerVelocity.x = player_SPEED;
+            else if (x < screenWidth * SCREEN_MOVE_EGDE )  playerVelocity.x = -player_SPEED;
+
+            if (filppedY > screenHeight * (1.0f - SCREEN_MOVE_EGDE)) playerVelocity.y = player_SPEED;
+            else if (filppedY < screenHeight * SCREEN_MOVE_EGDE)  playerVelocity.y = -player_SPEED;
+        }
+        else {
+            if (Gdx.input.isKeyPressed(Keys.UP)) playerVelocity.y = player_SPEED ;       //กดลูกศรขึ้น
+            if (Gdx.input.isKeyPressed(Keys.DOWN)) playerVelocity.y = -player_SPEED ;      //กดลูกศรลง
+            if (Gdx.input.isKeyPressed(Keys.LEFT)) playerVelocity.x = -player_SPEED ;      //กดลูกศรซ้าย
+            if (Gdx.input.isKeyPressed(Keys.RIGHT)) playerVelocity.x = player_SPEED ;     //กดลูกศรขวา
+        }
+     }
 
     @Override
     public boolean keyDown (int keycode) {
