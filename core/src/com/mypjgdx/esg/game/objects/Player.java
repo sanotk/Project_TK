@@ -25,8 +25,8 @@ public class Player extends AbstractGameObject {
     private static final float SCALE = 0.2f;
 
     private static final float INTITAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
-    private static final float INTITAL_X_POSITION = 0f;         // ตำแหน่งเริ่มต้นแกน X
-    private static final float INTITAL_Y_POSITION = 0f;      // ตำแหน่งเริ่มต้นแกน Y
+    private static final float INTITAL_X_POSITION = 400f;         // ตำแหน่งเริ่มต้นแกน X
+    private static final float INTITAL_Y_POSITION = 400f;      // ตำแหน่งเริ่มต้นแกน Y
 
     // ทิศที่ตัวละครมอง
     public enum ViewDirection {
@@ -45,7 +45,7 @@ public class Player extends AbstractGameObject {
     private TiledMapTileLayer mapLayer;
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
-    Vector2 oldPosition;
+    private Vector2 oldPosition;
     public Player(TiledMapTileLayer mapLayer) {
 
         this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
