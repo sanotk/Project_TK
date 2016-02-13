@@ -54,15 +54,16 @@ public class WorldController extends InputAdapter {
         if (!cameraHelper.hasTarget()) return; // มุมกล้องติดตาม player อยู่ถึงจะควมคุม player ได้
 
         final float player_SPEED = 100.0f;
+        final float enemy_SPEED = 80.0f;
         final Vector2 playerVelocity = level.player.velocity;
+        final Vector2 enemyVelocity = level.enemy.velocity;
+        int screenWidth = Gdx.graphics.getWidth();
+        int screenHeight = Gdx.graphics.getHeight();
+        final float SCREEN_MOVE_EGDE = 0.4f;
 
         if (Gdx.app.getType() == ApplicationType.Android && Gdx.input.isTouched())  {
-            int screenWidth = Gdx.graphics.getWidth();
-            int screenHeight = Gdx.graphics.getHeight();
             float x = Gdx.input.getX();
             float filppedY = screenHeight- Gdx.input.getY();
-            final float SCREEN_MOVE_EGDE = 0.4f;
-
             if (x > screenWidth * (1.0f - SCREEN_MOVE_EGDE)) playerVelocity.x = player_SPEED;
             else if (x < screenWidth * SCREEN_MOVE_EGDE )  playerVelocity.x = -player_SPEED;
 
@@ -75,6 +76,13 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.LEFT)) playerVelocity.x = -player_SPEED ;      //กดลูกศรซ้าย
             if (Gdx.input.isKeyPressed(Keys.RIGHT)) playerVelocity.x = player_SPEED ;     //กดลูกศรขวา
         }
+
+        if (level.enemy.position.x > level.player.position.x) enemyVelocity.x = enemy_SPEED;
+        else if (level.enemy.position.x < level.player.position.x)  enemyVelocity.x = -enemy_SPEED;
+
+        if (level.enemy.position.y > level.player.position.y) enemyVelocity.y = enemy_SPEED;
+        else if (level.enemy.position.y < level.player.position.y) enemyVelocity.y = -enemy_SPEED;
+
      }
 
     @Override
