@@ -41,6 +41,8 @@ public class Player extends AbstractGameObject {
     private Animation walkRight;
     private Animation walkUp;
     private Animation walkDown;
+    private Animation atkLeft;
+    private Animation atkRight;
 
     private TiledMapTileLayer mapLayer;
     // เวลา Animation ที่ใช้หา KeyFrame
@@ -72,18 +74,24 @@ public class Player extends AbstractGameObject {
         Array<AtlasRegion> playerWalkRightRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> playerWalkDownRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> playerWalkUpRegions = new Array<AtlasRegion>();
+        Array<AtlasRegion> enemyAtkRightRegions = new Array<AtlasRegion>();
+        Array<AtlasRegion> enemyAtkLeftRegions = new Array<AtlasRegion>();
 
         // เซ็ตค่าอนิเมชั่นของตัวละคร
         playerWalkUpRegions.addAll(playerRegions, 0 * FRAME_PER_DIRECTION,  FRAME_PER_DIRECTION);
         playerWalkDownRegions.addAll(playerRegions, 1 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
         playerWalkLeftRegions.addAll(playerRegions, 2 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
         playerWalkRightRegions.addAll(playerRegions, 3 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
+        enemyAtkLeftRegions.addAll(playerRegions, 2 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
+        enemyAtkRightRegions.addAll(playerRegions, 3 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
 
         // สร้าง Animation ทิศการเดินต่างๆ
         walkLeft = new Animation(FRAME_DURATION, playerWalkLeftRegions, PlayMode.LOOP);
         walkRight = new Animation(FRAME_DURATION, playerWalkRightRegions, PlayMode.LOOP);
         walkDown = new Animation(FRAME_DURATION, playerWalkDownRegions, PlayMode.LOOP);
         walkUp = new Animation(FRAME_DURATION, playerWalkUpRegions, PlayMode.LOOP);
+        atkLeft = new Animation(FRAME_DURATION, playerWalkDownRegions, PlayMode.LOOP);
+        atkRight = new Animation(FRAME_DURATION, playerWalkUpRegions, PlayMode.LOOP);
 
         // กำหนดค่าทางฟิสิกส์
         friction.set(INTITAL_FRICTION, INTITAL_FRICTION);
