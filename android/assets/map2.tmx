@@ -2,16 +2,25 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-up" width="30" height="30" tilewidth="25" tileheight="25" backgroundcolor="#000000" nextobjectid="1">
  <tileset firstgid="1" name="map" tilewidth="25" tileheight="25" spacing="2" tilecount="76">
   <image source="map.png" width="1024" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Ground" width="30" height="30">
   <data encoding="base64" compression="zlib">
-   eJzjYmBg4BqGWBsJD5T9I8G/Axm+Axm/o3gUj+JRPIpH8SgexdTG2gwD38ahp70D5d/B0H4dTG1YALJNJmI=
+   eJzt17kNgFAQA9HlDJCog8/Zf3l4pW0BB2iCiZ8cukXEY66pTi3m0uzVai7NTe1qMHWUmZtHdZqaysTFxcXFxcXFxf2Pe6nZ1F1mfgZ+yvc/5QUBxXKx
   </data>
  </layer>
- <layer name="Object" width="30" height="30">
-  <data encoding="base64" compression="zlib">
-   eJztlkkOwyAMRTlCBzhF9p3g/uequ7AUuZ5DssqTLLUG/C2wIaWcHM0D7AL2dPjrRN0r2Avs5vB3Jac9dZuxJsIb7A72cfiHoTvzHDikXPEcFkeMRbEoeA6RtVgrGT0kkzueGZ2bqd1I7pIul38V/BldrBUuBtfHUuyqjGlwurR2mxJbyymqS/dzCH4rp6iuBNcDo+R1K/kv1bNWixa0T35r+mpc2s+t9azd/9I4It2XHri4Y/U7Gtv7NtC42n0dtSNp9hQ3kXd12FP+kN6AHpibQapdbu9mfOtYsbi9m6kb6ZktvXuyL1+HxSB7
-  </data>
- </layer>
- <objectgroup name="Collisions"/>
 </map>

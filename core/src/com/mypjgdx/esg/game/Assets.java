@@ -18,6 +18,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetManager manager;
 
     public TextureAtlas playerAltas;
+    public TextureAtlas enemyAltas;
     public TiledMap map1;
     public TiledMap map2;
     public TiledMap map3;
@@ -44,6 +45,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.finishLoading();
 
         playerAltas = manager.get("char_pack.atlas");
+        enemyAltas = manager.get("char_pack.atlas");
         map1 = manager.get("map1.tmx");
         map2 = manager.get("map2.tmx");
         map3 = manager.get("map3.tmx");
