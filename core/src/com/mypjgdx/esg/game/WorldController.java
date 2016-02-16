@@ -77,11 +77,11 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.RIGHT)) playerVelocity.x = player_SPEED ;     //กดลูกศรขวา
         }
 
-        if (level.enemy.position.x > level.player.position.x) enemyVelocity.x = enemy_SPEED;
-        else if (level.enemy.position.x < level.player.position.x)  enemyVelocity.x = -enemy_SPEED;
+        if (level.enemy.position.x > level.player.position.x) enemyVelocity.x = -enemy_SPEED;
+        else if (level.enemy.position.x < level.player.position.x)  enemyVelocity.x = enemy_SPEED;
 
-        if (level.enemy.position.y > level.player.position.y) enemyVelocity.y = enemy_SPEED;
-        else if (level.enemy.position.y < level.player.position.y) enemyVelocity.y = -enemy_SPEED;
+        if (level.enemy.position.y > level.player.position.y) enemyVelocity.y = -enemy_SPEED;
+        else if (level.enemy.position.y < level.player.position.y) enemyVelocity.y = enemy_SPEED;
 
      }
 
