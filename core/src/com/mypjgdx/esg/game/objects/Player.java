@@ -33,7 +33,12 @@ public class Player extends AbstractGameObject {
         LEFT, RIGHT, UP, DOWN
     }
 
+    public enum Atk {
+    	AtkLEFT, AtkRIGHT
+    }
+
     private ViewDirection viewDirection;  // ทิศที่ตัวละครกำลังมองอยู่
+    private Atk atk;
     private TextureAtlas playerAtlas;       // Texture ทั้งหมดของตัวละคร
     private TextureRegion playerRegion;   // ส่วน Texture ของตัวละครที่จะใช้แสดง
 
@@ -82,14 +87,17 @@ public class Player extends AbstractGameObject {
         playerWalkDownRegions.addAll(playerRegions, 3 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
         playerWalkLeftRegions.addAll(playerRegions, 4 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
         playerWalkRightRegions.addAll(playerRegions, 5 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
+
+        //เซ็ตค่าอนิเมชั่นต่อสู้
         playerAtkLeftRegions.addAll(playerRegions, 0 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
         playerAtkRightRegions.addAll(playerRegions, 1 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
 
-        // สร้าง Animation ทิศการเดินต่างๆ
+        // สร้าง Animation ท่าทางต่างๆ
         walkLeft = new Animation(FRAME_DURATION, playerWalkLeftRegions, PlayMode.LOOP);
         walkRight = new Animation(FRAME_DURATION, playerWalkRightRegions, PlayMode.LOOP);
         walkDown = new Animation(FRAME_DURATION, playerWalkDownRegions, PlayMode.LOOP);
         walkUp = new Animation(FRAME_DURATION, playerWalkUpRegions, PlayMode.LOOP);
+
         atkLeft = new Animation(FRAME_DURATION, playerWalkDownRegions, PlayMode.LOOP);
         atkRight = new Animation(FRAME_DURATION, playerWalkUpRegions, PlayMode.LOOP);
 
