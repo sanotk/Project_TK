@@ -99,8 +99,8 @@ public class Player extends AbstractGameObject {
         walkDown = new Animation(FRAME_DURATION, playerWalkDownRegions, PlayMode.LOOP);
         walkUp = new Animation(FRAME_DURATION, playerWalkUpRegions, PlayMode.LOOP);
 
-        atkLeft = new Animation(FRAME_DURATION, playerAtkLeftRegions, PlayMode.LOOP);
-        atkRight = new Animation(FRAME_DURATION, playerAtkRightRegions, PlayMode.LOOP);
+        atkLeft = new Animation(FRAME_DURATION, playerAtkLeftRegions, PlayMode.NORMAL);
+        atkRight = new Animation(FRAME_DURATION, playerAtkRightRegions, PlayMode.NORMAL);
 
         // กำหนดค่าทางฟิสิกส์
         friction.set(INTITAL_FRICTION, INTITAL_FRICTION);
@@ -174,13 +174,16 @@ public class Player extends AbstractGameObject {
             break;
         }
         }
-
+        if(atkLeft.isAnimationFinished(animationTime)||atkRight.isAnimationFinished(animationTime)){
+        	walk();
+        }
         // อัพเดทขนาดของตัวละครตาม Region
         setDimension(playerRegion.getRegionWidth(), playerRegion.getRegionHeight());
     }
 
     public void attack(){
     	state = PlayerState.ATTACK;
+    	animationTime = 0;
     }
 
     public void walk(){
