@@ -33,12 +33,12 @@ public class Player extends AbstractGameObject {
         LEFT, RIGHT, UP, DOWN
     }
 
-    public enum Atk {
-    	AtkLEFT, AtkRIGHT
+    public enum PlayerState {
+    	WALK, ATTACK
     }
 
     private ViewDirection viewDirection;  // ทิศที่ตัวละครกำลังมองอยู่
-    private Atk atk;
+    private PlayerState state = PlayerState.WALK;
     private TextureAtlas playerAtlas;       // Texture ทั้งหมดของตัวละคร
     private TextureRegion playerRegion;   // ส่วน Texture ของตัวละครที่จะใช้แสดง
 
@@ -54,7 +54,6 @@ public class Player extends AbstractGameObject {
     private float animationTime;
     private Vector2 oldPosition;
 
-	public Vector2 velocity2;
     public Player(TiledMapTileLayer mapLayer) {
 
         this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
@@ -81,7 +80,6 @@ public class Player extends AbstractGameObject {
         Array<AtlasRegion> playerWalkRightRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> playerWalkDownRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> playerWalkUpRegions = new Array<AtlasRegion>();
-
         Array<AtlasRegion> playerAtkRightRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> playerAtkLeftRegions = new Array<AtlasRegion>();
 
@@ -137,7 +135,6 @@ public class Player extends AbstractGameObject {
             position.y = oldPosition.y;
             updateBounds();
         }
-
         updateViewDirection();
         updateKeyFrame(deltaTime);
     }
@@ -153,26 +150,40 @@ public class Player extends AbstractGameObject {
     }
 
     private void updateKeyFrame(float deltaTime) {
-
         // ถ้าตัวละครเคลื่อนที่อยู่ ในเพิ่มเวลา Animation ถ้าไม่เคลื่อนที่ให้เวลาเป็น 0 ( Frame ท่ายืน)
         if (velocity.x != 0 || velocity.y != 0) animationTime += deltaTime;
         else  animationTime = 0;
 
+        if(state == PlayerState.WALK){
         // อัพเดท TextureRegion ของ player
         switch(viewDirection) {
         case DOWN: playerRegion = walkDown.getKeyFrame(animationTime); break;
-        case LEFT:
-        	playerRegion = walkLeft.getKeyFrame(animationTime); break;
-        case RIGHT:
-        	playerRegion = walkRight.getKeyFrame(animationTime); break;
+        case LEFT: playerRegion = walkLeft.getKeyFrame(animationTime); break;
+        case RIGHT: playerRegion = walkRight.getKeyFrame(animationTime); break;
         case UP: playerRegion = walkUp.getKeyFrame(animationTime); break;
         default:
             break;
-
+        }
+        }
+        else if(state == PlayerState.ATTACK){
+        // อัพเดท TextureRegion ของ player
+        switch(viewDirection) {
+        case LEFT: playerRegion = atkLeft.getKeyFrame(animationTime); break;
+        case RIGHT: playerRegion = atkRight.getKeyFrame(animationTime); break;
+        default:
+            break;
+        }
         }
         // อัพเดทขนาดของตัวละครตาม Region
-
         setDimension(playerRegion.getRegionWidth(), playerRegion.getRegionHeight());
+    }
+
+    public void attack(){
+    	state = PlayerState.ATTACK;
+    }
+
+    public void walk(){
+    	state = PlayerState.WALK;
     }
 
     public boolean collidesRight() {

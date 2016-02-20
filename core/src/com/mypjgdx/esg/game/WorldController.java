@@ -75,7 +75,6 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.DOWN)) playerVelocity.y = -player_SPEED ;      //กดลูกศรลง
             if (Gdx.input.isKeyPressed(Keys.LEFT)) playerVelocity.x = -player_SPEED ;      //กดลูกศรซ้าย
             if (Gdx.input.isKeyPressed(Keys.RIGHT)) playerVelocity.x = player_SPEED ;     //กดลูกศรขวา
-            if (Gdx.input.isKeyPressed(Keys.X)) ;
         }
         final float MIN_RANGE = 1f;
         final float ATK_RANGE = 150f;
@@ -98,6 +97,9 @@ public class WorldController extends InputAdapter {
             cameraHelper.setPosition(0, 0);
             cameraHelper.setZoom(1.0f);
             level.player.init();
+            break;
+        case Keys.X:  // กด x เพื่อโจมตี
+        	level.player.attack();
             break;
         case Keys.SPACE: // กด Spacebar เพื่อให้มุมกล้องติดตาม/เลิกติดตาม player
             if (!cameraHelper.hasTarget()) cameraHelper.setTarget(level.player);
