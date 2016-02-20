@@ -151,7 +151,7 @@ public class Player extends AbstractGameObject {
 
     private void updateKeyFrame(float deltaTime) {
         // ถ้าตัวละครเคลื่อนที่อยู่ ในเพิ่มเวลา Animation ถ้าไม่เคลื่อนที่ให้เวลาเป็น 0 ( Frame ท่ายืน)
-        if (velocity.x != 0 || velocity.y != 0) animationTime += deltaTime;
+        if (velocity.x != 0 || velocity.y != 0 || state == Player.PlayerState.ATTACK) animationTime += deltaTime;
         else  animationTime = 0;
 
         if(state == PlayerState.WALK){
@@ -174,6 +174,7 @@ public class Player extends AbstractGameObject {
             break;
         }
         }
+
         // อัพเดทขนาดของตัวละครตาม Region
         setDimension(playerRegion.getRegionWidth(), playerRegion.getRegionHeight());
     }
@@ -225,7 +226,6 @@ public class Player extends AbstractGameObject {
 
     @Override
     public void render(SpriteBatch batch) {
-
         // วาดตัวละคร ตามตำแหน่ง ขนาด และองศาตามที่กำหนด
         render(batch, playerRegion);
     }
