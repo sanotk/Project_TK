@@ -163,7 +163,8 @@ public class Player extends AbstractGameObject {
         case DOWN: playerRegion = walkDown.getKeyFrame(animationTime); break;
         case LEFT:
         	playerRegion = walkLeft.getKeyFrame(animationTime); break;
-        case RIGHT: playerRegion = walkRight.getKeyFrame(animationTime); break;
+        case RIGHT:
+        	playerRegion = walkRight.getKeyFrame(animationTime); break;
         case UP: playerRegion = walkUp.getKeyFrame(animationTime); break;
         default:
             break;
