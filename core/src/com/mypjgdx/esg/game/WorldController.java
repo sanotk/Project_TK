@@ -75,7 +75,7 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.DOWN)) playerVelocity.y = -player_SPEED ;      //กดลูกศรลง
             if (Gdx.input.isKeyPressed(Keys.LEFT)) playerVelocity.x = -player_SPEED ;      //กดลูกศรซ้าย
             if (Gdx.input.isKeyPressed(Keys.RIGHT)) playerVelocity.x = player_SPEED ;     //กดลูกศรขวา
-            if ((Gdx.input.isKeyPressed(Keys.X)));
+            if (Gdx.input.isKeyPressed(Keys.X)) ;
         }
         final float MIN_RANGE = 1f;
         final float ATK_RANGE = 150f;

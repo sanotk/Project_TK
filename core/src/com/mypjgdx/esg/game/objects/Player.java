@@ -53,6 +53,8 @@ public class Player extends AbstractGameObject {
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
     private Vector2 oldPosition;
+
+	public Vector2 velocity2;
     public Player(TiledMapTileLayer mapLayer) {
 
         this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
@@ -79,6 +81,7 @@ public class Player extends AbstractGameObject {
         Array<AtlasRegion> playerWalkRightRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> playerWalkDownRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> playerWalkUpRegions = new Array<AtlasRegion>();
+
         Array<AtlasRegion> playerAtkRightRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> playerAtkLeftRegions = new Array<AtlasRegion>();
 
@@ -98,8 +101,8 @@ public class Player extends AbstractGameObject {
         walkDown = new Animation(FRAME_DURATION, playerWalkDownRegions, PlayMode.LOOP);
         walkUp = new Animation(FRAME_DURATION, playerWalkUpRegions, PlayMode.LOOP);
 
-        atkLeft = new Animation(FRAME_DURATION, playerWalkDownRegions, PlayMode.LOOP);
-        atkRight = new Animation(FRAME_DURATION, playerWalkUpRegions, PlayMode.LOOP);
+        atkLeft = new Animation(FRAME_DURATION, playerAtkLeftRegions, PlayMode.LOOP);
+        atkRight = new Animation(FRAME_DURATION, playerAtkRightRegions, PlayMode.LOOP);
 
         // กำหนดค่าทางฟิสิกส์
         friction.set(INTITAL_FRICTION, INTITAL_FRICTION);
@@ -141,8 +144,8 @@ public class Player extends AbstractGameObject {
 
 
     private void updateViewDirection() { // update ทิศที่ player มองอยู่  โดยยึดการมองด้านแกน X  เป็นหลักหากมีการเดินเฉียง
-        if (velocity.x != 0) {
-            viewDirection = velocity.x < 0 ?  ViewDirection.LEFT : ViewDirection.RIGHT;
+    	if (velocity.x != 0) {
+    		viewDirection = velocity.x < 0 ?  ViewDirection.LEFT : ViewDirection.RIGHT;
         }
         else if (velocity.y != 0) {
             viewDirection = velocity.y < 0 ?  ViewDirection.DOWN : ViewDirection.UP;
@@ -158,11 +161,13 @@ public class Player extends AbstractGameObject {
         // อัพเดท TextureRegion ของ player
         switch(viewDirection) {
         case DOWN: playerRegion = walkDown.getKeyFrame(animationTime); break;
-        case LEFT: playerRegion = walkLeft.getKeyFrame(animationTime); break;
+        case LEFT:
+        	playerRegion = walkLeft.getKeyFrame(animationTime); break;
         case RIGHT: playerRegion = walkRight.getKeyFrame(animationTime); break;
         case UP: playerRegion = walkUp.getKeyFrame(animationTime); break;
         default:
             break;
+
         }
         // อัพเดทขนาดของตัวละครตาม Region
 
