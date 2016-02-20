@@ -35,7 +35,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.setErrorListener(this);
         manager.setLoader(TiledMap.class, new TmxMapLoader());
 
-        manager.load("char_pack.atlas", TextureAtlas.class);
+        manager.load("player_pack.atlas", TextureAtlas.class);
         manager.load("map1.tmx", TiledMap.class);
         manager.load("map2.tmx", TiledMap.class);
         manager.load("map3.tmx", TiledMap.class);
@@ -44,8 +44,8 @@ public class Assets implements Disposable, AssetErrorListener {
 
         manager.finishLoading();
 
-        playerAltas = manager.get("char_pack.atlas");
-        enemyAltas = manager.get("char_pack.atlas");
+        playerAltas = manager.get("player_pack.atlas");
+        enemyAltas = manager.get("player_pack.atlas");
         map1 = manager.get("map1.tmx");
         map2 = manager.get("map2.tmx");
         map3 = manager.get("map3.tmx");

@@ -78,12 +78,12 @@ public class Player extends AbstractGameObject {
         Array<AtlasRegion> playerAtkLeftRegions = new Array<AtlasRegion>();
 
         // เซ็ตค่าอนิเมชั่นของตัวละคร
-        playerWalkUpRegions.addAll(playerRegions, 0 * FRAME_PER_DIRECTION,  FRAME_PER_DIRECTION);
-        playerWalkDownRegions.addAll(playerRegions, 1 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
-        playerWalkLeftRegions.addAll(playerRegions, 2 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
-        playerWalkRightRegions.addAll(playerRegions, 3 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
-        playerAtkLeftRegions.addAll(playerRegions, 2 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
-        playerAtkRightRegions.addAll(playerRegions, 3 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
+        playerWalkUpRegions.addAll(playerRegions, 2 * FRAME_PER_DIRECTION,  FRAME_PER_DIRECTION);
+        playerWalkDownRegions.addAll(playerRegions, 3 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
+        playerWalkLeftRegions.addAll(playerRegions, 4 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
+        playerWalkRightRegions.addAll(playerRegions, 5 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
+        playerAtkLeftRegions.addAll(playerRegions, 0 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
+        playerAtkRightRegions.addAll(playerRegions, 1 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
 
         // สร้าง Animation ทิศการเดินต่างๆ
         walkLeft = new Animation(FRAME_DURATION, playerWalkLeftRegions, PlayMode.LOOP);
