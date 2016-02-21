@@ -128,10 +128,7 @@ public class Enemy extends AbstractGameObject {
             updateBounds();
         }
 
-        if (bounds.x < player.bounds.x + player.bounds.width &&
-            bounds.x + bounds.width > player.bounds.x &&
-            bounds.y < player.bounds.y + player.bounds.height &&
-            bounds.height + bounds.y > player.bounds.y) {
+        if (bounds.overlaps(player.bounds)) {
                 // collision detected!
         	position.x = oldPosition.x;
             position.y = oldPosition.y;
@@ -140,7 +137,6 @@ public class Enemy extends AbstractGameObject {
                 // no collision
             updateBounds();
         }
-
 
         updateViewDirection();
         updateKeyFrame(deltaTime);
