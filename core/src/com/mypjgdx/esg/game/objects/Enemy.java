@@ -116,17 +116,31 @@ public class Enemy extends AbstractGameObject {
 
         position.x += velocity.x * deltaTime;
         updateBounds();
-        if (collidesLeft() || collidesRight() || collidesLeft(player) || collidesRight(player)) {
+        if (collidesLeft() || collidesRight()) {
             position.x = oldPosition.x;
             updateBounds();
         }
 
         position.y += velocity.y * deltaTime;
         updateBounds();
-        if (collidesTop() || collidesBottom() || collidesTop(player) || collidesBottom(player)) {
+        if (collidesTop() || collidesBottom()) {
             position.y = oldPosition.y;
             updateBounds();
         }
+
+        if (bounds.x < player.bounds.x + player.bounds.width &&
+            bounds.x + bounds.width > player.bounds.x &&
+            bounds.y < player.bounds.y + player.bounds.height &&
+            bounds.height + bounds.y > player.bounds.y) {
+                // collision detected!
+        	position.x = oldPosition.x;
+            position.y = oldPosition.y;
+            updateBounds();
+            } else {
+                // no collision
+            updateBounds();
+        }
+
 
         updateViewDirection();
         updateKeyFrame(deltaTime);
@@ -160,44 +174,6 @@ public class Enemy extends AbstractGameObject {
         // อัพเดทขนาดของตัวละครตาม Region
 
         setDimension(enemyRegion.getRegionWidth(), enemyRegion.getRegionHeight());
-    }
-
-
-    public boolean collidesRight(Player player) {
-        for (float step = 0; step < bounds.height; step += player.bounds.height)
-            if (iscollidesPlayer (bounds.x + bounds.width, bounds.y + step))
-                return true;
-        return iscollidesPlayer (bounds.x + bounds.width, bounds.y + bounds.height);
-    }
-
-    public boolean collidesLeft(Player player) {
-        for (float step = 0; step < bounds.height; step += player.bounds.height)
-            if (iscollidesPlayer (bounds.x, bounds.y + step))
-                return true;
-        return iscollidesPlayer (bounds.x, bounds.y + bounds.height);
-    }
-
-    public boolean collidesTop(Player player) {
-        for(float step = 0; step < bounds.width; step += player.bounds.width)
-            if (iscollidesPlayer(bounds.x + step, bounds.y + bounds.height))
-                return true;
-        return iscollidesPlayer(bounds.x + bounds.width, bounds.y + bounds.height);
-    }
-
-    public boolean collidesBottom(Player player) {
-        for(float step = 0; step < bounds.width; step += player.bounds.width)
-            if (iscollidesPlayer(bounds.x + step, bounds.y))
-                return true;
-        return iscollidesPlayer(bounds.x + bounds.width, bounds.y);
-    }
-
-    private boolean iscollidesPlayer(float x, float y) {
-        int cellX = (int) (x/ player.bounds.width);
-        int cellY = (int) (y/ player.bounds.height);
-        if (cellX < player.bounds.width && cellX >= 0 && cellY <= player.bounds.height && cellY >= 0) {
-            return true;
-        }
-        return false;
     }
 
     public boolean collidesRight() {
