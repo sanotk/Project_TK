@@ -48,11 +48,12 @@ public class Enemy extends AbstractGameObject {
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
     private Vector2 oldPosition;
-    public Enemy(TiledMapTileLayer mapLayer) {
+    public Enemy(TiledMapTileLayer mapLayer ,Player player) {
 
         this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
         oldPosition = new Vector2();
         this.mapLayer = mapLayer;
+        this.player = player;
     }
 
     public Enemy(float xPosition, float yPosition) {
@@ -115,14 +116,14 @@ public class Enemy extends AbstractGameObject {
 
         position.x += velocity.x * deltaTime;
         updateBounds();
-        if (collidesLeft() || collidesRight()) {
+        if (collidesLeft() || collidesRight() || collidesLeft(player) || collidesRight(player)) {
             position.x = oldPosition.x;
             updateBounds();
         }
 
         position.y += velocity.y * deltaTime;
         updateBounds();
-        if (collidesTop() || collidesBottom()) {
+        if (collidesTop() || collidesBottom() || collidesTop(player) || collidesBottom(player)) {
             position.y = oldPosition.y;
             updateBounds();
         }
@@ -163,38 +164,38 @@ public class Enemy extends AbstractGameObject {
 
 
     public boolean collidesRight(Player player) {
-        for (float step = 0; step < bounds.height; step += mapLayer.getTileHeight())
-            if (isCellBlocked (bounds.x + bounds.width, bounds.y + step))
+        for (float step = 0; step < bounds.height; step += player.bounds.height)
+            if (iscollidesPlayer (bounds.x + bounds.width, bounds.y + step))
                 return true;
-        return isCellBlocked (bounds.x + bounds.width, bounds.y + bounds.height);
+        return iscollidesPlayer (bounds.x + bounds.width, bounds.y + bounds.height);
     }
 
     public boolean collidesLeft(Player player) {
-        for (float step = 0; step < bounds.height; step += mapLayer.getTileHeight())
-            if (isCellBlocked (bounds.x, bounds.y + step))
+        for (float step = 0; step < bounds.height; step += player.bounds.height)
+            if (iscollidesPlayer (bounds.x, bounds.y + step))
                 return true;
-        return isCellBlocked (bounds.x, bounds.y + bounds.height);
+        return iscollidesPlayer (bounds.x, bounds.y + bounds.height);
     }
 
     public boolean collidesTop(Player player) {
-        for(float step = 0; step < bounds.width; step += mapLayer.getTileWidth())
-            if (isCellBlocked(bounds.x + step, bounds.y + bounds.height))
+        for(float step = 0; step < bounds.width; step += player.bounds.width)
+            if (iscollidesPlayer(bounds.x + step, bounds.y + bounds.height))
                 return true;
-        return isCellBlocked(bounds.x + bounds.width, bounds.y + bounds.height);
+        return iscollidesPlayer(bounds.x + bounds.width, bounds.y + bounds.height);
     }
 
     public boolean collidesBottom(Player player) {
-        for(float step = 0; step < bounds.width; step += mapLayer.getTileWidth())
-            if (isCellBlocked(bounds.x + step, bounds.y))
+        for(float step = 0; step < bounds.width; step += player.bounds.width)
+            if (iscollidesPlayer(bounds.x + step, bounds.y))
                 return true;
-        return isCellBlocked(bounds.x + bounds.width, bounds.y);
+        return iscollidesPlayer(bounds.x + bounds.width, bounds.y);
     }
 
     private boolean iscollidesPlayer(float x, float y) {
-        int cellX = (int) (x/ mapLayer.getTileWidth());
-        int cellY = (int) (y/ mapLayer.getTileHeight());
-        if (cellX < mapLayer.getWidth() && cellX >= 0 && cellY <= mapLayer.getHeight() && cellY >= 0) {
-            return mapLayer.getCell(cellX, cellY).getTile().getProperties().containsKey("blocked");
+        int cellX = (int) (x/ player.bounds.width);
+        int cellY = (int) (y/ player.bounds.height);
+        if (cellX < player.bounds.width && cellX >= 0 && cellY <= player.bounds.height && cellY >= 0) {
+            return true;
         }
         return false;
     }
