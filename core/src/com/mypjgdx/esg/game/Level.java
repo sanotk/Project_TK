@@ -1,5 +1,8 @@
 package com.mypjgdx.esg.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -11,14 +14,19 @@ import com.mypjgdx.esg.game.objects.Player;
 public class Level {
 
     public final Player player; // ตัวละครที่ผู้เล่นจะได้ควบคุม
-    public final Enemy enemy; // ตัวละครที่ผู้เล่นจะได้ควบคุม
+    List<Enemy> enemy = new ArrayList<Enemy>();
+    //public final Enemy enemy; // ตัวละครที่ผู้เล่นจะได้ควบคุม
     public final Map map;   // แผนที่ในเกม
 
     public Level (Map map) {
         this.map = map;
         player = new Player((TiledMapTileLayer) map.getTiledMap().getLayers().get(0));
-        enemy = new Enemy((TiledMapTileLayer) map.getTiledMap().getLayers().get(0),player);
-        //collisionBoxes = map.getTiledMap().getLayers().get("Collisions").getObjects();
+
+        enemy.add(new Enemy((TiledMapTileLayer) map.getTiledMap().getLayers().get(0),player));
+        enemy.add(new Enemy((TiledMapTileLayer) map.getTiledMap().getLayers().get(0),player));
+        enemy.add(new Enemy((TiledMapTileLayer) map.getTiledMap().getLayers().get(0),player));
+        enemy.add(new Enemy((TiledMapTileLayer) map.getTiledMap().getLayers().get(0),player));
+        enemy.add(new Enemy((TiledMapTileLayer) map.getTiledMap().getLayers().get(0),player));
     }
 
     public void render (SpriteBatch batch, OrthogonalTiledMapRenderer tiledRenderer, ShapeRenderer shapeRenderer) {
@@ -27,7 +35,7 @@ public class Level {
 
         batch.begin();
         player.render(batch);
-        enemy.render(batch);
+        enemy.get(0).render(batch);
         batch.end();
 
         shapeRenderer.begin(ShapeType.Line);
@@ -37,7 +45,7 @@ public class Level {
 
     public void update(float deltaTime) {
         player.update(deltaTime);
-        enemy.update(deltaTime);
+        enemy.get(0).update(deltaTime);
     }
 
 }

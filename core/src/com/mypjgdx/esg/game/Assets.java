@@ -26,7 +26,6 @@ public class Assets implements Disposable, AssetErrorListener {
     public Music music;
 
 
-
     private Assets() {}
 
     public void init() {

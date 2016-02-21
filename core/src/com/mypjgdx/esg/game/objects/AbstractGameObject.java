@@ -88,7 +88,7 @@ public abstract class AbstractGameObject {
         velocity.y += acceleration.y * deltaTime;
     }
 
-    protected void updateBounds() { // อัพเดทกรอบวัตถุหลังจากเคลื่อนที่แล้ว
+    public void updateBounds() { // อัพเดทกรอบวัตถุหลังจากเคลื่อนที่แล้ว
         bounds.set(position.x, position.y, dimension.x, dimension.y);
     }
 

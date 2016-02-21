@@ -1,6 +1,7 @@
 package com.mypjgdx.esg.game;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public enum Map {
 
@@ -26,6 +27,10 @@ public enum Map {
             break;
         }
         return null;
+    }
+
+    public TiledMapTileLayer getMapLayer(){
+    	return (TiledMapTileLayer) getTiledMap().getLayers().get(0);
     }
 
     public Map next() {

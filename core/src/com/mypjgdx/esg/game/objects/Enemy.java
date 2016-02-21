@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mypjgdx.esg.game.Assets;
@@ -45,11 +46,11 @@ public class Enemy extends AbstractGameObject {
 
     private TiledMapTileLayer mapLayer;
     private Player player;
+
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
     private Vector2 oldPosition;
     public Enemy(TiledMapTileLayer mapLayer ,Player player) {
-
         this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
         oldPosition = new Vector2();
         this.mapLayer = mapLayer;
@@ -59,12 +60,22 @@ public class Enemy extends AbstractGameObject {
     public Enemy(float xPosition, float yPosition) {
         // กำหนดค่าเริ่มต้น เวลาสร้างตัวละครใหม่
         init();
+        float mapWidth = mapLayer.getTileWidth();
+        float mapHeight = mapLayer.getTileHeight();
+
+       	do{
+    		xPosition = MathUtils.random(0,mapWidth-bounds.width);
+    		yPosition = MathUtils.random(0,mapHeight-bounds.height);
+    	}while((collidesTop() || collidesBottom() || collidesRight() || collidesLeft()));
+
         position.set(xPosition, yPosition);
     }
 
     public void init() {
         // Load Texture ทั้งหมดของตัวละคร
         enemyAtlas = Assets.instance.enemyAltas;
+
+
 
         // สร้างกลุ่มของ Region ของ enemy พร้อมทั้ง เรียงชื่อ Region ตามลำดับตัวอักษร
         Array<AtlasRegion> enemyRegions = new Array<AtlasRegion>(enemyAtlas.getRegions());
@@ -142,14 +153,6 @@ public class Enemy extends AbstractGameObject {
         	else if(player.bounds.y < bounds.y){
         		player.velocity.y = -300;
         	}
-        	else {
-        		position.x = oldPosition.x;
-        		position.y = oldPosition.y;
-        	}
-            updateBounds();
-            } else {
-                // no collision
-            updateBounds();
         }
 
         updateViewDirection();
