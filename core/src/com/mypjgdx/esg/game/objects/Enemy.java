@@ -51,24 +51,29 @@ public class Enemy extends AbstractGameObject {
     private float animationTime;
     private Vector2 oldPosition;
     public Enemy(TiledMapTileLayer mapLayer ,Player player) {
-        this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
+        //this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
         oldPosition = new Vector2();
         this.mapLayer = mapLayer;
         this.player = player;
     }
 
-    public Enemy(float xPosition, float yPosition) {
+    public Enemy() {
         // กำหนดค่าเริ่มต้น เวลาสร้างตัวละครใหม่
         init();
-        float mapWidth = mapLayer.getTileWidth();
-        float mapHeight = mapLayer.getTileHeight();
-
+        float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
+        float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
+        double distance;
+        final double MIN_DISTANCE = 200;
        	do{
-    		xPosition = MathUtils.random(0,mapWidth-bounds.width);
-    		yPosition = MathUtils.random(0,mapHeight-bounds.height);
-    	}while((collidesTop() || collidesBottom() || collidesRight() || collidesLeft()));
+    		position.x = MathUtils.random(0,mapWidth-bounds.width);
+    		position.y = MathUtils.random(100,mapHeight-bounds.height);
 
-        position.set(xPosition, yPosition);
+    		distance = Math.sqrt((position.x-player.position.x)
+    				*(position.x-player.position.x)+(position.y-player.position.y)*(position.y-player.position.y));
+
+    	}while((distance <MIN_DISTANCE || collidesTop() || collidesBottom() || collidesRight() || collidesLeft()));
+
+        position.set(position.x, position.y);
     }
 
     public void init() {
