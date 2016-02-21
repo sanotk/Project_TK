@@ -44,6 +44,7 @@ public class Enemy extends AbstractGameObject {
     private Animation atkRight;
 
     private TiledMapTileLayer mapLayer;
+    private Player player;
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
     private Vector2 oldPosition;
@@ -158,6 +159,44 @@ public class Enemy extends AbstractGameObject {
         // อัพเดทขนาดของตัวละครตาม Region
 
         setDimension(enemyRegion.getRegionWidth(), enemyRegion.getRegionHeight());
+    }
+
+
+    public boolean collidesRight(Player player) {
+        for (float step = 0; step < bounds.height; step += mapLayer.getTileHeight())
+            if (isCellBlocked (bounds.x + bounds.width, bounds.y + step))
+                return true;
+        return isCellBlocked (bounds.x + bounds.width, bounds.y + bounds.height);
+    }
+
+    public boolean collidesLeft(Player player) {
+        for (float step = 0; step < bounds.height; step += mapLayer.getTileHeight())
+            if (isCellBlocked (bounds.x, bounds.y + step))
+                return true;
+        return isCellBlocked (bounds.x, bounds.y + bounds.height);
+    }
+
+    public boolean collidesTop(Player player) {
+        for(float step = 0; step < bounds.width; step += mapLayer.getTileWidth())
+            if (isCellBlocked(bounds.x + step, bounds.y + bounds.height))
+                return true;
+        return isCellBlocked(bounds.x + bounds.width, bounds.y + bounds.height);
+    }
+
+    public boolean collidesBottom(Player player) {
+        for(float step = 0; step < bounds.width; step += mapLayer.getTileWidth())
+            if (isCellBlocked(bounds.x + step, bounds.y))
+                return true;
+        return isCellBlocked(bounds.x + bounds.width, bounds.y);
+    }
+
+    private boolean iscollidesPlayer(float x, float y) {
+        int cellX = (int) (x/ mapLayer.getTileWidth());
+        int cellY = (int) (y/ mapLayer.getTileHeight());
+        if (cellX < mapLayer.getWidth() && cellX >= 0 && cellY <= mapLayer.getHeight() && cellY >= 0) {
+            return mapLayer.getCell(cellX, cellY).getTile().getProperties().containsKey("blocked");
+        }
+        return false;
     }
 
     public boolean collidesRight() {

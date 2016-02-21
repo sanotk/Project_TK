@@ -168,14 +168,16 @@ public class Player extends AbstractGameObject {
         else if(state == PlayerState.ATTACK){
         // อัพเดท TextureRegion ของ player
         switch(viewDirection) {
+        case DOWN: playerRegion = walkDown.getKeyFrame(animationTime); break;
         case LEFT: playerRegion = atkLeft.getKeyFrame(animationTime); break;
         case RIGHT: playerRegion = atkRight.getKeyFrame(animationTime); break;
+        case UP: playerRegion = walkUp.getKeyFrame(animationTime); break;
         default:
             break;
         }
         }
         if(atkLeft.isAnimationFinished(animationTime)||atkRight.isAnimationFinished(animationTime)){
-        	walk();
+        	state = PlayerState.WALK;
         }
         // อัพเดทขนาดของตัวละครตาม Region
         setDimension(playerRegion.getRegionWidth(), playerRegion.getRegionHeight());
@@ -184,10 +186,6 @@ public class Player extends AbstractGameObject {
     public void attack(){
     	state = PlayerState.ATTACK;
     	animationTime = 0;
-    }
-
-    public void walk(){
-    	state = PlayerState.WALK;
     }
 
     public boolean collidesRight() {

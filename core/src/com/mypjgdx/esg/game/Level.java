@@ -18,7 +18,6 @@ public class Level {
         this.map = map;
         player = new Player((TiledMapTileLayer) map.getTiledMap().getLayers().get(0));
         enemy = new Enemy((TiledMapTileLayer) map.getTiledMap().getLayers().get(0));
-
         //collisionBoxes = map.getTiledMap().getLayers().get("Collisions").getObjects();
     }
 
@@ -32,7 +31,7 @@ public class Level {
         batch.end();
 
         shapeRenderer.begin(ShapeType.Line);
-        //shapeRenderer.rect(player.bounds.x, player.bounds.y, player.bounds.width, player.bounds.height);
+        shapeRenderer.rect(player.bounds.x, player.bounds.y, player.bounds.width, player.bounds.height);
         shapeRenderer.end();
     }
 
