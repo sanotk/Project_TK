@@ -62,8 +62,6 @@ public class Enemy extends AbstractGameObject {
         // Load Texture ทั้งหมดของตัวละคร
         enemyAtlas = Assets.instance.enemyAltas;
 
-
-
         // สร้างกลุ่มของ Region ของ enemy พร้อมทั้ง เรียงชื่อ Region ตามลำดับตัวอักษร
         Array<AtlasRegion> enemyRegions = new Array<AtlasRegion>(enemyAtlas.getRegions());
         enemyRegions.sort(new enemyRegionComparator());
@@ -106,6 +104,8 @@ public class Enemy extends AbstractGameObject {
         scale.set(SCALE, SCALE);
 
         updateKeyFrame(0);
+        updateBounds();
+
         float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
         float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
         double distance;
@@ -114,7 +114,6 @@ public class Enemy extends AbstractGameObject {
     		position.x = MathUtils.random(0,mapWidth-bounds.width);
     		position.y = MathUtils.random(100,mapHeight-bounds.height);
     		updateBounds();
-
     		distance = Math.sqrt((position.x-player.position.x)*(position.x-player.position.x)+(position.y-player.position.y)*(position.y-player.position.y));
 
     	}while((distance <MIN_DISTANCE || collidesTop() || collidesBottom() || collidesRight() || collidesLeft()));
