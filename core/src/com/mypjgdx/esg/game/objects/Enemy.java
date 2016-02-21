@@ -130,17 +130,17 @@ public class Enemy extends AbstractGameObject {
 
         if (bounds.overlaps(player.bounds)) {
                 // collision detected!
-        	if(player.bounds.x > bounds.x){
-        		player.position.x = player.position.x += player.bounds.width;
+        	if(player.bounds.x > bounds.x && player.bounds.y < bounds.y){
+        		player.velocity.x = 300;
         	}
-        	else if(player.bounds.x < bounds.x){
-        		player.position.x = player.position.x -= player.bounds.width;
+        	else if(player.bounds.x < bounds.x && player.bounds.y > bounds.y){
+        		player.velocity.x = -300;
         	}
         	else if(player.bounds.y > bounds.y){
-        		player.position.y = player.position.y += player.bounds.height;
+        		player.velocity.y = 300;
         	}
         	else if(player.bounds.y < bounds.y){
-        		player.position.y = player.position.y -= player.bounds.height;
+        		player.velocity.y = -300;
         	}
         	else {
         		position.x = oldPosition.x;
