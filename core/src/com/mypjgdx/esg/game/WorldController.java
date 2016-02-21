@@ -26,6 +26,22 @@ public class WorldController extends InputAdapter {
         cameraHelper.setTarget(this.level.player);
 
         Gdx.input.setInputProcessor(this);
+
+        final float MIN_RANGE = 1f;
+        final float MOVE_RANGE = 150f;
+
+        final Vector2 enemyVelocity = level.enemy.velocity;
+        final float enemy_SPEED = 80.0f;
+
+        if((Math.abs(level.enemy.position.x - level.player.position.x) < MOVE_RANGE)||(Math.abs(level.enemy.position.y - level.player.position.y) < MOVE_RANGE)){
+        if (Math.abs(level.enemy.position.x - level.player.position.x) < MIN_RANGE) enemyVelocity.x = 0;
+        else if (level.enemy.position.x > level.player.position.x) enemyVelocity.x = -enemy_SPEED;
+        else if (level.enemy.position.x < level.player.position.x)  enemyVelocity.x = enemy_SPEED;
+
+        if (Math.abs(level.enemy.position.y - level.player.position.y) < MIN_RANGE) enemyVelocity.y = 0;
+        else if (level.enemy.position.y > level.player.position.y) enemyVelocity.y = -enemy_SPEED;
+        else if (level.enemy.position.y < level.player.position.y) enemyVelocity.y = enemy_SPEED;
+        }
     }
 
     public void update (float deltaTime) {
@@ -54,9 +70,9 @@ public class WorldController extends InputAdapter {
         if (!cameraHelper.hasTarget()) return; // มุมกล้องติดตาม player อยู่ถึงจะควมคุม player ได้
 
         final float player_SPEED = 100.0f;
-        final float enemy_SPEED = 80.0f;
+
         final Vector2 playerVelocity = level.player.velocity;
-        final Vector2 enemyVelocity = level.enemy.velocity;
+
         int screenWidth = Gdx.graphics.getWidth();
         int screenHeight = Gdx.graphics.getHeight();
         final float SCREEN_MOVE_EGDE = 0.4f;
@@ -76,18 +92,7 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.LEFT)) playerVelocity.x = -player_SPEED ;      //กดลูกศรซ้าย
             if (Gdx.input.isKeyPressed(Keys.RIGHT)) playerVelocity.x = player_SPEED ;     //กดลูกศรขวา
         }
-        final float MIN_RANGE = 1f;
-        final float MOVE_RANGE = 150f;
 
-        if((Math.abs(level.enemy.position.x - level.player.position.x) < MOVE_RANGE)||(Math.abs(level.enemy.position.y - level.player.position.y) < MOVE_RANGE)){
-        if (Math.abs(level.enemy.position.x - level.player.position.x) < MIN_RANGE) enemyVelocity.x = 0;
-        else if (level.enemy.position.x > level.player.position.x) enemyVelocity.x = -enemy_SPEED;
-        else if (level.enemy.position.x < level.player.position.x)  enemyVelocity.x = enemy_SPEED;
-
-        if (Math.abs(level.enemy.position.y - level.player.position.y) < MIN_RANGE) enemyVelocity.y = 0;
-        else if (level.enemy.position.y > level.player.position.y) enemyVelocity.y = -enemy_SPEED;
-        else if (level.enemy.position.y < level.player.position.y) enemyVelocity.y = enemy_SPEED;
-        }
      }
 
     @Override
