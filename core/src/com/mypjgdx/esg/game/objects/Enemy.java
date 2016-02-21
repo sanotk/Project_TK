@@ -25,8 +25,8 @@ public class Enemy extends AbstractGameObject {
     private static final float SCALE = 0.2f;
 
     private static final float INTITAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
-    private static final float INTITAL_X_POSITION = 200f;         // ตำแหน่งเริ่มต้นแกน X
-    private static final float INTITAL_Y_POSITION = 200f;      // ตำแหน่งเริ่มต้นแกน Y
+    //private static final float INTITAL_X_POSITION = 200f;         // ตำแหน่งเริ่มต้นแกน X
+    //private static final float INTITAL_Y_POSITION = 200f;      // ตำแหน่งเริ่มต้นแกน Y
 
     // ทิศที่ตัวละครมอง
     public enum ViewDirection {
@@ -51,29 +51,11 @@ public class Enemy extends AbstractGameObject {
     private float animationTime;
     private Vector2 oldPosition;
     public Enemy(TiledMapTileLayer mapLayer ,Player player) {
-        //this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
+
         oldPosition = new Vector2();
         this.mapLayer = mapLayer;
         this.player = player;
-    }
-
-    public Enemy() {
-        // กำหนดค่าเริ่มต้น เวลาสร้างตัวละครใหม่
         init();
-        float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
-        float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
-        double distance;
-        final double MIN_DISTANCE = 200;
-       	do{
-    		position.x = MathUtils.random(0,mapWidth-bounds.width);
-    		position.y = MathUtils.random(100,mapHeight-bounds.height);
-
-    		distance = Math.sqrt((position.x-player.position.x)
-    				*(position.x-player.position.x)+(position.y-player.position.y)*(position.y-player.position.y));
-
-    	}while((distance <MIN_DISTANCE || collidesTop() || collidesBottom() || collidesRight() || collidesLeft()));
-
-        position.set(position.x, position.y);
     }
 
     public void init() {
@@ -122,6 +104,21 @@ public class Enemy extends AbstractGameObject {
 
         // กำหนดขนาดสเกลของ enemy
         scale.set(SCALE, SCALE);
+
+        updateKeyFrame(0);
+        float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
+        float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
+        double distance;
+        final double MIN_DISTANCE = 200;
+       	do{
+    		position.x = MathUtils.random(0,mapWidth-bounds.width);
+    		position.y = MathUtils.random(100,mapHeight-bounds.height);
+    		updateBounds();
+
+    		distance = Math.sqrt((position.x-player.position.x)*(position.x-player.position.x)+(position.y-player.position.y)*(position.y-player.position.y));
+
+    	}while((distance <MIN_DISTANCE || collidesTop() || collidesBottom() || collidesRight() || collidesLeft()));
+
     }
 
     @Override
@@ -175,6 +172,9 @@ public class Enemy extends AbstractGameObject {
     }
 
     private void updateKeyFrame(float deltaTime) {
+
+        final float MIN_RANGE = 1f;
+        final float MOVE_RANGE = 100f;
 
         // ถ้าตัวละครเคลื่อนที่อยู่ ในเพิ่มเวลา Animation ถ้าไม่เคลื่อนที่ให้เวลาเป็น 0 ( Frame ท่ายืน)
         if (velocity.x != 0 || velocity.y != 0) animationTime += deltaTime;

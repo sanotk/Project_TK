@@ -53,7 +53,7 @@ public class WorldController extends InputAdapter {
     private void handleplayerInput()  { // ควบคุม player
         if (!cameraHelper.hasTarget()) return; // มุมกล้องติดตาม player อยู่ถึงจะควมคุม player ได้
 
-        final float player_SPEED = 100.0f;
+        final float PLAYER_SPEED = 100.0f;
 
         final Vector2 playerVelocity = level.player.velocity;
 
@@ -64,32 +64,32 @@ public class WorldController extends InputAdapter {
         if (Gdx.app.getType() == ApplicationType.Android && Gdx.input.isTouched())  {
             float x = Gdx.input.getX();
             float filppedY = screenHeight- Gdx.input.getY();
-            if (x > screenWidth * (1.0f - SCREEN_MOVE_EGDE)) playerVelocity.x = player_SPEED;
-            else if (x < screenWidth * SCREEN_MOVE_EGDE )  playerVelocity.x = -player_SPEED;
+            if (x > screenWidth * (1.0f - SCREEN_MOVE_EGDE)) playerVelocity.x = PLAYER_SPEED;
+            else if (x < screenWidth * SCREEN_MOVE_EGDE )  playerVelocity.x = -PLAYER_SPEED;
 
-            if (filppedY > screenHeight * (1.0f - SCREEN_MOVE_EGDE)) playerVelocity.y = player_SPEED;
-            else if (filppedY < screenHeight * SCREEN_MOVE_EGDE)  playerVelocity.y = -player_SPEED;
+            if (filppedY > screenHeight * (1.0f - SCREEN_MOVE_EGDE)) playerVelocity.y = PLAYER_SPEED;
+            else if (filppedY < screenHeight * SCREEN_MOVE_EGDE)  playerVelocity.y = -PLAYER_SPEED;
         }
         else {
-            if (Gdx.input.isKeyPressed(Keys.UP)) playerVelocity.y = player_SPEED ;       //กดลูกศรขึ้น
-            if (Gdx.input.isKeyPressed(Keys.DOWN)) playerVelocity.y = -player_SPEED ;      //กดลูกศรลง
-            if (Gdx.input.isKeyPressed(Keys.LEFT)) playerVelocity.x = -player_SPEED ;      //กดลูกศรซ้าย
-            if (Gdx.input.isKeyPressed(Keys.RIGHT)) playerVelocity.x = player_SPEED ;     //กดลูกศรขวา
+            if (Gdx.input.isKeyPressed(Keys.UP)) playerVelocity.y = PLAYER_SPEED ;       //กดลูกศรขึ้น
+            if (Gdx.input.isKeyPressed(Keys.DOWN)) playerVelocity.y = -PLAYER_SPEED ;      //กดลูกศรลง
+            if (Gdx.input.isKeyPressed(Keys.LEFT)) playerVelocity.x = -PLAYER_SPEED ;      //กดลูกศรซ้าย
+            if (Gdx.input.isKeyPressed(Keys.RIGHT)) playerVelocity.x = PLAYER_SPEED ;     //กดลูกศรขวา
         }
         final float MIN_RANGE = 1f;
         final float MOVE_RANGE = 100f;
 
         final Vector2 enemyVelocity = level.enemy.get(0).velocity;
-        final float enemy_SPEED = 80.0f;
+        final float ENEMY_SPEED = 80.0f;
 
         if((Math.abs(level.enemy.get(0).position.x - level.player.position.x) < MOVE_RANGE)||(Math.abs(level.enemy.get(0).position.y - level.player.position.y) < MOVE_RANGE)){
         if (Math.abs(level.enemy.get(0).position.x - level.player.position.x) < MIN_RANGE) enemyVelocity.x = 0;
-        else if (level.enemy.get(0).position.x > level.player.position.x) enemyVelocity.x = -enemy_SPEED;
-        else if (level.enemy.get(0).position.x < level.player.position.x)  enemyVelocity.x = enemy_SPEED;
+        else if (level.enemy.get(0).position.x > level.player.position.x) enemyVelocity.x = -ENEMY_SPEED;
+        else if (level.enemy.get(0).position.x < level.player.position.x)  enemyVelocity.x = ENEMY_SPEED;
 
         if (Math.abs(level.enemy.get(0).position.y - level.player.position.y) < MIN_RANGE) enemyVelocity.y = 0;
-        else if (level.enemy.get(0).position.y > level.player.position.y) enemyVelocity.y = -enemy_SPEED;
-        else if (level.enemy.get(0).position.y < level.player.position.y) enemyVelocity.y = enemy_SPEED;
+        else if (level.enemy.get(0).position.y > level.player.position.y) enemyVelocity.y = -ENEMY_SPEED;
+        else if (level.enemy.get(0).position.y < level.player.position.y) enemyVelocity.y = ENEMY_SPEED;
         }
      }
 
@@ -99,7 +99,8 @@ public class WorldController extends InputAdapter {
         case Keys.R:  // กด R เพื่อ Reset มุมกล้อง ยกเลิกการมุมกล้องติดตาม player
             cameraHelper.setPosition(0, 0);
             cameraHelper.setZoom(1.0f);
-            level.player.init();
+            //level.player.init();
+            level.enemy.get(0).init();
             break;
         case Keys.X:  // กด x เพื่อโจมตี
 
