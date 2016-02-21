@@ -39,6 +39,7 @@ public class Player extends AbstractGameObject {
 
     private ViewDirection viewDirection;  // ทิศที่ตัวละครกำลังมองอยู่
     private PlayerState state = PlayerState.WALK;
+
     private TextureAtlas playerAtlas;       // Texture ทั้งหมดของตัวละคร
     private TextureRegion playerRegion;   // ส่วน Texture ของตัวละครที่จะใช้แสดง
 

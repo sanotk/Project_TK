@@ -5,7 +5,9 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Disposable;
@@ -17,6 +19,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public AssetManager manager;
 
+    public TextureRegion sword;
     public TextureAtlas playerAltas;
     public TextureAtlas enemyAltas;
     public TiledMap map1;
@@ -34,6 +37,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.setErrorListener(this);
         manager.setLoader(TiledMap.class, new TmxMapLoader());
 
+        manager.load("sword.png", Texture.class);
         manager.load("player_pack.atlas", TextureAtlas.class);
         manager.load("map1.tmx", TiledMap.class);
         manager.load("map2.tmx", TiledMap.class);
@@ -43,6 +47,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         manager.finishLoading();
 
+        sword = manager.get("sword.png");
         playerAltas = manager.get("player_pack.atlas");
         enemyAltas = manager.get("player_pack.atlas");
         map1 = manager.get("map1.tmx");

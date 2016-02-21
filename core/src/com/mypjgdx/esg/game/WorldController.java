@@ -89,7 +89,6 @@ public class WorldController extends InputAdapter {
             level.enemy.get(0).init();
             break;
         case Keys.X:  // กด x เพื่อโจมตี
-
         	level.player.attack();
             break;
         case Keys.SPACE: // กด Spacebar เพื่อให้มุมกล้องติดตาม/เลิกติดตาม player
