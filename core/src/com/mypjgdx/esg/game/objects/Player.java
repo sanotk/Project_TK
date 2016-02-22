@@ -193,7 +193,7 @@ public class Player extends AbstractGameObject {
     	if(state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
     		animationTime = 0;
-    		
+
     	}
     }
 

@@ -1,6 +1,7 @@
 package com.mypjgdx.esg.game;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,13 +20,13 @@ public class Level {
     public List<Sword> swords = new ArrayList<Sword>();
 
     public final Map map;   // แผนที่ในเกม
-    public final int MAX_ENEMY = 10;
+    public final int MAX_ENEMY = 5;
 
     public Level (Map map) {
         this.map = map;
         player = new Player((TiledMapTileLayer) map.getTiledMap().getLayers().get(0));
         for(int i = 0;i<MAX_ENEMY;i++){
-        	enemys.add(new Enemy(map.getMapLayer(),player));
+        	enemys.add(new Enemy(map.getMapLayer(),player ,(Sword) swords));
         }
     }
 
@@ -46,6 +47,16 @@ public class Level {
     }
 
     public void update(float deltaTime) {
+        Iterator<Sword>it = swords.iterator();
+        Iterator<Enemy>eit = enemys.iterator();
+        while(it.hasNext()){
+        	Sword s = it.next();
+        	if (s.isDespawned())it.remove();
+        }
+        while(eit.hasNext()){
+        	Enemy e = eit.next();
+        	if (e.isDespawned())it.remove();
+        }
         player.update(deltaTime);
         for(Enemy e: enemys) e.update(deltaTime);
         for(Sword s: swords) s.update(deltaTime);

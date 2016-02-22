@@ -16,6 +16,7 @@ public class Sword extends AbstractGameObject{
 
 	    private TiledMapTileLayer mapLayer;
 	    private Player player;
+	    private boolean despawned;
 
 	    public Sword(TiledMapTileLayer mapLayer ,Player player) {
 	        this.mapLayer = mapLayer;
@@ -24,7 +25,8 @@ public class Sword extends AbstractGameObject{
 	    }
 
 	    public void init() {
-
+	    	despawned = false;
+	    	sword = Assets.instance.sword;
 	        // กำหนดค่าทางฟิสิกส์
 	        friction.set(INTITAL_FRICTION, INTITAL_FRICTION);
 	        acceleration.set(0.0f, 0.0f);
@@ -32,7 +34,8 @@ public class Sword extends AbstractGameObject{
 	        scale.set(SCALE, SCALE);
 
 	        setDimension(Assets.instance.sword.getRegionWidth(),Assets.instance.sword.getRegionHeight());
-	        position.set(player.position);
+	        position.set(player.position.x + player.origin.x - origin.x,
+	        		player.position.y + player.origin.y - origin.y);
 	        updateBounds();
 
 	    	switch(player.getViewDirection()){
@@ -57,16 +60,21 @@ public class Sword extends AbstractGameObject{
 	        position.x += velocity.x * deltaTime;
 	        updateBounds();
 	        if (collidesLeft() || collidesRight()) {
-	        	position.x += 1000;
+	        	despawned = true;
 	            updateBounds();
 	        }
 
 	        position.y += velocity.y * deltaTime;
 	        updateBounds();
 	        if (collidesTop() || collidesBottom()) {
-	        	position.y += 1000;
+	        	despawned = true;
 	            updateBounds();
 	        }
+
+	    }
+
+	    public boolean isDespawned(){
+	    	return despawned;
 	    }
 
 	    public boolean collidesRight() {
@@ -108,7 +116,6 @@ public class Sword extends AbstractGameObject{
 
 	    @Override
 	    public void render(SpriteBatch batch) {
-	        // วาดตัวละคร ตามตำแหน่ง ขนาด และองศาตามที่กำหนด
-	        render(batch, Assets.instance.sword);
+	        render(batch, sword);
 	    }
 }

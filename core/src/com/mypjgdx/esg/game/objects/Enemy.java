@@ -46,19 +46,22 @@ public class Enemy extends AbstractGameObject {
 
     private TiledMapTileLayer mapLayer;
     private Player player;
-
+    private Sword sword;
+    private boolean despawned;
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
     private Vector2 oldPosition;
-    public Enemy(TiledMapTileLayer mapLayer ,Player player) {
+    public Enemy(TiledMapTileLayer mapLayer ,Player player, Sword swords) {
 
         oldPosition = new Vector2();
         this.mapLayer = mapLayer;
         this.player = player;
+        this.sword = swords;
         init();
     }
 
     public void init() {
+    	despawned = false;
         // Load Texture ทั้งหมดของตัวละคร
         enemyAtlas = Assets.instance.enemyAltas;
 
@@ -158,11 +161,17 @@ public class Enemy extends AbstractGameObject {
         		player.velocity.y = -300;
         	}
         }
+        if (bounds.overlaps(sword.bounds)) {
+        	despawned = true;
+        }
 
         updateViewDirection();
         updateKeyFrame(deltaTime);
     }
 
+    public boolean isDespawned(){
+    	return despawned;
+    }
 
     private void updateViewDirection() { // update ทิศที่ enemy มองอยู่  โดยยึดการมองด้านแกน X  เป็นหลักหากมีการเดินเฉียง
         if (velocity.x != 0) {
@@ -248,7 +257,6 @@ public class Enemy extends AbstractGameObject {
 
     @Override
     public void render(SpriteBatch batch) {
-
         // วาดตัวละคร ตามตำแหน่ง ขนาด และองศาตามที่กำหนด
         render(batch, enemyRegion);
     }
