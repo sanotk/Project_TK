@@ -10,7 +10,7 @@ public class Sword extends AbstractGameObject{
 
 	    private static final float SCALE = 0.2f;
 
-	    private static final float INTITAL_FRICTION = 100;  // ค่าแรงเสียดทานเริ่มต้น
+	    private static final float INTITAL_FRICTION = 0;  // ค่าแรงเสียดทานเริ่มต้น
 	    private static final float INTITIAL_SPEED = 100; // ค่าความเร็วต้น
 	    private TextureRegion sword;
 

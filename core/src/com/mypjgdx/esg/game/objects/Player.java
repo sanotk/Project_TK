@@ -193,11 +193,16 @@ public class Player extends AbstractGameObject {
     	if(state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
     		animationTime = 0;
+
     	}
     }
 
     public void rangeAttack(List<Sword>swords,TiledMapTileLayer mapLayer){
-    	swords.add(new Sword(mapLayer, this));
+    	if(state != PlayerState.ATTACK){
+    		state = PlayerState.ATTACK;
+    		animationTime = 0;
+    		swords.add(new Sword(mapLayer, this));
+    	}
     }
 
     public boolean collidesRight() {
