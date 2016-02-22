@@ -1,6 +1,7 @@
 package com.mypjgdx.esg.game.objects;
 
 import java.util.Comparator;
+import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
@@ -66,6 +67,10 @@ public class Player extends AbstractGameObject {
         // กำหนดค่าเริ่มต้น เวลาสร้างตัวละครใหม่
         init();
         position.set(xPosition, yPosition);
+    }
+
+    public ViewDirection getViewDirection(){
+    	return viewDirection;
     }
 
     public void init() {
@@ -185,8 +190,14 @@ public class Player extends AbstractGameObject {
     }
 
     public void attack(){
-    	state = PlayerState.ATTACK;
-    	animationTime = 0;
+    	if(state != PlayerState.ATTACK){
+    		state = PlayerState.ATTACK;
+    		animationTime = 0;
+    	}
+    }
+
+    public void rangeAttack(List<Sword>swords,TiledMapTileLayer mapLayer){
+    	swords.add(new Sword(mapLayer, this));
     }
 
     public boolean collidesRight() {
@@ -220,7 +231,7 @@ public class Player extends AbstractGameObject {
     private boolean isCellBlocked(float x, float y) {
         int cellX = (int) (x/ mapLayer.getTileWidth());
         int cellY = (int) (y/ mapLayer.getTileHeight());
-        if (cellX < mapLayer.getWidth() && cellX >= 0 && cellY <= mapLayer.getHeight() && cellY >= 0) {
+        if (cellX < mapLayer.getWidth() && cellX >= 0 && cellY < mapLayer.getHeight() && cellY >= 0) {
             return mapLayer.getCell(cellX, cellY).getTile().getProperties().containsKey("blocked");
         }
         return false;

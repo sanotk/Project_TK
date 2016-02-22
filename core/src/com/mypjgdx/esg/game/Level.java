@@ -10,12 +10,14 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.game.objects.Player;
+import com.mypjgdx.esg.game.objects.Sword;
 
 public class Level {
 
     public final Player player; // ตัวละครที่ผู้เล่นจะได้ควบคุม
     List<Enemy> enemy = new ArrayList<Enemy>();
-    //public final Enemy enemy; // ตัวละครที่ผู้เล่นจะได้ควบคุม
+    public List<Sword> swords = new ArrayList<Sword>();
+
     public final Map map;   // แผนที่ในเกม
 
     public Level (Map map) {
@@ -35,6 +37,7 @@ public class Level {
 
         batch.begin();
         player.render(batch);
+        for(Sword s: swords) s.render(batch);
         enemy.get(0).render(batch);
         batch.end();
 
@@ -46,6 +49,7 @@ public class Level {
     public void update(float deltaTime) {
         player.update(deltaTime);
         enemy.get(0).update(deltaTime);
+        for(Sword s: swords) s.update(deltaTime);
     }
 
 }

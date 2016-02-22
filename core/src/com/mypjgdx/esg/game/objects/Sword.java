@@ -8,22 +8,14 @@ import com.mypjgdx.esg.game.Assets;
 
 public class Sword extends AbstractGameObject{
 
-	    // จำนวนเฟรมต่อ 1 ทิศ
-	    private static final int FRAME_PER_DIRECTION = 3;
-
-	    // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
-	    private static final float FRAME_DURATION = 1.0f / 8.0f;
-
-	    // อัตราการขยายภาพ player
 	    private static final float SCALE = 0.2f;
 
-	    private static final float INTITAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
+	    private static final float INTITAL_FRICTION = 100;  // ค่าแรงเสียดทานเริ่มต้น
+	    private static final float INTITIAL_SPEED = 100; // ค่าความเร็วต้น
 	    private TextureRegion sword;
 
 	    private TiledMapTileLayer mapLayer;
 	    private Player player;
-	    // เวลา Animation ที่ใช้หา KeyFrame
-	    private float animationTime;
 
 	    public Sword(TiledMapTileLayer mapLayer ,Player player) {
 	        this.mapLayer = mapLayer;
@@ -32,16 +24,29 @@ public class Sword extends AbstractGameObject{
 	    }
 
 	    public void init() {
-	        sword = Assets.instance.sword;
+
 	        // กำหนดค่าทางฟิสิกส์
 	        friction.set(INTITAL_FRICTION, INTITAL_FRICTION);
 	        acceleration.set(0.0f, 0.0f);
-
-	        // กำหนดเวลา Animation เริ่มต้นเท่ากับ 0
-	        animationTime = 0.0f;
-
-	        // กำหนดขนาดสเกลของ player
+	        // กำหนดขนาดสเกลของ ดาบ
 	        scale.set(SCALE, SCALE);
+
+	        setDimension(Assets.instance.sword.getRegionWidth(),Assets.instance.sword.getRegionHeight());
+	        position.set(player.position);
+	        updateBounds();
+
+	    	switch(player.getViewDirection()){
+			case DOWN: velocity.set(0,-INTITIAL_SPEED);
+				break;
+			case LEFT: velocity.set(-INTITIAL_SPEED,0);
+				break;
+			case RIGHT: velocity.set(INTITIAL_SPEED,0);
+				break;
+			case UP: velocity.set(0, INTITIAL_SPEED);
+				break;
+			default:
+				break;
+	    	}
 	    }
 
 	    @Override
@@ -93,7 +98,7 @@ public class Sword extends AbstractGameObject{
 	    private boolean isCellBlocked(float x, float y) {
 	        int cellX = (int) (x/ mapLayer.getTileWidth());
 	        int cellY = (int) (y/ mapLayer.getTileHeight());
-	        if (cellX < mapLayer.getWidth() && cellX >= 0 && cellY <= mapLayer.getHeight() && cellY >= 0) {
+	        if (cellX < mapLayer.getWidth() && cellX >= 0 && cellY < mapLayer.getHeight() && cellY >= 0) {
 	            return mapLayer.getCell(cellX, cellY).getTile().getProperties().containsKey("blocked");
 	        }
 	        return false;
@@ -102,6 +107,6 @@ public class Sword extends AbstractGameObject{
 	    @Override
 	    public void render(SpriteBatch batch) {
 	        // วาดตัวละคร ตามตำแหน่ง ขนาด และองศาตามที่กำหนด
-	        render(batch, sword);
+	        render(batch, Assets.instance.sword);
 	    }
 }

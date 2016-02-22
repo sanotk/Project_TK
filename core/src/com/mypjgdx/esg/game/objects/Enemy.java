@@ -140,10 +140,13 @@ public class Enemy extends AbstractGameObject {
             updateBounds();
         }
 
+        float angle = MathUtils.atan2((player.bounds.y + player.bounds.height/2 - bounds.y - bounds.height/2),
+        		(player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2));
+
         if (bounds.overlaps(player.bounds)) {
                 // collision detected!
         	if(player.bounds.x > bounds.x && player.bounds.y < bounds.y){
-        		player.velocity.x = 300;
+        		player.velocity.set(250f*MathUtils.cos(angle), 250f*MathUtils.sin(angle));
         	}
         	else if(player.bounds.x < bounds.x && player.bounds.y > bounds.y){
         		player.velocity.x = -300;
@@ -237,7 +240,7 @@ public class Enemy extends AbstractGameObject {
     private boolean isCellBlocked(float x, float y) {
         int cellX = (int) (x/ mapLayer.getTileWidth());
         int cellY = (int) (y/ mapLayer.getTileHeight());
-        if (cellX < mapLayer.getWidth() && cellX >= 0 && cellY <= mapLayer.getHeight() && cellY >= 0) {
+        if (cellX < mapLayer.getWidth() && cellX >= 0 && cellY < mapLayer.getHeight() && cellY >= 0) {
             return mapLayer.getCell(cellX, cellY).getTile().getProperties().containsKey("blocked");
         }
         return false;

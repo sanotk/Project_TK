@@ -47,7 +47,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         manager.finishLoading();
 
-        sword = manager.get("sword.png");
+        sword = new TextureRegion((Texture)manager.get("sword.png"));
         playerAltas = manager.get("player_pack.atlas");
         enemyAltas = manager.get("player_pack.atlas");
         map1 = manager.get("map1.tmx");

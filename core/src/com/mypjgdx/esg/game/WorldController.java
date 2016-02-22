@@ -75,8 +75,9 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.DOWN)) playerVelocity.y = -PLAYER_SPEED ;      //กดลูกศรลง
             if (Gdx.input.isKeyPressed(Keys.LEFT)) playerVelocity.x = -PLAYER_SPEED ;      //กดลูกศรซ้าย
             if (Gdx.input.isKeyPressed(Keys.RIGHT)) playerVelocity.x = PLAYER_SPEED ;     //กดลูกศรขวา
+            if (Gdx.input.isKeyPressed(Keys.X)) level.player.attack() ;
+            if (Gdx.input.isKeyPressed(Keys.Z)) level.player.rangeAttack(level.swords, level.map.getMapLayer()); ;
         }
-
      }
 
     @Override
@@ -87,9 +88,6 @@ public class WorldController extends InputAdapter {
             cameraHelper.setZoom(1.0f);
             //level.player.init();
             level.enemy.get(0).init();
-            break;
-        case Keys.X:  // กด x เพื่อโจมตี
-        	level.player.attack();
             break;
         case Keys.SPACE: // กด Spacebar เพื่อให้มุมกล้องติดตาม/เลิกติดตาม player
             if (!cameraHelper.hasTarget()) cameraHelper.setTarget(level.player);
