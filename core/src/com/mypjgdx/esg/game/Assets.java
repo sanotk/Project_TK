@@ -46,6 +46,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("map4.tmx", TiledMap.class);
         manager.load("music.mp3", Music.class);
 
+
         manager.finishLoading();
 
         sword = new TextureRegion((Texture)manager.get("sword.png"));

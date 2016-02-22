@@ -1,7 +1,9 @@
 package com.mypjgdx.esg.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Disposable;
@@ -20,6 +22,26 @@ public class WorldRenderer implements Disposable {
     private SpriteBatch batch; //ตัวแปรการวาด
     private OrthogonalTiledMapRenderer tiledRenderer; // ตัววาด Tiled
     private ShapeRenderer shapeRenderer; // วาดเส้นหรือรูปทรงต่างๆ
+    private ShaderProgram shader;
+
+    private enum State {
+        TransitionIn,
+        TransitionOut,
+        Picture,
+    }
+
+    private static final float WORLD_TO_SCREEN = 1.0f / 100.0f;
+
+    private static final float TRANSITION_IN_TIME = 2.0f;
+    private static final float TRANSITION_OUT_TIME = 1.5f;
+    private static final float PICTURE_TIME = 2.0f;
+    private static final float MAX_RADIUS = 1.3f;
+
+    // สถานะ ตัวนับเวลา ขนาดหน้าจอ และรัศมีส่วนสว่าง
+    private State state;
+    private float time;
+    private float resolution[];
+    private float radius;
 
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
@@ -32,8 +54,16 @@ public class WorldRenderer implements Disposable {
 
         batch = new SpriteBatch();//สร้างออปเจ็คไว้วาดสิ่งต่างๆ
         tiledRenderer = new OrthogonalTiledMapRenderer(null);
+        shader = new ShaderProgram(Gdx.files.internal("vignette.vert"), Gdx.files.internal("vignette.frag"));
+        resolution = new float[2];
+
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setColor(1.0f, 0.0f, 0.0f, 1.0f);
+
+
+        // สถานะเริ่มต้นเป็น Transiton in
+        state = State.TransitionIn;
+        time = 0.0f;
     }
 
     public void render () {
@@ -42,6 +72,7 @@ public class WorldRenderer implements Disposable {
     }
 
     private void renderWorld() {
+    	batch.setShader(shader);
         worldController.cameraHelper.applyTo(camera); //อัพเดทมุมกล้อง
         batch.setProjectionMatrix(camera.combined); //เรนเดอร์ภาพให้สอดคล้องกับมุมกล้อง
         tiledRenderer.setView(camera);
@@ -61,6 +92,7 @@ public class WorldRenderer implements Disposable {
     public void dispose() {
         tiledRenderer.dispose();
         batch.dispose();
+        shader.dispose();
     }
 
 }
