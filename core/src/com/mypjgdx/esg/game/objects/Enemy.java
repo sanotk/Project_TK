@@ -48,6 +48,7 @@ public class Enemy extends AbstractGameObject {
     private TiledMapTileLayer mapLayer;
     private Player player;
     private List<Sword> swords;
+    private int count=0;
     private boolean despawned;
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
@@ -138,16 +139,19 @@ public class Enemy extends AbstractGameObject {
             updateBounds();
         }
 
-        float angle = MathUtils.atan2((player.bounds.y + player.bounds.height/2 - bounds.y - bounds.height/2),
-        		(player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2));
-
         if (bounds.overlaps(player.bounds)) {
-        		player.velocity.set(250f*MathUtils.cos(angle), 250f*MathUtils.sin(angle));
+        	float angle = MathUtils.atan2((player.bounds.y + player.bounds.height/2 - bounds.y - bounds.height/2),
+             		(player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2));
+        	player.velocity.set(250f*MathUtils.cos(angle), 250f*MathUtils.sin(angle));
         }
-        for(Sword s: swords) {
-        	if (bounds.overlaps(s.bounds)) despawned = true;
-        };
 
+        for(Sword s: swords) {
+        	if (bounds.overlaps(s.bounds)) {
+        		count++;
+        		s.despawn();
+        		if(count==5){despawned = true;}
+        	}
+        };
 
         updateViewDirection();
         updateKeyFrame(deltaTime);

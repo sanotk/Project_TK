@@ -8,10 +8,10 @@ import com.mypjgdx.esg.game.Assets;
 
 public class Sword extends AbstractGameObject{
 
-	    private static final float SCALE = 0.2f;
+	    private static final float SCALE = 0.4f;
 
-	    private static final float INTITAL_FRICTION = 0;  // ค่าแรงเสียดทานเริ่มต้น
-	    private static final float INTITIAL_SPEED = 100; // ค่าความเร็วต้น
+	    private static final float INTITAL_FRICTION = 50;  // ค่าแรงเสียดทานเริ่มต้น
+	    private static final float INTITIAL_SPEED = 400; // ค่าความเร็วต้น
 	    private TextureRegion sword;
 
 	    private TiledMapTileLayer mapLayer;
@@ -39,13 +39,13 @@ public class Sword extends AbstractGameObject{
 	        updateBounds();
 
 	    	switch(player.getViewDirection()){
-			case DOWN: velocity.set(0,-INTITIAL_SPEED);
+			case DOWN: rotation = 90; velocity.set(0,-INTITIAL_SPEED);
 				break;
 			case LEFT: velocity.set(-INTITIAL_SPEED,0);
 				break;
 			case RIGHT: velocity.set(INTITIAL_SPEED,0);
 				break;
-			case UP: velocity.set(0, INTITIAL_SPEED);
+			case UP: rotation = 90; velocity.set(0, INTITIAL_SPEED);
 				break;
 			default:
 				break;
@@ -75,6 +75,10 @@ public class Sword extends AbstractGameObject{
 
 	    public boolean isDespawned(){
 	    	return despawned;
+	    }
+
+	    public boolean despawn(){
+	    	return despawned = true;
 	    }
 
 	    public boolean collidesRight() {

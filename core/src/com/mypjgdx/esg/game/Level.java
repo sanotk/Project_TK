@@ -18,7 +18,7 @@ public class Level {
     public final Player player; // ตัวละครที่ผู้เล่นจะได้ควบคุม
     List<Enemy> enemys = new ArrayList<Enemy>();
     public List<Sword> swords = new ArrayList<Sword>();
-
+    public int count=0;
     public final Map map;   // แผนที่ในเกม
     public final int MAX_ENEMY = 5;
 
