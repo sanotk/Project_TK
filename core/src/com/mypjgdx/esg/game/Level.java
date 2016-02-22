@@ -26,7 +26,7 @@ public class Level {
         this.map = map;
         player = new Player((TiledMapTileLayer) map.getTiledMap().getLayers().get(0));
         for(int i = 0;i<MAX_ENEMY;i++){
-        	enemys.add(new Enemy(map.getMapLayer(),player ,(Sword) swords));
+        	enemys.add(new Enemy(map.getMapLayer(),player ,swords));
         }
     }
 
@@ -55,7 +55,7 @@ public class Level {
         }
         while(eit.hasNext()){
         	Enemy e = eit.next();
-        	if (e.isDespawned())it.remove();
+        	if (e.isDespawned())eit.remove();
         }
         player.update(deltaTime);
         for(Enemy e: enemys) e.update(deltaTime);

@@ -1,6 +1,7 @@
 package com.mypjgdx.esg.game.objects;
 
 import java.util.Comparator;
+import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
@@ -46,17 +47,17 @@ public class Enemy extends AbstractGameObject {
 
     private TiledMapTileLayer mapLayer;
     private Player player;
-    private Sword sword;
+    private List<Sword> swords;
     private boolean despawned;
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
     private Vector2 oldPosition;
-    public Enemy(TiledMapTileLayer mapLayer ,Player player, Sword swords) {
+    public Enemy(TiledMapTileLayer mapLayer ,Player player, List<Sword> swords) {
 
         oldPosition = new Vector2();
         this.mapLayer = mapLayer;
         this.player = player;
-        this.sword = swords;
+        this.swords = swords;
         init();
     }
 
@@ -76,10 +77,10 @@ public class Enemy extends AbstractGameObject {
         Array<AtlasRegion> enemyWalkUpRegions = new Array<AtlasRegion>();
 
         // เซ็ตค่าอนิเมชั่นของตัวละคร
-        enemyWalkUpRegions.addAll(enemyRegions, 2 * FRAME_PER_DIRECTION,  FRAME_PER_DIRECTION);
-        enemyWalkDownRegions.addAll(enemyRegions, 3 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
-        enemyWalkLeftRegions.addAll(enemyRegions, 4 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
-        enemyWalkRightRegions.addAll(enemyRegions, 5 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
+        enemyWalkUpRegions.addAll(enemyRegions, 0 * FRAME_PER_DIRECTION,  FRAME_PER_DIRECTION);
+        enemyWalkDownRegions.addAll(enemyRegions, 1 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
+        enemyWalkLeftRegions.addAll(enemyRegions, 2 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
+        enemyWalkRightRegions.addAll(enemyRegions, 3 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
 
         // สร้าง Animation ทิศการเดินต่างๆ
         walkLeft = new Animation(FRAME_DURATION, enemyWalkLeftRegions, PlayMode.LOOP);
@@ -141,23 +142,12 @@ public class Enemy extends AbstractGameObject {
         		(player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2));
 
         if (bounds.overlaps(player.bounds)) {
-                // collision detected!
-        	if(player.bounds.x > bounds.x && player.bounds.y < bounds.y){
         		player.velocity.set(250f*MathUtils.cos(angle), 250f*MathUtils.sin(angle));
-        	}
-        	else if(player.bounds.x < bounds.x && player.bounds.y > bounds.y){
-        		player.velocity.x = -300;
-        	}
-        	else if(player.bounds.y > bounds.y){
-        		player.velocity.y = 300;
-        	}
-        	else if(player.bounds.y < bounds.y){
-        		player.velocity.y = -300;
-        	}
         }
-        if (bounds.overlaps(sword.bounds)) {
-        	despawned = true;
-        }
+        for(Sword s: swords) {
+        	if (bounds.overlaps(s.bounds)) despawned = true;
+        };
+
 
         updateViewDirection();
         updateKeyFrame(deltaTime);
