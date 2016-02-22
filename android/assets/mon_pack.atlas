@@ -1,0 +1,89 @@
+
+mon_pack.png
+format: RGBA8888
+filter: Linear,MipMapLinearNearest
+repeat: none
+monster-B
+  rotate: false
+  xy: 1, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: -1
+monster-B1
+  rotate: false
+  xy: 153, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: -1
+monster-B2
+  rotate: false
+  xy: 305, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: -1
+monster-F
+  rotate: false
+  xy: 457, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: -1
+monster-F1
+  rotate: false
+  xy: 609, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: -1
+monster-F2
+  rotate: false
+  xy: 761, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: -1
+monster-L
+  rotate: false
+  xy: 913, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: -1
+monster-L1
+  rotate: false
+  xy: 1065, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: -1
+monster-L2
+  rotate: false
+  xy: 1217, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: -1
+monster-R
+  rotate: false
+  xy: 1369, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: -1
+monster-R1
+  rotate: false
+  xy: 1521, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: -1
+monster-R2
+  rotate: false
+  xy: 1673, 1
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: -1

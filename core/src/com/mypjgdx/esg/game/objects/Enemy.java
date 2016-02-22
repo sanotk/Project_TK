@@ -74,24 +74,18 @@ public class Enemy extends AbstractGameObject {
         Array<AtlasRegion> enemyWalkRightRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> enemyWalkDownRegions = new Array<AtlasRegion>();
         Array<AtlasRegion> enemyWalkUpRegions = new Array<AtlasRegion>();
-        Array<AtlasRegion> enemyAtkRightRegions = new Array<AtlasRegion>();
-        Array<AtlasRegion> enemyAtkLeftRegions = new Array<AtlasRegion>();
 
         // เซ็ตค่าอนิเมชั่นของตัวละคร
         enemyWalkUpRegions.addAll(enemyRegions, 2 * FRAME_PER_DIRECTION,  FRAME_PER_DIRECTION);
         enemyWalkDownRegions.addAll(enemyRegions, 3 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
         enemyWalkLeftRegions.addAll(enemyRegions, 4 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
         enemyWalkRightRegions.addAll(enemyRegions, 5 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
-        enemyAtkLeftRegions.addAll(enemyRegions, 0 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
-        enemyAtkRightRegions.addAll(enemyRegions, 1 * FRAME_PER_DIRECTION, FRAME_PER_DIRECTION);
 
         // สร้าง Animation ทิศการเดินต่างๆ
         walkLeft = new Animation(FRAME_DURATION, enemyWalkLeftRegions, PlayMode.LOOP);
         walkRight = new Animation(FRAME_DURATION, enemyWalkRightRegions, PlayMode.LOOP);
         walkDown = new Animation(FRAME_DURATION, enemyWalkDownRegions, PlayMode.LOOP);
         walkUp = new Animation(FRAME_DURATION, enemyWalkUpRegions, PlayMode.LOOP);
-        atkLeft = new Animation(FRAME_DURATION, enemyWalkDownRegions, PlayMode.LOOP);
-        atkRight = new Animation(FRAME_DURATION, enemyWalkUpRegions, PlayMode.LOOP);
 
         // กำหนดค่าทางฟิสิกส์
         friction.set(INTITAL_FRICTION, INTITAL_FRICTION);
