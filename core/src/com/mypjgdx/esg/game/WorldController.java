@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
+import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.utils.CameraHelper;
 
 public class WorldController extends InputAdapter {
@@ -87,7 +88,7 @@ public class WorldController extends InputAdapter {
             cameraHelper.setPosition(0, 0);
             cameraHelper.setZoom(1.0f);
             //level.player.init();
-            level.enemy.get(0).init();
+            for(Enemy e: level.enemys) e.init();
             break;
         case Keys.SPACE: // กด Spacebar เพื่อให้มุมกล้องติดตาม/เลิกติดตาม player
             if (!cameraHelper.hasTarget()) cameraHelper.setTarget(level.player);

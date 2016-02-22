@@ -15,20 +15,18 @@ import com.mypjgdx.esg.game.objects.Sword;
 public class Level {
 
     public final Player player; // ตัวละครที่ผู้เล่นจะได้ควบคุม
-    List<Enemy> enemy = new ArrayList<Enemy>();
+    List<Enemy> enemys = new ArrayList<Enemy>();
     public List<Sword> swords = new ArrayList<Sword>();
 
     public final Map map;   // แผนที่ในเกม
+    public final int MAX_ENEMY = 10;
 
     public Level (Map map) {
         this.map = map;
         player = new Player((TiledMapTileLayer) map.getTiledMap().getLayers().get(0));
-
-        enemy.add(new Enemy((TiledMapTileLayer) map.getTiledMap().getLayers().get(0),player));
-        enemy.add(new Enemy((TiledMapTileLayer) map.getTiledMap().getLayers().get(0),player));
-        enemy.add(new Enemy((TiledMapTileLayer) map.getTiledMap().getLayers().get(0),player));
-        enemy.add(new Enemy((TiledMapTileLayer) map.getTiledMap().getLayers().get(0),player));
-        enemy.add(new Enemy((TiledMapTileLayer) map.getTiledMap().getLayers().get(0),player));
+        for(int i = 0;i<MAX_ENEMY;i++){
+        	enemys.add(new Enemy(map.getMapLayer(),player));
+        }
     }
 
     public void render (SpriteBatch batch, OrthogonalTiledMapRenderer tiledRenderer, ShapeRenderer shapeRenderer) {
@@ -37,8 +35,9 @@ public class Level {
 
         batch.begin();
         player.render(batch);
+        for(Enemy e: enemys) e.render(batch);
         for(Sword s: swords) s.render(batch);
-        enemy.get(0).render(batch);
+
         batch.end();
 
         shapeRenderer.begin(ShapeType.Line);
@@ -48,7 +47,7 @@ public class Level {
 
     public void update(float deltaTime) {
         player.update(deltaTime);
-        enemy.get(0).update(deltaTime);
+        for(Enemy e: enemys) e.update(deltaTime);
         for(Sword s: swords) s.update(deltaTime);
     }
 
