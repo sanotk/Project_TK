@@ -57,12 +57,14 @@ public class Sword extends AbstractGameObject{
 	        position.x += velocity.x * deltaTime;
 	        updateBounds();
 	        if (collidesLeft() || collidesRight()) {
+	        	position.x += 1000;
 	            updateBounds();
 	        }
 
 	        position.y += velocity.y * deltaTime;
 	        updateBounds();
 	        if (collidesTop() || collidesBottom()) {
+	        	position.y += 1000;
 	            updateBounds();
 	        }
 	    }
