@@ -22,26 +22,9 @@ public class WorldRenderer implements Disposable {
     private SpriteBatch batch; //ตัวแปรการวาด
     private OrthogonalTiledMapRenderer tiledRenderer; // ตัววาด Tiled
     private ShapeRenderer shapeRenderer; // วาดเส้นหรือรูปทรงต่างๆ
+
     private ShaderProgram shader;
-
-    private enum State {
-        TransitionIn,
-        TransitionOut,
-        Picture,
-    }
-
-    private static final float WORLD_TO_SCREEN = 1.0f / 100.0f;
-
-    private static final float TRANSITION_IN_TIME = 2.0f;
-    private static final float TRANSITION_OUT_TIME = 1.5f;
-    private static final float PICTURE_TIME = 2.0f;
-    private static final float MAX_RADIUS = 1.3f;
-
-    // สถานะ ตัวนับเวลา ขนาดหน้าจอ และรัศมีส่วนสว่าง
-    private State state;
-    private float time;
-    private float resolution[];
-    private float radius;
+    private SpriteBatch batch2;
 
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
@@ -53,17 +36,12 @@ public class WorldRenderer implements Disposable {
         viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT, camera); //สร้างออปเจ็คการมองของกล้องเก็บไว้ในตัวแปร
 
         batch = new SpriteBatch();//สร้างออปเจ็คไว้วาดสิ่งต่างๆ
-        tiledRenderer = new OrthogonalTiledMapRenderer(null);
-        shader = new ShaderProgram(Gdx.files.internal("vignette.vert"), Gdx.files.internal("vignette.frag"));
-        resolution = new float[2];
-
+        tiledRenderer = new OrthogonalTiledMapRenderer(null,batch2);
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setColor(1.0f, 0.0f, 0.0f, 1.0f);
 
-
-        // สถานะเริ่มต้นเป็น Transiton in
-        state = State.TransitionIn;
-        time = 0.0f;
+        shader = new ShaderProgram(Gdx.files.internal("myshader.vert"), Gdx.files.internal("myshader.frag"));
+        batch.setShader(shader);
     }
 
     public void render () {
@@ -72,7 +50,6 @@ public class WorldRenderer implements Disposable {
     }
 
     private void renderWorld() {
-    	batch.setShader(shader);
         worldController.cameraHelper.applyTo(camera); //อัพเดทมุมกล้อง
         batch.setProjectionMatrix(camera.combined); //เรนเดอร์ภาพให้สอดคล้องกับมุมกล้อง
         tiledRenderer.setView(camera);
