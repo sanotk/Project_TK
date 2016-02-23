@@ -42,7 +42,7 @@ public class Level {
         batch.end();
 
         shapeRenderer.begin(ShapeType.Line);
-        shapeRenderer.rect(player.bounds.x, player.bounds.y, player.bounds.width, player.bounds.height);
+        //shapeRenderer.rect(player.bounds.x, player.bounds.y, player.bounds.width, player.bounds.height);
         shapeRenderer.end();
     }
 

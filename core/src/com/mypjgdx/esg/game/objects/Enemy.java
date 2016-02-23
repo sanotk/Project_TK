@@ -42,8 +42,6 @@ public class Enemy extends AbstractGameObject {
     private Animation walkRight;
     private Animation walkUp;
     private Animation walkDown;
-    private Animation atkLeft;
-    private Animation atkRight;
 
     private TiledMapTileLayer mapLayer;
     private Player player;
@@ -147,6 +145,9 @@ public class Enemy extends AbstractGameObject {
 
         for(Sword s: swords) {
         	if (bounds.overlaps(s.bounds)) {
+        		float angle2 = MathUtils.atan2((bounds.y + bounds.height/2 - s.bounds.y - s.bounds.height/2),
+                 		(bounds.x + bounds.width/2 - s.bounds.x - s.bounds.width/2));
+            	velocity.set(250f*MathUtils.cos(angle2), 250f*MathUtils.sin(angle2));
         		count++;
         		s.despawn();
         		if(count==5){despawned = true;}

@@ -24,6 +24,7 @@ public class WorldRenderer implements Disposable {
     private ShapeRenderer shapeRenderer; // วาดเส้นหรือรูปทรงต่างๆ
 
     private ShaderProgram shader;
+    private float[] resolution = new float[2];
 
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
@@ -62,6 +63,16 @@ public class WorldRenderer implements Disposable {
 
     public void resize(int width, int height) { //ปรับขนาด viewport ให้เหมาะสมกับขนาดจอที่เปลี่ยนไป
         viewport.update(width, height);
+        resolution[0] = width;
+        resolution[1] = height;
+        shader.begin();
+        // setUniform2fv หมายถึง vector 2 มิติ เก็บตัวแปรขนิด float
+        //argument ตัวแรก คือชื่อของตัวแปรให้ fragment shader
+        //ตัวสองคือ ตัวแปรที่จะส่งค่า
+        //ตัวสามคือ ตำแหน่งเริ่มต้นที่จะเกบ
+        //ตัวสีคือจำนวนของข้อมูล ก็คือ 2 ตัว
+        shader.setUniform2fv("resolution", resolution, 0, 2);
+        shader.end();
     }
 
     @Override

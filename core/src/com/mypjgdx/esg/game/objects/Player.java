@@ -193,7 +193,6 @@ public class Player extends AbstractGameObject {
     	if(state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
     		animationTime = 0;
-
     	}
     }
 
@@ -202,6 +201,7 @@ public class Player extends AbstractGameObject {
     		state = PlayerState.ATTACK;
     		animationTime = 0;
     		swords.add(new Sword(mapLayer, this));
+            Assets.instance.bullet.play();
     	}
     }
 

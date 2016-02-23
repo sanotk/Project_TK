@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -27,6 +28,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public TiledMap map3;
     public TiledMap map4;
     public Music music;
+    public Sound bullet;
 
 
     private Assets() {}
@@ -45,6 +47,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("map3.tmx", TiledMap.class);
         manager.load("map4.tmx", TiledMap.class);
         manager.load("music.mp3", Music.class);
+        manager.load("bullet.wav", Sound.class);
 
 
         manager.finishLoading();
@@ -57,6 +60,7 @@ public class Assets implements Disposable, AssetErrorListener {
         map3 = manager.get("map3.tmx");
         map4 = manager.get("map4.tmx");
         music = manager.get("music.mp3");
+        bullet = manager.get("bullet.wav");
     }
 
     @SuppressWarnings("rawtypes")
