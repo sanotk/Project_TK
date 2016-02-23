@@ -6,7 +6,7 @@ attribute vec2 a_texCoord;
 
 varying vec2 v_texCoord;
 
-void mail() {
+void main() {
 	gl_Position = u_projTrans * a_position;
 	v_texCoord = a_texCoord;
 }

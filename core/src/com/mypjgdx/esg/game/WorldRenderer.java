@@ -24,7 +24,6 @@ public class WorldRenderer implements Disposable {
     private ShapeRenderer shapeRenderer; // วาดเส้นหรือรูปทรงต่างๆ
 
     private ShaderProgram shader;
-    private SpriteBatch batch2;
 
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
@@ -36,7 +35,7 @@ public class WorldRenderer implements Disposable {
         viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT, camera); //สร้างออปเจ็คการมองของกล้องเก็บไว้ในตัวแปร
 
         batch = new SpriteBatch();//สร้างออปเจ็คไว้วาดสิ่งต่างๆ
-        tiledRenderer = new OrthogonalTiledMapRenderer(null,batch2);
+        tiledRenderer = new OrthogonalTiledMapRenderer(null,batch);
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setColor(1.0f, 0.0f, 0.0f, 1.0f);
 
