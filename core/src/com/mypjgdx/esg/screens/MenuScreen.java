@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -15,6 +16,7 @@ public class MenuScreen extends AbstractGameScreen {
     public static final int SCENE_HEIGHT = 720; //เซตค่าความสูงของจอ
     private Stage stage; //
     private Skin skin; //
+    private Label text_mainmenu;
 
     public MenuScreen(final Game game) {
         super(game);
@@ -26,6 +28,11 @@ public class MenuScreen extends AbstractGameScreen {
 
         int btn_w = 200;
         int btn_h = 50;
+
+        text_mainmenu = new Label("Main Menu" ,skin);
+        text_mainmenu.setColor(1, 1, 1, 1);
+        text_mainmenu.setFontScale(1.2f,1.2f);
+        text_mainmenu.setPosition(SCENE_WIDTH / 2 - btn_w / 2 + 50, 550);
 
         TextButton buttonStart = new TextButton("START", skin);
         buttonStart.setWidth(btn_w);
@@ -51,6 +58,7 @@ public class MenuScreen extends AbstractGameScreen {
         stage.addActor(buttonLoad);
         stage.addActor(buttonOption);
         stage.addActor(buttonExit);
+        stage.addActor(text_mainmenu);
 
         buttonStart.addListener(new ClickListener() {
             @Override

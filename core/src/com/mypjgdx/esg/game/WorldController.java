@@ -96,7 +96,6 @@ public class WorldController extends InputAdapter {
             init(new Level(level.map.next()));
             break;
         }
-
         return true;
     }
 
