@@ -108,8 +108,8 @@ public class Enemy extends AbstractGameObject {
         double distance;
         final double MIN_DISTANCE = 200;
        	do{
-    		position.x = MathUtils.random(0,mapWidth-bounds.width);
-    		position.y = MathUtils.random(100,mapHeight-bounds.height);
+    		position.x = MathUtils.random(200,mapWidth-bounds.width);
+    		position.y = MathUtils.random(200,mapHeight-bounds.height);
     		updateBounds();
     		distance = Math.sqrt((position.x-player.position.x)*(position.x-player.position.x)+(position.y-player.position.y)*(position.y-player.position.y));
 
@@ -145,12 +145,9 @@ public class Enemy extends AbstractGameObject {
 
         for(Sword s: swords) {
         	if (bounds.overlaps(s.bounds)) {
-        		float angle2 = MathUtils.atan2((bounds.y + bounds.height/2 - s.bounds.y - s.bounds.height/2),
-                 		(bounds.x + bounds.width/2 - s.bounds.x - s.bounds.width/2));
-            	velocity.set(250f*MathUtils.cos(angle2), 250f*MathUtils.sin(angle2));
         		count++;
         		s.despawn();
-        		if(count==5){despawned = true;}
+        		if(count==5){despawned = true; }
         	}
         };
 
