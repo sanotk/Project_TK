@@ -59,7 +59,7 @@ public class OptionScreen extends AbstractGameScreen {
         if(!Assets.instance.music.isPlaying()){
         	stat_music.clear();
         	status_music = null;
-            status_music = new Label("Music : CLOSE" ,skin);
+            status_music = new Label("Music : OFF" ,skin);
             status_music.setColor(1, 0, 1, 1);
             status_music.setFontScale(1.1f,1.1f);
             status_music.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 460);
@@ -67,19 +67,19 @@ public class OptionScreen extends AbstractGameScreen {
         }else{
             stat_music.clear();
         	status_music = null;
-            status_music = new Label("Music : OPEN" ,skin);
+            status_music = new Label("Music : ON" ,skin);
             status_music.setColor(0, 1, 1, 1);
             status_music.setFontScale(1.1f,1.1f);
             status_music.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 460);
             stat_music.addActor(status_music);
         }
 
-        TextButton buttonStart = new TextButton("Open/Close", skin);
+        TextButton buttonStart = new TextButton("ON/OFF", skin);
         buttonStart.setWidth(btn_w);
         buttonStart.setHeight(btn_h);
         buttonStart.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 450);
 
-        TextButton buttonLoad = new TextButton("Open/Close", skin);
+        TextButton buttonLoad = new TextButton("ON/OFF", skin);
         buttonLoad.setWidth(btn_w);
         buttonLoad.setHeight(btn_h);
         buttonLoad.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 380);
@@ -99,7 +99,7 @@ public class OptionScreen extends AbstractGameScreen {
         if(sound==false){
         	stat_sound.clear();
         	status_sound = null;
-        	status_sound = new Label("Sound Effect : CLOSE" ,skin);
+        	status_sound = new Label("Sound Effect : OFF" ,skin);
         	status_sound.setColor(1, 0, 1, 1);
         	status_sound.setFontScale(1.1f,1.1f);
         	status_sound.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 390);
@@ -108,7 +108,7 @@ public class OptionScreen extends AbstractGameScreen {
         else {
             stat_sound.clear();
             status_sound = null;
-            status_sound = new Label("Sound Effect : OPEN" ,skin);
+            status_sound = new Label("Sound Effect : ON" ,skin);
             status_sound.setColor(0, 1, 1, 1);
             status_sound.setFontScale(1.1f,1.1f);
             status_sound.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 390);
@@ -123,7 +123,7 @@ public class OptionScreen extends AbstractGameScreen {
                 	Assets.instance.music.pause();
                 	stat_music.clear();
                 	status_music = null;
-                    status_music = new Label("Music : CLOSE" ,skin);
+                    status_music = new Label("Music : OFF" ,skin);
                     status_music.setColor(1, 0, 1, 1);
                     status_music.setFontScale(1.1f,1.1f);
                     status_music.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 460);
@@ -135,7 +135,7 @@ public class OptionScreen extends AbstractGameScreen {
                     Assets.instance.music.setLooping(true);
                     stat_music.clear();
                 	status_music = null;
-                    status_music = new Label("Music : OPEN" ,skin);
+                    status_music = new Label("Music : ON" ,skin);
                     status_music.setColor(0, 1, 1, 1);
                     status_music.setFontScale(1.1f,1.1f);
                     status_music.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 460);
@@ -153,7 +153,7 @@ public class OptionScreen extends AbstractGameScreen {
                 	sound = false;
                 	stat_sound.clear();
                 	status_sound = null;
-                	status_sound = new Label("Sound Effect : CLOSE" ,skin);
+                	status_sound = new Label("Sound Effect : OFF" ,skin);
                 	status_sound.setColor(1, 0, 1, 1);
                 	status_sound.setFontScale(1.1f,1.1f);
                 	status_sound.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 390);
@@ -164,7 +164,7 @@ public class OptionScreen extends AbstractGameScreen {
                     sound = true;
                     stat_sound.clear();
                     status_sound = null;
-                    status_sound = new Label("Sound Effect : OPEN" ,skin);
+                    status_sound = new Label("Sound Effect : ON" ,skin);
                     status_sound.setColor(0, 1, 1, 1);
                     status_sound.setFontScale(1.1f,1.1f);
                     status_sound.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 390);

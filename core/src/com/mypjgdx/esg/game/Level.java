@@ -13,7 +13,7 @@ import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.game.objects.Player;
 import com.mypjgdx.esg.game.objects.Sword;
 
-public class Level {
+public class Level{
 
     public final Player player; // ตัวละครที่ผู้เล่นจะได้ควบคุม
     List<Enemy> enemys = new ArrayList<Enemy>();
@@ -44,6 +44,11 @@ public class Level {
         shapeRenderer.begin(ShapeType.Line);
         //shapeRenderer.rect(player.bounds.x, player.bounds.y, player.bounds.width, player.bounds.height);
         shapeRenderer.end();
+
+        shapeRenderer.begin(ShapeType.Filled);
+        player.showHp(shapeRenderer);
+        for(Enemy e:enemys)e.showHp(shapeRenderer);
+        shapeRenderer.end();
     }
 
     public void update(float deltaTime) {
@@ -56,6 +61,9 @@ public class Level {
         while(eit.hasNext()){
         	Enemy e = eit.next();
         	if (e.isDespawned())eit.remove();
+        }
+        if (player.count==20){
+
         }
         player.update(deltaTime);
         for(Enemy e: enemys) e.update(deltaTime);

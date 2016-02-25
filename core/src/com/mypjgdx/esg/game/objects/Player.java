@@ -9,9 +9,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.game.Assets;
 
 public class Player extends AbstractGameObject {
@@ -29,6 +31,7 @@ public class Player extends AbstractGameObject {
     private static final float INTITAL_X_POSITION = 100;         // ตำแหน่งเริ่มต้นแกน X
     private static final float INTITAL_Y_POSITION = 100;      // ตำแหน่งเริ่มต้นแกน Y
 
+    long lastAttackTime;
     // ทิศที่ตัวละครมอง
     public enum ViewDirection {
         LEFT, RIGHT, UP, DOWN
@@ -39,7 +42,7 @@ public class Player extends AbstractGameObject {
     }
 
     private ViewDirection viewDirection;  // ทิศที่ตัวละครกำลังมองอยู่
-    private PlayerState state = PlayerState.WALK;
+    private PlayerState state = PlayerState.WALK; //สถานะของตัวละคร
 
     private TextureAtlas playerAtlas;       // Texture ทั้งหมดของตัวละคร
     private TextureRegion playerRegion;   // ส่วน Texture ของตัวละครที่จะใช้แสดง
@@ -50,6 +53,9 @@ public class Player extends AbstractGameObject {
     private Animation walkDown;
     private Animation atkLeft;
     private Animation atkRight;
+
+    public int count=0;
+    boolean despawned = false;
 
     private TiledMapTileLayer mapLayer;
     // เวลา Animation ที่ใช้หา KeyFrame
@@ -124,6 +130,7 @@ public class Player extends AbstractGameObject {
 
     @Override
     public void update(float deltaTime) {
+    	if(count==20){despawned = true; }
         oldPosition.set(position);
         updateMotionX(deltaTime);
         updateMotionY(deltaTime);
@@ -196,6 +203,12 @@ public class Player extends AbstractGameObject {
     	}
     }
 
+    public void hit_player(){
+    	if(TimeUtils.nanoTime() - lastAttackTime > 1000000000) {
+    		count++; lastAttackTime = TimeUtils.nanoTime();
+    	}
+    }
+
     public void rangeAttack(List<Sword>swords,TiledMapTileLayer mapLayer){
     	if(state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
@@ -242,10 +255,23 @@ public class Player extends AbstractGameObject {
         return false;
     }
 
+    public boolean isDespawned(){
+    	return despawned;
+    }
+
     @Override
     public void render(SpriteBatch batch) {
         // วาดตัวละคร ตามตำแหน่ง ขนาด และองศาตามที่กำหนด
         render(batch, playerRegion);
+    }
+
+    public void showHp(ShapeRenderer shapeRenderer){
+    	//shapeRenderer.setColor();
+    	if(count>=20){
+    		count = 20;
+    		despawned = true;
+    	}
+    	shapeRenderer.rect(position.x, position.y-10, dimension.x*(1-count/20f), 5);
     }
 
     // คลาสสร้างเองภายใน ที่ใช้เรียงชื่อของออปเจค AtlasRegion ตามลำดับอักษร

@@ -26,7 +26,6 @@ public class GameScreen extends AbstractGameScreen {
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
         worldRenderer.render();
 
-
         if(Gdx.input.isKeyJustPressed(Keys.M))
             game.setScreen(new MenuScreen(game));
 

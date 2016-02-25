@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -45,12 +46,18 @@ public class Enemy extends AbstractGameObject {
 
     private TiledMapTileLayer mapLayer;
     private Player player;
+
     private List<Sword> swords;
     private int count=0;
     private boolean despawned;
+
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
     private Vector2 oldPosition;
+
+    boolean attack;
+    int i;
+
     public Enemy(TiledMapTileLayer mapLayer ,Player player, List<Sword> swords) {
 
         oldPosition = new Vector2();
@@ -138,6 +145,9 @@ public class Enemy extends AbstractGameObject {
         }
 
         if (bounds.overlaps(player.bounds)) {
+
+        	player.hit_player();
+
         	float angle = MathUtils.atan2((player.bounds.y + player.bounds.height/2 - bounds.y - bounds.height/2),
              		(player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2));
         	player.velocity.set(250f*MathUtils.cos(angle), 250f*MathUtils.sin(angle));
@@ -175,6 +185,7 @@ public class Enemy extends AbstractGameObject {
 
         final Vector2 enemyVelocity = velocity;
         final float ENEMY_SPEED = 80.0f;
+
 
         if((Math.abs(position.x - player.position.x) < MOVE_RANGE)||(Math.abs(position.y - player.position.y) < MOVE_RANGE)){
         if (Math.abs(position.x - player.position.x) < MIN_RANGE) enemyVelocity.x = 0;
@@ -245,6 +256,10 @@ public class Enemy extends AbstractGameObject {
     public void render(SpriteBatch batch) {
         // วาดตัวละคร ตามตำแหน่ง ขนาด และองศาตามที่กำหนด
         render(batch, enemyRegion);
+    }
+
+    public void showHp(ShapeRenderer shapeRenderer){
+    	if(count > 0)shapeRenderer.rect(position.x, position.y-10, dimension.x*(1-count/5f), 5);
     }
 
     // คลาสสร้างเองภายใน ที่ใช้เรียงชื่อของออปเจค AtlasRegion ตามลำดับอักษร

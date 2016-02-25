@@ -21,7 +21,9 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetManager manager;
 
     public TextureRegion sword;
+
     public TextureAtlas playerAltas;
+
     public TextureAtlas enemyAltas;
     public TiledMap map1;
     public TiledMap map2;
@@ -35,12 +37,11 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public void init() {
         manager = new AssetManager();
-
         manager.setErrorListener(this);
         manager.setLoader(TiledMap.class, new TmxMapLoader());
+        manager.load("player_pack.atlas", TextureAtlas.class);
 
         manager.load("sword.png", Texture.class);
-        manager.load("player_pack.atlas", TextureAtlas.class);
         manager.load("mon_pack.atlas", TextureAtlas.class);
         manager.load("map1.tmx", TiledMap.class);
         manager.load("map2.tmx", TiledMap.class);
@@ -49,12 +50,12 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("music.mp3", Music.class);
         manager.load("bullet.wav", Sound.class);
 
-
         manager.finishLoading();
+        playerAltas = manager.get("player_pack.atlas");
 
         sword = new TextureRegion((Texture)manager.get("sword.png"));
-        playerAltas = manager.get("player_pack.atlas");
         enemyAltas = manager.get("mon_pack.atlas");
+
         map1 = manager.get("map1.tmx");
         map2 = manager.get("map2.tmx");
         map3 = manager.get("map3.tmx");
