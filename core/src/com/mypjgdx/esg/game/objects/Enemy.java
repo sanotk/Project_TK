@@ -151,11 +151,18 @@ public class Enemy extends AbstractGameObject {
         	float angle = MathUtils.atan2((player.bounds.y + player.bounds.height/2 - bounds.y - bounds.height/2),
              		(player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2));
         	player.velocity.set(250f*MathUtils.cos(angle), 250f*MathUtils.sin(angle));
+
+
         }
 
         for(Sword s: swords) {
         	if (bounds.overlaps(s.bounds)) {
         		count++;
+
+            	float angle2 = MathUtils.atan2((bounds.y + bounds.height/2 - s.bounds.y - s.bounds.height/2),
+                 		(player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2));
+            	velocity.set(250f*MathUtils.cos(angle2), 250f*MathUtils.sin(angle2));
+
         		s.despawn();
         		if(count==5){despawned = true; }
         	}
