@@ -63,6 +63,16 @@ public class Assets implements Disposable, AssetErrorListener {
         bullet = manager.get("bullet.wav");
     }
 
+    public void init2() {
+        manager = new AssetManager();
+        manager.setErrorListener(this);
+        manager.setLoader(TiledMap.class, new TmxMapLoader());
+        manager.load("bullet.wav", Sound.class);
+        manager.finishLoading();
+        bullet = manager.get("bullet.wav");
+    }
+
+
     @SuppressWarnings("rawtypes")
     @Override
     public void error(AssetDescriptor asset, Throwable throwable) {
