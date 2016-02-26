@@ -166,13 +166,14 @@ public class Enemy extends AbstractGameObject {
         updateViewDirection();
         if(pause == true){
         	if(TimeUtils.nanoTime() - lastDetectTime > 500000000) {
-    	     updateKeyFrame(deltaTime); lastDetectTime = TimeUtils.nanoTime();
-    	     pause = false;
+    	    AI(); lastDetectTime = TimeUtils.nanoTime();
+    	    pause = false;
         	}
         }
         else {
-        	updateKeyFrame(deltaTime);
+        	AI();
         }
+        updateKeyFrame(deltaTime);
     }
 
     public boolean isDespawned(){
@@ -190,22 +191,6 @@ public class Enemy extends AbstractGameObject {
 
     private void updateKeyFrame(float deltaTime) {
 
-        final float MIN_RANGE = 1f;
-        final float MOVE_RANGE = 100f;
-
-        final Vector2 enemyVelocity = velocity;
-        final float ENEMY_SPEED = 80.0f;
-
-        if((Math.abs(position.x - player.position.x) < MOVE_RANGE)||(Math.abs(position.y - player.position.y) < MOVE_RANGE)){
-        if (Math.abs(position.x - player.position.x) < MIN_RANGE) enemyVelocity.x = 0;
-        else if (position.x > player.position.x) enemyVelocity.x = -ENEMY_SPEED;
-        else if (position.x < player.position.x)  enemyVelocity.x = ENEMY_SPEED;
-
-        if (Math.abs(position.y - player.position.y) < MIN_RANGE) enemyVelocity.y = 0;
-        else if (position.y > player.position.y) enemyVelocity.y = -ENEMY_SPEED;
-        else if (position.y < player.position.y) enemyVelocity.y = ENEMY_SPEED;
-        }
-
         // ถ้าตัวละครเคลื่อนที่อยู่ ในเพิ่มเวลา Animation ถ้าไม่เคลื่อนที่ให้เวลาเป็น 0 ( Frame ท่ายืน)
         if (velocity.x != 0 || velocity.y != 0) animationTime += deltaTime;
         else  animationTime = 0;
@@ -222,6 +207,24 @@ public class Enemy extends AbstractGameObject {
         // อัพเดทขนาดของตัวละครตาม Region
 
         setDimension(enemyRegion.getRegionWidth(), enemyRegion.getRegionHeight());
+    }
+
+    private void AI(){
+        final float MIN_RANGE = 1f;
+        final float MOVE_RANGE = 100f;
+
+        final Vector2 enemyVelocity = velocity;
+        final float ENEMY_SPEED = 80.0f;
+
+        if((Math.abs(position.x - player.position.x) < MOVE_RANGE)||(Math.abs(position.y - player.position.y) < MOVE_RANGE)){
+        if (Math.abs(position.x - player.position.x) < MIN_RANGE) enemyVelocity.x = 0;
+        else if (position.x > player.position.x) enemyVelocity.x = -ENEMY_SPEED;
+        else if (position.x < player.position.x)  enemyVelocity.x = ENEMY_SPEED;
+
+        if (Math.abs(position.y - player.position.y) < MIN_RANGE) enemyVelocity.y = 0;
+        else if (position.y > player.position.y) enemyVelocity.y = -ENEMY_SPEED;
+        else if (position.y < player.position.y) enemyVelocity.y = ENEMY_SPEED;
+        }
     }
 
     public boolean collidesRight() {
