@@ -24,6 +24,9 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
+        if(worldController.level.player.isDespawned()){
+        	game.setScreen(new GameOverScreen(game));
+        }
         worldRenderer.render();
 
         if(Gdx.input.isKeyJustPressed(Keys.M))

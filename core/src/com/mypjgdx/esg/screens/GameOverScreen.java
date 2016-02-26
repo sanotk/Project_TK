@@ -33,8 +33,8 @@ public class GameOverScreen extends AbstractGameScreen {
 
         text_gameover = new Label("Game Over" ,skin);
         text_gameover.setColor(1, 1, 1, 1);
-        text_gameover.setFontScale(1.2f,1.2f);
-        text_gameover.setPosition(SCENE_WIDTH / 2 - btn_w / 2 + 40, 550);
+        text_gameover.setFontScale(1.5f,1.5f);
+        text_gameover.setPosition(SCENE_WIDTH / 2 - btn_w / 2 , 550);
 
         TextButton buttonBack= new TextButton("Back", skin);
         buttonBack.setWidth(btn_w);

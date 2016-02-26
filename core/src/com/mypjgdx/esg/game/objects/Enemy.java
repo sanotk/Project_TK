@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.game.Assets;
 
 public class Enemy extends AbstractGameObject {
@@ -50,6 +51,8 @@ public class Enemy extends AbstractGameObject {
     private List<Sword> swords;
     private int count=0;
     private boolean despawned;
+    private boolean pause = false;
+    long lastDetectTime;
 
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
@@ -145,31 +148,31 @@ public class Enemy extends AbstractGameObject {
         }
 
         if (bounds.overlaps(player.bounds)) {
-
         	player.hit_player();
-
         	float angle = MathUtils.atan2((player.bounds.y + player.bounds.height/2 - bounds.y - bounds.height/2),
              		(player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2));
         	player.velocity.set(250f*MathUtils.cos(angle), 250f*MathUtils.sin(angle));
-
 
         }
 
         for(Sword s: swords) {
         	if (bounds.overlaps(s.bounds)) {
-        		count++;
-
-            	float angle2 = MathUtils.atan2((bounds.y + bounds.height/2 - s.bounds.y - s.bounds.height/2),
-                 		(player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2));
-            	velocity.set(250f*MathUtils.cos(angle2), 250f*MathUtils.sin(angle2));
-
+        		count++; pause = true;
         		s.despawn();
         		if(count==5){despawned = true; }
         	}
         };
 
         updateViewDirection();
-        updateKeyFrame(deltaTime);
+        if(pause == true){
+        	if(TimeUtils.nanoTime() - lastDetectTime > 500000000) {
+    	     updateKeyFrame(deltaTime); lastDetectTime = TimeUtils.nanoTime();
+    	     pause = false;
+        	}
+        }
+        else {
+        	updateKeyFrame(deltaTime);
+        }
     }
 
     public boolean isDespawned(){
@@ -192,7 +195,6 @@ public class Enemy extends AbstractGameObject {
 
         final Vector2 enemyVelocity = velocity;
         final float ENEMY_SPEED = 80.0f;
-
 
         if((Math.abs(position.x - player.position.x) < MOVE_RANGE)||(Math.abs(position.y - player.position.y) < MOVE_RANGE)){
         if (Math.abs(position.x - player.position.x) < MIN_RANGE) enemyVelocity.x = 0;
