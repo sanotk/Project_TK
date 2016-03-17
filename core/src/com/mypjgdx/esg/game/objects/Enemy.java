@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.utils.Pathfinding;
 
 public class Enemy extends AbstractGameObject {
 
@@ -60,6 +61,8 @@ public class Enemy extends AbstractGameObject {
 
     boolean attack;
     int i;
+
+    private Pathfinding pathFinding;
 
     public Enemy(TiledMapTileLayer mapLayer ,Player player, List<Sword> swords) {
 
@@ -125,6 +128,7 @@ public class Enemy extends AbstractGameObject {
 
     	}while((distance <MIN_DISTANCE || collidesTop() || collidesBottom() || collidesRight() || collidesLeft()));
 
+       	pathFinding = new Pathfinding(mapLayer);
     }
 
     @Override
@@ -166,12 +170,12 @@ public class Enemy extends AbstractGameObject {
         updateViewDirection();
         if(pause == true){
         	if(TimeUtils.nanoTime() - lastDetectTime > 500000000) {
-    	    AI(); lastDetectTime = TimeUtils.nanoTime();
-    	    pause = false;
+        		runToPlayer(); lastDetectTime = TimeUtils.nanoTime();
+        		pause = false;
         	}
         }
         else {
-        	AI();
+        	runToPlayer();
         }
         updateKeyFrame(deltaTime);
     }
@@ -209,7 +213,7 @@ public class Enemy extends AbstractGameObject {
         setDimension(enemyRegion.getRegionWidth(), enemyRegion.getRegionHeight());
     }
 
-    private void AI(){
+    private void runToPlayer(){
         final float MIN_RANGE = 1f;
         final float MOVE_RANGE = 100f;
 
@@ -282,8 +286,4 @@ public class Enemy extends AbstractGameObject {
         }
     }
 
-    // คลาสสร้างเองภายใน ที่ใช้ค้นหาเส้นทาง AI
-    private static class AI {
-
-    }
 }
