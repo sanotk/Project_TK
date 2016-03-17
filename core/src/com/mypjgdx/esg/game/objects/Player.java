@@ -56,6 +56,7 @@ public class Player extends AbstractGameObject {
 
     public int count=0;
     boolean despawned = false;
+    boolean finish = false;
 
     private TiledMapTileLayer mapLayer;
     // เวลา Animation ที่ใช้หา KeyFrame
@@ -148,10 +149,14 @@ public class Player extends AbstractGameObject {
             position.y = oldPosition.y;
             updateBounds();
         }
+
+        if (goalTop() && goalBottom() && goalLeft() && goalRight()) {
+        	finish = true;
+        }
+        else finish = false;
         updateViewDirection();
         updateKeyFrame(deltaTime);
     }
-
 
     private void updateViewDirection() { // update ทิศที่ player มองอยู่  โดยยึดการมองด้านแกน X  เป็นหลักหากมีการเดินเฉียง
     	if (velocity.x != 0) {
@@ -255,8 +260,49 @@ public class Player extends AbstractGameObject {
         return false;
     }
 
+    public boolean goalRight() {
+        for (float step = 0; step < bounds.height; step += mapLayer.getTileHeight())
+            if (isGoal (bounds.x + bounds.width, bounds.y + step))
+                return true;
+        return isGoal (bounds.x + bounds.width, bounds.y + bounds.height);
+    }
+
+    public boolean goalLeft() {
+        for (float step = 0; step < bounds.height; step += mapLayer.getTileHeight())
+            if (isGoal (bounds.x, bounds.y + step))
+                return true;
+        return isGoal (bounds.x, bounds.y + bounds.height);
+    }
+
+    public boolean goalTop() {
+        for(float step = 0; step < bounds.width; step += mapLayer.getTileWidth())
+            if (isGoal(bounds.x + step, bounds.y + bounds.height))
+                return true;
+        return isGoal(bounds.x + bounds.width, bounds.y + bounds.height);
+    }
+
+    public boolean goalBottom() {
+        for(float step = 0; step < bounds.width; step += mapLayer.getTileWidth())
+            if (isGoal(bounds.x + step, bounds.y))
+                return true;
+        return isGoal(bounds.x + bounds.width, bounds.y);
+    }
+
+    private boolean isGoal(float x, float y) {
+        int cellX = (int) (x/ mapLayer.getTileWidth());
+        int cellY = (int) (y/ mapLayer.getTileHeight());
+        if (cellX < mapLayer.getWidth() && cellX >= 0 && cellY < mapLayer.getHeight() && cellY >= 0) {
+            return mapLayer.getCell(cellX, cellY).getTile().getProperties().containsKey("goal");
+        }
+        return false;
+    }
+
     public boolean isDespawned(){
     	return despawned;
+    }
+
+    public boolean isFinish(){
+    	return finish;
     }
 
     @Override

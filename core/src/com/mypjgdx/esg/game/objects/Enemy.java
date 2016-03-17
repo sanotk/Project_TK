@@ -27,12 +27,12 @@ public class Enemy extends AbstractGameObject {
     // อัตราการขยายภาพ enemy
     private static final float SCALE = 0.2f;
 
-    private static final float INTITAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
+    private static final float INTITAL_FRICTION = 600f;           // ค่าแรงเสียดทานเริ่มต้น
     //private static final float INTITAL_X_POSITION = 200f;         // ตำแหน่งเริ่มต้นแกน X
     //private static final float INTITAL_Y_POSITION = 200f;      // ตำแหน่งเริ่มต้นแกน Y
 
     // ทิศที่ตัวละครมอง
-    public enum ViewDirection {
+    public enum ViewDirection { // ตัวแปร enum เก็บค่า
         LEFT, RIGHT, UP, DOWN
     }
 
@@ -282,4 +282,8 @@ public class Enemy extends AbstractGameObject {
         }
     }
 
+    // คลาสสร้างเองภายใน ที่ใช้ค้นหาเส้นทาง AI
+    private static class AI {
+
+    }
 }

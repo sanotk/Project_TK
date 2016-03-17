@@ -17,11 +17,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final String TAG = Assets.class.getName();
 
     public static final Assets instance = new Assets();
-
     public AssetManager manager;
-
     public TextureRegion sword;
-
     public TextureAtlas playerAltas;
 
     public TextureAtlas enemyAltas;
@@ -31,7 +28,6 @@ public class Assets implements Disposable, AssetErrorListener {
     public TiledMap map4;
     public Music music;
     public Sound bullet;
-
 
     private Assets() {}
 

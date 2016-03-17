@@ -20,7 +20,7 @@ public class Level{
     public List<Sword> swords = new ArrayList<Sword>();
     public int count=0;
     public final Map map;   // แผนที่ในเกม
-    public final int MAX_ENEMY = 5;
+    public int MAX_ENEMY = 2;
 
     public Level (Map map) {
         this.map = map;
@@ -60,7 +60,7 @@ public class Level{
         }
         while(eit.hasNext()){
         	Enemy e = eit.next();
-        	if (e.isDespawned())eit.remove();
+        	if (e.isDespawned()){ eit.remove(); MAX_ENEMY -= 1; }
         }
         if (player.count==20){
 
