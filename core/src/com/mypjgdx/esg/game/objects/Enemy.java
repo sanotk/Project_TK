@@ -1,6 +1,7 @@
 package com.mypjgdx.esg.game.objects;
 
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.utils.Pathfinding;
+import com.mypjgdx.esg.utils.Pathfinding.Node;
 
 public class Enemy extends AbstractGameObject {
 
@@ -63,6 +65,7 @@ public class Enemy extends AbstractGameObject {
     int i;
 
     private Pathfinding pathFinding;
+    private LinkedList<Node> walkQueue;
 
     public Enemy(TiledMapTileLayer mapLayer ,Player player, List<Sword> swords) {
 
@@ -129,6 +132,7 @@ public class Enemy extends AbstractGameObject {
     	}while((distance <MIN_DISTANCE || collidesTop() || collidesBottom() || collidesRight() || collidesLeft()));
 
        	pathFinding = new Pathfinding(mapLayer);
+       	walkQueue = new LinkedList<Node>();
     }
 
     @Override
@@ -214,21 +218,15 @@ public class Enemy extends AbstractGameObject {
     }
 
     private void runToPlayer(){
-        final float MIN_RANGE = 1f;
-        final float MOVE_RANGE = 100f;
+        pathFinding.setStart(bounds.x + bounds.width/2, bounds.y + bounds.height/2);
+        pathFinding.setGoal(player.bounds.x + player.bounds.width/2, player.bounds.y + player.bounds.height/2);
 
-        final Vector2 enemyVelocity = velocity;
-        final float ENEMY_SPEED = 80.0f;
-
-        if((Math.abs(position.x - player.position.x) < MOVE_RANGE)||(Math.abs(position.y - player.position.y) < MOVE_RANGE)){
-        if (Math.abs(position.x - player.position.x) < MIN_RANGE) enemyVelocity.x = 0;
-        else if (position.x > player.position.x) enemyVelocity.x = -ENEMY_SPEED;
-        else if (position.x < player.position.x)  enemyVelocity.x = ENEMY_SPEED;
-
-        if (Math.abs(position.y - player.position.y) < MIN_RANGE) enemyVelocity.y = 0;
-        else if (position.y > player.position.y) enemyVelocity.y = -ENEMY_SPEED;
-        else if (position.y < player.position.y) enemyVelocity.y = ENEMY_SPEED;
+        if(walkQueue.isEmpty()) {
+            List<Node> list = pathFinding.findPath();
+            list.remove(0);
+            walkQueue.addAll(list);
         }
+        Node n = walkQueue.getFirst();
     }
 
     public boolean collidesRight() {
