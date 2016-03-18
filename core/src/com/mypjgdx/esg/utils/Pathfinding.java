@@ -2,12 +2,15 @@ package com.mypjgdx.esg.utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Vector2;
 
 public class Pathfinding {
 
@@ -15,7 +18,7 @@ public class Pathfinding {
     private Node start;
     private Node goal;
 
-    private List<Node> frontiers;
+    private Queue<Node> frontiers;
     private List<Node> oldFrontiers;
     private Map<Node, Node> cameFrom;
     private List<Node> path;
@@ -25,7 +28,14 @@ public class Pathfinding {
 
     public Pathfinding (TiledMapTileLayer mapLayer) {
         this.mapLayer = mapLayer;
-        frontiers = new ArrayList<Node>();
+        Comparator<Node> comparator = new Comparator<Node> () {
+            @Override
+            public int compare(Node n1, Node n2) {
+                return distanceToGoal(n1)-distanceToGoal(n2);
+            }
+        };
+        frontiers = new PriorityQueue<Node>(10, comparator);
+
         oldFrontiers = new ArrayList<Node>();
         cameFrom = new HashMap<Node, Node>();
         path = new ArrayList<Node>();
@@ -43,16 +53,22 @@ public class Pathfinding {
         }
     }
 
+    private void init() {
+        frontiers.clear();
+        oldFrontiers.clear();
+        cameFrom.clear();
+        path.clear();
+    }
+
 
     public List<Node> findPath() {
-
-    	path.clear();
+        init();
 
         frontiers.add(start);
         oldFrontiers.add(start);
 
         while (!frontiers.isEmpty()) {
-            Node current = frontiers.remove(0);
+            Node current = frontiers.poll();
             if (current.equals(goal))
                 break;
 
@@ -61,10 +77,10 @@ public class Pathfinding {
                     frontiers.add(neighbor);
                     oldFrontiers.add(neighbor);
                     cameFrom.put(neighbor, current);
+                    Gdx.app.debug("A* Logging", String.format("Create Frontier at: %d, %d", neighbor.i, neighbor.j));
                 }
             }
         }
-
         Node current  = goal;
         path.add(current);
 
@@ -76,31 +92,43 @@ public class Pathfinding {
         return path;
     }
 
-    public List<Node> getNeighbors(Node node) {
+    public Node[] getNeighbors(Node node) {
 
         neighbors.clear();
 
-        int i = node.i;
-        int j = node.j;
+        for (int i = node.i-1; i <= node.i+1; ++i) {
+            for (int j = node.j-1; j <= node.j+1; ++j) {
+                if (i == node.i && j == node.j) continue;
+                if (i >= 0 && i < mapLayer.getWidth() && j>=0 && j< mapLayer.getHeight()) {
+                    neighbors.add(nodes[i][j]);
+                }
+            }
+        }
 
-        if (i-1 >= 0 && !nodes[i-1][j].blocked) neighbors.add(nodes[i-1][j]);
-        if (j-1 >= 0 && !nodes[i][j-1].blocked)  neighbors.add(nodes[i][j-1]);
-        if (i+1 < mapLayer.getWidth() && !nodes[i+1][j].blocked) neighbors.add(nodes[i+1][j]);
-        if (j+1 < mapLayer.getHeight() && !nodes[i][j+1].blocked) neighbors.add(nodes[i][j+1]);
-
-        return neighbors;
+        return neighbors.toArray(new Node[neighbors.size()]);
     }
 
-    public void setGoal (Vector2 goalPosition) {
+    public boolean nodeNearBlocked(Node node) {
+
+        for (Node neighbor : getNeighbors(node)) {
+            if(neighbor.blocked)
+                return true;
+        }
+
+        return false;
+    }
+
+
+    public void setGoal (float x, float y) {
         goal = nodes
-                [(int)(goalPosition.x / mapLayer.getTileWidth())]
-                [(int)(goalPosition.y / mapLayer.getTileHeight())];
+                [(int)(x / mapLayer.getTileWidth())]
+                [(int)(y / mapLayer.getTileHeight())];
     }
 
-    public void setStart (Vector2 startPosition) {
+    public void setStart (float x, float y) {
         start = nodes
-                [(int)(startPosition.x / mapLayer.getTileWidth())]
-                [(int)(startPosition.y / mapLayer.getTileHeight())];
+                [(int)(x / mapLayer.getTileWidth())]
+                [(int)(y / mapLayer.getTileHeight())];
     }
 
     public class Node {
@@ -115,17 +143,15 @@ public class Pathfinding {
         }
 
         public float getPositionX() {
-            return i * mapLayer.getTileWidth() - mapLayer.getTileWidth() / 2 ;
+            return i * mapLayer.getTileWidth() + mapLayer.getTileWidth() / 2 ;
         }
         public float getPositionY() {
-            return j * mapLayer.getTileHeight() -  mapLayer.getTileHeight() / 2;
+            return j * mapLayer.getTileHeight() +  mapLayer.getTileHeight() / 2;
         }
 
     }
 
-	boolean validate() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+    public int distanceToGoal(Node frontier) {
+        return Math.abs(frontier.i -goal.i) + Math.abs(frontier.j - goal.j);
+    }
 }
