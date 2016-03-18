@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class Pathfinding {
@@ -19,10 +18,10 @@ public class Pathfinding {
     private Node goal;
 
     private Queue<Node> frontiers;
-    private List<Node> oldFrontiers;
     private Map<Node, Node> cameFrom;
     private List<Node> path;
     private List<Node> neighbors;
+    private Map<Node, Integer> costSoFar;
 
     private Node[][] nodes;
 
@@ -31,15 +30,14 @@ public class Pathfinding {
         Comparator<Node> comparator = new Comparator<Node> () {
             @Override
             public int compare(Node n1, Node n2) {
-                return distanceToGoal(n1)-distanceToGoal(n2);
+                return (distanceToGoal(n1)+costSoFar.get(n1)) -(distanceToGoal(n2)+costSoFar.get(n2));
             }
         };
         frontiers = new PriorityQueue<Node>(10, comparator);
-
-        oldFrontiers = new ArrayList<Node>();
         cameFrom = new HashMap<Node, Node>();
         path = new ArrayList<Node>();
         neighbors = new ArrayList<Node>();
+        costSoFar = new HashMap<Node, Integer>();
         nodes = new Node[mapLayer.getWidth()][mapLayer.getHeight()];
 
         createNode();
@@ -51,11 +49,16 @@ public class Pathfinding {
                 nodes[i][j] = new Node(i, j, mapLayer.getCell(i, j).getTile().getProperties().containsKey("blocked"));
             }
         }
+        for(int i = 0; i< mapLayer.getWidth() ;i++){
+            for(int j = 0; j<mapLayer.getHeight(); j++) {
+               if(nodeNearBlocked(nodes[i][j])) nodes[i][j].cost = 99;
+            }
+        }
     }
 
     private void init() {
         frontiers.clear();
-        oldFrontiers.clear();
+        costSoFar.clear();
         cameFrom.clear();
         path.clear();
     }
@@ -64,8 +67,8 @@ public class Pathfinding {
     public List<Node> findPath() {
         init();
 
+        costSoFar.put(start, 0);
         frontiers.add(start);
-        oldFrontiers.add(start);
 
         while (!frontiers.isEmpty()) {
             Node current = frontiers.poll();
@@ -73,11 +76,13 @@ public class Pathfinding {
                 break;
 
             for (Node neighbor: getNeighbors(current)) {
-                if(!oldFrontiers.contains(neighbor) && !neighbor.blocked) {
+                int newCost = costSoFar.get(current) + neighbor.cost;
+
+                if(!costSoFar.containsKey(neighbor) && !neighbor.blocked) {
+
+                    costSoFar.put(neighbor, newCost);
                     frontiers.add(neighbor);
-                    oldFrontiers.add(neighbor);
                     cameFrom.put(neighbor, current);
-                    Gdx.app.debug("A* Logging", String.format("Create Frontier at: %d, %d", neighbor.i, neighbor.j));
                 }
             }
         }
@@ -109,12 +114,10 @@ public class Pathfinding {
     }
 
     public boolean nodeNearBlocked(Node node) {
-
         for (Node neighbor : getNeighbors(node)) {
             if(neighbor.blocked)
                 return true;
         }
-
         return false;
     }
 
@@ -135,11 +138,13 @@ public class Pathfinding {
         public int i;
         public int j;
         public boolean blocked;
+        public int cost;
 
         public Node(int i, int j, boolean blocked) {
             this.i = i;
             this.j = j;
             this.blocked = blocked;
+            cost = 1;
         }
 
         public float getPositionX() {
