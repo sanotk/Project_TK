@@ -14,7 +14,6 @@ public class MyPjGdxGame extends Game  {
         Assets.instance.music.setLooping(true);
 
         setScreen(new MenuScreen(this));
-
     }
 
 

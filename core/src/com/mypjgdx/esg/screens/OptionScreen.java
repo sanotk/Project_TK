@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mypjgdx.esg.game.Assets;
 
 public class OptionScreen extends AbstractGameScreen {
@@ -31,7 +32,7 @@ public class OptionScreen extends AbstractGameScreen {
 
         sound = true;
 
-        stage = new Stage();
+        stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT));
         stat_music = new Stage();
         stat_sound = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -197,14 +198,16 @@ public class OptionScreen extends AbstractGameScreen {
 
     @Override
     public void resize(int width, int height) {
-    	stage.getViewport().update(width, height, true);
+    	stage.getViewport().update(width, height);
     }
 
     @Override
     public void show() {}
 
     @Override
-    public void hide() {}
+    public void hide() {
+        dispose();
+    }
 
     @Override
     public void pause() {}
