@@ -19,8 +19,9 @@ public class Player extends AnimatedObject {
     private static final float SCALE = 0.2f;
 
     private static final float INTITAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
-    private static final float INTITAL_X_POSITION = 100;         // ตำแหน่งเริ่มต้นแกน X
-    private static final float INTITAL_Y_POSITION = 100;      // ตำแหน่งเริ่มต้นแกน Y
+    private static final float INTITAL_X_POSITION = 100f;         // ตำแหน่งเริ่มต้นแกน X
+    private static final float INTITAL_Y_POSITION = 100f;      // ตำแหน่งเริ่มต้นแกน Y
+    private static final float INTITAL_MOVING_SPEED = 100f;
 
     private static final int INTITAL_HEALTH = 20;
 
@@ -37,6 +38,7 @@ public class Player extends AnimatedObject {
     private long invulnerableTime;
     private long lastKnockbackTime;
     private long knockbackTime;
+    private float movingSpeed;
 
     public Player(TiledMapTileLayer mapLayer) {
         this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
@@ -64,6 +66,7 @@ public class Player extends AnimatedObject {
         invulnerable = false;
         lastInvulnerableTime = 0;
         invulnerableTime = 0;
+        movingSpeed = INTITAL_MOVING_SPEED;
 
         // กำหนดค่าทางฟิสิกส์
         friction.set(INTITAL_FRICTION, INTITAL_FRICTION);
@@ -77,6 +80,33 @@ public class Player extends AnimatedObject {
     public void update(float deltaTime) {
         super.update(deltaTime);
         statusUpdate();
+    }
+
+    @Override
+    protected void updateViewDirection() {}
+
+    public void moveLeft() {
+        if (applyingknockback) return;
+        velocity.x = -movingSpeed;
+        viewDirection = ViewDirection.LEFT;
+    }
+
+    public void moveRight() {
+        if (applyingknockback) return;
+        velocity.x = movingSpeed;
+        viewDirection = ViewDirection.RIGHT;
+    }
+
+    public void moveUp() {
+        if (applyingknockback) return;
+        velocity.y = movingSpeed;
+        viewDirection = ViewDirection.UP;
+    }
+
+    public void moveDown() {
+        if (applyingknockback) return;
+        velocity.y = -movingSpeed;
+        viewDirection = ViewDirection.DOWN;
     }
 
     @Override
@@ -132,15 +162,15 @@ public class Player extends AnimatedObject {
             invulnerable = true;
             lastInvulnerableTime = TimeUtils.nanoTime();
             invulnerableTime = TimeUtils.millisToNanos(1000);
-
-    	    acceleration.set(
-                    knockbackSpeed *MathUtils.cos(knockbackAngle),
-                    knockbackSpeed *MathUtils.sin(knockbackAngle));
-
-            applyingknockback = true;
-            lastKnockbackTime = TimeUtils.nanoTime();
-            knockbackTime = TimeUtils.millisToNanos(300);
     	}
+
+    	acceleration.set(
+                knockbackSpeed *MathUtils.cos(knockbackAngle),
+                knockbackSpeed *MathUtils.sin(knockbackAngle));
+
+        applyingknockback = true;
+        lastKnockbackTime = TimeUtils.nanoTime();
+        knockbackTime = TimeUtils.millisToNanos(200);
     }
 
     public void statusUpdate() {
