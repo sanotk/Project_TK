@@ -70,10 +70,10 @@ public class WorldController extends InputAdapter {
             else if (filppedY < screenHeight * SCREEN_MOVE_EGDE)  playerVelocity.y = -PLAYER_SPEED;
         }
         else {
-            if (Gdx.input.isKeyPressed(Keys.UP)) playerVelocity.y = PLAYER_SPEED ;       //กดลูกศรขึ้น
-            if (Gdx.input.isKeyPressed(Keys.DOWN)) playerVelocity.y = -PLAYER_SPEED ;      //กดลูกศรลง
-            if (Gdx.input.isKeyPressed(Keys.LEFT)) playerVelocity.x = -PLAYER_SPEED ;      //กดลูกศรซ้าย
-            if (Gdx.input.isKeyPressed(Keys.RIGHT)) playerVelocity.x = PLAYER_SPEED ;     //กดลูกศรขวา
+            if (Gdx.input.isKeyPressed(Keys.UP)) level.player.moveUp();     //กดลูกศรขึ้น
+            if (Gdx.input.isKeyPressed(Keys.DOWN)) level.player.moveDown();  //กดลูกศรลง
+            if (Gdx.input.isKeyPressed(Keys.LEFT)) level.player.moveLeft();     //กดลูกศรซ้าย
+            if (Gdx.input.isKeyPressed(Keys.RIGHT)) level.player.moveRight();   //กดลูกศรขวา
             if (Gdx.input.isKeyPressed(Keys.X)) level.player.attack() ;
             if (Gdx.input.isKeyPressed(Keys.Z)) level.player.rangeAttack(level.swords, level.map.getMapLayer()); ;
         }

@@ -73,7 +73,6 @@ public abstract class AnimatedObject  extends AbstractGameObject {
         render(batch, currentRegion);
     }
 
-
     protected void updateViewDirection() { // update ทิศที่ player มองอยู่  โดยยึดการมองด้านแกน X  เป็นหลักหากมีการเดินเฉียง
         if (velocity.x != 0) {
             viewDirection = velocity.x < 0 ?  ViewDirection.LEFT : ViewDirection.RIGHT;
@@ -86,7 +85,6 @@ public abstract class AnimatedObject  extends AbstractGameObject {
     public ViewDirection getViewDirection(){
         return viewDirection;
     }
-
 
     protected void addLoopAnimation(AnimationName name, float frameTime, int regionStart, int size) {
         addAnimation(name, frameTime, regionStart, size, PlayMode.LOOP);

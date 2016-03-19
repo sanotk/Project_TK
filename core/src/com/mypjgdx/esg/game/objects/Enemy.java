@@ -101,7 +101,7 @@ public class Enemy extends AnimatedObject {
             float ydiff = player.bounds.y + player.bounds.height/2 -bounds.y - bounds.height/2 ;
             float xdiff = player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2;
             float angle = MathUtils.atan2(ydiff, xdiff);
-            float knockbackSpeed = 10000f;
+            float knockbackSpeed = 15000f;
 
         	player.takeDamage(knockbackSpeed, angle);
         }
