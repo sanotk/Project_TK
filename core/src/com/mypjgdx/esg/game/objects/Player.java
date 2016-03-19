@@ -170,7 +170,7 @@ public class Player extends AnimatedObject {
 
         applyingknockback = true;
         lastKnockbackTime = TimeUtils.nanoTime();
-        knockbackTime = TimeUtils.millisToNanos(200);
+        knockbackTime = TimeUtils.millisToNanos(300);
     }
 
     public void statusUpdate() {
