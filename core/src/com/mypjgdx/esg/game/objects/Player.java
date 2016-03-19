@@ -11,9 +11,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 
 public class Player extends AbstractGameObject {
@@ -58,22 +58,18 @@ public class Player extends AbstractGameObject {
     boolean despawned = false;
     boolean finish = false;
 
-    private TiledMapTileLayer mapLayer;
     // เวลา Animation ที่ใช้หา KeyFrame
     private float animationTime;
-    private Vector2 oldPosition;
 
     public Player(TiledMapTileLayer mapLayer) {
-
         this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
-        oldPosition = new Vector2();
-        this.mapLayer = mapLayer;
+        collisionCheck = new TiledCollisionCheck(this.bounds, mapLayer);
     }
 
     public Player(float xPosition, float yPosition) {
         // กำหนดค่าเริ่มต้น เวลาสร้างตัวละครใหม่
         init();
-        position.set(xPosition, yPosition);
+        setPosition(xPosition, yPosition);
     }
 
     public ViewDirection getViewDirection(){
@@ -81,6 +77,7 @@ public class Player extends AbstractGameObject {
     }
 
     public void init() {
+
         // Load Texture ทั้งหมดของตัวละคร
         playerAtlas = Assets.instance.playerAltas;
 
@@ -131,29 +128,10 @@ public class Player extends AbstractGameObject {
 
     @Override
     public void update(float deltaTime) {
-    	if(count==20){despawned = true; }
-        oldPosition.set(position);
-        updateMotionX(deltaTime);
-        updateMotionY(deltaTime);
+        super.update(deltaTime);
 
-        position.x += velocity.x * deltaTime;
-        updateBounds();
-        if (collidesLeft() || collidesRight()) {
-            position.x = oldPosition.x;
-            updateBounds();
-        }
+    	if (count==20) { despawned = true;}
 
-        position.y += velocity.y * deltaTime;
-        updateBounds();
-        if (collidesTop() || collidesBottom()) {
-            position.y = oldPosition.y;
-            updateBounds();
-        }
-
-        if (goalTop() && goalBottom() && goalLeft() && goalRight()) {
-        	finish = true;
-        }
-        else finish = false;
         updateViewDirection();
         updateKeyFrame(deltaTime);
     }
@@ -223,80 +201,6 @@ public class Player extends AbstractGameObject {
     	}
     }
 
-    public boolean collidesRight() {
-        for (float step = 0; step < bounds.height; step += mapLayer.getTileHeight())
-            if (isCellBlocked (bounds.x + bounds.width, bounds.y + step))
-                return true;
-        return isCellBlocked (bounds.x + bounds.width, bounds.y + bounds.height);
-    }
-
-    public boolean collidesLeft() {
-        for (float step = 0; step < bounds.height; step += mapLayer.getTileHeight())
-            if (isCellBlocked (bounds.x, bounds.y + step))
-                return true;
-        return isCellBlocked (bounds.x, bounds.y + bounds.height);
-    }
-
-    public boolean collidesTop() {
-        for(float step = 0; step < bounds.width; step += mapLayer.getTileWidth())
-            if (isCellBlocked(bounds.x + step, bounds.y + bounds.height))
-                return true;
-        return isCellBlocked(bounds.x + bounds.width, bounds.y + bounds.height);
-    }
-
-    public boolean collidesBottom() {
-        for(float step = 0; step < bounds.width; step += mapLayer.getTileWidth())
-            if (isCellBlocked(bounds.x + step, bounds.y))
-                return true;
-        return isCellBlocked(bounds.x + bounds.width, bounds.y);
-    }
-
-    private boolean isCellBlocked(float x, float y) {
-        int cellX = (int) (x/ mapLayer.getTileWidth());
-        int cellY = (int) (y/ mapLayer.getTileHeight());
-        if (cellX < mapLayer.getWidth() && cellX >= 0 && cellY < mapLayer.getHeight() && cellY >= 0) {
-            return mapLayer.getCell(cellX, cellY).getTile().getProperties().containsKey("blocked");
-        }
-        return false;
-    }
-
-    public boolean goalRight() {
-        for (float step = 0; step < bounds.height; step += mapLayer.getTileHeight())
-            if (isGoal (bounds.x + bounds.width, bounds.y + step))
-                return true;
-        return isGoal (bounds.x + bounds.width, bounds.y + bounds.height);
-    }
-
-    public boolean goalLeft() {
-        for (float step = 0; step < bounds.height; step += mapLayer.getTileHeight())
-            if (isGoal (bounds.x, bounds.y + step))
-                return true;
-        return isGoal (bounds.x, bounds.y + bounds.height);
-    }
-
-    public boolean goalTop() {
-        for(float step = 0; step < bounds.width; step += mapLayer.getTileWidth())
-            if (isGoal(bounds.x + step, bounds.y + bounds.height))
-                return true;
-        return isGoal(bounds.x + bounds.width, bounds.y + bounds.height);
-    }
-
-    public boolean goalBottom() {
-        for(float step = 0; step < bounds.width; step += mapLayer.getTileWidth())
-            if (isGoal(bounds.x + step, bounds.y))
-                return true;
-        return isGoal(bounds.x + bounds.width, bounds.y);
-    }
-
-    private boolean isGoal(float x, float y) {
-        int cellX = (int) (x/ mapLayer.getTileWidth());
-        int cellY = (int) (y/ mapLayer.getTileHeight());
-        if (cellX < mapLayer.getWidth() && cellX >= 0 && cellY < mapLayer.getHeight() && cellY >= 0) {
-            return mapLayer.getCell(cellX, cellY).getTile().getProperties().containsKey("goal");
-        }
-        return false;
-    }
-
     public boolean isDespawned(){
     	return despawned;
     }
@@ -317,7 +221,7 @@ public class Player extends AbstractGameObject {
     		count = 20;
     		despawned = true;
     	}
-    	shapeRenderer.rect(position.x, position.y-10, dimension.x*(1-count/20f), 5);
+    	shapeRenderer.rect(getPositionX(), getPositionY()-10, dimension.x*(1-count/20f), 5);
     }
 
     // คลาสสร้างเองภายใน ที่ใช้เรียงชื่อของออปเจค AtlasRegion ตามลำดับอักษร

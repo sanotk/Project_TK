@@ -68,8 +68,8 @@ public class CameraHelper {
 
     public void update (float deltaTime) {  // อัพมุมกล้องให้ติดตามเป้าหมาย
         if (!hasTarget()) return;
-        position.x = target.position.x + target.origin.x;
-        position.y = target.position.y + target.origin.y;
+        position.x = target.getPositionX() + target.origin.x;
+        position.y = target.getPositionY() + target.origin.y;
     }
 
 }
