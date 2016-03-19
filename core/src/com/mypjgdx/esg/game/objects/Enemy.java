@@ -1,12 +1,16 @@
 package com.mypjgdx.esg.game.objects;
 
+import static com.mypjgdx.esg.game.objects.AnimatedObject.AnimationName.WALK_DOWN;
+import static com.mypjgdx.esg.game.objects.AnimatedObject.AnimationName.WALK_LEFT;
+import static com.mypjgdx.esg.game.objects.AnimatedObject.AnimationName.WALK_RIGHT;
+import static com.mypjgdx.esg.game.objects.AnimatedObject.AnimationName.WALK_UP;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
@@ -15,7 +19,6 @@ import com.mypjgdx.esg.utils.Pathfinding.Node;
 
 public class Enemy extends AnimatedObject {
 
-    private static final int FRAME_PER_DIRECTION = 3;
 
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 8.0f;
@@ -24,8 +27,6 @@ public class Enemy extends AnimatedObject {
     private static final float SCALE = 0.2f;
 
     private static final float INTITAL_FRICTION = 600f;           // ค่าแรงเสียดทานเริ่มต้น
-    //private static final float INTITAL_X_POSITION = 200f;         // ตำแหน่งเริ่มต้นแกน X
-    //private static final float INTITAL_Y_POSITION = 200f;      // ตำแหน่งเริ่มต้นแกน Y
 
     private TiledMapTileLayer mapLayer;
     private Player player;
@@ -43,8 +44,8 @@ public class Enemy extends AnimatedObject {
     private LinkedList<Node> walkQueue;
 
     public Enemy(TiledMapTileLayer mapLayer ,Player player, List<Sword> swords) {
-        super(Assets.instance.enemyAltas, FRAME_PER_DIRECTION, FRAME_DURATION);
-        oldPosition = new Vector2();
+        super(Assets.instance.enemyAltas);
+
         this.mapLayer = mapLayer;
         this.player = player;
         this.swords = swords;
@@ -53,6 +54,11 @@ public class Enemy extends AnimatedObject {
     }
 
     public void init() {
+        addLoopAnimation(WALK_UP, FRAME_DURATION, 0, 3);
+        addLoopAnimation(WALK_DOWN, FRAME_DURATION, 3, 3);
+        addLoopAnimation(WALK_LEFT, FRAME_DURATION, 6, 3);
+        addLoopAnimation(WALK_RIGHT, FRAME_DURATION, 9, 3);
+
     	despawned = false;
 
         // กำหนดค่าทางฟิสิกส์
@@ -65,22 +71,26 @@ public class Enemy extends AnimatedObject {
         updateKeyFrame(0);
         setPosition(0, 0);
 
-        float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
-        float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
-        double distance;
-        final double MIN_DISTANCE = 200;
-       	do{
-       	    setPosition(
-       	            MathUtils.random(200,mapWidth-bounds.width),
-       	            MathUtils.random(200,mapHeight-bounds.height));
-
-       	    distance = Math.sqrt((getPositionX()-player.getPositionX())*(getPositionX()-player.getPositionX())
-                 +(getPositionY()-player.getPositionY())*(getPositionY()-player.getPositionY()));
-
-    	} while ((distance <MIN_DISTANCE || collisionCheck.isCollidesTop() || collisionCheck.isCollidesBottom() || collisionCheck.isCollidesRight() || collisionCheck.isCollidesLeft()));
+        randomPosition();
 
        	pathFinding = new Pathfinding(mapLayer);
        	walkQueue = new LinkedList<Node>();
+    }
+
+    @Override
+    protected void setAnimation() {
+        if (velocity.x != 0) {
+            unFreezeAnimation();
+            setCurrentAnimation(velocity.x < 0 ? AnimationName.WALK_LEFT : AnimationName.WALK_RIGHT);
+        }
+        else if (velocity.y != 0) {
+            unFreezeAnimation();
+            setCurrentAnimation(velocity.y < 0 ? AnimationName.WALK_DOWN : AnimationName.WALK_UP);
+        }
+        else {
+            freezeAnimation();
+            resetAnimation();
+        }
     }
 
     @Override
@@ -103,7 +113,6 @@ public class Enemy extends AnimatedObject {
         	}
         };
 
-        updateViewDirection();
         if(pause == true){
         	if(TimeUtils.nanoTime() - lastDetectTime > 500000000) {
         		runToPlayer(); lastDetectTime = TimeUtils.nanoTime();
@@ -113,14 +122,11 @@ public class Enemy extends AnimatedObject {
         else {
         	runToPlayer();
         }
-        updateKeyFrame(deltaTime);
     }
 
     public boolean isDespawned(){
     	return despawned;
     }
-
-
     private void runToPlayer(){
 
         if(walkQueue.isEmpty()) {
@@ -151,6 +157,26 @@ public class Enemy extends AnimatedObject {
 
     public void showHp(ShapeRenderer shapeRenderer){
     	if(count > 0)shapeRenderer.rect(getPositionX(), getPositionY()-10, dimension.x*(1-count/5f), 5);
+    }
+
+    private void randomPosition() {
+        float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
+        float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
+
+        final double MIN_DISTANCE = 200;
+        double distance;
+        do{
+            setPosition(
+                    MathUtils.random(200,mapWidth-bounds.width),
+                    MathUtils.random(200,mapHeight-bounds.height));
+
+            float xdiff = getPositionX()-player.getPositionX();
+            float ydiff = getPositionY()-player.getPositionY();
+
+            distance =  Math.sqrt(xdiff*xdiff + ydiff*ydiff);
+
+
+        } while ((distance <MIN_DISTANCE || collisionCheck.isCollidesTop() || collisionCheck.isCollidesBottom() || collisionCheck.isCollidesRight() || collisionCheck.isCollidesLeft()));
     }
 
 }

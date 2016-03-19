@@ -9,88 +9,101 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 
-public class AnimatedObject extends AbstractGameObject {
+// TODO
+/** คลาสนี้อยู่ระหว่างการพัฒนา*/
 
-    private Animation walkLeft;
-    private Animation walkRight;
-    private Animation walkUp;
-    private Animation walkDown;
+public abstract class AnimatedObject  extends AbstractGameObject {
+
+    private ObjectMap<AnimationName, Animation> animations;
 
     private TextureAtlas atlas;
-    private TextureRegion region;
+    private TextureRegion currentRegion;
+    private AnimationName currentAnimation;
 
-    private int framePerDirection;
-    private float frameDuration;
+    private Array<AtlasRegion> regions;
 
     private float animationTime;
+    private boolean freeze;
 
-    public enum ViewDirection {
-        LEFT, RIGHT, UP, DOWN
+    public enum AnimationName {
+        WALK_LEFT,
+        WALK_RIGHT,
+        WALK_UP,
+        WALK_DOWN,
+        ATK_LEFT,
+        ATK_RIGHT
     }
 
-    private ViewDirection viewDirection;
-
-    public AnimatedObject(TextureAtlas atlas, int framePerDirection,  float frameDuration) {
+    public AnimatedObject(TextureAtlas atlas) {
         this.atlas = atlas;
-        this.framePerDirection = framePerDirection;
-        this.frameDuration = frameDuration;
         init();
     }
 
     private void init() {
-
-        Array<AtlasRegion> regions = new Array<AtlasRegion>(atlas.getRegions());
+        animations = new ObjectMap<AnimationName, Animation>();
+        regions = new Array<AtlasRegion>(atlas.getRegions());
         regions.sort(new regionComparator());
 
-        Array<AtlasRegion> walkLeftRegions = new Array<AtlasRegion>();
-        Array<AtlasRegion> walkRightRegions = new Array<AtlasRegion>();
-        Array<AtlasRegion> walkDownRegions = new Array<AtlasRegion>();
-        Array<AtlasRegion> walkUpRegions = new Array<AtlasRegion>();
-
-        walkUpRegions.addAll(regions, 0 * framePerDirection,  framePerDirection);
-        walkDownRegions.addAll(regions, 1 * framePerDirection, framePerDirection);
-        walkLeftRegions.addAll(regions, 2 * framePerDirection, framePerDirection);
-        walkRightRegions.addAll(regions, 3 * framePerDirection, framePerDirection);
-
-        walkLeft = new Animation(frameDuration, walkLeftRegions, PlayMode.LOOP);
-        walkRight = new Animation(frameDuration, walkRightRegions, PlayMode.LOOP);
-        walkDown = new Animation(frameDuration, walkDownRegions, PlayMode.LOOP);
-        walkUp = new Animation(frameDuration, walkUpRegions, PlayMode.LOOP);
-
-        viewDirection = ViewDirection.DOWN;
-        animationTime = 0.0f;
+        currentAnimation = AnimationName.WALK_DOWN;
+        resetAnimation();
+        unFreezeAnimation();
     }
 
     @Override
-    public void render(SpriteBatch batch) {
-        render(batch, region);
+    public void update (float deltaTime) {
+        super.update(deltaTime);
+        setAnimation();
+        updateKeyFrame(deltaTime);
     }
 
-    protected void updateViewDirection() {
-        if (velocity.x != 0) {
-            viewDirection = velocity.x < 0 ?  ViewDirection.LEFT : ViewDirection.RIGHT;
-        }
-        else if (velocity.y != 0) {
-            viewDirection = velocity.y < 0 ?  ViewDirection.DOWN : ViewDirection.UP;
-        }
+
+    @Override
+    public void render(SpriteBatch batch) {
+        render(batch, currentRegion);
+    }
+
+    protected void addLoopAnimation(AnimationName name, float frameTime, int regionStart, int size) {
+        addAnimation(name, frameTime, regionStart, size, PlayMode.LOOP);
+    }
+
+    protected void addNormalAnimation(AnimationName name, float frameTime, int regionStart, int size) {
+        addAnimation(name, frameTime, regionStart, size, PlayMode.NORMAL);
+    }
+
+    protected void addAnimation(AnimationName name, float frameTime, int regionStart, int size, PlayMode mode) {
+        Array<AtlasRegion> animationRegions = new Array<AtlasRegion>();
+        animationRegions.addAll(regions, regionStart, size);
+        animations.put(name, new Animation(frameTime, animationRegions, mode));
+    }
+
+    protected abstract void setAnimation ();
+
+    protected void freezeAnimation() {
+        freeze = true;
+    }
+    protected void unFreezeAnimation() {
+        freeze = false;
+    }
+
+    protected void resetAnimation() {
+        animationTime = 0.0f;
+    }
+
+    public void setCurrentAnimation(AnimationName name) {
+        currentAnimation = name;
+    }
+
+    public boolean isAnimationFinished(AnimationName name) {
+        return animations.get(name).isAnimationFinished(animationTime);
     }
 
     protected void updateKeyFrame(float deltaTime) {
+        if (!freeze) animationTime += deltaTime;
 
-        if (velocity.x != 0 || velocity.y != 0) animationTime += deltaTime;
-        else  animationTime = 0;
-
-        switch(viewDirection) {
-        case DOWN: region = walkDown.getKeyFrame(animationTime); break;
-        case LEFT: region = walkLeft.getKeyFrame(animationTime); break;
-        case RIGHT: region = walkRight.getKeyFrame(animationTime); break;
-        case UP: region = walkUp.getKeyFrame(animationTime); break;
-        default:
-            break;
-        }
-
-        setDimension(region.getRegionWidth(), region.getRegionHeight());
+        currentRegion = animations.get(currentAnimation).getKeyFrame(animationTime);
+        setDimension(currentRegion.getRegionWidth(), currentRegion.getRegionHeight());
     }
 
     private static class regionComparator implements Comparator<AtlasRegion> {
