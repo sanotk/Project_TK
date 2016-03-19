@@ -27,7 +27,7 @@ public abstract class AnimatedObject  extends AbstractGameObject {
     private float animationTime;
     private boolean freeze;
 
-    public enum AnimationName {
+    public static enum AnimationName {
         WALK_LEFT,
         WALK_RIGHT,
         WALK_UP,
@@ -35,6 +35,12 @@ public abstract class AnimatedObject  extends AbstractGameObject {
         ATK_LEFT,
         ATK_RIGHT
     }
+
+    public enum ViewDirection {
+        LEFT, RIGHT, UP, DOWN
+    }
+
+    protected ViewDirection viewDirection;
 
     public AnimatedObject(TextureAtlas atlas) {
         this.atlas = atlas;
@@ -47,6 +53,8 @@ public abstract class AnimatedObject  extends AbstractGameObject {
         regions.sort(new regionComparator());
 
         currentAnimation = AnimationName.WALK_DOWN;
+        viewDirection = ViewDirection.DOWN;
+
         resetAnimation();
         unFreezeAnimation();
     }
@@ -56,6 +64,7 @@ public abstract class AnimatedObject  extends AbstractGameObject {
         super.update(deltaTime);
         setAnimation();
         updateKeyFrame(deltaTime);
+        updateViewDirection();
     }
 
 
@@ -63,6 +72,21 @@ public abstract class AnimatedObject  extends AbstractGameObject {
     public void render(SpriteBatch batch) {
         render(batch, currentRegion);
     }
+
+
+    protected void updateViewDirection() { // update ทิศที่ player มองอยู่  โดยยึดการมองด้านแกน X  เป็นหลักหากมีการเดินเฉียง
+        if (velocity.x != 0) {
+            viewDirection = velocity.x < 0 ?  ViewDirection.LEFT : ViewDirection.RIGHT;
+        }
+        else if (velocity.y != 0) {
+            viewDirection = velocity.y < 0 ?  ViewDirection.DOWN : ViewDirection.UP;
+        }
+    }
+
+    public ViewDirection getViewDirection(){
+        return viewDirection;
+    }
+
 
     protected void addLoopAnimation(AnimationName name, float frameTime, int regionStart, int size) {
         addAnimation(name, frameTime, regionStart, size, PlayMode.LOOP);

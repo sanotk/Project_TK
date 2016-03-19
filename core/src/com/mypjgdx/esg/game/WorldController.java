@@ -86,7 +86,7 @@ public class WorldController extends InputAdapter {
             cameraHelper.setPosition(0, 0);
             cameraHelper.setZoom(1.0f);
             //level.player.init();
-            for(Enemy e: level.enemys) e.init();
+            for(Enemy e: level.enemys) e.init(level.map.getMapLayer());
             break;
         case Keys.SPACE: // กด Spacebar เพื่อให้มุมกล้องติดตาม/เลิกติดตาม player
             if (!cameraHelper.hasTarget()) cameraHelper.setTarget(level.player);

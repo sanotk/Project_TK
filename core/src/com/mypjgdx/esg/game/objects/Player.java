@@ -27,12 +27,10 @@ public class Player extends AnimatedObject {
     	WALK, ATTACK
     }
 
-    public enum ViewDirection {
-        LEFT, RIGHT, UP, DOWN
-    }
+
 
     private PlayerState state = PlayerState.WALK; //สถานะของตัวละคร
-    private ViewDirection viewDirection;
+
 
     public int count=0;
     boolean despawned = false;
@@ -64,13 +62,11 @@ public class Player extends AnimatedObject {
 
         // กำหนดขนาดสเกลของ player
         scale.set(SCALE, SCALE);
-        viewDirection = ViewDirection.DOWN;
     }
 
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        updateViewDirection();
 
     	if (count==20) { despawned = true;}
     }
@@ -110,19 +106,6 @@ public class Player extends AnimatedObject {
             }
         }
 
-    }
-
-    private void updateViewDirection() { // update ทิศที่ player มองอยู่  โดยยึดการมองด้านแกน X  เป็นหลักหากมีการเดินเฉียง
-        if (velocity.x != 0) {
-            viewDirection = velocity.x < 0 ?  ViewDirection.LEFT : ViewDirection.RIGHT;
-        }
-        else if (velocity.y != 0) {
-            viewDirection = velocity.y < 0 ?  ViewDirection.DOWN : ViewDirection.UP;
-        }
-    }
-
-    public ViewDirection getViewDirection(){
-        return viewDirection;
     }
 
     public void attack(){

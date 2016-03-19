@@ -28,7 +28,6 @@ public class Enemy extends AnimatedObject {
 
     private static final float INTITAL_FRICTION = 600f;           // ค่าแรงเสียดทานเริ่มต้น
 
-    private TiledMapTileLayer mapLayer;
     private Player player;
 
     private List<Sword> swords;
@@ -43,17 +42,16 @@ public class Enemy extends AnimatedObject {
     private Pathfinding pathFinding;
     private LinkedList<Node> walkQueue;
 
-    public Enemy(TiledMapTileLayer mapLayer ,Player player, List<Sword> swords) {
+    public Enemy(TiledMapTileLayer mapLayer,Player player, List<Sword> swords) {
         super(Assets.instance.enemyAltas);
 
-        this.mapLayer = mapLayer;
         this.player = player;
         this.swords = swords;
         collisionCheck = new TiledCollisionCheck(this.bounds, mapLayer);
-        init();
+        init(mapLayer);
     }
 
-    public void init() {
+    public void init(TiledMapTileLayer mapLayer) {
         addLoopAnimation(WALK_UP, FRAME_DURATION, 0, 3);
         addLoopAnimation(WALK_DOWN, FRAME_DURATION, 3, 3);
         addLoopAnimation(WALK_LEFT, FRAME_DURATION, 6, 3);
@@ -71,7 +69,7 @@ public class Enemy extends AnimatedObject {
         updateKeyFrame(0);
         setPosition(0, 0);
 
-        randomPosition();
+        randomPosition(mapLayer);
 
        	pathFinding = new Pathfinding(mapLayer);
        	walkQueue = new LinkedList<Node>();
@@ -79,15 +77,15 @@ public class Enemy extends AnimatedObject {
 
     @Override
     protected void setAnimation() {
-        if (velocity.x != 0) {
-            unFreezeAnimation();
-            setCurrentAnimation(velocity.x < 0 ? AnimationName.WALK_LEFT : AnimationName.WALK_RIGHT);
+        switch (viewDirection) {
+        case DOWN:setCurrentAnimation(AnimationName.WALK_DOWN); break;
+        case LEFT: setCurrentAnimation(AnimationName.WALK_LEFT); break;
+        case RIGHT: setCurrentAnimation(AnimationName.WALK_RIGHT); break;
+        case UP: setCurrentAnimation(AnimationName.WALK_UP); break;
+        default:
+            break;
         }
-        else if (velocity.y != 0) {
-            unFreezeAnimation();
-            setCurrentAnimation(velocity.y < 0 ? AnimationName.WALK_DOWN : AnimationName.WALK_UP);
-        }
-        else {
+        if (velocity.x == 0 && velocity.y == 0) {
             freezeAnimation();
             resetAnimation();
         }
@@ -159,7 +157,7 @@ public class Enemy extends AnimatedObject {
     	if(count > 0)shapeRenderer.rect(getPositionX(), getPositionY()-10, dimension.x*(1-count/5f), 5);
     }
 
-    private void randomPosition() {
+    private void randomPosition(TiledMapTileLayer mapLayer) {
         float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
         float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
 
