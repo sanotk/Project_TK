@@ -41,10 +41,20 @@ public class Sword extends AbstractGameObject{
 	        		player.getPositionY() + player.origin.y - origin.y);
 
 	    	switch(player.getViewDirection()){
-			case DOWN: rotation = 90; velocity.set(0,-INTITIAL_SPEED); break;
-			case LEFT: velocity.set(-INTITIAL_SPEED,0); break;
-			case RIGHT: velocity.set(INTITIAL_SPEED,0);break;
-			case UP: rotation = 90; velocity.set(0, INTITIAL_SPEED);break;
+			case DOWN:
+			    rotation = 90;
+			    velocity.set(0,-INTITIAL_SPEED);
+			    break;
+			case LEFT:
+			    velocity.set(-INTITIAL_SPEED,0);
+			    break;
+			case RIGHT:
+			    velocity.set(INTITIAL_SPEED,0);
+			    break;
+			case UP:
+			    rotation = 90;
+			    velocity.set(0, INTITIAL_SPEED);
+			    break;
 			default:
 			    break;
 	    	}
@@ -71,8 +81,12 @@ public class Sword extends AbstractGameObject{
 	    	return despawned;
 	    }
 
-	    public boolean despawn(){
-	    	return despawned = true;
+	    public void despawn(){
+	    	despawned = true;
+	    }
+
+	    public boolean isVerticalDirection() {
+	        return rotation != 0;
 	    }
 
 	    @Override

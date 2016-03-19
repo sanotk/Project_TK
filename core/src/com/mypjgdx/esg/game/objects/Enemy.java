@@ -110,10 +110,16 @@ public class Enemy extends AnimatedObject {
         	if (bounds.overlaps(s.bounds)) {
         	    float ydiff = bounds.y + bounds.height/2 - s.bounds.y - s.bounds.height/2;
                 float xdiff =  bounds.x + bounds.width/2 - s.bounds.x - s.bounds.width/2;
-        	    float angle = MathUtils.atan2(ydiff, xdiff);
-        	    float knockbackSpeed = 10000f;
+                float knockbackSpeed = 10000f;
 
-        	    takeDamage(knockbackSpeed, angle);
+        	    if (s.isVerticalDirection()) {
+        	       if (ydiff > 0) takeDamage(knockbackSpeed, 90 * MathUtils.degreesToRadians);
+        	       else  takeDamage(knockbackSpeed, 270 * MathUtils.degreesToRadians);
+        	    }
+        	    else {
+        	        if (xdiff > 0) takeDamage(knockbackSpeed, 0 * MathUtils.degreesToRadians);
+        	        else takeDamage(knockbackSpeed, 180 * MathUtils.degreesToRadians);
+        	    }
                 s.despawn();
         	}
         }
