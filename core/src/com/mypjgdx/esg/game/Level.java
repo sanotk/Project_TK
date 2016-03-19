@@ -7,27 +7,30 @@ import java.util.List;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.mypjgdx.esg.collision.CollisionCheck;
+import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.game.objects.Player;
 import com.mypjgdx.esg.game.objects.Sword;
 
 public class Level{
 
-    public final Player player; // ตัวละครที่ผู้เล่นจะได้ควบคุม
-    List<Enemy> enemys = new ArrayList<Enemy>();
+    public Player player; // ตัวละครที่ผู้เล่นจะได้ควบคุม
+    public List<Enemy> enemies = new ArrayList<Enemy>();
     public List<Sword> swords = new ArrayList<Sword>();
-    public int count=0;
-    public final Map map;   // แผนที่ในเกม
-    public int MAX_ENEMY = 2;
+    private CollisionCheck goalCheck;
+    public Map map;   // แผนที่ในเกม
+
+    public final int MAX_ENEMY = 2;
 
     public Level (Map map) {
         this.map = map;
-        player = new Player((TiledMapTileLayer) map.getTiledMap().getLayers().get(0));
-        for(int i = 0;i<MAX_ENEMY;i++){
-        	enemys.add(new Enemy(map.getMapLayer(),player ,swords));
+        player = new Player(map.getMapLayer()) ;
+        for(int i = 0; i < MAX_ENEMY ;i++){
+        	enemies.add(new Enemy(map.getMapLayer(),player ,swords));
         }
+        goalCheck = new TiledCollisionCheck(player.bounds, map.getMapLayer(), "goal");
     }
 
     public void render (SpriteBatch batch, OrthogonalTiledMapRenderer tiledRenderer, ShapeRenderer shapeRenderer) {
@@ -36,38 +39,38 @@ public class Level{
 
         batch.begin();
         player.render(batch);
-        for(Enemy e: enemys) e.render(batch);
-        for(Sword s: swords) s.render(batch);
-
+        for (Enemy e: enemies) e.render(batch);
+        for (Sword s: swords) s.render(batch);
         batch.end();
 
-        shapeRenderer.begin(ShapeType.Line);
-        //shapeRenderer.rect(player.bounds.x, player.bounds.y, player.bounds.width, player.bounds.height);
-        shapeRenderer.end();
-
         shapeRenderer.begin(ShapeType.Filled);
-        player.showHp(shapeRenderer);
-        for(Enemy e:enemys)e.showHp(shapeRenderer);
+        player.showHp (shapeRenderer);
+        for (Enemy e:enemies) e.showHp(shapeRenderer);
         shapeRenderer.end();
     }
 
     public void update(float deltaTime) {
         Iterator<Sword>it = swords.iterator();
-        Iterator<Enemy>eit = enemys.iterator();
+        Iterator<Enemy>eit = enemies.iterator();
         while(it.hasNext()){
         	Sword s = it.next();
-        	if (s.isDespawned())it.remove();
+        	if (s.isDespawned()) it.remove();
         }
         while(eit.hasNext()){
         	Enemy e = eit.next();
-        	if (e.isDespawned()){ eit.remove(); MAX_ENEMY -= 1; }
-        }
-        if (player.count==20){
-
+        	if (!e.isAlive()) eit.remove();
         }
         player.update(deltaTime);
-        for(Enemy e: enemys) e.update(deltaTime);
+        for(Enemy e: enemies) e.update(deltaTime);
         for(Sword s: swords) s.update(deltaTime);
+    }
+
+    public boolean isFinished() {
+        return enemies.isEmpty()
+                && goalCheck.isCollidesBottom()
+                && goalCheck.isCollidesLeft()
+                && goalCheck.isCollidesRight()
+                && goalCheck.isCollidesTop();
     }
 
 }

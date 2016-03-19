@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class MenuScreen extends AbstractGameScreen {
 
@@ -21,7 +22,7 @@ public class MenuScreen extends AbstractGameScreen {
     public MenuScreen(final Game game) {
         super(game);
 
-        stage = new Stage();
+        stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT));
         Gdx.input.setInputProcessor(stage);
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
@@ -63,7 +64,6 @@ public class MenuScreen extends AbstractGameScreen {
         buttonStart.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
                 game.setScreen(new GameScreen(game));
             }
         });
@@ -71,7 +71,6 @@ public class MenuScreen extends AbstractGameScreen {
         buttonLoad.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
                 game.setScreen(new LoadScreen(game));
             }
         });
@@ -79,7 +78,6 @@ public class MenuScreen extends AbstractGameScreen {
         buttonOption.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
                 game.setScreen(new OptionScreen(game));
             }
         });
@@ -87,8 +85,7 @@ public class MenuScreen extends AbstractGameScreen {
         buttonExit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                System.exit(0);
+                Gdx.app.exit();
             }
         });
 
@@ -111,7 +108,9 @@ public class MenuScreen extends AbstractGameScreen {
     public void show() {}
 
     @Override
-    public void hide() {}
+    public void hide() {
+        dispose();
+    }
 
     @Override
     public void pause() {}

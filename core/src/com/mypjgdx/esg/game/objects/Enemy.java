@@ -25,19 +25,18 @@ public class Enemy extends AnimatedObject {
 
     // อัตราการขยายภาพ enemy
     private static final float SCALE = 0.2f;
-
     private static final float INTITAL_FRICTION = 600f;           // ค่าแรงเสียดทานเริ่มต้น
 
+    private static final int INTITAL_HEALTH = 5;
+
     private Player player;
-
     private List<Sword> swords;
-    private int count=0;
-    private boolean despawned;
-    private boolean pause = false;
-    long lastDetectTime;
 
-    boolean attack;
-    int i;
+    private int health;
+    private boolean alive;
+    private boolean applyingknockback;
+    private long lastKnockbackTime;
+    private long knockbackTime;
 
     private Pathfinding pathFinding;
     private LinkedList<Node> walkQueue;
@@ -57,7 +56,8 @@ public class Enemy extends AnimatedObject {
         addLoopAnimation(WALK_LEFT, FRAME_DURATION, 6, 3);
         addLoopAnimation(WALK_RIGHT, FRAME_DURATION, 9, 3);
 
-    	despawned = false;
+    	alive = true;
+    	health =  INTITAL_HEALTH;
 
         // กำหนดค่าทางฟิสิกส์
         friction.set(INTITAL_FRICTION, INTITAL_FRICTION);
@@ -77,6 +77,7 @@ public class Enemy extends AnimatedObject {
 
     @Override
     protected void setAnimation() {
+        unFreezeAnimation();
         switch (viewDirection) {
         case DOWN:setCurrentAnimation(AnimationName.WALK_DOWN); break;
         case LEFT: setCurrentAnimation(AnimationName.WALK_LEFT); break;
@@ -94,87 +95,117 @@ public class Enemy extends AnimatedObject {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+        updateStatus();
 
         if (bounds.overlaps(player.bounds)) {
-        	player.hit_player();
-        	float angle = MathUtils.atan2((player.bounds.y + player.bounds.height/2 - bounds.y - bounds.height/2),
-             		(player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2));
-        	player.velocity.set(250f*MathUtils.cos(angle), 250f*MathUtils.sin(angle));
+            float ydiff = player.bounds.y + player.bounds.height/2 -bounds.y - bounds.height/2 ;
+            float xdiff = player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2;
+            float angle = MathUtils.atan2(ydiff, xdiff);
+            float knockbackSpeed = 10000f;
 
+        	player.takeDamage(knockbackSpeed, angle);
         }
 
         for(Sword s: swords) {
         	if (bounds.overlaps(s.bounds)) {
-        		count++; pause = true;
-        		s.despawn();
-        		if(count==5){despawned = true; }
-        	}
-        };
+        	    float ydiff = bounds.y + bounds.height/2 - s.bounds.y - s.bounds.height/2;
+                float xdiff =  bounds.x + bounds.width/2 - s.bounds.x - s.bounds.width/2;
+        	    float angle = MathUtils.atan2(ydiff, xdiff);
+        	    float knockbackSpeed = 10000f;
 
-        if(pause == true){
-        	if(TimeUtils.nanoTime() - lastDetectTime > 500000000) {
-        		runToPlayer(); lastDetectTime = TimeUtils.nanoTime();
-        		pause = false;
+        	    takeDamage(knockbackSpeed, angle);
+                s.despawn();
         	}
         }
-        else {
-        	runToPlayer();
+        runToPlayer(deltaTime);
+    }
+
+    public boolean isAlive(){
+    	return alive;
+    }
+
+    public void takeDamage(float knockbackSpeed, float knockbackAngle){
+        --health;
+        if (health <= 0) {
+            alive = false;
+            return;
+        }
+        acceleration.set(
+                knockbackSpeed * MathUtils.cos(knockbackAngle),
+                knockbackSpeed * MathUtils.sin(knockbackAngle));
+
+        applyingknockback = true;
+        lastKnockbackTime = TimeUtils.nanoTime();
+        knockbackTime = TimeUtils.millisToNanos(150);
+    }
+
+    private void updateStatus() {
+        if (applyingknockback && TimeUtils.nanoTime() - lastKnockbackTime > knockbackTime) {
+            applyingknockback =  false;
+            acceleration.set(0 ,0);
         }
     }
 
-    public boolean isDespawned(){
-    	return despawned;
-    }
-    private void runToPlayer(){
+    private void runToPlayer(float deltaTime){
+        if (walkQueue.isEmpty()) {
+            pathFinding.setStart(
+                    bounds.x + bounds.width/2,
+                    bounds.y + bounds.height/2);
+            pathFinding.setGoal(
+                    player.bounds.x + player.bounds.width/2,
+                    player.bounds.y + player.bounds.height/2);
 
-        if(walkQueue.isEmpty()) {
-            pathFinding.setStart(bounds.x + bounds.width/2, bounds.y + bounds.height/2);
-            pathFinding.setGoal(player.bounds.x + player.bounds.width/2, player.bounds.y + player.bounds.height/2);
             List<Node> list = pathFinding.findPath();
-            int count = 0;
             list.remove(0);
+
+            int count = 0;
             while(!list.isEmpty()) {
                 if (count == 3) return;
                 walkQueue.add(list.remove(0));
                 ++count ;
             }
         }
-
         if (walkQueue.isEmpty()) return;
         Node n = walkQueue.getFirst();
 
         float xdiff = n.getPositionX() - bounds.x - bounds.width/2;
         float ydiff = n.getPositionY()- bounds.y - bounds.height/2;
-
-        float distance =  (float) Math.sqrt(xdiff*xdiff + ydiff*ydiff);
+        float distance =  (float) Math.sqrt (xdiff*xdiff + ydiff*ydiff);
         if (distance < 5f ) walkQueue.removeFirst();
 
         float angle = MathUtils.atan2(ydiff, xdiff);
-        velocity.set(80f*MathUtils.cos(angle), 80f*MathUtils.sin(angle));
+        float walkingSpeed = 80f;
+        velocity.set(walkingSpeed * MathUtils.cos(angle), walkingSpeed * MathUtils.sin(angle));
     }
 
     public void showHp(ShapeRenderer shapeRenderer){
-    	if(count > 0)shapeRenderer.rect(getPositionX(), getPositionY()-10, dimension.x*(1-count/5f), 5);
+    	if (health < INTITAL_HEALTH)
+    	    shapeRenderer.rect(
+    	            getPositionX(), getPositionY()-10,
+    	            dimension.x * ((float) health / INTITAL_HEALTH), 5);
     }
 
     private void randomPosition(TiledMapTileLayer mapLayer) {
         float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
         float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
 
-        final double MIN_DISTANCE = 200;
+        final float MIN_DISTANCE = 200;
         double distance;
         do{
             setPosition(
-                    MathUtils.random(200,mapWidth-bounds.width),
-                    MathUtils.random(200,mapHeight-bounds.height));
+                    MathUtils.random(MIN_DISTANCE, mapWidth-bounds.width),
+                    MathUtils.random(MIN_DISTANCE, mapHeight-bounds.height));
 
             float xdiff = getPositionX()-player.getPositionX();
             float ydiff = getPositionY()-player.getPositionY();
 
             distance =  Math.sqrt(xdiff*xdiff + ydiff*ydiff);
 
-
-        } while ((distance <MIN_DISTANCE || collisionCheck.isCollidesTop() || collisionCheck.isCollidesBottom() || collisionCheck.isCollidesRight() || collisionCheck.isCollidesLeft()));
+        } while ((distance < MIN_DISTANCE
+                || collisionCheck.isCollidesTop()
+                || collisionCheck.isCollidesBottom()
+                || collisionCheck.isCollidesRight()
+                || collisionCheck.isCollidesLeft()));
     }
 
 }

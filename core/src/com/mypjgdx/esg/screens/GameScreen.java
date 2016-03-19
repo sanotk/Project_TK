@@ -23,20 +23,23 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
-
-        worldRenderer.render();
-
-        if(Gdx.input.isKeyJustPressed(Keys.M))
+        if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));
-
-        if((worldController.level.player.isFinish())&&(worldController.level.MAX_ENEMY == 0)){
-        	worldController.init(new Level(worldController.level.map.next()));
+            return;
         }
 
-        if(worldController.level.player.isDespawned()){
-        	game.setScreen(new GameOverScreen(game));
+        if (!worldController.level.player.isAlive()) {
+            game.setScreen(new GameOverScreen(game));
+            return;
         }
+
+        if ((worldController.level.isFinished())){
+            worldController.init(new Level(worldController.level.map.next()));
+            return;
+        }
+
+        worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
+        worldRenderer.render();
     }
 
     @Override
