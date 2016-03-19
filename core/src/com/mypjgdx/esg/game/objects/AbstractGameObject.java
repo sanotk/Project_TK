@@ -46,7 +46,6 @@ public abstract class AbstractGameObject {
         updateMotionY(deltaTime);
 
         setPosition(position.x + velocity.x * deltaTime,  position.y);
-
         if (collisionCheck.isCollidesLeft() || collisionCheck.isCollidesRight()) {
             setPosition(oldPosition.x, position.y);
         }

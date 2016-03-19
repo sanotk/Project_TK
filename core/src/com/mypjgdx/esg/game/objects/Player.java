@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
@@ -21,20 +22,21 @@ public class Player extends AnimatedObject {
     private static final float INTITAL_X_POSITION = 100;         // ตำแหน่งเริ่มต้นแกน X
     private static final float INTITAL_Y_POSITION = 100;      // ตำแหน่งเริ่มต้นแกน Y
 
-    long lastAttackTime;
+    private static final int INTITAL_HEALTH = 20;
 
     public enum PlayerState {
     	WALK, ATTACK
     }
 
-
-
-    private PlayerState state = PlayerState.WALK; //สถานะของตัวละคร
-
-
-    public int count=0;
-    boolean despawned = false;
-    boolean finish = false;
+    private PlayerState state;
+    private int health;
+    private boolean alive;
+    private boolean invulnerable;
+    private boolean applyingknockback;
+    private long lastInvulnerableTime;
+    private long invulnerableTime;
+    private long lastKnockbackTime;
+    private long knockbackTime;
 
     public Player(TiledMapTileLayer mapLayer) {
         this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
@@ -49,12 +51,19 @@ public class Player extends AnimatedObject {
     }
 
     public void init() {
-        addLoopAnimation(AnimationName.ATK_LEFT, FRAME_DURATION, 0, 3);
-        addLoopAnimation(AnimationName.ATK_RIGHT, FRAME_DURATION, 3, 3);
+        addNormalAnimation(AnimationName.ATK_LEFT, FRAME_DURATION, 0, 3);
+        addNormalAnimation(AnimationName.ATK_RIGHT, FRAME_DURATION, 3, 3);
         addLoopAnimation(AnimationName.WALK_UP, FRAME_DURATION, 6, 3);
         addLoopAnimation(AnimationName.WALK_DOWN, FRAME_DURATION, 9, 3);
         addLoopAnimation(AnimationName.WALK_LEFT, FRAME_DURATION, 12, 3);
         addLoopAnimation(AnimationName.WALK_RIGHT, FRAME_DURATION, 15, 3);
+
+        state = PlayerState.WALK; //สถานะของตัวละคร
+        health = INTITAL_HEALTH;
+        alive = true;
+        invulnerable = false;
+        lastInvulnerableTime = 0;
+        invulnerableTime = 0;
 
         // กำหนดค่าทางฟิสิกส์
         friction.set(INTITAL_FRICTION, INTITAL_FRICTION);
@@ -67,8 +76,7 @@ public class Player extends AnimatedObject {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-
-    	if (count==20) { despawned = true;}
+        statusUpdate();
     }
 
     @Override
@@ -105,7 +113,6 @@ public class Player extends AnimatedObject {
                 resetAnimation();
             }
         }
-
     }
 
     public void attack(){
@@ -115,35 +122,74 @@ public class Player extends AnimatedObject {
     	}
     }
 
-    public void hit_player(){
-    	if(TimeUtils.nanoTime() - lastAttackTime > 1000000000) {
-    		count++; lastAttackTime = TimeUtils.nanoTime();
+    public void takeDamage(float knockbackSpeed, float knockbackAngle){
+    	if (!invulnerable) {
+    	    --health;
+            if (health <= 0) {
+                alive = false;
+                return;
+            }
+            invulnerable = true;
+            lastInvulnerableTime = TimeUtils.nanoTime();
+            invulnerableTime = TimeUtils.millisToNanos(1000);
+
+    	    acceleration.set(
+                    knockbackSpeed *MathUtils.cos(knockbackAngle),
+                    knockbackSpeed *MathUtils.sin(knockbackAngle));
+
+            applyingknockback = true;
+            lastKnockbackTime = TimeUtils.nanoTime();
+            knockbackTime = TimeUtils.millisToNanos(300);
     	}
+    }
+
+    public void statusUpdate() {
+        if (invulnerable && TimeUtils.nanoTime() - lastInvulnerableTime > invulnerableTime)
+            invulnerable = false;
+
+        if (applyingknockback && TimeUtils.nanoTime() - lastKnockbackTime > knockbackTime) {
+            applyingknockback =  false;
+            acceleration.set(0 ,0);
+        }
     }
 
     public void rangeAttack(List<Sword>swords,TiledMapTileLayer mapLayer){
-    	if(state != PlayerState.ATTACK){
+    	if (state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
-    		resetAnimation();
-    		swords.add(new Sword(mapLayer, this));
+
+            swords.add(new Sword(mapLayer, this));
             Assets.instance.bullet.play();
+
+    		resetAnimation();
     	}
     }
 
-    public boolean isDespawned(){
-    	return despawned;
-    }
-
-    public boolean isFinish(){
-    	return finish;
+    public boolean isAlive(){
+    	return alive;
     }
 
     public void showHp(ShapeRenderer shapeRenderer){
-    	if(count>=20){
-    		count = 20;
-    		despawned = true;
-    	}
-    	shapeRenderer.rect(getPositionX(), getPositionY()-10, dimension.x*(1-count/20f), 5);
+    	shapeRenderer.rect(
+    	        getPositionX(), getPositionY()-10,
+    	        dimension.x * ((float) health / INTITAL_HEALTH), 5);
+    }
+
+    @Override
+    protected void updateMotionX(float deltaTime) {
+        super.updateMotionX(deltaTime);
+        if (velocity.x >= 0)
+            velocity.x = Math.min(velocity.x, 150f);
+        else
+            velocity.x = Math.max(velocity.x, -150f);
+    }
+
+    @Override
+    protected void updateMotionY(float deltaTime) {
+        super.updateMotionY(deltaTime);
+        if (velocity.y >= 0)
+            velocity.y = Math.min(velocity.y, 150f);
+        else
+            velocity.y = Math.max(velocity.y, -150f);
     }
 
 }

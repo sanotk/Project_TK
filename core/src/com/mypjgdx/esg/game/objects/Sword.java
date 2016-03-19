@@ -28,26 +28,23 @@ public class Sword extends AbstractGameObject{
 	        // กำหนดค่าทางฟิสิกส์
 	        friction.set(INTITAL_FRICTION, INTITAL_FRICTION);
 	        acceleration.set(0.0f, 0.0f);
+
 	        // กำหนดขนาดสเกลของ ดาบ
 	        scale.set(SCALE, SCALE);
 
-	        setDimension(Assets.instance.sword.getRegionWidth(),Assets.instance.sword.getRegionHeight());
-	        setPosition(player.getPositionX() + player.origin.x - origin.x,
+	        setDimension(
+	                Assets.instance.sword.getRegionWidth(),
+	                Assets.instance.sword.getRegionHeight());
+
+	        setPosition(
+	                player.getPositionX() + player.origin.x - origin.x,
 	        		player.getPositionY() + player.origin.y - origin.y);
 
 	    	switch(player.getViewDirection()){
-			case DOWN:
-			    rotation = 90; velocity.set(0,-INTITIAL_SPEED);
-			    break;
-			case LEFT:
-			    velocity.set(-INTITIAL_SPEED,0);
-			    break;
-			case RIGHT:
-			    velocity.set(INTITIAL_SPEED,0);
-			    break;
-			case UP:
-			    rotation = 90; velocity.set(0, INTITIAL_SPEED);
-			    break;
+			case DOWN: rotation = 90; velocity.set(0,-INTITIAL_SPEED); break;
+			case LEFT: velocity.set(-INTITIAL_SPEED,0); break;
+			case RIGHT: velocity.set(INTITIAL_SPEED,0);break;
+			case UP: rotation = 90; velocity.set(0, INTITIAL_SPEED);break;
 			default:
 			    break;
 	    	}
@@ -58,13 +55,14 @@ public class Sword extends AbstractGameObject{
 	        updateMotionX(deltaTime);
 	        updateMotionY(deltaTime);
 
-	        setPosition(getPositionX() + velocity.x * deltaTime,  getPositionY());
-	        if (collisionCheck.isCollidesLeft() || collisionCheck.isCollidesRight()) {
-	        	despawned = true;
-	        }
+	        setPosition(
+	                getPositionX() + velocity.x * deltaTime,
+	                getPositionY() + velocity.y * deltaTime);
 
-	        setPosition(getPositionX(),  getPositionY() + velocity.y * deltaTime);
-	        if (collisionCheck.isCollidesTop() || collisionCheck.isCollidesBottom()) {
+	        if (collisionCheck.isCollidesLeft()
+	                || collisionCheck.isCollidesRight()
+	                || collisionCheck.isCollidesTop()
+	                || collisionCheck.isCollidesBottom()) {
 	        	despawned = true;
 	        }
 	    }
