@@ -108,18 +108,14 @@ public class Enemy extends AnimatedObject {
 
         for(Sword s: swords) {
         	if (bounds.overlaps(s.bounds)) {
-        	    float ydiff = bounds.y + bounds.height/2 - s.bounds.y - s.bounds.height/2;
-                float xdiff =  bounds.x + bounds.width/2 - s.bounds.x - s.bounds.width/2;
                 float knockbackSpeed = 10000f;
-
-        	    if (s.isVerticalDirection()) {
-        	       if (ydiff > 0) takeDamage(knockbackSpeed, 90 * MathUtils.degreesToRadians);
-        	       else  takeDamage(knockbackSpeed, 270 * MathUtils.degreesToRadians);
-        	    }
-        	    else {
-        	        if (xdiff > 0) takeDamage(knockbackSpeed, 0 * MathUtils.degreesToRadians);
-        	        else takeDamage(knockbackSpeed, 180 * MathUtils.degreesToRadians);
-        	    }
+                switch(s.getDirection()) {
+                case DOWN: takeDamage(knockbackSpeed, 270 * MathUtils.degreesToRadians); break;
+                case LEFT: takeDamage(knockbackSpeed, 180 * MathUtils.degreesToRadians); break;
+                case RIGHT: takeDamage(knockbackSpeed, 0 * MathUtils.degreesToRadians); break;
+                case UP: takeDamage(knockbackSpeed, 90 * MathUtils.degreesToRadians); break;
+                default: break;
+                }
                 s.despawn();
         	}
         }
@@ -202,8 +198,8 @@ public class Enemy extends AnimatedObject {
                     MathUtils.random(MIN_DISTANCE, mapWidth-bounds.width),
                     MathUtils.random(MIN_DISTANCE, mapHeight-bounds.height));
 
-            float xdiff = getPositionX()-player.getPositionX();
-            float ydiff = getPositionY()-player.getPositionY();
+            float xdiff = getPositionX() - player.getPositionX();
+            float ydiff = getPositionY() - player.getPositionY();
 
             distance =  Math.sqrt(xdiff*xdiff + ydiff*ydiff);
 
