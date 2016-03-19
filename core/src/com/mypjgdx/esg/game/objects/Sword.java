@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.game.objects.AnimatedObject.ViewDirection;
 
 
 public class Sword extends AbstractGameObject{
@@ -15,6 +16,8 @@ public class Sword extends AbstractGameObject{
 
 	    private Player player;
 	    private boolean despawned;
+
+	    private ViewDirection direction;
 
 	    public Sword(TiledMapTileLayer mapLayer ,Player player) {
 	        this.player = player;
@@ -40,7 +43,9 @@ public class Sword extends AbstractGameObject{
 	                player.getPositionX() + player.origin.x - origin.x,
 	        		player.getPositionY() + player.origin.y - origin.y);
 
-	    	switch(player.getViewDirection()){
+	        direction = player.getViewDirection();
+
+	    	switch(direction){
 			case DOWN:
 			    rotation = 90;
 			    velocity.set(0,-INTITIAL_SPEED);
@@ -85,8 +90,8 @@ public class Sword extends AbstractGameObject{
 	    	despawned = true;
 	    }
 
-	    public boolean isVerticalDirection() {
-	        return rotation != 0;
+	    public ViewDirection getDirection() {
+	        return direction;
 	    }
 
 	    @Override
