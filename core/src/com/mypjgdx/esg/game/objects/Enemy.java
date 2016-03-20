@@ -216,17 +216,29 @@ public class Enemy extends AnimatedObject {
 
         float xdiff = n.getPositionX() - bounds.x - bounds.width/2;
         float ydiff = n.getPositionY()- bounds.y - bounds.height/2;
-        float distance =  (float) Math.sqrt (xdiff*xdiff + ydiff*ydiff);
-        if (distance < 1f ) {
-            walkQueue.removeFirst();
-            return;
+
+        final float MIN_MOVING_DISTANCE = movingSpeed/20;
+        boolean moving = false;
+
+        if (ydiff >  MIN_MOVING_DISTANCE) {
+            moveUp();
+            moving = true;
+        }
+        else if (ydiff < -MIN_MOVING_DISTANCE) {
+            moveDown();
+            moving = true;
         }
 
-        if (xdiff >= 0) moveRight();
-        else moveLeft();
-
-        if (ydiff >= 0)  moveUp();
-        else moveDown();
+        if (xdiff > MIN_MOVING_DISTANCE)  {
+            moveRight();
+            moving = true;
+        }
+        else if (xdiff < -MIN_MOVING_DISTANCE) {
+            moveLeft();
+            moving = true;
+        }
+        if (!moving)
+            walkQueue.removeFirst();
     }
 
     public void showHp(ShapeRenderer shapeRenderer){
