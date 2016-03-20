@@ -28,15 +28,19 @@ public class Enemy extends AnimatedObject {
     private static final float INTITAL_FRICTION = 600f;           // ค่าแรงเสียดทานเริ่มต้น
 
     private static final int INTITAL_HEALTH = 5;
+    private static final float INTITAL_MOVING_SPEED = 80f;
 
     private Player player;
     private List<Sword> swords;
 
-    private int health;
     private boolean alive;
-    private boolean applyingknockback;
-    private long lastKnockbackTime;
-    private long knockbackTime;
+    private boolean knockback;
+    private boolean stun;
+    private long stunTime;
+    private long lastStunTime;
+
+    private int health;
+    private float movingSpeed;
 
     private Pathfinding pathFinding;
     private LinkedList<Node> walkQueue;
@@ -57,7 +61,10 @@ public class Enemy extends AnimatedObject {
         addLoopAnimation(WALK_RIGHT, FRAME_DURATION, 9, 3);
 
     	alive = true;
+    	knockback= false;
+    	stun = false;
     	health =  INTITAL_HEALTH;
+        movingSpeed = INTITAL_MOVING_SPEED;
 
         // กำหนดค่าทางฟิสิกส์
         friction.set(INTITAL_FRICTION, INTITAL_FRICTION);
@@ -101,14 +108,16 @@ public class Enemy extends AnimatedObject {
             float ydiff = player.bounds.y + player.bounds.height/2 -bounds.y - bounds.height/2 ;
             float xdiff = player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2;
             float angle = MathUtils.atan2(ydiff, xdiff);
-            float knockbackSpeed = 15000f;
+            float knockbackSpeed = player.getMovingSpeed() * 1.5f;
 
-        	player.takeDamage(knockbackSpeed, angle);
+            if (player.takeDamage(knockbackSpeed, angle)) {
+                takeKnockback((float) (movingSpeed *Math.sqrt(2)),  (float) (angle + Math.PI));
+            }
         }
 
         for(Sword s: swords) {
-        	if (bounds.overlaps(s.bounds)) {
-                float knockbackSpeed = 10000f;
+        	if (bounds.overlaps(s.bounds) && !s.isDespawned()) {
+                float knockbackSpeed = 100f;
                 switch(s.getDirection()) {
                 case DOWN: takeDamage(knockbackSpeed, 270 * MathUtils.degreesToRadians); break;
                 case LEFT: takeDamage(knockbackSpeed, 180 * MathUtils.degreesToRadians); break;
@@ -126,27 +135,61 @@ public class Enemy extends AnimatedObject {
     	return alive;
     }
 
+    public void moveLeft() {
+        if (knockback || stun) return;
+        velocity.x = -movingSpeed;
+        viewDirection = ViewDirection.LEFT;
+    }
+
+    public void moveRight() {
+        if (knockback || stun) return;
+        velocity.x = movingSpeed;
+        viewDirection = ViewDirection.RIGHT;
+    }
+
+    public void moveUp() {
+        if (knockback || stun) return;
+        velocity.y = movingSpeed;
+        viewDirection = ViewDirection.UP;
+    }
+
+    public void moveDown() {
+        if (knockback || stun) return;
+        velocity.y = -movingSpeed;
+        viewDirection = ViewDirection.DOWN;
+    }
+
     public void takeDamage(float knockbackSpeed, float knockbackAngle){
         --health;
         if (health <= 0) {
             alive = false;
             return;
         }
-        acceleration.set(
+        takeKnockback(knockbackSpeed, knockbackAngle);
+    }
+
+    public void takeKnockback(float knockbackSpeed, float knockbackAngle) {
+        velocity.set(
                 knockbackSpeed * MathUtils.cos(knockbackAngle),
                 knockbackSpeed * MathUtils.sin(knockbackAngle));
 
-        applyingknockback = true;
-        lastKnockbackTime = TimeUtils.nanoTime();
-        knockbackTime = TimeUtils.millisToNanos(150);
+        knockback = true;
+    }
+
+    public void takeStun(long duration) {
+        stun = true;
+        lastStunTime = TimeUtils.nanoTime();
+        stunTime = TimeUtils.millisToNanos(duration);
     }
 
     private void updateStatus() {
-        if (applyingknockback && TimeUtils.nanoTime() - lastKnockbackTime > knockbackTime) {
-            applyingknockback =  false;
-            acceleration.set(0 ,0);
+        if (knockback && velocity.isZero()) {
+            knockback =  false;
         }
+        if (stun && TimeUtils.nanoTime() - lastStunTime > stunTime)
+            stun = false;
     }
+
 
     private void runToPlayer(float deltaTime){
         if (walkQueue.isEmpty()) {
@@ -159,12 +202,8 @@ public class Enemy extends AnimatedObject {
 
             List<Node> list = pathFinding.findPath();
             list.remove(0);
-
-            int count = 0;
-            while(!list.isEmpty()) {
-                if (count == 3) return;
-                walkQueue.add(list.remove(0));
-                ++count ;
+            if(!list.isEmpty()) {
+                walkQueue.add(list.get(0));
             }
         }
         if (walkQueue.isEmpty()) return;
@@ -173,17 +212,22 @@ public class Enemy extends AnimatedObject {
         float xdiff = n.getPositionX() - bounds.x - bounds.width/2;
         float ydiff = n.getPositionY()- bounds.y - bounds.height/2;
         float distance =  (float) Math.sqrt (xdiff*xdiff + ydiff*ydiff);
-        if (distance < 5f ) walkQueue.removeFirst();
+        if (distance < 1f ) {
+            walkQueue.removeFirst();
+            return;
+        }
 
-        float angle = MathUtils.atan2(ydiff, xdiff);
-        float walkingSpeed = 80f;
-        velocity.set(walkingSpeed * MathUtils.cos(angle), walkingSpeed * MathUtils.sin(angle));
+        if (xdiff >= 0) moveRight();
+        else moveLeft();
+
+        if (ydiff >= 0)  moveUp();
+        else moveDown();
     }
 
     public void showHp(ShapeRenderer shapeRenderer){
     	if (health < INTITAL_HEALTH)
     	    shapeRenderer.rect(
-    	            getPositionX(), getPositionY()-10,
+    	            getPositionX(), getPositionY() - 10,
     	            dimension.x * ((float) health / INTITAL_HEALTH), 5);
     }
 
@@ -195,8 +239,8 @@ public class Enemy extends AnimatedObject {
         double distance;
         do{
             setPosition(
-                    MathUtils.random(MIN_DISTANCE, mapWidth-bounds.width),
-                    MathUtils.random(MIN_DISTANCE, mapHeight-bounds.height));
+                    MathUtils.random(MIN_DISTANCE, mapWidth - bounds.width),
+                    MathUtils.random(MIN_DISTANCE, mapHeight - bounds.height));
 
             float xdiff = getPositionX() - player.getPositionX();
             float ydiff = getPositionY() - player.getPositionY();
