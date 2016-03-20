@@ -44,14 +44,14 @@ public abstract class AbstractGameObject {
         updateMotionX(deltaTime);
         updateMotionY(deltaTime);
 
-        setPosition(position.x + velocity.x * deltaTime,  position.y);
+        setPositionX(position.x + velocity.x * deltaTime);
         if (collisionCheck.isCollidesLeft() || collisionCheck.isCollidesRight()) {
-            setPosition(oldPositionX, position.y);
+            setPositionX(oldPositionX);
         }
 
-        setPosition(position.x,  position.y + velocity.y * deltaTime);
+        setPositionY(position.y + velocity.y * deltaTime);
         if (collisionCheck.isCollidesTop() || collisionCheck.isCollidesBottom()) {
-            setPosition(position.x, oldPositionY);
+            setPositionY(oldPositionY);
         }
     }
 

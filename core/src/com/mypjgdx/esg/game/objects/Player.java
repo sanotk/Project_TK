@@ -21,7 +21,7 @@ public class Player extends AnimatedObject {
     private static final float INTITAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
     private static final float INTITAL_X_POSITION = 100f;         // ตำแหน่งเริ่มต้นแกน X
     private static final float INTITAL_Y_POSITION = 100f;      // ตำแหน่งเริ่มต้นแกน Y
-    private static final float INTITAL_MOVING_SPEED = 150f;
+    private static final float INTITAL_MOVING_SPEED = 100f;
 
     private static final int INTITAL_HEALTH = 20;
 
@@ -81,27 +81,32 @@ public class Player extends AnimatedObject {
     }
 
     public void moveLeft() {
-        if (knockback) return;
-        velocity.x = -movingSpeed;
-        viewDirection = ViewDirection.LEFT;
+        move(ViewDirection.LEFT);
     }
 
     public void moveRight() {
-        if (knockback) return;
-        velocity.x = movingSpeed;
-        viewDirection = ViewDirection.RIGHT;
+        move(ViewDirection.RIGHT);
     }
 
     public void moveUp() {
-        if (knockback) return;
-        velocity.y = movingSpeed;
-        viewDirection = ViewDirection.UP;
+        move(ViewDirection.UP);
     }
 
     public void moveDown() {
+        move(ViewDirection.DOWN);
+    }
+
+    private void move(ViewDirection direction) {
         if (knockback) return;
-        velocity.y = -movingSpeed;
-        viewDirection = ViewDirection.DOWN;
+        switch(direction) {
+        case DOWN: velocity.y = -movingSpeed; break;
+        case LEFT: velocity.x = -movingSpeed; break;
+        case RIGHT: velocity.x = movingSpeed; break;
+        case UP: velocity.y = movingSpeed; break;
+        default:
+            break;
+        }
+        viewDirection = direction;
     }
 
     @Override
@@ -203,10 +208,4 @@ public class Player extends AnimatedObject {
     	        getPositionX(), getPositionY()-10,
     	        dimension.x * ((float) health / INTITAL_HEALTH), 5);
     }
-
-    public float getMovingSpeed() {
-        return movingSpeed;
-    }
-
-
 }

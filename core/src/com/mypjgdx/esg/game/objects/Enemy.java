@@ -28,7 +28,7 @@ public class Enemy extends AnimatedObject {
     private static final float INTITAL_FRICTION = 600f;           // ค่าแรงเสียดทานเริ่มต้น
 
     private static final int INTITAL_HEALTH = 5;
-    private static final float INTITAL_MOVING_SPEED = 80f;
+    private static final float INTITAL_MOVING_SPEED = 60f;
 
     private Player player;
     private List<Sword> swords;
@@ -108,10 +108,10 @@ public class Enemy extends AnimatedObject {
             float ydiff = player.bounds.y + player.bounds.height/2 -bounds.y - bounds.height/2 ;
             float xdiff = player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2;
             float angle = MathUtils.atan2(ydiff, xdiff);
-            float knockbackSpeed = player.getMovingSpeed() * 1.5f;
+            float knockbackSpeed = movingSpeed * 4f;
 
             if (player.takeDamage(knockbackSpeed, angle)) {
-                takeKnockback((float) (movingSpeed *Math.sqrt(2)),  (float) (angle + Math.PI));
+                takeKnockback(movingSpeed * 2.5f,  (float) (angle + Math.PI));
             }
         }
 
@@ -136,27 +136,32 @@ public class Enemy extends AnimatedObject {
     }
 
     public void moveLeft() {
-        if (knockback || stun) return;
-        velocity.x = -movingSpeed;
-        viewDirection = ViewDirection.LEFT;
+        move(ViewDirection.LEFT);
     }
 
     public void moveRight() {
-        if (knockback || stun) return;
-        velocity.x = movingSpeed;
-        viewDirection = ViewDirection.RIGHT;
+        move(ViewDirection.RIGHT);
     }
 
     public void moveUp() {
-        if (knockback || stun) return;
-        velocity.y = movingSpeed;
-        viewDirection = ViewDirection.UP;
+        move(ViewDirection.UP);
     }
 
     public void moveDown() {
+        move(ViewDirection.DOWN);
+    }
+
+    private void move(ViewDirection direction) {
         if (knockback || stun) return;
-        velocity.y = -movingSpeed;
-        viewDirection = ViewDirection.DOWN;
+        switch(direction) {
+        case DOWN: velocity.y = -movingSpeed; break;
+        case LEFT: velocity.x = -movingSpeed; break;
+        case RIGHT: velocity.x = movingSpeed; break;
+        case UP: velocity.y = movingSpeed; break;
+        default:
+            break;
+        }
+        viewDirection = direction;
     }
 
     public void takeDamage(float knockbackSpeed, float knockbackAngle){
