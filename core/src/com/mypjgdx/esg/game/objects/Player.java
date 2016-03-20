@@ -21,7 +21,7 @@ public class Player extends AnimatedObject {
     private static final float INTITAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
     private static final float INTITAL_X_POSITION = 100f;         // ตำแหน่งเริ่มต้นแกน X
     private static final float INTITAL_Y_POSITION = 100f;      // ตำแหน่งเริ่มต้นแกน Y
-    private static final float INTITAL_MOVING_SPEED = 100f;
+    private static final float INTITAL_MOVING_SPEED = 150f;
 
     private static final int INTITAL_HEALTH = 20;
 
@@ -33,11 +33,9 @@ public class Player extends AnimatedObject {
     private int health;
     private boolean alive;
     private boolean invulnerable;
-    private boolean applyingknockback;
+    private boolean knockback;
     private long lastInvulnerableTime;
     private long invulnerableTime;
-    private long lastKnockbackTime;
-    private long knockbackTime;
     private float movingSpeed;
 
     public Player(TiledMapTileLayer mapLayer) {
@@ -82,29 +80,26 @@ public class Player extends AnimatedObject {
         statusUpdate();
     }
 
-    @Override
-    protected void updateViewDirection() {}
-
     public void moveLeft() {
-        if (applyingknockback) return;
+        if (knockback) return;
         velocity.x = -movingSpeed;
         viewDirection = ViewDirection.LEFT;
     }
 
     public void moveRight() {
-        if (applyingknockback) return;
+        if (knockback) return;
         velocity.x = movingSpeed;
         viewDirection = ViewDirection.RIGHT;
     }
 
     public void moveUp() {
-        if (applyingknockback) return;
+        if (knockback) return;
         velocity.y = movingSpeed;
         viewDirection = ViewDirection.UP;
     }
 
     public void moveDown() {
-        if (applyingknockback) return;
+        if (knockback) return;
         velocity.y = -movingSpeed;
         viewDirection = ViewDirection.DOWN;
     }
@@ -152,35 +147,40 @@ public class Player extends AnimatedObject {
     	}
     }
 
-    public void takeDamage(float knockbackSpeed, float knockbackAngle){
+    public boolean takeDamage(float knockbackSpeed, float knockbackAngle){
     	if (!invulnerable) {
     	    --health;
             if (health <= 0) {
                 alive = false;
-                return;
+                return true;
             }
-            invulnerable = true;
-            lastInvulnerableTime = TimeUtils.nanoTime();
-            invulnerableTime = TimeUtils.millisToNanos(1000);
+            takeInvulnerable(500);
+            takeKnockback(knockbackSpeed, knockbackAngle);
+            return true;
     	}
-
-    	acceleration.set(
-                knockbackSpeed *MathUtils.cos(knockbackAngle),
-                knockbackSpeed *MathUtils.sin(knockbackAngle));
-
-        applyingknockback = true;
-        lastKnockbackTime = TimeUtils.nanoTime();
-        knockbackTime = TimeUtils.millisToNanos(300);
+    	return false;
     }
 
     public void statusUpdate() {
         if (invulnerable && TimeUtils.nanoTime() - lastInvulnerableTime > invulnerableTime)
             invulnerable = false;
 
-        if (applyingknockback && TimeUtils.nanoTime() - lastKnockbackTime > knockbackTime) {
-            applyingknockback =  false;
-            acceleration.set(0 ,0);
+        if (knockback && velocity.isZero()) {
+            knockback =  false;
         }
+    }
+
+    public void takeInvulnerable(long duration) {
+        invulnerable = true;
+        lastInvulnerableTime = TimeUtils.nanoTime();
+        invulnerableTime = TimeUtils.millisToNanos(duration);
+    }
+
+    public void takeKnockback(float knockbackSpeed, float knockbackAngle) {
+        velocity.set(
+                knockbackSpeed *MathUtils.cos(knockbackAngle),
+                knockbackSpeed *MathUtils.sin(knockbackAngle));
+        knockback = true;
     }
 
     public void rangeAttack(List<Sword>swords,TiledMapTileLayer mapLayer){
@@ -204,22 +204,9 @@ public class Player extends AnimatedObject {
     	        dimension.x * ((float) health / INTITAL_HEALTH), 5);
     }
 
-    @Override
-    protected void updateMotionX(float deltaTime) {
-        super.updateMotionX(deltaTime);
-        if (velocity.x >= 0)
-            velocity.x = Math.min(velocity.x, 150f);
-        else
-            velocity.x = Math.max(velocity.x, -150f);
+    public float getMovingSpeed() {
+        return movingSpeed;
     }
 
-    @Override
-    protected void updateMotionY(float deltaTime) {
-        super.updateMotionY(deltaTime);
-        if (velocity.y >= 0)
-            velocity.y = Math.min(velocity.y, 150f);
-        else
-            velocity.y = Math.max(velocity.y, -150f);
-    }
 
 }

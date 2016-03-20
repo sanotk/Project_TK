@@ -22,7 +22,7 @@ public class Level{
     private CollisionCheck goalCheck;
     public Map map;   // แผนที่ในเกม
 
-    public final int MAX_ENEMY = 2;
+    public final int MAX_ENEMY = 1;
 
     public Level (Map map) {
         this.map = map;

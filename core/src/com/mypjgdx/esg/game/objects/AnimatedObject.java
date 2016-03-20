@@ -64,7 +64,6 @@ public abstract class AnimatedObject  extends AbstractGameObject {
         super.update(deltaTime);
         setAnimation();
         updateKeyFrame(deltaTime);
-        updateViewDirection();
     }
 
 
@@ -73,14 +72,6 @@ public abstract class AnimatedObject  extends AbstractGameObject {
         render(batch, currentRegion);
     }
 
-    protected void updateViewDirection() { // update ทิศที่ player มองอยู่  โดยยึดการมองด้านแกน X  เป็นหลักหากมีการเดินเฉียง
-        if (velocity.x != 0) {
-            viewDirection = velocity.x < 0 ?  ViewDirection.LEFT : ViewDirection.RIGHT;
-        }
-        else if (velocity.y != 0) {
-            viewDirection = velocity.y < 0 ?  ViewDirection.DOWN : ViewDirection.UP;
-        }
-    }
 
     public ViewDirection getViewDirection(){
         return viewDirection;

@@ -21,7 +21,6 @@ public abstract class AbstractGameObject {
     public Vector2 acceleration;
     public Rectangle bounds;
 
-    protected Vector2 oldPosition;
     protected CollisionCheck collisionCheck;
 
     public AbstractGameObject () {
@@ -36,23 +35,23 @@ public abstract class AbstractGameObject {
         acceleration = new Vector2(); //
         bounds = new Rectangle(); //
 
-        oldPosition = new Vector2();
     }
 
     public void update (float deltaTime) {
-        oldPosition.set(position);
+        float oldPositionX = position.x;
+        float oldPositionY = position.y;
 
         updateMotionX(deltaTime);
         updateMotionY(deltaTime);
 
         setPosition(position.x + velocity.x * deltaTime,  position.y);
         if (collisionCheck.isCollidesLeft() || collisionCheck.isCollidesRight()) {
-            setPosition(oldPosition.x, position.y);
+            setPosition(oldPositionX, position.y);
         }
 
         setPosition(position.x,  position.y + velocity.y * deltaTime);
         if (collisionCheck.isCollidesTop() || collisionCheck.isCollidesBottom()) {
-            setPosition(position.x, oldPosition.y);
+            setPosition(position.x, oldPositionY);
         }
     }
 
@@ -102,6 +101,15 @@ public abstract class AbstractGameObject {
 
     public void setPosition(float x, float y) {
         position.set(x, y);
+        bounds.set(position.x, position.y, dimension.x, dimension.y);
+    }
+    public void setPositionX(float x) {
+        position.set(x, position.y);
+        bounds.set(position.x, position.y, dimension.x, dimension.y);
+    }
+
+    public void setPositionY(float y) {
+        position.set(position.x, y);
         bounds.set(position.x, position.y, dimension.x, dimension.y);
     }
 
