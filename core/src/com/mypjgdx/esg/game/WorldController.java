@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
+import com.mypjgdx.esg.game.objects.AnimatedObject.ViewDirection;
 import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.utils.CameraHelper;
 
@@ -70,12 +71,12 @@ public class WorldController extends InputAdapter {
             else if (filppedY < screenHeight * SCREEN_MOVE_EGDE)  playerVelocity.y = -PLAYER_SPEED;
         }
         else {
-            if (Gdx.input.isKeyPressed(Keys.UP)) level.player.moveUp();     //กดลูกศรขึ้น
-            if (Gdx.input.isKeyPressed(Keys.DOWN)) level.player.moveDown();  //กดลูกศรลง
-            if (Gdx.input.isKeyPressed(Keys.LEFT)) level.player.moveLeft();     //กดลูกศรซ้าย
-            if (Gdx.input.isKeyPressed(Keys.RIGHT)) level.player.moveRight();   //กดลูกศรขวา
+            if (Gdx.input.isKeyPressed(Keys.UP)) level.player.move(ViewDirection.UP);
+            if (Gdx.input.isKeyPressed(Keys.DOWN)) level.player.move(ViewDirection.DOWN);
+            if (Gdx.input.isKeyPressed(Keys.LEFT)) level.player.move(ViewDirection.LEFT);
+            if (Gdx.input.isKeyPressed(Keys.RIGHT)) level.player.move(ViewDirection.RIGHT);
             if (Gdx.input.isKeyPressed(Keys.X)) level.player.attack() ;
-            if (Gdx.input.isKeyPressed(Keys.Z)) level.player.rangeAttack(level.swords, level.map.getMapLayer()); ;
+            if (Gdx.input.isKeyPressed(Keys.Z)) level.player.rangeAttack(level.swords, level.map.getMapLayer());
         }
      }
 
