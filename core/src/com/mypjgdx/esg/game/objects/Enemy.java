@@ -107,11 +107,11 @@ public class Enemy extends AnimatedObject {
         if (bounds.overlaps(player.bounds)) {
             float ydiff = player.bounds.y + player.bounds.height/2 -bounds.y - bounds.height/2 ;
             float xdiff = player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2;
-            float angle = MathUtils.atan2(ydiff, xdiff);
-            float knockbackSpeed = movingSpeed * 4f;
+            float angle = MathUtils.atan2(ydiff, xdiff) * MathUtils.radiansToDegrees ;
+            float knockbackSpeed = 130 + movingSpeed * 1.2f;
 
             if (player.takeDamage(knockbackSpeed, angle)) {
-                takeKnockback(movingSpeed * 2.5f,  (float) (angle + Math.PI));
+                takeKnockback(100,  angle + 180);
             }
         }
 
@@ -119,10 +119,10 @@ public class Enemy extends AnimatedObject {
         	if (bounds.overlaps(s.bounds) && !s.isDespawned()) {
                 float knockbackSpeed = 100f;
                 switch(s.getDirection()) {
-                case DOWN: takeDamage(knockbackSpeed, 270 * MathUtils.degreesToRadians); break;
-                case LEFT: takeDamage(knockbackSpeed, 180 * MathUtils.degreesToRadians); break;
-                case RIGHT: takeDamage(knockbackSpeed, 0 * MathUtils.degreesToRadians); break;
-                case UP: takeDamage(knockbackSpeed, 90 * MathUtils.degreesToRadians); break;
+                case DOWN: takeDamage(knockbackSpeed, 270); break;
+                case LEFT: takeDamage(knockbackSpeed, 180); break;
+                case RIGHT: takeDamage(knockbackSpeed, 0); break;
+                case UP: takeDamage(knockbackSpeed, 90); break;
                 default: break;
                 }
                 s.despawn();
@@ -135,33 +135,19 @@ public class Enemy extends AnimatedObject {
     	return alive;
     }
 
-    public void moveLeft() {
-        move(ViewDirection.LEFT);
-    }
-
-    public void moveRight() {
-        move(ViewDirection.RIGHT);
-    }
-
-    public void moveUp() {
-        move(ViewDirection.UP);
-    }
-
-    public void moveDown() {
-        move(ViewDirection.DOWN);
-    }
-
-    private void move(ViewDirection direction) {
+    public void move(ViewDirection direction) {
         if (knockback || stun) return;
         switch(direction) {
-        case DOWN: velocity.y = -movingSpeed; break;
-        case LEFT: velocity.x = -movingSpeed; break;
+        case LEFT:  velocity.x = -movingSpeed; break;
         case RIGHT: velocity.x = movingSpeed; break;
+        case DOWN: velocity.y = -movingSpeed; break;
         case UP: velocity.y = movingSpeed; break;
         default:
             break;
         }
         viewDirection = direction;
+        if (velocity.len() > movingSpeed)
+            velocity.setLength(movingSpeed);
     }
 
     public void takeDamage(float knockbackSpeed, float knockbackAngle){
@@ -175,8 +161,8 @@ public class Enemy extends AnimatedObject {
 
     public void takeKnockback(float knockbackSpeed, float knockbackAngle) {
         velocity.set(
-                knockbackSpeed * MathUtils.cos(knockbackAngle),
-                knockbackSpeed * MathUtils.sin(knockbackAngle));
+                knockbackSpeed * MathUtils.cosDeg(knockbackAngle),
+                knockbackSpeed * MathUtils.sinDeg(knockbackAngle));
 
         knockback = true;
     }
@@ -206,7 +192,6 @@ public class Enemy extends AnimatedObject {
                     player.bounds.y + player.bounds.height/2);
 
             List<Node> list = pathFinding.findPath();
-            list.remove(0);
             if(!list.isEmpty()) {
                 walkQueue.add(list.get(0));
             }
@@ -216,17 +201,30 @@ public class Enemy extends AnimatedObject {
 
         float xdiff = n.getPositionX() - bounds.x - bounds.width/2;
         float ydiff = n.getPositionY()- bounds.y - bounds.height/2;
-        float distance =  (float) Math.sqrt (xdiff*xdiff + ydiff*ydiff);
-        if (distance < 1f ) {
-            walkQueue.removeFirst();
-            return;
+
+        final float MIN_MOVING_DISTANCE = movingSpeed/15;
+        boolean moving = false;
+
+        if (ydiff >  MIN_MOVING_DISTANCE) {
+            move(ViewDirection.UP);
+            moving = true;
+        }
+        else if (ydiff < -MIN_MOVING_DISTANCE) {
+            move(ViewDirection.DOWN);
+            moving = true;
         }
 
-        if (xdiff >= 0) moveRight();
-        else moveLeft();
+        if (xdiff > MIN_MOVING_DISTANCE)  {
+            move(ViewDirection.RIGHT);
+            moving = true;
+        }
+        else if (xdiff < -MIN_MOVING_DISTANCE) {
+            move(ViewDirection.LEFT);
+            moving = true;
+        }
 
-        if (ydiff >= 0)  moveUp();
-        else moveDown();
+        if (!moving)
+            walkQueue.removeFirst();
     }
 
     public void showHp(ShapeRenderer shapeRenderer){

@@ -21,7 +21,7 @@ public class Player extends AnimatedObject {
     private static final float INTITAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
     private static final float INTITAL_X_POSITION = 100f;         // ตำแหน่งเริ่มต้นแกน X
     private static final float INTITAL_Y_POSITION = 100f;      // ตำแหน่งเริ่มต้นแกน Y
-    private static final float INTITAL_MOVING_SPEED = 100f;
+    private static final float INTITAL_MOVING_SPEED = 120f;
 
     private static final int INTITAL_HEALTH = 20;
 
@@ -80,33 +80,19 @@ public class Player extends AnimatedObject {
         statusUpdate();
     }
 
-    public void moveLeft() {
-        move(ViewDirection.LEFT);
-    }
-
-    public void moveRight() {
-        move(ViewDirection.RIGHT);
-    }
-
-    public void moveUp() {
-        move(ViewDirection.UP);
-    }
-
-    public void moveDown() {
-        move(ViewDirection.DOWN);
-    }
-
-    private void move(ViewDirection direction) {
+    public void move(ViewDirection direction) {
         if (knockback) return;
         switch(direction) {
-        case DOWN: velocity.y = -movingSpeed; break;
-        case LEFT: velocity.x = -movingSpeed; break;
+        case LEFT:  velocity.x = -movingSpeed; break;
         case RIGHT: velocity.x = movingSpeed; break;
+        case DOWN: velocity.y = -movingSpeed; break;
         case UP: velocity.y = movingSpeed; break;
         default:
             break;
         }
         viewDirection = direction;
+        if (velocity.len() > movingSpeed)
+            velocity.setLength(movingSpeed);
     }
 
     @Override
@@ -183,8 +169,8 @@ public class Player extends AnimatedObject {
 
     public void takeKnockback(float knockbackSpeed, float knockbackAngle) {
         velocity.set(
-                knockbackSpeed *MathUtils.cos(knockbackAngle),
-                knockbackSpeed *MathUtils.sin(knockbackAngle));
+                knockbackSpeed *MathUtils.cosDeg(knockbackAngle),
+                knockbackSpeed *MathUtils.sinDeg(knockbackAngle));
         knockback = true;
     }
 

@@ -78,8 +78,7 @@ public class Pathfinding {
             for (Node neighbor: getNeighbors(current)) {
                 int newCost = costSoFar.get(current) + neighbor.cost;
 
-                if(!costSoFar.containsKey(neighbor) && !neighbor.blocked) {
-
+                if (!costSoFar.containsKey(neighbor) && !neighbor.blocked) {
                     costSoFar.put(neighbor, newCost);
                     frontiers.add(neighbor);
                     cameFrom.put(neighbor, current);
@@ -94,10 +93,11 @@ public class Pathfinding {
             path.add(current);
         }
         Collections.reverse(path);
+        path.remove(0);
         return path;
     }
 
-    public Node[] getNeighbors(Node node) {
+    public List<Node> getNeighbors(Node node) {
 
         neighbors.clear();
 
@@ -110,12 +110,12 @@ public class Pathfinding {
             }
         }
 
-        return neighbors.toArray(new Node[neighbors.size()]);
+        return neighbors;
     }
 
     public boolean nodeNearBlocked(Node node) {
         for (Node neighbor : getNeighbors(node)) {
-            if(neighbor.blocked)
+            if (neighbor.blocked)
                 return true;
         }
         return false;
