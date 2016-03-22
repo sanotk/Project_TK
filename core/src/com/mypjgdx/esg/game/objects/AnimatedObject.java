@@ -66,12 +66,10 @@ public abstract class AnimatedObject  extends AbstractGameObject {
         updateKeyFrame(deltaTime);
     }
 
-
     @Override
     public void render(SpriteBatch batch) {
         render(batch, currentRegion);
     }
-
 
     public ViewDirection getViewDirection(){
         return viewDirection;

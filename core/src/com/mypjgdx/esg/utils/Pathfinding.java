@@ -1,15 +1,12 @@
 package com.mypjgdx.esg.utils;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 
 public class Pathfinding {
 
@@ -18,10 +15,10 @@ public class Pathfinding {
     private Node goal;
 
     private Queue<Node> frontiers;
-    private Map<Node, Node> cameFrom;
-    private List<Node> path;
-    private List<Node> neighbors;
-    private Map<Node, Integer> costSoFar;
+    private ObjectMap<Node, Node> cameFrom;
+    private Array<Node> path;
+    private Array<Node> neighbors;
+    private ObjectMap<Node, Integer> costSoFar;
 
     private Node[][] nodes;
 
@@ -30,14 +27,14 @@ public class Pathfinding {
         Comparator<Node> comparator = new Comparator<Node> () {
             @Override
             public int compare(Node n1, Node n2) {
-                return (distanceToGoal(n1)+costSoFar.get(n1)) -(distanceToGoal(n2)+costSoFar.get(n2));
+                return (distanceToGoal(n1)+costSoFar.get(n1)) - (distanceToGoal(n2)+costSoFar.get(n2));
             }
         };
-        frontiers = new PriorityQueue<Node>(10, comparator);
-        cameFrom = new HashMap<Node, Node>();
-        path = new ArrayList<Node>();
-        neighbors = new ArrayList<Node>();
-        costSoFar = new HashMap<Node, Integer>();
+        frontiers = new PriorityQueue<Node>(100, comparator);
+        cameFrom = new ObjectMap<Node, Node>();
+        path = new Array<Node>();
+        neighbors = new Array<Node>();
+        costSoFar = new ObjectMap<Node, Integer>();
         nodes = new Node[mapLayer.getWidth()][mapLayer.getHeight()];
 
         createNode();
@@ -49,9 +46,10 @@ public class Pathfinding {
                 nodes[i][j] = new Node(i, j, mapLayer.getCell(i, j).getTile().getProperties().containsKey("blocked"));
             }
         }
-        for(int i = 0; i< mapLayer.getWidth() ;i++){
-            for(int j = 0; j<mapLayer.getHeight(); j++) {
-               if(nodeNearBlocked(nodes[i][j])) nodes[i][j].cost = 99;
+        for (int i = 0; i< mapLayer.getWidth() ;i++){
+            for (int j = 0; j<mapLayer.getHeight(); j++) {
+               if (nodeNearBlocked(nodes[i][j]))
+                   nodes[i][j].cost = 99;
             }
         }
     }
@@ -64,8 +62,11 @@ public class Pathfinding {
     }
 
 
-    public List<Node> findPath() {
+    public Array<Node> findPath (float startX, float startY, float goalX, float goalY) {
         init();
+
+        setStart(startX, startY);
+        setGoal(goalX, goalY);
 
         costSoFar.put(start, 0);
         frontiers.add(start);
@@ -77,11 +78,12 @@ public class Pathfinding {
 
             for (Node neighbor: getNeighbors(current)) {
                 int newCost = costSoFar.get(current) + neighbor.cost;
-
-                if (!costSoFar.containsKey(neighbor) && !neighbor.blocked) {
-                    costSoFar.put(neighbor, newCost);
-                    frontiers.add(neighbor);
-                    cameFrom.put(neighbor, current);
+                if (!costSoFar.containsKey(neighbor) || newCost < costSoFar.get(neighbor)) {
+                    if (!neighbor.blocked) {
+                        costSoFar.put(neighbor, newCost);
+                        frontiers.add(neighbor);
+                        cameFrom.put(neighbor, current);
+                    }
                 }
             }
         }
@@ -92,12 +94,13 @@ public class Pathfinding {
             current = cameFrom.get(current);
             path.add(current);
         }
-        Collections.reverse(path);
-        path.remove(0);
+
+        path.pop();
+        path.reverse();
         return path;
     }
 
-    public List<Node> getNeighbors(Node node) {
+    public Array<Node> getNeighbors(Node node) {
 
         neighbors.clear();
 
@@ -121,14 +124,13 @@ public class Pathfinding {
         return false;
     }
 
-
-    public void setGoal (float x, float y) {
+    private void setGoal (float x, float y) {
         goal = nodes
                 [(int)(x / mapLayer.getTileWidth())]
                 [(int)(y / mapLayer.getTileHeight())];
     }
 
-    public void setStart (float x, float y) {
+    private void setStart (float x, float y) {
         start = nodes
                 [(int)(x / mapLayer.getTileWidth())]
                 [(int)(y / mapLayer.getTileHeight())];

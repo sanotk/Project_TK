@@ -4,7 +4,6 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.math.Vector2;
 import com.mypjgdx.esg.game.objects.AnimatedObject.ViewDirection;
 import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.utils.CameraHelper;
@@ -53,23 +52,19 @@ public class WorldController extends InputAdapter {
     private void handleplayerInput()  { // ควบคุม player
         if (!cameraHelper.hasTarget()) return; // มุมกล้องติดตาม player อยู่ถึงจะควมคุม player ได้
 
-        final float PLAYER_SPEED = 100.0f;
-
-        final Vector2 playerVelocity = level.player.velocity;
-
-        int screenWidth = Gdx.graphics.getWidth();
-        int screenHeight = Gdx.graphics.getHeight();
+        final int screenWidth = Gdx.graphics.getWidth();
+        final int screenHeight = Gdx.graphics.getHeight();
         final float SCREEN_MOVE_EGDE = 0.4f;
 
         if (Gdx.app.getType() == ApplicationType.Android && Gdx.input.isTouched())  {
             float x = Gdx.input.getX();
             float filppedY = screenHeight- Gdx.input.getY();
-            if (x > screenWidth * (1.0f - SCREEN_MOVE_EGDE)) playerVelocity.x = PLAYER_SPEED;
-            else if (x < screenWidth * SCREEN_MOVE_EGDE )  playerVelocity.x = -PLAYER_SPEED;
+            if (x > screenWidth * (1.0f - SCREEN_MOVE_EGDE)) level.player.move(ViewDirection.RIGHT);
+            else if (x < screenWidth * SCREEN_MOVE_EGDE ) level.player.move(ViewDirection.LEFT);
 
-            if (filppedY > screenHeight * (1.0f - SCREEN_MOVE_EGDE)) playerVelocity.y = PLAYER_SPEED;
-            else if (filppedY < screenHeight * SCREEN_MOVE_EGDE)  playerVelocity.y = -PLAYER_SPEED;
-        }
+            if (filppedY > screenHeight * (1.0f - SCREEN_MOVE_EGDE)) level.player.move(ViewDirection.UP);
+            else if (filppedY < screenHeight * SCREEN_MOVE_EGDE) level.player.move(ViewDirection.DOWN);        }
+
         else {
             if (Gdx.input.isKeyPressed(Keys.UP)) level.player.move(ViewDirection.UP);
             if (Gdx.input.isKeyPressed(Keys.DOWN)) level.player.move(ViewDirection.DOWN);
