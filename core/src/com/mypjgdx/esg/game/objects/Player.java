@@ -18,10 +18,10 @@ public class Player extends AnimatedObject {
     // อัตราการขยายภาพ player
     private static final float SCALE = 0.2f;
 
-    private static final float INTITAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
-    private static final float INTITAL_X_POSITION = 100f;         // ตำแหน่งเริ่มต้นแกน X
-    private static final float INTITAL_Y_POSITION = 100f;      // ตำแหน่งเริ่มต้นแกน Y
-    private static final float INTITAL_MOVING_SPEED = 120f;
+    private static final float INITIAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
+    private static final float INITIAL_X_POSITION = 100f;         // ตำแหน่งเริ่มต้นแกน X
+    private static final float INITIAL_Y_POSITION = 100f;      // ตำแหน่งเริ่มต้นแกน Y
+    private static final float INITIAL_MOVING_SPEED = 120f;
 
     private static final int INTITAL_HEALTH = 20;
 
@@ -39,7 +39,7 @@ public class Player extends AnimatedObject {
     private float movingSpeed;
 
     public Player(TiledMapTileLayer mapLayer) {
-        this(INTITAL_X_POSITION, INTITAL_Y_POSITION);
+        this(INITIAL_X_POSITION, INITIAL_Y_POSITION);
         collisionCheck = new TiledCollisionCheck(this.bounds, mapLayer);
     }
 
@@ -64,10 +64,10 @@ public class Player extends AnimatedObject {
         invulnerable = false;
         lastInvulnerableTime = 0;
         invulnerableTime = 0;
-        movingSpeed = INTITAL_MOVING_SPEED;
+        movingSpeed = INITIAL_MOVING_SPEED;
 
         // กำหนดค่าทางฟิสิกส์
-        friction.set(INTITAL_FRICTION, INTITAL_FRICTION);
+        friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
         acceleration.set(0.0f, 0.0f);
 
         // กำหนดขนาดสเกลของ player
@@ -91,8 +91,7 @@ public class Player extends AnimatedObject {
             break;
         }
         viewDirection = direction;
-        if (velocity.len() > movingSpeed)
-            velocity.setLength(movingSpeed);
+        velocity.setLength(movingSpeed);
     }
 
     @Override

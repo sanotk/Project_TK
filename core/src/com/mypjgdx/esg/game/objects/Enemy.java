@@ -5,12 +5,12 @@ import static com.mypjgdx.esg.game.objects.AnimatedObject.AnimationName.WALK_LEF
 import static com.mypjgdx.esg.game.objects.AnimatedObject.AnimationName.WALK_RIGHT;
 import static com.mypjgdx.esg.game.objects.AnimatedObject.AnimationName.WALK_UP;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
@@ -19,16 +19,16 @@ import com.mypjgdx.esg.utils.Pathfinding.Node;
 
 public class Enemy extends AnimatedObject {
 
-
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 8.0f;
 
     // อัตราการขยายภาพ enemy
     private static final float SCALE = 0.2f;
-    private static final float INTITAL_FRICTION = 600f;           // ค่าแรงเสียดทานเริ่มต้น
+    private static final float INITIAL_FRICTION = 600f;           // ค่าแรงเสียดทานเริ่มต้น
 
-    private static final int INTITAL_HEALTH = 5;
-    private static final float INTITAL_MOVING_SPEED = 60f;
+    private static final int INITIAL_HEALTH = 5;
+    private static final float INITIAL_MOVING_SPEED = 60f;
+    private static final float INITIAL_FINDING_RANGE = 150f;
 
     private Player player;
     private List<Sword> swords;
@@ -41,9 +41,9 @@ public class Enemy extends AnimatedObject {
 
     private int health;
     private float movingSpeed;
+    private float findingRange;
 
     private Pathfinding pathFinding;
-    private LinkedList<Node> walkQueue;
 
     public Enemy(TiledMapTileLayer mapLayer,Player player, List<Sword> swords) {
         super(Assets.instance.enemyAltas);
@@ -63,11 +63,12 @@ public class Enemy extends AnimatedObject {
     	alive = true;
     	knockback= false;
     	stun = false;
-    	health =  INTITAL_HEALTH;
-        movingSpeed = INTITAL_MOVING_SPEED;
+    	health =  INITIAL_HEALTH;
+        movingSpeed = INITIAL_MOVING_SPEED;
+        findingRange = INITIAL_FINDING_RANGE;
 
         // กำหนดค่าทางฟิสิกส์
-        friction.set(INTITAL_FRICTION, INTITAL_FRICTION);
+        friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
         acceleration.set(0.0f, 0.0f);
 
         // กำหนดขนาดสเกลของ enemy
@@ -79,7 +80,6 @@ public class Enemy extends AnimatedObject {
         randomPosition(mapLayer);
 
        	pathFinding = new Pathfinding(mapLayer);
-       	walkQueue = new LinkedList<Node>();
     }
 
     @Override
@@ -146,8 +146,7 @@ public class Enemy extends AnimatedObject {
             break;
         }
         viewDirection = direction;
-        if (velocity.len() > movingSpeed)
-            velocity.setLength(movingSpeed);
+        velocity.setLength(movingSpeed);
     }
 
     public void takeDamage(float knockbackSpeed, float knockbackAngle){
@@ -181,57 +180,48 @@ public class Enemy extends AnimatedObject {
             stun = false;
     }
 
-
     private void runToPlayer(float deltaTime){
-        if (walkQueue.isEmpty()) {
-            pathFinding.setStart(
-                    bounds.x + bounds.width/2,
-                    bounds.y + bounds.height/2);
-            pathFinding.setGoal(
-                    player.bounds.x + player.bounds.width/2,
-                    player.bounds.y + player.bounds.height/2);
 
-            List<Node> list = pathFinding.findPath();
-            if(!list.isEmpty()) {
-                walkQueue.add(list.get(0));
+        final float startX = bounds.x + bounds.width/2;
+        final float startY =  bounds.y + bounds.height/2;
+        final float goalX =  player.bounds.x + player.bounds.width/2;
+        final float goalY =  player.bounds.y + player.bounds.height/2;
+        final float xDiff = startX-goalX;
+        final float yDiff = startY-goalY;
+        final double distance = Math.sqrt(xDiff*xDiff + yDiff*yDiff);
+        if (distance > findingRange) return;
+
+        Array<Node> list = pathFinding.findPath(startX, startY, goalX, goalY);
+
+        if (list.size > 0) {
+            Node n = list.get(0);
+
+            float xdiff = n.getPositionX() - bounds.x - bounds.width/2;
+            float ydiff = n.getPositionY()- bounds.y - bounds.height/2;
+
+            final float minMovingDistance = movingSpeed/8;
+
+            if (ydiff >  minMovingDistance) {
+                move(ViewDirection.UP);
+            }
+            else if (ydiff < -minMovingDistance) {
+                move(ViewDirection.DOWN);
+            }
+
+            if (xdiff > minMovingDistance)  {
+                move(ViewDirection.RIGHT);
+            }
+            else if (xdiff < -minMovingDistance) {
+                move(ViewDirection.LEFT);
             }
         }
-        if (walkQueue.isEmpty()) return;
-        Node n = walkQueue.getFirst();
-
-        float xdiff = n.getPositionX() - bounds.x - bounds.width/2;
-        float ydiff = n.getPositionY()- bounds.y - bounds.height/2;
-
-        final float MIN_MOVING_DISTANCE = movingSpeed/15;
-        boolean moving = false;
-
-        if (ydiff >  MIN_MOVING_DISTANCE) {
-            move(ViewDirection.UP);
-            moving = true;
-        }
-        else if (ydiff < -MIN_MOVING_DISTANCE) {
-            move(ViewDirection.DOWN);
-            moving = true;
-        }
-
-        if (xdiff > MIN_MOVING_DISTANCE)  {
-            move(ViewDirection.RIGHT);
-            moving = true;
-        }
-        else if (xdiff < -MIN_MOVING_DISTANCE) {
-            move(ViewDirection.LEFT);
-            moving = true;
-        }
-
-        if (!moving)
-            walkQueue.removeFirst();
     }
 
     public void showHp(ShapeRenderer shapeRenderer){
-    	if (health < INTITAL_HEALTH)
+    	if (health < INITIAL_HEALTH)
     	    shapeRenderer.rect(
     	            getPositionX(), getPositionY() - 10,
-    	            dimension.x * ((float) health / INTITAL_HEALTH), 5);
+    	            dimension.x * ((float) health / INITIAL_HEALTH), 5);
     }
 
     private void randomPosition(TiledMapTileLayer mapLayer) {
