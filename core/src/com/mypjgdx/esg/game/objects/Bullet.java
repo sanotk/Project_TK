@@ -36,8 +36,8 @@ public class Bullet extends AbstractGameObject{
 	        scale.set(SCALE, SCALE);
 
 	        setDimension(
-	                Assets.instance.sword.getRegionWidth(),
-	                Assets.instance.sword.getRegionHeight());
+	                Assets.instance.bullet.getRegionWidth(),
+	                Assets.instance.bullet.getRegionHeight());
 
 	        setPosition(
 	                player.getPositionX() + player.origin.x - origin.x,
@@ -96,6 +96,6 @@ public class Bullet extends AbstractGameObject{
 
 	    @Override
 	    public void render(SpriteBatch batch) {
-	        render(batch, Assets.instance.sword);
+	        render(batch, Assets.instance.bullet);
 	    }
 }

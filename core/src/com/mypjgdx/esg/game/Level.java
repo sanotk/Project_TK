@@ -10,15 +10,15 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mypjgdx.esg.collision.CollisionCheck;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
+import com.mypjgdx.esg.game.objects.Bullet;
 import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.game.objects.Player;
-import com.mypjgdx.esg.game.objects.Bullet;
 
 public class Level{
 
     public Player player; // ตัวละครที่ผู้เล่นจะได้ควบคุม
     public List<Enemy> enemies = new ArrayList<Enemy>();
-    public List<Bullet> swords = new ArrayList<Bullet>();
+    public List<Bullet> bullets = new ArrayList<Bullet>();
     private CollisionCheck goalCheck;
     public Map map;   // แผนที่ในเกม
 
@@ -28,7 +28,7 @@ public class Level{
         this.map = map;
         player = new Player(map.getMapLayer()) ;
         for(int i = 0; i < MAX_ENEMY ;i++){
-        	enemies.add(new Enemy(map.getMapLayer(),player ,swords));
+        	enemies.add(new Enemy(map.getMapLayer(),player ,bullets));
         }
         goalCheck = new TiledCollisionCheck(player.bounds, map.getMapLayer(), "goal");
     }
@@ -40,7 +40,7 @@ public class Level{
         batch.begin();
         player.render(batch);
         for (Enemy e: enemies) e.render(batch);
-        for (Bullet s: swords) s.render(batch);
+        for (Bullet s: bullets) s.render(batch);
         batch.end();
 
         shapeRenderer.begin(ShapeType.Filled);
@@ -50,7 +50,7 @@ public class Level{
     }
 
     public void update(float deltaTime) {
-        Iterator<Bullet>it = swords.iterator();
+        Iterator<Bullet>it = bullets.iterator();
         Iterator<Enemy>eit = enemies.iterator();
         while(it.hasNext()){
         	Bullet s = it.next();
@@ -62,7 +62,7 @@ public class Level{
         }
         player.update(deltaTime);
         for(Enemy e: enemies) e.update(deltaTime);
-        for(Bullet s: swords) s.update(deltaTime);
+        for(Bullet s: bullets) s.update(deltaTime);
     }
 
     public boolean isFinished() {

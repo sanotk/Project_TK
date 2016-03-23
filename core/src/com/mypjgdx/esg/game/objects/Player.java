@@ -178,7 +178,7 @@ public class Player extends AnimatedObject {
     		state = PlayerState.ATTACK;
 
             swords.add(new Bullet(mapLayer, this));
-            Assets.instance.bullet.play();
+            Assets.instance.bullet_sound.play();
 
     		resetAnimation();
     	}
