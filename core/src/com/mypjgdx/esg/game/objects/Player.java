@@ -1,6 +1,5 @@
 package com.mypjgdx.esg.game.objects;
 
-
 import java.util.List;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
