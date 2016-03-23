@@ -173,11 +173,11 @@ public class Player extends AnimatedObject {
         knockback = true;
     }
 
-    public void rangeAttack(List<Sword>swords,TiledMapTileLayer mapLayer){
+    public void rangeAttack(List<Bullet>swords,TiledMapTileLayer mapLayer){
     	if (state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
 
-            swords.add(new Sword(mapLayer, this));
+            swords.add(new Bullet(mapLayer, this));
             Assets.instance.bullet.play();
 
     		resetAnimation();

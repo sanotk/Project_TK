@@ -12,13 +12,13 @@ import com.mypjgdx.esg.collision.CollisionCheck;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.game.objects.Player;
-import com.mypjgdx.esg.game.objects.Sword;
+import com.mypjgdx.esg.game.objects.Bullet;
 
 public class Level{
 
     public Player player; // ตัวละครที่ผู้เล่นจะได้ควบคุม
     public List<Enemy> enemies = new ArrayList<Enemy>();
-    public List<Sword> swords = new ArrayList<Sword>();
+    public List<Bullet> swords = new ArrayList<Bullet>();
     private CollisionCheck goalCheck;
     public Map map;   // แผนที่ในเกม
 
@@ -40,7 +40,7 @@ public class Level{
         batch.begin();
         player.render(batch);
         for (Enemy e: enemies) e.render(batch);
-        for (Sword s: swords) s.render(batch);
+        for (Bullet s: swords) s.render(batch);
         batch.end();
 
         shapeRenderer.begin(ShapeType.Filled);
@@ -50,10 +50,10 @@ public class Level{
     }
 
     public void update(float deltaTime) {
-        Iterator<Sword>it = swords.iterator();
+        Iterator<Bullet>it = swords.iterator();
         Iterator<Enemy>eit = enemies.iterator();
         while(it.hasNext()){
-        	Sword s = it.next();
+        	Bullet s = it.next();
         	if (s.isDespawned()) it.remove();
         }
         while(eit.hasNext()){
@@ -62,7 +62,7 @@ public class Level{
         }
         player.update(deltaTime);
         for(Enemy e: enemies) e.update(deltaTime);
-        for(Sword s: swords) s.update(deltaTime);
+        for(Bullet s: swords) s.update(deltaTime);
     }
 
     public boolean isFinished() {

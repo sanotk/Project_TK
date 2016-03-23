@@ -28,10 +28,10 @@ public class Enemy extends AnimatedObject {
 
     private static final int INITIAL_HEALTH = 5;
     private static final float INITIAL_MOVING_SPEED = 60f;
-    private static final float INITIAL_FINDING_RANGE = 150f;
+    private static final float INITIAL_FINDING_RANGE = 300f;
 
     private Player player;
-    private List<Sword> swords;
+    private List<Bullet> bullets;
 
     private boolean alive;
     private boolean knockback;
@@ -45,11 +45,11 @@ public class Enemy extends AnimatedObject {
 
     private Pathfinding pathFinding;
 
-    public Enemy(TiledMapTileLayer mapLayer,Player player, List<Sword> swords) {
+    public Enemy(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets) {
         super(Assets.instance.enemyAltas);
 
         this.player = player;
-        this.swords = swords;
+        this.bullets = bullets;
         collisionCheck = new TiledCollisionCheck(this.bounds, mapLayer);
         init(mapLayer);
     }
@@ -115,7 +115,7 @@ public class Enemy extends AnimatedObject {
             }
         }
 
-        for(Sword s: swords) {
+        for(Bullet s: bullets) {
         	if (bounds.overlaps(s.bounds) && !s.isDespawned()) {
                 float knockbackSpeed = 100f;
                 switch(s.getDirection()) {
