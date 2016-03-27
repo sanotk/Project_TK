@@ -50,12 +50,14 @@ public class Player extends AnimatedObject {
     }
 
     public void init() {
-        addNormalAnimation(AnimationName.ATK_LEFT, FRAME_DURATION, 0, 3);
-        addNormalAnimation(AnimationName.ATK_RIGHT, FRAME_DURATION, 3, 3);
-        addLoopAnimation(AnimationName.WALK_UP, FRAME_DURATION, 6, 3);
-        addLoopAnimation(AnimationName.WALK_DOWN, FRAME_DURATION, 9, 3);
-        addLoopAnimation(AnimationName.WALK_LEFT, FRAME_DURATION, 12, 3);
-        addLoopAnimation(AnimationName.WALK_RIGHT, FRAME_DURATION, 15, 3);
+        addNormalAnimation(AnimationName.ATK_LEFT, FRAME_DURATION, 6, 3);
+        addNormalAnimation(AnimationName.ATK_RIGHT, FRAME_DURATION, 9, 3);
+        addNormalAnimation(AnimationName.ATK_UP, FRAME_DURATION, 0, 3);
+        addNormalAnimation(AnimationName.ATK_DOWN, FRAME_DURATION, 3, 3);
+        addLoopAnimation(AnimationName.WALK_UP, FRAME_DURATION, 12, 3);
+        addLoopAnimation(AnimationName.WALK_DOWN, FRAME_DURATION, 15, 3);
+        addLoopAnimation(AnimationName.WALK_LEFT, FRAME_DURATION, 18, 3);
+        addLoopAnimation(AnimationName.WALK_RIGHT, FRAME_DURATION, 21, 3);
 
         state = PlayerState.WALK; //สถานะของตัวละคร
         health = INTITAL_HEALTH;
@@ -99,14 +101,18 @@ public class Player extends AnimatedObject {
         if (state == PlayerState.ATTACK) {
             unFreezeAnimation();
             switch (viewDirection) {
-            case DOWN: setCurrentAnimation(AnimationName.WALK_DOWN); break;
+            case DOWN: setCurrentAnimation(AnimationName.ATK_DOWN); break;
             case LEFT: setCurrentAnimation(AnimationName.ATK_LEFT); break;
             case RIGHT: setCurrentAnimation(AnimationName.ATK_RIGHT); break;
-            case UP:  setCurrentAnimation(AnimationName.WALK_UP); break;
+            case UP:  setCurrentAnimation(AnimationName.ATK_UP); break;
             default:
                 break;
             }
             if (isAnimationFinished(AnimationName.ATK_LEFT) || isAnimationFinished(AnimationName.ATK_RIGHT)) {
+                state = PlayerState.WALK;
+                resetAnimation();
+            }
+            if (isAnimationFinished(AnimationName.ATK_UP) || isAnimationFinished(AnimationName.ATK_DOWN)) {
                 state = PlayerState.WALK;
                 resetAnimation();
             }

@@ -33,7 +33,9 @@ public abstract class AnimatedObject  extends AbstractGameObject {
         WALK_UP,
         WALK_DOWN,
         ATK_LEFT,
-        ATK_RIGHT
+        ATK_RIGHT,
+        ATK_UP,
+        ATK_DOWN
     }
 
     public static enum ViewDirection {
