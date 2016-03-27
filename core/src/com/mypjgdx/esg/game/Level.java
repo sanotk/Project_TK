@@ -38,9 +38,9 @@ public class Level{
         tiledRenderer.render();
 
         batch.begin();
+        for (Bullet s: bullets) s.render(batch);
         player.render(batch);
         for (Enemy e: enemies) e.render(batch);
-        for (Bullet s: bullets) s.render(batch);
         batch.end();
 
         shapeRenderer.begin(ShapeType.Filled);
