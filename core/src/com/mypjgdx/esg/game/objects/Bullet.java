@@ -9,9 +9,9 @@ import com.mypjgdx.esg.game.objects.AnimatedObject.ViewDirection;
 
 public class Bullet extends AbstractGameObject{
 
-	    private static final float SCALE = 0.4f;
+	    private static final float SCALE = 0.2f;
 
-	    private static final float INTITAL_FRICTION = 400f;  // ค่าแรงเสียดทานเริ่มต้น
+	    private static final float INTITAL_FRICTION = 50f;  // ค่าแรงเสียดทานเริ่มต้น
 	    private static final float INTITIAL_SPEED = 400f; // ค่าความเร็วต้น
 
 	    private Player player;
@@ -41,7 +41,7 @@ public class Bullet extends AbstractGameObject{
 
 	        setPosition(
 	                player.getPositionX() + player.origin.x - origin.x,
-	        		player.getPositionY() + player.origin.y - origin.y);
+	        		player.getPositionY() + player.origin.y - 9);
 
 	        direction = player.getViewDirection();
 
