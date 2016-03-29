@@ -70,7 +70,7 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.DOWN)) level.player.move(ViewDirection.DOWN);
             if (Gdx.input.isKeyPressed(Keys.LEFT)) level.player.move(ViewDirection.LEFT);
             if (Gdx.input.isKeyPressed(Keys.RIGHT)) level.player.move(ViewDirection.RIGHT);
-            if (Gdx.input.isKeyPressed(Keys.X)) level.player.attack() ;
+            if (Gdx.input.isKeyPressed(Keys.X)) level.player.trapAttack(level.traps, level.map.getMapLayer()) ;
             if (Gdx.input.isKeyPressed(Keys.Z)) level.player.rangeAttack(level.bullets, level.map.getMapLayer());
         }
      }

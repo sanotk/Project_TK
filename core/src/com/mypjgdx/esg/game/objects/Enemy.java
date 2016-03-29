@@ -32,7 +32,13 @@ public class Enemy extends AnimatedObject {
 
     private Player player;
     private List<Bullet> bullets;
+    private List<Trap> traps;
 
+    public enum EnemyState {
+    	WALK, ATTACK
+    }
+
+    private EnemyState state;
     private boolean alive;
     private boolean knockback;
     private boolean stun;
@@ -45,11 +51,12 @@ public class Enemy extends AnimatedObject {
 
     private Pathfinding pathFinding;
 
-    public Enemy(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets) {
+    public Enemy(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets, List<Trap> traps) {
         super(Assets.instance.enemyAltas);
 
         this.player = player;
         this.bullets = bullets;
+        this.traps = traps;
         collisionCheck = new TiledCollisionCheck(this.bounds, mapLayer);
         init(mapLayer);
     }
@@ -60,6 +67,7 @@ public class Enemy extends AnimatedObject {
         addLoopAnimation(WALK_LEFT, FRAME_DURATION, 6, 3);
         addLoopAnimation(WALK_RIGHT, FRAME_DURATION, 9, 3);
 
+        state = EnemyState.WALK;
     	alive = true;
     	knockback= false;
     	stun = false;
@@ -126,6 +134,20 @@ public class Enemy extends AnimatedObject {
                 default: break;
                 }
                 s.despawn();
+        	}
+        }
+
+        for(Trap t: traps) {
+        	if (bounds.overlaps(t.bounds) && !t.isDespawned()) {
+                float knockbackSpeed = 500f;
+                switch(t.getDirection()) {
+                case DOWN: takeDamage(knockbackSpeed, 270); break;
+                case LEFT: takeDamage(knockbackSpeed, 180); break;
+                case RIGHT: takeDamage(knockbackSpeed, 0); break;
+                case UP: takeDamage(knockbackSpeed, 90); break;
+                default: break;
+                }
+                t.despawn();
         	}
         }
         runToPlayer(deltaTime);

@@ -22,7 +22,9 @@ public class Player extends AnimatedObject {
     private static final float INITIAL_Y_POSITION = 100f;      // ตำแหน่งเริ่มต้นแกน Y
     private static final float INITIAL_MOVING_SPEED = 120f;
 
-    private static final int INTITAL_HEALTH = 20;
+    private static final int INTITAL_HEALTH = 3;
+    private static final int INTITAL_TRAPMAX = 3;
+    private static final int INTITAL_BULLETMAX = 20;
 
     public enum PlayerState {
     	WALK, ATTACK
@@ -30,6 +32,8 @@ public class Player extends AnimatedObject {
 
     private PlayerState state;
     private int health;
+    private int trapMax;
+    private int bulletMax;
     private boolean alive;
     private boolean invulnerable;
     private boolean knockback;
@@ -61,6 +65,8 @@ public class Player extends AnimatedObject {
 
         state = PlayerState.WALK; //สถานะของตัวละคร
         health = INTITAL_HEALTH;
+        trapMax = INTITAL_TRAPMAX;
+        bulletMax = INTITAL_BULLETMAX;
         alive = true;
         invulnerable = false;
         lastInvulnerableTime = 0;
@@ -135,9 +141,15 @@ public class Player extends AnimatedObject {
         }
     }
 
-    public void attack(){
+    public void trapAttack(List<Trap>traps,TiledMapTileLayer mapLayer){
     	if(state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
+    		if(trapMax!=0){
+	    		traps.add(new Trap(mapLayer, this));
+	            Assets.instance.bullet_sound.play();
+	            trapMax--;
+    		}
+            Assets.instance.bullet_sound.play();
     		resetAnimation();
     	}
     }
@@ -178,13 +190,15 @@ public class Player extends AnimatedObject {
         knockback = true;
     }
 
-    public void rangeAttack(List<Bullet>swords,TiledMapTileLayer mapLayer){
+    public void rangeAttack(List<Bullet>bullets,TiledMapTileLayer mapLayer){
     	if (state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
-
-            swords.add(new Bullet(mapLayer, this));
+    		if(bulletMax!=0){
+	    		bullets.add(new Bullet(mapLayer, this));
+	            Assets.instance.bullet_sound.play();
+	            bulletMax--;
+    		}
             Assets.instance.bullet_sound.play();
-
     		resetAnimation();
     	}
     }
