@@ -36,8 +36,8 @@ public class Trap extends AbstractGameObject{
 	        scale.set(SCALE, SCALE);
 
 	        setDimension(
-	                Assets.instance.bullet.getRegionWidth(),
-	                Assets.instance.bullet.getRegionHeight());
+	                Assets.instance.trap.getRegionWidth(),
+	                Assets.instance.trap.getRegionHeight());
 
 	        setPosition(
 	                player.getPositionX() + player.origin.x - origin.x,
@@ -96,6 +96,6 @@ public class Trap extends AbstractGameObject{
 
 	    @Override
 	    public void render(SpriteBatch batch) {
-	        render(batch, Assets.instance.bullet);
+	        render(batch, Assets.instance.trap);
 	    }
 }

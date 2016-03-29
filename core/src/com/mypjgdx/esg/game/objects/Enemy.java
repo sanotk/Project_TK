@@ -139,7 +139,7 @@ public class Enemy extends AnimatedObject {
 
         for(Trap t: traps) {
         	if (bounds.overlaps(t.bounds) && !t.isDespawned()) {
-                float knockbackSpeed = 500f;
+                float knockbackSpeed = 800f;
                 switch(t.getDirection()) {
                 case DOWN: takeDamage(knockbackSpeed, 270); break;
                 case LEFT: takeDamage(knockbackSpeed, 180); break;

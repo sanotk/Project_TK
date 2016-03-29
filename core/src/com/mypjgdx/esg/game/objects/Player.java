@@ -24,7 +24,7 @@ public class Player extends AnimatedObject {
 
     private static final int INTITAL_HEALTH = 3;
     private static final int INTITAL_TRAPMAX = 3;
-    private static final int INTITAL_BULLETMAX = 20;
+    private static final int INTITAL_BULLETMAX = 30;
 
     public enum PlayerState {
     	WALK, ATTACK
