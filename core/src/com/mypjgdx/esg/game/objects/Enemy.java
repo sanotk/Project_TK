@@ -28,7 +28,7 @@ public class Enemy extends AnimatedObject {
 
     private static final int INITIAL_HEALTH = 5;
     private static final float INITIAL_MOVING_SPEED = 60f;
-    private static final float INITIAL_FINDING_RANGE = 300f;
+    private static final float INITIAL_FINDING_RANGE = 400f;
 
     private Player player;
     private List<Bullet> bullets;

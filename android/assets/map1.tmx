@@ -7,6 +7,16 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="1">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
   <tile id="15">
    <properties>
     <property name="goal" value=""/>
@@ -28,6 +38,11 @@
    </properties>
   </tile>
   <tile id="38">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="39">
    <properties>
     <property name="blocked" value=""/>
    </properties>
@@ -65,7 +80,7 @@
  </tileset>
  <layer name="Ground" width="30" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt17sKgDAMheF6HQQHfYlWq46Kvv+DeQKdSlEQk6Fk+JYsPxmPM8ZsjHY4opuDAjpGA4zRjZol9IxOuKIbNS1MUAmZQ5N+rsELaUJTu9rVrnb/7NoXuXWfaFe7OXW/0q58d4FWyBqatBk4d0qKxE5JkdgpKdS8AdwSctI=
+   eJzt1zsKgDAQRdH4LQQL3UTit1R0/wvzDUwhISiImSJMcYpMc0n5nDFmFeYggyaiDXbvRs0c2og66L0bNS0MUERywHl7j9ykP5cwCam4qV3tale7f3bti9S6T7Sr3ZS6X2lXvjtDLWThJm2GFHdKiMROCaHmBQPZcyg=
   </data>
  </layer>
 </map>
