@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mypjgdx.esg.collision.CollisionCheck;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
+import com.mypjgdx.esg.game.objects.Beam;
 import com.mypjgdx.esg.game.objects.Bullet;
 import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.game.objects.Player;
@@ -20,6 +21,7 @@ public class Level{
     public Player player; // ตัวละครที่ผู้เล่นจะได้ควบคุม
     public List<Enemy> enemies = new ArrayList<Enemy>();
     public List<Bullet> bullets = new ArrayList<Bullet>();
+    public List<Beam> beams = new ArrayList<Beam>();
     public List<Trap> traps = new ArrayList<Trap>();
     private CollisionCheck goalCheck;
     public Map map;   // แผนที่ในเกม
@@ -30,7 +32,7 @@ public class Level{
         this.map = map;
         player = new Player(map.getMapLayer()) ;
         for(int i = 0; i < MAX_ENEMY ;i++){
-        	enemies.add(new Enemy(map.getMapLayer(),player ,bullets ,traps));
+        	enemies.add(new Enemy(map.getMapLayer(),player ,bullets ,traps ,beams));
         }
         goalCheck = new TiledCollisionCheck(player.bounds, map.getMapLayer(), "goal");
     }
@@ -41,6 +43,7 @@ public class Level{
 
         batch.begin();
         for (Bullet s: bullets) s.render(batch);
+        for (Beam b: beams) b.render(batch);
         for (Trap t: traps) t.render(batch);
         player.render(batch);
         for (Enemy e: enemies) e.render(batch);
@@ -54,12 +57,17 @@ public class Level{
 
     public void update(float deltaTime) {
         Iterator<Bullet>it = bullets.iterator();
+        Iterator<Beam>bit = beams.iterator();
         Iterator<Trap>tit = traps.iterator();
         Iterator<Enemy>eit = enemies.iterator();
 
         while(it.hasNext()){
         	Bullet s = it.next();
         	if (s.isDespawned()) it.remove();
+        }
+        while(bit.hasNext()){
+        	Beam b = bit.next();
+        	if (b.isDespawned()) bit.remove();
         }
         while(tit.hasNext()){
         	Trap t = tit.next();
@@ -72,6 +80,7 @@ public class Level{
         player.update(deltaTime);
         for(Enemy e: enemies) e.update(deltaTime);
         for(Bullet s: bullets) s.update(deltaTime);
+        for(Beam b: beams) b.update(deltaTime);
         for(Trap t: traps) t.update(deltaTime);
     }
 

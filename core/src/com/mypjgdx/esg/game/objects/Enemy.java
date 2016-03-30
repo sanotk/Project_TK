@@ -32,6 +32,7 @@ public class Enemy extends AnimatedObject {
 
     private Player player;
     private List<Bullet> bullets;
+    private List<Beam> beams;
     private List<Trap> traps;
 
     public enum EnemyState {
@@ -51,11 +52,12 @@ public class Enemy extends AnimatedObject {
 
     private Pathfinding pathFinding;
 
-    public Enemy(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets, List<Trap> traps) {
+    public Enemy(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets, List<Trap> traps, List<Beam> beams) {
         super(Assets.instance.enemyAltas);
 
         this.player = player;
         this.bullets = bullets;
+        this.beams = beams;
         this.traps = traps;
         collisionCheck = new TiledCollisionCheck(this.bounds, mapLayer);
         init(mapLayer);
@@ -134,6 +136,20 @@ public class Enemy extends AnimatedObject {
                 default: break;
                 }
                 s.despawn();
+        	}
+        }
+
+        for(Beam b: beams) {
+        	if (bounds.overlaps(b.bounds) && !b.isDespawned()) {
+                float knockbackSpeed = 100f;
+                switch(b.getDirection()) {
+                case DOWN: takeDamage(knockbackSpeed, 270); break;
+                case LEFT: takeDamage(knockbackSpeed, 180); break;
+                case RIGHT: takeDamage(knockbackSpeed, 0); break;
+                case UP: takeDamage(knockbackSpeed, 90); break;
+                default: break;
+                }
+                //b.despawn();
         	}
         }
 

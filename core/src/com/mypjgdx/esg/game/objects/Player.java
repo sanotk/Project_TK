@@ -25,6 +25,7 @@ public class Player extends AnimatedObject {
     private static final int INTITAL_HEALTH = 3;
     private static final int INTITAL_TRAPMAX = 3;
     private static final int INTITAL_BULLETMAX = 30;
+    private static final int INTITAL_BEAMMAX = 1;
 
     public enum PlayerState {
     	WALK, ATTACK
@@ -34,6 +35,7 @@ public class Player extends AnimatedObject {
     private int health;
     private int trapMax;
     private int bulletMax;
+    private int beamMax;
     private boolean alive;
     private boolean invulnerable;
     private boolean knockback;
@@ -67,6 +69,7 @@ public class Player extends AnimatedObject {
         health = INTITAL_HEALTH;
         trapMax = INTITAL_TRAPMAX;
         bulletMax = INTITAL_BULLETMAX;
+        beamMax = INTITAL_BEAMMAX;
         alive = true;
         invulnerable = false;
         lastInvulnerableTime = 0;
@@ -199,6 +202,19 @@ public class Player extends AnimatedObject {
 	            bulletMax--;
     		}
             Assets.instance.bullet_sound.play();
+    		resetAnimation();
+    	}
+    }
+
+    public void beamAttack(List<Beam>beams,TiledMapTileLayer mapLayer){
+    	if (state != PlayerState.ATTACK){
+    		state = PlayerState.ATTACK;
+    		if(beamMax!=0){
+	    		beams.add(new Beam(mapLayer, this));
+	            Assets.instance.beam_sound.play();
+	            beamMax--;
+    		}
+            Assets.instance.beam_sound.play();
     		resetAnimation();
     	}
     }

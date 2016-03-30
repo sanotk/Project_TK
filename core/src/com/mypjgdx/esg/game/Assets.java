@@ -19,6 +19,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final Assets instance = new Assets();
     public AssetManager manager;
     public TextureRegion bullet;
+    public TextureRegion beam;
     public TextureRegion trap;
     public TextureAtlas playerAltas;
 
@@ -29,6 +30,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public TiledMap map4;
     public Music music;
     public Sound bullet_sound;
+    public Sound beam_sound;
     public Sound trap_sound;
 
     private Assets() {}
@@ -45,11 +47,12 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("player_pack.atlas", TextureAtlas.class);
         manager.load("bullet.png", Texture.class);
         manager.load("trap.png", Texture.class);
+        manager.load("beam.png", Texture.class);
         manager.load("mon_pack.atlas", TextureAtlas.class);
         manager.load("music.mp3", Music.class);
         manager.load("bullet.wav", Sound.class);
+        manager.load("beam.wav", Sound.class);
         manager.load("trap.wav", Sound.class);
-
 
         manager.finishLoading();
 
@@ -61,9 +64,11 @@ public class Assets implements Disposable, AssetErrorListener {
         playerAltas = manager.get("player_pack.atlas");
         bullet = new TextureRegion((Texture)manager.get("bullet.png"));
         trap = new TextureRegion((Texture)manager.get("trap.png"));
+        beam = new TextureRegion((Texture)manager.get("beam.png"));
         enemyAltas = manager.get("mon_pack.atlas");
         music = manager.get("music.mp3");
         bullet_sound = manager.get("bullet.wav");
+        beam_sound = manager.get("beam.wav");
         trap_sound = manager.get("trap.wav");
     }
 
@@ -72,9 +77,11 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.setErrorListener(this);
         manager.setLoader(TiledMap.class, new TmxMapLoader());
         manager.load("bullet.wav", Sound.class);
+        manager.load("beam.wav", Sound.class);
         manager.load("trap.wav", Sound.class);
         manager.finishLoading();
         bullet_sound = manager.get("bullet.wav");
+        beam_sound = manager.get("beam.wav");
         trap_sound = manager.get("trap.wav");
     }
 
