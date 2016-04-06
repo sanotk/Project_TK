@@ -10,15 +10,15 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 public class Pathfinding {
 
-    private TiledMapTileLayer mapLayer;
-    private Node start;
-    private Node goal;
+    private TiledMapTileLayer mapLayer; // ค่าแผนที่
+    private Node start; // โหนดของศัตรู
+    private Node goal; // โหนดที่ศัตรูต้องการค้นหา หรือก็คือผู้เล่น
 
-    private Queue<Node> frontiers;
-    private ObjectMap<Node, Node> cameFrom;
-    private Array<Node> path;
-    private Array<Node> neighbors;
-    private ObjectMap<Node, Integer> costSoFar;
+    private Queue<Node> frontiers; // ขอบเขตการค้นหา
+    private ObjectMap<Node, Node> cameFrom; // โหนดที่ผ่านมา
+    private Array<Node> path; // เส้นทางที่ใช้
+    private Array<Node> neighbors; // โหนดข้างๆ
+    private ObjectMap<Node, Integer> costSoFar; // ค่าคอสรวมของแต่ละโหนด
 
     private Node[][] nodes;
 
@@ -35,18 +35,18 @@ public class Pathfinding {
         path = new Array<Node>();
         neighbors = new Array<Node>();
         costSoFar = new ObjectMap<Node, Integer>();
-        nodes = new Node[mapLayer.getWidth()][mapLayer.getHeight()];
+        nodes = new Node[mapLayer.getWidth()][mapLayer.getHeight()]; //สร้างโหนดโดยมีขนาดเท่ากับ tile
 
         createNode();
     }
 
-    public void createNode() {
+    public void createNode() { // สร้างโหนดทุกโหนด
         for(int i = 0; i< mapLayer.getWidth() ;i++){
             for(int j = 0; j<mapLayer.getHeight(); j++) {
                 nodes[i][j] = new Node(i, j, mapLayer.getCell(i, j).getTile().getProperties().containsKey("blocked"));
             }
         }
-        for (int i = 0; i< mapLayer.getWidth() ;i++){
+        for (int i = 0; i< mapLayer.getWidth() ;i++){ // ใส่ค่าให้โหนดที่เป็น Blocked มีคอสสูงๆ จะได้ไม่เดินเข้าไปชน
             for (int j = 0; j<mapLayer.getHeight(); j++) {
                if (nodeNearBlocked(nodes[i][j]))
                    nodes[i][j].cost = 99;
@@ -65,38 +65,39 @@ public class Pathfinding {
     public Array<Node> findPath (float startX, float startY, float goalX, float goalY) {
         init();
 
-        setStart(startX, startY);
-        setGoal(goalX, goalY);
+        setStart(startX, startY); // ใส่ค่าตำแหน่งที่ศัตรูยืนอยู่
+        setGoal(goalX, goalY); // ใส่ค่าตำแหน่งที่ผู้เล่นยืนอยู่ปัจจุบัน
 
-        costSoFar.put(start, 0);
-        frontiers.add(start);
+        costSoFar.put(start, 0); // ใส่ค่าคอสรวมที่ใช้
+        frontiers.add(start); // สร้าง frontiers ที่ตำแหน่ง start
 
-        while (!frontiers.isEmpty()) {
-            Node current = frontiers.poll();
-            if (current.equals(goal))
+        while (!frontiers.isEmpty()) { // ถ้า frontiers มีการรับค่าเข้ามา
+            Node current = frontiers.poll(); // ดึงค่า frontier ตามคิวละเอาออก
+            if (current.equals(goal)) //ถ้าโหนด current เป็น goal หยุดทำ
                 break;
 
-            for (Node neighbor: getNeighbors(current)) {
-                int newCost = costSoFar.get(current) + neighbor.cost;
+            for (Node neighbor: getNeighbors(current)) { // สร้างโหนด neighbor รอบ current
+                int newCost = costSoFar.get(current) + neighbor.cost; // คอสตัวปัจจุบัน = cost รวมจนถึง current + cost ของโหนด
                 if (!costSoFar.containsKey(neighbor) || newCost < costSoFar.get(neighbor)) {
-                    if (!neighbor.blocked) {
-                        costSoFar.put(neighbor, newCost);
-                        frontiers.add(neighbor);
-                        cameFrom.put(neighbor, current);
+                    if (!neighbor.blocked) { // ถ้า neighbor ปัจจุบันไม่ใช่ blocked
+                        costSoFar.put(neighbor, newCost); // ใส่คอสรวมให้กับ neighbor
+                        frontiers.add(neighbor); // เพิ่ม neighbor ให้เป็นหนึ่งใน frontiers
+                        cameFrom.put(neighbor, current); // ใส่ค่าให้รู้ว่า neighbor มาจากโหนดไหน
                     }
                 }
             }
         }
-        Node current  = goal;
-        path.add(current);
 
-        while(!current.equals(start)) {
-            current = cameFrom.get(current);
-            path.add(current);
+        Node current  = goal; // ให้โหนด current = goal
+        path.add(current); // ให้ current เป็นหนึ่งในเส้นทางที่ใช้เดิน
+
+        while(!current.equals(start)) { // หากตำแหน่งที่ยืนอยู่ไม่ใช่ตำแหน่งเดียวกับ goal ให้สร้าง path
+            current = cameFrom.get(current); // เรียกโหนดที่เคยผ่านมาเก็บไว้ใน current
+            path.add(current); // เพิ่มเส้นทางที่จะใช้เดิน
         }
 
-        path.pop();
-        path.reverse();
+        path.pop(); // ลบจุด start ออก
+        path.reverse(); //กลับเส้นทาง
         return path;
     }
 
