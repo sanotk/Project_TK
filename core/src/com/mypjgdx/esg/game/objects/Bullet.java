@@ -41,7 +41,7 @@ public class Bullet extends AbstractGameObject{
 
 	        setPosition(
 	                player.getPositionX() + player.origin.x - origin.x,
-	        		player.getPositionY() + player.origin.y - 9);
+	        		player.getPositionY() + player.origin.y - 4);
 
 	        direction = player.getViewDirection();
 

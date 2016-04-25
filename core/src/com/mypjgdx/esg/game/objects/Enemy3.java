@@ -17,13 +17,13 @@ import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.utils.Pathfinding;
 import com.mypjgdx.esg.utils.Pathfinding.Node;
 
-public class Enemy extends AnimatedObject {
+public class Enemy3 extends AnimatedObject {
 
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 8.0f;
 
     // อัตราการขยายภาพ enemy
-    private static final float SCALE = 0.1f;
+    private static final float SCALE = 0.15f;
     private static final float INITIAL_FRICTION = 600f;           // ค่าแรงเสียดทานเริ่มต้น
 
     private static final int INITIAL_HEALTH = 5;
@@ -52,8 +52,8 @@ public class Enemy extends AnimatedObject {
 
     private Pathfinding pathFinding;
 
-    public Enemy(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets, List<Trap> traps, List<Beam> beams) {
-        super(Assets.instance.enemy1Altas);
+    public Enemy3(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets, List<Trap> traps, List<Beam> beams) {
+        super(Assets.instance.enemy3Altas);
 
         this.player = player;
         this.bullets = bullets;

@@ -3,171 +3,171 @@ player_pack.png
 format: RGBA8888
 filter: Linear,MipMapLinearNearest
 repeat: none
-atk_back
+char_back_1.1
   rotate: false
-  xy: 1, 605
-  size: 150, 300
-  orig: 150, 300
+  xy: 1, 373
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
-  index: 1
-atk_back
+  index: -1
+char_back_2.1
   rotate: false
-  xy: 1, 303
-  size: 150, 300
-  orig: 150, 300
+  xy: 1, 280
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
-  index: 2
-atk_back
+  index: -1
+char_back_3.1
   rotate: false
-  xy: 153, 605
-  size: 150, 300
-  orig: 150, 300
+  xy: 52, 373
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
-  index: 3
-atk_face
+  index: -1
+char_back_atk_1.1
+  rotate: false
+  xy: 1, 187
+  size: 49, 91
+  orig: 49, 91
+  offset: 0, 0
+  index: -1
+char_back_atk_2.1
+  rotate: false
+  xy: 52, 280
+  size: 49, 91
+  orig: 49, 91
+  offset: 0, 0
+  index: -1
+char_back_atk_3.1
+  rotate: false
+  xy: 103, 373
+  size: 49, 91
+  orig: 49, 91
+  offset: 0, 0
+  index: -1
+char_front_1.1
+  rotate: false
+  xy: 1, 94
+  size: 49, 91
+  orig: 49, 91
+  offset: 0, 0
+  index: -1
+char_front_2.1
+  rotate: false
+  xy: 52, 187
+  size: 49, 91
+  orig: 49, 91
+  offset: 0, 0
+  index: -1
+char_front_3.1
+  rotate: false
+  xy: 103, 280
+  size: 49, 91
+  orig: 49, 91
+  offset: 0, 0
+  index: -1
+char_front_atk_1.1
+  rotate: false
+  xy: 154, 373
+  size: 49, 91
+  orig: 49, 91
+  offset: 0, 0
+  index: -1
+char_front_atk_2.1
   rotate: false
   xy: 1, 1
-  size: 150, 300
-  orig: 150, 300
+  size: 49, 91
+  orig: 49, 91
+  offset: 0, 0
+  index: -1
+char_front_atk_3.1
+  rotate: false
+  xy: 52, 94
+  size: 49, 91
+  orig: 49, 91
+  offset: 0, 0
+  index: -1
+char_left
+  rotate: false
+  xy: 103, 187
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
   index: 1
-atk_face
+char_left
   rotate: false
-  xy: 153, 303
-  size: 150, 300
-  orig: 150, 300
+  xy: 154, 280
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
   index: 2
-atk_face
+char_left
   rotate: false
-  xy: 305, 605
-  size: 150, 300
-  orig: 150, 300
+  xy: 205, 373
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
   index: 3
-atk_left
+char_left_atk
   rotate: false
-  xy: 153, 1
-  size: 150, 300
-  orig: 150, 300
+  xy: 52, 1
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
   index: 1
-atk_left
+char_left_atk
   rotate: false
-  xy: 305, 303
-  size: 150, 300
-  orig: 150, 300
+  xy: 103, 94
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
   index: 2
-atk_left
+char_left_atk
   rotate: false
-  xy: 457, 605
-  size: 150, 300
-  orig: 150, 300
+  xy: 154, 187
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
   index: 3
-atk_right
+char_right
   rotate: false
-  xy: 305, 1
-  size: 150, 300
-  orig: 150, 300
+  xy: 205, 280
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
   index: 1
-atk_right
+char_right
   rotate: false
-  xy: 457, 303
-  size: 150, 300
-  orig: 150, 300
+  xy: 103, 1
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
   index: 2
-atk_right
+char_right
   rotate: false
-  xy: 609, 605
-  size: 150, 300
-  orig: 150, 300
+  xy: 154, 94
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
   index: 3
-char_back
+char_rigth_atk
   rotate: false
-  xy: 457, 1
-  size: 150, 300
-  orig: 150, 300
+  xy: 205, 187
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
   index: 1
-char_back
+char_rigth_atk
   rotate: false
-  xy: 609, 303
-  size: 150, 300
-  orig: 150, 300
+  xy: 154, 1
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
   index: 2
-char_back
+char_rigth_atk
   rotate: false
-  xy: 761, 605
-  size: 150, 300
-  orig: 150, 300
-  offset: 0, 0
-  index: 3
-char_front
-  rotate: false
-  xy: 609, 1
-  size: 150, 300
-  orig: 150, 300
-  offset: 0, 0
-  index: 1
-char_front
-  rotate: false
-  xy: 761, 303
-  size: 150, 300
-  orig: 150, 300
-  offset: 0, 0
-  index: 2
-char_front
-  rotate: false
-  xy: 913, 605
-  size: 150, 300
-  orig: 150, 300
-  offset: 0, 0
-  index: 3
-char_l
-  rotate: false
-  xy: 761, 1
-  size: 150, 300
-  orig: 150, 300
-  offset: 0, 0
-  index: 1
-char_l
-  rotate: false
-  xy: 913, 303
-  size: 150, 300
-  orig: 150, 300
-  offset: 0, 0
-  index: 2
-char_l
-  rotate: false
-  xy: 1065, 605
-  size: 150, 300
-  orig: 150, 300
-  offset: 0, 0
-  index: 3
-char_r
-  rotate: false
-  xy: 913, 1
-  size: 150, 300
-  orig: 150, 300
-  offset: 0, 0
-  index: 1
-char_r
-  rotate: false
-  xy: 1065, 303
-  size: 150, 300
-  orig: 150, 300
-  offset: 0, 0
-  index: 2
-char_r
-  rotate: false
-  xy: 1217, 605
-  size: 150, 300
-  orig: 150, 300
+  xy: 205, 94
+  size: 49, 91
+  orig: 49, 91
   offset: 0, 0
   index: 3

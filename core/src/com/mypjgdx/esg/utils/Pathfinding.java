@@ -30,7 +30,7 @@ public class Pathfinding {
                 return (distanceToGoal(n1)+costSoFar.get(n1)) - (distanceToGoal(n2)+costSoFar.get(n2));
             }
         };
-        frontiers = new PriorityQueue<Node>(100, comparator);
+        frontiers = new PriorityQueue<Node>(1, comparator);
         cameFrom = new ObjectMap<Node, Node>();
         path = new Array<Node>();
         neighbors = new Array<Node>();
@@ -79,8 +79,8 @@ public class Pathfinding {
             for (Node neighbor: getNeighbors(current)) { // สร้างโหนด neighbor รอบ current
                 int newCost = costSoFar.get(current) + neighbor.cost; // คอสตัวปัจจุบัน = cost รวมจนถึง current + cost ของโหนด
                 if (!costSoFar.containsKey(neighbor) || newCost < costSoFar.get(neighbor)) {
-                    if (!neighbor.blocked) { // ถ้า neighbor ปัจจุบันไม่ใช่ blocked
-                        costSoFar.put(neighbor, newCost); // ใส่คอสรวมให้กับ neighbor
+                    if (!neighbor.blocked) { // ถ้า neighbor ไม่ได้อยู่ข้าง  blocked
+                        costSoFar.put(neighbor, newCost); // เพิ่มอาเรย์ของ costSoFar
                         frontiers.add(neighbor); // เพิ่ม neighbor ให้เป็นหนึ่งใน frontiers
                         cameFrom.put(neighbor, current); // ใส่ค่าให้รู้ว่า neighbor มาจากโหนดไหน
                     }

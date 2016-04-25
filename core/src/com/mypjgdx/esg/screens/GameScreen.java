@@ -4,6 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -17,6 +19,9 @@ public class GameScreen extends AbstractGameScreen {
 
     private WorldController worldController;
     private WorldRenderer worldRenderer;
+
+    SpriteBatch batch;
+    public Texture bg;
 
     private Stage stage; //
     private Stage max;
@@ -40,6 +45,7 @@ public class GameScreen extends AbstractGameScreen {
         max = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT));
         Gdx.input.setInputProcessor(max);
         skin = new Skin(Gdx.files.internal("uiskin.json"));
+        bg = new Texture("bg.png");
 
         text_bulletMax = new Label("Bullet Max : " ,skin);
         text_bulletMax.setColor(0, 1, 1, 1);
@@ -59,6 +65,8 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(text_bulletMax);
         stage.addActor(text_beamMax);
         stage.addActor(text_trapMax);
+
+        batch = new SpriteBatch();
 
     }
 
@@ -188,6 +196,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
+
         worldController = new WorldController(new Level(Map.MAP_01));
         worldRenderer = new WorldRenderer(worldController);
     }

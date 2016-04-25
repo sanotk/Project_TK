@@ -23,7 +23,11 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion trap;
     public TextureAtlas playerAltas;
 
-    public TextureAtlas enemyAltas;
+    public TextureRegion bg;
+
+    public TextureAtlas enemy1Altas;
+    public TextureAtlas enemy2Altas;
+    public TextureAtlas enemy3Altas;
     public TiledMap map1;
     public TiledMap map2;
     public TiledMap map3;
@@ -45,10 +49,13 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("map4.tmx", TiledMap.class);
 
         manager.load("player_pack.atlas", TextureAtlas.class);
+        manager.load("bg.png", Texture.class);
         manager.load("bullet.png", Texture.class);
         manager.load("trap.png", Texture.class);
         manager.load("beam.png", Texture.class);
-        manager.load("mon_pack.atlas", TextureAtlas.class);
+        manager.load("enemy1_pack.atlas", TextureAtlas.class);
+        manager.load("enemy2_pack.atlas", TextureAtlas.class);
+        manager.load("enemy3_pack.atlas", TextureAtlas.class);
         manager.load("music.mp3", Music.class);
         manager.load("bullet.wav", Sound.class);
         manager.load("beam.wav", Sound.class);
@@ -62,10 +69,13 @@ public class Assets implements Disposable, AssetErrorListener {
         map4 = manager.get("map4.tmx");
 
         playerAltas = manager.get("player_pack.atlas");
+        bg = new TextureRegion((Texture)manager.get("bg.png"));
         bullet = new TextureRegion((Texture)manager.get("bullet.png"));
         trap = new TextureRegion((Texture)manager.get("trap.png"));
         beam = new TextureRegion((Texture)manager.get("beam.png"));
-        enemyAltas = manager.get("mon_pack.atlas");
+        enemy1Altas = manager.get("enemy1_pack.atlas");
+        enemy2Altas = manager.get("enemy2_pack.atlas");
+        enemy3Altas = manager.get("enemy3_pack.atlas");
         music = manager.get("music.mp3");
         bullet_sound = manager.get("bullet.wav");
         beam_sound = manager.get("beam.wav");

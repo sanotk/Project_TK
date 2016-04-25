@@ -4,6 +4,8 @@ import com.badlogic.gdx.Game;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.screens.MenuScreen;
 
+
+
 public class MyPjGdxGame extends Game  {
 
     @Override
