@@ -26,8 +26,8 @@ public class Enemy3 extends AnimatedObject {
     private static final float SCALE = 0.15f;
     private static final float INITIAL_FRICTION = 600f;           // ค่าแรงเสียดทานเริ่มต้น
 
-    private static final int INITIAL_HEALTH = 5;
-    private static final float INITIAL_MOVING_SPEED = 60f;
+    private static final int INITIAL_HEALTH = 20;
+    private static final float INITIAL_MOVING_SPEED = 100f;
     private static final float INITIAL_FINDING_RANGE = 400f;
 
     private Player player;
