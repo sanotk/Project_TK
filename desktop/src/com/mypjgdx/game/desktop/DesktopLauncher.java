@@ -1,5 +1,6 @@
 package com.mypjgdx.game.desktop;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mypjgdx.esg.MyPjGdxGame;
@@ -10,7 +11,7 @@ public class DesktopLauncher {
         config.title = "Energy Saving Game";
         config.width = 1280;
         config.height = 720;
-        //config.addIcon("assets/globe.png", Files.FileType.Internal);
+        config.addIcon("icon.png", Files.FileType.Internal);
         new LwjglApplication(new MyPjGdxGame(), config);
     }
 }
