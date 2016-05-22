@@ -22,7 +22,7 @@ public class Player extends AnimatedObject {
     private static final float INITIAL_Y_POSITION = 100f;      // ตำแหน่งเริ่มต้นแกน Y
     private static final float INITIAL_MOVING_SPEED = 120f;
 
-    private static final int INTITAL_HEALTH = 3;
+    private static final int INTITAL_HEALTH = 10;
     private static final int INTITAL_TRAPMAX = 3;
     private static final int INTITAL_BULLETMAX = 25;
     private static final int INTITAL_BEAMMAX = 1;

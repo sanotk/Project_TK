@@ -9,7 +9,7 @@ import com.mypjgdx.esg.game.objects.AnimatedObject.ViewDirection;
 
 public class Trap extends AbstractGameObject{
 
-	    private static final float SCALE = 0.2f;
+	    private static final float SCALE = 1f;
 
 	    private static final float INTITAL_FRICTION = 50f;  // ค่าแรงเสียดทานเริ่มต้น
 	    private static final float INTITIAL_SPEED = 50f; // ค่าความเร็วต้น

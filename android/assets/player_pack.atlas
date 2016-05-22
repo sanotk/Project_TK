@@ -5,168 +5,168 @@ filter: Linear,MipMapLinearNearest
 repeat: none
 char_back_1.1
   rotate: false
-  xy: 1, 373
+  xy: 1, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: -1
 char_back_2.1
   rotate: false
-  xy: 1, 280
+  xy: 52, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: -1
 char_back_3.1
   rotate: false
-  xy: 52, 373
+  xy: 103, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: -1
 char_back_atk_1.1
   rotate: false
-  xy: 1, 187
+  xy: 154, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: -1
 char_back_atk_2.1
   rotate: false
-  xy: 52, 280
+  xy: 205, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: -1
 char_back_atk_3.1
   rotate: false
-  xy: 103, 373
+  xy: 256, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: -1
 char_front_1.1
   rotate: false
-  xy: 1, 94
+  xy: 307, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: -1
 char_front_2.1
   rotate: false
-  xy: 52, 187
+  xy: 358, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: -1
 char_front_3.1
   rotate: false
-  xy: 103, 280
+  xy: 409, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: -1
 char_front_atk_1.1
   rotate: false
-  xy: 154, 373
+  xy: 460, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: -1
 char_front_atk_2.1
   rotate: false
-  xy: 1, 1
+  xy: 511, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: -1
 char_front_atk_3.1
   rotate: false
-  xy: 52, 94
+  xy: 562, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: -1
 char_left
   rotate: false
-  xy: 103, 187
+  xy: 613, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: 1
 char_left
   rotate: false
-  xy: 154, 280
+  xy: 664, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: 2
 char_left
   rotate: false
-  xy: 205, 373
+  xy: 715, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: 3
 char_left_atk
   rotate: false
-  xy: 52, 1
+  xy: 766, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: 1
 char_left_atk
   rotate: false
-  xy: 103, 94
+  xy: 817, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: 2
 char_left_atk
   rotate: false
-  xy: 154, 187
+  xy: 868, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: 3
 char_right
   rotate: false
-  xy: 205, 280
+  xy: 919, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: 1
 char_right
   rotate: false
-  xy: 103, 1
+  xy: 970, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: 2
 char_right
   rotate: false
-  xy: 154, 94
+  xy: 1021, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: 3
 char_rigth_atk
   rotate: false
-  xy: 205, 187
+  xy: 1072, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: 1
 char_rigth_atk
   rotate: false
-  xy: 154, 1
+  xy: 1123, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
   index: 2
 char_rigth_atk
   rotate: false
-  xy: 205, 94
+  xy: 1174, 1
   size: 49, 91
   orig: 49, 91
   offset: 0, 0
