@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.game.Level;
 
 public class Player extends AnimatedObject {
 
@@ -228,4 +229,9 @@ public class Player extends AnimatedObject {
     	        getPositionX(), getPositionY()-10,
     	        dimension.x * ((float) health / INTITAL_HEALTH), 5);
     }
+
+	public void findItem(Level level) {
+		// TODO Auto-generated method stub
+
+	}
 }

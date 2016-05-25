@@ -72,12 +72,14 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.RIGHT)) level.player.move(ViewDirection.RIGHT);
             if (Gdx.input.isKeyPressed(Keys.X)) level.player.trapAttack(level.traps, level.map.getMapLayer()) ;
             if (Gdx.input.isKeyPressed(Keys.Z)) level.player.rangeAttack(level.bullets, level.map.getMapLayer());
-            if (Gdx.input.isKeyPressed(Keys.B)) level.player.beamAttack(level.beams, level.map.getMapLayer());
-
+            if (Gdx.input.isKeyPressed(Keys.C)) level.player.beamAttack(level.beams, level.map.getMapLayer());
+            if (Gdx.input.isKeyPressed(Keys.A)) level.player.findItem(level);
         }
      }
 
-    @Override
+
+
+	@Override
     public boolean keyDown (int keycode) {
         switch(keycode) {
         case Keys.R:  // กด R เพื่อ Reset มุมกล้อง ยกเลิกการมุมกล้องติดตาม player

@@ -19,6 +19,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final Assets instance = new Assets();
     public AssetManager manager;
     public TextureRegion bullet;
+    public TextureRegion solarcell;
     public TextureRegion beam;
     public TextureRegion trap;
     public TextureAtlas playerAltas;
@@ -51,6 +52,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("player_pack.atlas", TextureAtlas.class);
         manager.load("bg.png", Texture.class);
         manager.load("bullet.png", Texture.class);
+        manager.load("solarcell.png", Texture.class);
         manager.load("trap.png", Texture.class);
         manager.load("beam.png", Texture.class);
         manager.load("enemy1_pack.atlas", TextureAtlas.class);
@@ -71,6 +73,7 @@ public class Assets implements Disposable, AssetErrorListener {
         playerAltas = manager.get("player_pack.atlas");
         bg = new TextureRegion((Texture)manager.get("bg.png"));
         bullet = new TextureRegion((Texture)manager.get("bullet.png"));
+        solarcell = new TextureRegion((Texture)manager.get("solarcell.png"));
         trap = new TextureRegion((Texture)manager.get("trap.png"));
         beam = new TextureRegion((Texture)manager.get("beam.png"));
         enemy1Altas = manager.get("enemy1_pack.atlas");
