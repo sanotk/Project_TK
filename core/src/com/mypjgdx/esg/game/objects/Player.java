@@ -56,14 +56,14 @@ public class Player extends AnimatedObject {
     }
 
     public void init() {
-        addNormalAnimation(AnimationName.ATK_LEFT, FRAME_DURATION, 21, 3);
-        addNormalAnimation(AnimationName.ATK_RIGHT, FRAME_DURATION, 15, 3);
+        addNormalAnimation(AnimationName.ATK_LEFT, FRAME_DURATION, 30, 3);
+        addNormalAnimation(AnimationName.ATK_RIGHT, FRAME_DURATION, 21, 3);
         addNormalAnimation(AnimationName.ATK_UP, FRAME_DURATION, 3, 3);
-        addNormalAnimation(AnimationName.ATK_DOWN, FRAME_DURATION, 9, 3);
+        addNormalAnimation(AnimationName.ATK_DOWN, FRAME_DURATION, 12, 3);
         addLoopAnimation(AnimationName.WALK_UP, FRAME_DURATION, 0, 3);
-        addLoopAnimation(AnimationName.WALK_DOWN, FRAME_DURATION, 6, 3);
-        addLoopAnimation(AnimationName.WALK_LEFT, FRAME_DURATION, 18, 3);
-        addLoopAnimation(AnimationName.WALK_RIGHT, FRAME_DURATION, 12, 3);
+        addLoopAnimation(AnimationName.WALK_DOWN, FRAME_DURATION, 9, 3);
+        addLoopAnimation(AnimationName.WALK_LEFT, FRAME_DURATION, 27, 3);
+        addLoopAnimation(AnimationName.WALK_RIGHT, FRAME_DURATION, 18, 3);
 
         state = PlayerState.WALK; //สถานะของตัวละคร
         health = INTITAL_HEALTH;
