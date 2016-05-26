@@ -62,6 +62,7 @@ public class Level{
         for (Bullet s: bullets) s.render(batch);
         for (Beam b: beams) b.render(batch);
         for (Trap t: traps) t.render(batch);
+        solarcell.render(batch);
         player.render(batch);
         for (Enemy e: enemies) e.render(batch);
         for (Enemy2 e: enemies2) e.render(batch);
@@ -109,6 +110,7 @@ public class Level{
         	if (!e.isAlive()) e3it.remove();
         }
         player.update(deltaTime);
+        solarcell.update(deltaTime);
         for(Enemy e: enemies) e.update(deltaTime);
         for(Enemy2 e: enemies2) e.update(deltaTime);
         for(Enemy3 e: enemies3) e.update(deltaTime);

@@ -236,4 +236,8 @@ public class Player extends AnimatedObject {
 		// TODO Auto-generated method stub
 
 	}
+	public void addItem(Level level) {
+		// TODO Auto-generated method stub
+
+	}
 }
