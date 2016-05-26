@@ -15,12 +15,16 @@ import com.mypjgdx.esg.game.objects.Bullet;
 import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.game.objects.Enemy2;
 import com.mypjgdx.esg.game.objects.Enemy3;
+import com.mypjgdx.esg.game.objects.Item;
 import com.mypjgdx.esg.game.objects.Player;
+import com.mypjgdx.esg.game.objects.Solar_cell;
 import com.mypjgdx.esg.game.objects.Trap;
 
 public class Level{
 
     public Player player; // ตัวละครที่ผู้เล่นจะได้ควบคุม
+    public Item item;
+    public Solar_cell solarcell;
     public List<Enemy> enemies = new ArrayList<Enemy>();
     public List<Enemy2> enemies2 = new ArrayList<Enemy2>();
     public List<Enemy3> enemies3 = new ArrayList<Enemy3>();
@@ -36,7 +40,7 @@ public class Level{
 
     public Level (Map map) {
         this.map = map;
-        player = new Player(map.getMapLayer()) ;
+        player = new Player(map.getMapLayer(), item) ;
         for(int i = 0; i < MAX_ENEMY ;i++){
         	enemies.add(new Enemy(map.getMapLayer(),player ,bullets ,traps ,beams));
         }
@@ -46,6 +50,7 @@ public class Level{
         for(int i = 0; i < MAX_ENEMY3 ;i++){
         	enemies3.add(new Enemy3(map.getMapLayer(),player ,bullets ,traps ,beams));
         }
+        solarcell = new Solar_cell(player);
         goalCheck = new TiledCollisionCheck(player.bounds, map.getMapLayer(), "goal");
     }
 

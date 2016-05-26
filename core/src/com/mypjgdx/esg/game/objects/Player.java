@@ -32,6 +32,8 @@ public class Player extends AnimatedObject {
     	WALK, ATTACK
     }
 
+    public Item item;
+
     private PlayerState state;
     private int health;
     public int trapMax;
@@ -44,7 +46,7 @@ public class Player extends AnimatedObject {
     private long invulnerableTime;
     private float movingSpeed;
 
-    public Player(TiledMapTileLayer mapLayer) {
+    public Player(TiledMapTileLayer mapLayer ,Item item) {
         this(INITIAL_X_POSITION, INITIAL_Y_POSITION);
         collisionCheck = new TiledCollisionCheck(this.bounds, mapLayer);
     }
