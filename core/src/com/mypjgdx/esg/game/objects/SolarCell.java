@@ -1,13 +1,8 @@
 package com.mypjgdx.esg.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mypjgdx.esg.game.Assets;
 
-public class Solar_cell extends Item{
-
-    // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
-    private static final float FRAME_DURATION = 1.0f / 8.0f;
-
+public class SolarCell extends Item{
     // อัตราการขยายภาพ enemy
     private static final float SCALE = 0.5f;
 
@@ -21,11 +16,11 @@ public class Solar_cell extends Item{
 		return ItemType.solarcell;
 	}
 
-	public Solar_cell(){
+	public SolarCell(){
 
 	}
 
-	public Solar_cell(Player player){
+	public SolarCell(Player player){
 		this.player = player;
 		init();
 	}
@@ -45,16 +40,15 @@ public class Solar_cell extends Item{
 
 	}
 
+
+	public void update(float deltaTime) {
+
+	}
+
 	@Override
 	public void render(SpriteBatch batch) {
 		// TODO Auto-generated method stub
-		render(batch, Assets.instance.solarcell);
-	}
 
-	public void update(float deltaTime) {
-		// TODO Auto-generated method stub
-        updateMotionX(deltaTime);
-        updateMotionY(deltaTime);
 	}
 
 }

@@ -17,14 +17,14 @@ import com.mypjgdx.esg.game.objects.Enemy2;
 import com.mypjgdx.esg.game.objects.Enemy3;
 import com.mypjgdx.esg.game.objects.Item;
 import com.mypjgdx.esg.game.objects.Player;
-import com.mypjgdx.esg.game.objects.Solar_cell;
+import com.mypjgdx.esg.game.objects.SolarCell;
 import com.mypjgdx.esg.game.objects.Trap;
 
 public class Level{
 
     public Player player; // ตัวละครที่ผู้เล่นจะได้ควบคุม
     public Item item;
-    public Solar_cell solarcell;
+    public SolarCell solarcell;
     public List<Enemy> enemies = new ArrayList<Enemy>();
     public List<Enemy2> enemies2 = new ArrayList<Enemy2>();
     public List<Enemy3> enemies3 = new ArrayList<Enemy3>();
@@ -50,7 +50,7 @@ public class Level{
         for(int i = 0; i < MAX_ENEMY3 ;i++){
         	enemies3.add(new Enemy3(map.getMapLayer(),player ,bullets ,traps ,beams));
         }
-        solarcell = new Solar_cell(player);
+
         goalCheck = new TiledCollisionCheck(player.bounds, map.getMapLayer(), "goal");
     }
 
@@ -62,7 +62,6 @@ public class Level{
         for (Bullet s: bullets) s.render(batch);
         for (Beam b: beams) b.render(batch);
         for (Trap t: traps) t.render(batch);
-        solarcell.render(batch);
         player.render(batch);
         for (Enemy e: enemies) e.render(batch);
         for (Enemy2 e: enemies2) e.render(batch);
@@ -110,7 +109,7 @@ public class Level{
         	if (!e.isAlive()) e3it.remove();
         }
         player.update(deltaTime);
-        solarcell.update(deltaTime);
+
         for(Enemy e: enemies) e.update(deltaTime);
         for(Enemy2 e: enemies2) e.update(deltaTime);
         for(Enemy3 e: enemies3) e.update(deltaTime);
