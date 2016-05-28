@@ -11,9 +11,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
-// TODO
-/** คลาสนี้อยู่ระหว่างการพัฒนา*/
-
 public abstract class AnimatedObject  extends AbstractGameObject {
 
     private ObjectMap<AnimationName, Animation> animations;
