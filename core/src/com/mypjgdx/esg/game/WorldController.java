@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.mypjgdx.esg.game.objects.AnimatedObject.ViewDirection;
-import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.utils.CameraHelper;
 
 public class WorldController extends InputAdapter {
@@ -82,11 +81,6 @@ public class WorldController extends InputAdapter {
 	@Override
     public boolean keyDown (int keycode) {
         switch(keycode) {
-        case Keys.R:  // กด R เพื่อ Reset มุมกล้อง ยกเลิกการมุมกล้องติดตาม player
-            cameraHelper.setPosition(0, 0);
-            cameraHelper.setZoom(1.0f);
-            for (Enemy e: level.enemies) e.init(level.map.getMapLayer());
-            break;
         case Keys.SPACE: // กด Spacebar เพื่อให้มุมกล้องติดตาม/เลิกติดตาม player
             if (!cameraHelper.hasTarget()) cameraHelper.setTarget(level.player);
             else cameraHelper.setTarget(null);

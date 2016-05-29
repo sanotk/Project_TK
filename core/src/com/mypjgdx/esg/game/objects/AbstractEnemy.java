@@ -24,15 +24,13 @@ public abstract class AbstractEnemy extends AnimatedObject {
 	}
 
 	// กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
-    public static final float FRAME_DURATION = 1.0f / 8.0f;
+    private static final float FRAME_DURATION = 1.0f / 8.0f;
 
     // อัตราการขยายภาพ enemy
-    public static float SCALE = 0.1f;
-    public static final float INITIAL_FRICTION = 600f;           // ค่าแรงเสียดทานเริ่มต้น
 
-    public static int INITIAL_HEALTH = 5;
-    public static float INITIAL_MOVING_SPEED = 60f;
-    public static final float INITIAL_FINDING_RANGE = 400f;
+    private static final float INITIAL_FRICTION = 600f;           // ค่าแรงเสียดทานเริ่มต้น
+
+    private static final float INITIAL_FINDING_RANGE = 400f;
 
 
     public TextureAtlas enemyAltas;
@@ -54,10 +52,10 @@ public abstract class AbstractEnemy extends AnimatedObject {
     private int health;
     private float movingSpeed;
     private float findingRange;
-
+    private int maxHealth;
     private Pathfinding pathFinding;
 
-	public void init(TiledMapTileLayer mapLayer) {
+	public void init(TiledMapTileLayer mapLayer,int health,float speed ,float scale) {
         addLoopAnimation(WALK_UP, FRAME_DURATION, 0, 3);
         addLoopAnimation(WALK_DOWN, FRAME_DURATION, 3, 3);
         addLoopAnimation(WALK_LEFT, FRAME_DURATION, 6, 3);
@@ -66,8 +64,9 @@ public abstract class AbstractEnemy extends AnimatedObject {
         alive = true;
     	knockback= false;
     	stun = false;
-    	health =  INITIAL_HEALTH;
-        movingSpeed = INITIAL_MOVING_SPEED;
+        maxHealth = health;
+    	this.health =  health;
+        this.movingSpeed = speed;
         findingRange = INITIAL_FINDING_RANGE;
 
         // กำหนดค่าทางฟิสิกส์
@@ -75,7 +74,7 @@ public abstract class AbstractEnemy extends AnimatedObject {
         acceleration.set(0.0f, 0.0f);
 
         // กำหนดขนาดสเกลของ enemy
-        scale.set(SCALE, SCALE);
+        this.scale.set(scale, scale);
 
         updateKeyFrame(0);
         setPosition(0, 0);
@@ -249,10 +248,10 @@ public abstract class AbstractEnemy extends AnimatedObject {
     }
 
     public void showHp(ShapeRenderer shapeRenderer){
-    	if (health < INITIAL_HEALTH)
+    	if (health < maxHealth)
     	    shapeRenderer.rect(
     	            getPositionX(), getPositionY() - 10,
-    	            dimension.x * ((float) health / INITIAL_HEALTH), 5);
+    	            dimension.x * ((float) health / maxHealth), 5);
     }
 
     private void randomPosition(TiledMapTileLayer mapLayer) {

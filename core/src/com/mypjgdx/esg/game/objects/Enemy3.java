@@ -8,19 +8,19 @@ import com.mypjgdx.esg.game.Assets;
 
 public class Enemy3 extends AbstractEnemy{
 
+	public static final int MAXHEALTH = 15;
+	public static final int MAXSPEED = 80;
+	public static final float SCALE = 1.5f;
+
     public Enemy3(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets, List<Trap> traps, List<Beam> beams) {
         super(Assets.instance.enemy3Altas);
-
-        SCALE = 0.15f;
-        INITIAL_HEALTH =  15;
-        INITIAL_MOVING_SPEED = 80;
 
         this.player = player;
         this.bullets = bullets;
         this.beams = beams;
         this.traps = traps;
         collisionCheck = new TiledCollisionCheck(this.bounds, mapLayer);
-        init(mapLayer);
+        init(mapLayer, MAXHEALTH, MAXSPEED, SCALE);
     }
 
 }
