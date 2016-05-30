@@ -23,15 +23,17 @@ public class Level{
     public List<Item> items;
     public List<AbstractEnemy> enemies;
     public List<Bullet> bullets = new ArrayList<Bullet>();
-    public List<Beam> beams = new ArrayList<Beam>();
     public List<Trap> traps = new ArrayList<Trap>();
+    public List<Beam> beams = new ArrayList<Beam>();
     public TiledMap map;
 
     public Level (LevelGenerator levelGenerator) {
-        items = levelGenerator.createItems();
-        enemies = levelGenerator.createEnemies();
         map =  levelGenerator.createTiledMap();
-        player = new Player((TiledMapTileLayer) map.getLayers().get(0)) ;
+        TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
+        player = new Player(mapLayer) ;
+
+        items = levelGenerator.createItems();
+        enemies = levelGenerator.createEnemies(mapLayer, player, bullets, traps, beams);
     }
 
     public void render (SpriteBatch batch, OrthogonalTiledMapRenderer tiledRenderer, ShapeRenderer shapeRenderer) {
