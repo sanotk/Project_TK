@@ -10,7 +10,7 @@ public class Enemy extends AbstractEnemy {
 
 	public static final int MAXHEALTH = 5;
 	public static final int MAXSPEED = 60;
-	public static final float SCALE = 0.1f;
+	public static final float SCALE = 0.4f;
 
     public Enemy(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets, List<Trap> traps, List<Beam> beams) {
         super(Assets.instance.enemy1Altas);
