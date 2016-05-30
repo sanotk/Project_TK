@@ -10,10 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.mypjgdx.esg.game.Level;
-import com.mypjgdx.esg.game.Map;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
+import com.mypjgdx.esg.game.levels.Level;
+import com.mypjgdx.esg.game.levels.Level1;
 
 public class GameScreen extends AbstractGameScreen {
 
@@ -173,11 +173,6 @@ public class GameScreen extends AbstractGameScreen {
             return;
         }
 
-        if ((worldController.level.isFinished())){
-            worldController.init(new Level(worldController.level.map.next()));
-            return;
-        }
-
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
         worldRenderer.render();
 
@@ -197,7 +192,7 @@ public class GameScreen extends AbstractGameScreen {
     @Override
     public void show() {
 
-        worldController = new WorldController(new Level(Map.MAP_01));
+        worldController = new WorldController(new Level(new Level1()));
         worldRenderer = new WorldRenderer(worldController);
     }
 

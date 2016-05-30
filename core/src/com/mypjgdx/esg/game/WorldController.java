@@ -4,6 +4,7 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.mypjgdx.esg.game.levels.Level;
 import com.mypjgdx.esg.game.objects.AnimatedObject.ViewDirection;
 import com.mypjgdx.esg.utils.CameraHelper;
 
@@ -69,9 +70,9 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.DOWN)) level.player.move(ViewDirection.DOWN);
             if (Gdx.input.isKeyPressed(Keys.LEFT)) level.player.move(ViewDirection.LEFT);
             if (Gdx.input.isKeyPressed(Keys.RIGHT)) level.player.move(ViewDirection.RIGHT);
-            if (Gdx.input.isKeyPressed(Keys.X)) level.player.trapAttack(level.traps, level.map.getMapLayer()) ;
-            if (Gdx.input.isKeyPressed(Keys.Z)) level.player.rangeAttack(level.bullets, level.map.getMapLayer());
-            if (Gdx.input.isKeyPressed(Keys.C)) level.player.beamAttack(level.beams, level.map.getMapLayer());
+            if (Gdx.input.isKeyPressed(Keys.X)) level.player.trapAttack(level.traps);
+            if (Gdx.input.isKeyPressed(Keys.Z)) level.player.rangeAttack(level.bullets);
+            if (Gdx.input.isKeyPressed(Keys.C)) level.player.beamAttack(level.beams);
             if (Gdx.input.isKeyPressed(Keys.A)) level.player.findItem(level);
         }
      }
@@ -84,9 +85,6 @@ public class WorldController extends InputAdapter {
         case Keys.SPACE: // กด Spacebar เพื่อให้มุมกล้องติดตาม/เลิกติดตาม player
             if (!cameraHelper.hasTarget()) cameraHelper.setTarget(level.player);
             else cameraHelper.setTarget(null);
-            break;
-        case Keys.ENTER: // กด Enter เพื่อเปลี่ยน Map
-            init(new Level(level.map.next()));
             break;
         }
         return true;
