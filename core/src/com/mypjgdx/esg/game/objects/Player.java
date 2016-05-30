@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.Level;
+import com.mypjgdx.esg.game.levels.Level;
 
 public class Player extends AnimatedObject {
 
@@ -46,8 +46,11 @@ public class Player extends AnimatedObject {
     private long invulnerableTime;
     private float movingSpeed;
 
-    public Player(TiledMapTileLayer mapLayer ,Item item) {
+    private TiledMapTileLayer mapLayer;
+
+    public Player(TiledMapTileLayer mapLayer) {
         this(INITIAL_X_POSITION, INITIAL_Y_POSITION);
+        this.mapLayer = mapLayer;
         collisionCheck = new TiledCollisionCheck(this.bounds, mapLayer);
     }
 
@@ -147,7 +150,7 @@ public class Player extends AnimatedObject {
         }
     }
 
-    public void trapAttack(List<Trap>traps,TiledMapTileLayer mapLayer){
+    public void trapAttack(List<Trap>traps){
     	if(state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
     		if(trapMax!=0){
@@ -196,7 +199,7 @@ public class Player extends AnimatedObject {
         knockback = true;
     }
 
-    public void rangeAttack(List<Bullet>bullets,TiledMapTileLayer mapLayer){
+    public void rangeAttack(List<Bullet>bullets){
     	if (state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
     		if(bulletMax!=0){
@@ -209,7 +212,7 @@ public class Player extends AnimatedObject {
     	}
     }
 
-    public void beamAttack(List<Beam>beams,TiledMapTileLayer mapLayer){
+    public void beamAttack(List<Beam>beams){
     	if (state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
     		if(beamMax!=0){
