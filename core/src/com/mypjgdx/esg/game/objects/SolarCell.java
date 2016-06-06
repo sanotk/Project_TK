@@ -8,7 +8,8 @@ public class SolarCell extends Item{
 
 	@Override
 	ItemType tellMeTheType() {
-		return ItemType.solarcell;
+		type = ItemType.solarcell;
+		return type;
 	}
 
 	public SolarCell(Player player){

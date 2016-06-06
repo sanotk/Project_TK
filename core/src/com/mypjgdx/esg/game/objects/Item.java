@@ -33,10 +33,18 @@ public abstract class Item {
 	    	inverter
 	    }
 
+	    public ItemType type;
+
 	    abstract ItemType tellMeTheType();
 
 	    public void render (SpriteBatch batch) {
 
 		}
+
+	    public void GetTexture () {
+	    	if(type != null){
+
+	    	}
+	    }
 
 }
