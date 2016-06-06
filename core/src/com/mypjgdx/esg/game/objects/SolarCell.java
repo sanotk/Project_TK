@@ -11,10 +11,6 @@ public class SolarCell extends Item{
 		return ItemType.solarcell;
 	}
 
-	public SolarCell(){
-
-	}
-
 	public SolarCell(Player player){
 		this.player = player;
 		init();
@@ -35,10 +31,7 @@ public class SolarCell extends Item{
 
 	}
 
-
 	public void update(float deltaTime) {
 
 	}
-
-
 }

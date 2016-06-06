@@ -21,7 +21,10 @@ public abstract class Item {
 	    public Vector2 acceleration;
 	    public Rectangle bounds;
 
-	    public Texture item;
+	    public Texture solarcell;
+	    public Texture battery;
+	    public Texture charge;
+	    public Texture inverter;
 
 	    public enum ItemType{
 	    	solarcell,
@@ -29,10 +32,6 @@ public abstract class Item {
 	    	charge,
 	    	inverter
 	    }
-
-	    public Item(Texture item) {
-			this.item = item;
-		}
 
 	    abstract ItemType tellMeTheType();
 
