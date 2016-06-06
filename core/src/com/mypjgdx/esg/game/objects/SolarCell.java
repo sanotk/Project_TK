@@ -21,6 +21,8 @@ public class SolarCell extends Item{
 	}
 
 	private void init() {
+        addNormalAnimation(AnimationName.OFF, FRAME_DURATION, 12, 3);
+        addLoopAnimation(AnimationName.ON, FRAME_DURATION, 0, 3);
 		// TODO Auto-generated method stub
 
         // กำหนดค่าทางฟิสิกส์
@@ -29,7 +31,7 @@ public class SolarCell extends Item{
         // กำหนดขนาดสเกลของ ดาบ
         scale.set(SCALE, SCALE);
 
-        state = ItemState.on;
+        state = ItemState.off;
 
 	}
 
