@@ -47,6 +47,11 @@ public class SolarCell extends Item{
 	@Override
 	protected void setAnimation() {
 		// TODO Auto-generated method stub
-
+        switch (itemSwitch) {
+        case ON: setCurrentAnimation(AnimationName.ON); break;
+        case OFF: setCurrentAnimation(AnimationName.OFF); break;
+        default:
+            break;
+        }
 	}
 }

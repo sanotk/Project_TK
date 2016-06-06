@@ -41,7 +41,13 @@ public abstract class AnimatedObject  extends AbstractGameObject {
         LEFT, RIGHT, UP, DOWN
     }
 
+    public static enum ItemSwitch{
+    	ON, OFF
+    }
+
     protected ViewDirection viewDirection;
+    protected ItemSwitch itemSwitch;
+
 
     public AnimatedObject(TextureAtlas atlas) {
         this.atlas = atlas;
