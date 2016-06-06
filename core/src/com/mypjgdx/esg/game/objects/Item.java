@@ -6,7 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class Item {
 
-		 // ตำแหน่ง ขนาด จุดกำเนิด ระดับการขยาย องศาการหมุน
+		 private static final String ItemType = null;
+		// ตำแหน่ง ขนาด จุดกำเนิด ระดับการขยาย องศาการหมุน
 	    private Vector2 position;
 	    protected Vector2 dimension;
 	    public Vector2 origin;
@@ -28,6 +29,8 @@ public abstract class Item {
 
 	    abstract ItemType tellMeTheType();
 
-	    public abstract void render (SpriteBatch batch);
+	    public void render (SpriteBatch batch) {
+
+		}
 
 }

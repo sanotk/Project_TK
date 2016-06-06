@@ -64,7 +64,7 @@ public class MenuScreen extends AbstractGameScreen {
         buttonStart.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new IntroScreen(game));
             }
         });
 

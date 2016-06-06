@@ -1,13 +1,8 @@
 package com.mypjgdx.esg.game.objects;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 public class SolarCell extends Item{
     // อัตราการขยายภาพ enemy
     private static final float SCALE = 0.5f;
-
-    private static final float INITIAL_X_POSITION = 100f;         // ตำแหน่งแกน X
-    private static final float INITIAL_Y_POSITION = 100f;
 
 	public Player player;
 
@@ -45,10 +40,5 @@ public class SolarCell extends Item{
 
 	}
 
-	@Override
-	public void render(SpriteBatch batch) {
-		// TODO Auto-generated method stub
-
-	}
 
 }
