@@ -21,7 +21,7 @@ public class SolarCell extends Item{
 	}
 
 	private void init() {
-        addNormalAnimation(AnimationName.OFF, FRAME_DURATION, 12, 3);
+        addNormalAnimation(AnimationName.OFF, FRAME_DURATION, 3, 3);
         addLoopAnimation(AnimationName.ON, FRAME_DURATION, 0, 3);
 		// TODO Auto-generated method stub
 
