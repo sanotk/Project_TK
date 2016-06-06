@@ -1,12 +1,13 @@
 package com.mypjgdx.esg.game.objects;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Item {
 
-		 private static final String ItemType = null;
+		private static final String ItemType = null;
 		// ตำแหน่ง ขนาด จุดกำเนิด ระดับการขยาย องศาการหมุน
 	    private Vector2 position;
 	    protected Vector2 dimension;
@@ -20,12 +21,18 @@ public abstract class Item {
 	    public Vector2 acceleration;
 	    public Rectangle bounds;
 
+	    public Texture item;
+
 	    public enum ItemType{
 	    	solarcell,
 	    	battery,
 	    	charge,
 	    	inverter
 	    }
+
+	    public Item(Texture item) {
+			this.item = item;
+		}
 
 	    abstract ItemType tellMeTheType();
 
