@@ -11,8 +11,6 @@ public abstract class Item extends AnimatedObject{
 		public Item(TextureAtlas atlas) {
 			super(atlas);
 		}
-
-		private static final String ItemType = null;
 		// ตำแหน่ง ขนาด จุดกำเนิด ระดับการขยาย องศาการหมุน
 	    private Vector2 position;
 	    protected Vector2 dimension;
@@ -44,6 +42,7 @@ public abstract class Item extends AnimatedObject{
 	    }
 
 	    public ItemType type;
+	    public ItemState state;
 
 	    abstract ItemType tellMeTheType();
 
@@ -51,11 +50,5 @@ public abstract class Item extends AnimatedObject{
 		public void render (SpriteBatch batch) {
 
 		}
-
-	    public void GetTexture () {
-	    	if(type != null && type == type.solarcell){
-
-	    	}
-	    }
 
 }

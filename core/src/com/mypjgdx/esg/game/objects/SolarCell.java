@@ -15,7 +15,7 @@ public class SolarCell extends Item{
 	}
 
 	public SolarCell(Player player){
-        super(Assets.instance.enemy1Altas);
+        super(Assets.instance.solarcellAltas);
 		this.player = player;
 		init();
 	}
@@ -28,6 +28,8 @@ public class SolarCell extends Item{
 
         // กำหนดขนาดสเกลของ ดาบ
         scale.set(SCALE, SCALE);
+
+        state = ItemState.on;
 
 	}
 
