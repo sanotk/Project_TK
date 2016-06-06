@@ -1,5 +1,7 @@
 package com.mypjgdx.esg.game.objects;
 
+import com.mypjgdx.esg.game.Assets;
+
 public class SolarCell extends Item{
     // อัตราการขยายภาพ enemy
     private static final float SCALE = 0.5f;
@@ -13,6 +15,7 @@ public class SolarCell extends Item{
 	}
 
 	public SolarCell(Player player){
+        super(Assets.instance.enemy1Altas);
 		this.player = player;
 		init();
 	}
@@ -32,7 +35,14 @@ public class SolarCell extends Item{
 
 	}
 
+	@Override
 	public void update(float deltaTime) {
+
+	}
+
+	@Override
+	protected void setAnimation() {
+		// TODO Auto-generated method stub
 
 	}
 }

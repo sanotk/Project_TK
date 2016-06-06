@@ -2,10 +2,15 @@ package com.mypjgdx.esg.game.objects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class Item {
+public abstract class Item extends AnimatedObject{
+
+		public Item(TextureAtlas atlas) {
+			super(atlas);
+		}
 
 		private static final String ItemType = null;
 		// ตำแหน่ง ขนาด จุดกำเนิด ระดับการขยาย องศาการหมุน
@@ -37,12 +42,13 @@ public abstract class Item {
 
 	    abstract ItemType tellMeTheType();
 
-	    public void render (SpriteBatch batch) {
+	    @Override
+		public void render (SpriteBatch batch) {
 
 		}
 
 	    public void GetTexture () {
-	    	if(type != null){
+	    	if(type != null && type == type.solarcell){
 
 	    	}
 	    }
