@@ -38,6 +38,11 @@ public abstract class Item extends AnimatedObject{
 	    	inverter
 	    }
 
+	    public enum ItemState{
+	    	off,
+	    	on
+	    }
+
 	    public ItemType type;
 
 	    abstract ItemType tellMeTheType();
