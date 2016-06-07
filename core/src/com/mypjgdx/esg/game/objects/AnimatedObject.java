@@ -61,6 +61,7 @@ public abstract class AnimatedObject  extends AbstractGameObject {
 
         currentAnimation = AnimationName.WALK_DOWN;
         viewDirection = ViewDirection.DOWN;
+        itemSwitch = ItemSwitch.OFF;
 
         resetAnimation();
         unFreezeAnimation();
@@ -80,6 +81,10 @@ public abstract class AnimatedObject  extends AbstractGameObject {
 
     public ViewDirection getViewDirection(){
         return viewDirection;
+    }
+
+    public ItemSwitch getItemSwitch(){
+        return itemSwitch;
     }
 
     protected void addLoopAnimation(AnimationName name, float frameTime, int regionStart, int size) {

@@ -10,7 +10,7 @@ public class SolarCell extends Item{
 
 	@Override
 	ItemType tellMeTheType() {
-		type = ItemType.solarcell;
+		type = ItemType.SOLARCELL;
 		return type;
 	}
 
@@ -31,7 +31,7 @@ public class SolarCell extends Item{
         // กำหนดขนาดสเกลของ ดาบ
         scale.set(SCALE, SCALE);
 
-        state = ItemState.off;
+        state = ItemState.OFF;
 
 	}
 
