@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.mypjgdx.esg.game.objects.AbstractEnemy;
+import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.game.objects.Beam;
 import com.mypjgdx.esg.game.objects.Bullet;
 import com.mypjgdx.esg.game.objects.Item;
@@ -21,7 +21,7 @@ public class Level{
 
     public Player player;
     public List<Item> items;
-    public List<AbstractEnemy> enemies;
+    public List<Enemy> enemies;
     public List<Bullet> bullets = new ArrayList<Bullet>();
     public List<Trap> traps = new ArrayList<Trap>();
     public List<Beam> beams = new ArrayList<Beam>();
@@ -45,12 +45,12 @@ public class Level{
         for (Trap t: traps) t.render(batch);
         player.render(batch);
         for (Item i: items) i.render(batch);
-        for (AbstractEnemy e: enemies) e.render(batch);
+        for (Enemy e: enemies) e.render(batch);
         batch.end();
 
         shapeRenderer.begin(ShapeType.Filled);
         player.showHp (shapeRenderer);
-        for (AbstractEnemy e:enemies) e.showHp(shapeRenderer);
+        for (Enemy e:enemies) e.showHp(shapeRenderer);
         shapeRenderer.end();
     }
 
@@ -58,7 +58,7 @@ public class Level{
         Iterator<Bullet>it = bullets.iterator();
         Iterator<Beam>bit = beams.iterator();
         Iterator<Trap>tit = traps.iterator();
-        Iterator<AbstractEnemy>eit = enemies.iterator();
+        Iterator<Enemy>eit = enemies.iterator();
         while(it.hasNext()){
         	Bullet s = it.next();
         	if (s.isDespawned()) it.remove();
@@ -72,12 +72,12 @@ public class Level{
         	if (t.isDespawned()) tit.remove();
         }
         while(eit.hasNext()){
-            AbstractEnemy e = eit.next();
+            Enemy e = eit.next();
         	if (!e.isAlive()) eit.remove();
         }
         player.update(deltaTime);
         for(Item i: items) i.update(deltaTime);
-        for(AbstractEnemy e: enemies) e.update(deltaTime);
+        for(Enemy e: enemies) e.update(deltaTime);
         for(Bullet s: bullets) s.update(deltaTime);
         for(Beam b: beams) b.update(deltaTime);
         for(Trap t: traps) t.update(deltaTime);

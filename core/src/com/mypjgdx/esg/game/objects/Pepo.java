@@ -6,7 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 
-public class Pepo extends AbstractEnemy {
+public class Pepo extends Enemy {
 
 	public static final int MAXHEALTH = 5;
 	public static final int MAXSPEED = 60;

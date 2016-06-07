@@ -16,9 +16,9 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.utils.Pathfinding;
 import com.mypjgdx.esg.utils.Pathfinding.Node;
 
-public abstract class AbstractEnemy extends AnimatedObject {
+public abstract class Enemy extends AnimatedObject {
 
-    public AbstractEnemy(TextureAtlas atlas) {
+    public Enemy(TextureAtlas atlas) {
 		super(atlas);
 		// TODO Auto-generated constructor stub
 	}
