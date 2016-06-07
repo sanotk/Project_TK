@@ -23,7 +23,6 @@ public class Level1 extends LevelGenerator {
     public List<Item> createItems(TiledMapTileLayer mapLayer, Player player) {
         ArrayList<Item> items = new ArrayList<Item>();
         items.add(new SolarCell(mapLayer, player));
-
         return items;
     }
 
@@ -41,10 +40,5 @@ public class Level1 extends LevelGenerator {
         return Assets.instance.map1;
     }
 
-	@Override
-	public List<Item> createItems() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

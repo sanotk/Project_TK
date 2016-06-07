@@ -3,6 +3,7 @@ package com.mypjgdx.esg.game.objects;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.mypjgdx.esg.collision.TiledCollisionCheck;
 
 public abstract class Item extends AnimatedObject{
 
@@ -38,6 +39,8 @@ public abstract class Item extends AnimatedObject{
 	        state = ItemState.OFF;
 
 	        setPosition(100f, 100f);
+
+	        collisionCheck = new TiledCollisionCheck(this.bounds, mapLayer);
 
 	        //randomPosition(mapLayer);
 		}

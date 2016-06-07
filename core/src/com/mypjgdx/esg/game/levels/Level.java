@@ -31,7 +31,6 @@ public class Level{
         map =  levelGenerator.createTiledMap();
         TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
         player = new Player(mapLayer) ;
-
         items = levelGenerator.createItems(mapLayer, player);
         enemies = levelGenerator.createEnemies(mapLayer, player, bullets, traps, beams);
     }
