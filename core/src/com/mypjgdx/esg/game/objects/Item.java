@@ -8,7 +8,7 @@ import com.mypjgdx.esg.collision.TiledCollisionCheck;
 public abstract class Item extends AnimatedObject{
 
     	// อัตราการขยายภาพ enemy
-		private static final float SCALE = 0.5f;
+		private static final float SCALE = 0.3f;
 	    private static final float INITIAL_FRICTION = 600f;           // ค่าแรงเสียดทานเริ่มต้น
 		protected static final float FRAME_DURATION = 1.0f / 8.0f;
 
@@ -26,8 +26,8 @@ public abstract class Item extends AnimatedObject{
 	    public ItemState state;
 
 		public void init(TiledMapTileLayer mapLayer) {
-	        addLoopAnimation(AnimationName.OFF, FRAME_DURATION, 3, 3);
-	        addLoopAnimation(AnimationName.ON, FRAME_DURATION, 0, 3);
+	        addLoopAnimation(AnimationName.OFF, FRAME_DURATION, 0, 3);
+	        addLoopAnimation(AnimationName.ON, FRAME_DURATION, 3, 3);
 			// TODO Auto-generated method stub
 
 	        // กำหนดค่าทางฟิสิกส์
@@ -38,11 +38,12 @@ public abstract class Item extends AnimatedObject{
 
 	        state = ItemState.OFF;
 
-	        setPosition(100f, 100f);
-
+	        setPosition(0, 0);
+	        currentRegion = animations.get(AnimationName.OFF).getKeyFrame(0);
+	        setDimension(currentRegion.getRegionWidth(),currentRegion.getRegionHeight());
 	        collisionCheck = new TiledCollisionCheck(this.bounds, mapLayer);
 
-	        //randomPosition(mapLayer);
+	        randomPosition(mapLayer);
 		}
 
 		private void addPlayer(){

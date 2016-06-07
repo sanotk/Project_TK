@@ -13,10 +13,10 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 public abstract class AnimatedObject  extends AbstractGameObject {
 
-    private ObjectMap<AnimationName, Animation> animations;
+    protected ObjectMap<AnimationName, Animation> animations;
 
     private TextureAtlas atlas;
-    private TextureRegion currentRegion;
+    protected TextureRegion currentRegion;
     private AnimationName currentAnimation;
 
     private Array<AtlasRegion> regions;

@@ -6,14 +6,14 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 
-public class Enemy extends AbstractEnemy {
+public class PepoDevil extends AbstractEnemy{
 
-	public static final int MAXHEALTH = 5;
-	public static final int MAXSPEED = 60;
-	public static final float SCALE = 0.35f;
+	public static final int MAXHEALTH = 15;
+	public static final int MAXSPEED = 80;
+	public static final float SCALE = 0.5f;
 
-    public Enemy(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets, List<Trap> traps, List<Beam> beams) {
-        super(Assets.instance.enemy1Altas);
+    public PepoDevil(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets, List<Trap> traps, List<Beam> beams) {
+        super(Assets.instance.pepoDevilAltas);
 
         this.player = player;
         this.bullets = bullets;
