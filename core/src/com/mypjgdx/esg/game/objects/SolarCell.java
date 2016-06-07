@@ -1,14 +1,13 @@
 package com.mypjgdx.esg.game.objects;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 
 public class SolarCell extends Item{
 
-	public Player player;
-
-	public SolarCell(Player player){
+	public SolarCell(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.solarCellAltas);
 		this.player = player;
-		init();
+		init(mapLayer);
 	}
 }

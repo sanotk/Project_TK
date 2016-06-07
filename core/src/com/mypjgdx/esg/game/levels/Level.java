@@ -32,7 +32,7 @@ public class Level{
         TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
         player = new Player(mapLayer) ;
 
-        items = levelGenerator.createItems();
+        items = levelGenerator.createItems(mapLayer, player);
         enemies = levelGenerator.createEnemies(mapLayer, player, bullets, traps, beams);
     }
 
@@ -45,6 +45,7 @@ public class Level{
         for (Beam b: beams) b.render(batch);
         for (Trap t: traps) t.render(batch);
         player.render(batch);
+        for (Item i: items) i.render(batch);
         for (AbstractEnemy e: enemies) e.render(batch);
         batch.end();
 
@@ -76,7 +77,7 @@ public class Level{
         	if (!e.isAlive()) eit.remove();
         }
         player.update(deltaTime);
-
+        for(Item i: items) i.update(deltaTime);
         for(AbstractEnemy e: enemies) e.update(deltaTime);
         for(Bullet s: bullets) s.update(deltaTime);
         for(Beam b: beams) b.update(deltaTime);

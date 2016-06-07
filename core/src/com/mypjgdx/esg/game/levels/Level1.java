@@ -14,13 +14,16 @@ import com.mypjgdx.esg.game.objects.Enemy2;
 import com.mypjgdx.esg.game.objects.Enemy3;
 import com.mypjgdx.esg.game.objects.Item;
 import com.mypjgdx.esg.game.objects.Player;
+import com.mypjgdx.esg.game.objects.SolarCell;
 import com.mypjgdx.esg.game.objects.Trap;
 
 public class Level1 extends LevelGenerator {
 
     @Override
-    public List<Item> createItems() {
+    public List<Item> createItems(TiledMapTileLayer mapLayer, Player player) {
         ArrayList<Item> items = new ArrayList<Item>();
+        items.add(new SolarCell(mapLayer, player));
+
         return items;
     }
 
@@ -37,5 +40,11 @@ public class Level1 extends LevelGenerator {
     public TiledMap createTiledMap() {
         return Assets.instance.map1;
     }
+
+	@Override
+	public List<Item> createItems() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
