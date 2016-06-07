@@ -41,7 +41,7 @@ public class SolarCell extends Item{
 
 	@Override
 	public void update(float deltaTime) {
-
+		super.update(deltaTime);
 	}
 
 	@Override
