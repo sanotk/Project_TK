@@ -10,9 +10,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.game.objects.Beam;
 import com.mypjgdx.esg.game.objects.Bullet;
+import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.game.objects.Item;
 import com.mypjgdx.esg.game.objects.Player;
 import com.mypjgdx.esg.game.objects.Trap;
@@ -67,10 +67,12 @@ public class Level{
         	Beam b = bit.next();
         	if (b.isDespawned()) bit.remove();
         }
+
         while(tit.hasNext()){
         	Trap t = tit.next();
         	if (t.isDespawned()) tit.remove();
         }
+
         while(eit.hasNext()){
             Enemy e = eit.next();
         	if (!e.isAlive()) eit.remove();

@@ -155,7 +155,7 @@ public abstract class Enemy extends AnimatedObject {
                 case UP: takeDamage(knockbackSpeed, 90); break;
                 default: break;
                 }
-                t.despawn();
+                //t.despawn();
         	}
         }
         runToPlayer(deltaTime);

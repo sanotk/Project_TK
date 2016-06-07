@@ -39,8 +39,10 @@ public abstract class Item extends AnimatedObject{
 	        state = ItemState.OFF;
 
 	        setPosition(0, 0);
+
 	        currentRegion = animations.get(AnimationName.OFF).getKeyFrame(0);
 	        setDimension(currentRegion.getRegionWidth(),currentRegion.getRegionHeight());
+
 	        collisionCheck = new TiledCollisionCheck(this.bounds, mapLayer);
 
 	        randomPosition(mapLayer);
