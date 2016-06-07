@@ -5,8 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.mypjgdx.esg.game.levels.Level;
-import com.mypjgdx.esg.game.objects.AnimatedObject.ViewDirection;
 import com.mypjgdx.esg.utils.CameraHelper;
+import com.mypjgdx.esg.utils.Direction;
 
 public class WorldController extends InputAdapter {
 
@@ -59,17 +59,17 @@ public class WorldController extends InputAdapter {
         if (Gdx.app.getType() == ApplicationType.Android && Gdx.input.isTouched())  {
             float x = Gdx.input.getX();
             float filppedY = screenHeight- Gdx.input.getY();
-            if (x > screenWidth * (1.0f - SCREEN_MOVE_EGDE)) level.player.move(ViewDirection.RIGHT);
-            else if (x < screenWidth * SCREEN_MOVE_EGDE ) level.player.move(ViewDirection.LEFT);
+            if (x > screenWidth * (1.0f - SCREEN_MOVE_EGDE)) level.player.move(Direction.RIGHT);
+            else if (x < screenWidth * SCREEN_MOVE_EGDE ) level.player.move(Direction.LEFT);
 
-            if (filppedY > screenHeight * (1.0f - SCREEN_MOVE_EGDE)) level.player.move(ViewDirection.UP);
-            else if (filppedY < screenHeight * SCREEN_MOVE_EGDE) level.player.move(ViewDirection.DOWN);        }
+            if (filppedY > screenHeight * (1.0f - SCREEN_MOVE_EGDE)) level.player.move(Direction.UP);
+            else if (filppedY < screenHeight * SCREEN_MOVE_EGDE) level.player.move(Direction.DOWN);        }
 
         else {
-            if (Gdx.input.isKeyPressed(Keys.UP)) level.player.move(ViewDirection.UP);
-            if (Gdx.input.isKeyPressed(Keys.DOWN)) level.player.move(ViewDirection.DOWN);
-            if (Gdx.input.isKeyPressed(Keys.LEFT)) level.player.move(ViewDirection.LEFT);
-            if (Gdx.input.isKeyPressed(Keys.RIGHT)) level.player.move(ViewDirection.RIGHT);
+            if (Gdx.input.isKeyPressed(Keys.UP)) level.player.move(Direction.UP);
+            if (Gdx.input.isKeyPressed(Keys.DOWN)) level.player.move(Direction.DOWN);
+            if (Gdx.input.isKeyPressed(Keys.LEFT)) level.player.move(Direction.LEFT);
+            if (Gdx.input.isKeyPressed(Keys.RIGHT)) level.player.move(Direction.RIGHT);
             if (Gdx.input.isKeyPressed(Keys.X)) level.player.trapAttack(level.traps);
             if (Gdx.input.isKeyPressed(Keys.Z)) level.player.rangeAttack(level.bullets);
             if (Gdx.input.isKeyPressed(Keys.C)) level.player.beamAttack(level.beams);

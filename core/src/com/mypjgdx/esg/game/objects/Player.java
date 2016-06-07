@@ -9,8 +9,10 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.levels.Level;
+import com.mypjgdx.esg.game.objects.Player.PlayerAnimation;
+import com.mypjgdx.esg.utils.Direction;
 
-public class Player extends AnimatedObject {
+public class Player extends AnimatedObject<PlayerAnimation> {
 
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 8.0f;
@@ -19,14 +21,23 @@ public class Player extends AnimatedObject {
     private static final float SCALE = 0.7f;
 
     private static final float INITIAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
-    private static final float INITIAL_X_POSITION = 100f;         // ตำแหน่งเริ่มต้นแกน X
-    private static final float INITIAL_Y_POSITION = 100f;      // ตำแหน่งเริ่มต้นแกน Y
     private static final float INITIAL_MOVING_SPEED = 120f;
 
     private static final int INTITAL_HEALTH = 10;
-    private static final int INTITAL_TRAPMAX = 3;
-    private static final int INTITAL_BULLETMAX = 25;
-    private static final int INTITAL_BEAMMAX = 1;
+    private static final int INTITAL_TRAP = 3;
+    private static final int INTITAL_BULLET = 25;
+    private static final int INTITAL_BEAM = 1;
+
+    public enum PlayerAnimation {
+        ATK_LEFT,
+        ATK_RIGHT,
+        ATK_DOWN,
+        ATK_UP,
+        WALK_LEFT,
+        WALK_RIGHT,
+        WALK_DOWN,
+        WALK_UP,
+    }
 
     public enum PlayerState {
     	WALK, ATTACK
@@ -36,10 +47,10 @@ public class Player extends AnimatedObject {
 
     private PlayerState state;
     private int health;
-    public int trapMax;
-    public int bulletMax;
-    public int beamMax;
-    private boolean alive;
+    public int trapCount;
+    public int bulletCount;
+    public int beamCount;
+    private boolean dead;
     private boolean invulnerable;
     private boolean knockback;
     private long lastInvulnerableTime;
@@ -47,47 +58,45 @@ public class Player extends AnimatedObject {
     private float movingSpeed;
 
     private TiledMapTileLayer mapLayer;
+    private Direction viewDirection;
 
-    public Player(TiledMapTileLayer mapLayer) {
-        this(INITIAL_X_POSITION, INITIAL_Y_POSITION);
-        this.mapLayer = mapLayer;
-        collisionCheck = new TiledCollisionCheck(this.bounds, mapLayer);
-    }
-
-    public Player(float xPosition, float yPosition) {
+    public Player(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         super(Assets.instance.playerAltas);
-        // กำหนดค่าเริ่มต้น เวลาสร้างตัวละครใหม่
-        init();
-        setPosition(xPosition, yPosition);
+
+        addNormalAnimation(PlayerAnimation.ATK_LEFT, FRAME_DURATION, 30, 3);
+        addNormalAnimation(PlayerAnimation.ATK_RIGHT, FRAME_DURATION, 21, 3);
+        addNormalAnimation(PlayerAnimation.ATK_UP, FRAME_DURATION, 3, 3);
+        addNormalAnimation(PlayerAnimation.ATK_DOWN, FRAME_DURATION, 12, 3);
+        addLoopAnimation(PlayerAnimation.WALK_UP, FRAME_DURATION, 0, 3);
+        addLoopAnimation(PlayerAnimation.WALK_DOWN, FRAME_DURATION, 9, 3);
+        addLoopAnimation(PlayerAnimation.WALK_LEFT, FRAME_DURATION, 27, 3);
+        addLoopAnimation(PlayerAnimation.WALK_RIGHT, FRAME_DURATION, 18, 3);
+
+        scale.set(SCALE, SCALE);
+        movingSpeed = INITIAL_MOVING_SPEED;
+        friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
+
+        init(mapLayer, positionX, positionY);
     }
 
-    public void init() {
-        addNormalAnimation(AnimationName.ATK_LEFT, FRAME_DURATION, 30, 3);
-        addNormalAnimation(AnimationName.ATK_RIGHT, FRAME_DURATION, 21, 3);
-        addNormalAnimation(AnimationName.ATK_UP, FRAME_DURATION, 3, 3);
-        addNormalAnimation(AnimationName.ATK_DOWN, FRAME_DURATION, 12, 3);
-        addLoopAnimation(AnimationName.WALK_UP, FRAME_DURATION, 0, 3);
-        addLoopAnimation(AnimationName.WALK_DOWN, FRAME_DURATION, 9, 3);
-        addLoopAnimation(AnimationName.WALK_LEFT, FRAME_DURATION, 27, 3);
-        addLoopAnimation(AnimationName.WALK_RIGHT, FRAME_DURATION, 18, 3);
+    public void init(TiledMapTileLayer mapLayer, float positionX, float positionY) {
+        this.mapLayer = mapLayer;
+        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
 
-        state = PlayerState.WALK; //สถานะของตัวละคร
+        state = PlayerState.WALK;
+        setCurrentAnimation(PlayerAnimation.WALK_LEFT);
+        viewDirection = Direction.LEFT;
+
         health = INTITAL_HEALTH;
-        trapMax = INTITAL_TRAPMAX;
-        bulletMax = INTITAL_BULLETMAX;
-        beamMax = INTITAL_BEAMMAX;
-        alive = true;
+        trapCount = INTITAL_TRAP;
+        bulletCount = INTITAL_BULLET;
+        beamCount = INTITAL_BEAM;
+
+        dead = false;
         invulnerable = false;
         lastInvulnerableTime = 0;
         invulnerableTime = 0;
-        movingSpeed = INITIAL_MOVING_SPEED;
-
-        // กำหนดค่าทางฟิสิกส์
-        friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
-        acceleration.set(0.0f, 0.0f);
-
-        // กำหนดขนาดสเกลของ player
-        scale.set(SCALE, SCALE);
+        setPosition(positionX, positionY);
     }
 
     @Override
@@ -96,7 +105,7 @@ public class Player extends AnimatedObject {
         statusUpdate();
     }
 
-    public void move(ViewDirection direction) {
+    public void move(Direction direction) {
         if (knockback) return;
         switch(direction) {
         case LEFT:  velocity.x = -movingSpeed; break;
@@ -110,24 +119,28 @@ public class Player extends AnimatedObject {
         velocity.setLength(movingSpeed);
     }
 
+    public Direction getViewDirection() {
+        return viewDirection;
+    }
+
     @Override
     protected void setAnimation() {
 
         if (state == PlayerState.ATTACK) {
             unFreezeAnimation();
             switch (viewDirection) {
-            case DOWN: setCurrentAnimation(AnimationName.ATK_DOWN); break;
-            case LEFT: setCurrentAnimation(AnimationName.ATK_LEFT); break;
-            case RIGHT: setCurrentAnimation(AnimationName.ATK_RIGHT); break;
-            case UP:  setCurrentAnimation(AnimationName.ATK_UP); break;
+            case DOWN: setCurrentAnimation(PlayerAnimation.ATK_DOWN); break;
+            case LEFT: setCurrentAnimation(PlayerAnimation.ATK_LEFT); break;
+            case RIGHT: setCurrentAnimation(PlayerAnimation.ATK_RIGHT); break;
+            case UP:  setCurrentAnimation(PlayerAnimation.ATK_UP); break;
             default:
                 break;
             }
-            if (isAnimationFinished(AnimationName.ATK_LEFT) || isAnimationFinished(AnimationName.ATK_RIGHT)) {
+            if (isAnimationFinished(PlayerAnimation.ATK_LEFT) || isAnimationFinished(PlayerAnimation.ATK_RIGHT)) {
                 state = PlayerState.WALK;
                 resetAnimation();
             }
-            if (isAnimationFinished(AnimationName.ATK_UP) || isAnimationFinished(AnimationName.ATK_DOWN)) {
+            if (isAnimationFinished(PlayerAnimation.ATK_UP) || isAnimationFinished(PlayerAnimation.ATK_DOWN)) {
                 state = PlayerState.WALK;
                 resetAnimation();
             }
@@ -136,10 +149,10 @@ public class Player extends AnimatedObject {
         {
             unFreezeAnimation();
             switch (viewDirection) {
-            case DOWN:setCurrentAnimation(AnimationName.WALK_DOWN); break;
-            case LEFT: setCurrentAnimation(AnimationName.WALK_LEFT); break;
-            case RIGHT: setCurrentAnimation(AnimationName.WALK_RIGHT); break;
-            case UP: setCurrentAnimation(AnimationName.WALK_UP); break;
+            case DOWN:setCurrentAnimation(PlayerAnimation.WALK_DOWN); break;
+            case LEFT: setCurrentAnimation(PlayerAnimation.WALK_LEFT); break;
+            case RIGHT: setCurrentAnimation(PlayerAnimation.WALK_RIGHT); break;
+            case UP: setCurrentAnimation(PlayerAnimation.WALK_UP); break;
             default:
                 break;
             }
@@ -153,10 +166,10 @@ public class Player extends AnimatedObject {
     public void trapAttack(List<Trap>traps){
     	if(state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
-    		if(trapMax!=0){
+    		if(trapCount!=0){
 	    		traps.add(new Trap(mapLayer, this));
 	            Assets.instance.bullet_sound.play();
-	            trapMax--;
+	            trapCount--;
     		}
             Assets.instance.bullet_sound.play();
     		resetAnimation();
@@ -167,7 +180,7 @@ public class Player extends AnimatedObject {
     	if (!invulnerable) {
     	    --health;
             if (health <= 0) {
-                alive = false;
+                dead = true;
                 return true;
             }
             takeInvulnerable(500);
@@ -202,10 +215,10 @@ public class Player extends AnimatedObject {
     public void rangeAttack(List<Bullet>bullets){
     	if (state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
-    		if(bulletMax!=0){
+    		if(bulletCount!=0){
 	    		bullets.add(new Bullet(mapLayer, this));
 	            Assets.instance.bullet_sound.play();
-	            bulletMax--;
+	            bulletCount--;
     		}
             Assets.instance.bullet_sound.play();
     		resetAnimation();
@@ -215,10 +228,10 @@ public class Player extends AnimatedObject {
     public void beamAttack(List<Beam>beams){
     	if (state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
-    		if(beamMax!=0){
+    		if(beamCount!=0){
 	    		beams.add(new Beam(mapLayer, this));
 	            Assets.instance.beam_sound.play();
-	            beamMax--;
+	            beamCount--;
     		}
             Assets.instance.beam_sound.play();
     		resetAnimation();
@@ -226,13 +239,13 @@ public class Player extends AnimatedObject {
     }
 
     public boolean isAlive(){
-    	return alive;
+    	return !dead;
     }
 
     public void showHp(ShapeRenderer shapeRenderer){
     	shapeRenderer.rect(
     	        getPositionX(), getPositionY()-10,
-    	        dimension.x * ((float) health / INTITAL_HEALTH), 5);
+    	        bounds.width * ((float) health / INTITAL_HEALTH), 5);
     }
 
 	public void findItem(Level level) {
@@ -243,4 +256,5 @@ public class Player extends AnimatedObject {
 		// TODO Auto-generated method stub
 
 	}
+
 }

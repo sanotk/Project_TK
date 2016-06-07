@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.objects.AnimatedObject.ViewDirection;
+import com.mypjgdx.esg.utils.Direction;
 
 
 public class Trap extends AbstractGameObject{
@@ -17,7 +17,7 @@ public class Trap extends AbstractGameObject{
 	    private Player player;
 	    private boolean despawned;
 
-	    private ViewDirection direction;
+	    private Direction direction;
 
 	    public Trap(TiledMapTileLayer mapLayer ,Player player) {
 	        this.player = player;
@@ -90,7 +90,7 @@ public class Trap extends AbstractGameObject{
 	    	despawned = true;
 	    }
 
-	    public ViewDirection getDirection() {
+	    public Direction getDirection() {
 	        return direction;
 	    }
 

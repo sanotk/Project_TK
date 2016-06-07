@@ -2,9 +2,8 @@ package com.mypjgdx.esg.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.objects.AnimatedObject.ViewDirection;
+import com.mypjgdx.esg.utils.Direction;
 
 
 public class Bullet extends AbstractGameObject{
@@ -17,11 +16,10 @@ public class Bullet extends AbstractGameObject{
 	    private Player player;
 	    private boolean despawned;
 
-	    private ViewDirection direction;
+	    private Direction direction;
 
 	    public Bullet(TiledMapTileLayer mapLayer ,Player player) {
 	        this.player = player;
-	        collisionCheck = new TiledCollisionCheck(this.bounds, mapLayer);
 	        init();
 	    }
 
@@ -90,7 +88,7 @@ public class Bullet extends AbstractGameObject{
 	    	despawned = true;
 	    }
 
-	    public ViewDirection getDirection() {
+	    public Direction getDirection() {
 	        return direction;
 	    }
 
@@ -98,4 +96,6 @@ public class Bullet extends AbstractGameObject{
 	    public void render(SpriteBatch batch) {
 	        render(batch, Assets.instance.bullet);
 	    }
+
+
 }

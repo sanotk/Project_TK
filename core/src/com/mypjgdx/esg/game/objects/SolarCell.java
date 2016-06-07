@@ -5,9 +5,12 @@ import com.mypjgdx.esg.game.Assets;
 
 public class SolarCell extends Item{
 
+    private static final float SCALE = 0.5f;
+
 	public SolarCell(TiledMapTileLayer mapLayer, Player player){
-        super(Assets.instance.solarCellAltas);
+        super(Assets.instance.solarCellAltas, SCALE, SCALE, mapLayer);
 		this.player = player;
-		init(mapLayer);
+
+        init(mapLayer);
 	}
 }
