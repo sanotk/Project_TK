@@ -13,7 +13,6 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 
 		public Player player;
 
-
 		public enum ItemAnimation {
 		    ON,
 		    OFF
@@ -42,7 +41,6 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 
             state = ItemState.OFF;
             setCurrentAnimation(ItemAnimation.OFF);
-
 	        randomPosition(mapLayer);
 		}
 

@@ -267,7 +267,6 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> {
             float ydiff = getPositionY() - player.getPositionY();
 
             distance =  Math.sqrt(xdiff*xdiff + ydiff*ydiff);
-
         } while ((distance < MIN_DISTANCE
                 || collisionCheck.isCollidesTop()
                 || collisionCheck.isCollidesBottom()

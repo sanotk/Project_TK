@@ -26,9 +26,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public TextureRegion bg;
 
-    public TextureAtlas enemy1Altas;
-    public TextureAtlas enemy2Altas;
-    public TextureAtlas enemy3Altas;
+    public TextureAtlas pepoAltas;
+    public TextureAtlas pepoKnightAltas;
+    public TextureAtlas pepoDevilAltas;
     public TiledMap map1;
     public TiledMap map2;
     public TiledMap map3;
@@ -76,9 +76,9 @@ public class Assets implements Disposable, AssetErrorListener {
         solarCellAltas = manager.get("solarcell_pack.atlas");
         trap = new TextureRegion((Texture)manager.get("trap.png"));
         beam = new TextureRegion((Texture)manager.get("beam.png"));
-        enemy1Altas = manager.get("enemy1_pack.atlas");
-        enemy2Altas = manager.get("enemy2_pack.atlas");
-        enemy3Altas = manager.get("enemy3_pack.atlas");
+        pepoAltas = manager.get("enemy1_pack.atlas");
+        pepoKnightAltas = manager.get("enemy2_pack.atlas");
+        pepoDevilAltas = manager.get("enemy3_pack.atlas");
         music = manager.get("music.mp3");
         bullet_sound = manager.get("bullet.wav");
         beam_sound = manager.get("beam.wav");

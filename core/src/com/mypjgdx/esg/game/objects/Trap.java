@@ -9,7 +9,7 @@ import com.mypjgdx.esg.utils.Direction;
 
 public class Trap extends AbstractGameObject{
 
-	    private static final float SCALE = 1f;
+	    private static final float SCALE = 0.75f;
 
 	    private static final float INTITAL_FRICTION = 50f;  // ค่าแรงเสียดทานเริ่มต้น
 	    private static final float INTITIAL_SPEED = 50f; // ค่าความเร็วต้น
@@ -78,7 +78,7 @@ public class Trap extends AbstractGameObject{
 	                || collisionCheck.isCollidesRight()
 	                || collisionCheck.isCollidesTop()
 	                || collisionCheck.isCollidesBottom()) {
-	        	despawned = true;
+	        	//despawned = true;
 	        }
 	    }
 

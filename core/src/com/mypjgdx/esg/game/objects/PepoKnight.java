@@ -12,7 +12,7 @@ public class PepoKnight extends Enemy {
 	public static final float SCALE = 0.35f;
 
     public PepoKnight(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets, List<Trap> traps, List<Beam> beams) {
-        super(Assets.instance.enemy2Altas, SCALE, SCALE, mapLayer);
+        super(Assets.instance.pepoKnightAltas, SCALE ,SCALE, mapLayer);
 
         this.player = player;
         this.bullets = bullets;

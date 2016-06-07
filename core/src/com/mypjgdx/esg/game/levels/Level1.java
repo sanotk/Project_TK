@@ -27,6 +27,8 @@ public class Level1 extends LevelGenerator {
     public List<Item> createItems(TiledMapTileLayer mapLayer, Player player) {
         ArrayList<Item> items = new ArrayList<Item>();
         items.add(new SolarCell(mapLayer, player));
+        items.add(new SolarCell(mapLayer, player));
+        items.add(new SolarCell(mapLayer, player));
         return items;
     }
 
@@ -34,6 +36,9 @@ public class Level1 extends LevelGenerator {
     public List<Enemy> createEnemies(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets, List<Trap> traps, List<Beam> beams) {
         ArrayList<Enemy> enemies = new ArrayList<Enemy>();
         enemies.add(new Pepo(mapLayer, player, bullets, traps, beams));
+        enemies.add(new Pepo(mapLayer, player, bullets, traps, beams));
+        enemies.add(new Pepo(mapLayer, player, bullets, traps, beams));
+        enemies.add(new PepoKnight(mapLayer, player, bullets, traps, beams));
         enemies.add(new PepoKnight(mapLayer, player, bullets, traps, beams));
         enemies.add(new PepoDevil(mapLayer, player, bullets, traps, beams));
         return enemies;

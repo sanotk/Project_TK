@@ -68,10 +68,12 @@ public class Level{
         	Beam b = bit.next();
         	if (b.isDespawned()) bit.remove();
         }
+
         while(tit.hasNext()){
         	Trap t = tit.next();
         	if (t.isDespawned()) tit.remove();
         }
+
         while(eit.hasNext()){
             Enemy e = eit.next();
         	if (!e.isAlive()) eit.remove();

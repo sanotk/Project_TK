@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.game.objects.Beam;
 import com.mypjgdx.esg.game.objects.Bullet;
+import com.mypjgdx.esg.game.objects.Enemy;
 import com.mypjgdx.esg.game.objects.Item;
 import com.mypjgdx.esg.game.objects.Player;
 import com.mypjgdx.esg.game.objects.Trap;
