@@ -1,10 +1,13 @@
 package com.mypjgdx.esg.game.objects;
 
+import java.util.List;
+
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.Item.ItemAnimation;
+import com.mypjgdx.esg.utils.Distance;
 
 public abstract class Item extends AnimatedObject<ItemAnimation>{
 
@@ -36,13 +39,13 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
             scale.set(scaleX, scaleY);
         }
 
-		public void init(TiledMapTileLayer mapLayer, Player player) {
+		public void init(TiledMapTileLayer mapLayer, Player player, List<Item> items) {
 	        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
             this.player = player;
 
             state = ItemState.OFF;
             setCurrentAnimation(ItemAnimation.OFF);
-	        randomPosition(mapLayer);
+	        randomPosition(mapLayer, items);
 		}
 
 	    @Override
@@ -61,27 +64,29 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 	        }
 		}
 
-	    private void randomPosition(TiledMapTileLayer mapLayer) {
+	    private void randomPosition(TiledMapTileLayer mapLayer, List<Item> items) {
             updateBounds();
 
 	        float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
 	        float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
 
-	        final float MIN_DISTANCE = 200;
-	        double distance;
+	        boolean nearOtherItems = false;
+	        final float MIN_DISTANCE = 100;
 	        do{
 	            setPosition(
 	                    MathUtils.random(MIN_DISTANCE, mapWidth - bounds.width),
 	                    MathUtils.random(MIN_DISTANCE, mapHeight - bounds.height));
 
-	            float xdiff = getPositionX() - player.getPositionX();
-	            float ydiff = getPositionY() - player.getPositionY();
+                if (Distance.absoluteXY(this, player) < MIN_DISTANCE)
+                    continue;
 
-	            distance =  Math.sqrt(xdiff*xdiff + ydiff*ydiff);
-	        } while ((distance < MIN_DISTANCE
+	        } while (nearOtherItems
 	                || collisionCheck.isCollidesTop()
 	                || collisionCheck.isCollidesBottom()
 	                || collisionCheck.isCollidesRight()
-	                || collisionCheck.isCollidesLeft()));
+	                || collisionCheck.isCollidesLeft());
 	    }
+
+
+	    public abstract void activate();
 }

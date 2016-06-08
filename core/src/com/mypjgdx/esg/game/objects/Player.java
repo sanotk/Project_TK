@@ -257,4 +257,10 @@ public class Player extends AnimatedObject<PlayerAnimation> {
 
 	}
 
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

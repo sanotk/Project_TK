@@ -97,5 +97,11 @@ public class Bullet extends AbstractGameObject{
 	        render(batch, Assets.instance.bullet);
 	    }
 
+        @Override
+        public String getName() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
 
 }

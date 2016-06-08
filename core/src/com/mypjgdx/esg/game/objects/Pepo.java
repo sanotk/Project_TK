@@ -24,4 +24,10 @@ public class Pepo extends Enemy {
         init(mapLayer);
     }
 
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

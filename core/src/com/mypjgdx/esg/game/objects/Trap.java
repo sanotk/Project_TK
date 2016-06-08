@@ -98,4 +98,10 @@ public class Trap extends AbstractGameObject{
 	    public void render(SpriteBatch batch) {
 	        render(batch, Assets.instance.trap);
 	    }
+
+        @Override
+        public String getName() {
+            // TODO Auto-generated method stub
+            return null;
+        }
 }

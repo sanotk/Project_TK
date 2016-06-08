@@ -98,4 +98,10 @@ public class Beam extends AbstractGameObject{
 	    public void render(SpriteBatch batch) {
 	        render(batch, Assets.instance.beam);
 	    }
+
+        @Override
+        public String getName() {
+            // TODO Auto-generated method stub
+            return null;
+        }
 }

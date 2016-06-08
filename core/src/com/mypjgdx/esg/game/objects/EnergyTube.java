@@ -36,4 +36,16 @@ public class EnergyTube extends Item {
         return drainEnergy;
     }
 
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void activate() {
+        // TODO Auto-generated method stub
+
+    }
+
 }
