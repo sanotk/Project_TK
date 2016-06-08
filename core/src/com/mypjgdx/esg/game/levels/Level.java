@@ -45,6 +45,10 @@ public class Level{
         items = levelGenerator.createItems(mapLayer, player);
         enemies = levelGenerator.createEnemies(mapLayer, player, bullets, traps, beams);
 
+        bullets = new ArrayList<Bullet>();
+        traps = new ArrayList<Trap>();
+        beams = new ArrayList<Beam>();
+
         energyTube.init(mapLayer, player);
     }
 
