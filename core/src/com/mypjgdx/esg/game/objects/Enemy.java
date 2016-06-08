@@ -137,21 +137,21 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> {
                 case UP: takeDamage(knockbackSpeed, 90); break;
                 default: break;
                 }
-                //b.despawn();
+                b.despawn();
         	}
         }
 
         for(Trap t: traps) {
         	if (bounds.overlaps(t.bounds) && !t.isDespawned()) {
                 float knockbackSpeed = 800f;
-                switch(t.getDirection()) {
-                case DOWN: takeDamage(knockbackSpeed, 270); break;
-                case LEFT: takeDamage(knockbackSpeed, 180); break;
-                case RIGHT: takeDamage(knockbackSpeed, 0); break;
-                case UP: takeDamage(knockbackSpeed, 90); break;
+                switch(viewDirection) {
+                case DOWN: takeDamage(knockbackSpeed, 90); break;
+                case LEFT: takeDamage(knockbackSpeed, 0); break;
+                case RIGHT: takeDamage(knockbackSpeed, 180); break;
+                case UP: takeDamage(knockbackSpeed, 270); break;
                 default: break;
                 }
-                t.despawn();
+                //t.despawn();
         	}
         }
         runToPlayer(deltaTime);
