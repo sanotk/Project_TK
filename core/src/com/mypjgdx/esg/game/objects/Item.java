@@ -25,7 +25,7 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 
 		private ItemState state;
 
-		public Item(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer) {
+		public Item(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer, Player player) {
             super(atlas);
 
             addLoopAnimation(ItemAnimation.OFF, FRAME_DURATION, 0, 3);
@@ -34,6 +34,7 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
             friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
 
             scale.set(scaleX, scaleY);
+            this.player = player;
         }
 
 		public void init(TiledMapTileLayer mapLayer) {
@@ -42,10 +43,6 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
             state = ItemState.OFF;
             setCurrentAnimation(ItemAnimation.OFF);
 	        randomPosition(mapLayer);
-		}
-
-		public void addPlayer(){
-		    //TODO
 		}
 
 	    @Override

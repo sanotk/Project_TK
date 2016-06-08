@@ -13,27 +13,39 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mypjgdx.esg.game.objects.Beam;
 import com.mypjgdx.esg.game.objects.Bullet;
 import com.mypjgdx.esg.game.objects.Enemy;
+import com.mypjgdx.esg.game.objects.EnergyTube;
 import com.mypjgdx.esg.game.objects.Item;
 import com.mypjgdx.esg.game.objects.Player;
 import com.mypjgdx.esg.game.objects.Trap;
 
 public class Level{
 
+    public TiledMap map;
     public Player player;
     public List<Item> items;
     public List<Enemy> enemies;
+    public EnergyTube energyTube;
+
     public List<Bullet> bullets = new ArrayList<Bullet>();
     public List<Trap> traps = new ArrayList<Trap>();
     public List<Beam> beams = new ArrayList<Beam>();
-    public TiledMap map;
 
     public Level (LevelGenerator levelGenerator) {
+        energyTube = new EnergyTube(100);  // พลังงานเริ่มต้นมีค่า 100 วินาที
+        energyTube.startDrainEnergy();
+
+        init(levelGenerator);
+    }
+
+    public void init(LevelGenerator levelGenerator) {
         map =  levelGenerator.createTiledMap();
         TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
         player = levelGenerator.createPlayer(mapLayer);
         items = levelGenerator.createItems(mapLayer, player);
         enemies = levelGenerator.createEnemies(mapLayer, player, bullets, traps, beams);
+
+        energyTube.init(mapLayer, player);
     }
 
     public void render (SpriteBatch batch, OrthogonalTiledMapRenderer tiledRenderer, ShapeRenderer shapeRenderer) {
@@ -41,6 +53,7 @@ public class Level{
         tiledRenderer.render();
 
         batch.begin();
+        //energyTube.render(batch);    <<<   ถ้าได้ atlas ของ EnergyTube แล้วค่อยคอมเม้นออก
         for (Bullet s: bullets) s.render(batch);
         for (Beam b: beams) b.render(batch);
         for (Trap t: traps) t.render(batch);
@@ -84,7 +97,8 @@ public class Level{
         for(Bullet s: bullets) s.update(deltaTime);
         for(Beam b: beams) b.update(deltaTime);
         for(Trap t: traps) t.update(deltaTime);
-    }
 
+        energyTube.update(deltaTime);
+    }
 
 }
