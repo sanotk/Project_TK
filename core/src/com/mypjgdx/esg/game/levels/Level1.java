@@ -20,6 +20,10 @@ import com.mypjgdx.esg.game.objects.Trap;
 public class Level1 extends LevelGenerator {
 
     @Override
+    public Player createPlayer(TiledMapTileLayer mapLayer) {
+        return new Player(mapLayer, 100, 100);
+    }
+    @Override
     public List<Item> createItems(TiledMapTileLayer mapLayer, Player player) {
         ArrayList<Item> items = new ArrayList<Item>();
         items.add(new SolarCell(mapLayer, player));
@@ -44,6 +48,5 @@ public class Level1 extends LevelGenerator {
     public TiledMap createTiledMap() {
         return Assets.instance.map1;
     }
-
 
 }

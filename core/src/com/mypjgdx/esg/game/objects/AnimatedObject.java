@@ -11,57 +11,26 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
-public abstract class AnimatedObject  extends AbstractGameObject {
+public abstract class AnimatedObject<E extends Enum<E>> extends AbstractGameObject {
 
-    protected ObjectMap<AnimationName, Animation> animations;
+    public static final float START_TIME = 0;
 
-    private TextureAtlas atlas;
-    protected TextureRegion currentRegion;
-    private AnimationName currentAnimation;
+    private ObjectMap<E, Animation> animations;
+    private E currentAnimation;
 
     private Array<AtlasRegion> regions;
+    private TextureRegion currentRegion;
 
     private float animationTime;
     private boolean freeze;
 
-    public static enum AnimationName {
-        WALK_LEFT,
-        WALK_RIGHT,
-        WALK_UP,
-        WALK_DOWN,
-        ATK_LEFT,
-        ATK_RIGHT,
-        ATK_UP,
-        ATK_DOWN,
-        OFF,
-        ON
-    }
-
-    public static enum ViewDirection {
-        LEFT, RIGHT, UP, DOWN
-    }
-
-    public static enum ItemSwitch{
-    	ON, OFF
-    }
-
-    protected ViewDirection viewDirection;
-    protected ItemSwitch itemSwitch;
-
-
     public AnimatedObject(TextureAtlas atlas) {
-        this.atlas = atlas;
-        init();
-    }
+        super();
 
-    private void init() {
-        animations = new ObjectMap<AnimationName, Animation>();
+        animations = new ObjectMap<E, Animation>();
+
         regions = new Array<AtlasRegion>(atlas.getRegions());
         regions.sort(new regionComparator());
-
-        currentAnimation = AnimationName.WALK_DOWN;
-        viewDirection = ViewDirection.DOWN;
-        itemSwitch = ItemSwitch.OFF;
 
         resetAnimation();
         unFreezeAnimation();
@@ -79,23 +48,15 @@ public abstract class AnimatedObject  extends AbstractGameObject {
         render(batch, currentRegion);
     }
 
-    public ViewDirection getViewDirection(){
-        return viewDirection;
-    }
-
-    public ItemSwitch getItemSwitch(){
-        return itemSwitch;
-    }
-
-    protected void addLoopAnimation(AnimationName name, float frameTime, int regionStart, int size) {
+    protected void addLoopAnimation(E name, float frameTime, int regionStart, int size) {
         addAnimation(name, frameTime, regionStart, size, PlayMode.LOOP);
     }
 
-    protected void addNormalAnimation(AnimationName name, float frameTime, int regionStart, int size) {
+    protected void addNormalAnimation(E name, float frameTime, int regionStart, int size) {
         addAnimation(name, frameTime, regionStart, size, PlayMode.NORMAL);
     }
 
-    protected void addAnimation(AnimationName name, float frameTime, int regionStart, int size, PlayMode mode) {
+    protected void addAnimation(E name, float frameTime, int regionStart, int size, PlayMode mode) {
         Array<AtlasRegion> animationRegions = new Array<AtlasRegion>();
         animationRegions.addAll(regions, regionStart, size);
         animations.put(name, new Animation(frameTime, animationRegions, mode));
@@ -114,11 +75,11 @@ public abstract class AnimatedObject  extends AbstractGameObject {
         animationTime = 0.0f;
     }
 
-    public void setCurrentAnimation(AnimationName name) {
+    public void setCurrentAnimation(E name) {
         currentAnimation = name;
     }
 
-    public boolean isAnimationFinished(AnimationName name) {
+    public boolean isAnimationFinished(E name) {
         return animations.get(name).isAnimationFinished(animationTime);
     }
 
@@ -134,6 +95,10 @@ public abstract class AnimatedObject  extends AbstractGameObject {
         public int compare(AtlasRegion region1, AtlasRegion region2) {
             return region1.name.compareTo(region2.name);
         }
+    }
+
+    protected void updateBounds() {
+        updateKeyFrame(START_TIME);
     }
 
 }

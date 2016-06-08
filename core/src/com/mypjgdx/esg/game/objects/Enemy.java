@@ -1,10 +1,5 @@
 package com.mypjgdx.esg.game.objects;
 
-import static com.mypjgdx.esg.game.objects.AnimatedObject.AnimationName.WALK_DOWN;
-import static com.mypjgdx.esg.game.objects.AnimatedObject.AnimationName.WALK_LEFT;
-import static com.mypjgdx.esg.game.objects.AnimatedObject.AnimationName.WALK_RIGHT;
-import static com.mypjgdx.esg.game.objects.AnimatedObject.AnimationName.WALK_UP;
-
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -13,85 +8,86 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.mypjgdx.esg.collision.TiledCollisionCheck;
+import com.mypjgdx.esg.game.objects.Enemy.EnemyAnimation;
+import com.mypjgdx.esg.utils.Direction;
 import com.mypjgdx.esg.utils.Pathfinding;
 import com.mypjgdx.esg.utils.Pathfinding.Node;
 
-public abstract class Enemy extends AnimatedObject {
-
-    public Enemy(TextureAtlas atlas) {
-		super(atlas);
-		// TODO Auto-generated constructor stub
-	}
+public abstract class Enemy extends AnimatedObject<EnemyAnimation> {
 
 	// กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 8.0f;
 
-    // อัตราการขยายภาพ enemy
-
-    private static final float INITIAL_FRICTION = 600f;           // ค่าแรงเสียดทานเริ่มต้น
-
+    private static final float INITIAL_FRICTION = 600f;
     private static final float INITIAL_FINDING_RANGE = 400f;
 
+    protected Player player;
+    protected List<Bullet> bullets;
+    protected List<Beam> beams;
+    protected List<Trap> traps;
 
-    public TextureAtlas enemyAltas;
-    public Player player;
-    public List<Bullet> bullets;
-    public List<Beam> beams;
-    public List<Trap> traps;
-
-    public enum EnemyState {
-    	WALK, ATTACK
+    public enum EnemyAnimation {
+        WALK_LEFT,
+        WALK_RIGHT,
+        WALK_DOWN,
+        WALK_UP,
     }
 
-    private boolean alive;
+    private Direction viewDirection;
+
+    private boolean dead;
     private boolean knockback;
     private boolean stun;
+
     private long stunTime;
     private long lastStunTime;
 
     private int health;
-    private float movingSpeed;
+    protected int maxHealth;
+    protected float movingSpeed;
     private float findingRange;
-    private int maxHealth;
     private Pathfinding pathFinding;
 
-	public void init(TiledMapTileLayer mapLayer,int health,float speed ,float scale) {
-        addLoopAnimation(WALK_UP, FRAME_DURATION, 0, 3);
-        addLoopAnimation(WALK_DOWN, FRAME_DURATION, 3, 3);
-        addLoopAnimation(WALK_LEFT, FRAME_DURATION, 6, 3);
-        addLoopAnimation(WALK_RIGHT, FRAME_DURATION, 9, 3);
+    public Enemy(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer) {
+        super(atlas);
 
-        alive = true;
+
+        addLoopAnimation(EnemyAnimation.WALK_UP, FRAME_DURATION, 0, 3);
+        addLoopAnimation(EnemyAnimation.WALK_DOWN, FRAME_DURATION, 3, 3);
+        addLoopAnimation(EnemyAnimation.WALK_LEFT, FRAME_DURATION, 6, 3);
+        addLoopAnimation(EnemyAnimation.WALK_RIGHT, FRAME_DURATION, 9, 3);
+
+        findingRange = INITIAL_FINDING_RANGE;
+        friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
+
+        scale.set(scaleX, scaleY);
+    }
+
+	public void init(TiledMapTileLayer mapLayer) {
+        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
+        pathFinding = new Pathfinding(mapLayer);
+
+        setCurrentAnimation(EnemyAnimation.WALK_DOWN);
+        viewDirection = Direction.DOWN;
+
+        health =  maxHealth;
+        dead = false;
     	knockback= false;
     	stun = false;
-        maxHealth = health;
-    	this.health =  health;
-        this.movingSpeed = speed;
-        findingRange = INITIAL_FINDING_RANGE;
 
-        // กำหนดค่าทางฟิสิกส์
-        friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
-        acceleration.set(0.0f, 0.0f);
-
-        // กำหนดขนาดสเกลของ enemy
-        this.scale.set(scale, scale);
-
-        updateKeyFrame(0);
-        setPosition(0, 0);
 
         randomPosition(mapLayer);
-
-       	pathFinding = new Pathfinding(mapLayer);
     }
 
     @Override
     protected void setAnimation() {
         unFreezeAnimation();
         switch (viewDirection) {
-        case DOWN:setCurrentAnimation(AnimationName.WALK_DOWN); break;
-        case LEFT: setCurrentAnimation(AnimationName.WALK_LEFT); break;
-        case RIGHT: setCurrentAnimation(AnimationName.WALK_RIGHT); break;
-        case UP: setCurrentAnimation(AnimationName.WALK_UP); break;
+        case DOWN:setCurrentAnimation(EnemyAnimation.WALK_DOWN); break;
+        case LEFT: setCurrentAnimation(EnemyAnimation.WALK_LEFT); break;
+        case RIGHT: setCurrentAnimation(EnemyAnimation.WALK_RIGHT); break;
+        case UP: setCurrentAnimation(EnemyAnimation.WALK_UP); break;
         default:
             break;
         }
@@ -148,24 +144,24 @@ public abstract class Enemy extends AnimatedObject {
         for(Trap t: traps) {
         	if (bounds.overlaps(t.bounds) && !t.isDespawned()) {
                 float knockbackSpeed = 800f;
-                switch(viewDirection) {
-                case DOWN: takeDamage(knockbackSpeed, 90); break;
-                case LEFT: takeDamage(knockbackSpeed, 0); break;
-                case RIGHT: takeDamage(knockbackSpeed, 180); break;
-                case UP: takeDamage(knockbackSpeed, 270); break;
+                switch(t.getDirection()) {
+                case DOWN: takeDamage(knockbackSpeed, 270); break;
+                case LEFT: takeDamage(knockbackSpeed, 180); break;
+                case RIGHT: takeDamage(knockbackSpeed, 0); break;
+                case UP: takeDamage(knockbackSpeed, 90); break;
                 default: break;
                 }
-                //t.despawn();
+                t.despawn();
         	}
         }
         runToPlayer(deltaTime);
     }
 
     public boolean isAlive(){
-    	return alive;
+    	return !dead;
     }
 
-    public void move(ViewDirection direction) {
+    public void move(Direction direction) {
         if (knockback || stun) return;
         switch(direction) {
         case LEFT:  velocity.x = -movingSpeed; break;
@@ -182,7 +178,7 @@ public abstract class Enemy extends AnimatedObject {
     public void takeDamage(float knockbackSpeed, float knockbackAngle){
         --health;
         if (health <= 0) {
-            alive = false;
+            dead = true;
             return;
         }
         takeKnockback(knockbackSpeed, knockbackAngle);
@@ -232,17 +228,17 @@ public abstract class Enemy extends AnimatedObject {
             final float minMovingDistance = movingSpeed/8;
 
             if (ydiff >  minMovingDistance) {
-                move(ViewDirection.UP);
+                move(Direction.UP);
             }
             else if (ydiff < -minMovingDistance) {
-                move(ViewDirection.DOWN);
+                move(Direction.DOWN);
             }
 
             if (xdiff > minMovingDistance)  {
-                move(ViewDirection.RIGHT);
+                move(Direction.RIGHT);
             }
             else if (xdiff < -minMovingDistance) {
-                move(ViewDirection.LEFT);
+                move(Direction.LEFT);
             }
         }
     }
@@ -251,10 +247,12 @@ public abstract class Enemy extends AnimatedObject {
     	if (health < maxHealth)
     	    shapeRenderer.rect(
     	            getPositionX(), getPositionY() - 10,
-    	            dimension.x * ((float) health / maxHealth), 5);
+    	            bounds.width * ((float) health / maxHealth), 5);
     }
 
     private void randomPosition(TiledMapTileLayer mapLayer) {
+        updateBounds();
+
         float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
         float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
 
@@ -269,7 +267,6 @@ public abstract class Enemy extends AnimatedObject {
             float ydiff = getPositionY() - player.getPositionY();
 
             distance =  Math.sqrt(xdiff*xdiff + ydiff*ydiff);
-
         } while ((distance < MIN_DISTANCE
                 || collisionCheck.isCollidesTop()
                 || collisionCheck.isCollidesBottom()

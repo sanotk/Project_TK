@@ -68,14 +68,16 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        textBullet.setText(String.format("Bullet Max : %d", worldController.level.player.bulletMax));
-        textBeam.setText(String.format("Beam Max : %d", worldController.level.player.beamMax));
-        textTrap.setText(String.format("Trap Max : %d", worldController.level.player.trapMax));
+        textBullet.setText(String.format("Bullet Max : %d", worldController.level.player.bulletCount));
+        textBeam.setText(String.format("Beam Max : %d", worldController.level.player.beamCount));
+        textTrap.setText(String.format("Trap Max : %d", worldController.level.player.trapCount));
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));
             return;
         }
+        if (Gdx.input.isKeyJustPressed(Keys.R))
+            worldController.init(new Level(new Level1()));
 
         if (!worldController.level.player.isAlive()) {
             game.setScreen(new GameOverScreen(game));
@@ -97,7 +99,6 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
-
         worldController = new WorldController(new Level(new Level1()));
         worldRenderer = new WorldRenderer(worldController);
     }
