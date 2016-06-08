@@ -1,6 +1,5 @@
 package com.mypjgdx.esg.game.objects;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 
 public class EnergyTube extends Item {
@@ -11,14 +10,9 @@ public class EnergyTube extends Item {
     private boolean drainEnergy;
 
     public EnergyTube(float startEnergy) {
-        super(Assets.instance.solarCellAltas, SCALE, SCALE, null, null);  // แก้ตรง altas เป็นภาพหลอดพลังงาน
+        super(Assets.instance.solarCellAltas, SCALE, SCALE);  // แก้ตรง altas เป็นภาพหลอดพลังงาน
         energy = startEnergy;
         startDrainEnergy();
-    }
-
-    public void init(TiledMapTileLayer mapLayer, Player player) {
-        this.player = player;
-        init(mapLayer);
     }
 
     public void startDrainEnergy() {

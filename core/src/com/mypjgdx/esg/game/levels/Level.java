@@ -26,11 +26,15 @@ public class Level{
     public List<Enemy> enemies;
     public EnergyTube energyTube;
 
-    public List<Bullet> bullets = new ArrayList<Bullet>();
-    public List<Trap> traps = new ArrayList<Trap>();
-    public List<Beam> beams = new ArrayList<Beam>();
+    public List<Bullet> bullets;
+    public List<Trap> traps;
+    public List<Beam> beams;
 
     public Level (LevelGenerator levelGenerator) {
+        bullets = new ArrayList<Bullet>();
+        traps = new ArrayList<Trap>();
+        beams = new ArrayList<Beam>();
+
         energyTube = new EnergyTube(100);  // พลังงานเริ่มต้นมีค่า 100 วินาที
         energyTube.startDrainEnergy();
 
@@ -38,16 +42,16 @@ public class Level{
     }
 
     public void init(LevelGenerator levelGenerator) {
+        bullets.clear();
+        traps.clear();
+        beams.clear();
+
         map =  levelGenerator.createTiledMap();
         TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
         player = levelGenerator.createPlayer(mapLayer);
         items = levelGenerator.createItems(mapLayer, player);
         enemies = levelGenerator.createEnemies(mapLayer, player, bullets, traps, beams);
-
-        bullets = new ArrayList<Bullet>();
-        traps = new ArrayList<Trap>();
-        beams = new ArrayList<Beam>();
 
         energyTube.init(mapLayer, player);
     }
