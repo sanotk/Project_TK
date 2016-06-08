@@ -8,9 +8,7 @@ public class SolarCell extends Item{
     private static final float SCALE = 0.3f;
 
 	public SolarCell(TiledMapTileLayer mapLayer, Player player){
-        super(Assets.instance.solarCellAltas, SCALE, SCALE, mapLayer);
-		this.player = player;
-
+        super(Assets.instance.solarCellAltas, SCALE, SCALE, mapLayer, player);
         init(mapLayer);
 	}
 }

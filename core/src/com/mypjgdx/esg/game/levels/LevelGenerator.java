@@ -16,5 +16,4 @@ public abstract class LevelGenerator {
     public abstract List<Enemy> createEnemies(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets, List<Trap> traps, List<Beam> beams);
     public abstract TiledMap createTiledMap();
 	public abstract List<Item> createItems(TiledMapTileLayer mapLayer, Player player);
-
 }

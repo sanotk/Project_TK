@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.mypjgdx.esg.game.levels.Level;
+import com.mypjgdx.esg.game.levels.Level1;
 import com.mypjgdx.esg.utils.CameraHelper;
 import com.mypjgdx.esg.utils.Direction;
 
@@ -77,8 +78,6 @@ public class WorldController extends InputAdapter {
         }
      }
 
-
-
 	@Override
     public boolean keyDown (int keycode) {
         switch(keycode) {
@@ -86,7 +85,16 @@ public class WorldController extends InputAdapter {
             if (!cameraHelper.hasTarget()) cameraHelper.setTarget(level.player);
             else cameraHelper.setTarget(null);
             break;
+        case Keys.NUMPAD_1:
+            level.init(new Level1());
+            init(level);
+            break;
+        case Keys.NUMPAD_0:
+            if(level.energyTube.isEnergyDraining()) level.energyTube.stopDrainEnergy();
+            else level.energyTube.startDrainEnergy();
+            break;
         }
+
         return true;
     }
 

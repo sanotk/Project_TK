@@ -32,6 +32,7 @@ public class GameScreen extends AbstractGameScreen {
     private Label textBullet;
     private Label textBeam;
     private Label textTrap;
+    private Label energyLevel;
 
     public GameScreen(Game game) {
         super(game);
@@ -55,10 +56,15 @@ public class GameScreen extends AbstractGameScreen {
         textTrap.setFontScale(1.1f,1.1f);
         textTrap.setPosition(500, 650);
 
+        energyLevel = new Label("Energy : ", skin);
+        energyLevel.setColor(0, 1, 1, 1);
+        energyLevel.setFontScale(1.1f,1.1f);
+        energyLevel.setPosition(100, 600);
 
         stage.addActor(textBullet);
         stage.addActor(textBeam);
         stage.addActor(textTrap);
+        stage.addActor(energyLevel);
 
         batch = new SpriteBatch();
     }
@@ -71,13 +77,12 @@ public class GameScreen extends AbstractGameScreen {
         textBullet.setText(String.format("Bullet Max : %d", worldController.level.player.bulletCount));
         textBeam.setText(String.format("Beam Max : %d", worldController.level.player.beamCount));
         textTrap.setText(String.format("Trap Max : %d", worldController.level.player.trapCount));
+        energyLevel.setText(String.format("Energy : %d", (int)worldController.level.energyTube.energy));
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));
             return;
         }
-        if (Gdx.input.isKeyJustPressed(Keys.R))
-            worldController.init(new Level(new Level1()));
 
         if (!worldController.level.player.isAlive()) {
             game.setScreen(new GameOverScreen(game));
