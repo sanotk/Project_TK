@@ -83,8 +83,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         addLoopAnimation(PlayerAnimation.WALK_LEFT, FRAME_DURATION, 27, 3);
         addLoopAnimation(PlayerAnimation.WALK_RIGHT, FRAME_DURATION, 18, 3);
         addLoopAnimation(PlayerAnimation.ITEM_UP, FRAME_DURATION, 6, 3);
-        addLoopAnimation(PlayerAnimation.ITEM_DOWN, FRAME_DURATION, 12, 3);
-        addLoopAnimation(PlayerAnimation.ITEM_LEFT, FRAME_DURATION, 15, 3);
+        addLoopAnimation(PlayerAnimation.ITEM_DOWN, FRAME_DURATION, 15, 3);
+        addLoopAnimation(PlayerAnimation.ITEM_LEFT, FRAME_DURATION, 33, 3);
         addLoopAnimation(PlayerAnimation.ITEM_RIGHT, FRAME_DURATION, 24, 3);
 
         scale.set(SCALE, SCALE);
@@ -142,8 +142,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     @Override
     protected void setAnimation() {
-
-        if (state == PlayerState.ATTACK) {
+        if (state == PlayerState.ATTACK && addItem == false) {
             unFreezeAnimation();
             switch (viewDirection) {
             case DOWN: setCurrentAnimation(PlayerAnimation.ATK_DOWN); break;
@@ -159,6 +158,20 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             }
             if (isAnimationFinished(PlayerAnimation.ATK_UP) || isAnimationFinished(PlayerAnimation.ATK_DOWN)) {
                 state = PlayerState.WALK;
+                resetAnimation();
+            }
+        }else if (addItem == true) {
+            unFreezeAnimation();
+            switch (viewDirection) {
+            case DOWN: setCurrentAnimation(PlayerAnimation.ITEM_DOWN); break;
+            case LEFT: setCurrentAnimation(PlayerAnimation.ITEM_LEFT); break;
+            case RIGHT: setCurrentAnimation(PlayerAnimation.ITEM_RIGHT); break;
+            case UP:  setCurrentAnimation(PlayerAnimation.ITEM_UP); break;
+            default:
+                break;
+            }
+            if (velocity.x == 0 && velocity.y == 0) {
+                freezeAnimation();
                 resetAnimation();
             }
         }
