@@ -150,9 +150,9 @@ public class OptionScreen extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 if(sound==true){
-                	Assets.instance.bullet_sound.dispose();
-                	Assets.instance.beam_sound.dispose();
-                	Assets.instance.trap_sound.dispose();
+                	Assets.instance.bulletSound.dispose();
+                	Assets.instance.beamSound.dispose();
+                	Assets.instance.trapSound.dispose();
                 	sound = false;
                 	stat_sound.clear();
                 	status_sound = null;

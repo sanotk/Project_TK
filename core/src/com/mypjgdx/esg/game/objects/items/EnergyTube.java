@@ -1,4 +1,4 @@
-package com.mypjgdx.esg.game.objects;
+package com.mypjgdx.esg.game.objects.items;
 
 import com.mypjgdx.esg.game.Assets;
 

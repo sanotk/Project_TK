@@ -6,16 +6,13 @@ import java.util.List;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.objects.Beam;
-import com.mypjgdx.esg.game.objects.Bullet;
-import com.mypjgdx.esg.game.objects.Enemy;
-import com.mypjgdx.esg.game.objects.Item;
-import com.mypjgdx.esg.game.objects.Pepo;
-import com.mypjgdx.esg.game.objects.PepoDevil;
-import com.mypjgdx.esg.game.objects.PepoKnight;
-import com.mypjgdx.esg.game.objects.Player;
-import com.mypjgdx.esg.game.objects.SolarCell;
-import com.mypjgdx.esg.game.objects.Trap;
+import com.mypjgdx.esg.game.objects.characters.Enemy;
+import com.mypjgdx.esg.game.objects.characters.Pepo;
+import com.mypjgdx.esg.game.objects.characters.PepoDevil;
+import com.mypjgdx.esg.game.objects.characters.PepoKnight;
+import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.items.SolarCell;
 
 public class Level1 extends LevelGenerator {
 
@@ -26,21 +23,21 @@ public class Level1 extends LevelGenerator {
     @Override
     public List<Item> createItems(TiledMapTileLayer mapLayer, Player player) {
         ArrayList<Item> items = new ArrayList<Item>();
-        items.add(new SolarCell(mapLayer, player, items));
-        items.add(new SolarCell(mapLayer, player, items));
-        items.add(new SolarCell(mapLayer, player, items));
+        items.add(new SolarCell(mapLayer, player));
+        items.add(new SolarCell(mapLayer, player));
+        items.add(new SolarCell(mapLayer, player));
         return items;
     }
 
     @Override
-    public List<Enemy> createEnemies(TiledMapTileLayer mapLayer,Player player, List<Bullet> bullets, List<Trap> traps, List<Beam> beams) {
+    public List<Enemy> createEnemies(TiledMapTileLayer mapLayer,Player player) {
         ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-        enemies.add(new Pepo(mapLayer, player, bullets, traps, beams));
-        enemies.add(new Pepo(mapLayer, player, bullets, traps, beams));
-        enemies.add(new Pepo(mapLayer, player, bullets, traps, beams));
-        enemies.add(new PepoKnight(mapLayer, player, bullets, traps, beams));
-        enemies.add(new PepoKnight(mapLayer, player, bullets, traps, beams));
-        enemies.add(new PepoDevil(mapLayer, player, bullets, traps, beams));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new PepoKnight(mapLayer, player));
+        enemies.add(new PepoKnight(mapLayer, player));
+        enemies.add(new PepoDevil(mapLayer, player));
         return enemies;
     }
 

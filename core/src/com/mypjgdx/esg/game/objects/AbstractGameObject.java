@@ -47,16 +47,24 @@ public abstract class AbstractGameObject {
 
         setPositionX(position.x + velocity.x * deltaTime);
         if (collisionCheck.isCollidesLeft() || collisionCheck.isCollidesRight()) {
-            setPositionX(oldPositionX);
+            responseCollisionX(oldPositionX);
         }
 
         setPositionY(position.y + velocity.y * deltaTime);
         if (collisionCheck.isCollidesTop() || collisionCheck.isCollidesBottom()) {
-            setPositionY(oldPositionY);
+            responseCollisionY(oldPositionY);
         }
     }
 
     public abstract void render (SpriteBatch batch);
+
+    protected void responseCollisionX (float oldPositionX) {
+        setPositionX(oldPositionX);
+    }
+
+    protected void responseCollisionY (float oldPositionY) {
+        setPositionY(oldPositionY);
+    }
 
     protected void render(SpriteBatch batch, TextureRegion region) {
         batch.draw(region,
