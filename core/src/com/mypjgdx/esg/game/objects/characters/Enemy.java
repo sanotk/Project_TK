@@ -76,7 +76,6 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     	knockback= false;
     	stun = false;
 
-
         randomPosition(mapLayer);
     }
 

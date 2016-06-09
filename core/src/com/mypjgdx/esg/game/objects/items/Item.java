@@ -15,6 +15,8 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 
 		public Player player;
 
+		private boolean addPlayer;
+
 		public enum ItemAnimation {
 		    ON,
 		    OFF
@@ -39,7 +41,7 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 		public void init(TiledMapTileLayer mapLayer, Player player) {
 	        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
             this.player = player;
-
+            addPlayer = false;
             state = ItemState.OFF;
             setCurrentAnimation(ItemAnimation.OFF);
 	        randomPosition(mapLayer);
@@ -48,7 +50,14 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 	    @Override
 	    public void update(float deltaTime) {
 	        super.update(deltaTime);
+
+	        if(addPlayer==true) addItemToPlayer();
 	    }
+
+		private void addItemToPlayer() {
+			// TODO Auto-generated method stub
+			setPosition(player.getPositionX(),player.getPositionY());
+		}
 
 		@Override
 		protected void setAnimation() {
@@ -82,6 +91,10 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 	                || collisionCheck.isCollidesLeft());
 	    }
 
+	    public void addPlayer(){
+	    	if(addPlayer == false)addPlayer = true;
+	    	else addPlayer = false;
+	    }
 
 	    public abstract void activate();
 }

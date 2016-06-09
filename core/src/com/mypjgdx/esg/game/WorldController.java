@@ -74,7 +74,7 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.X)) level.player.trapAttack(level.weapons);
             if (Gdx.input.isKeyPressed(Keys.Z)) level.player.rangeAttack(level.weapons);
             if (Gdx.input.isKeyPressed(Keys.C)) level.player.beamAttack(level.weapons);
-            if (Gdx.input.isKeyPressed(Keys.A)) level.player.findItem(level);
+            if (Gdx.input.isKeyJustPressed(Keys.A)) level.player.findItem(level.items);
         }
      }
 

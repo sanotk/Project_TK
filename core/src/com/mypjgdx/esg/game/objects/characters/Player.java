@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.levels.Level;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
 import com.mypjgdx.esg.game.objects.items.Item;
@@ -59,6 +58,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private boolean dead;
     private boolean invulnerable;
     private boolean knockback;
+
     private long lastInvulnerableTime;
     private long invulnerableTime;
     private float movingSpeed;
@@ -106,7 +106,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     @Override
-    public void update(float deltaTime) {
+	public void update(float deltaTime) {
         super.update(deltaTime);
         statusUpdate();
     }
@@ -272,14 +272,14 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         return false;
     }
 
-    public void findItem(Level level) {
-        // TODO Auto-generated method stub
-
+    public void findItem(List<Item> items) {
+        for(Item i: items) {
+        	if (bounds.overlaps(i.bounds)) {
+                i.addPlayer();;
+        	}
+        }
     }
-    public void addItem(Level level) {
-        // TODO Auto-generated method stub
 
-    }
 
     @Override
     public String getName() {
