@@ -53,7 +53,7 @@ public class Level{
         items = levelGenerator.createItems(mapLayer, player);
         enemies = levelGenerator.createEnemies(mapLayer, player, bullets, traps, beams);
 
-        energyTube.init(mapLayer, player);
+        energyTube.init(mapLayer, player, items);
     }
 
     public void render (SpriteBatch batch, OrthogonalTiledMapRenderer tiledRenderer, ShapeRenderer shapeRenderer) {

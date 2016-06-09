@@ -26,9 +26,9 @@ public class Level1 extends LevelGenerator {
     @Override
     public List<Item> createItems(TiledMapTileLayer mapLayer, Player player) {
         ArrayList<Item> items = new ArrayList<Item>();
-        items.add(new SolarCell(mapLayer, player));
-        items.add(new SolarCell(mapLayer, player));
-        items.add(new SolarCell(mapLayer, player));
+        items.add(new SolarCell(mapLayer, player, items));
+        items.add(new SolarCell(mapLayer, player, items));
+        items.add(new SolarCell(mapLayer, player, items));
         return items;
     }
 

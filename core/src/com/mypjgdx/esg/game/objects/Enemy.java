@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.Enemy.EnemyAnimation;
 import com.mypjgdx.esg.utils.Direction;
+import com.mypjgdx.esg.utils.Distance;
 import com.mypjgdx.esg.utils.Pathfinding;
 import com.mypjgdx.esg.utils.Pathfinding.Node;
 
@@ -257,21 +258,15 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> {
         float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
 
         final float MIN_DISTANCE = 200;
-        double distance;
         do{
             setPosition(
                     MathUtils.random(MIN_DISTANCE, mapWidth - bounds.width),
                     MathUtils.random(MIN_DISTANCE, mapHeight - bounds.height));
-
-            float xdiff = getPositionX() - player.getPositionX();
-            float ydiff = getPositionY() - player.getPositionY();
-
-            distance =  Math.sqrt(xdiff*xdiff + ydiff*ydiff);
-        } while ((distance < MIN_DISTANCE
+        } while ((Distance.absoluteXY(this, player) < MIN_DISTANCE)
                 || collisionCheck.isCollidesTop()
                 || collisionCheck.isCollidesBottom()
                 || collisionCheck.isCollidesRight()
-                || collisionCheck.isCollidesLeft()));
+                || collisionCheck.isCollidesLeft());
     }
 
 }

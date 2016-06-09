@@ -128,4 +128,6 @@ public abstract class AbstractGameObject {
         origin.set(dimension.x / 2, dimension.y / 2);
     }
 
+    public abstract String getName();
+
 }
