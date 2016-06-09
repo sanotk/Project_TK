@@ -1,4 +1,4 @@
-package com.mypjgdx.esg.game.objects;
+package com.mypjgdx.esg.game.objects.characters;
 
 import java.util.List;
 
@@ -9,10 +9,16 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.levels.Level;
-import com.mypjgdx.esg.game.objects.Player.PlayerAnimation;
+import com.mypjgdx.esg.game.objects.AnimatedObject;
+import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
+import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.weapons.Beam;
+import com.mypjgdx.esg.game.objects.weapons.Bullet;
+import com.mypjgdx.esg.game.objects.weapons.Trap;
+import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.utils.Direction;
 
-public class Player extends AnimatedObject<PlayerAnimation> {
+public class Player extends AnimatedObject<PlayerAnimation> implements Damageable {
 
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 8.0f;
@@ -119,6 +125,7 @@ public class Player extends AnimatedObject<PlayerAnimation> {
         velocity.setLength(movingSpeed);
     }
 
+    @Override
     public Direction getViewDirection() {
         return viewDirection;
     }
@@ -163,19 +170,20 @@ public class Player extends AnimatedObject<PlayerAnimation> {
         }
     }
 
-    public void trapAttack(List<Trap>traps){
+    public void trapAttack(List<Weapon> weapons){
     	if(state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
     		if(trapCount!=0){
-	    		traps.add(new Trap(mapLayer, this));
-	            Assets.instance.bullet_sound.play();
+    		    weapons.add(new Trap(mapLayer, this));
+	            Assets.instance.bulletSound.play();
 	            trapCount--;
     		}
-            Assets.instance.bullet_sound.play();
+            Assets.instance.bulletSound.play();
     		resetAnimation();
     	}
     }
 
+    /*
     public boolean takeDamage(float knockbackSpeed, float knockbackAngle){
     	if (!invulnerable) {
     	    --health;
@@ -189,6 +197,7 @@ public class Player extends AnimatedObject<PlayerAnimation> {
     	}
     	return false;
     }
+    */
 
     public void statusUpdate() {
         if (invulnerable && TimeUtils.nanoTime() - lastInvulnerableTime > invulnerableTime)
@@ -212,28 +221,28 @@ public class Player extends AnimatedObject<PlayerAnimation> {
         knockback = true;
     }
 
-    public void rangeAttack(List<Bullet>bullets){
+    public void rangeAttack(List<Weapon> weapons){
     	if (state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
     		if(bulletCount!=0){
-	    		bullets.add(new Bullet(mapLayer, this));
-	            Assets.instance.bullet_sound.play();
+    		    weapons.add(new Bullet(mapLayer, this));
+	            Assets.instance.bulletSound.play();
 	            bulletCount--;
     		}
-            Assets.instance.bullet_sound.play();
+            Assets.instance.bulletSound.play();
     		resetAnimation();
     	}
     }
 
-    public void beamAttack(List<Beam>beams){
+    public void beamAttack(List<Weapon> weapons){
     	if (state != PlayerState.ATTACK){
     		state = PlayerState.ATTACK;
     		if(beamCount!=0){
-	    		beams.add(new Beam(mapLayer, this));
-	            Assets.instance.beam_sound.play();
+    		    weapons.add(new Beam(mapLayer, this));
+	            Assets.instance.beamSound.play();
 	            beamCount--;
     		}
-            Assets.instance.beam_sound.play();
+            Assets.instance.beamSound.play();
     		resetAnimation();
     	}
     }
@@ -248,14 +257,29 @@ public class Player extends AnimatedObject<PlayerAnimation> {
     	        bounds.width * ((float) health / INTITAL_HEALTH), 5);
     }
 
-	public void findItem(Level level) {
-		// TODO Auto-generated method stub
+    @Override
+    public boolean takeDamage(float damage, float knockbackSpeed, float knockbackAngle) {
+        if (!invulnerable) {
+            health -= damage;
+            if (health <= 0) {
+                dead = true;
+                return true;
+            }
+            takeInvulnerable(500);
+            takeKnockback(knockbackSpeed, knockbackAngle);
+            return true;
+        }
+        return false;
+    }
 
-	}
-	public void addItem(Level level) {
-		// TODO Auto-generated method stub
+    public void findItem(Level level) {
+        // TODO Auto-generated method stub
 
-	}
+    }
+    public void addItem(Level level) {
+        // TODO Auto-generated method stub
+
+    }
 
     @Override
     public String getName() {

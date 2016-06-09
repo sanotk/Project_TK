@@ -1,17 +1,16 @@
-package com.mypjgdx.esg.game.objects;
-
-import java.util.List;
+package com.mypjgdx.esg.game.objects.items;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
-import com.mypjgdx.esg.game.objects.Item.ItemAnimation;
+import com.mypjgdx.esg.game.objects.AnimatedObject;
+import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.game.objects.items.Item.ItemAnimation;
 import com.mypjgdx.esg.utils.Distance;
 
 public abstract class Item extends AnimatedObject<ItemAnimation>{
 
-	    private static final float INITIAL_FRICTION = 600f;
 		protected static final float FRAME_DURATION = 1.0f / 8.0f;
 
 		public Player player;
@@ -34,18 +33,16 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
             addLoopAnimation(ItemAnimation.OFF, FRAME_DURATION, 0, 3);
             addLoopAnimation(ItemAnimation.ON, FRAME_DURATION, 3, 3);
 
-            friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
-
             scale.set(scaleX, scaleY);
         }
 
-		public void init(TiledMapTileLayer mapLayer, Player player, List<Item> items) {
+		public void init(TiledMapTileLayer mapLayer, Player player) {
 	        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
             this.player = player;
 
             state = ItemState.OFF;
             setCurrentAnimation(ItemAnimation.OFF);
-	        randomPosition(mapLayer, items);
+	        randomPosition(mapLayer);
 		}
 
 	    @Override
@@ -64,13 +61,12 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 	        }
 		}
 
-	    private void randomPosition(TiledMapTileLayer mapLayer, List<Item> items) {
+	    private void randomPosition(TiledMapTileLayer mapLayer) {
             updateBounds();
 
 	        float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
 	        float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
 
-	        boolean nearOtherItems = false;
 	        final float MIN_DISTANCE = 100;
 	        do{
 	            setPosition(
@@ -80,8 +76,7 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
                 if (Distance.absoluteXY(this, player) < MIN_DISTANCE)
                     continue;
 
-	        } while (nearOtherItems
-	                || collisionCheck.isCollidesTop()
+	        } while ( collisionCheck.isCollidesTop()
 	                || collisionCheck.isCollidesBottom()
 	                || collisionCheck.isCollidesRight()
 	                || collisionCheck.isCollidesLeft());
