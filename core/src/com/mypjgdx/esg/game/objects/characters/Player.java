@@ -42,6 +42,10 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         WALK_RIGHT,
         WALK_DOWN,
         WALK_UP,
+        ITEM_LEFT,
+        ITEM_RIGHT,
+        ITEM_DOWN,
+        ITEM_UP
     }
 
     public enum PlayerState {
@@ -49,6 +53,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public Item item;
+    private boolean addItem;
 
     private PlayerState state;
     private int health;
@@ -77,6 +82,10 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         addLoopAnimation(PlayerAnimation.WALK_DOWN, FRAME_DURATION, 9, 3);
         addLoopAnimation(PlayerAnimation.WALK_LEFT, FRAME_DURATION, 27, 3);
         addLoopAnimation(PlayerAnimation.WALK_RIGHT, FRAME_DURATION, 18, 3);
+        addLoopAnimation(PlayerAnimation.ITEM_UP, FRAME_DURATION, 6, 3);
+        addLoopAnimation(PlayerAnimation.ITEM_DOWN, FRAME_DURATION, 12, 3);
+        addLoopAnimation(PlayerAnimation.ITEM_LEFT, FRAME_DURATION, 15, 3);
+        addLoopAnimation(PlayerAnimation.ITEM_RIGHT, FRAME_DURATION, 24, 3);
 
         scale.set(SCALE, SCALE);
         movingSpeed = INITIAL_MOVING_SPEED;
@@ -89,6 +98,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         this.mapLayer = mapLayer;
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
 
+        addItem = false;
         state = PlayerState.WALK;
         setCurrentAnimation(PlayerAnimation.WALK_LEFT);
         viewDirection = Direction.LEFT;
@@ -275,7 +285,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public void findItem(List<Item> items) {
         for(Item i: items) {
         	if (bounds.overlaps(i.bounds)) {
-                i.addPlayer();;
+                i.addPlayer();
+                if(addItem == false)addItem = true;
+                else addItem = false;
         	}
         }
     }
