@@ -194,7 +194,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void trapAttack(List<Weapon> weapons){
-    	if(state != PlayerState.ATTACK){
+    	if(state != PlayerState.ATTACK && addItem == false){
     		state = PlayerState.ATTACK;
     		if(trapCount!=0){
     		    weapons.add(new Trap(mapLayer, this));
@@ -245,7 +245,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void rangeAttack(List<Weapon> weapons){
-    	if (state != PlayerState.ATTACK){
+    	if (state != PlayerState.ATTACK && addItem == false){
     		state = PlayerState.ATTACK;
     		if(bulletCount!=0){
     		    weapons.add(new Bullet(mapLayer, this));
@@ -258,7 +258,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void beamAttack(List<Weapon> weapons){
-    	if (state != PlayerState.ATTACK){
+    	if (state != PlayerState.ATTACK && addItem == false){
     		state = PlayerState.ATTACK;
     		if(beamCount!=0){
     		    weapons.add(new Beam(mapLayer, this));
