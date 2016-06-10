@@ -301,6 +301,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 i.addPlayer();
                 if(addItem == false)addItem = true;
                 else addItem = false;
+                return;
         	}
         }
     }
