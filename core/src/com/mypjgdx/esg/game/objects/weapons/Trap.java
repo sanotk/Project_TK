@@ -15,7 +15,7 @@ public class Trap extends Weapon{
 
 	    public Trap(TiledMapTileLayer mapLayer ,Player player) {
 	        super(Assets.instance.trap, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
-            init(mapLayer ,player);
+            init(mapLayer ,player, enemy);
 	    }
 
         @Override

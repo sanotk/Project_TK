@@ -15,7 +15,7 @@ public class Bullet extends Weapon{
 
 	    public Bullet(TiledMapTileLayer mapLayer ,Player player) {
 	        super(Assets.instance.bullet, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
-	        init(mapLayer ,player);
+	        init(mapLayer ,player ,enemy);
 	    }
 
 	    @Override

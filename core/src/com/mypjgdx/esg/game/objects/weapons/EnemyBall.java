@@ -3,28 +3,29 @@ package com.mypjgdx.esg.game.objects.weapons;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
+import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 
 
-public class Beam extends Weapon {
+public class EnemyBall extends Weapon {
 
 	    private static final float SCALE = 1f;
 
 	    private static final float INTITAL_FRICTION = 50f;
 	    private static final float INTITIAL_SPEED = 400f;
 
-	    public Beam(TiledMapTileLayer mapLayer ,Player player) {
-	        super(Assets.instance.beam, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
+	    public EnemyBall(TiledMapTileLayer mapLayer ,Player player ,Enemy enemy) {
+	        super(Assets.instance.enemyBall, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
 	        init(mapLayer ,player, enemy);
 	    }
 
 	    @Override
 	    protected void spawn() {
 	        setPosition(
-	                player.getPositionX() + player.origin.x - origin.x,
-	        		player.getPositionY() + player.origin.y - 4);
+	                enemy.getPositionX() + enemy.origin.x - 4,
+	                enemy.getPositionY() + enemy.origin.y - 4);
 
-	        direction = player.getViewDirection();
+	        direction = enemy.getViewDirection();
 
 	    	switch(direction){
 			case DOWN:
@@ -46,21 +47,19 @@ public class Beam extends Weapon {
 	    	}
 	    }
 
-	    @Override
-        public void attack(Damageable damageable) {
-	        float knockbackSpeed = 100f;
-            switch(direction) {
-            case DOWN:  damageable.takeDamage(1, knockbackSpeed, 270); break;
-            case LEFT:  damageable.takeDamage(1, knockbackSpeed, 180); break;
-            case RIGHT:  damageable.takeDamage(1, knockbackSpeed, 0); break;
-            case UP:  damageable.takeDamage(1, knockbackSpeed, 90); break;
-            default: break;
-            }
-        }
+	    public void attackPlayer(){
+	    	attack(player);
+	    }
 
         @Override
         public String getName() {
             // TODO Auto-generated method stub
             return null;
         }
+
+		@Override
+		public void attack(Damageable damageable) {
+			// TODO Auto-generated method stub
+
+		}
 }

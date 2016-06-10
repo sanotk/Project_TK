@@ -9,8 +9,10 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
+import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Enemy.EnemyAnimation;
+import com.mypjgdx.esg.game.objects.weapons.EnemyBall;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.utils.Direction;
 import com.mypjgdx.esg.utils.Distance;
@@ -26,6 +28,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     private static final float INITIAL_FINDING_RANGE = 400f;
 
     protected Player player;
+    public int ballCount;
 
     public enum EnemyAnimation {
         WALK_LEFT,
@@ -34,11 +37,21 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         WALK_UP,
     }
 
+    public enum EnemyType {
+        PEPO,
+        PEPO_KNIGHT,
+        PEPO_DEVIL
+    }
+
+    public EnemyType type;
     private Direction viewDirection;
 
     private boolean dead;
     private boolean knockback;
     private boolean stun;
+	private boolean attacktime;
+
+	abstract void TellMeByType();
 
     private long stunTime;
     private long lastStunTime;
@@ -51,7 +64,6 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
 
     public Enemy(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer) {
         super(atlas);
-
 
         addLoopAnimation(EnemyAnimation.WALK_UP, FRAME_DURATION, 0, 3);
         addLoopAnimation(EnemyAnimation.WALK_DOWN, FRAME_DURATION, 3, 3);
@@ -75,8 +87,19 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         dead = false;
     	knockback= false;
     	stun = false;
+    	attacktime = false;
 
         randomPosition(mapLayer);
+    }
+
+    public void rangeAttack(List<Weapon> weapons ,TiledMapTileLayer mapLayer){
+    	if(ballCount!=0){
+    		weapons.add(new EnemyBall(mapLayer, player, this));
+	        Assets.instance.enemyBallSound.play();
+	        ballCount--;
+    	}
+        Assets.instance.enemyBallSound.play();
+        resetAnimation();
     }
 
     @Override
@@ -95,6 +118,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
             resetAnimation();
         }
     }
+
 
     public void update(float deltaTime, List<Weapon> weapons) {
         super.update(deltaTime);

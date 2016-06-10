@@ -21,6 +21,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion bullet;
     public TextureRegion beam;
     public TextureRegion trap;
+    public TextureRegion enemyBall;
     public TextureAtlas playerAltas;
     public TextureAtlas solarCellAltas;
 
@@ -37,6 +38,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public Sound bulletSound;
     public Sound beamSound;
     public Sound trapSound;
+    public Sound enemyBallSound;
 
     private Assets() {}
 
@@ -52,6 +54,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("player_pack.atlas", TextureAtlas.class);
         manager.load("bg.png", Texture.class);
         manager.load("bullet.png", Texture.class);
+        manager.load("enemy_ball.png", Texture.class);
         manager.load("solarcell_pack.atlas", TextureAtlas.class);
         manager.load("trap.png", Texture.class);
         manager.load("beam.png", Texture.class);
@@ -62,6 +65,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("bullet.wav", Sound.class);
         manager.load("beam.wav", Sound.class);
         manager.load("trap.wav", Sound.class);
+        manager.load("enemy_ball.wav", Sound.class);
 
         manager.finishLoading();
 
@@ -73,6 +77,7 @@ public class Assets implements Disposable, AssetErrorListener {
         playerAltas = manager.get("player_pack.atlas");
         bg = new TextureRegion((Texture)manager.get("bg.png"));
         bullet = new TextureRegion((Texture)manager.get("bullet.png"));
+        enemyBall = new TextureRegion((Texture)manager.get("enemy_ball.png"));
         solarCellAltas = manager.get("solarcell_pack.atlas");
         trap = new TextureRegion((Texture)manager.get("trap.png"));
         beam = new TextureRegion((Texture)manager.get("beam.png"));
@@ -81,6 +86,7 @@ public class Assets implements Disposable, AssetErrorListener {
         pepoDevilAltas = manager.get("enemy3_pack.atlas");
         music = manager.get("music.mp3");
         bulletSound = manager.get("bullet.wav");
+        enemyBallSound = manager.get("enemy_ball.wav");
         beamSound = manager.get("beam.wav");
         trapSound = manager.get("trap.wav");
     }

@@ -25,6 +25,11 @@ public class Pepo extends Enemy {
         return null;
     }
 
+	@Override
+	public void TellMeByType() {
+		type = EnemyType.PEPO;
+	}
+
 
 
 }

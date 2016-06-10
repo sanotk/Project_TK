@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
+import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.utils.Direction;
 
@@ -16,6 +17,7 @@ public abstract class Weapon extends AbstractGameObject {
     private boolean destroyed;
 
     protected Player player;
+    protected Enemy enemy;
     protected float damage;
     public Direction direction;
 
@@ -32,9 +34,10 @@ public abstract class Weapon extends AbstractGameObject {
         friction.set(frictionX, frictionY);
     }
 
-    public void init(TiledMapTileLayer mapLayer ,Player player) {
+    public void init(TiledMapTileLayer mapLayer ,Player player ,Enemy enemy) {
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
         this.player = player;
+        this.enemy = enemy;
         spawn();
     }
 

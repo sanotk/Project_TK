@@ -24,4 +24,9 @@ public class PepoKnight extends Enemy {
         // TODO Auto-generated method stub
         return null;
     }
+
+	@Override
+	public void TellMeByType() {
+		type = EnemyType.PEPO_KNIGHT;
+	}
 }
