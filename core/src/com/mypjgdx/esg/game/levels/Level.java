@@ -77,7 +77,7 @@ public class Level{
             Enemy e = enemyIterator.next();
         	if (!e.isAlive()) enemyIterator.remove();
         }
-        player.update(deltaTime);
+        player.update(deltaTime ,weapons);
         for(Item i: items) i.update(deltaTime);
         for(Enemy e: enemies) e.update(deltaTime, weapons);
         for(Weapon w: weapons) w.update(deltaTime);

@@ -47,10 +47,6 @@ public class EnemyBall extends Weapon {
 	    	}
 	    }
 
-	    public void attackPlayer(){
-	    	attack(player);
-	    }
-
         @Override
         public String getName() {
             // TODO Auto-generated method stub
@@ -60,7 +56,7 @@ public class EnemyBall extends Weapon {
 		@Override
 		public void attack(Damageable damageable) {
 			// TODO Auto-generated method stub
-
+			//attack(player);
 		}
 
 		@Override

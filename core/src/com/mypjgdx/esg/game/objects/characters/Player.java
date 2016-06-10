@@ -15,6 +15,7 @@ import com.mypjgdx.esg.game.objects.weapons.Beam;
 import com.mypjgdx.esg.game.objects.weapons.Bullet;
 import com.mypjgdx.esg.game.objects.weapons.Trap;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
+import com.mypjgdx.esg.game.objects.weapons.Weapon.WeaponType;
 import com.mypjgdx.esg.utils.Direction;
 
 public class Player extends AnimatedObject<PlayerAnimation> implements Damageable {
@@ -113,14 +114,18 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         setPosition(positionX, positionY);
     }
 
-    @Override
-	public void update(float deltaTime) {
+    public void update(float deltaTime, List<Weapon> weapons) {
         super.update(deltaTime);
         statusUpdate();
         if (item != null)
             item.setPosition(
                     getPositionX() + origin.x - item.origin.x,
                     getPositionY() + origin.y - item.origin.y);
+        for(Weapon w: weapons) {
+        	if (bounds.overlaps(w.bounds) && !w.isDestroyed() && w.type == WeaponType.ENEMYBALL) {
+                w.attack(this);
+        	}
+        }
     }
 
     public void move(Direction direction) {
