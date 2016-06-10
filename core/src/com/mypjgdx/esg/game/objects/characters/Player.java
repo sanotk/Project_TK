@@ -53,6 +53,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     private Item item;
+    private boolean addItem;
 
     private PlayerState state;
     private int health;
@@ -294,7 +295,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         	}
         }
     }
-
 
     @Override
     public String getName() {
