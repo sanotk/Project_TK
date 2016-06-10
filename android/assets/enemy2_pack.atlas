@@ -5,85 +5,85 @@ filter: Linear,MipMapLinearNearest
 repeat: none
 e2_back
   rotate: false
-  xy: 1, 103
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: 1
-e2_back
-  rotate: false
   xy: 1, 1
-  size: 100, 100
-  orig: 100, 100
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 1
+e2_back
+  rotate: false
+  xy: 43, 1
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: 2
 e2_back
   rotate: false
-  xy: 103, 103
-  size: 100, 100
-  orig: 100, 100
+  xy: 85, 1
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: 3
 e2_front
   rotate: false
-  xy: 103, 1
-  size: 100, 100
-  orig: 100, 100
+  xy: 127, 1
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: 1
 e2_front
   rotate: false
-  xy: 205, 103
-  size: 100, 100
-  orig: 100, 100
+  xy: 169, 1
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: 2
 e2_front
   rotate: false
-  xy: 205, 1
-  size: 100, 100
-  orig: 100, 100
+  xy: 211, 1
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: 3
 e2_left
   rotate: false
-  xy: 307, 103
-  size: 100, 100
-  orig: 100, 100
+  xy: 253, 1
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: 1
 e2_left
   rotate: false
-  xy: 307, 1
-  size: 100, 100
-  orig: 100, 100
+  xy: 295, 1
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: 2
 e2_left
   rotate: false
-  xy: 409, 103
-  size: 100, 100
-  orig: 100, 100
+  xy: 337, 1
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: 3
 e2_right
   rotate: false
-  xy: 409, 1
-  size: 100, 100
-  orig: 100, 100
+  xy: 379, 1
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: 1
 e2_right
   rotate: false
-  xy: 511, 103
-  size: 100, 100
-  orig: 100, 100
+  xy: 421, 1
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: 2
 e2_right
   rotate: false
-  xy: 511, 1
-  size: 100, 100
-  orig: 100, 100
+  xy: 463, 1
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: 3

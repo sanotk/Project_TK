@@ -85,7 +85,7 @@
  </tileset>
  <layer name="Ground" width="30" height="30">
   <data encoding="base64" compression="zlib">
-   eJztl8sOgyAQRbGtXZi4aH8CH9VlG/3/D/NOwsIQkKnKKE0XZwEhnHmgyVRKqV6YCmSgiMgbfKw9cl5AGZEHeFp75NSgBtdIDGCcrRvjpJxvoN2IXV/fudw4z+LVHlrrzNr4JL2a4eXe8417L68r56U6xfRuzZfT3yO9nG9G0ht6/3v/N/7e9f113cd55yl5U+2vL5YUvL6ehnp8RL6hWCTrfDbvC9yF6IyTZoZfnFNcSMwpLsg5AWNVcBY=
+   eJzt17sKgDAMheF6HQQHfYnW66jo+z+YJ9BBxIIFUyV0+Aa7/ESyxCil5sAMJFAxWmC9vFEzhZpRA+3ljZoaOsiYbLCfvnvbpJlzGAIpbPNvXe0gdV5fT/+PlG7iwL1Xb3W/mjd2ZXdd++yLe96nYvcf3bhXcrojlIFMtkk3g8Q75U6IO+UONQ85amus
   </data>
  </layer>
 </map>
