@@ -58,17 +58,6 @@ public class Trap extends Weapon{
             }
         }
 
-        public void attackStupid(Damageable damageable) {
-            float knockbackSpeed = 800f;
-            switch(player.getViewDirection()) {
-            case DOWN: player.takeDamage(1, knockbackSpeed, 90); break;
-            case LEFT: player.takeDamage(1, knockbackSpeed, 0); break;
-            case RIGHT: player.takeDamage(1, knockbackSpeed, 180); break;
-            case UP:  player.takeDamage(1, knockbackSpeed, 270); break;
-            default: break;
-            }
-        }
-
         @Override
         public String getName() {
             // TODO Auto-generated method stub

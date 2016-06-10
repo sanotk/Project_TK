@@ -52,7 +52,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     	WALK, ATTACK
     }
 
-    public Item item;
+    private Item item;
     private boolean addItem;
 
     private PlayerState state;
@@ -119,6 +119,10 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 	public void update(float deltaTime) {
         super.update(deltaTime);
         statusUpdate();
+        if (item != null)
+            item.setPosition(
+                    getPositionX() + origin.x - item.origin.x,
+                    getPositionY() + origin.y - item.origin.y);
     }
 
     public void move(Direction direction) {
@@ -206,22 +210,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     	}
     }
 
-    /*
-    public boolean takeDamage(float knockbackSpeed, float knockbackAngle){
-    	if (!invulnerable) {
-    	    --health;
-            if (health <= 0) {
-                dead = true;
-                return true;
-            }
-            takeInvulnerable(500);
-            takeKnockback(knockbackSpeed, knockbackAngle);
-            return true;
-    	}
-    	return false;
-    }
-    */
-
     public void statusUpdate() {
         if (invulnerable && TimeUtils.nanoTime() - lastInvulnerableTime > invulnerableTime)
             invulnerable = false;
@@ -296,11 +284,13 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void findItem(List<Item> items) {
+        if (item != null) {
+            item = null;
+            return;
+        }
         for(Item i: items) {
         	if (bounds.overlaps(i.bounds)) {
-                i.addPlayer();
-                if(addItem == false)addItem = true;
-                else addItem = false;
+                item = i;
                 return;
         	}
         }

@@ -13,10 +13,6 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 
 		protected static final float FRAME_DURATION = 1.0f / 8.0f;
 
-		public Player player;
-
-		private boolean addPlayer;
-
 		public enum ItemAnimation {
 		    ON,
 		    OFF
@@ -40,24 +36,15 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 
 		public void init(TiledMapTileLayer mapLayer, Player player) {
 	        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
-            this.player = player;
-            addPlayer = false;
             state = ItemState.OFF;
             setCurrentAnimation(ItemAnimation.OFF);
-	        randomPosition(mapLayer);
+	        randomPosition(mapLayer, player);
 		}
 
 	    @Override
 	    public void update(float deltaTime) {
 	        super.update(deltaTime);
-
-	        if(addPlayer==true) addItemToPlayer();
 	    }
-
-		private void addItemToPlayer() {
-			// TODO Auto-generated method stub
-			setPosition(player.getPositionX(),player.getPositionY());
-		}
 
 		@Override
 		protected void setAnimation() {
@@ -70,7 +57,7 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 	        }
 		}
 
-	    private void randomPosition(TiledMapTileLayer mapLayer) {
+	    private void randomPosition(TiledMapTileLayer mapLayer, Player player) {
             updateBounds();
 
 	        float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
@@ -89,11 +76,6 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 	                || collisionCheck.isCollidesBottom()
 	                || collisionCheck.isCollidesRight()
 	                || collisionCheck.isCollidesLeft());
-	    }
-
-	    public void addPlayer(){
-	    	if(addPlayer == false)addPlayer = true;
-	    	else addPlayer = false;
 	    }
 
 	    public abstract void activate();
