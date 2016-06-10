@@ -9,7 +9,7 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 
 public class EnemyBall extends Weapon {
 
-	    private static final float SCALE = 1f;
+	    private static final float SCALE = 0.5f;
 
 	    private static final float INTITAL_FRICTION = 50f;
 	    private static final float INTITIAL_SPEED = 400f;
