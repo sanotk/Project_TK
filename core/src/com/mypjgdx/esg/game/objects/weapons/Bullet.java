@@ -75,4 +75,10 @@ public class Bullet extends Weapon{
             return null;
         }
 
+		@Override
+		public void TellMeByType() {
+			// TODO Auto-generated method stub
+			type = WeaponType.BULLET;
+		}
+
 }

@@ -90,7 +90,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     	knockback= false;
     	stun = false;
     	attacktime = false;
-
+    	TellMeByType();
         randomPosition(mapLayer);
     }
 
@@ -125,9 +125,9 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         if (bounds.overlaps(player.bounds)) {
             attackPlayer();
         }
-
+        if(type == EnemyType.PEPO_DEVIL){
         	rangeAttack(weapons);
-
+        }
         for(Weapon w: weapons) {
         	if (bounds.overlaps(w.bounds) && !w.isDestroyed()) {
                 w.attack(this);

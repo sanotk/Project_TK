@@ -62,4 +62,9 @@ public class EnemyBall extends Weapon {
 			// TODO Auto-generated method stub
 
 		}
+
+		@Override
+		public void TellMeByType() {
+			type = WeaponType.ENEMYBALL;
+		}
 }

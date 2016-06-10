@@ -12,15 +12,23 @@ import com.mypjgdx.esg.utils.Direction;
 
 public abstract class Weapon extends AbstractGameObject {
 
+    public enum WeaponType {
+        BULLET,
+        TRAP,
+        BEAM,
+        ENEMYBALL
+    }
 
     private TextureRegion weaponTexture;
     private boolean destroyed;
 
+    public WeaponType type;
     protected Player player;
     protected Enemy enemy;
     protected float damage;
     public Direction direction;
 
+    public abstract void TellMeByType();
 
     public Weapon(TextureRegion weaponTexture,  float scaleX, float scaleY, float frictionX, float frictionY) {
         this.weaponTexture = weaponTexture;
@@ -38,6 +46,7 @@ public abstract class Weapon extends AbstractGameObject {
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
         this.player = player;
         this.enemy = enemy;
+        TellMeByType();
         spawn();
     }
 
