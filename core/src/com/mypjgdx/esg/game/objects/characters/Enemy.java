@@ -126,9 +126,8 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
             attackPlayer();
         }
 
-        if (bounds.x == player.bounds.x || bounds.y == player.bounds.y && type == EnemyType.PEPO_DEVIL){
         	rangeAttack(weapons);
-        }
+
         for(Weapon w: weapons) {
         	if (bounds.overlaps(w.bounds) && !w.isDestroyed()) {
                 w.attack(this);
