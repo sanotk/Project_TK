@@ -53,7 +53,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     private Item item;
-    private boolean addItem;
 
     private PlayerState state;
     private int health;
@@ -98,7 +97,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         this.mapLayer = mapLayer;
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
 
-        addItem = false;
         state = PlayerState.WALK;
         setCurrentAnimation(PlayerAnimation.WALK_LEFT);
         viewDirection = Direction.LEFT;
@@ -146,7 +144,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     @Override
     protected void setAnimation() {
-        if (state == PlayerState.ATTACK && addItem == false) {
+        if (state == PlayerState.ATTACK && item == null) {
             unFreezeAnimation();
             switch (viewDirection) {
             case DOWN: setCurrentAnimation(PlayerAnimation.ATK_DOWN); break;
@@ -164,7 +162,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 state = PlayerState.WALK;
                 resetAnimation();
             }
-        }else if (addItem == true) {
+        }else if (item != null) {
             unFreezeAnimation();
             switch (viewDirection) {
             case DOWN: setCurrentAnimation(PlayerAnimation.ITEM_DOWN); break;
@@ -198,7 +196,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void trapAttack(List<Weapon> weapons){
-    	if(state != PlayerState.ATTACK && addItem == false){
+    	if(state != PlayerState.ATTACK && item == null){
     		state = PlayerState.ATTACK;
     		if(trapCount!=0){
     		    weapons.add(new Trap(mapLayer, this));
@@ -233,7 +231,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void rangeAttack(List<Weapon> weapons){
-    	if (state != PlayerState.ATTACK && addItem == false){
+    	if (state != PlayerState.ATTACK && item == null){
     		state = PlayerState.ATTACK;
     		if(bulletCount!=0){
     		    weapons.add(new Bullet(mapLayer, this));
@@ -246,7 +244,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void beamAttack(List<Weapon> weapons){
-    	if (state != PlayerState.ATTACK && addItem == false){
+    	if (state != PlayerState.ATTACK && item == null){
     		state = PlayerState.ATTACK;
     		if(beamCount!=0){
     		    weapons.add(new Beam(mapLayer, this));
@@ -295,6 +293,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         	}
         }
     }
+
 
     @Override
     public String getName() {

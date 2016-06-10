@@ -17,6 +17,11 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="9">
+   <properties>
+    <property name="solarcell" value=""/>
+   </properties>
+  </tile>
   <tile id="15">
    <properties>
     <property name="goal" value=""/>
@@ -80,7 +85,7 @@
  </tileset>
  <layer name="Ground" width="30" height="30">
   <data encoding="base64" compression="zlib">
-   eJztl0EOgjAQRYuoCxMXeokioEsI3P9g/km6ME2nlOAMFF28BU3D6/RPCFMZY17KVKAAF0E60Htr5DyAqyA3cPfWyGnBA5RCDGD8eK6dk2o+gkaJk3NuxWsZGm9PDl6b4E19zxz3t7yhmmP3JOldWm9Kvr/q5Xo91v9S342/d36+XJ4puefizTVf7iw5eLlMpzJeo96ps2ztP0fT24KzEk/npJlhj3NKCI05JQQ53xOzcdQ=
+   eJztl8sOgyAQRbGtXZi4aH8CH9VlG/3/D/NOwsIQkKnKKE0XZwEhnHmgyVRKqV6YCmSgiMgbfKw9cl5AGZEHeFp75NSgBtdIDGCcrRvjpJxvoN2IXV/fudw4z+LVHlrrzNr4JL2a4eXe8417L68r56U6xfRuzZfT3yO9nG9G0ht6/3v/N/7e9f113cd55yl5U+2vL5YUvL6ehnp8RL6hWCTrfDbvC9yF6IyTZoZfnFNcSMwpLsg5AWNVcBY=
   </data>
  </layer>
 </map>
