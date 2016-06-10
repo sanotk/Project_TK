@@ -50,7 +50,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     private boolean knockback;
     private boolean stun;
 	private boolean attacktime;
-
+	private TiledMapTileLayer mapLayer;
 	abstract void TellMeByType();
 
     private long stunTime;
@@ -80,6 +80,8 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
         pathFinding = new Pathfinding(mapLayer);
 
+        this.mapLayer = mapLayer;
+
         setCurrentAnimation(EnemyAnimation.WALK_DOWN);
         viewDirection = Direction.DOWN;
 
@@ -92,13 +94,9 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         randomPosition(mapLayer);
     }
 
-    public void rangeAttack(List<Weapon> weapons ,TiledMapTileLayer mapLayer){
-    	if(ballCount!=0){
-    		weapons.add(new EnemyBall(mapLayer, player, this));
-	        Assets.instance.enemyBallSound.play();
-	        ballCount--;
-    	}
-        Assets.instance.enemyBallSound.play();
+    public void rangeAttack(List<Weapon> weapons){
+    	weapons.add(new EnemyBall(mapLayer, player, this));
+	    Assets.instance.enemyBallSound.play();
         resetAnimation();
     }
 
@@ -126,6 +124,10 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
 
         if (bounds.overlaps(player.bounds)) {
             attackPlayer();
+        }
+
+        if (bounds.x == player.bounds.x || bounds.y == player.bounds.y && type == EnemyType.PEPO_DEVIL){
+        	rangeAttack(weapons);
         }
         for(Weapon w: weapons) {
         	if (bounds.overlaps(w.bounds) && !w.isDestroyed()) {
