@@ -1,91 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="30" height="30" tilewidth="25" tileheight="25" backgroundcolor="#c86d05" nextobjectid="1">
- <tileset firstgid="1" name="map" tilewidth="25" tileheight="25" spacing="2" tilecount="76">
-  <image source="map.png" width="1024" height="64"/>
-  <tile id="0">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="50" tileheight="50" nextobjectid="1">
+ <tileset firstgid="1" name="green" tilewidth="50" tileheight="50" spacing="2" tilecount="76">
+  <image source="green_pack.png" width="1024" height="128"/>
+  <tile id="34">
    <properties>
     <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="6">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="9">
-   <properties>
-    <property name="solarcell" value=""/>
-   </properties>
-  </tile>
-  <tile id="15">
-   <properties>
-    <property name="goal" value=""/>
-   </properties>
-  </tile>
-  <tile id="16">
-   <properties>
-    <property name="goal" value=""/>
-   </properties>
-  </tile>
-  <tile id="17">
-   <properties>
-    <property name="goal" value=""/>
-   </properties>
-  </tile>
-  <tile id="18">
-   <properties>
-    <property name="goal" value=""/>
-   </properties>
-  </tile>
-  <tile id="38">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="39">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="45">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="53">
-   <properties>
-    <property name="goal" value=""/>
-   </properties>
-  </tile>
-  <tile id="54">
-   <properties>
-    <property name="goal" value=""/>
-   </properties>
-  </tile>
-  <tile id="55">
-   <properties>
-    <property name="goal" value=""/>
-   </properties>
-  </tile>
-  <tile id="56">
-   <properties>
-    <property name="goal" value=""/>
-   </properties>
-  </tile>
-  <tile id="57">
-   <properties>
-    <property name="goal" value=""/>
    </properties>
   </tile>
  </tileset>
- <layer name="Ground" width="30" height="30">
+ <tileset firstgid="77" name="ground_full" tilewidth="50" tileheight="50" spacing="2" tilecount="38">
+  <image source="ground_full.png" width="1024" height="128"/>
+ </tileset>
+ <tileset firstgid="115" name="tree" tilewidth="50" tileheight="50" spacing="2" tilecount="38">
+  <image source="tree_pack.png" width="1024" height="128"/>
+ </tileset>
+ <tileset firstgid="153" name="treedie1" tilewidth="50" tileheight="50" spacing="2" tilecount="19">
+  <image source="treedie1_pack.png" width="1024" height="64"/>
+ </tileset>
+ <tileset firstgid="172" name="treedie2" tilewidth="50" tileheight="50" spacing="2" tilecount="19">
+  <image source="treedie2_pack.png" width="1024" height="64"/>
+ </tileset>
+ <layer name="ground" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt17sKgDAMheF6HQQHfYnW66jo+z+YJ9BBxIIFUyV0+Aa7/ESyxCil5sAMJFAxWmC9vFEzhZpRA+3ljZoaOsiYbLCfvnvbpJlzGAIpbPNvXe0gdV5fT/+PlG7iwL1Xb3W/mjd2ZXdd++yLe96nYvcf3bhXcrojlIFMtkk3g8Q75U6IO+UONQ85amus
+   eJzzZWBg8B3FIwonQzE2MXRxbDiByu4Z7OZRG4+6D2EHqXYNVNglIGFs4tT252DAhPwGwgD2LHoC
+  </data>
+ </layer>
+ <layer name="ground2" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYIAAWSBWQsKcQOxLIlZgQAApKpinjGQeuvt4kORIMRMGQG5lRcL8OMwjZAcMgNwqAMQqQKwKxEIk6GXAIYYLkONfUs0dBaOAEkDtdDRU0iUzlc1jo0CvCBCLATETlAa5jQevDvxAHIglkDDIbQDQ8xiB
+  </data>
+ </layer>
+ <layer name="tree" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzF0skKwkAQhOF5Z1dcru7rVVyiQUURtyf09yAOgW5n2ogF3yVNigTKuXdaKKDt4jITnndQQjeia46FcCujh0rmedGTzRIroa+PKgYR35dgrdyHqGEU2LdBKtye/1PHGI3Avi122Av3CZqYBva9csAx8p1/RdqjJdoeLdH2aEni9D3GRtujJZ/2aM0v93jKueOcQ5/fccH1yz6/44a7secBJ0olIQ==
   </data>
  </layer>
 </map>
