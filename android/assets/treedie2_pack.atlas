@@ -23,179 +23,39 @@ treedie_2
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
-  index: 3
-treedie_2
-  rotate: false
-  xy: 53, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
   index: 4
-treedie_2
-  rotate: false
-  xy: 53, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 6
-treedie_2
-  rotate: false
-  xy: 53, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 7
-treedie_2
-  rotate: false
-  xy: 53, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 8
-treedie_2
-  rotate: false
-  xy: 53, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 11
-treedie_2
-  rotate: false
-  xy: 53, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 12
-treedie_2
-  rotate: false
-  xy: 53, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 15
-treedie_2
-  rotate: false
-  xy: 53, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 16
-treedie_2
-  rotate: false
-  xy: 53, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 20
-treedie_2
-  rotate: false
-  xy: 53, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 21
-treedie_2
-  rotate: false
-  xy: 53, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 25
-treedie_2
-  rotate: false
-  xy: 53, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 26
 treedie_2
   rotate: false
   xy: 105, 1
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
-  index: 5
+  index: 3
 treedie_2
   rotate: false
   xy: 157, 1
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
-  index: 9
+  index: 5
 treedie_2
   rotate: false
   xy: 209, 1
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
-  index: 10
+  index: 6
 treedie_2
   rotate: false
   xy: 261, 1
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
-  index: 13
+  index: 7
 treedie_2
   rotate: false
   xy: 313, 1
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
-  index: 14
-treedie_2
-  rotate: false
-  xy: 365, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 17
-treedie_2
-  rotate: false
-  xy: 417, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 18
-treedie_2
-  rotate: false
-  xy: 469, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 19
-treedie_2
-  rotate: false
-  xy: 521, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 22
-treedie_2
-  rotate: false
-  xy: 573, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 23
-treedie_2
-  rotate: false
-  xy: 625, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 24
-treedie_2
-  rotate: false
-  xy: 677, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 27
-treedie_2
-  rotate: false
-  xy: 729, 1
-  size: 50, 50
-  orig: 50, 50
-  offset: 0, 0
-  index: 28
+  index: 8

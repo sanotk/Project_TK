@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="50" tileheight="50" nextobjectid="1">
- <tileset firstgid="1" name="green" tilewidth="50" tileheight="50" spacing="2" tilecount="76">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="50" tileheight="50" nextobjectid="1">
+ <tileset firstgid="1" name="green" tilewidth="50" tileheight="50" spacing="2" tilecount="38">
   <image source="green_pack.png" width="1024" height="128"/>
   <tile id="34">
    <properties>
@@ -8,31 +8,46 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="77" name="ground_full" tilewidth="50" tileheight="50" spacing="2" tilecount="38">
+ <tileset firstgid="39" name="ground_full" tilewidth="50" tileheight="50" spacing="2" tilecount="38">
   <image source="ground_full.png" width="1024" height="128"/>
+  <tile id="37">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
  </tileset>
- <tileset firstgid="115" name="tree" tilewidth="50" tileheight="50" spacing="2" tilecount="38">
-  <image source="tree_pack.png" width="1024" height="128"/>
+ <tileset firstgid="77" name="tree" tilewidth="50" tileheight="50" spacing="2" tilecount="9">
+  <image source="tree_pack.png" width="512" height="64"/>
  </tileset>
- <tileset firstgid="153" name="treedie1" tilewidth="50" tileheight="50" spacing="2" tilecount="19">
-  <image source="treedie1_pack.png" width="1024" height="64"/>
+ <tileset firstgid="86" name="treedie1" tilewidth="50" tileheight="50" spacing="2" tilecount="9">
+  <image source="treedie1_pack.png" width="512" height="64"/>
+  <tile id="2">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
  </tileset>
- <tileset firstgid="172" name="treedie2" tilewidth="50" tileheight="50" spacing="2" tilecount="19">
-  <image source="treedie2_pack.png" width="1024" height="64"/>
+ <tileset firstgid="95" name="treedie2" tilewidth="50" tileheight="50" spacing="2" tilecount="9">
+  <image source="treedie2_pack.png" width="512" height="64"/>
+  <tile id="1">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
  </tileset>
- <layer name="ground" width="20" height="20">
+ <layer name="ground" width="40" height="30">
   <data encoding="base64" compression="zlib">
-   eJzzZWBg8B3FIwonQzE2MXRxbDiByu4Z7OZRG4+6D2EHqXYNVNglIGFs4tT252DAhPwGwgD2LHoC
+   eJzt0tEJwCAMBNBs0x2E7tHP7D9FKTRQJFYq0Z54wqEEwWdURUTBsxVyPFLa0zM139dc94ga9K3r2+94tbw+wpdezkToH7pvtv9HH31/+1I2o/nQ++f10+LVR/la3hWhf/T190UO89maPvroW9sXaR/ta4lOkBM1x4/q
   </data>
  </layer>
- <layer name="ground2" width="20" height="20">
+ <layer name="ground2" width="40" height="30">
   <data encoding="base64" compression="zlib">
-   eJxjYIAAWSBWQsKcQOxLIlZgQAApKpinjGQeuvt4kORIMRMGQG5lRcL8OMwjZAcMgNwqAMQqQKwKxEIk6GXAIYYLkONfUs0dBaOAEkDtdDRU0iUzlc1jo0CvCBCLATETlAa5jQevDvxAHIglkDDIbQDQ8xiB
+   eJzt1EEKgzAQBdDZdFEQKl0KBWkVT5BbeP/zdDZCCBkdwx8nih8+iBp4yYhERDOwVum436hP7rSzwdD3SXxN9ExrQzZNz31EfQm+NbOl78dtuQN35L4zliBYiex9UtBzQ/u8nCWp3ZcaLc2lLsmEti7R/PNDci3t08Mn2dCeEt+aLXffy6f5fr18WzO19mltR51biW/rPQvrEmm+2n3k1hzp8+pZfHuTW1+TTzKjnWhfzedn4bx9tw+Z2n1XzR9l6Y6R
   </data>
  </layer>
- <layer name="tree" width="20" height="20">
+ <layer name="tree" width="40" height="30">
   <data encoding="base64" compression="zlib">
-   eJzF0skKwkAQhOF5Z1dcru7rVVyiQUURtyf09yAOgW5n2ogF3yVNigTKuXdaKKDt4jITnndQQjeia46FcCujh0rmedGTzRIroa+PKgYR35dgrdyHqGEU2LdBKtye/1PHGI3Avi122Av3CZqYBva9csAx8p1/RdqjJdoeLdH2aEni9D3GRtujJZ/2aM0v93jKueOcQ5/fccH1yz6/44a7secBJ0olIQ==
+   eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
   </data>
  </layer>
 </map>
