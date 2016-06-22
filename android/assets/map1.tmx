@@ -10,11 +10,6 @@
  </tileset>
  <tileset firstgid="39" name="ground_full" tilewidth="50" tileheight="50" spacing="2" tilecount="38">
   <image source="ground_full.png" width="1024" height="128"/>
-  <tile id="37">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
  </tileset>
  <tileset firstgid="77" name="tree" tilewidth="50" tileheight="50" spacing="2" tilecount="9">
   <image source="tree_pack.png" width="512" height="64"/>
@@ -37,12 +32,12 @@
  </tileset>
  <layer name="ground" width="40" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt0tEJwCAMBNBs0x2E7tHP7D9FKTRQJFYq0Z54wqEEwWdURUTBsxVyPFLa0zM139dc94ga9K3r2+94tbw+wpdezkToH7pvtv9HH31/+1I2o/nQ++f10+LVR/la3hWhf/T190UO89maPvroW9sXaR/ta4lOkBM1x4/q
+   eJzt0tEJwCAMBFC36Q5C9+hn9p+iFMyPhNBKTE884VCC4DMqpRQBz+HkavH2zMob35c894ga9O3rO1usWl/P8FXnTIT+oftW+3/00fe3r3Yzmg+9f1Y/NVY9yzfyrgj9o2++L3KoT9f00Uff3r5Ie7ZvJLJAbsLHj7k=
   </data>
  </layer>
  <layer name="ground2" width="40" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt1EEKgzAQBdDZdFEQKl0KBWkVT5BbeP/zdDZCCBkdwx8nih8+iBp4yYhERDOwVum436hP7rSzwdD3SXxN9ExrQzZNz31EfQm+NbOl78dtuQN35L4zliBYiex9UtBzQ/u8nCWp3ZcaLc2lLsmEti7R/PNDci3t08Mn2dCeEt+aLXffy6f5fr18WzO19mltR51biW/rPQvrEmm+2n3k1hzp8+pZfHuTW1+TTzKjnWhfzedn4bx9tw+Z2n1XzR9l6Y6R
+   eJzt1N0KwjAMBeDceCEI/lwOBFHBJ+hb7P2fxwgbSEhcVk6WOnbgwGhX+NqOERH1wEal495F99zXjJZA31XxHYY5rw1ZmRt399WP76j4SBmLMMo8uCfuc+iZexGWYliJ4n1W0PeG9mU5a9K6TxojzbUuy4S2jvH884t4tvaZ4bNsaE+N75dNG8/yeb7fLN/UnUb7vLalzq3GN/VehHWMdb/efWhrlvRl9V98c6Otb8lnmdFOtK/l84twbr7Nh0zrvrXmDZisjuA=
   </data>
  </layer>
  <layer name="tree" width="40" height="30">
