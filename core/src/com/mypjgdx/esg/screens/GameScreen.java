@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level;
@@ -65,6 +66,8 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(textBeam);
         stage.addActor(textTrap);
         stage.addActor(energyLevel);
+
+        Assets.instance.music.dispose();
 
         batch = new SpriteBatch();
     }

@@ -76,7 +76,7 @@ public class CameraHelper {
         if (!hasTarget()) return;
         position.x = target.getPositionX() + target.origin.x;
         position.y = target.getPositionY() + target.origin.y;
-        if ((target.getPositionY() + (720/2)> map.getHeight())) {position.y = 720/2; }
+        if ((target.getPositionY() + (720/2)> map.getHeight())) {position.y = 720/2;}
         else if ((target.getPositionY() - (720/2)> map.getHeight())) {position.y = 720/2; }
         else if ((target.getPositionX() + (1280/2)> map.getWidth())) {position.x = 1280/2; }
         else if ((target.getPositionX() - (1280/2)> map.getWidth())) {position.x = 1280/2; }
