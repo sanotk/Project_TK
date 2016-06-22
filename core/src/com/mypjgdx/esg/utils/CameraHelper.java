@@ -74,13 +74,13 @@ public class CameraHelper {
 
     public void update (float deltaTime) {  // อัพมุมกล้องให้ติดตามเป้าหมาย
         if (!hasTarget()) return;
+
+
+        if ((target.getPositionY() + (720/2)> map.getHeight())&&!(target.getPositionX() + (1280/2)> map.getWidth())||!(target.getPositionX() - (1280/2)> map.getWidth())) {position.x = target.getPositionX() - target.origin.x; return;}
+        if ((target.getPositionY() - (720/2)> map.getHeight())&&!(target.getPositionX() + (1280/2)> map.getWidth())||!(target.getPositionX() - (1280/2)> map.getWidth())) {position.x = target.getPositionX() - target.origin.x; return;}
+        if ((target.getPositionX() + (1280/2)> map.getWidth())&&!(target.getPositionY() - (720/2)> map.getHeight())||!(target.getPositionY() + (720/2)> map.getHeight())) {position.y = target.getPositionY() - target.origin.y; return;}
+        if ((target.getPositionX() - (1280/2)> map.getWidth())&&!(target.getPositionY() - (720/2)> map.getHeight())||!(target.getPositionY() + (720/2)> map.getHeight())) {position.y = target.getPositionY() - target.origin.y; return;}
         position.x = target.getPositionX() + target.origin.x;
         position.y = target.getPositionY() + target.origin.y;
-        if ((target.getPositionY() + (720/2)> map.getHeight())) {position.y = 720/2;}
-        else if ((target.getPositionY() - (720/2)> map.getHeight())) {position.y = 720/2; }
-        else if ((target.getPositionX() + (1280/2)> map.getWidth())) {position.x = 1280/2; }
-        else if ((target.getPositionX() - (1280/2)> map.getWidth())) {position.x = 1280/2; }
-
     }
-
 }
