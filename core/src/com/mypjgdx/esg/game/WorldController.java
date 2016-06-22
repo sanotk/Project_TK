@@ -25,6 +25,7 @@ public class WorldController extends InputAdapter {
         this.level = level;
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(this.level.player);
+        cameraHelper.setMap(this.level.mapLayer);
         Gdx.input.setInputProcessor(this);
     }
 

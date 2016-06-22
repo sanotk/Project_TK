@@ -23,6 +23,7 @@ public class Level{
     public List<Item> items;
     public List<Enemy> enemies;
     public List<Weapon> weapons;
+    public TiledMapTileLayer mapLayer;
 
     public EnergyTube energyTube;
 
@@ -39,7 +40,7 @@ public class Level{
         weapons.clear();
 
         map =  levelGenerator.createTiledMap();
-        TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
+        mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
         player = levelGenerator.createPlayer(mapLayer);
         items = levelGenerator.createItems(mapLayer, player);

@@ -1,6 +1,7 @@
 package com.mypjgdx.esg.utils;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
@@ -12,6 +13,7 @@ public class CameraHelper {
 
     private Vector2 position; //ตำแหน่ง 2 มิติ
     private float zoom; //ตัวแปรซูม
+    private TiledMapTileLayer map;
     private AbstractGameObject target; //  Object เป้าหมายที่จะให้ติดตาม
 
     public CameraHelper () { //สร้าง instance ของ class Vector2 เพื่อใช้เก็บตำแหน่งตัวช่วยมุมกล้อง
@@ -54,6 +56,10 @@ public class CameraHelper {
         this.target = target;
     }
 
+    public void setMap (TiledMapTileLayer map) { // กำหนดเป้าหมายที่จะติดตาม
+        this.map = map;
+    }
+
     public AbstractGameObject getTarget () {    // หาเป้าหมายที่ติดตามอยู่
         return target;
     }
@@ -70,6 +76,11 @@ public class CameraHelper {
         if (!hasTarget()) return;
         position.x = target.getPositionX() + target.origin.x;
         position.y = target.getPositionY() + target.origin.y;
+        if ((target.getPositionY() + (720/2)> map.getHeight())) {position.y = 720/2; }
+        else if ((target.getPositionY() - (720/2)> map.getHeight())) {position.y = 720/2; }
+        else if ((target.getPositionX() + (1280/2)> map.getWidth())) {position.x = 1280/2; }
+        else if ((target.getPositionX() - (1280/2)> map.getWidth())) {position.x = 1280/2; }
+
     }
 
 }
