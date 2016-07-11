@@ -30,7 +30,7 @@ public class Level{
     public Level (LevelGenerator levelGenerator) {
         weapons = new ArrayList<Weapon>();
 
-        energyTube = new EnergyTube(100);  // พลังงานเริ่มต้นมีค่า 100 วินาที
+        energyTube = new EnergyTube(0);  // พลังงานเริ่มต้นมีค่า 100 วินาที
         //energyTube.startDrainEnergy();
 
         init(levelGenerator);
