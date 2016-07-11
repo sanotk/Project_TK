@@ -32,15 +32,95 @@
  </tileset>
  <tileset firstgid="104" name="S" tilewidth="50" tileheight="50" spacing="2" tilecount="4">
   <image source="s.png" width="256" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="s" value=""/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="s" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="s" value=""/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="s" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="108" name="I" tilewidth="50" tileheight="50" spacing="2" tilecount="4">
   <image source="i.png" width="256" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="i" value=""/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="i" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="i" value=""/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="i" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="112" name="B" tilewidth="50" tileheight="50" spacing="2" tilecount="4">
   <image source="b.png" width="256" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="116" name="C" tilewidth="50" tileheight="50" spacing="2" tilecount="4">
   <image source="c.png" width="256" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="c" value=""/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="c" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="c" value=""/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="c" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="ground" width="40" height="30">
   <data encoding="base64" compression="zlib">
