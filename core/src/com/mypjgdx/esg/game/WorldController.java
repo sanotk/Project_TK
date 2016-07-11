@@ -90,10 +90,6 @@ public class WorldController extends InputAdapter {
             level.init(new Level1());
             init(level);
             break;
-        case Keys.NUMPAD_0:
-            if(level.energyTube.isEnergyDraining()) level.energyTube.stopDrainEnergy();
-            else level.energyTube.startDrainEnergy();
-            break;
         }
 
         return true;

@@ -33,6 +33,7 @@ public class GameScreen extends AbstractGameScreen {
     private Label textBullet;
     private Label textBeam;
     private Label textTrap;
+    private Label textTime;
     private Label energyLevel;
 
     public GameScreen(Game game) {
@@ -50,24 +51,28 @@ public class GameScreen extends AbstractGameScreen {
         textBeam = new Label("Beam Max : " ,skin);
         textBeam.setColor(0, 1, 1, 1);
         textBeam.setFontScale(1.1f,1.1f);
-        textBeam.setPosition(300, 650);
+        textBeam.setPosition(250, 650);
 
         textTrap = new Label("Trap Max : " ,skin);
         textTrap.setColor(0, 1, 1, 1);
         textTrap.setFontScale(1.1f,1.1f);
-        textTrap.setPosition(500, 650);
+        textTrap.setPosition(400, 650);
+
+        textTime = new Label("Time : " ,skin);
+        textTime.setColor(0, 1, 1, 1);
+        textTime.setFontScale(1.1f,1.1f);
+        textTime.setPosition(550, 650);
 
         energyLevel = new Label("Energy : ", skin);
         energyLevel.setColor(0, 1, 1, 1);
         energyLevel.setFontScale(1.1f,1.1f);
-        energyLevel.setPosition(100, 600);
+        energyLevel.setPosition(700, 650);
 
         stage.addActor(textBullet);
         stage.addActor(textBeam);
         stage.addActor(textTrap);
+        stage.addActor(textTime);
         stage.addActor(energyLevel);
-
-        Assets.instance.music.dispose();
 
         batch = new SpriteBatch();
     }
@@ -80,7 +85,10 @@ public class GameScreen extends AbstractGameScreen {
         textBullet.setText(String.format("Bullet Max : %d", worldController.level.player.bulletCount));
         textBeam.setText(String.format("Beam Max : %d", worldController.level.player.beamCount));
         textTrap.setText(String.format("Trap Max : %d", worldController.level.player.trapCount));
+        textTime.setText(String.format("Time : %d", worldController.level.player.timeCount));
         energyLevel.setText(String.format("Energy : %d", (int)worldController.level.energyTube.energy));
+
+
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));
@@ -88,6 +96,11 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         if (!worldController.level.player.isAlive()) {
+            game.setScreen(new GameOverScreen(game));
+            return;
+        }
+
+        if (worldController.level.player.timeCount <= 0) {
             game.setScreen(new GameOverScreen(game));
             return;
         }

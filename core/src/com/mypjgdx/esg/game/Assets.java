@@ -35,6 +35,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public TiledMap map3;
     public TiledMap map4;
     public Music music;
+    public Music introGame;
     public Sound bulletSound;
     public Sound beamSound;
     public Sound trapSound;
@@ -62,6 +63,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("enemy2_pack.atlas", TextureAtlas.class);
         manager.load("enemy3_pack.atlas", TextureAtlas.class);
         manager.load("music.mp3", Music.class);
+        manager.load("Dangerous.mp3", Music.class);
         manager.load("bullet.wav", Sound.class);
         manager.load("beam.wav", Sound.class);
         manager.load("trap.wav", Sound.class);
@@ -85,6 +87,7 @@ public class Assets implements Disposable, AssetErrorListener {
         pepoKnightAltas = manager.get("enemy2_pack.atlas");
         pepoDevilAltas = manager.get("enemy3_pack.atlas");
         music = manager.get("music.mp3");
+        introGame = manager.get("Dangerous.mp3");
         bulletSound = manager.get("bullet.wav");
         enemyBallSound = manager.get("enemy_ball.wav");
         beamSound = manager.get("beam.wav");

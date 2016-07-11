@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.ui.Dialog;
 
 public class IntroScreen extends AbstractGameScreen {
@@ -55,6 +56,10 @@ public class IntroScreen extends AbstractGameScreen {
 
 		stage.addActor(dialog);
         Gdx.input.setInputProcessor(stage);
+        Assets.instance.music.dispose();
+        Assets.instance.introGame.play();
+        Assets.instance.introGame.setPan(0.0f, 0.2f);
+        Assets.instance.introGame.setLooping(true);
     }
 
     @Override
@@ -64,7 +69,7 @@ public class IntroScreen extends AbstractGameScreen {
 
 		if(Gdx.input.isKeyPressed(Keys.ANY_KEY)) {
 		    if (Gdx.input.isKeyPressed(Keys.ENTER))
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new MapScreen(game));
 		    else
 		        dialog.tryToChangePage();
 		}

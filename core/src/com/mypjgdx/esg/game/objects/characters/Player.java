@@ -31,8 +31,11 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     private static final int INTITAL_HEALTH = 10;
     private static final int INTITAL_TRAP = 3;
+    private static final int INTITAL_TIME = 300;
     private static final int INTITAL_BULLET = 25;
     private static final int INTITAL_BEAM = 1;
+
+    private float Countdown;
 
     public enum PlayerAnimation {
         ATK_LEFT,
@@ -60,6 +63,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public int trapCount;
     public int bulletCount;
     public int beamCount;
+    public int timeCount;
     private boolean dead;
     private boolean invulnerable;
     private boolean knockback;
@@ -105,6 +109,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         health = INTITAL_HEALTH;
         trapCount = INTITAL_TRAP;
         bulletCount = INTITAL_BULLET;
+        timeCount = INTITAL_TIME;
         beamCount = INTITAL_BEAM;
 
         dead = false;
@@ -125,6 +130,11 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         	if (bounds.overlaps(w.bounds) && !w.isDestroyed() && w.type == WeaponType.ENEMYBALL) {
                 w.attack(this);
         	}
+        }
+        Countdown +=deltaTime;
+        if(Countdown>=1){
+            timeCount--;
+            Countdown = 0;
         }
     }
 

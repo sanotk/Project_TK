@@ -12,7 +12,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.items.EnergyTube;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 
@@ -25,13 +24,8 @@ public class Level{
     public List<Weapon> weapons;
     public TiledMapTileLayer mapLayer;
 
-    public EnergyTube energyTube;
-
     public Level (LevelGenerator levelGenerator) {
         weapons = new ArrayList<Weapon>();
-
-        energyTube = new EnergyTube(100);  // พลังงานเริ่มต้นมีค่า 100 วินาที
-        energyTube.startDrainEnergy();
 
         init(levelGenerator);
     }
@@ -45,8 +39,6 @@ public class Level{
         player = levelGenerator.createPlayer(mapLayer);
         items = levelGenerator.createItems(mapLayer, player);
         enemies = levelGenerator.createEnemies(mapLayer, player);
-
-        energyTube.init(mapLayer, player);
     }
 
     public void render (SpriteBatch batch, OrthogonalTiledMapRenderer tiledRenderer, ShapeRenderer shapeRenderer) {
@@ -83,7 +75,6 @@ public class Level{
         for(Enemy e: enemies) e.update(deltaTime, weapons);
         for(Weapon w: weapons) w.update(deltaTime);
 
-        energyTube.update(deltaTime);
     }
 
 }

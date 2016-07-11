@@ -75,12 +75,24 @@ public class CameraHelper {
     public void update (float deltaTime) {  // อัพมุมกล้องให้ติดตามเป้าหมาย
         if (!hasTarget()) return;
 
-
-        if ((target.getPositionY() + (720/2)> map.getHeight())&&!(target.getPositionX() + (1280/2)> map.getWidth())||!(target.getPositionX() - (1280/2)> map.getWidth())) {position.x = target.getPositionX() - target.origin.x; return;}
-        if ((target.getPositionY() - (720/2)> map.getHeight())&&!(target.getPositionX() + (1280/2)> map.getWidth())||!(target.getPositionX() - (1280/2)> map.getWidth())) {position.x = target.getPositionX() - target.origin.x; return;}
-        if ((target.getPositionX() + (1280/2)> map.getWidth())&&!(target.getPositionY() - (720/2)> map.getHeight())||!(target.getPositionY() + (720/2)> map.getHeight())) {position.y = target.getPositionY() - target.origin.y; return;}
-        if ((target.getPositionX() - (1280/2)> map.getWidth())&&!(target.getPositionY() - (720/2)> map.getHeight())||!(target.getPositionY() + (720/2)> map.getHeight())) {position.y = target.getPositionY() - target.origin.y; return;}
         position.x = target.getPositionX() + target.origin.x;
         position.y = target.getPositionY() + target.origin.y;
+
+        float leftEdge =  map.getTileWidth() * 1;
+        float rightEdge = (map.getWidth() - 1) *  map.getTileWidth();
+        float lowerEdge =  map.getTileHeight() * 1;
+        float upperEdge = (map.getHeight() - 1) * map.getTileHeight();
+        float halfCameraWidth = 1280/2;
+        float halfCameraHeight = 720/2;
+
+        if (position.y + halfCameraHeight > upperEdge)
+            position.y = upperEdge - halfCameraHeight;
+        if (position.y - halfCameraHeight < lowerEdge)
+            position.y = lowerEdge + halfCameraHeight;
+        if (position.x + halfCameraWidth > rightEdge)
+            position.x = rightEdge - halfCameraWidth;
+        if (position.x - halfCameraWidth < leftEdge)
+            position.x = leftEdge + halfCameraWidth;
+
     }
 }
