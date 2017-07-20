@@ -2,6 +2,7 @@ package com.mypjgdx.esg.game.objects.characters;
 
 import java.util.List;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -215,10 +216,12 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     }
 
     public void showHp(ShapeRenderer shapeRenderer){
-    	if (health < maxHealth)
-    	    shapeRenderer.rect(
-    	            getPositionX(), getPositionY() - 10,
-    	            bounds.width * ((float) health / maxHealth), 5);
+        shapeRenderer.setColor(Color.BLACK);
+        shapeRenderer.rect( getPositionX(), getPositionY()-10,bounds.width, 5);
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.rect(
+                getPositionX(), getPositionY() - 10,
+                bounds.width * ((float) health / maxHealth), 5);
     }
 
     private void randomPosition(TiledMapTileLayer mapLayer) {

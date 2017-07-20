@@ -2,6 +2,7 @@ package com.mypjgdx.esg.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -9,12 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class MapScreen extends AbstractGameScreen {
 
-    public static final int SCENE_WIDTH = 1280; //เซตค่าความกว้างของจอ
-    public static final int SCENE_HEIGHT = 720; //เซตค่าความสูงของจอ
+    public static final int SCENE_WIDTH = 480; //เซตค่าความกว้างของจอ
+    public static final int SCENE_HEIGHT = 800; //เซตค่าความสูงของจอ
     private Stage stage; //
     private Skin skin; //
     private Label text_mapmenu;
@@ -29,6 +31,10 @@ public class MapScreen extends AbstractGameScreen {
 
         int btn_w = 200;
         int btn_h = 50;
+
+        FileHandle file = Gdx.files.local("choice.json");
+        String choice = file.readString();
+        Json json = new Json();
 
         text_mapmenu = new Label("Map Selection" ,skin);
         text_mapmenu.setColor(1, 1, 1, 1);
@@ -61,33 +67,46 @@ public class MapScreen extends AbstractGameScreen {
         stage.addActor(buttonExit);
         stage.addActor(text_mapmenu);
 
-        buttonStart.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game));
-            }
-        });
+        if(Integer.parseInt(choice)>=1) {
+            buttonStart.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    game.setScreen(new GameScreen(game));
+                }
+            });
+        }
+        System.out.print(choice);
+        System.out.print(1);
 
-        buttonLoad.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game));
-            }
-        });
 
-        buttonOption.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game));
-            }
-        });
 
-        buttonExit.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game));
-            }
-        });
+
+        if(Integer.parseInt(choice)>=2){
+            buttonLoad.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    game.setScreen(new GameScreen2(game));
+                }
+            });
+        }
+
+        if(Integer.parseInt(choice)>=3) {
+            buttonOption.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    game.setScreen(new GameScreen3(game));
+                }
+            });
+        }
+
+        if(Integer.parseInt(choice)>=4) {
+            buttonExit.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    game.setScreen(new GameScreen4(game));
+                }
+            });
+        }
 
     }
 

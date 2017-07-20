@@ -10,7 +10,7 @@ public class TiledCollisionCheckItem3 implements CollisionCheck {
     private String property;
 
     public TiledCollisionCheckItem3(Rectangle rectObject, TiledMapTileLayer tileLayer) {
-        this(rectObject, tileLayer, "solarcell");
+        this(rectObject, tileLayer, "inverter");
     }
 
     public TiledCollisionCheckItem3(Rectangle rectObject, TiledMapTileLayer tileLayer, String property) {

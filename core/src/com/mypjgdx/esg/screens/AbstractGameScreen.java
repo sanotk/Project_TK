@@ -2,6 +2,7 @@ package com.mypjgdx.esg.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public abstract class AbstractGameScreen implements Screen {
 
@@ -11,7 +12,6 @@ public abstract class AbstractGameScreen implements Screen {
         this.game = game;
     }
 
-    @Override
     public abstract void render (float deltaTime);
 
     @Override

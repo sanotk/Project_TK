@@ -8,9 +8,11 @@ public class EnergyTube extends Item {
 
     public float energy;
     private boolean drainEnergy;
+    public static final float P_X = 200f;
+    public static final float P_Y = 200f;
 
     public EnergyTube(float startEnergy) {
-        super(Assets.instance.solarCellAltas, SCALE, SCALE);  // แก้ตรง altas เป็นภาพหลอดพลังงาน
+        super(Assets.instance.solarCellAltas, SCALE, SCALE , P_X , P_Y);
         energy = startEnergy;
         startDrainEnergy();
     }

@@ -1,8 +1,5 @@
 package com.mypjgdx.esg.game.levels;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
@@ -15,6 +12,9 @@ import com.mypjgdx.esg.game.objects.items.Charge;
 import com.mypjgdx.esg.game.objects.items.Inverter;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.items.SolarCell;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Level2 extends LevelGenerator {
 
@@ -38,6 +38,9 @@ public class Level2 extends LevelGenerator {
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
         enemies.add(new PepoKnight(mapLayer, player));
         enemies.add(new PepoKnight(mapLayer, player));
         return enemies;
@@ -45,7 +48,7 @@ public class Level2 extends LevelGenerator {
 
     @Override
     public TiledMap createTiledMap() {
-        return Assets.instance.map1;
+        return Assets.instance.map2;
     }
 
 }

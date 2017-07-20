@@ -4,10 +4,17 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Json;
 import com.mypjgdx.esg.game.levels.Level;
 import com.mypjgdx.esg.game.levels.Level1;
+import com.mypjgdx.esg.game.levels.Level2;
+import com.mypjgdx.esg.game.levels.Level3;
+import com.mypjgdx.esg.game.levels.Level4;
 import com.mypjgdx.esg.utils.CameraHelper;
 import com.mypjgdx.esg.utils.Direction;
+
+import java.sql.Time;
 
 public class WorldController extends InputAdapter {
 
@@ -75,7 +82,14 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.X)) level.player.trapAttack(level.weapons);
             if (Gdx.input.isKeyPressed(Keys.Z)) level.player.rangeAttack(level.weapons);
             if (Gdx.input.isKeyPressed(Keys.C)) level.player.beamAttack(level.weapons);
-            if (Gdx.input.isKeyJustPressed(Keys.A)) level.player.findItem(level.items);
+            if (Gdx.input.isKeyJustPressed(Keys.A)) level.player.findItem();
+            if (Gdx.input.isKeyJustPressed(Keys.S)) {
+                Json json = new Json();
+                String choice = json.toJson("2");
+                FileHandle file = Gdx.files.local("choice.json");
+                file.delete();
+                file.writeString(choice, true);         // True means append, false means overwrite.
+            };
         }
      }
 
@@ -90,7 +104,20 @@ public class WorldController extends InputAdapter {
             level.init(new Level1());
             init(level);
             break;
+            case Keys.NUMPAD_2:
+                level.init(new Level2());
+                init(level);
+                break;
+            case Keys.NUMPAD_3:
+                level.init(new Level3());
+                init(level);
+                break;
+            case Keys.NUMPAD_4:
+                level.init(new Level4());
+                init(level);
+                break;
         }
+
 
         return true;
     }

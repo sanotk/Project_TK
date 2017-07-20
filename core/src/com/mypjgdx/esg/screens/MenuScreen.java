@@ -13,8 +13,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class MenuScreen extends AbstractGameScreen {
 
-    public static final int SCENE_WIDTH = 1280; //เซตค่าความกว้างของจอ
-    public static final int SCENE_HEIGHT = 720; //เซตค่าความสูงของจอ
+    public static final int SCENE_WIDTH = 480; //เซตค่าความกว้างของจอ
+    public static final int SCENE_HEIGHT = 800; //เซตค่าความสูงของจอ
     private Stage stage; //
     private Skin skin; //
     private Label text_mainmenu;
@@ -35,12 +35,12 @@ public class MenuScreen extends AbstractGameScreen {
         text_mainmenu.setFontScale(1.2f,1.2f);
         text_mainmenu.setPosition(SCENE_WIDTH / 2 - btn_w / 2 + 50, 550);
 
-        TextButton buttonStart = new TextButton("START", skin);
+        TextButton buttonStart = new TextButton("NEW GAME", skin);
         buttonStart.setWidth(btn_w);
         buttonStart.setHeight(btn_h);
         buttonStart.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 450);
 
-        TextButton buttonLoad = new TextButton("LOAD", skin);
+        TextButton buttonLoad = new TextButton("LOAD GAME", skin);
         buttonLoad.setWidth(btn_w);
         buttonLoad.setHeight(btn_h);
         buttonLoad.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 380);
@@ -64,14 +64,14 @@ public class MenuScreen extends AbstractGameScreen {
         buttonStart.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new IntroScreen(game));
+                game.setScreen(new GameScreen(game));
             }
         });
 
         buttonLoad.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new LoadScreen(game));
+                game.setScreen(new MapScreen(game));
             }
         });
 

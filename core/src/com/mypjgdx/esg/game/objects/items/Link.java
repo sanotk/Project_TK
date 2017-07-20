@@ -7,11 +7,11 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 public class Link extends Item{
 
     private static final float SCALE = 1f;
-    public static final float P_X = 200f;
+    public static final float P_X = 100f;
     public static final float P_Y = 500f;
 
 	public Link(TiledMapTileLayer mapLayer, Player player){
-        super(Assets.instance.inverAltas, SCALE, SCALE , P_X , P_Y);
+        super(Assets.instance.linkAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player);
 	}
 

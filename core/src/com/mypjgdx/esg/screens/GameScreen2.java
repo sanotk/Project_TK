@@ -14,6 +14,7 @@ import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level;
 import com.mypjgdx.esg.game.levels.Level1;
+import com.mypjgdx.esg.game.levels.Level2;
 
 public class GameScreen2 extends AbstractGameScreen {
 
@@ -121,7 +122,7 @@ public class GameScreen2 extends AbstractGameScreen {
 
     @Override
     public void show() {
-        worldController = new WorldController(new Level(new Level1()));
+        worldController = new WorldController(new Level(new Level2()));
         worldRenderer = new WorldRenderer(worldController);
     }
 

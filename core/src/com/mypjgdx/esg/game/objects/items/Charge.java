@@ -6,10 +6,12 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 
 public class Charge extends Item{
 
-    private static final float SCALE = 0.3f;
+    private static final float SCALE = 1f;
+    public static final float P_X = 500f;
+    public static final float P_Y = 500f;
 
 	public Charge(TiledMapTileLayer mapLayer, Player player){
-        super(Assets.instance.solarCellAltas, SCALE, SCALE);
+        super(Assets.instance.ccAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player);
 	}
 

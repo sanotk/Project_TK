@@ -13,6 +13,9 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 
 		protected static final float FRAME_DURATION = 1.0f / 8.0f;
 
+		public float p_x;
+		public float p_y;
+
 		public enum ItemAnimation {
 		    ON,
 		    OFF
@@ -25,11 +28,14 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 
 		private ItemState state;
 
-		public Item(TextureAtlas atlas, float scaleX, float scaleY) {
+		public Item(TextureAtlas atlas, float scaleX, float scaleY , float P_X , float P_Y) {
             super(atlas);
 
             addLoopAnimation(ItemAnimation.OFF, FRAME_DURATION, 0, 3);
             addLoopAnimation(ItemAnimation.ON, FRAME_DURATION, 3, 3);
+
+			p_x = P_X;
+			p_y = P_Y;
 
             scale.set(scaleX, scaleY);
         }
@@ -38,7 +44,7 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 	        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
             state = ItemState.OFF;
             setCurrentAnimation(ItemAnimation.OFF);
-	        randomPosition(mapLayer, player);
+	        setPosition(mapLayer, player);
 		}
 
 	    @Override
@@ -55,6 +61,11 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 	        default:
 	            break;
 	        }
+		}
+
+		private void setPosition(TiledMapTileLayer mapLayer, Player player) {
+			updateBounds();
+			setPosition(p_x,p_y);
 		}
 
 	    private void randomPosition(TiledMapTileLayer mapLayer, Player player) {

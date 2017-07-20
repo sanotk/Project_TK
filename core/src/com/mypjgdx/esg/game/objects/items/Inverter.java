@@ -6,10 +6,12 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 
 public class Inverter extends Item{
 
-    private static final float SCALE = 0.3f;
+    private static final float SCALE = 1f;
+    public static final float P_X = 200f;
+    public static final float P_Y = 500f;
 
 	public Inverter(TiledMapTileLayer mapLayer, Player player){
-        super(Assets.instance.solarCellAltas, SCALE, SCALE);
+        super(Assets.instance.inverAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player);
 	}
 

@@ -24,6 +24,13 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion enemyBall;
     public TextureAtlas playerAltas;
     public TextureAtlas solarCellAltas;
+    public TextureAtlas batAltas;
+    public TextureAtlas inverAltas;
+    public TextureAtlas ccAltas;
+    public TextureAtlas linkAltas;
+
+
+    public Texture rule1;
 
     public TextureRegion bg;
 
@@ -52,11 +59,19 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("map3.tmx", TiledMap.class);
         manager.load("map4.tmx", TiledMap.class);
 
+        manager.load("rule1.png" , Texture.class);
+
         manager.load("player_pack.atlas", TextureAtlas.class);
         manager.load("bg.png", Texture.class);
         manager.load("bullet.png", Texture.class);
         manager.load("enemy_ball.png", Texture.class);
         manager.load("solarcell_pack.atlas", TextureAtlas.class);
+        manager.load("cc_pack.atlas", TextureAtlas.class);
+        manager.load("inverter_pack.atlas", TextureAtlas.class);
+        manager.load("battery_pack.atlas", TextureAtlas.class);
+        manager.load("link_pack.atlas", TextureAtlas.class);
+        manager.load("tv_pack.atlas", TextureAtlas.class);
+        manager.load("fan_pack.atlas", TextureAtlas.class);
         manager.load("trap.png", Texture.class);
         manager.load("beam.png", Texture.class);
         manager.load("enemy1_pack.atlas", TextureAtlas.class);
@@ -76,11 +91,17 @@ public class Assets implements Disposable, AssetErrorListener {
         map3 = manager.get("map3.tmx");
         map4 = manager.get("map4.tmx");
 
+        rule1 = manager.get("rule1.png");
+
         playerAltas = manager.get("player_pack.atlas");
         bg = new TextureRegion((Texture)manager.get("bg.png"));
         bullet = new TextureRegion((Texture)manager.get("bullet.png"));
         enemyBall = new TextureRegion((Texture)manager.get("enemy_ball.png"));
         solarCellAltas = manager.get("solarcell_pack.atlas");
+        ccAltas = manager.get("cc_pack.atlas");
+        batAltas = manager.get("battery_pack.atlas");
+        inverAltas = manager.get("inverter_pack.atlas");
+        linkAltas = manager.get("link_pack.atlas");
         trap = new TextureRegion((Texture)manager.get("trap.png"));
         beam = new TextureRegion((Texture)manager.get("beam.png"));
         pepoAltas = manager.get("enemy1_pack.atlas");

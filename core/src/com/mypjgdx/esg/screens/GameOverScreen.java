@@ -14,8 +14,8 @@ import com.mypjgdx.esg.game.objects.AbstractGameObject;
 
 public class GameOverScreen extends AbstractGameScreen {
 
-    public static final int SCENE_WIDTH = 1280; //เซตค่าความกว้างของจอ
-    public static final int SCENE_HEIGHT = 720; //เซตค่าความสูงของจอ
+    public static final int SCENE_WIDTH = 480; //เซตค่าความกว้างของจอ
+    public static final int SCENE_HEIGHT = 800; //เซตค่าความสูงของจอ
     private Stage stage; //
     private Skin skin; //
     private Label text_gameover;

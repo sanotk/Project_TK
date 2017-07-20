@@ -14,8 +14,8 @@ import com.mypjgdx.esg.game.Assets;
 
 public class OptionScreen extends AbstractGameScreen {
 
-    public static final int SCENE_WIDTH = 1280; //เซตค่าความกว้างของจอ
-    public static final int SCENE_HEIGHT = 720; //เซตค่าความสูงของจอ
+    public static final int SCENE_WIDTH = 480; //เซตค่าความกว้างของจอ
+    public static final int SCENE_HEIGHT = 800; //เซตค่าความสูงของจอ
     private Stage stage; //
     private Stage stat_music; //
     private Stage stat_sound; //
@@ -35,7 +35,7 @@ public class OptionScreen extends AbstractGameScreen {
         stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT));
         stat_music = new Stage();
         stat_sound = new Stage();
-        Gdx.input.setInputProcessor(stage);
+
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
 

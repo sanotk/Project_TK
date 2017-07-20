@@ -31,17 +31,3 @@ fan
   orig: 76, 100
   offset: 0, 0
   index: 4
-fan
-  rotate: false
-  xy: 235, 1
-  size: 76, 100
-  orig: 76, 100
-  offset: 0, 0
-  index: 5
-fan
-  rotate: false
-  xy: 235, 1
-  size: 76, 100
-  orig: 76, 100
-  offset: 0, 0
-  index: 6

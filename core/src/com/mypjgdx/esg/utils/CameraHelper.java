@@ -82,8 +82,8 @@ public class CameraHelper {
         float rightEdge = (map.getWidth() - 1) *  map.getTileWidth();
         float lowerEdge =  map.getTileHeight() * 1;
         float upperEdge = (map.getHeight() - 1) * map.getTileHeight();
-        float halfCameraWidth = 1280/2;
-        float halfCameraHeight = 720/2;
+        float halfCameraWidth = 480/2;
+        float halfCameraHeight = 800/2;
 
         if (position.y + halfCameraHeight > upperEdge)
             position.y = upperEdge - halfCameraHeight;

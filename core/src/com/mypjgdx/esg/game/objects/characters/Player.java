@@ -2,11 +2,17 @@ package com.mypjgdx.esg.game.objects.characters;
 
 import java.util.List;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
+import com.mypjgdx.esg.collision.TiledCollisionCheckItem1;
+import com.mypjgdx.esg.collision.TiledCollisionCheckItem2;
+import com.mypjgdx.esg.collision.TiledCollisionCheckItem3;
+import com.mypjgdx.esg.collision.TiledCollisionCheckItem4;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
@@ -17,11 +23,12 @@ import com.mypjgdx.esg.game.objects.weapons.Trap;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.game.objects.weapons.Weapon.WeaponType;
 import com.mypjgdx.esg.utils.Direction;
+import java.lang.Thread;
 
 public class Player extends AnimatedObject<PlayerAnimation> implements Damageable {
 
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
-    private static final float FRAME_DURATION = 1.0f / 8.0f;
+    private static final float FRAME_DURATION = 1.0f / 16.0f;
 
     // อัตราการขยายภาพ player
     private static final float SCALE = 0.7f;
@@ -32,8 +39,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private static final int INTITAL_HEALTH = 10;
     private static final int INTITAL_TRAP = 3;
     private static final int INTITAL_TIME = 300;
-    private static final int INTITAL_BULLET = 25;
-    private static final int INTITAL_BEAM = 1;
+    private static final int INTITAL_BULLET = 99999;
+    private static final int INTITAL_BEAM = 3;
 
     private float Countdown;
 
@@ -42,6 +49,10 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         ATK_RIGHT,
         ATK_DOWN,
         ATK_UP,
+        STAND_LEFT,
+        STAND_RIGHT,
+        STAND_DOWN,
+        STAND_UP,
         WALK_LEFT,
         WALK_RIGHT,
         WALK_DOWN,
@@ -49,11 +60,15 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         ITEM_LEFT,
         ITEM_RIGHT,
         ITEM_DOWN,
-        ITEM_UP
+        ITEM_UP,
+        ITEM_STAND_LEFT,
+        ITEM_STAND_RIGHT,
+        ITEM_STAND_DOWN,
+        ITEM_STAND_UP
     }
 
     public enum PlayerState {
-    	WALK, ATTACK
+    	STAND, ATTACK
     }
 
     private Item item;
@@ -71,6 +86,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private long lastInvulnerableTime;
     private long invulnerableTime;
     private float movingSpeed;
+    private float delay = 1;
 
     private TiledMapTileLayer mapLayer;
     private Direction viewDirection;
@@ -78,18 +94,26 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public Player(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         super(Assets.instance.playerAltas);
 
-        addNormalAnimation(PlayerAnimation.ATK_LEFT, FRAME_DURATION, 30, 3);
-        addNormalAnimation(PlayerAnimation.ATK_RIGHT, FRAME_DURATION, 21, 3);
-        addNormalAnimation(PlayerAnimation.ATK_UP, FRAME_DURATION, 3, 3);
-        addNormalAnimation(PlayerAnimation.ATK_DOWN, FRAME_DURATION, 12, 3);
-        addLoopAnimation(PlayerAnimation.WALK_UP, FRAME_DURATION, 0, 3);
-        addLoopAnimation(PlayerAnimation.WALK_DOWN, FRAME_DURATION, 9, 3);
-        addLoopAnimation(PlayerAnimation.WALK_LEFT, FRAME_DURATION, 27, 3);
-        addLoopAnimation(PlayerAnimation.WALK_RIGHT, FRAME_DURATION, 18, 3);
-        addLoopAnimation(PlayerAnimation.ITEM_UP, FRAME_DURATION, 6, 3);
-        addLoopAnimation(PlayerAnimation.ITEM_DOWN, FRAME_DURATION, 15, 3);
-        addLoopAnimation(PlayerAnimation.ITEM_LEFT, FRAME_DURATION, 33, 3);
-        addLoopAnimation(PlayerAnimation.ITEM_RIGHT, FRAME_DURATION, 24, 3);
+        addLoopAnimation(PlayerAnimation.STAND_UP, FRAME_DURATION, 120, 8);
+        addLoopAnimation(PlayerAnimation.STAND_DOWN, FRAME_DURATION, 112, 8);
+        addLoopAnimation(PlayerAnimation.STAND_LEFT, FRAME_DURATION, 128, 8);
+        addLoopAnimation(PlayerAnimation.STAND_RIGHT, FRAME_DURATION, 136, 8);
+        addNormalAnimation(PlayerAnimation.ATK_LEFT, FRAME_DURATION, 32, 8);
+        addNormalAnimation(PlayerAnimation.ATK_RIGHT, FRAME_DURATION, 40, 8);
+        addNormalAnimation(PlayerAnimation.ATK_UP, FRAME_DURATION, 24, 8);
+        addNormalAnimation(PlayerAnimation.ATK_DOWN, FRAME_DURATION, 16, 8);
+        addLoopAnimation(PlayerAnimation.WALK_UP, FRAME_DURATION, 8, 8);
+        addLoopAnimation(PlayerAnimation.WALK_DOWN, FRAME_DURATION, 0, 8);
+        addLoopAnimation(PlayerAnimation.WALK_LEFT, FRAME_DURATION, 144, 8);
+        addLoopAnimation(PlayerAnimation.WALK_RIGHT, FRAME_DURATION, 152, 8);
+        addLoopAnimation(PlayerAnimation.ITEM_UP, FRAME_DURATION, 56, 8);
+        addLoopAnimation(PlayerAnimation.ITEM_DOWN, FRAME_DURATION, 48, 8);
+        addLoopAnimation(PlayerAnimation.ITEM_LEFT, FRAME_DURATION, 64, 8);
+        addLoopAnimation(PlayerAnimation.ITEM_RIGHT, FRAME_DURATION, 72, 8);
+        addLoopAnimation(PlayerAnimation.ITEM_STAND_UP, FRAME_DURATION, 88, 8);
+        addLoopAnimation(PlayerAnimation.ITEM_STAND_DOWN, FRAME_DURATION, 80, 8);
+        addLoopAnimation(PlayerAnimation.ITEM_STAND_LEFT, FRAME_DURATION, 96, 8);
+        addLoopAnimation(PlayerAnimation.ITEM_STAND_RIGHT, FRAME_DURATION, 104, 8);
 
         scale.set(SCALE, SCALE);
         movingSpeed = INITIAL_MOVING_SPEED;
@@ -98,13 +122,18 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         init(mapLayer, positionX, positionY);
     }
 
+
     public void init(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         this.mapLayer = mapLayer;
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
+        solarcellCheck = new TiledCollisionCheckItem1(bounds, mapLayer);
+        batteryCheck = new TiledCollisionCheckItem2(bounds, mapLayer);
+        inverterCheck = new TiledCollisionCheckItem3(bounds, mapLayer);
+        ccontrollerCheck = new TiledCollisionCheckItem4(bounds, mapLayer);
 
-        state = PlayerState.WALK;
-        setCurrentAnimation(PlayerAnimation.WALK_LEFT);
-        viewDirection = Direction.LEFT;
+        state = PlayerState.STAND;
+        setCurrentAnimation(PlayerAnimation.STAND_DOWN);
+        viewDirection = Direction.DOWN;
 
         health = INTITAL_HEALTH;
         trapCount = INTITAL_TRAP;
@@ -159,7 +188,46 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     @Override
     protected void setAnimation() {
-        if (state == PlayerState.ATTACK && item == null) {
+        if (state == PlayerState.STAND && velocity.x == 0 && velocity.y == 0) {
+            unFreezeAnimation();
+            if(item == null) {
+                switch (viewDirection) {
+                    case DOWN:
+                        setCurrentAnimation(PlayerAnimation.STAND_DOWN);
+                        break;
+                    case LEFT:
+                        setCurrentAnimation(PlayerAnimation.STAND_LEFT);
+                        break;
+                    case RIGHT:
+                        setCurrentAnimation(PlayerAnimation.STAND_RIGHT);
+                        break;
+                    case UP:
+                        setCurrentAnimation(PlayerAnimation.STAND_UP);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else {
+                switch (viewDirection) {
+                    case DOWN:
+                        setCurrentAnimation(PlayerAnimation.ITEM_STAND_DOWN);
+                        break;
+                    case LEFT:
+                        setCurrentAnimation(PlayerAnimation.ITEM_STAND_LEFT);
+                        break;
+                    case RIGHT:
+                        setCurrentAnimation(PlayerAnimation.ITEM_STAND_RIGHT);
+                        break;
+                    case UP:
+                        setCurrentAnimation(PlayerAnimation.ITEM_STAND_UP);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        else if (state == PlayerState.ATTACK && item == null) {
             unFreezeAnimation();
             switch (viewDirection) {
             case DOWN: setCurrentAnimation(PlayerAnimation.ATK_DOWN); break;
@@ -170,11 +238,11 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 break;
             }
             if (isAnimationFinished(PlayerAnimation.ATK_LEFT) || isAnimationFinished(PlayerAnimation.ATK_RIGHT)) {
-                state = PlayerState.WALK;
+                state = PlayerState.STAND;
                 resetAnimation();
             }
             if (isAnimationFinished(PlayerAnimation.ATK_UP) || isAnimationFinished(PlayerAnimation.ATK_DOWN)) {
-                state = PlayerState.WALK;
+                state = PlayerState.STAND;
                 resetAnimation();
             }
         }else if (item != null) {
@@ -204,8 +272,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 break;
             }
             if (velocity.x == 0 && velocity.y == 0) {
-                freezeAnimation();
-                resetAnimation();
+                state = PlayerState.STAND;
             }
         }
     }
@@ -213,14 +280,14 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public void trapAttack(List<Weapon> weapons){
     	if(state != PlayerState.ATTACK && item == null){
     		state = PlayerState.ATTACK;
-    		if(trapCount!=0){
-    		    weapons.add(new Trap(mapLayer, this));
-	            Assets.instance.bulletSound.play();
-	            trapCount--;
-    		}
-            Assets.instance.bulletSound.play();
     		resetAnimation();
+            if(trapCount!=0){
+                weapons.add(new Trap(mapLayer, this));
+                Assets.instance.bulletSound.play();
+                trapCount--;
+            }
     	}
+
     }
 
     public void statusUpdate() {
@@ -249,11 +316,10 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     	if (state != PlayerState.ATTACK && item == null){
     		state = PlayerState.ATTACK;
     		if(bulletCount!=0){
-    		    weapons.add(new Bullet(mapLayer, this));
-	            Assets.instance.bulletSound.play();
+                weapons.add(new Bullet(mapLayer, this));
+                Assets.instance.bulletSound.play();
 	            bulletCount--;
     		}
-            Assets.instance.bulletSound.play();
     		resetAnimation();
     	}
     }
@@ -275,8 +341,12 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     	return !dead;
     }
 
+
     public void showHp(ShapeRenderer shapeRenderer){
-    	shapeRenderer.rect(
+        shapeRenderer.setColor(Color.BLACK);
+        shapeRenderer.rect( getPositionX(), getPositionY()-10,bounds.width, 5);
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.rect(
     	        getPositionX(), getPositionY()-10,
     	        bounds.width * ((float) health / INTITAL_HEALTH), 5);
     }
@@ -296,16 +366,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         return false;
     }
 
-    public void findItem(List<Item> items) {
-        if (item != null) {
-            item = null;
-            return;
-        }
-        for(Item i: items) {
-        	if (bounds.overlaps(i.bounds)) {
-                item = i;
-                return;
-        	}
+    public void findItem() {
+        if(item!=null){
+
         }
     }
 
