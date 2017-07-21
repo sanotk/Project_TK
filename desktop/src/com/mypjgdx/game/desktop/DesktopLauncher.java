@@ -9,8 +9,8 @@ public class DesktopLauncher {
     public static void main (String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.title = "Energy Saving Game";
-        config.width = 480;
-        config.height = 800;
+        config.width = 1024;
+        config.height = 576;
         config.addIcon("icon.png", Files.FileType.Internal);
         new LwjglApplication(new MyPjGdxGame(), config);
     }

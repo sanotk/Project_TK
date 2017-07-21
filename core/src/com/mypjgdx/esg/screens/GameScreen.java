@@ -35,15 +35,17 @@ public class GameScreen extends AbstractGameScreen {
     private Stage stage;
     private Skin skin;
 
-    public static final int SCENE_WIDTH = 480; //เซตค่าความกว้างของจอ
-    public static final int SCENE_HEIGHT = 800; //เซตค่าความสูงของจอ
+    public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
+    public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
 
     private Label textBullet;
     private Label textBeam;
     private Label textTrap;
     private Label textTime;
     private Label energyLevel;
-    private Label sunleft;
+    private Label energyLevel2;
+    private Label energyLevel3;
+    //private Label sunleft;
     //private Label sunright
 
     public enum solarcellState {
@@ -102,40 +104,45 @@ public class GameScreen extends AbstractGameScreen {
         textBullet = new Label("Punch Max : " ,skin);
         textBullet.setColor(1, 1, 1, 1);
         textBullet.setFontScale(1f,1f);
-        textBullet.setPosition(50, 700);
+        textBullet.setPosition(50, 550);
 
         textBeam = new Label("Z-Punch Max : " ,skin);
         textBeam.setColor(1, 1, 1, 1);
         textBeam.setFontScale(1.f,1.f);
-        textBeam.setPosition(200, 700);
+        textBeam.setPosition(200, 550);
 
         textTrap = new Label("Trap Max : " ,skin);
         textTrap.setColor(1, 1, 1, 1);
         textTrap.setFontScale(1f,1f);
-        textTrap.setPosition(350, 700);
+        textTrap.setPosition(350, 550);
 
         textTime = new Label("Time : " ,skin);
         textTime.setColor(1, 1, 1, 1);
         textTime.setFontScale(1f,1f);
-        textTime.setPosition(150, 750);
+        textTime.setPosition(450, 500);
 
         energyLevel = new Label("Energy : ", skin);
         energyLevel.setColor(1, 1, 1, 1);
         energyLevel.setFontScale(1,1f);
-        energyLevel.setPosition(300, 750);
+        energyLevel.setPosition(500, 550);
 
-        sunleft = new Label("Sun Left : " ,skin);
-        sunleft.setColor(1, 1, 1, 1);
-        sunleft.setFontScale(1f,1f);
-        sunleft.setPosition(50, 650);
+        energyLevel2 = new Label("Product Energy : ", skin);
+        energyLevel2.setColor(1, 1, 1, 1);
+        energyLevel2.setFontScale(1,1f);
+        energyLevel2.setPosition(650, 550);
+
+        energyLevel3 = new Label("Battery : ", skin);
+        energyLevel3.setColor(1, 1, 1, 1);
+        energyLevel3.setFontScale(1,1f);
+        energyLevel3.setPosition(800, 550);
 
         stage.addActor(textBullet);
         stage.addActor(textBeam);
         stage.addActor(textTrap);
         stage.addActor(textTime);
         stage.addActor(energyLevel);
-        stage.addActor(sunleft);
-        //stage.addActor(sunright);
+        stage.addActor(energyLevel2);
+        stage.addActor(energyLevel3);
 
         int btn_w = 200;
         int btn_h = 50;
@@ -342,7 +349,10 @@ public class GameScreen extends AbstractGameScreen {
         textTrap.setText(String.format("Trap Max : %d", worldController.level.player.trapCount));
         textTime.setText(String.format("Time : %d", worldController.level.player.timeCount));
         energyLevel.setText(String.format("Energy : %d", (int)worldController.level.energyTube.energy));
-        sunleft.setText(String.format("Sun Left"));
+        energyLevel2.setText(String.format("Product Energy : %d", (int)worldController.level.energyTube.energy));
+        energyLevel3.setText(String.format("Battery : %d", (int)worldController.level.energyTube.energy));
+        //
+        // sunleft.setText(String.format("Sun Left"));
 
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {

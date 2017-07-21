@@ -11,8 +11,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class WorldRenderer implements Disposable {
 
-    public static final int SCENE_WIDTH = 480; //เซตค่าความกว้างของจอ
-    public static final int SCENE_HEIGHT = 800; //เซตค่าความสูงของจอ
+    public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
+    public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
 
     private WorldController worldController; //ส่วนควบคุมเกม
 
@@ -41,7 +41,7 @@ public class WorldRenderer implements Disposable {
         shapeRenderer.setColor(1.0f, 0.0f, 0.0f, 1.0f);
 
         shader = new ShaderProgram(Gdx.files.internal("myshader.vert"), Gdx.files.internal("myshader.frag"));
-        //batch.setShader(shader);
+        batch.setShader(shader);
     }
 
     public void render () {

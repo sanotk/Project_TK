@@ -16,8 +16,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public abstract class AbstractDemo extends InputAdapter implements ApplicationListener {
 
-    protected static final float SCENE_WIDTH = 1280f;
-    protected static final float SCENE_HEIGHT = 720f;
+    protected static final float SCENE_WIDTH = 1024;
+    protected static final float SCENE_HEIGHT = 576;
 
     private OrthographicCamera camera;
     private Viewport viewport;
