@@ -33,6 +33,8 @@ public class OptionScreen extends AbstractGameScreen {
         sound = true;
 
         stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT));
+        Gdx.input.setInputProcessor(stage);
+
         stat_music = new Stage();
         stat_sound = new Stage();
 
@@ -45,17 +47,17 @@ public class OptionScreen extends AbstractGameScreen {
         text_option = new Label("Option" ,skin);
 		text_option.setColor(1, 1, 1, 1);
         text_option.setFontScale(1.2f,1.2f);
-        text_option.setPosition(SCENE_WIDTH / 2 - btn_w / 2 + 40, 550);
+        text_option.setPosition(SCENE_WIDTH / 2 - btn_w / 2 + 40, 450);
 
         text_music = new Label("Music" ,skin);
         text_music.setColor(1, 1, 0, 1);
         text_music.setFontScale(1.1f,1.1f);
-        text_music.setPosition(SCENE_WIDTH / 2 - btn_w / 2 - 120, 460);
+        text_music.setPosition(SCENE_WIDTH / 2 - btn_w / 2 - 120, 360);
 
         text_sound = new Label("Sound Effect" ,skin);
         text_sound.setColor(1, 1, 0, 1);
         text_sound.setFontScale(1.1f,1.1f);
-        text_sound.setPosition(SCENE_WIDTH / 2 - btn_w / 2 - 120, 390);
+        text_sound.setPosition(SCENE_WIDTH / 2 - btn_w / 2 - 120, 290);
 
         if(!Assets.instance.music.isPlaying()){
         	stat_music.clear();
@@ -63,7 +65,7 @@ public class OptionScreen extends AbstractGameScreen {
             status_music = new Label("Music : OFF" ,skin);
             status_music.setColor(1, 0, 1, 1);
             status_music.setFontScale(1.1f,1.1f);
-            status_music.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 460);
+            status_music.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 360);
             stat_music.addActor(status_music);
         }else{
             stat_music.clear();
@@ -71,24 +73,24 @@ public class OptionScreen extends AbstractGameScreen {
             status_music = new Label("Music : ON" ,skin);
             status_music.setColor(0, 1, 1, 1);
             status_music.setFontScale(1.1f,1.1f);
-            status_music.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 460);
+            status_music.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 360);
             stat_music.addActor(status_music);
         }
 
         TextButton buttonStart = new TextButton("ON/OFF", skin);
         buttonStart.setWidth(btn_w);
         buttonStart.setHeight(btn_h);
-        buttonStart.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 450);
+        buttonStart.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 350);
 
         TextButton buttonLoad = new TextButton("ON/OFF", skin);
         buttonLoad.setWidth(btn_w);
         buttonLoad.setHeight(btn_h);
-        buttonLoad.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 380);
+        buttonLoad.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 280);
 
         TextButton buttonBack= new TextButton("Back", skin);
         buttonBack.setWidth(btn_w);
         buttonBack.setHeight(btn_h);
-        buttonBack.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 310);
+        buttonBack.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 210);
 
         stage.addActor(buttonStart);
         stage.addActor(buttonLoad);
@@ -103,7 +105,7 @@ public class OptionScreen extends AbstractGameScreen {
         	status_sound = new Label("Sound Effect : OFF" ,skin);
         	status_sound.setColor(1, 0, 1, 1);
         	status_sound.setFontScale(1.1f,1.1f);
-        	status_sound.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 390);
+        	status_sound.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 290);
             stat_sound.addActor(status_sound);
         }
         else {
@@ -112,7 +114,7 @@ public class OptionScreen extends AbstractGameScreen {
             status_sound = new Label("Sound Effect : ON" ,skin);
             status_sound.setColor(0, 1, 1, 1);
             status_sound.setFontScale(1.1f,1.1f);
-            status_sound.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 390);
+            status_sound.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 290);
             stat_sound.addActor(status_sound);
         }
 
@@ -127,7 +129,7 @@ public class OptionScreen extends AbstractGameScreen {
                     status_music = new Label("Music : OFF" ,skin);
                     status_music.setColor(1, 0, 1, 1);
                     status_music.setFontScale(1.1f,1.1f);
-                    status_music.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 460);
+                    status_music.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 360);
                     stat_music.addActor(status_music);
                 }
                 else {
@@ -139,7 +141,7 @@ public class OptionScreen extends AbstractGameScreen {
                     status_music = new Label("Music : ON" ,skin);
                     status_music.setColor(0, 1, 1, 1);
                     status_music.setFontScale(1.1f,1.1f);
-                    status_music.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 460);
+                    status_music.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 360);
                     stat_music.addActor(status_music);
                 }
             }
@@ -159,7 +161,7 @@ public class OptionScreen extends AbstractGameScreen {
                 	status_sound = new Label("Sound Effect : OFF" ,skin);
                 	status_sound.setColor(1, 0, 1, 1);
                 	status_sound.setFontScale(1.1f,1.1f);
-                	status_sound.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 390);
+                	status_sound.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 290);
                     stat_sound.addActor(status_sound);
                 }
                 else {
@@ -170,7 +172,7 @@ public class OptionScreen extends AbstractGameScreen {
                     status_sound = new Label("Sound Effect : ON" ,skin);
                     status_sound.setColor(0, 1, 1, 1);
                     status_sound.setFontScale(1.1f,1.1f);
-                    status_sound.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 390);
+                    status_sound.setPosition(SCENE_WIDTH / 2 - 150 / 2 + 180, 290);
                     stat_sound.addActor(status_sound);
                 }
             }
