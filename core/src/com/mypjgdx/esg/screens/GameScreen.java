@@ -45,6 +45,8 @@ public class GameScreen extends AbstractGameScreen {
     private Label energyLevel;
     private Label energyLevel2;
     private Label energyLevel3;
+
+    public boolean status_finish =false;
     //private Label sunleft;
     //private Label sunright
 
@@ -355,7 +357,6 @@ public class GameScreen extends AbstractGameScreen {
                 batState = batteryState.BtoI;
                 System.out.print(batState);
                 worldController.level.player.status_find = false;
-
             }
         });
 
@@ -370,7 +371,7 @@ public class GameScreen extends AbstractGameScreen {
         textBullet.setText(String.format("Punch Max : %d", worldController.level.player.bulletCount));
         textBeam.setText(String.format("Z-Punch Max : %d", worldController.level.player.beamCount));
         textTrap.setText(String.format("Trap Max : %d", worldController.level.player.trapCount));
-        textTime.setText(String.format("Time : %d", worldController.level.player.timeCount));
+        textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
         energyLevel.setText(String.format("Energy : %d", (int)worldController.level.energyTube.energy));
         energyLevel2.setText(String.format("Product Energy : %d", (int)worldController.level.energyTube.energy));
         energyLevel3.setText(String.format("Battery : %d", (int)worldController.level.energyTube.energy));
@@ -431,6 +432,11 @@ public class GameScreen extends AbstractGameScreen {
             buttonCtoS.setVisible(false);
             buttonCtoB.setVisible(false);
             buttonCtoI.setVisible(false);
+        }
+
+        if((solarState == solarcellState.StoC)&&(ccState == chargecontrollercState.CtoB)&&(batState == batteryState.BtoC)
+                &&(inverState==inverterState.ItoC)){
+            status_finish =true;
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World

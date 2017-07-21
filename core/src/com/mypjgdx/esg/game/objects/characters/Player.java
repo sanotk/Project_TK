@@ -167,6 +167,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             timeCount--;
             Countdown = 0;
         }
+
     }
 
     public void move(Direction direction) {

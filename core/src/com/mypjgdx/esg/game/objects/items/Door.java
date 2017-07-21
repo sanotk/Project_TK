@@ -4,14 +4,14 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Player;
 
-public class Battery extends Item{
+public class Door extends Item{
 
     private static final float SCALE = 1f;
-    public static final float P_X = 1700f;
-    public static final float P_Y = 900f;
+    public static final float P_X = 1900f;
+    public static final float P_Y = 1300f;
 
-	public Battery(TiledMapTileLayer mapLayer, Player player){
-        super(Assets.instance.batAltas, SCALE, SCALE , P_X , P_Y);
+	public Door(TiledMapTileLayer mapLayer, Player player){
+        super(Assets.instance.ccAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player);
 	}
 
