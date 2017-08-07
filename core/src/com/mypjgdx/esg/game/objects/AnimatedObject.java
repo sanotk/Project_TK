@@ -1,7 +1,5 @@
 package com.mypjgdx.esg.game.objects;
 
-import java.util.Comparator;
-
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,11 +9,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
+import java.util.Comparator;
+
 public abstract class AnimatedObject<E extends Enum<E>> extends AbstractGameObject {
 
     public static final float START_TIME = 0;
 
-    private ObjectMap<E, Animation> animations;
+    private ObjectMap<E, Animation<TextureRegion>> animations;
     private E currentAnimation;
 
     private Array<AtlasRegion> regions;
@@ -27,7 +27,7 @@ public abstract class AnimatedObject<E extends Enum<E>> extends AbstractGameObje
     public AnimatedObject(TextureAtlas atlas) {
         super();
 
-        animations = new ObjectMap<E, Animation>();
+        animations = new ObjectMap<E, Animation<TextureRegion>>();
 
         regions = new Array<AtlasRegion>(atlas.getRegions());
         regions.sort(new regionComparator());
@@ -59,7 +59,7 @@ public abstract class AnimatedObject<E extends Enum<E>> extends AbstractGameObje
     protected void addAnimation(E name, float frameTime, int regionStart, int size, PlayMode mode) {
         Array<AtlasRegion> animationRegions = new Array<AtlasRegion>();
         animationRegions.addAll(regions, regionStart, size);
-        animations.put(name, new Animation(frameTime, animationRegions, mode));
+        animations.put(name, new Animation<TextureRegion>(frameTime, animationRegions, mode));
     }
 
     protected abstract void setAnimation ();
