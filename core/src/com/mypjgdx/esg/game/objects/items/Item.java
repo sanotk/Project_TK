@@ -3,7 +3,7 @@ package com.mypjgdx.esg.game.objects.items;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
-import com.mypjgdx.esg.collision.TiledCollisionCheck;
+import com.mypjgdx.esg.collision.check.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item.ItemAnimation;

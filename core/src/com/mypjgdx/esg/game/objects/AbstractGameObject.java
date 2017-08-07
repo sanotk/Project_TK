@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mypjgdx.esg.collision.CollisionCheck;
-import com.mypjgdx.esg.collision.NullCollsionCheck;
+import com.mypjgdx.esg.collision.check.CollisionCheck;
+import com.mypjgdx.esg.collision.check.NullCollsionCheck;
 
 public abstract class AbstractGameObject {
 
@@ -26,7 +26,6 @@ public abstract class AbstractGameObject {
     public boolean status_inverter = false;
     public boolean status_ccontroller = false;
     public boolean status_battery = false;
-
 
     protected CollisionCheck collisionCheck;
     protected CollisionCheck solarcellCheck;
@@ -70,7 +69,7 @@ public abstract class AbstractGameObject {
         }
 
         if (solarcellCheck.isCollidesBottom() || solarcellCheck.isCollidesLeft() ||
-                solarcellCheck.isCollidesRight() || solarcellCheck .isCollidesTop()){
+                solarcellCheck.isCollidesRight() || solarcellCheck.isCollidesTop()){
             status_solarcell = true;
         }
         else {

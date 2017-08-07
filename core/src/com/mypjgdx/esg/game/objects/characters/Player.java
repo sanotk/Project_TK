@@ -1,18 +1,11 @@
 package com.mypjgdx.esg.game.objects.characters;
 
-import java.util.List;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.Timer;
-import com.mypjgdx.esg.collision.TiledCollisionCheck;
-import com.mypjgdx.esg.collision.TiledCollisionCheckItem1;
-import com.mypjgdx.esg.collision.TiledCollisionCheckItem2;
-import com.mypjgdx.esg.collision.TiledCollisionCheckItem3;
-import com.mypjgdx.esg.collision.TiledCollisionCheckItem4;
+import com.mypjgdx.esg.collision.check.*;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
@@ -23,7 +16,8 @@ import com.mypjgdx.esg.game.objects.weapons.Trap;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.game.objects.weapons.Weapon.WeaponType;
 import com.mypjgdx.esg.utils.Direction;
-import java.lang.Thread;
+
+import java.util.List;
 
 public class Player extends AnimatedObject<PlayerAnimation> implements Damageable {
 
@@ -70,7 +64,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public enum PlayerState {
-    	STAND, ATTACK
+        STANDING, ATTACKING
     }
 
     private Item item;
@@ -133,7 +127,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         inverterCheck = new TiledCollisionCheckItem3(bounds, mapLayer);
         ccontrollerCheck = new TiledCollisionCheckItem4(bounds, mapLayer);
 
-        state = PlayerState.STAND;
+        state = PlayerState.STANDING;
         setCurrentAnimation(PlayerAnimation.STAND_DOWN);
         viewDirection = Direction.DOWN;
 
@@ -167,7 +161,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             timeCount--;
             Countdown = 0;
         }
-
     }
 
     public void move(Direction direction) {
@@ -191,7 +184,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     @Override
     protected void setAnimation() {
-        if (state == PlayerState.STAND && velocity.x == 0 && velocity.y == 0) {
+        if (state == PlayerState.STANDING && velocity.x == 0 && velocity.y == 0) {
             unFreezeAnimation();
             if(item == null) {
                 switch (viewDirection) {
@@ -230,7 +223,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 }
             }
         }
-        else if (state == PlayerState.ATTACK && item == null) {
+        else if (state == PlayerState.ATTACKING && item == null) {
             unFreezeAnimation();
             switch (viewDirection) {
             case DOWN: setCurrentAnimation(PlayerAnimation.ATK_DOWN); break;
@@ -241,11 +234,11 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 break;
             }
             if (isAnimationFinished(PlayerAnimation.ATK_LEFT) || isAnimationFinished(PlayerAnimation.ATK_RIGHT)) {
-                state = PlayerState.STAND;
+                state = PlayerState.STANDING;
                 resetAnimation();
             }
             if (isAnimationFinished(PlayerAnimation.ATK_UP) || isAnimationFinished(PlayerAnimation.ATK_DOWN)) {
-                state = PlayerState.STAND;
+                state = PlayerState.STANDING;
                 resetAnimation();
             }
         }else if (item != null) {
@@ -275,14 +268,14 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 break;
             }
             if (velocity.x == 0 && velocity.y == 0) {
-                state = PlayerState.STAND;
+                state = PlayerState.STANDING;
             }
         }
     }
 
     public void trapAttack(List<Weapon> weapons){
-    	if(state != PlayerState.ATTACK && item == null){
-    		state = PlayerState.ATTACK;
+    	if(state != PlayerState.ATTACKING && item == null){
+    		state = PlayerState.ATTACKING;
     		resetAnimation();
             if(trapCount!=0){
                 weapons.add(new Trap(mapLayer, this));
@@ -316,8 +309,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void rangeAttack(List<Weapon> weapons){
-    	if (state != PlayerState.ATTACK && item == null){
-    		state = PlayerState.ATTACK;
+    	if (state != PlayerState.ATTACKING && item == null){
+    		state = PlayerState.ATTACKING;
     		if(bulletCount!=0){
                 weapons.add(new Bullet(mapLayer, this));
                 Assets.instance.bulletSound.play();
@@ -328,8 +321,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void beamAttack(List<Weapon> weapons){
-    	if (state != PlayerState.ATTACK && item == null){
-    		state = PlayerState.ATTACK;
+    	if (state != PlayerState.ATTACKING && item == null){
+    		state = PlayerState.ATTACKING;
     		if(beamCount!=0){
     		    weapons.add(new Beam(mapLayer, this));
 	            Assets.instance.beamSound.play();
