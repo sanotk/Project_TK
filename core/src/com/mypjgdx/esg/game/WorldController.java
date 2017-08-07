@@ -83,6 +83,7 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.Z)) level.player.rangeAttack(level.weapons);
             if (Gdx.input.isKeyPressed(Keys.C)) level.player.beamAttack(level.weapons);
             if (Gdx.input.isKeyJustPressed(Keys.A)) level.player.findItem();
+            if (Gdx.input.isKeyJustPressed(Keys.B)) level.player.downItem();
             if (Gdx.input.isKeyJustPressed(Keys.S)) {
                 Json json = new Json();
                 String choice = json.toJson("2");

@@ -18,7 +18,7 @@ public class CameraHelper {
 
     public CameraHelper () { //สร้าง instance ของ class Vector2 เพื่อใช้เก็บตำแหน่งตัวช่วยมุมกล้อง
         position = new Vector2();
-        zoom = 1.0f;
+        zoom = 1.09f;
     }
 
     public void setPosition (float x, float y) { //เซ็ตตำแหน่ง
@@ -82,8 +82,8 @@ public class CameraHelper {
         float rightEdge = (map.getWidth() - 1) *  map.getTileWidth();
         float lowerEdge =  map.getTileHeight() * 1;
         float upperEdge = (map.getHeight() - 1) * map.getTileHeight();
-        float halfCameraWidth = 480/2;
-        float halfCameraHeight = 800/2;
+        float halfCameraWidth = 1024/2;
+        float halfCameraHeight = 576/2;
 
         if (position.y + halfCameraHeight > upperEdge)
             position.y = upperEdge - halfCameraHeight;

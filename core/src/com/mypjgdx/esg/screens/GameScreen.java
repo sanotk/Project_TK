@@ -35,15 +35,19 @@ public class GameScreen extends AbstractGameScreen {
     private Stage stage;
     private Skin skin;
 
-    public static final int SCENE_WIDTH = 480; //เซตค่าความกว้างของจอ
-    public static final int SCENE_HEIGHT = 800; //เซตค่าความสูงของจอ
+    public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
+    public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
 
     private Label textBullet;
     private Label textBeam;
     private Label textTrap;
     private Label textTime;
     private Label energyLevel;
-    private Label sunleft;
+    private Label energyLevel2;
+    private Label energyLevel3;
+
+    public boolean status_finish =false;
+    //private Label sunleft;
     //private Label sunright
 
     public enum solarcellState {
@@ -102,40 +106,45 @@ public class GameScreen extends AbstractGameScreen {
         textBullet = new Label("Punch Max : " ,skin);
         textBullet.setColor(1, 1, 1, 1);
         textBullet.setFontScale(1f,1f);
-        textBullet.setPosition(50, 700);
+        textBullet.setPosition(50, 550);
 
         textBeam = new Label("Z-Punch Max : " ,skin);
         textBeam.setColor(1, 1, 1, 1);
         textBeam.setFontScale(1.f,1.f);
-        textBeam.setPosition(200, 700);
+        textBeam.setPosition(200, 550);
 
         textTrap = new Label("Trap Max : " ,skin);
         textTrap.setColor(1, 1, 1, 1);
         textTrap.setFontScale(1f,1f);
-        textTrap.setPosition(350, 700);
+        textTrap.setPosition(350, 550);
 
         textTime = new Label("Time : " ,skin);
         textTime.setColor(1, 1, 1, 1);
         textTime.setFontScale(1f,1f);
-        textTime.setPosition(150, 750);
+        textTime.setPosition(450, 500);
 
         energyLevel = new Label("Energy : ", skin);
         energyLevel.setColor(1, 1, 1, 1);
         energyLevel.setFontScale(1,1f);
-        energyLevel.setPosition(300, 750);
+        energyLevel.setPosition(500, 550);
 
-        sunleft = new Label("Sun Left : " ,skin);
-        sunleft.setColor(1, 1, 1, 1);
-        sunleft.setFontScale(1f,1f);
-        sunleft.setPosition(50, 650);
+        energyLevel2 = new Label("Product Energy : ", skin);
+        energyLevel2.setColor(1, 1, 1, 1);
+        energyLevel2.setFontScale(1,1f);
+        energyLevel2.setPosition(650, 550);
+
+        energyLevel3 = new Label("Battery : ", skin);
+        energyLevel3.setColor(1, 1, 1, 1);
+        energyLevel3.setFontScale(1,1f);
+        energyLevel3.setPosition(800, 550);
 
         stage.addActor(textBullet);
         stage.addActor(textBeam);
         stage.addActor(textTrap);
         stage.addActor(textTime);
         stage.addActor(energyLevel);
-        stage.addActor(sunleft);
-        //stage.addActor(sunright);
+        stage.addActor(energyLevel2);
+        stage.addActor(energyLevel3);
 
         int btn_w = 200;
         int btn_h = 50;
@@ -168,6 +177,8 @@ public class GameScreen extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 solarState = solarcellState.StoC;
                 System.out.print(solarState);
+                worldController.level.player.status_find = false;
+
             }
         });
 
@@ -176,6 +187,8 @@ public class GameScreen extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 solarState = solarcellState.StoB;
                 System.out.print(solarState);
+                worldController.level.player.status_find = false;
+
             }
         });
 
@@ -184,6 +197,8 @@ public class GameScreen extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 solarState = solarcellState.StoI;
                 System.out.print(solarState);
+                worldController.level.player.status_find = false;
+
             }
         });
 
@@ -216,6 +231,8 @@ public class GameScreen extends AbstractGameScreen {
                 super.clicked(event, x, y);
                 inverState = inverterState.ItoS;
                 System.out.print(inverState);
+                worldController.level.player.status_find = false;
+
             }
         });
 
@@ -224,6 +241,8 @@ public class GameScreen extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 inverState = inverterState.ItoC;
                 System.out.print(inverState);
+                worldController.level.player.status_find = false;
+
             }
         });
 
@@ -232,6 +251,8 @@ public class GameScreen extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 inverState = inverterState.ItoB;
                 System.out.print(inverState);
+                worldController.level.player.status_find = false;
+
             }
         });
 
@@ -263,6 +284,8 @@ public class GameScreen extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 ccState = chargecontrollercState.CtoS;
                 System.out.print(ccState);
+                worldController.level.player.status_find = false;
+
             }
         });
 
@@ -271,6 +294,8 @@ public class GameScreen extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 ccState = chargecontrollercState.CtoB;
                 System.out.print(ccState);
+                worldController.level.player.status_find = false;
+
             }
         });
 
@@ -279,6 +304,8 @@ public class GameScreen extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 ccState = chargecontrollercState.CtoI;
                 System.out.print(ccState);
+                worldController.level.player.status_find = false;
+
             }
         });
 
@@ -310,6 +337,7 @@ public class GameScreen extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 batState = batteryState.BtoS;
                 System.out.print(batState);
+                worldController.level.player.status_find = false;
             }
         });
 
@@ -318,6 +346,8 @@ public class GameScreen extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 batState = batteryState.BtoC;
                 System.out.print(batState);
+                worldController.level.player.status_find = false;
+
             }
         });
 
@@ -326,6 +356,7 @@ public class GameScreen extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 batState = batteryState.BtoI;
                 System.out.print(batState);
+                worldController.level.player.status_find = false;
             }
         });
 
@@ -340,9 +371,12 @@ public class GameScreen extends AbstractGameScreen {
         textBullet.setText(String.format("Punch Max : %d", worldController.level.player.bulletCount));
         textBeam.setText(String.format("Z-Punch Max : %d", worldController.level.player.beamCount));
         textTrap.setText(String.format("Trap Max : %d", worldController.level.player.trapCount));
-        textTime.setText(String.format("Time : %d", worldController.level.player.timeCount));
+        textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
         energyLevel.setText(String.format("Energy : %d", (int)worldController.level.energyTube.energy));
-        sunleft.setText(String.format("Sun Left"));
+        energyLevel2.setText(String.format("Product Energy : %d", (int)worldController.level.energyTube.energy));
+        energyLevel3.setText(String.format("Battery : %d", (int)worldController.level.energyTube.energy));
+        //
+        // sunleft.setText(String.format("Sun Left"));
 
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
@@ -360,7 +394,7 @@ public class GameScreen extends AbstractGameScreen {
             return;
         }
 
-        if(worldController.level.player.status_solarcell==true){
+        if((worldController.level.player.status_solarcell==true)&&(worldController.level.player.status_find == true)){
             buttonStoC.setVisible(true);
             buttonStoB.setVisible(true);
             buttonStoI.setVisible(true);
@@ -370,7 +404,7 @@ public class GameScreen extends AbstractGameScreen {
             buttonStoI.setVisible(false);
         }
 
-        if(worldController.level.player.status_battery==true){
+        if((worldController.level.player.status_battery==true)&&(worldController.level.player.status_find == true)){
             buttonBtoC.setVisible(true);
             buttonBtoS.setVisible(true);
             buttonBtoI.setVisible(true);
@@ -380,7 +414,7 @@ public class GameScreen extends AbstractGameScreen {
             buttonBtoI.setVisible(false);
         }
 
-        if(worldController.level.player.status_inverter==true){
+        if((worldController.level.player.status_inverter==true)&&(worldController.level.player.status_find == true)){
             buttonItoC.setVisible(true);
             buttonItoB.setVisible(true);
             buttonItoS.setVisible(true);
@@ -390,7 +424,7 @@ public class GameScreen extends AbstractGameScreen {
             buttonItoS.setVisible(false);
         }
 
-        if(worldController.level.player.status_ccontroller==true){
+        if((worldController.level.player.status_ccontroller==true)&&(worldController.level.player.status_find == true)){
             buttonCtoS.setVisible(true);
             buttonCtoB.setVisible(true);
             buttonCtoI.setVisible(true);
@@ -398,6 +432,11 @@ public class GameScreen extends AbstractGameScreen {
             buttonCtoS.setVisible(false);
             buttonCtoB.setVisible(false);
             buttonCtoI.setVisible(false);
+        }
+
+        if((solarState == solarcellState.StoC)&&(ccState == chargecontrollercState.CtoB)&&(batState == batteryState.BtoC)
+                &&(inverState==inverterState.ItoC)){
+            status_finish =true;
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World

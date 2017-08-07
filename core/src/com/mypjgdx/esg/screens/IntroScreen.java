@@ -17,8 +17,8 @@ import com.mypjgdx.esg.ui.Dialog;
 
 public class IntroScreen extends AbstractGameScreen {
 
-    public static final int SCENE_WIDTH = 480; //เซตค่าความกว้างของจอ
-    public static final int SCENE_HEIGHT = 800; //เซตค่าความสูงของจอ
+    public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
+    public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
 
     private OrthographicCamera camera;
     private SpriteBatch batch;

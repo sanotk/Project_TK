@@ -42,6 +42,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private static final int INTITAL_BULLET = 99999;
     private static final int INTITAL_BEAM = 3;
 
+    public boolean status_find = false;
+
     private float Countdown;
 
     public enum PlayerAnimation {
@@ -165,6 +167,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             timeCount--;
             Countdown = 0;
         }
+
     }
 
     public void move(Direction direction) {
@@ -367,9 +370,11 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void findItem() {
-        if(item!=null){
+        status_find = true;
+    }
 
-        }
+    public void downItem() {
+        status_find = false;
     }
 
 

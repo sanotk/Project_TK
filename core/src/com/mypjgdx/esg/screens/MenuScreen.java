@@ -13,8 +13,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class MenuScreen extends AbstractGameScreen {
 
-    public static final int SCENE_WIDTH = 480; //เซตค่าความกว้างของจอ
-    public static final int SCENE_HEIGHT = 800; //เซตค่าความสูงของจอ
+    public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
+    public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
     private Stage stage; //
     private Skin skin; //
     private Label text_mainmenu;
@@ -33,27 +33,27 @@ public class MenuScreen extends AbstractGameScreen {
         text_mainmenu = new Label("Main Menu" ,skin);
         text_mainmenu.setColor(1, 1, 1, 1);
         text_mainmenu.setFontScale(1.2f,1.2f);
-        text_mainmenu.setPosition(SCENE_WIDTH / 2 - btn_w / 2 + 50, 550);
+        text_mainmenu.setPosition(SCENE_WIDTH / 2 - btn_w / 2 + 50, 450);
 
         TextButton buttonStart = new TextButton("NEW GAME", skin);
         buttonStart.setWidth(btn_w);
         buttonStart.setHeight(btn_h);
-        buttonStart.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 450);
+        buttonStart.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 350);
 
         TextButton buttonLoad = new TextButton("LOAD GAME", skin);
         buttonLoad.setWidth(btn_w);
         buttonLoad.setHeight(btn_h);
-        buttonLoad.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 380);
+        buttonLoad.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 280);
 
         TextButton buttonOption = new TextButton("OPTION", skin);
         buttonOption.setWidth(btn_w);
         buttonOption.setHeight(btn_h);
-        buttonOption.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 310);
+        buttonOption.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 210);
 
         TextButton buttonExit = new TextButton("EXIT", skin);
         buttonExit.setWidth(btn_w);
         buttonExit.setHeight(btn_h);
-        buttonExit.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 240);
+        buttonExit.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 140);
 
         stage.addActor(buttonStart);
         stage.addActor(buttonLoad);
