@@ -2,10 +2,12 @@ package com.mypjgdx.esg.game.objects.characters;
 
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
@@ -93,6 +95,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private TiledMapTileLayer mapLayer;
     private Direction viewDirection;
 
+    //TODO
+    private boolean old_status_solarcell = status_solarcell;
+
     public Player(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         super(Assets.instance.playerAltas);
 
@@ -166,6 +171,11 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         if(Countdown>=1){
             timeCount--;
             Countdown = 0;
+        }
+
+        if (status_solarcell != old_status_solarcell) {
+            Gdx.app.log("Player", "Solarcell Status change: " + status_solarcell);
+            status_solarcell = old_status_solarcell;
         }
 
     }

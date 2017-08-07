@@ -1,5 +1,6 @@
 package com.mypjgdx.esg.game.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -26,7 +27,6 @@ public abstract class AbstractGameObject {
     public boolean status_inverter = false;
     public boolean status_ccontroller = false;
     public boolean status_battery = false;
-
 
     protected CollisionCheck collisionCheck;
     protected CollisionCheck solarcellCheck;
@@ -70,7 +70,9 @@ public abstract class AbstractGameObject {
         }
 
         if (solarcellCheck.isCollidesBottom() || solarcellCheck.isCollidesLeft() ||
-                solarcellCheck.isCollidesRight() || solarcellCheck .isCollidesTop()){
+                solarcellCheck.isCollidesRight() || solarcellCheck.isCollidesTop()){
+
+            Gdx.app.log("", "collision found!");
             status_solarcell = true;
         }
         else {
