@@ -41,6 +41,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public TiledMap map2;
     public TiledMap map3;
     public TiledMap map4;
+    public TiledMap testMap;
     public Music music;
     public Music introGame;
     public Sound bulletSound;
@@ -58,6 +59,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("map2.tmx", TiledMap.class);
         manager.load("map3.tmx", TiledMap.class);
         manager.load("map4.tmx", TiledMap.class);
+        manager.load("test-map.tmx", TiledMap.class);
 
         manager.load("rule1.png" , Texture.class);
 
@@ -90,6 +92,7 @@ public class Assets implements Disposable, AssetErrorListener {
         map2 = manager.get("map2.tmx");
         map3 = manager.get("map3.tmx");
         map4 = manager.get("map4.tmx");
+        testMap = manager.get("test-map.tmx");
 
         rule1 = manager.get("rule1.png");
 

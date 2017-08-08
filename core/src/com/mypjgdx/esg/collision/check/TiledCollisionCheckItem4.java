@@ -1,19 +1,19 @@
-package com.mypjgdx.esg.collision;
+package com.mypjgdx.esg.collision.check;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 
-public class TiledCollisionCheck implements CollisionCheck {
+public class TiledCollisionCheckItem4 implements CollisionCheck {
 
     private TiledMapTileLayer tileLayer;
     private Rectangle rectObject;
     private String property;
 
-    public TiledCollisionCheck(Rectangle rectObject, TiledMapTileLayer tileLayer) {
-        this(rectObject, tileLayer, "blocked");
+    public TiledCollisionCheckItem4(Rectangle rectObject, TiledMapTileLayer tileLayer) {
+        this(rectObject, tileLayer, "ccontroller");
     }
 
-    public TiledCollisionCheck(Rectangle rectObject, TiledMapTileLayer tileLayer, String property) {
+    public TiledCollisionCheckItem4(Rectangle rectObject, TiledMapTileLayer tileLayer, String property) {
         this.tileLayer = tileLayer;
         this.rectObject = rectObject;
         this.property= property;

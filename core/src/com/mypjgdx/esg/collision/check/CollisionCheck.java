@@ -1,4 +1,4 @@
-package com.mypjgdx.esg.collision;
+package com.mypjgdx.esg.collision.check;
 
 public interface CollisionCheck {
 

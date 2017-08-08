@@ -9,7 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.mypjgdx.esg.collision.TiledCollisionCheck;
+import com.mypjgdx.esg.collision.check.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Enemy.EnemyAnimation;
