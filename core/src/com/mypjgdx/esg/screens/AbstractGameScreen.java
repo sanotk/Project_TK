@@ -2,7 +2,6 @@ package com.mypjgdx.esg.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public abstract class AbstractGameScreen implements Screen {
 
@@ -12,24 +11,31 @@ public abstract class AbstractGameScreen implements Screen {
         this.game = game;
     }
 
-    public abstract void render (float deltaTime);
+    @Override
+    public void show() {
+    }
 
     @Override
-    public abstract void resize (int width, int height);
+    public void render(float delta) {
+    }
 
     @Override
-    public abstract void show ();
+    public void resize(int width, int height) {
+    }
 
     @Override
-    public abstract void hide ();
+    public void pause() {
+    }
 
     @Override
-    public abstract void pause ();
+    public void resume() {
+    }
 
     @Override
-    public void resume () {}
+    public void hide() {
+    }
 
     @Override
-    public void dispose () {}
-
+    public void dispose() {
+    }
 }

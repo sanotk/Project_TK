@@ -3,7 +3,7 @@ package com.mypjgdx.esg.game.objects.weapons;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.mypjgdx.esg.collision.TiledCollisionCheck;
+import com.mypjgdx.esg.collision.check.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
