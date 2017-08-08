@@ -9,6 +9,7 @@ import com.mypjgdx.esg.collision.check.CollisionCheck;
 import com.mypjgdx.esg.collision.check.NullCollsionCheck;
 
 /**
+ *
  * Created by Bill on 8/8/2560.
  */
 public class PhysicsComponent implements Component {

@@ -1,5 +1,6 @@
 package com.mypjgdx.esg.ashleytest.systems;
 
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
@@ -19,6 +20,7 @@ public class MovementSystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
+
         TransformComponent transform = Mappers.transform.get(entity);
         PhysicsComponent physics = Mappers.physics.get(entity);
 

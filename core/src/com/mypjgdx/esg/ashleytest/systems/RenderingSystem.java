@@ -26,6 +26,7 @@ public class RenderingSystem extends SortedIteratingSystem {
 
     public RenderingSystem(SpriteBatch batch, OrthographicCamera camera) {
         super(Family.all(SpriteComponent.class, TransformComponent.class).get(), new LayerComparator());
+
         this.batch = batch;
         this.camera = camera;
     }
@@ -39,6 +40,7 @@ public class RenderingSystem extends SortedIteratingSystem {
         for (Entity entity : renderQueue) {
             TransformComponent transform = Mappers.transform.get(entity);
             SpriteComponent sprite = Mappers.sprite.get(entity);
+
             batch.draw(sprite.region,
                     transform.position.x, transform.position.y,
                     transform.origin.x, transform.origin.y,

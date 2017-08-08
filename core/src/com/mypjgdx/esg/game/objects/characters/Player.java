@@ -1,9 +1,17 @@
 package com.mypjgdx.esg.game.objects.characters;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.mypjgdx.esg.collision.check.TiledCollisionCheck;
+import com.mypjgdx.esg.collision.check.TiledCollisionCheckItem1;
+import com.mypjgdx.esg.collision.check.TiledCollisionCheckItem2;
+import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.game.objects.items.Item;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.check.*;
 import com.mypjgdx.esg.game.Assets;

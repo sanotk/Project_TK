@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.mypjgdx.esg.ashleytest.components.*;
 
 /**
+ *
  * Created by Bill on 8/8/2560.
  */
 public class Mappers {
