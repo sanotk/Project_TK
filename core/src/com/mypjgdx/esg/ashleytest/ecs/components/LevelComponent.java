@@ -1,4 +1,4 @@
-package com.mypjgdx.esg.ashleytest.components;
+package com.mypjgdx.esg.ashleytest.ecs.components;
 
 /**
  * Created by Bill on 8/8/2560.

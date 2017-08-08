@@ -1,7 +1,7 @@
 package com.mypjgdx.esg.ashleytest;
 
 import com.badlogic.ashley.core.ComponentMapper;
-import com.mypjgdx.esg.ashleytest.components.*;
+import com.mypjgdx.esg.ashleytest.ecs.components.*;
 
 /**
  *
@@ -14,8 +14,11 @@ public class Mappers {
     public static final ComponentMapper<SpriteComponent> sprite = ComponentMapper.getFor(SpriteComponent.class);
     public static final ComponentMapper<AnimatorComponent> animator = ComponentMapper.getFor(AnimatorComponent.class);
     public static final ComponentMapper<CameraHelperComponent> cameraHelper = ComponentMapper.getFor(CameraHelperComponent.class);
-    public static final ComponentMapper<PlayerComponent> player = ComponentMapper.getFor(PlayerComponent.class);
     public static final ComponentMapper<TiledMapComponent> tiledMap = ComponentMapper.getFor(TiledMapComponent.class);
+    public static final ComponentMapper<CharacterComponent> character = ComponentMapper.getFor(CharacterComponent.class);
+    public static final ComponentMapper<PlayerComponent> player = ComponentMapper.getFor(PlayerComponent.class);
+    public static final ComponentMapper<EnemyComponent> enemy = ComponentMapper.getFor(EnemyComponent.class);
+    public static final ComponentMapper<StatusComponent> status = ComponentMapper.getFor(StatusComponent.class);
 
     private Mappers() {
     }

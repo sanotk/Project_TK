@@ -2,8 +2,8 @@ package com.mypjgdx.esg.collision.respone;
 
 import com.badlogic.ashley.core.Entity;
 import com.mypjgdx.esg.ashleytest.Mappers;
-import com.mypjgdx.esg.ashleytest.components.PhysicsComponent;
-import com.mypjgdx.esg.ashleytest.components.TransformComponent;
+import com.mypjgdx.esg.ashleytest.ecs.components.PhysicsComponent;
+import com.mypjgdx.esg.ashleytest.ecs.components.TransformComponent;
 
 
 

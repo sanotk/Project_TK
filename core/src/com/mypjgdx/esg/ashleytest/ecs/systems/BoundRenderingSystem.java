@@ -1,4 +1,4 @@
-package com.mypjgdx.esg.ashleytest.systems;
+package com.mypjgdx.esg.ashleytest.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mypjgdx.esg.ashleytest.Mappers;
-import com.mypjgdx.esg.ashleytest.components.PhysicsComponent;
+import com.mypjgdx.esg.ashleytest.ecs.components.PhysicsComponent;
 
 /**
  *

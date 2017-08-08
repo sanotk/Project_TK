@@ -1,4 +1,4 @@
-package com.mypjgdx.esg.ashleytest.components;
+package com.mypjgdx.esg.ashleytest.ecs.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -8,17 +8,16 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
 /**
- *
  * Created by Bill on 8/8/2560.
  */
-public class AnimationComponent<E> implements Component {
+public class AnimatorComponent implements Component {
 
-    public ObjectMap<E, Animation<TextureRegion>> animations;
-    public E currentAnimation;
+    public ObjectMap<Enum, Animation<TextureRegion>> animations = new ObjectMap<Enum, Animation<TextureRegion>>();
+    public Array<TextureAtlas.AtlasRegion> regions = new Array<TextureAtlas.AtlasRegion>();
 
-    public Array<TextureAtlas.AtlasRegion> regions;
-    public TextureRegion currentRegion;
+    public Enum currentAnimation;
 
     public float animationTime;
     public boolean freeze;
+
 }

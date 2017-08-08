@@ -1,14 +1,14 @@
-package com.mypjgdx.esg.ashleytest.systems;
+package com.mypjgdx.esg.ashleytest.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.mypjgdx.esg.ashleytest.Mappers;
-import com.mypjgdx.esg.ashleytest.components.AnimatorComponent;
-import com.mypjgdx.esg.ashleytest.components.PhysicsComponent;
-import com.mypjgdx.esg.ashleytest.components.PlayerComponent;
+import com.mypjgdx.esg.ashleytest.ecs.components.AnimatorComponent;
+import com.mypjgdx.esg.ashleytest.ecs.components.CharacterComponent;
+import com.mypjgdx.esg.ashleytest.ecs.components.PhysicsComponent;
+import com.mypjgdx.esg.ashleytest.ecs.components.PlayerComponent;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.utils.Direction;
 
 /**
  *
@@ -17,32 +17,37 @@ import com.mypjgdx.esg.utils.Direction;
 public class PlayerSystem extends IteratingSystem {
 
     public PlayerSystem() {
-        super(Family.all(PlayerComponent.class).get());
+        super(Family.all(PlayerComponent.class,
+                PhysicsComponent.class,
+                AnimatorComponent.class,
+                CharacterComponent.class).get());
     }
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        PlayerComponent playerComponent = Mappers.player.get(entity);
-        AnimatorComponent animator = Mappers.animator.get(entity);
         PhysicsComponent physics = Mappers.physics.get(entity);
+        AnimatorComponent animator = Mappers.animator.get(entity);
+        CharacterComponent character = Mappers.character.get(entity);
+        PlayerComponent player = Mappers.player.get(entity);
 
-        if (playerComponent.state == Player.PlayerState.STANDING && physics.velocity.isZero()) {
-            if (playerComponent.item == null) {
-                setStandAnimation(playerComponent, animator);
+        if (player.state == Player.PlayerState.STANDING && physics.velocity.isZero()) {
+            if (player.item == null) {
+                setStandAnimation(character, animator);
             } else {
-                setCarryItemStandAnimation(playerComponent, animator);
+                setCarryItemStandAnimation(character, animator);
             }
-        } else if (playerComponent.state == Player.PlayerState.ATTACKING && playerComponent.item == null) {
-            setAttackAnimation(playerComponent, animator);
-        } else if (playerComponent.item != null) {
-            setCarryItemAnimation(playerComponent, animator, physics);
+        } else if (player.state == Player.PlayerState.ATTACKING && player.item == null) {
+            setAttackAnimation(player, character, animator);
+        } else if (player.item != null) {
+            setCarryItemAnimation(character, animator, physics);
         } else {
-            setWalkAnimation(playerComponent, animator, physics);
+            setWalkAnimation(player, character, animator, physics);
         }
     }
 
-    private void setWalkAnimation(PlayerComponent playerComponent, AnimatorComponent animator, PhysicsComponent physics) {
-        switch (playerComponent.viewDirection) {
+    private void setWalkAnimation(PlayerComponent playerComponent, CharacterComponent characterComponent,
+                                  AnimatorComponent animator, PhysicsComponent physics) {
+        switch (characterComponent.viewDirection) {
             case DOWN:
                 animator.currentAnimation = Player.PlayerAnimation.WALK_DOWN;
                 break;
@@ -62,8 +67,9 @@ public class PlayerSystem extends IteratingSystem {
         }
     }
 
-    private void setCarryItemAnimation(PlayerComponent playerComponent, AnimatorComponent animator, PhysicsComponent physics) {
-        switch (playerComponent.viewDirection) {
+    private void setCarryItemAnimation(CharacterComponent characterComponent,
+                                       AnimatorComponent animator, PhysicsComponent physics) {
+        switch (characterComponent.viewDirection) {
             case DOWN:
                 animator.currentAnimation = Player.PlayerAnimation.ITEM_DOWN;
                 break;
@@ -83,8 +89,8 @@ public class PlayerSystem extends IteratingSystem {
         }
     }
 
-    private void setAttackAnimation(PlayerComponent playerComponent, AnimatorComponent animator) {
-        switch (playerComponent.viewDirection) {
+    private void setAttackAnimation(PlayerComponent playerComponent, CharacterComponent characterComponent, AnimatorComponent animator) {
+        switch (characterComponent.viewDirection) {
             case DOWN:
                 animator.currentAnimation = Player.PlayerAnimation.ATK_DOWN;
                 break;
@@ -107,8 +113,8 @@ public class PlayerSystem extends IteratingSystem {
         }
     }
 
-    private void setCarryItemStandAnimation(PlayerComponent playerComponent, AnimatorComponent animator) {
-        switch (playerComponent.viewDirection) {
+    private void setCarryItemStandAnimation(CharacterComponent characterComponent, AnimatorComponent animator) {
+        switch (characterComponent.viewDirection) {
             case DOWN:
                 animator.currentAnimation = Player.PlayerAnimation.ITEM_STAND_DOWN;
                 break;
@@ -124,8 +130,8 @@ public class PlayerSystem extends IteratingSystem {
         }
     }
 
-    private void setStandAnimation(PlayerComponent playerComponent, AnimatorComponent animator) {
-        switch (playerComponent.viewDirection) {
+    private void setStandAnimation(CharacterComponent characterComponent, AnimatorComponent animator) {
+        switch (characterComponent.viewDirection) {
             case DOWN:
                 animator.currentAnimation = Player.PlayerAnimation.STAND_DOWN;
                 break;
@@ -139,29 +145,5 @@ public class PlayerSystem extends IteratingSystem {
                 animator.currentAnimation = Player.PlayerAnimation.STAND_UP;
                 break;
         }
-    }
-
-    public void move(Entity entity, Direction direction) {
-        PhysicsComponent physics = Mappers.physics.get(entity);
-        PlayerComponent player = Mappers.player.get(entity);
-
-        switch (direction) {
-            case LEFT:
-                physics.velocity.x = -player.movingSpeed;
-                break;
-            case RIGHT:
-                physics.velocity.x = player.movingSpeed;
-                break;
-            case DOWN:
-                physics.velocity.y = -player.movingSpeed;
-                break;
-            case UP:
-                physics.velocity.y = player.movingSpeed;
-                break;
-            default:
-                break;
-        }
-        player.viewDirection = direction;
-        physics.velocity.setLength(player.movingSpeed);
     }
 }

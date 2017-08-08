@@ -1,12 +1,12 @@
-package com.mypjgdx.esg.ashleytest.systems;
+package com.mypjgdx.esg.ashleytest.ecs.systems;
 
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.mypjgdx.esg.ashleytest.Mappers;
-import com.mypjgdx.esg.ashleytest.components.PhysicsComponent;
-import com.mypjgdx.esg.ashleytest.components.TransformComponent;
+import com.mypjgdx.esg.ashleytest.ecs.components.PhysicsComponent;
+import com.mypjgdx.esg.ashleytest.ecs.components.TransformComponent;
 
 /**
  *

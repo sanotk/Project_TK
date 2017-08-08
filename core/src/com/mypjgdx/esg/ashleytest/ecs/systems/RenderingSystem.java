@@ -1,4 +1,4 @@
-package com.mypjgdx.esg.ashleytest.systems;
+package com.mypjgdx.esg.ashleytest.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.mypjgdx.esg.ashleytest.Mappers;
-import com.mypjgdx.esg.ashleytest.components.SpriteComponent;
-import com.mypjgdx.esg.ashleytest.components.TransformComponent;
+import com.mypjgdx.esg.ashleytest.ecs.components.SpriteComponent;
+import com.mypjgdx.esg.ashleytest.ecs.components.TransformComponent;
 
 import java.util.Comparator;
 
