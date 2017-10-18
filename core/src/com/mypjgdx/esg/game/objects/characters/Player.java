@@ -31,7 +31,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private static final float FRAME_DURATION = 1.0f / 16.0f;
 
     // อัตราการขยายภาพ player
-    private static final float SCALE = 0.7f;
+    private static final float SCALE = 0.6f;
 
     private static final float INITIAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
     private static final float INITIAL_MOVING_SPEED = 120f;
@@ -43,7 +43,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private static final int INTITAL_BEAM = 3;
 
     public boolean status_find = false;
-
+    public boolean status_windows_link = false;
     private float Countdown;
 
     public enum PlayerAnimation {
@@ -346,12 +346,14 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
 
     public void showHp(ShapeRenderer shapeRenderer){
-        shapeRenderer.setColor(Color.BLACK);
-        shapeRenderer.rect( getPositionX(), getPositionY()-10,bounds.width, 5);
-        shapeRenderer.setColor(Color.RED);
-        shapeRenderer.rect(
-    	        getPositionX(), getPositionY()-10,
-    	        bounds.width * ((float) health / INTITAL_HEALTH), 5);
+        if(health!=INTITAL_HEALTH) {
+            shapeRenderer.setColor(Color.BLACK);
+            shapeRenderer.rect(getPositionX(), getPositionY() - 10, bounds.width, 5);
+            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.rect(
+                    getPositionX(), getPositionY() - 10,
+                    bounds.width * ((float) health / INTITAL_HEALTH), 5);
+        }
     }
 
     @Override
@@ -370,13 +372,14 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void findItem() {
-        status_find = true;
+        if(status_windows_link==true) {
+            //status_windows_link = false; // หน้าต่างเมนู
+            status_find = false;
+        }
+        else if((status_solarcell==true)&&(status_find==false)){
+            status_find = true;
+        }
     }
-
-    public void downItem() {
-        status_find = false;
-    }
-
 
     @Override
     public String getName() {

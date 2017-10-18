@@ -216,12 +216,14 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     }
 
     public void showHp(ShapeRenderer shapeRenderer){
-        shapeRenderer.setColor(Color.BLACK);
-        shapeRenderer.rect( getPositionX(), getPositionY()-10,bounds.width, 5);
-        shapeRenderer.setColor(Color.RED);
-        shapeRenderer.rect(
-                getPositionX(), getPositionY() - 10,
-                bounds.width * ((float) health / maxHealth), 5);
+        if(health!=maxHealth) {
+            shapeRenderer.setColor(Color.BLACK);
+            shapeRenderer.rect(getPositionX(), getPositionY() - 10, bounds.width, 5);
+            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.rect(
+                    getPositionX(), getPositionY() - 10,
+                    bounds.width * ((float) health / maxHealth), 5);
+        }
     }
 
     private void randomPosition(TiledMapTileLayer mapLayer) {

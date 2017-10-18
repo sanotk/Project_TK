@@ -205,17 +205,17 @@ public class GameScreen extends AbstractGameScreen {
         buttonItoS = new TextButton("link to solarcell", skin);
         buttonItoS.setWidth(btn_w);
         buttonItoS.setHeight(btn_h);
-        buttonItoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 450);
+        buttonItoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 350);
 
         buttonItoC = new TextButton("link to charge controler", skin);
         buttonItoC.setWidth(btn_w);
         buttonItoC.setHeight(btn_h);
-        buttonItoC.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 380);
+        buttonItoC.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 280);
 
         buttonItoB = new TextButton("link to battery", skin);
         buttonItoB.setWidth(btn_w);
         buttonItoB.setHeight(btn_h);
-        buttonItoB.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 310);
+        buttonItoB.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 210);
 
         stage.addActor(buttonItoS);
         stage.addActor(buttonItoC);
@@ -259,17 +259,17 @@ public class GameScreen extends AbstractGameScreen {
         buttonCtoS = new TextButton("link to solarcell", skin);
         buttonCtoS.setWidth(btn_w);
         buttonCtoS.setHeight(btn_h);
-        buttonCtoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 450);
+        buttonCtoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 350);
 
         buttonCtoB = new TextButton("link to battery", skin);
         buttonCtoB.setWidth(btn_w);
         buttonCtoB.setHeight(btn_h);
-        buttonCtoB.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 380);
+        buttonCtoB.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 280);
 
         buttonCtoI = new TextButton("link to inverter", skin);
         buttonCtoI.setWidth(btn_w);
         buttonCtoI.setHeight(btn_h);
-        buttonCtoI.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 310);
+        buttonCtoI.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 210);
 
         stage.addActor(buttonCtoS);
         stage.addActor(buttonCtoB);
@@ -312,17 +312,17 @@ public class GameScreen extends AbstractGameScreen {
         buttonBtoS = new TextButton("link to solarcell", skin);
         buttonBtoS.setWidth(btn_w);
         buttonBtoS.setHeight(btn_h);
-        buttonBtoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 450);
+        buttonBtoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 350);
 
         buttonBtoC = new TextButton("link to charge controler", skin);
         buttonBtoC.setWidth(btn_w);
         buttonBtoC.setHeight(btn_h);
-        buttonBtoC.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 380);
+        buttonBtoC.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 280);
 
         buttonBtoI = new TextButton("link to inverter", skin);
         buttonBtoI.setWidth(btn_w);
         buttonBtoI.setHeight(btn_h);
-        buttonBtoI.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 310);
+        buttonBtoI.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 210);
 
         stage.addActor(buttonBtoS);
         stage.addActor(buttonBtoC);
@@ -398,6 +398,7 @@ public class GameScreen extends AbstractGameScreen {
             buttonStoC.setVisible(true);
             buttonStoB.setVisible(true);
             buttonStoI.setVisible(true);
+            worldController.level.player.status_windows_link = true;
         }else{
             buttonStoC.setVisible(false);
             buttonStoB.setVisible(false);
@@ -408,6 +409,7 @@ public class GameScreen extends AbstractGameScreen {
             buttonBtoC.setVisible(true);
             buttonBtoS.setVisible(true);
             buttonBtoI.setVisible(true);
+            worldController.level.player.status_windows_link = true;
         }else{
             buttonBtoC.setVisible(false);
             buttonBtoS.setVisible(false);
@@ -418,6 +420,7 @@ public class GameScreen extends AbstractGameScreen {
             buttonItoC.setVisible(true);
             buttonItoB.setVisible(true);
             buttonItoS.setVisible(true);
+            worldController.level.player.status_windows_link = true;
         }else{
             buttonItoC.setVisible(false);
             buttonItoB.setVisible(false);
@@ -428,6 +431,7 @@ public class GameScreen extends AbstractGameScreen {
             buttonCtoS.setVisible(true);
             buttonCtoB.setVisible(true);
             buttonCtoI.setVisible(true);
+            worldController.level.player.status_windows_link = true;
         }else{
             buttonCtoS.setVisible(false);
             buttonCtoB.setVisible(false);

@@ -41,7 +41,7 @@ public class WorldRenderer implements Disposable {
         shapeRenderer.setColor(1.0f, 0.0f, 0.0f, 1.0f);
 
         shader = new ShaderProgram(Gdx.files.internal("myshader.vert"), Gdx.files.internal("myshader.frag"));
-        batch.setShader(shader);
+        //batch.setShader(shader);
     }
 
     public void render () {
