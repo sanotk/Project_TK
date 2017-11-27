@@ -12,7 +12,7 @@ public class SolarCell extends Item{
 
 	public SolarCell(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.solarCellAltas, SCALE, SCALE , P_X , P_Y);
-        init(mapLayer,  player);
+        init(mapLayer,  player );
 	}
 
     @Override

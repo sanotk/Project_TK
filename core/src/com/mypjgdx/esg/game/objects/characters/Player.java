@@ -372,12 +372,13 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void findItem() {
-        if(status_windows_link==true) {
-            //status_windows_link = false; // หน้าต่างเมนู
-            status_find = false;
-        }
-        else if((status_solarcell==true)&&(status_find==false)){
+        if((status_battery==true)||(status_solarcell==true)||(status_ccontroller==true)||(status_inverter==true)&&(status_windows_link==false)){
+            status_windows_link = true;
             status_find = true;
+        }
+        else { // ถ้าหน้าต่างเมนูเปิดอยู่
+            status_windows_link = false; // ให้หน้าต่างเมนูปิดลง
+            status_find = false; // ให้สเตตัสค้นหาเป็นเท็จ หรือ ไม่มีการค้นหา
         }
     }
 

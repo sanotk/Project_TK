@@ -178,7 +178,7 @@ public class GameScreen extends AbstractGameScreen {
                 solarState = solarcellState.StoC;
                 System.out.print(solarState);
                 worldController.level.player.status_find = false;
-
+                worldController.level.player.status_windows_link = false;
             }
         });
 
@@ -188,7 +188,7 @@ public class GameScreen extends AbstractGameScreen {
                 solarState = solarcellState.StoB;
                 System.out.print(solarState);
                 worldController.level.player.status_find = false;
-
+                worldController.level.player.status_windows_link = false;
             }
         });
 
@@ -198,7 +198,7 @@ public class GameScreen extends AbstractGameScreen {
                 solarState = solarcellState.StoI;
                 System.out.print(solarState);
                 worldController.level.player.status_find = false;
-
+                worldController.level.player.status_windows_link = false;
             }
         });
 
@@ -228,11 +228,10 @@ public class GameScreen extends AbstractGameScreen {
         buttonItoS.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
                 inverState = inverterState.ItoS;
                 System.out.print(inverState);
                 worldController.level.player.status_find = false;
-
+                worldController.level.player.status_windows_link = false;
             }
         });
 
@@ -242,7 +241,7 @@ public class GameScreen extends AbstractGameScreen {
                 inverState = inverterState.ItoC;
                 System.out.print(inverState);
                 worldController.level.player.status_find = false;
-
+                worldController.level.player.status_windows_link = false;
             }
         });
 
@@ -252,7 +251,7 @@ public class GameScreen extends AbstractGameScreen {
                 inverState = inverterState.ItoB;
                 System.out.print(inverState);
                 worldController.level.player.status_find = false;
-
+                worldController.level.player.status_windows_link = false;
             }
         });
 
@@ -285,7 +284,7 @@ public class GameScreen extends AbstractGameScreen {
                 ccState = chargecontrollercState.CtoS;
                 System.out.print(ccState);
                 worldController.level.player.status_find = false;
-
+                worldController.level.player.status_windows_link = false;
             }
         });
 
@@ -295,7 +294,7 @@ public class GameScreen extends AbstractGameScreen {
                 ccState = chargecontrollercState.CtoB;
                 System.out.print(ccState);
                 worldController.level.player.status_find = false;
-
+                worldController.level.player.status_windows_link = false;
             }
         });
 
@@ -305,7 +304,7 @@ public class GameScreen extends AbstractGameScreen {
                 ccState = chargecontrollercState.CtoI;
                 System.out.print(ccState);
                 worldController.level.player.status_find = false;
-
+                worldController.level.player.status_windows_link = false;
             }
         });
 
@@ -338,6 +337,7 @@ public class GameScreen extends AbstractGameScreen {
                 batState = batteryState.BtoS;
                 System.out.print(batState);
                 worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
             }
         });
 
@@ -347,7 +347,7 @@ public class GameScreen extends AbstractGameScreen {
                 batState = batteryState.BtoC;
                 System.out.print(batState);
                 worldController.level.player.status_find = false;
-
+                worldController.level.player.status_windows_link = false;
             }
         });
 
@@ -357,6 +357,7 @@ public class GameScreen extends AbstractGameScreen {
                 batState = batteryState.BtoI;
                 System.out.print(batState);
                 worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
             }
         });
 
@@ -398,7 +399,6 @@ public class GameScreen extends AbstractGameScreen {
             buttonStoC.setVisible(true);
             buttonStoB.setVisible(true);
             buttonStoI.setVisible(true);
-            worldController.level.player.status_windows_link = true;
         }else{
             buttonStoC.setVisible(false);
             buttonStoB.setVisible(false);
@@ -409,7 +409,6 @@ public class GameScreen extends AbstractGameScreen {
             buttonBtoC.setVisible(true);
             buttonBtoS.setVisible(true);
             buttonBtoI.setVisible(true);
-            worldController.level.player.status_windows_link = true;
         }else{
             buttonBtoC.setVisible(false);
             buttonBtoS.setVisible(false);
@@ -420,7 +419,6 @@ public class GameScreen extends AbstractGameScreen {
             buttonItoC.setVisible(true);
             buttonItoB.setVisible(true);
             buttonItoS.setVisible(true);
-            worldController.level.player.status_windows_link = true;
         }else{
             buttonItoC.setVisible(false);
             buttonItoB.setVisible(false);
@@ -431,7 +429,6 @@ public class GameScreen extends AbstractGameScreen {
             buttonCtoS.setVisible(true);
             buttonCtoB.setVisible(true);
             buttonCtoI.setVisible(true);
-            worldController.level.player.status_windows_link = true;
         }else{
             buttonCtoS.setVisible(false);
             buttonCtoB.setVisible(false);
