@@ -21,6 +21,7 @@ import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level;
 import com.mypjgdx.esg.game.levels.Level1;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
+import com.mypjgdx.esg.game.objects.characters.Player;
 
 import java.util.Random;
 
@@ -448,6 +449,7 @@ public class GameScreen extends AbstractGameScreen {
 
         if (player.status_find && noItem) {
             player.status_find = false;
+            player.status_windows_link = false;
         }
         
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
