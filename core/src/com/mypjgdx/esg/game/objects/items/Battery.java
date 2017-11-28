@@ -18,12 +18,17 @@ public class Battery extends Item{
     @Override
     public String getName() {
         // TODO Auto-generated method stub
-        return null;
+        return "Battery";
     }
 
     @Override
     public void activate() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public boolean isConnectable() {
+        return true;
     }
 }

@@ -1,21 +1,14 @@
 package com.mypjgdx.esg.game.levels;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
-import com.mypjgdx.esg.game.objects.characters.Pepo;
-import com.mypjgdx.esg.game.objects.characters.PepoKnight;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.items.Battery;
-import com.mypjgdx.esg.game.objects.items.Charge;
-import com.mypjgdx.esg.game.objects.items.Door;
-import com.mypjgdx.esg.game.objects.items.Inverter;
-import com.mypjgdx.esg.game.objects.items.Item;
-import com.mypjgdx.esg.game.objects.items.SolarCell;
+import com.mypjgdx.esg.game.objects.items.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Level1 extends LevelGenerator {
 
@@ -37,11 +30,11 @@ public class Level1 extends LevelGenerator {
     @Override
     public List<Enemy> createEnemies(TiledMapTileLayer mapLayer,Player player) {
         ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-        enemies.add(new Pepo(mapLayer, player));
-        enemies.add(new Pepo(mapLayer, player));
-        enemies.add(new Pepo(mapLayer, player));
-        enemies.add(new PepoKnight(mapLayer, player));
-        enemies.add(new PepoKnight(mapLayer, player));
+//        enemies.add(new Pepo(mapLayer, player));
+//        enemies.add(new Pepo(mapLayer, player));
+//        enemies.add(new Pepo(mapLayer, player));
+//        enemies.add(new PepoKnight(mapLayer, player));
+//        enemies.add(new PepoKnight(mapLayer, player));
         return enemies;
     }
 

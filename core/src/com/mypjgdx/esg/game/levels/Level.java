@@ -1,20 +1,22 @@
 package com.mypjgdx.esg.game.levels;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.EnergyTube;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class Level{
 
@@ -46,6 +48,8 @@ public class Level{
         items = levelGenerator.createItems(mapLayer, player);
         enemies = levelGenerator.createEnemies(mapLayer, player);
 
+        player.setItems(items);
+
         energyTube.init(mapLayer, player);
     }
 
@@ -61,10 +65,26 @@ public class Level{
         for (Enemy e: enemies) e.render(batch);
         batch.end();
 
+        Color oldColor = shapeRenderer.getColor();
         shapeRenderer.begin(ShapeType.Filled);
         player.showHp (shapeRenderer);
         for (Enemy e:enemies) e.showHp(shapeRenderer);
         shapeRenderer.end();
+
+        // TODO:
+        shapeRenderer.begin(ShapeType.Line);
+
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.rect(player.bounds.x, player.bounds.y, player.bounds.width, player.bounds.height);
+
+        for (Item i: items)
+            shapeRenderer.rect(i.bounds.x, i.bounds.y, i.bounds.width, i.bounds.height);
+        Rectangle itemSensor = player.getItemSensor();
+        shapeRenderer.setColor(Color.GREEN);
+        shapeRenderer.rect(itemSensor.x, itemSensor.y, itemSensor.width, itemSensor.height);
+        shapeRenderer.end();
+
+        shapeRenderer.setColor(oldColor);
     }
 
     public void update(float deltaTime) {
