@@ -440,6 +440,16 @@ public class GameScreen extends AbstractGameScreen {
             status_finish =true;
         }
 
+        Player player = worldController.level.player;
+        boolean noItem = !player.status_battery
+                && !player.status_ccontroller
+                && !player.status_inverter
+                && !player.status_solarcell;
+
+        if (player.status_find && noItem) {
+            player.status_find = false;
+        }
+        
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
         worldRenderer.render();
 
