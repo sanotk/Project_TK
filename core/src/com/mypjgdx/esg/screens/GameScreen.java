@@ -143,7 +143,6 @@ public class GameScreen extends AbstractGameScreen {
         Player player = worldController.level.player;
         if (player.status_find && player.getFrontItem() == null) {
             player.status_find = false;
-            player.status_windows_link = false;
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
