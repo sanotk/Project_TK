@@ -9,85 +9,91 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item.ItemAnimation;
 import com.mypjgdx.esg.utils.Distance;
 
-public abstract class Item extends AnimatedObject<ItemAnimation>{
+public abstract class Item extends AnimatedObject<ItemAnimation> {
 
-		protected static final float FRAME_DURATION = 1.0f / 8.0f;
+    protected static final float FRAME_DURATION = 1.0f / 8.0f;
 
-		public float p_x;
-		public float p_y;
+    public float p_x;
+    public float p_y;
 
-		public enum ItemAnimation {
-		    ON,
-		    OFF
-		}
+    public enum ItemAnimation {
+        ON,
+        OFF
+    }
 
-		public enum ItemState {
-	        ON,
-	        OFF
-	    }
+    public enum ItemState {
+        ON,
+        OFF
+    }
 
-		private ItemState state;
+    private ItemState state;
 
-		public Item(TextureAtlas atlas, float scaleX, float scaleY , float P_X , float P_Y) {
-            super(atlas);
+    public Item(TextureAtlas atlas, float scaleX, float scaleY, float P_X, float P_Y) {
+        super(atlas);
 
-            addLoopAnimation(ItemAnimation.OFF, FRAME_DURATION, 0, 3);
-            addLoopAnimation(ItemAnimation.ON, FRAME_DURATION, 3, 3);
+        addLoopAnimation(ItemAnimation.OFF, FRAME_DURATION, 0, 3);
+        addLoopAnimation(ItemAnimation.ON, FRAME_DURATION, 3, 3);
 
-			p_x = P_X;
-			p_y = P_Y;
+        p_x = P_X;
+        p_y = P_Y;
 
-            scale.set(scaleX, scaleY);
+        scale.set(scaleX, scaleY);
+    }
+
+    public void init(TiledMapTileLayer mapLayer, Player player) {
+        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
+        state = ItemState.OFF;
+        setCurrentAnimation(ItemAnimation.OFF);
+        setPosition(mapLayer, player);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+    }
+
+    @Override
+    protected void setAnimation() {
+        unFreezeAnimation();
+        switch (state) {
+            case ON:
+                setCurrentAnimation(ItemAnimation.ON);
+                break;
+            case OFF:
+                setCurrentAnimation(ItemAnimation.OFF);
+                break;
+            default:
+                break;
         }
+    }
 
-		public void init(TiledMapTileLayer mapLayer, Player player) {
-	        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
-            state = ItemState.OFF;
-            setCurrentAnimation(ItemAnimation.OFF);
-	        setPosition(mapLayer, player);
-		}
+    private void setPosition(TiledMapTileLayer mapLayer, Player player) {
+        updateBounds();
+        setPosition(p_x, p_y);
+    }
 
-	    @Override
-	    public void update(float deltaTime) {
-	        super.update(deltaTime);
-	    }
+    private void randomPosition(TiledMapTileLayer mapLayer, Player player) {
+        updateBounds();
 
-		@Override
-		protected void setAnimation() {
-			unFreezeAnimation();
-	        switch (state) {
-	        case ON: setCurrentAnimation(ItemAnimation.ON); break;
-	        case OFF: setCurrentAnimation(ItemAnimation.OFF); break;
-	        default:
-	            break;
-	        }
-		}
+        float mapWidth = mapLayer.getTileWidth() * mapLayer.getWidth();
+        float mapHeight = mapLayer.getTileHeight() * mapLayer.getHeight();
 
-		private void setPosition(TiledMapTileLayer mapLayer, Player player) {
-			updateBounds();
-			setPosition(p_x,p_y);
-		}
+        final float MIN_DISTANCE = 100;
+        do {
+            setPosition(
+                    MathUtils.random(MIN_DISTANCE, mapWidth - bounds.width),
+                    MathUtils.random(MIN_DISTANCE, mapHeight - bounds.height));
 
-	    private void randomPosition(TiledMapTileLayer mapLayer, Player player) {
-            updateBounds();
+            if (Distance.absoluteXY(this, player) < MIN_DISTANCE)
+                continue;
 
-	        float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
-	        float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
+        } while (collisionCheck.isCollidesTop()
+                || collisionCheck.isCollidesBottom()
+                || collisionCheck.isCollidesRight()
+                || collisionCheck.isCollidesLeft());
+    }
 
-	        final float MIN_DISTANCE = 100;
-	        do{
-	            setPosition(
-	                    MathUtils.random(MIN_DISTANCE, mapWidth - bounds.width),
-	                    MathUtils.random(MIN_DISTANCE, mapHeight - bounds.height));
+    public abstract void activate();
 
-                if (Distance.absoluteXY(this, player) < MIN_DISTANCE)
-                    continue;
-
-	        } while ( collisionCheck.isCollidesTop()
-	                || collisionCheck.isCollidesBottom()
-	                || collisionCheck.isCollidesRight()
-	                || collisionCheck.isCollidesLeft());
-	    }
-
-	    public abstract void activate();
+    public abstract boolean isConnectable();
 }

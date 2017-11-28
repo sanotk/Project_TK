@@ -6,24 +6,18 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level;
 import com.mypjgdx.esg.game.levels.Level1;
-import com.mypjgdx.esg.game.objects.AbstractGameObject;
 import com.mypjgdx.esg.game.objects.characters.Player;
-
-import java.util.Random;
+import com.mypjgdx.esg.game.objects.items.Item;
 
 public class GameScreen extends AbstractGameScreen {
 
@@ -47,97 +41,62 @@ public class GameScreen extends AbstractGameScreen {
     private Label energyLevel2;
     private Label energyLevel3;
 
-    public boolean status_finish =false;
-    //private Label sunleft;
-    //private Label sunright
+    public boolean status_finish = false;
 
-    public enum solarcellState {
-        StoC,
-        StoB,
-        StoI,
-    }
+    private Table buttonTable;
+    private boolean showingButton;
 
-    public enum chargecontrollercState {
-        CtoS,
-        CtoB,
-        CtoI,
-    }
-
-    public enum batteryState {
-        BtoS,
-        BtoC,
-        BtoI,
-    }
-
-    public enum inverterState {
-        ItoS,
-        ItoC,
-        ItoB
-    }
-
-    public solarcellState solarState = null;
-    public chargecontrollercState ccState = null;
-    public batteryState batState = null;
-    public inverterState inverState = null;
-
-    private TextButton buttonStoC;
-    private TextButton buttonStoB;
-    private TextButton buttonStoI;
-
-    private TextButton buttonCtoS;
-    private TextButton buttonCtoB;
-    private TextButton buttonCtoI;
-
-    private TextButton buttonItoS;
-    private TextButton buttonItoC;
-    private TextButton buttonItoB;
-
-    private TextButton buttonBtoS;
-    private TextButton buttonBtoC;
-    private TextButton buttonBtoI;
 
     public GameScreen(Game game) {
         super(game);
 
+        batch = new SpriteBatch();
         stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT));
-
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         bg = new Texture("bg.png");
 
-        textBullet = new Label("Punch Max : " ,skin);
+        setupGui();
+
+        stage.setDebugAll(true);
+    }
+
+    private void setupGui() {
+        textBullet = new Label("Punch Max : ", skin);
         textBullet.setColor(1, 1, 1, 1);
-        textBullet.setFontScale(1f,1f);
+        textBullet.setFontScale(1f, 1f);
         textBullet.setPosition(50, 550);
 
-        textBeam = new Label("Z-Punch Max : " ,skin);
+        textBeam = new Label("Z-Punch Max : ", skin);
         textBeam.setColor(1, 1, 1, 1);
-        textBeam.setFontScale(1.f,1.f);
+        textBeam.setFontScale(1.f, 1.f);
         textBeam.setPosition(200, 550);
 
-        textTrap = new Label("Trap Max : " ,skin);
+        textTrap = new Label("Trap Max : ", skin);
         textTrap.setColor(1, 1, 1, 1);
-        textTrap.setFontScale(1f,1f);
+        textTrap.setFontScale(1f, 1f);
         textTrap.setPosition(350, 550);
 
-        textTime = new Label("Time : " ,skin);
+        textTime = new Label("Time : ", skin);
         textTime.setColor(1, 1, 1, 1);
-        textTime.setFontScale(1f,1f);
+        textTime.setFontScale(1f, 1f);
         textTime.setPosition(450, 500);
 
         energyLevel = new Label("Energy : ", skin);
         energyLevel.setColor(1, 1, 1, 1);
-        energyLevel.setFontScale(1,1f);
+        energyLevel.setFontScale(1, 1f);
         energyLevel.setPosition(500, 550);
 
         energyLevel2 = new Label("Product Energy : ", skin);
         energyLevel2.setColor(1, 1, 1, 1);
-        energyLevel2.setFontScale(1,1f);
+        energyLevel2.setFontScale(1, 1f);
         energyLevel2.setPosition(650, 550);
 
         energyLevel3 = new Label("Battery : ", skin);
         energyLevel3.setColor(1, 1, 1, 1);
-        energyLevel3.setFontScale(1,1f);
+        energyLevel3.setFontScale(1, 1f);
         energyLevel3.setPosition(800, 550);
+
+        buttonTable = new Table();
 
         stage.addActor(textBullet);
         stage.addActor(textBeam);
@@ -146,223 +105,7 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(energyLevel);
         stage.addActor(energyLevel2);
         stage.addActor(energyLevel3);
-
-        int btn_w = 200;
-        int btn_h = 50;
-
-        buttonStoC = new TextButton("link to charge controler", skin);
-        buttonStoC.setWidth(btn_w);
-        buttonStoC.setHeight(btn_h);
-        buttonStoC.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 450);
-
-        buttonStoB = new TextButton("link to battery", skin);
-        buttonStoB.setWidth(btn_w);
-        buttonStoB.setHeight(btn_h);
-        buttonStoB.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 380);
-
-        buttonStoI = new TextButton("link to inverter", skin);
-        buttonStoI.setWidth(btn_w);
-        buttonStoI.setHeight(btn_h);
-        buttonStoI.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 310);
-
-        stage.addActor(buttonStoC);
-        stage.addActor(buttonStoB);
-        stage.addActor(buttonStoI);
-
-        buttonStoC.setVisible(false);
-        buttonStoB.setVisible(false);
-        buttonStoI.setVisible(false);
-
-        buttonStoC.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                solarState = solarcellState.StoC;
-                System.out.print(solarState);
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonStoB.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                solarState = solarcellState.StoB;
-                System.out.print(solarState);
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonStoI.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                solarState = solarcellState.StoI;
-                System.out.print(solarState);
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonItoS = new TextButton("link to solarcell", skin);
-        buttonItoS.setWidth(btn_w);
-        buttonItoS.setHeight(btn_h);
-        buttonItoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 350);
-
-        buttonItoC = new TextButton("link to charge controler", skin);
-        buttonItoC.setWidth(btn_w);
-        buttonItoC.setHeight(btn_h);
-        buttonItoC.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 280);
-
-        buttonItoB = new TextButton("link to battery", skin);
-        buttonItoB.setWidth(btn_w);
-        buttonItoB.setHeight(btn_h);
-        buttonItoB.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 210);
-
-        stage.addActor(buttonItoS);
-        stage.addActor(buttonItoC);
-        stage.addActor(buttonItoB);
-
-        buttonItoS.setVisible(false);
-        buttonItoC.setVisible(false);
-        buttonItoB.setVisible(false);
-
-        buttonItoS.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                inverState = inverterState.ItoS;
-                System.out.print(inverState);
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonItoC.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                inverState = inverterState.ItoC;
-                System.out.print(inverState);
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonItoB.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                inverState = inverterState.ItoB;
-                System.out.print(inverState);
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonCtoS = new TextButton("link to solarcell", skin);
-        buttonCtoS.setWidth(btn_w);
-        buttonCtoS.setHeight(btn_h);
-        buttonCtoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 350);
-
-        buttonCtoB = new TextButton("link to battery", skin);
-        buttonCtoB.setWidth(btn_w);
-        buttonCtoB.setHeight(btn_h);
-        buttonCtoB.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 280);
-
-        buttonCtoI = new TextButton("link to inverter", skin);
-        buttonCtoI.setWidth(btn_w);
-        buttonCtoI.setHeight(btn_h);
-        buttonCtoI.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 210);
-
-        stage.addActor(buttonCtoS);
-        stage.addActor(buttonCtoB);
-        stage.addActor(buttonCtoI);
-
-        buttonCtoS.setVisible(false);
-        buttonCtoB.setVisible(false);
-        buttonCtoI.setVisible(false);
-
-        buttonCtoS.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                ccState = chargecontrollercState.CtoS;
-                System.out.print(ccState);
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonCtoB.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                ccState = chargecontrollercState.CtoB;
-                System.out.print(ccState);
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonCtoI.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                ccState = chargecontrollercState.CtoI;
-                System.out.print(ccState);
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonBtoS = new TextButton("link to solarcell", skin);
-        buttonBtoS.setWidth(btn_w);
-        buttonBtoS.setHeight(btn_h);
-        buttonBtoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 350);
-
-        buttonBtoC = new TextButton("link to charge controler", skin);
-        buttonBtoC.setWidth(btn_w);
-        buttonBtoC.setHeight(btn_h);
-        buttonBtoC.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 280);
-
-        buttonBtoI = new TextButton("link to inverter", skin);
-        buttonBtoI.setWidth(btn_w);
-        buttonBtoI.setHeight(btn_h);
-        buttonBtoI.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 210);
-
-        stage.addActor(buttonBtoS);
-        stage.addActor(buttonBtoC);
-        stage.addActor(buttonBtoI);
-
-        buttonBtoS.setVisible(false);
-        buttonBtoC.setVisible(false);
-        buttonBtoI.setVisible(false);
-
-        buttonBtoS.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                batState = batteryState.BtoS;
-                System.out.print(batState);
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonBtoC.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                batState = batteryState.BtoC;
-                System.out.print(batState);
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonBtoI.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                batState = batteryState.BtoI;
-                System.out.print(batState);
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        batch = new SpriteBatch();
+        stage.addActor(buttonTable);
     }
 
     @Override
@@ -374,12 +117,11 @@ public class GameScreen extends AbstractGameScreen {
         textBeam.setText(String.format("Z-Punch Max : %d", worldController.level.player.beamCount));
         textTrap.setText(String.format("Trap Max : %d", worldController.level.player.trapCount));
         textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
-        energyLevel.setText(String.format("Energy : %d", (int)worldController.level.energyTube.energy));
-        energyLevel2.setText(String.format("Product Energy : %d", (int)worldController.level.energyTube.energy));
-        energyLevel3.setText(String.format("Battery : %d", (int)worldController.level.energyTube.energy));
+        energyLevel.setText(String.format("Energy : %d", (int) worldController.level.energyTube.energy));
+        energyLevel2.setText(String.format("Product Energy : %d", (int) worldController.level.energyTube.energy));
+        energyLevel3.setText(String.format("Battery : %d", (int) worldController.level.energyTube.energy));
         //
         // sunleft.setText(String.format("Sun Left"));
-
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));
@@ -396,68 +138,71 @@ public class GameScreen extends AbstractGameScreen {
             return;
         }
 
-        if((worldController.level.player.status_solarcell==true)&&(worldController.level.player.status_find == true)){
-            buttonStoC.setVisible(true);
-            buttonStoB.setVisible(true);
-            buttonStoI.setVisible(true);
-        }else{
-            buttonStoC.setVisible(false);
-            buttonStoB.setVisible(false);
-            buttonStoI.setVisible(false);
-        }
-
-        if((worldController.level.player.status_battery==true)&&(worldController.level.player.status_find == true)){
-            buttonBtoC.setVisible(true);
-            buttonBtoS.setVisible(true);
-            buttonBtoI.setVisible(true);
-        }else{
-            buttonBtoC.setVisible(false);
-            buttonBtoS.setVisible(false);
-            buttonBtoI.setVisible(false);
-        }
-
-        if((worldController.level.player.status_inverter==true)&&(worldController.level.player.status_find == true)){
-            buttonItoC.setVisible(true);
-            buttonItoB.setVisible(true);
-            buttonItoS.setVisible(true);
-        }else{
-            buttonItoC.setVisible(false);
-            buttonItoB.setVisible(false);
-            buttonItoS.setVisible(false);
-        }
-
-        if((worldController.level.player.status_ccontroller==true)&&(worldController.level.player.status_find == true)){
-            buttonCtoS.setVisible(true);
-            buttonCtoB.setVisible(true);
-            buttonCtoI.setVisible(true);
-        }else{
-            buttonCtoS.setVisible(false);
-            buttonCtoB.setVisible(false);
-            buttonCtoI.setVisible(false);
-        }
-
-        if((solarState == solarcellState.StoC)&&(ccState == chargecontrollercState.CtoB)&&(batState == batteryState.BtoC)
-                &&(inverState==inverterState.ItoC)){
-            status_finish =true;
-        }
+        handleButtonVisibility();
 
         Player player = worldController.level.player;
-        boolean noItem = !player.status_battery
-                && !player.status_ccontroller
-                && !player.status_inverter
-                && !player.status_solarcell;
-
-        if (player.status_find && noItem) {
+        if (player.status_find && player.getFrontItem() == null) {
             player.status_find = false;
             player.status_windows_link = false;
         }
-        
+
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
         worldRenderer.render();
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
+
+    private void handleButtonVisibility() {
+
+        if (worldController.level.player.status_find
+                && worldController.level.player.getFrontItem() != null
+                && worldController.level.player.getFrontItem().isConnectable()) {
+            if (!showingButton) {
+                showingButton = true;
+                generateButton(worldController.level.player.getFrontItem());
+            }
+        } else {
+            showingButton = false;
+            buttonTable.clear();
+        }
+    }
+
+    private void generateButton(final Item item) {
+        Array<Item> otherItems = new Array<Item>();
+
+        for (Item levelItem : worldController.level.items)
+            if (levelItem != item)
+                otherItems.add(levelItem);
+
+        Cell<TextButton> lastCell = null;
+        for (int i = 0; i < otherItems.size; i++) {
+            final Item otherItem = otherItems.get(i);
+            if (otherItem.isConnectable()) {
+                String itemName = otherItem.getName();
+
+                TextButton button = new TextButton("Connect to " + itemName, skin);
+                button.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        Gdx.app.log("Connected", "From " + item.getName() + " to " + otherItem.getName());
+                        worldController.level.player.status_find = false;
+                    }
+                });
+
+                buttonTable.row().width(260f).height(40f);
+                lastCell = buttonTable.add(button);
+                lastCell.padBottom(20f).fill();
+            }
+        }
+        if (lastCell != null)
+            lastCell.padBottom(0f);
+
+        buttonTable.pack();
+        buttonTable.setX((SCENE_WIDTH - buttonTable.getWidth()) * 0.5f);
+        buttonTable.setY((SCENE_HEIGHT - buttonTable.getHeight()) * 0.5f);
+    }
+
 
     @Override
     public void resize(int width, int height) {
@@ -478,6 +223,6 @@ public class GameScreen extends AbstractGameScreen {
     }
 
     @Override
-    public void pause() {}
-
+    public void pause() {
+    }
 }

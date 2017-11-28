@@ -47,4 +47,8 @@ public class EnergyTube extends Item {
 
     }
 
+    @Override
+    public boolean isConnectable() {
+        return false;
+    }
 }

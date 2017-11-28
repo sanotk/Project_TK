@@ -2,7 +2,6 @@ package com.mypjgdx.esg.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public abstract class AbstractGameScreen implements Screen {
 

@@ -26,4 +26,9 @@ public class Link extends Item{
         // TODO Auto-generated method stub
 
     }
+
+    @Override
+    public boolean isConnectable() {
+        return false;
+    }
 }

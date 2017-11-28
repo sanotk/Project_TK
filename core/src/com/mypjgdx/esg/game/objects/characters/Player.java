@@ -1,18 +1,12 @@
 package com.mypjgdx.esg.game.objects.characters;
 
-import java.util.List;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.Timer;
-import com.mypjgdx.esg.collision.TiledCollisionCheck;
-import com.mypjgdx.esg.collision.TiledCollisionCheckItem1;
-import com.mypjgdx.esg.collision.TiledCollisionCheckItem2;
-import com.mypjgdx.esg.collision.TiledCollisionCheckItem3;
-import com.mypjgdx.esg.collision.TiledCollisionCheckItem4;
+import com.mypjgdx.esg.collision.*;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
@@ -23,7 +17,8 @@ import com.mypjgdx.esg.game.objects.weapons.Trap;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.game.objects.weapons.Weapon.WeaponType;
 import com.mypjgdx.esg.utils.Direction;
-import java.lang.Thread;
+
+import java.util.List;
 
 public class Player extends AnimatedObject<PlayerAnimation> implements Damageable {
 
@@ -33,8 +28,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     // อัตราการขยายภาพ player
     private static final float SCALE = 0.6f;
 
-    private static final float INITIAL_FRICTION = 500f;           // ค่าแรงเสียดทานเริ่มต้น
-    private static final float INITIAL_MOVING_SPEED = 120f;
+    private static final float INITIAL_FRICTION = 2500;           // ค่าแรงเสียดทานเริ่มต้น
+    private static final float INITIAL_MOVING_SPEED = 300f;
 
     private static final int INTITAL_HEALTH = 10;
     private static final int INTITAL_TRAP = 3;
@@ -43,7 +38,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private static final int INTITAL_BEAM = 3;
 
     public boolean status_find = false;
-    public boolean status_windows_link = false;
     private float Countdown;
 
     public enum PlayerAnimation {
@@ -70,7 +64,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public enum PlayerState {
-    	STAND, ATTACK
+        STAND, ATTACK
     }
 
     private Item item;
@@ -92,6 +86,10 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     private TiledMapTileLayer mapLayer;
     private Direction viewDirection;
+
+    private Rectangle itemSensor = new Rectangle();
+    private List<Item> items;
+    private Item frontItem; //ไอเทมที่อยู่ในเซนเซอร์ (กรอบสีเขียว)
 
     public Player(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         super(Assets.instance.playerAltas);
@@ -128,10 +126,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public void init(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         this.mapLayer = mapLayer;
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
-        solarcellCheck = new TiledCollisionCheckItem1(bounds, mapLayer);
-        batteryCheck = new TiledCollisionCheckItem2(bounds, mapLayer);
-        inverterCheck = new TiledCollisionCheckItem3(bounds, mapLayer);
-        ccontrollerCheck = new TiledCollisionCheckItem4(bounds, mapLayer);
 
         state = PlayerState.STAND;
         setCurrentAnimation(PlayerAnimation.STAND_DOWN);
@@ -157,28 +151,51 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             item.setPosition(
                     getPositionX() + origin.x - item.origin.x,
                     getPositionY() + origin.y - item.origin.y);
-        for(Weapon w: weapons) {
-        	if (bounds.overlaps(w.bounds) && !w.isDestroyed() && w.type == WeaponType.ENEMYBALL) {
+        for (Weapon w : weapons) {
+            if (bounds.overlaps(w.bounds) && !w.isDestroyed() && w.type == WeaponType.ENEMYBALL) {
                 w.attack(this);
-        	}
+            }
         }
-        Countdown +=deltaTime;
-        if(Countdown>=1){
+        Countdown += deltaTime;
+        if (Countdown >= 1) {
             timeCount--;
             Countdown = 0;
         }
 
+        frontItem = findFrontItem();
+        updateItemSensor();
+    }
+
+    private Item findFrontItem() {
+        for (Item eachItem : items) {
+            if (eachItem.bounds.overlaps(itemSensor)) {
+                return eachItem;
+            }
+        }
+        return null;
+    }
+
+    public Item getFrontItem() {
+        return frontItem;
     }
 
     public void move(Direction direction) {
         if (knockback) return;
-        switch(direction) {
-        case LEFT:  velocity.x = -movingSpeed; break;
-        case RIGHT: velocity.x = movingSpeed; break;
-        case DOWN: velocity.y = -movingSpeed; break;
-        case UP: velocity.y = movingSpeed; break;
-        default:
-            break;
+        switch (direction) {
+            case LEFT:
+                velocity.x = -movingSpeed;
+                break;
+            case RIGHT:
+                velocity.x = movingSpeed;
+                break;
+            case DOWN:
+                velocity.y = -movingSpeed;
+                break;
+            case UP:
+                velocity.y = movingSpeed;
+                break;
+            default:
+                break;
         }
         viewDirection = direction;
         velocity.setLength(movingSpeed);
@@ -193,7 +210,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     protected void setAnimation() {
         if (state == PlayerState.STAND && velocity.x == 0 && velocity.y == 0) {
             unFreezeAnimation();
-            if(item == null) {
+            if (item == null) {
                 switch (viewDirection) {
                     case DOWN:
                         setCurrentAnimation(PlayerAnimation.STAND_DOWN);
@@ -210,8 +227,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                     default:
                         break;
                 }
-            }
-            else {
+            } else {
                 switch (viewDirection) {
                     case DOWN:
                         setCurrentAnimation(PlayerAnimation.ITEM_STAND_DOWN);
@@ -229,16 +245,23 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                         break;
                 }
             }
-        }
-        else if (state == PlayerState.ATTACK && item == null) {
+        } else if (state == PlayerState.ATTACK && item == null) {
             unFreezeAnimation();
             switch (viewDirection) {
-            case DOWN: setCurrentAnimation(PlayerAnimation.ATK_DOWN); break;
-            case LEFT: setCurrentAnimation(PlayerAnimation.ATK_LEFT); break;
-            case RIGHT: setCurrentAnimation(PlayerAnimation.ATK_RIGHT); break;
-            case UP:  setCurrentAnimation(PlayerAnimation.ATK_UP); break;
-            default:
-                break;
+                case DOWN:
+                    setCurrentAnimation(PlayerAnimation.ATK_DOWN);
+                    break;
+                case LEFT:
+                    setCurrentAnimation(PlayerAnimation.ATK_LEFT);
+                    break;
+                case RIGHT:
+                    setCurrentAnimation(PlayerAnimation.ATK_RIGHT);
+                    break;
+                case UP:
+                    setCurrentAnimation(PlayerAnimation.ATK_UP);
+                    break;
+                default:
+                    break;
             }
             if (isAnimationFinished(PlayerAnimation.ATK_LEFT) || isAnimationFinished(PlayerAnimation.ATK_RIGHT)) {
                 state = PlayerState.STAND;
@@ -248,31 +271,45 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 state = PlayerState.STAND;
                 resetAnimation();
             }
-        }else if (item != null) {
+        } else if (item != null) {
             unFreezeAnimation();
             switch (viewDirection) {
-            case DOWN: setCurrentAnimation(PlayerAnimation.ITEM_DOWN); break;
-            case LEFT: setCurrentAnimation(PlayerAnimation.ITEM_LEFT); break;
-            case RIGHT: setCurrentAnimation(PlayerAnimation.ITEM_RIGHT); break;
-            case UP:  setCurrentAnimation(PlayerAnimation.ITEM_UP); break;
-            default:
-                break;
+                case DOWN:
+                    setCurrentAnimation(PlayerAnimation.ITEM_DOWN);
+                    break;
+                case LEFT:
+                    setCurrentAnimation(PlayerAnimation.ITEM_LEFT);
+                    break;
+                case RIGHT:
+                    setCurrentAnimation(PlayerAnimation.ITEM_RIGHT);
+                    break;
+                case UP:
+                    setCurrentAnimation(PlayerAnimation.ITEM_UP);
+                    break;
+                default:
+                    break;
             }
             if (velocity.x == 0 && velocity.y == 0) {
                 freezeAnimation();
                 resetAnimation();
             }
-        }
-        else
-        {
+        } else {
             unFreezeAnimation();
             switch (viewDirection) {
-            case DOWN:setCurrentAnimation(PlayerAnimation.WALK_DOWN); break;
-            case LEFT: setCurrentAnimation(PlayerAnimation.WALK_LEFT); break;
-            case RIGHT: setCurrentAnimation(PlayerAnimation.WALK_RIGHT); break;
-            case UP: setCurrentAnimation(PlayerAnimation.WALK_UP); break;
-            default:
-                break;
+                case DOWN:
+                    setCurrentAnimation(PlayerAnimation.WALK_DOWN);
+                    break;
+                case LEFT:
+                    setCurrentAnimation(PlayerAnimation.WALK_LEFT);
+                    break;
+                case RIGHT:
+                    setCurrentAnimation(PlayerAnimation.WALK_RIGHT);
+                    break;
+                case UP:
+                    setCurrentAnimation(PlayerAnimation.WALK_UP);
+                    break;
+                default:
+                    break;
             }
             if (velocity.x == 0 && velocity.y == 0) {
                 state = PlayerState.STAND;
@@ -280,16 +317,16 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         }
     }
 
-    public void trapAttack(List<Weapon> weapons){
-    	if(state != PlayerState.ATTACK && item == null){
-    		state = PlayerState.ATTACK;
-    		resetAnimation();
-            if(trapCount!=0){
+    public void trapAttack(List<Weapon> weapons) {
+        if (state != PlayerState.ATTACK && item == null) {
+            state = PlayerState.ATTACK;
+            resetAnimation();
+            if (trapCount != 0) {
                 weapons.add(new Trap(mapLayer, this));
                 Assets.instance.bulletSound.play();
                 trapCount--;
             }
-    	}
+        }
 
     }
 
@@ -298,7 +335,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             invulnerable = false;
 
         if (knockback && velocity.isZero()) {
-            knockback =  false;
+            knockback = false;
         }
     }
 
@@ -310,43 +347,43 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     public void takeKnockback(float knockbackSpeed, float knockbackAngle) {
         velocity.set(
-                knockbackSpeed *MathUtils.cosDeg(knockbackAngle),
-                knockbackSpeed *MathUtils.sinDeg(knockbackAngle));
+                knockbackSpeed * MathUtils.cosDeg(knockbackAngle),
+                knockbackSpeed * MathUtils.sinDeg(knockbackAngle));
         knockback = true;
     }
 
-    public void rangeAttack(List<Weapon> weapons){
-    	if (state != PlayerState.ATTACK && item == null){
-    		state = PlayerState.ATTACK;
-    		if(bulletCount!=0){
+    public void rangeAttack(List<Weapon> weapons) {
+        if (state != PlayerState.ATTACK && item == null) {
+            state = PlayerState.ATTACK;
+            if (bulletCount != 0) {
                 weapons.add(new Bullet(mapLayer, this));
                 Assets.instance.bulletSound.play();
-	            bulletCount--;
-    		}
-    		resetAnimation();
-    	}
+                bulletCount--;
+            }
+            resetAnimation();
+        }
     }
 
-    public void beamAttack(List<Weapon> weapons){
-    	if (state != PlayerState.ATTACK && item == null){
-    		state = PlayerState.ATTACK;
-    		if(beamCount!=0){
-    		    weapons.add(new Beam(mapLayer, this));
-	            Assets.instance.beamSound.play();
-	            beamCount--;
-    		}
+    public void beamAttack(List<Weapon> weapons) {
+        if (state != PlayerState.ATTACK && item == null) {
+            state = PlayerState.ATTACK;
+            if (beamCount != 0) {
+                weapons.add(new Beam(mapLayer, this));
+                Assets.instance.beamSound.play();
+                beamCount--;
+            }
             Assets.instance.beamSound.play();
-    		resetAnimation();
-    	}
+            resetAnimation();
+        }
     }
 
-    public boolean isAlive(){
-    	return !dead;
+    public boolean isAlive() {
+        return !dead;
     }
 
 
-    public void showHp(ShapeRenderer shapeRenderer){
-        if(health!=INTITAL_HEALTH) {
+    public void showHp(ShapeRenderer shapeRenderer) {
+        if (health != INTITAL_HEALTH) {
             shapeRenderer.setColor(Color.BLACK);
             shapeRenderer.rect(getPositionX(), getPositionY() - 10, bounds.width, 5);
             shapeRenderer.setColor(Color.RED);
@@ -372,14 +409,41 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void findItem() {
-        if(status_windows_link==true){
-            status_windows_link = false;
+        if (status_find) {
             status_find = false;
+        } else if (frontItem != null && frontItem.isConnectable()){
+            status_find = true;
         }
-        else { // ถ้าหน้าต่างเมนูเปิดอยู่
-            status_windows_link = true; // ให้หน้าต่างเมนูปิดลง
-            status_find = true; // ให้สเตตัสค้นหาเป็นเท็จ หรือ ไม่มีการค้นหา
+    }
+
+    private void updateItemSensor() {
+        itemSensor.width = 16;
+        itemSensor.height = 16;
+
+        if (getViewDirection() == Direction.RIGHT) {
+            itemSensor.x = bounds.x + bounds.width;
+            itemSensor.y = bounds.y + (bounds.height - itemSensor.height) * 0.5f;
         }
+        if (getViewDirection() == Direction.LEFT) {
+            itemSensor.x = bounds.x - itemSensor.width;
+            itemSensor.y = bounds.y + (bounds.height - itemSensor.height) * 0.5f;
+        }
+        if (getViewDirection() == Direction.UP) {
+            itemSensor.x = bounds.x + (bounds.width - itemSensor.width) * 0.5f;
+            itemSensor.y = bounds.y + bounds.height;
+        }
+        if (getViewDirection() == Direction.DOWN) {
+            itemSensor.x = bounds.x + (bounds.width - itemSensor.width) * 0.5f;
+            itemSensor.y = bounds.y - itemSensor.height;
+        }
+    }
+
+    public Rectangle getItemSensor() {
+        return itemSensor;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     @Override
@@ -387,5 +451,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         // TODO Auto-generated method stub
         return null;
     }
+
 
 }
