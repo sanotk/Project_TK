@@ -26,4 +26,9 @@ public class Door extends Item{
         // TODO Auto-generated method stub
 
     }
+
+    @Override
+    public boolean isConnectable() {
+        return false;
+    }
 }

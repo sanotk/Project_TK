@@ -18,12 +18,17 @@ public class Inverter extends Item{
     @Override
     public String getName() {
         // TODO Auto-generated method stub
-        return null;
+        return "Inverter";
     }
 
     @Override
     public void activate() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public boolean isConnectable() {
+        return true;
     }
 }
