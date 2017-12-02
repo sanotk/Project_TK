@@ -11,7 +11,7 @@ import com.mypjgdx.esg.utils.Distance;
 
 public abstract class Item extends AnimatedObject<ItemAnimation>{
 
-		protected static final float FRAME_DURATION = 1.0f / 8.0f;
+		protected static final float FRAME_DURATION = 1.0f / 2.0f;
 
 		public float p_x;
 		public float p_y;
@@ -32,7 +32,7 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
             super(atlas);
 
             addLoopAnimation(ItemAnimation.OFF, FRAME_DURATION, 0, 3);
-            addLoopAnimation(ItemAnimation.ON, FRAME_DURATION, 3, 3);
+			addNormalAnimation(ItemAnimation.ON, FRAME_DURATION, 3, 3);
 
 			p_x = P_X;
 			p_y = P_Y;
