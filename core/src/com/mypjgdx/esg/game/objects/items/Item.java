@@ -18,21 +18,25 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 
 		public enum ItemAnimation {
 		    ON,
+			ONLOOP,
 		    OFF
 		}
 
 		public enum ItemState {
 	        ON,
+			ONLOOP,
 	        OFF
 	    }
 
-		private ItemState state;
+		public ItemState state;
 
 		public Item(TextureAtlas atlas, float scaleX, float scaleY , float P_X , float P_Y) {
             super(atlas);
 
-            addLoopAnimation(ItemAnimation.OFF, FRAME_DURATION, 0, 3);
-			addNormalAnimation(ItemAnimation.ON, FRAME_DURATION, 3, 3);
+            addLoopAnimation(ItemAnimation.OFF, FRAME_DURATION, 0, 1);
+			addNormalAnimation(ItemAnimation.ON, FRAME_DURATION, 1, 3);
+			addLoopAnimation(ItemAnimation.ONLOOP, FRAME_DURATION, 1, 3);
+
 
 			p_x = P_X;
 			p_y = P_Y;
@@ -56,8 +60,9 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 		protected void setAnimation() {
 			unFreezeAnimation();
 	        switch (state) {
-	        case ON: setCurrentAnimation(ItemAnimation.ON); break;
-	        case OFF: setCurrentAnimation(ItemAnimation.OFF); break;
+	            case ON: setCurrentAnimation(ItemAnimation.ON); break;
+	            case OFF: setCurrentAnimation(ItemAnimation.OFF); break;
+                case ONLOOP : setCurrentAnimation(ItemAnimation.ONLOOP); break;
 	        default:
 	            break;
 	        }

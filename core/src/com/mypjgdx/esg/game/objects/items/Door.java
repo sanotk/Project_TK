@@ -6,12 +6,12 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 
 public class Door extends Item{
 
-    private static final float SCALE = 1f;
+    private static final float SCALE = 2f;
     public static final float P_X = 1900f;
-    public static final float P_Y = 1300f;
+    public static final float P_Y = 1250f;
 
 	public Door(TiledMapTileLayer mapLayer, Player player){
-        super(Assets.instance.ccAltas, SCALE, SCALE , P_X , P_Y);
+        super(Assets.instance.doorAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player);
 	}
 

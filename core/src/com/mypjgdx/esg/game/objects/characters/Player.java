@@ -88,7 +88,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private long lastInvulnerableTime;
     private long invulnerableTime;
     private float movingSpeed;
-    private float delay = 1;
 
     private TiledMapTileLayer mapLayer;
     private Direction viewDirection;
@@ -132,6 +131,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         batteryCheck = new TiledCollisionCheckItem2(bounds, mapLayer);
         inverterCheck = new TiledCollisionCheckItem3(bounds, mapLayer);
         ccontrollerCheck = new TiledCollisionCheckItem4(bounds, mapLayer);
+        doorCheck = new TiledCollisionCheckItem5(bounds, mapLayer);
 
         state = PlayerState.STAND;
         setCurrentAnimation(PlayerAnimation.STAND_DOWN);

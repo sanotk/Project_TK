@@ -52,7 +52,7 @@ public abstract class AbstractGameObject {
         batteryCheck = new NullCollsionCheck();
     }
 
-    public void update (float deltaTime) {
+        public void update (float deltaTime) {
         float oldPositionX = position.x;
         float oldPositionY = position.y;
 

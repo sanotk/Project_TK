@@ -1,47 +1,33 @@
 
 solarcell_pack.png
 format: RGBA8888
-filter: Linear,MipMapLinearNearest
+filter: Linear,MipMapNearestLinear
 repeat: none
-solar1_off
+solar_off
   rotate: false
   xy: 1, 1
-  size: 101, 101
-  orig: 101, 101
+  size: 100, 50
+  orig: 100, 50
   offset: 0, 0
-  index: -1
-solar2_off
+  index: 1
+solar_on
   rotate: false
-  xy: 104, 1
-  size: 101, 101
-  orig: 101, 101
+  xy: 103, 1
+  size: 100, 50
+  orig: 100, 50
   offset: 0, 0
-  index: -1
-solar3_off
+  index: 1
+solar_on
   rotate: false
-  xy: 207, 1
-  size: 101, 101
-  orig: 101, 101
+  xy: 205, 1
+  size: 100, 50
+  orig: 100, 50
   offset: 0, 0
-  index: -1
-solar4_on
+  index: 2
+solar_on
   rotate: false
-  xy: 310, 1
-  size: 101, 101
-  orig: 101, 101
+  xy: 307, 1
+  size: 100, 50
+  orig: 100, 50
   offset: 0, 0
-  index: -1
-solar5_on
-  rotate: false
-  xy: 413, 1
-  size: 101, 101
-  orig: 101, 101
-  offset: 0, 0
-  index: -1
-solar6_on
-  rotate: false
-  xy: 516, 1
-  size: 101, 101
-  orig: 101, 101
-  offset: 0, 0
-  index: -1
+  index: 3

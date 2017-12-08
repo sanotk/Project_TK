@@ -542,12 +542,20 @@ public class GameScreen extends AbstractGameScreen {
                 && batState==batteryState.BtoC
                 && inverState==inverterState.ItoD;
         if (stageOneIsFinish){
-            worldController.level.items.get(0).setCurrentAnimation(Item.ItemAnimation.ON);
-            worldController.level.items.get(1).setCurrentAnimation(Item.ItemAnimation.ON);
-            worldController.level.items.get(2).setCurrentAnimation(Item.ItemAnimation.ON);
-            worldController.level.items.get(3).setCurrentAnimation(Item.ItemAnimation.ON);
+            worldController.level.items.get(0).state = Item.ItemState.ONLOOP;
+            worldController.level.items.get(0).resetAnimation();
+            worldController.level.items.get(1).state = Item.ItemState.ON;
+            worldController.level.items.get(1).resetAnimation();
+            worldController.level.items.get(2).state = Item.ItemState.ONLOOP;
+            worldController.level.items.get(2).resetAnimation();
+            worldController.level.items.get(3).state = Item.ItemState.ON;
+            worldController.level.items.get(3).resetAnimation();
+            worldController.level.items.get(4).state = Item.ItemState.ON;
+            worldController.level.items.get(4).resetAnimation();
         }
-        
+
+        if((worldController.level.items.get(4).state == Item.ItemState.ON)&&(player.status_door==true))
+
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
         worldRenderer.render();
 

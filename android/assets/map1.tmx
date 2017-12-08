@@ -56,6 +56,11 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="7">
+   <properties>
+    <property name="door" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="95" name="S" tilewidth="50" tileheight="50" spacing="2" tilecount="4">
   <image source="s.png" width="256" height="64"/>
@@ -169,12 +174,12 @@
  </tileset>
  <layer name="ground" width="40" height="30">
   <data encoding="base64" compression="zlib">
-   eJzNmD0OwjAMhXOH3AEQzAz0Z2dgRdz/Jggplp6MHb+0DWX4hobSfrXzXMQrpfT6c45AVsenwnEHGL8WTgbZWbfOw3M9v1bwef7Rr+bWwqOwxI/p+Vo/Tc1vLqDfbKxHjnpNjnP67metv8PGPY7q+Us/Lx9RLg4FOb4VeuZ3dFy89aX7r5VRYflFjkvnCzuvPb8xcTXsMf/OBhdwEW/ZmzXHZ4Hxi2qmfbCG6JgrflF+Ij/J9JA4b7kfemuHyK/n+w2vLX6YDSbDa/wGQK8zs2Kr+aL7ij29FrxnwGvrtVZ3z+9KUPOLvNjfW55fJvy8nEwA7skt+/u55j3A8kM3dt/VPhc/fa+on15/tdvajLT46Yx4+29K7S7eftyyflI7fS/Gs8WPya7lPAX3WoL2Y70k397s6+UnYEbZ7EY51LOG/Z7lJ7W05qCXC4aoVhaen34X7IX4raXnf0NvZRfRMw==
+   eJzNmDGOAjEMRXOH3GEH7dYUDEO/xbaICg6x9y9WSLH09WXHNpNoKV4xBiZv7PyAuJVSbm/OAlS6PjSWyfw2sBbxy3BQqEadET/sh+aXBZ/nHf16bhkq+d0TfpGZ7/X7SfhdGuh3UeqeI9fkWnplwfNdB8/Y62cFeL6j/ax8eLn4aMj1qeM3Kr9nw8WqI49JfuKFaH6eozVfPrNfyS47ar3z/K4T+vep8AUu4i17s+d4bUTOZ69n7IM9RMfa8fPy4/lJptcS85b10JsdPD+sjczHQvcWP8xGJMN7/FaA6966S+A90fnyXHGmx4b1DHhvrmXdLb9jgJ6f5xX9vWX51YCflZMNwD05cr7Pe347aH7oFt13vdfFj9fy5mnNl932ZiTjxxmx9t9W8i7WfhzZP+kdrxXxzPhFsqs5b85ar8B+US/Jt3X2zfITMKPR7Ho55LMm+jnNT3qpnYNWLiJ4vdKw/Pi74L8Qv73M/G/oD6BN2gs=
   </data>
  </layer>
  <layer name="ground3" width="40" height="30">
   <data encoding="base64" compression="zlib">
-   eJztlUEOgCAMBPmDP/CCd4L/f5oxkQvBUtoFKnESTpIwbltw7lvsswUINof3O5j7wrPQ+Mr32X4oNH4nUoTAit9d8zwvS/Ud6feWbW1uZvuthjS/Wp1QBGdrRnJa/FA9RWXPfVdKSGaydF7r/p6zpskjseJdMGp+uUTG0qD9X094pcXtE3T2EezXA47fTEo+uTOS1lpo5kPSbz383hxH3EUavxFY90tYezd+ZFw5RRy2
+   eJztllEKgCAMhneHbtBLvUtdovvfJ4KkEM3p/m0FfbCHSPBrbi6ibzE67LklUWIgvN/MXBfOQDNV3nv7oZD4rUiRAkfdheSZC9pvpitfsSfuz97c/SJafqXc1vrG268Vzv3nSW/+aueEItC778AWP1RNPeWeO1dy9PRkbr/W9ZpzQJKPiMWcssaqf7ksjJAg/d7pwSsGt07QuV/Afhpw/DzJ+aTOSFrPQtIfPfWm4VdytLiLJH4WaPmh/zvfNjd++tgBeEwhZg==
   </data>
  </layer>
  <layer name="ground2" width="40" height="30" opacity="0.9">

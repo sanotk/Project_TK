@@ -8,7 +8,7 @@ public class Battery extends Item{
 
     private static final float SCALE = 1f;
     public static final float P_X = 1700f;
-    public static final float P_Y = 900f;
+    public static final float P_Y = 950f;
 
 	public Battery(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.batAltas, SCALE, SCALE , P_X , P_Y);

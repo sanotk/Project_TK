@@ -3,45 +3,31 @@ cc_pack.png
 format: RGBA8888
 filter: Linear,MipMapLinearNearest
 repeat: none
-con1_off
+cc_off
   rotate: false
   xy: 1, 1
-  size: 101, 101
-  orig: 101, 101
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
-  index: -1
-con2_off
+  index: 1
+cc_on
   rotate: false
-  xy: 104, 1
-  size: 101, 101
-  orig: 101, 101
+  xy: 53, 1
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
-  index: -1
-con3_off
+  index: 1
+cc_on
   rotate: false
-  xy: 207, 1
-  size: 101, 101
-  orig: 101, 101
+  xy: 105, 1
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
-  index: -1
-con4_on
+  index: 2
+cc_on
   rotate: false
-  xy: 310, 1
-  size: 101, 101
-  orig: 101, 101
+  xy: 157, 1
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
-  index: -1
-con5_on
-  rotate: false
-  xy: 413, 1
-  size: 101, 101
-  orig: 101, 101
-  offset: 0, 0
-  index: -1
-con6_on
-  rotate: false
-  xy: 516, 1
-  size: 101, 101
-  orig: 101, 101
-  offset: 0, 0
-  index: -1
+  index: 3

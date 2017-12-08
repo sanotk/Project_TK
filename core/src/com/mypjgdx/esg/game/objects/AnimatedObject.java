@@ -71,7 +71,7 @@ public abstract class AnimatedObject<E extends Enum<E>> extends AbstractGameObje
         freeze = false;
     }
 
-    protected void resetAnimation() {
+    public void resetAnimation() {
         animationTime = 0.0f;
     }
 

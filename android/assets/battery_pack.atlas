@@ -1,47 +1,33 @@
 
 battery_pack.png
 format: RGBA8888
-filter: Linear,MipMapLinearNearest
+filter: Linear,MipMapNearestLinear
 repeat: none
-bat1_off
+batt_off
   rotate: false
   xy: 1, 1
-  size: 101, 101
-  orig: 101, 101
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
-  index: -1
-bat2_off
+  index: 1
+batt_on
   rotate: false
-  xy: 104, 1
-  size: 101, 101
-  orig: 101, 101
+  xy: 53, 1
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
-  index: -1
-bat3_off
+  index: 1
+batt_on
   rotate: false
-  xy: 207, 1
-  size: 101, 101
-  orig: 101, 101
+  xy: 105, 1
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
-  index: -1
-bat4_on
+  index: 2
+batt_on
   rotate: false
-  xy: 310, 1
-  size: 101, 101
-  orig: 101, 101
+  xy: 157, 1
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
-  index: -1
-bat5_on
-  rotate: false
-  xy: 413, 1
-  size: 101, 101
-  orig: 101, 101
-  offset: 0, 0
-  index: -1
-bat6_on
-  rotate: false
-  xy: 516, 1
-  size: 101, 101
-  orig: 101, 101
-  offset: 0, 0
-  index: -1
+  index: 3
