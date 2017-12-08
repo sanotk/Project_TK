@@ -33,6 +33,8 @@ public abstract class AbstractGameObject {
     protected CollisionCheck inverterCheck;
     protected CollisionCheck ccontrollerCheck;
     protected CollisionCheck batteryCheck;
+    protected CollisionCheck doorCheck;
+
 
     public AbstractGameObject () {
         position = new Vector2();
@@ -50,6 +52,7 @@ public abstract class AbstractGameObject {
         inverterCheck = new NullCollsionCheck();
         ccontrollerCheck = new NullCollsionCheck();
         batteryCheck = new NullCollsionCheck();
+        doorCheck = new NullCollsionCheck();
     }
 
         public void update (float deltaTime) {

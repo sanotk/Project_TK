@@ -13,6 +13,7 @@ import com.mypjgdx.esg.collision.TiledCollisionCheckItem1;
 import com.mypjgdx.esg.collision.TiledCollisionCheckItem2;
 import com.mypjgdx.esg.collision.TiledCollisionCheckItem3;
 import com.mypjgdx.esg.collision.TiledCollisionCheckItem4;
+import com.mypjgdx.esg.collision.TiledCollisionCheckItem5;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
