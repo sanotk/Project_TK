@@ -552,11 +552,32 @@ public class GameScreen extends AbstractGameScreen {
             worldController.level.items.get(4).state = Item.ItemState.ON;
             worldController.level.items.get(4).resetAnimation();
             animation_status = true;
-            worldController.level.energyTube.energy = 100;
+            worldController.level.energyTube.energy += 100;
         }
 
         if((worldController.level.items.get(4).state == Item.ItemState.ON)&&(player.status_door==true)){
             game.setScreen(new GameScreen2(game));
+        }
+
+        if((worldController.level.enemies.get(0).dead)&&(!worldController.level.enemies.get(0).count)) {
+            worldController.level.energyTube.energy +=2;
+            worldController.level.enemies.get(0).count = true;
+        }
+        if((worldController.level.enemies.get(1).dead)&&(!worldController.level.enemies.get(1).count)) {
+            worldController.level.energyTube.energy +=2;
+            worldController.level.enemies.get(1).count = true;
+        }
+        if((worldController.level.enemies.get(2).dead)&&(!worldController.level.enemies.get(2).count)) {
+            worldController.level.energyTube.energy +=2;
+            worldController.level.enemies.get(2).count = true;
+        }
+        if((worldController.level.enemies.get(3).dead)&&(!worldController.level.enemies.get(3).count)) {
+            worldController.level.energyTube.energy +=2;
+            worldController.level.enemies.get(3).count = true;
+        }
+        if((worldController.level.enemies.get(4).dead)&&(!worldController.level.enemies.get(4).count)) {
+            worldController.level.energyTube.energy +=2;
+            worldController.level.enemies.get(4).count = true;
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World

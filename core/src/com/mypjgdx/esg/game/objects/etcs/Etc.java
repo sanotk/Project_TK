@@ -51,14 +51,4 @@ public abstract class Etc extends AbstractGameObject {
         render(batch, etcTexture);
     }
 
-    public boolean isDestroyed(){
-        return destroyed;
-    }
-
-    public void destroy(){
-        destroyed = true;
-    }
-
-    public abstract void attack(Damageable damageable);
-
 }

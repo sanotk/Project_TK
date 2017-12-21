@@ -47,7 +47,8 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     public EnemyType type;
     private Direction viewDirection;
 
-    private boolean dead;
+    public boolean dead;
+    public boolean count = false;
     private boolean knockback;
     private boolean stun;
 	private boolean attacktime;
