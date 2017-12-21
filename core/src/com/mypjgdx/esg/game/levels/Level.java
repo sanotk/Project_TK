@@ -46,7 +46,7 @@ public class Level{
 
         player = levelGenerator.createPlayer(mapLayer);
         items = levelGenerator.createItems(mapLayer, player);
-        etcs = levelGenerator.c
+        etcs = levelGenerator.createEtcs(mapLayer, player);
         enemies = levelGenerator.createEnemies(mapLayer, player);
 
         energyTube.init(mapLayer, player);
@@ -60,6 +60,7 @@ public class Level{
         //energyTube.render(batch);    <<<   ถ้าได้ atlas ของ EnergyTube แล้วค่อยคอมเม้นออก
         for (Weapon w: weapons) w.render(batch);
         for (Item i: items) i.render(batch);
+        for (Etc etc: etcs) etc.render(batch);
         player.render(batch);
         for (Enemy e: enemies) e.render(batch);
 
@@ -85,6 +86,7 @@ public class Level{
         }
         player.update(deltaTime ,weapons);
         for(Item i: items) i.update(deltaTime);
+        for(Etc etc: etcs) etc.update(deltaTime);
         for(Enemy e: enemies) e.update(deltaTime, weapons);
         for(Weapon w: weapons) w.update(deltaTime);
 

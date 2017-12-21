@@ -342,17 +342,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     	}
     }
 
-    public void link(List<Etc> etcs){
-        if (state != PlayerState.ATTACK && item == null){
-            state = PlayerState.ATTACK;
-            if(beamCount!=0){
-                etcs.add(new Link(mapLayer, this));
-                Assets.instance.beamSound.play();
-                beamCount--;
-            }
-            resetAnimation();
-        }
-    }
 
     public boolean isAlive(){
     	return !dead;

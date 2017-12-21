@@ -16,7 +16,7 @@ public class Link extends Etc {
 
 	    public Link(TiledMapTileLayer mapLayer , Player player) {
 	        super(Assets.instance.beam, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
-	        init(mapLayer ,player, enemy);
+	        init(mapLayer ,player);
 	    }
 
 	    @Override
@@ -47,7 +47,12 @@ public class Link extends Etc {
 	    	}
 	    }
 
-        @Override
+	@Override
+	public void attack(Damageable damageable) {
+
+	}
+
+	@Override
         public String getName() {
             // TODO Auto-generated method stub
             return null;
