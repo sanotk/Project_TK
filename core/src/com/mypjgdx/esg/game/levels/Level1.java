@@ -39,6 +39,10 @@ public class Level1 extends LevelGenerator {
     public ArrayList<Link> createEtcs(TiledMapTileLayer mapLayer, Player player) {
         ArrayList<Link> etcs = new ArrayList<Link>();
         etcs.add(new Link(mapLayer, player));
+        etcs.add(new Link(mapLayer, player));
+        etcs.add(new Link(mapLayer, player));
+        etcs.add(new Link(mapLayer, player));
+        etcs.add(new Link(mapLayer, player));
         return etcs;
     }
 

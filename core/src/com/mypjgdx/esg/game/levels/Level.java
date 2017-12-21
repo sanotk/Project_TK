@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.etcs.Etc;
+import com.mypjgdx.esg.game.objects.etcs.Link;
 import com.mypjgdx.esg.game.objects.items.EnergyTube;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
@@ -22,7 +23,7 @@ public class Level{
     public TiledMap map;
     public Player player;
     public List<Item> items;
-    public List<Etc> etcs;
+    public ArrayList<Link> etcs;
     public List<Enemy> enemies;
     public List<Weapon> weapons;
     public TiledMapTileLayer mapLayer;
@@ -74,17 +75,22 @@ public class Level{
     }
 
     public void update(float deltaTime) {
+
         Iterator<Weapon> weaponIterator = weapons.iterator();
         Iterator<Enemy>enemyIterator = enemies.iterator();
+
         while(weaponIterator.hasNext()){
             Weapon w = weaponIterator.next();
         	if (w.isDestroyed()) weaponIterator.remove();
         }
+
         while(enemyIterator.hasNext()){
             Enemy e = enemyIterator.next();
         	if (!e.isAlive()) enemyIterator.remove();
         }
+
         player.update(deltaTime ,weapons);
+
         for(Item i: items) i.update(deltaTime);
         for(Etc etc: etcs) etc.update(deltaTime);
         for(Enemy e: enemies) e.update(deltaTime, weapons);
