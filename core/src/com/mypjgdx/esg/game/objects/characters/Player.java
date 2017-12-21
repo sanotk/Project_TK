@@ -17,6 +17,7 @@ import com.mypjgdx.esg.collision.TiledCollisionCheckItem5;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
+import com.mypjgdx.esg.game.objects.etcs.Etc;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Beam;
 import com.mypjgdx.esg.game.objects.weapons.Bullet;
@@ -339,6 +340,18 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             Assets.instance.beamSound.play();
     		resetAnimation();
     	}
+    }
+
+    public void link(List<Etc> etcs){
+        if (state != PlayerState.ATTACK && item == null){
+            state = PlayerState.ATTACK;
+            if(beamCount!=0){
+                etcs.add(new Link(mapLayer, this));
+                Assets.instance.beamSound.play();
+                beamCount--;
+            }
+            resetAnimation();
+        }
     }
 
     public boolean isAlive(){

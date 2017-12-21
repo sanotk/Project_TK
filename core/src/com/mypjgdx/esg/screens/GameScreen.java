@@ -105,6 +105,8 @@ public class GameScreen extends AbstractGameScreen {
     private TextButton buttonBtoI;
     private TextButton buttonBtoD;
 
+    private boolean animation_status = false;
+
     public GameScreen(Game game) {
         super(game);
 
@@ -452,11 +454,8 @@ public class GameScreen extends AbstractGameScreen {
         textTrap.setText(String.format("Trap Max : %d", worldController.level.player.trapCount));
         textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
         energyLevel.setText(String.format("Energy : %d", (int)worldController.level.energyTube.energy));
-        energyLevel2.setText(String.format("Product Energy : %d", (int)worldController.level.energyTube.energy));
-        energyLevel3.setText(String.format("Battery : %d", (int)worldController.level.energyTube.energy));
         //
         // sunleft.setText(String.format("Sun Left"));
-
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));
@@ -541,20 +540,24 @@ public class GameScreen extends AbstractGameScreen {
                 && ccState==chargecontrollercState.CtoI
                 && batState==batteryState.BtoC
                 && inverState==inverterState.ItoD;
-        if (stageOneIsFinish){
+        if ((stageOneIsFinish)&&(!animation_status)){
             worldController.level.items.get(0).state = Item.ItemState.ONLOOP;
             worldController.level.items.get(0).resetAnimation();
-            worldController.level.items.get(1).state = Item.ItemState.ON;
+            worldController.level.items.get(1).state = Item.ItemState.ONLOOP;
             worldController.level.items.get(1).resetAnimation();
-            worldController.level.items.get(2).state = Item.ItemState.ONLOOP;
+            worldController.level.items.get(2).state = Item.ItemState.ON;
             worldController.level.items.get(2).resetAnimation();
-            worldController.level.items.get(3).state = Item.ItemState.ON;
+            worldController.level.items.get(3).state = Item.ItemState.ONLOOP;
             worldController.level.items.get(3).resetAnimation();
             worldController.level.items.get(4).state = Item.ItemState.ON;
             worldController.level.items.get(4).resetAnimation();
+            animation_status = true;
+            worldController.level.energyTube.energy = 100;
         }
 
-        if((worldController.level.items.get(4).state == Item.ItemState.ON)&&(player.status_door==true))
+        if((worldController.level.items.get(4).state == Item.ItemState.ON)&&(player.status_door==true)){
+            game.setScreen(new GameScreen2(game));
+        }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
         worldRenderer.render();

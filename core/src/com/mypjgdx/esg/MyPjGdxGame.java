@@ -18,8 +18,6 @@ public class MyPjGdxGame extends Game  {
         setScreen(new MenuScreen(this));
     }
 
-
-
     @Override
     public void dispose () {
         Assets.instance.dispose();

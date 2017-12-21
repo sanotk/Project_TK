@@ -26,7 +26,7 @@ public abstract class AbstractGameObject {
     public boolean status_inverter = false;
     public boolean status_ccontroller = false;
     public boolean status_battery = false;
-
+    public boolean status_door = false;
 
     protected CollisionCheck collisionCheck;
     protected CollisionCheck solarcellCheck;
@@ -103,8 +103,13 @@ public abstract class AbstractGameObject {
         else {
             status_inverter = false;
         }
-
-
+        if (doorCheck.isCollidesBottom() || doorCheck.isCollidesLeft() ||
+                doorCheck.isCollidesRight() || doorCheck .isCollidesTop()){
+            status_door = true;
+        }
+        else {
+            status_door = false;
+        }
     }
 
     public abstract void render (SpriteBatch batch);

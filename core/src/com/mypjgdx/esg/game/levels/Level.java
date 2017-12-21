@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.game.objects.etcs.Etc;
 import com.mypjgdx.esg.game.objects.items.EnergyTube;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
@@ -21,6 +22,7 @@ public class Level{
     public TiledMap map;
     public Player player;
     public List<Item> items;
+    public List<Etc> etcs;
     public List<Enemy> enemies;
     public List<Weapon> weapons;
     public TiledMapTileLayer mapLayer;
@@ -44,6 +46,7 @@ public class Level{
 
         player = levelGenerator.createPlayer(mapLayer);
         items = levelGenerator.createItems(mapLayer, player);
+        etcs = levelGenerator.c
         enemies = levelGenerator.createEnemies(mapLayer, player);
 
         energyTube.init(mapLayer, player);
@@ -56,10 +59,12 @@ public class Level{
         batch.begin();
         //energyTube.render(batch);    <<<   ถ้าได้ atlas ของ EnergyTube แล้วค่อยคอมเม้นออก
         for (Weapon w: weapons) w.render(batch);
-        player.render(batch);
         for (Item i: items) i.render(batch);
+        player.render(batch);
         for (Enemy e: enemies) e.render(batch);
+
         batch.end();
+
 
         shapeRenderer.begin(ShapeType.Filled);
         player.showHp (shapeRenderer);

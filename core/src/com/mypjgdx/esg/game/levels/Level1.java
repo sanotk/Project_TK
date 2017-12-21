@@ -10,6 +10,8 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Pepo;
 import com.mypjgdx.esg.game.objects.characters.PepoKnight;
 import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.game.objects.etcs.Etc;
+import com.mypjgdx.esg.game.objects.etcs.Link;
 import com.mypjgdx.esg.game.objects.items.Battery;
 import com.mypjgdx.esg.game.objects.items.Charge;
 import com.mypjgdx.esg.game.objects.items.Door;
@@ -32,6 +34,12 @@ public class Level1 extends LevelGenerator {
         items.add(new Charge(mapLayer, player));
         items.add(new Door(mapLayer,player));
         return items;
+    }
+
+    @Override
+    public List<Etc> createEtcs(TiledMaplTileLayer mapLayer, Player player){
+        ArrayList<Enemy> etcs = new ArrayList<Enemy>();
+        etcs.add(new Link(mapLayer, player));
     }
 
     @Override
