@@ -15,17 +15,8 @@ public class Link extends Etc {
 		public static final float P_Y = 0f;
 
 	    public Link(TiledMapTileLayer mapLayer , Player player) {
-	        super(Assets.instance.beam, SCALE, SCALE, P_X, P_Y);
+	        super(Assets.instance.link, SCALE, SCALE, P_X, P_Y);
 	        init(mapLayer ,player);
-	    }
-
-	    @Override
-	    protected void spawn() {
-	        setPosition(
-	                player.getPositionX() + player.origin.x - origin.x,
-	        		player.getPositionY() + player.origin.y - 4);
-
-	        direction = player.getViewDirection();
 	    }
 
 	@Override

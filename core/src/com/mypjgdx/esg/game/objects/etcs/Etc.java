@@ -8,6 +8,7 @@ import com.mypjgdx.esg.game.objects.AbstractGameObject;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.utils.Direction;
 
 public abstract class Etc extends AbstractGameObject {
@@ -16,8 +17,10 @@ public abstract class Etc extends AbstractGameObject {
         Link
     }
 
+    public float p_x;
+    public float p_y;
+
     private TextureRegion etcTexture;
-    private boolean destroyed;
 
     public EtcType type;
     protected Player player;
@@ -25,26 +28,27 @@ public abstract class Etc extends AbstractGameObject {
 
     public abstract void TellMeByType();
 
-    public Etc(TextureRegion weaponTexture, float scaleX, float scaleY, float frictionX, float frictionY) {
+    public Etc(TextureRegion weaponTexture, float scaleX, float scaleY, float P_X , float P_Y) {
         this.etcTexture = weaponTexture;
 
-        scale.set(scaleX, scaleY);
-        setDimension(
-                weaponTexture.getRegionWidth(),
-                weaponTexture.getRegionHeight());
+        p_x = P_X;
+        p_y = P_Y;
 
-        destroyed = false;
-        friction.set(frictionX, frictionY);
+        scale.set(scaleX, scaleY);
+
     }
 
     public void init(TiledMapTileLayer mapLayer ,Player player) {
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
         this.player = player;
         TellMeByType();
-        spawn();
+        setPosition(mapLayer, player);
     }
 
-    protected abstract void spawn();
+
+    private void setPosition(TiledMapTileLayer mapLayer, Player player) {
+        setPosition(p_x,p_y);
+    }
 
     @Override
     public void render(SpriteBatch batch) {

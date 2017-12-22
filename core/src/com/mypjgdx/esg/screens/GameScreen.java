@@ -21,6 +21,7 @@ import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level;
 import com.mypjgdx.esg.game.levels.Level1;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
+import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
 
@@ -559,25 +560,12 @@ public class GameScreen extends AbstractGameScreen {
             game.setScreen(new GameScreen2(game));
         }
 
-        if((worldController.level.enemies.get(0).dead)&&(!worldController.level.enemies.get(0).count)) {
-            worldController.level.energyTube.energy +=2;
-            worldController.level.enemies.get(0).count = true;
-        }
-        if((worldController.level.enemies.get(1).dead)&&(!worldController.level.enemies.get(1).count)) {
-            worldController.level.energyTube.energy +=2;
-            worldController.level.enemies.get(1).count = true;
-        }
-        if((worldController.level.enemies.get(2).dead)&&(!worldController.level.enemies.get(2).count)) {
-            worldController.level.energyTube.energy +=2;
-            worldController.level.enemies.get(2).count = true;
-        }
-        if((worldController.level.enemies.get(3).dead)&&(!worldController.level.enemies.get(3).count)) {
-            worldController.level.energyTube.energy +=2;
-            worldController.level.enemies.get(3).count = true;
-        }
-        if((worldController.level.enemies.get(4).dead)&&(!worldController.level.enemies.get(4).count)) {
-            worldController.level.energyTube.energy +=2;
-            worldController.level.enemies.get(4).count = true;
+        for(int i = 0; i < worldController.level.enemies.size();){
+            Enemy enemy = worldController.level.enemies.get(i);
+            if (enemy.dead && !enemy.count){
+                worldController.level.energyTube.energy += 2;
+                enemy.count = true;
+            }
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
