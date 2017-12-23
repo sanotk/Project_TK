@@ -48,13 +48,6 @@ public class Level4 extends LevelGenerator {
     }
 
     @Override
-    public ArrayList<Link> createEtcs(TiledMapTileLayer mapLayer, Player player) {
-        ArrayList<Link> etcs = new ArrayList<Link>();
-        etcs.add(new Link(mapLayer, player));
-        return etcs;
-    }
-
-    @Override
     public List<Enemy> createEnemies(TiledMapTileLayer mapLayer,Player player) {
         ArrayList<Enemy> enemies = new ArrayList<Enemy>();
         enemies.add(new Pepo(mapLayer, player));

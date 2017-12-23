@@ -544,7 +544,6 @@ public class GameScreen extends AbstractGameScreen {
         if ((stageOneIsFinish)&&(!animation_status)){
             worldController.level.items.get(0).state = Item.ItemState.ONLOOP;
             worldController.level.items.get(0).resetAnimation();
-            worldController.level.etcs.get(0).setPosition(worldController.level.items.get(0).p_x+100,worldController.level.items.get(0).p_y+100);
             worldController.level.items.get(1).state = Item.ItemState.ONLOOP;
             worldController.level.items.get(1).resetAnimation();
             worldController.level.items.get(2).state = Item.ItemState.ON;
