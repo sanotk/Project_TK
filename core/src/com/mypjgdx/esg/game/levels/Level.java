@@ -12,8 +12,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.etcs.Etc;
-import com.mypjgdx.esg.game.objects.etcs.Link;
 import com.mypjgdx.esg.game.objects.items.EnergyTube;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
@@ -23,7 +21,6 @@ public class Level{
     public TiledMap map;
     public Player player;
     public List<Item> items;
-    public ArrayList<Link> etcs;
     public List<Enemy> enemies;
     public List<Weapon> weapons;
     public TiledMapTileLayer mapLayer;
@@ -47,7 +44,6 @@ public class Level{
 
         player = levelGenerator.createPlayer(mapLayer);
         items = levelGenerator.createItems(mapLayer, player);
-        etcs = levelGenerator.createEtcs(mapLayer, player);
         enemies = levelGenerator.createEnemies(mapLayer, player);
 
         energyTube.init(mapLayer, player);
@@ -61,7 +57,6 @@ public class Level{
         //energyTube.render(batch);    <<<   ถ้าได้ atlas ของ EnergyTube แล้วค่อยคอมเม้นออก
         for (Weapon w: weapons) w.render(batch);
         for (Item i: items) i.render(batch);
-        for (Etc etc: etcs) etc.render(batch);
         player.render(batch);
         for (Enemy e: enemies) e.render(batch);
 
@@ -92,7 +87,6 @@ public class Level{
         player.update(deltaTime ,weapons);
 
         for(Item i: items) i.update(deltaTime);
-        for(Etc etc: etcs) etc.update(deltaTime);
         for(Enemy e: enemies) e.update(deltaTime, weapons);
         for(Weapon w: weapons) w.update(deltaTime);
 

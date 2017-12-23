@@ -544,6 +544,7 @@ public class GameScreen extends AbstractGameScreen {
         if ((stageOneIsFinish)&&(!animation_status)){
             worldController.level.items.get(0).state = Item.ItemState.ONLOOP;
             worldController.level.items.get(0).resetAnimation();
+            worldController.level.etcs.get(0).setPosition(worldController.level.items.get(0).p_x+100,worldController.level.items.get(0).p_y+100);
             worldController.level.items.get(1).state = Item.ItemState.ONLOOP;
             worldController.level.items.get(1).resetAnimation();
             worldController.level.items.get(2).state = Item.ItemState.ON;
@@ -560,7 +561,7 @@ public class GameScreen extends AbstractGameScreen {
             game.setScreen(new GameScreen2(game));
         }
 
-        for(int i = 0; i < worldController.level.enemies.size();){
+        for(int i = 0; i < worldController.level.enemies.size(); i+=1){
             Enemy enemy = worldController.level.enemies.get(i);
             if (enemy.dead && !enemy.count){
                 worldController.level.energyTube.energy += 2;

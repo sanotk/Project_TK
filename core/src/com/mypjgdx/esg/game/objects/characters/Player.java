@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.Timer;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.collision.TiledCollisionCheckItem1;
 import com.mypjgdx.esg.collision.TiledCollisionCheckItem2;
@@ -17,7 +16,6 @@ import com.mypjgdx.esg.collision.TiledCollisionCheckItem5;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
-import com.mypjgdx.esg.game.objects.etcs.Etc;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Beam;
 import com.mypjgdx.esg.game.objects.weapons.Bullet;
@@ -25,7 +23,6 @@ import com.mypjgdx.esg.game.objects.weapons.Trap;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.game.objects.weapons.Weapon.WeaponType;
 import com.mypjgdx.esg.utils.Direction;
-import java.lang.Thread;
 
 public class Player extends AnimatedObject<PlayerAnimation> implements Damageable {
 
