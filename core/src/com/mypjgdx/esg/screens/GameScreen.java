@@ -11,8 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mypjgdx.esg.game.Assets;
@@ -560,7 +562,7 @@ public class GameScreen extends AbstractGameScreen {
             game.setScreen(new GameScreen2(game));
         }
 
-        for(int i = 0; i < worldController.level.enemies.size(); i+=1){
+        for(int i = 0; i < worldController.level.enemies.size(); i++){
             Enemy enemy = worldController.level.enemies.get(i);
             if (enemy.dead && !enemy.count){
                 worldController.level.energyTube.energy += 2;

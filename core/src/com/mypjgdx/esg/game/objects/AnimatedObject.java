@@ -15,7 +15,7 @@ public abstract class AnimatedObject<E extends Enum<E>> extends AbstractGameObje
 
     public static final float START_TIME = 0;
 
-    private ObjectMap<E, Animation> animations;
+    private ObjectMap<E, Animation<TextureRegion>> animations;
     private E currentAnimation;
 
     private Array<AtlasRegion> regions;
@@ -27,10 +27,10 @@ public abstract class AnimatedObject<E extends Enum<E>> extends AbstractGameObje
     public AnimatedObject(TextureAtlas atlas) {
         super();
 
-        animations = new ObjectMap<E, Animation>();
+        animations = new ObjectMap<E, Animation<TextureRegion>>();
 
         regions = new Array<AtlasRegion>(atlas.getRegions());
-        regions.sort(new regionComparator());
+        regions.sort(new RegionComparator());
 
         resetAnimation();
         unFreezeAnimation();
@@ -59,7 +59,7 @@ public abstract class AnimatedObject<E extends Enum<E>> extends AbstractGameObje
     protected void addAnimation(E name, float frameTime, int regionStart, int size, PlayMode mode) {
         Array<AtlasRegion> animationRegions = new Array<AtlasRegion>();
         animationRegions.addAll(regions, regionStart, size);
-        animations.put(name, new Animation(frameTime, animationRegions, mode));
+        animations.put(name, new Animation<TextureRegion>(frameTime, animationRegions, mode));
     }
 
     protected abstract void setAnimation ();
@@ -90,15 +90,15 @@ public abstract class AnimatedObject<E extends Enum<E>> extends AbstractGameObje
         setDimension(currentRegion.getRegionWidth(), currentRegion.getRegionHeight());
     }
 
-    private static class regionComparator implements Comparator<AtlasRegion> {
+    protected void updateBounds() {
+        updateKeyFrame(START_TIME);
+    }
+
+    private static class RegionComparator implements Comparator<AtlasRegion> {
         @Override
         public int compare(AtlasRegion region1, AtlasRegion region2) {
             return region1.name.compareTo(region2.name);
         }
-    }
-
-    protected void updateBounds() {
-        updateKeyFrame(START_TIME);
     }
 
 }
