@@ -1,0 +1,33 @@
+
+door_pack.png
+format: RGBA8888
+filter: Linear,MipMapLinearNearest
+repeat: none
+door_off
+  rotate: false
+  xy: 1, 1
+  size: 25, 50
+  orig: 25, 50
+  offset: 0, 0
+  index: 1
+door_on
+  rotate: false
+  xy: 28, 1
+  size: 25, 50
+  orig: 25, 50
+  offset: 0, 0
+  index: 1
+door_on
+  rotate: false
+  xy: 55, 1
+  size: 25, 50
+  orig: 25, 50
+  offset: 0, 0
+  index: 2
+door_on
+  rotate: false
+  xy: 82, 1
+  size: 25, 50
+  orig: 25, 50
+  offset: 0, 0
+  index: 3
