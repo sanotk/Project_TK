@@ -8,11 +8,8 @@ public class Link extends Etc {
 
 	    private static final float SCALE = 1f;
 
-	    private static final float INTITAL_FRICTION = 50f;
-	    private static final float INTITIAL_SPEED = 400f;
-
 	    public Link(TiledMapTileLayer mapLayer, float x, float y, int d ) {
-	        super(Assets.instance.beam, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
+	        super(Assets.instance.link, SCALE, SCALE);
 	        init(mapLayer ,x,y,d);
 	        spawn(x, y ,d);
 	    }
@@ -24,17 +21,15 @@ public class Link extends Etc {
 	    	switch(d){
 			case 1:
 			    rotation = 90;
-			    velocity.set(0,-INTITIAL_SPEED);
 			    break;
 			case 2:
-			    velocity.set(-INTITIAL_SPEED,0);
+				rotation = 180;
 			    break;
 			case 3:
-			    velocity.set(INTITIAL_SPEED,0);
+				rotation = 270;
 			    break;
 			case 4:
-			    rotation = 90;
-			    velocity.set(0, INTITIAL_SPEED);
+			    rotation = 360;
 			    break;
 			default:
 			    break;

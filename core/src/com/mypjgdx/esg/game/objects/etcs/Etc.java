@@ -22,7 +22,7 @@ public abstract class Etc extends AbstractGameObject {
 
     public abstract void TellMeByType();
 
-    public Etc(TextureRegion etcTexture, float scaleX, float scaleY, float frictionX, float frictionY) {
+    public Etc(TextureRegion etcTexture, float scaleX, float scaleY) {
         this.etcTexture = etcTexture;
 
         scale.set(scaleX, scaleY);
@@ -31,7 +31,6 @@ public abstract class Etc extends AbstractGameObject {
                 etcTexture.getRegionHeight());
 
         destroyed = false;
-        friction.set(frictionX, frictionY);
     }
 
     public void init(TiledMapTileLayer mapLayer, float x, float y, int d) {
