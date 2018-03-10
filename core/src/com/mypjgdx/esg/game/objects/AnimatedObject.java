@@ -1,8 +1,5 @@
 package com.mypjgdx.esg.game.objects;
 
-import java.util.Comparator;
-import java.util.List;
-
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,7 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.mypjgdx.esg.game.objects.weapons.Weapon;
+
+import java.util.Comparator;
 
 public abstract class AnimatedObject<E extends Enum<E>> extends AbstractGameObject {
 
@@ -39,8 +37,8 @@ public abstract class AnimatedObject<E extends Enum<E>> extends AbstractGameObje
     }
 
     @Override
-    public void update(float deltaTime, List<Weapon> etcs) {
-        super.update(deltaTime, etcs);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
         setAnimation();
         updateKeyFrame(deltaTime);
     }

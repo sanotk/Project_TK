@@ -6,9 +6,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mypjgdx.esg.collision.CollisionCheck;
 import com.mypjgdx.esg.collision.NullCollsionCheck;
-import com.mypjgdx.esg.game.objects.weapons.Weapon;
-
-import java.util.List;
 
 public abstract class AbstractGameObject {
 
@@ -58,7 +55,7 @@ public abstract class AbstractGameObject {
         doorCheck = new NullCollsionCheck();
     }
 
-        public void update(float deltaTime, List<Weapon> etcs) {
+        public void update(float deltaTime) {
         float oldPositionX = position.x;
         float oldPositionY = position.y;
 

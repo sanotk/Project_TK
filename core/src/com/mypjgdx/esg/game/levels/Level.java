@@ -97,10 +97,10 @@ public class Level{
         player.update(deltaTime ,weapons);
 
 
-        for(Item i: items) i.update(deltaTime, items);
-        for(Enemy e: enemies) e.update(deltaTime, enemies);
-        for(Weapon w: weapons) w.update(deltaTime, weapons);
-        energyTube.update(deltaTime, energyTube);
+        for(Item i: items) i.update(deltaTime);
+        for(Enemy e: enemies) e.update(deltaTime, weapons);
+        for(Weapon w: weapons) w.update(deltaTime);
+        energyTube.update(deltaTime);
     }
 
 }

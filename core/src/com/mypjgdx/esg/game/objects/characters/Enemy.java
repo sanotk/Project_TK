@@ -1,7 +1,5 @@
 package com.mypjgdx.esg.game.objects.characters;
 
-import java.util.List;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -19,6 +17,8 @@ import com.mypjgdx.esg.utils.Direction;
 import com.mypjgdx.esg.utils.Distance;
 import com.mypjgdx.esg.utils.Pathfinding;
 import com.mypjgdx.esg.utils.Pathfinding.Node;
+
+import java.util.List;
 
 public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Damageable {
 
@@ -121,7 +121,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
 
 
     public void update(float deltaTime, List<Weapon> weapons) {
-        super.update(deltaTime, etcs);
+        super.update(deltaTime);
         updateStatus();
 
         if (bounds.overlaps(player.bounds)) {

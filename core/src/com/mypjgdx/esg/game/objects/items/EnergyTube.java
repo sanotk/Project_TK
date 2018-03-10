@@ -1,9 +1,6 @@
 package com.mypjgdx.esg.game.objects.items;
 
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.objects.weapons.Weapon;
-
-import java.util.List;
 
 public class EnergyTube extends Item {
 
@@ -29,8 +26,8 @@ public class EnergyTube extends Item {
     }
 
     @Override
-    public void update(float deltaTime, List<Weapon> etcs) {
-        super.update(deltaTime, etcs);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
 
     }
 

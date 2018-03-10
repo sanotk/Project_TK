@@ -144,7 +144,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void update(float deltaTime, List<Weapon> weapons) {
-        super.update(deltaTime, weapsons);
+        super.update(deltaTime);
         statusUpdate();
         if (item != null)
             item.setPosition(

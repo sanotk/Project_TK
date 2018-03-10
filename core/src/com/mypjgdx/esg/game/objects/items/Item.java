@@ -7,10 +7,7 @@ import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item.ItemAnimation;
-import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.utils.Distance;
-
-import java.util.List;
 
 public abstract class Item extends AnimatedObject<ItemAnimation>{
 
@@ -55,8 +52,8 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 		}
 
 	    @Override
-	    public void update(float deltaTime, List<Weapon> etcs) {
-	        super.update(deltaTime, etcs);
+	    public void update(float deltaTime) {
+	        super.update(deltaTime);
 	    }
 
 		@Override
