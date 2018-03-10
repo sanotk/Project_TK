@@ -11,7 +11,6 @@ public class Link extends Etc {
 	    public Link(TiledMapTileLayer mapLayer, float x, float y, int d ) {
 	        super(Assets.instance.link, SCALE, SCALE);
 	        init(mapLayer ,x,y,d);
-	        spawn(x, y ,d);
 	    }
 
 	    @Override

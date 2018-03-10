@@ -1,12 +1,12 @@
 package com.mypjgdx.esg.utils;
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Queue;
-
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Pathfinding {
 
@@ -76,7 +76,7 @@ public class Pathfinding {
             if (current.equals(goal)) //ถ้าโหนด current เป็น goal หยุดทำ
                 break;
 
-            for (Node neighbor: getNeighbors(current)) { // สร้างโหนด neighbor รอบ current
+            for (Node neighbor: getNeighbors(current)) { // กระทำเมื่อสร้างโหนด neighbor รอบ current
                 int newCost = costSoFar.get(current) + neighbor.cost; // คอสตัวปัจจุบัน = cost รวมจนถึง current + cost ของโหนด
                 if (!costSoFar.containsKey(neighbor) || newCost < costSoFar.get(neighbor)) {
                     if (!neighbor.blocked) { // ถ้า neighbor ไม่ได้อยู่ข้าง  blocked
