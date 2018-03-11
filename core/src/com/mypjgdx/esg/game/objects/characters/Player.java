@@ -120,11 +120,11 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public void init(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         this.mapLayer = mapLayer;
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
-        solarcellCheck = new TiledCollisionCheckItem1(bounds, mapLayer);
-        batteryCheck = new TiledCollisionCheckItem2(bounds, mapLayer);
-        inverterCheck = new TiledCollisionCheckItem3(bounds, mapLayer);
-        ccontrollerCheck = new TiledCollisionCheckItem4(bounds, mapLayer);
-        doorCheck = new TiledCollisionCheckItem5(bounds, mapLayer);
+        solarcellCheck = new TiledCollisionCheck(bounds, mapLayer, "solarcell");
+        batteryCheck = new TiledCollisionCheck(bounds, mapLayer, "battery");
+        inverterCheck = new TiledCollisionCheck(bounds, mapLayer, "inverter");
+        ccontrollerCheck = new TiledCollisionCheck(bounds, mapLayer, "ccontroller");
+        doorCheck = new TiledCollisionCheck(bounds, mapLayer, "door");
 
         state = PlayerState.STAND;
         setCurrentAnimation(PlayerAnimation.STAND_DOWN);
@@ -146,7 +146,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public void update(float deltaTime, List<Weapon> weapons) {
         super.update(deltaTime);
         statusUpdate();
-        if (item != null)
+        if (item != null) // ถ้ามีไอเทม
             item.setPosition(
                     getPositionX() + origin.x - item.origin.x,
                     getPositionY() + origin.y - item.origin.y);

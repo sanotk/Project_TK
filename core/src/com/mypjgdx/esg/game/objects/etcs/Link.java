@@ -8,16 +8,16 @@ public class Link extends Etc {
 
 	    private static final float SCALE = 1f;
 
-	    public Link(TiledMapTileLayer mapLayer, float x, float y, int d ) {
+	    public Link(TiledMapTileLayer mapLayer, float positionX, float positionY, int direction ) {
 	        super(Assets.instance.link, SCALE, SCALE);
-	        init(mapLayer ,x,y,d);
+	        init(mapLayer, positionX, positionY, direction);
 	    }
 
 	    @Override
-	    protected void spawn(float x, float y ,int d) {
-	        setPosition(x, y);
+	    protected void spawn(float positionX, float positionY ,int direction) {
+	        setPosition(positionX, positionY);
 
-	    	switch(d){
+	    	switch(direction){
 			case 1:
 			    rotation = 90;
 			    break;
