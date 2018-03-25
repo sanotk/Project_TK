@@ -58,7 +58,7 @@ public class Level{
         tiledRenderer.render();
 
         batch.begin();
-        //energyTube.render(batch);    <<<   ถ้าได้ atlas ของ EnergyTube แล้วค่อยคอมเม้นออก
+
         for (Weapon w: weapons) w.render(batch);
         for (Etc e: etcs) e.render(batch);
         for (Item i: items) i.render(batch);

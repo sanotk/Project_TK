@@ -1,6 +1,7 @@
 package com.mypjgdx.esg.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -37,6 +38,8 @@ public class WorldRenderer implements Disposable {
 
         batch = new SpriteBatch();//สร้างออปเจ็คไว้วาดสิ่งต่างๆ
         tiledRenderer = new OrthogonalTiledMapRenderer(null,batch);
+
+
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setColor(1.0f, 0.0f, 0.0f, 1.0f);
 
@@ -49,9 +52,21 @@ public class WorldRenderer implements Disposable {
         renderGui();
     }
 
+    private void renderShader() {
+        batch.begin();
+        batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        batch.setColor(0.05f, 0.05f, 0.05f, 1f);
+        batch.draw(Assets.instance.white, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+        batch.setColor(1, 1, 1, 1);
+        batch.draw(Assets.instance.light, worldController.level.player.getPositionX() - Assets.instance.light.getWidth()/ 2f, worldController.level.player.getPositionY() - Assets.instance.light.getHeight() / 2f);
+        batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
+        batch.end();
+    }
+
     private void renderWorld() {
         worldController.cameraHelper.applyTo(camera); //อัพเดทมุมกล้อง
-        batch.setProjectionMatrix(camera.combined); //เรนเดอร์ภาพให้สอดคล้องกับมุมกล้อง
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+        renderShader();
         tiledRenderer.setView(camera);
         shapeRenderer.setProjectionMatrix(camera.combined);
         worldController.level.render(batch, tiledRenderer, shapeRenderer); // วาด Game World
@@ -65,6 +80,7 @@ public class WorldRenderer implements Disposable {
         viewport.update(width, height);
         resolution[0] = width;
         resolution[1] = height;
+
         shader.begin();
         // setUniform2fv หมายถึง vector 2 มิติ เก็บตัวแปรขนิด float
         //argument ตัวแรก คือชื่อของตัวแปรให้ fragment shader
@@ -80,6 +96,7 @@ public class WorldRenderer implements Disposable {
         tiledRenderer.dispose();
         batch.dispose();
         shader.dispose();
+
     }
 
 }
