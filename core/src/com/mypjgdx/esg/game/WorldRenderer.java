@@ -57,7 +57,7 @@ public class WorldRenderer implements Disposable {
     }
 
     private void renderWorld() {
-        if(worldController.level.items.get(0) == null) {
+        if(!worldController.level.hasSolarCell) {
             createLightBuffer();
         }
         viewport.apply();
@@ -68,7 +68,7 @@ public class WorldRenderer implements Disposable {
         shapeRenderer.setProjectionMatrix(camera.combined);
         worldController.level.render(batch, tiledRenderer, shapeRenderer); // วาด Game World
 
-        if(worldController.level.items.get(0) == null){
+        if(!worldController.level.hasSolarCell){
             batch.begin();
             batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
             batch.draw(lightFbo.getColorBufferTexture(),
@@ -86,6 +86,14 @@ public class WorldRenderer implements Disposable {
         }
 
     }
+
+//    private boolean isLevelContainsSolarcell() {
+//        for (int i = 0; i < worldController.level.items.size(); i++) {
+//            if (worldController.level.items.get(i) instanceof SolarCell)
+//                return true;
+//        }
+//        return false;
+//    }
 
     private void createLightBuffer() {
         lightFbo.begin();

@@ -1,8 +1,5 @@
 package com.mypjgdx.esg.game.levels;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
@@ -10,12 +7,10 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Pepo;
 import com.mypjgdx.esg.game.objects.characters.PepoKnight;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.items.Battery;
-import com.mypjgdx.esg.game.objects.items.Charge;
-import com.mypjgdx.esg.game.objects.items.Door;
-import com.mypjgdx.esg.game.objects.items.Inverter;
-import com.mypjgdx.esg.game.objects.items.Item;
-import com.mypjgdx.esg.game.objects.items.SolarCell;
+import com.mypjgdx.esg.game.objects.items.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Level1 extends LevelGenerator {
 
@@ -24,13 +19,14 @@ public class Level1 extends LevelGenerator {
         return new Player(mapLayer, 100, 100);
     }
     @Override
-    public List<Item> createItems(TiledMapTileLayer mapLayer, Player player) {
+    public List<Item> createItems(TiledMapTileLayer mapLayer, Player player, Level level) {
         ArrayList<Item> items = new ArrayList<Item>();
         items.add(new SolarCell(mapLayer, player));
         items.add(new Inverter(mapLayer, player));
         items.add(new Battery(mapLayer, player));
         items.add(new Charge(mapLayer, player));
         items.add(new Door(mapLayer,player));
+        level.hasSolarCell = true;
         return items;
     }
 

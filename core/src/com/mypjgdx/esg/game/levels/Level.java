@@ -29,6 +29,8 @@ public class Level{
 
     public EnergyTube energyTube;
 
+    public boolean hasSolarCell;
+
     public Level (LevelGenerator levelGenerator) {
         weapons = new ArrayList<Weapon>();
         etcs = new ArrayList<Etc>();
@@ -47,7 +49,7 @@ public class Level{
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
         player = levelGenerator.createPlayer(mapLayer);
-        items = levelGenerator.createItems(mapLayer, player);
+        items = levelGenerator.createItems(mapLayer, player, this);
         enemies = levelGenerator.createEnemies(mapLayer, player);
 
         energyTube.init(mapLayer, player);

@@ -22,19 +22,7 @@ public abstract class AbstractGameObject {
     public Vector2 acceleration;
     public Rectangle bounds;
 
-    public boolean status_solarcell = false;
-    public boolean status_inverter = false;
-    public boolean status_ccontroller = false;
-    public boolean status_battery = false;
-    public boolean status_door = false;
-
     protected CollisionCheck collisionCheck;
-    protected CollisionCheck solarcellCheck;
-    protected CollisionCheck inverterCheck;
-    protected CollisionCheck ccontrollerCheck;
-    protected CollisionCheck batteryCheck;
-    protected CollisionCheck doorCheck;
-
 
     public AbstractGameObject () {
         position = new Vector2();
@@ -48,11 +36,6 @@ public abstract class AbstractGameObject {
         acceleration = new Vector2();
         bounds = new Rectangle();
         collisionCheck = new NullCollsionCheck();
-        solarcellCheck = new NullCollsionCheck();
-        inverterCheck = new NullCollsionCheck();
-        ccontrollerCheck = new NullCollsionCheck();
-        batteryCheck = new NullCollsionCheck();
-        doorCheck = new NullCollsionCheck();
     }
 
         public void update(float deltaTime) {
@@ -70,45 +53,6 @@ public abstract class AbstractGameObject {
         setPositionY(position.y + velocity.y * deltaTime);
         if (collisionCheck.isCollidesTop() || collisionCheck.isCollidesBottom()) {
             responseCollisionY(oldPositionY);
-        }
-
-        if (solarcellCheck.isCollidesBottom() || solarcellCheck.isCollidesLeft() ||
-                solarcellCheck.isCollidesRight() || solarcellCheck .isCollidesTop()){
-            status_solarcell = true;
-        }
-        else {
-            status_solarcell = false;
-        }
-
-        if (batteryCheck.isCollidesBottom() || batteryCheck.isCollidesLeft() ||
-                batteryCheck.isCollidesRight() || batteryCheck .isCollidesTop()){
-            status_battery = true;
-        }
-        else {
-            status_battery = false;
-        }
-
-        if (ccontrollerCheck.isCollidesBottom() || ccontrollerCheck.isCollidesLeft() ||
-                ccontrollerCheck.isCollidesRight() || ccontrollerCheck .isCollidesTop()){
-            status_ccontroller = true;
-        }
-        else {
-            status_ccontroller = false;
-        }
-
-        if (inverterCheck.isCollidesBottom() || inverterCheck.isCollidesLeft() ||
-                inverterCheck.isCollidesRight() || inverterCheck .isCollidesTop()){
-            status_inverter = true;
-        }
-        else {
-            status_inverter = false;
-        }
-        if (doorCheck.isCollidesBottom() || doorCheck.isCollidesLeft() ||
-                doorCheck.isCollidesRight() || doorCheck .isCollidesTop()){
-            status_door = true;
-        }
-        else {
-            status_door = false;
         }
     }
 

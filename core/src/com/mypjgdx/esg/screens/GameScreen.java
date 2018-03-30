@@ -19,7 +19,7 @@ import com.mypjgdx.esg.game.levels.Level;
 import com.mypjgdx.esg.game.levels.Level1;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.items.*;
 
 public class GameScreen extends AbstractGameScreen {
 
@@ -544,21 +544,21 @@ public class GameScreen extends AbstractGameScreen {
                 && batState==batteryState.BtoC
                 && inverState==inverterState.ItoD;
         if ((stageOneIsFinish)&&(!animation_status)){
-            worldController.level.items.get(0).state = Item.ItemState.ONLOOP;
-            worldController.level.items.get(0).resetAnimation();
-            worldController.level.items.get(1).state = Item.ItemState.ONLOOP;
-            worldController.level.items.get(1).resetAnimation();
-            worldController.level.items.get(2).state = Item.ItemState.ON;
-            worldController.level.items.get(2).resetAnimation();
-            worldController.level.items.get(3).state = Item.ItemState.ONLOOP;
-            worldController.level.items.get(3).resetAnimation();
-            worldController.level.items.get(4).state = Item.ItemState.ON;
-            worldController.level.items.get(4).resetAnimation();
+            findItem(SolarCell.class).state = Item.ItemState.ONLOOP;
+            findItem(SolarCell.class).resetAnimation();
+            findItem(Inverter.class).state = Item.ItemState.ONLOOP;
+            findItem(Inverter.class).resetAnimation();
+            findItem(Battery.class).state = Item.ItemState.ON;
+            findItem(Battery.class).resetAnimation();
+            findItem(Charge.class).state = Item.ItemState.ONLOOP;
+            findItem(Charge.class).resetAnimation();
+            findItem(Door.class).state = Item.ItemState.ON;
+            findItem(Door.class).resetAnimation();
             animation_status = true;
             worldController.level.energyTube.energy += 100;
         }
 
-        if((worldController.level.items.get(4).state == Item.ItemState.ON)&&(player.status_door==true)){
+        if((findItem(Door.class).state == Item.ItemState.ON)&&(player.status_door==true)){
             game.setScreen(new GameScreen(game));
         }
 
@@ -597,5 +597,14 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void pause() {}
+
+
+    private Item findItem(Class clazz) {
+        for (int i = 0; i < worldController.level.items.size(); i++) {
+            if (clazz.isInstance(worldController.level.items.get(i)))
+                return worldController.level.items.get(i);
+        }
+        return null;
+    }
 
 }

@@ -3,23 +3,8 @@ package com.mypjgdx.esg.game.levels;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.objects.characters.Enemy;
-import com.mypjgdx.esg.game.objects.characters.Pepo;
-import com.mypjgdx.esg.game.objects.characters.PepoDevil;
-import com.mypjgdx.esg.game.objects.characters.PepoKnight;
-import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.items.Airconditioner;
-import com.mypjgdx.esg.game.objects.items.Computer;
-import com.mypjgdx.esg.game.objects.items.Electroacoustics;
-import com.mypjgdx.esg.game.objects.items.Fan;
-import com.mypjgdx.esg.game.objects.items.Item;
-import com.mypjgdx.esg.game.objects.items.Microwave;
-import com.mypjgdx.esg.game.objects.items.Refrigerator;
-import com.mypjgdx.esg.game.objects.items.Switch;
-import com.mypjgdx.esg.game.objects.items.Television;
-import com.mypjgdx.esg.game.objects.items.Waterfilter;
-import com.mypjgdx.esg.game.objects.items.Waterheater;
-import com.mypjgdx.esg.game.objects.items.Waterpump;
+import com.mypjgdx.esg.game.objects.characters.*;
+import com.mypjgdx.esg.game.objects.items.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +16,7 @@ public class Level4 extends LevelGenerator {
         return new Player(mapLayer, 100, 100);
     }
     @Override
-    public List<Item> createItems(TiledMapTileLayer mapLayer, Player player) {
+    public List<Item> createItems(TiledMapTileLayer mapLayer, Player player, Level level) {
         ArrayList<Item> items = new ArrayList<Item>();
         items.add(new Switch(mapLayer, player));
         items.add(new Television(mapLayer, player));

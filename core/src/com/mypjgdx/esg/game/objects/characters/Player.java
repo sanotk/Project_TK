@@ -5,7 +5,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.mypjgdx.esg.collision.*;
+import com.mypjgdx.esg.collision.CollisionCheck;
+import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
@@ -16,6 +17,7 @@ import com.mypjgdx.esg.game.objects.weapons.Trap;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.game.objects.weapons.Weapon.WeaponType;
 import com.mypjgdx.esg.utils.Direction;
+
 import java.util.List;
 
 public class Player extends AnimatedObject<PlayerAnimation> implements Damageable {
@@ -84,6 +86,19 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     private TiledMapTileLayer mapLayer;
     private Direction viewDirection;
+
+
+    public boolean status_solarcell = false;
+    public boolean status_inverter = false;
+    public boolean status_ccontroller = false;
+    public boolean status_battery = false;
+    public boolean status_door = false;
+
+    protected CollisionCheck solarcellCheck;
+    protected CollisionCheck inverterCheck;
+    protected CollisionCheck ccontrollerCheck;
+    protected CollisionCheck batteryCheck;
+    protected CollisionCheck doorCheck;
 
     public Player(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         super(Assets.instance.playerAltas);
@@ -160,7 +175,48 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             timeCount--;
             Countdown = 0;
         }
+        checkCollide();
+    }
 
+    private void checkCollide() {
+        if (solarcellCheck.isCollidesBottom() || solarcellCheck.isCollidesLeft() ||
+                solarcellCheck.isCollidesRight() || solarcellCheck .isCollidesTop()){
+            status_solarcell = true;
+        }
+        else {
+            status_solarcell = false;
+        }
+
+        if (batteryCheck.isCollidesBottom() || batteryCheck.isCollidesLeft() ||
+                batteryCheck.isCollidesRight() || batteryCheck .isCollidesTop()){
+            status_battery = true;
+        }
+        else {
+            status_battery = false;
+        }
+
+        if (ccontrollerCheck.isCollidesBottom() || ccontrollerCheck.isCollidesLeft() ||
+                ccontrollerCheck.isCollidesRight() || ccontrollerCheck .isCollidesTop()){
+            status_ccontroller = true;
+        }
+        else {
+            status_ccontroller = false;
+        }
+
+        if (inverterCheck.isCollidesBottom() || inverterCheck.isCollidesLeft() ||
+                inverterCheck.isCollidesRight() || inverterCheck .isCollidesTop()){
+            status_inverter = true;
+        }
+        else {
+            status_inverter = false;
+        }
+        if (doorCheck.isCollidesBottom() || doorCheck.isCollidesLeft() ||
+                doorCheck.isCollidesRight() || doorCheck .isCollidesTop()){
+            status_door = true;
+        }
+        else {
+            status_door = false;
+        }
     }
 
     public void move(Direction direction) {

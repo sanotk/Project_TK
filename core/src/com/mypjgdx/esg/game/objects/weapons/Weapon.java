@@ -66,5 +66,4 @@ public abstract class Weapon extends AbstractGameObject {
     }
 
     public abstract void attack(Damageable damageable);
-
 }
