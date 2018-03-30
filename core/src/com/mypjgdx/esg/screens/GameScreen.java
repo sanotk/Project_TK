@@ -32,6 +32,7 @@ public class GameScreen extends AbstractGameScreen {
     private Stage stage;
     private Skin skin;
 
+
     public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
     public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
 

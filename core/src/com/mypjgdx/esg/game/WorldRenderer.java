@@ -57,7 +57,9 @@ public class WorldRenderer implements Disposable {
     }
 
     private void renderWorld() {
-        createLightBuffer();
+        if(worldController.level.items.get(0) == null) {
+            createLightBuffer();
+        }
         viewport.apply();
 
         worldController.cameraHelper.applyTo(camera); //อัพเดทมุมกล้อง
@@ -66,20 +68,23 @@ public class WorldRenderer implements Disposable {
         shapeRenderer.setProjectionMatrix(camera.combined);
         worldController.level.render(batch, tiledRenderer, shapeRenderer); // วาด Game World
 
-        batch.begin();
-        batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
-        batch.draw(lightFbo.getColorBufferTexture(),
-                camera.position.x - camera.viewportWidth * camera.zoom / 2,
-                camera.position.y - camera.viewportHeight * camera.zoom /2,
-                0, 0,
-                lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
-                1 * camera.zoom, 1 * camera.zoom,
-                0,
-                0, 0,
-                lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
-                false, true);
-        batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        batch.end();
+        if(worldController.level.items.get(0) == null){
+            batch.begin();
+            batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
+            batch.draw(lightFbo.getColorBufferTexture(),
+                    camera.position.x - camera.viewportWidth * camera.zoom / 2,
+                    camera.position.y - camera.viewportHeight * camera.zoom /2,
+                    0, 0,
+                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
+                    1 * camera.zoom, 1 * camera.zoom,
+                    0,
+                    0, 0,
+                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
+                    false, true);
+            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            batch.end();
+        }
+
     }
 
     private void createLightBuffer() {
@@ -91,11 +96,15 @@ public class WorldRenderer implements Disposable {
         batch.begin();
         batch.setColor(1, 1, 1, 1);
         batch.draw(Assets.instance.light,
-                worldController.level.player.getPositionX() + worldController.level.player.origin.x  -  Assets.instance.light.getWidth()/ 2f,
-                worldController.level.player.getPositionY() + worldController.level.player.origin.y -  Assets.instance.light.getHeight() / 2f);
+                worldController.level.player.getPositionX() + worldController.level.player.origin.x
+                        -  Assets.instance.light.getWidth()/ 2f,
+                worldController.level.player.getPositionY() + worldController.level.player.origin.y
+                        -  Assets.instance.light.getHeight() / 2f);
         batch.draw(Assets.instance.light,
-                worldController.level.items.get(0).p_x + worldController.level.items.get(0).origin.x - Assets.instance.light.getWidth()/2f,
-                worldController.level.items.get(0).p_y + worldController.level.items.get(0).origin.y - Assets.instance.light.getHeight()/2f);
+                worldController.level.items.get(0).p_x + worldController.level.items.get(0).origin.x
+                        - Assets.instance.light.getWidth()/2f,
+                worldController.level.items.get(0).p_y + worldController.level.items.get(0).origin.y
+                        - Assets.instance.light.getHeight()/2f);
         batch.end();
 
         FrameBuffer.unbind();
