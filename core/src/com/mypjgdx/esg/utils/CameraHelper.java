@@ -8,8 +8,8 @@ import com.mypjgdx.esg.game.objects.AbstractGameObject;
 
 public class CameraHelper {
 
-    private final float MAX_ZOOM_IN = 0.25f; //ตัวแปรอัตราการซูมเข้าสูงสุด 4 เท่า
-    private final float MAX_ZOOM_OUT = 1.35f; //ตัวแปรอัตราการซูมออกสูงสุด 1.35 เท่า
+    private final float MAX_ZOOM_IN = 0.75f; //ตัวแปรอัตราการซูมเข้าสูงสุด 4 เท่า
+    private final float MAX_ZOOM_OUT = 1.25f; //ตัวแปรอัตราการซูมออกสูงสุด 1 / 1.35 เท่า
 
     private Vector2 position; //ตำแหน่ง 2 มิติ
     private float zoom; //ตัวแปรซูม
@@ -18,7 +18,7 @@ public class CameraHelper {
 
     public CameraHelper () { //สร้าง instance ของ class Vector2 เพื่อใช้เก็บตำแหน่งตัวช่วยมุมกล้อง
         position = new Vector2();
-        zoom = 1.09f;
+        zoom = 1;
     }
 
     public void setPosition (float x, float y) { //เซ็ตตำแหน่ง
@@ -73,17 +73,17 @@ public class CameraHelper {
     }
 
     public void update (float deltaTime) {  // อัพมุมกล้องให้ติดตามเป้าหมาย
-        if (!hasTarget()) return;
-
-        position.x = target.getPositionX() + target.origin.x;
-        position.y = target.getPositionY() + target.origin.y;
+//        if (!hasTarget()) return;
+//
+//        position.x = target.getPositionX() + target.origin.x;
+//        position.y = target.getPositionY() + target.origin.y;
 
         float leftEdge =  map.getTileWidth() * 1;
         float rightEdge = (map.getWidth() - 1) *  map.getTileWidth();
         float lowerEdge =  map.getTileHeight() * 1;
         float upperEdge = (map.getHeight() - 1) * map.getTileHeight();
-        float halfCameraWidth = 1024/2;
-        float halfCameraHeight = 576/2;
+        float halfCameraWidth = zoom * 1024/2;
+        float halfCameraHeight = zoom * 576/2;
 
         if (position.y + halfCameraHeight > upperEdge)
             position.y = upperEdge - halfCameraHeight;

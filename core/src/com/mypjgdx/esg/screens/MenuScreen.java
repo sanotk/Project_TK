@@ -3,13 +3,16 @@ package com.mypjgdx.esg.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mypjgdx.esg.game.Assets;
 
 public class MenuScreen extends AbstractGameScreen {
 
@@ -19,12 +22,19 @@ public class MenuScreen extends AbstractGameScreen {
     private Skin skin; //
     private Label text_mainmenu;
 
+    private TextButton buttonStart;
+    private TextButton buttonLoad;
+    private TextButton buttonOption;
+    private TextButton buttonExit;
+    private BitmapFont font;
+
     public MenuScreen(final Game game) {
         super(game);
 
         stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT)); //สร้างจุดโฟกัสของหน้าจอ
         Gdx.input.setInputProcessor(stage);
 
+        font = new BitmapFont();
         skin = new Skin(Gdx.files.internal("uiskin.json")); //โหลดฟ้อน
 
         int btn_w = 200;
@@ -35,31 +45,35 @@ public class MenuScreen extends AbstractGameScreen {
         text_mainmenu.setFontScale(1.2f,1.2f);
         text_mainmenu.setPosition(SCENE_WIDTH / 2 - btn_w / 2 + 50, 450);
 
-        TextButton buttonStart = new TextButton("NEW GAME", skin);
+        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+        buttonStyle.up = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_04"));
+        buttonStyle.down = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_03"));
+        buttonStyle.font = font;
+        buttonStart = new TextButton("Start", buttonStyle);
         buttonStart.setWidth(btn_w);
         buttonStart.setHeight(btn_h);
         buttonStart.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 350);
 
-        TextButton buttonLoad = new TextButton("LOAD GAME", skin);
+        buttonLoad = new TextButton("Load", buttonStyle);
         buttonLoad.setWidth(btn_w);
         buttonLoad.setHeight(btn_h);
         buttonLoad.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 280);
 
-        TextButton buttonOption = new TextButton("OPTION", skin);
+        buttonOption = new TextButton("Option", buttonStyle);
         buttonOption.setWidth(btn_w);
         buttonOption.setHeight(btn_h);
         buttonOption.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 210);
 
-        TextButton buttonExit = new TextButton("EXIT", skin);
+        buttonExit = new TextButton("Exit", buttonStyle);
         buttonExit.setWidth(btn_w);
         buttonExit.setHeight(btn_h);
         buttonExit.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 140);
 
+        stage.addActor(text_mainmenu);
         stage.addActor(buttonStart);
         stage.addActor(buttonLoad);
         stage.addActor(buttonOption);
         stage.addActor(buttonExit);
-        stage.addActor(text_mainmenu);
 
         buttonStart.addListener(new ClickListener() {
             @Override
@@ -101,7 +115,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     @Override
     public void resize(int width, int height) {
-    	stage.getViewport().update(width, height);
+        stage.getViewport().update(width, height);
     }
 
     @Override

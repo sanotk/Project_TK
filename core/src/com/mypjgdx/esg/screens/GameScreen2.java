@@ -24,7 +24,7 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.*;
 
-public class GameScreen extends AbstractGameScreen {
+public class GameScreen2 extends AbstractGameScreen {
 
     private WorldController worldController;
     private WorldRenderer worldRenderer;
@@ -110,7 +110,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private boolean animation_status = false;
 
-    public GameScreen(Game game) {
+    public GameScreen2(Game game) {
         super(game);
 
         stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT));
@@ -542,7 +542,7 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         if((solarState == solarcellState.StoC)&&(ccState == chargecontrollercState.CtoB)&&(batState == batteryState.BtoC)
-                &&(inverState==inverterState.ItoC)){
+                &&(inverState== inverterState.ItoC)){
             status_finish =true;
         }
 
@@ -557,10 +557,10 @@ public class GameScreen extends AbstractGameScreen {
             player.status_windows_link = false;
         }
 
-        boolean stageOneIsFinish = solarState==solarcellState.StoC
-                && ccState==chargecontrollercState.CtoI
-                && batState==batteryState.BtoC
-                && inverState==inverterState.ItoD;
+        boolean stageOneIsFinish = solarState== solarcellState.StoC
+                && ccState== chargecontrollercState.CtoI
+                && batState== batteryState.BtoC
+                && inverState== inverterState.ItoD;
         if ((stageOneIsFinish)&&(!animation_status)){
             findItem(SolarCell.class).state = Item.ItemState.ONLOOP;
             findItem(SolarCell.class).resetAnimation();
@@ -577,7 +577,7 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         if((findItem(Door.class).state == Item.ItemState.ON)&&(player.status_door==true)){
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new GameScreen2(game));
         }
 
         for(int i = 0; i < worldController.level.enemies.size(); i++){

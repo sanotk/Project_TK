@@ -4,14 +4,17 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mypjgdx.esg.game.Assets;
 
 public class MapScreen extends AbstractGameScreen {
 
@@ -20,6 +23,7 @@ public class MapScreen extends AbstractGameScreen {
     private Stage stage; //
     private Skin skin; //
     private Label text_mapmenu;
+    private BitmapFont font;
 
     public MapScreen(final Game game) {
         super(game);
@@ -36,77 +40,77 @@ public class MapScreen extends AbstractGameScreen {
         String choice = file.readString();
         Json json = new Json();
 
+        font = new BitmapFont();
+
+        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+        buttonStyle.up = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_04"));
+        buttonStyle.down = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_03"));
+        buttonStyle.font = font;
+
         text_mapmenu = new Label("Map Selection" ,skin);
         text_mapmenu.setColor(1, 1, 1, 1);
         text_mapmenu.setFontScale(1.2f,1.2f);
-        text_mapmenu.setPosition(SCENE_WIDTH / 2 - btn_w / 2 + 50, 550);
+        text_mapmenu.setPosition(SCENE_WIDTH / 2 - btn_w / 2 + 50, 520);
 
-        TextButton buttonStart = new TextButton("MAP1", skin);
-        buttonStart.setWidth(btn_w);
-        buttonStart.setHeight(btn_h);
-        buttonStart.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 450);
+        TextButton buttonStage1 = new TextButton("Stage 1", buttonStyle);
+        buttonStage1.setWidth(btn_w);
+        buttonStage1.setHeight(btn_h);
+        buttonStage1.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 450);
 
-        TextButton buttonLoad = new TextButton("MAP2", skin);
-        buttonLoad.setWidth(btn_w);
-        buttonLoad.setHeight(btn_h);
-        buttonLoad.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 380);
+        TextButton buttonStage2 = new TextButton("Stage 2", buttonStyle);
+        buttonStage2.setWidth(btn_w);
+        buttonStage2.setHeight(btn_h);
+        buttonStage2.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 380);
 
-        TextButton buttonOption = new TextButton("MAP3", skin);
-        buttonOption.setWidth(btn_w);
-        buttonOption.setHeight(btn_h);
-        buttonOption.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 310);
+        TextButton buttonStage3 = new TextButton("Stage 3", buttonStyle);
+        buttonStage3.setWidth(btn_w);
+        buttonStage3.setHeight(btn_h);
+        buttonStage3.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 310);
 
-        TextButton buttonExit = new TextButton("MAP4", skin);
-        buttonExit.setWidth(btn_w);
-        buttonExit.setHeight(btn_h);
-        buttonExit.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 240);
+        TextButton buttonStage4 = new TextButton("Stage 4", buttonStyle);
+        buttonStage4.setWidth(btn_w);
+        buttonStage4.setHeight(btn_h);
+        buttonStage4.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 240);
 
-        stage.addActor(buttonStart);
-        stage.addActor(buttonLoad);
-        stage.addActor(buttonOption);
-        stage.addActor(buttonExit);
+        stage.addActor(buttonStage1);
+        stage.addActor(buttonStage2);
+        stage.addActor(buttonStage3);
+        stage.addActor(buttonStage4);
         stage.addActor(text_mapmenu);
 
-        if(Integer.parseInt(choice)>=1) {
-            buttonStart.addListener(new ClickListener() {
+        if(Integer.parseInt(choice)==1) {
+            buttonStage1.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     game.setScreen(new GameScreen(game));
                 }
             });
-        }
-        System.out.print(choice);
-        System.out.print(1);
-
-
-
-
-        if(Integer.parseInt(choice)>=2){
-            buttonLoad.addListener(new ClickListener() {
+        }else if(Integer.parseInt(choice)==2){
+            buttonStage2.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    game.setScreen(new GameScreen(game));
+                    game.setScreen(new GameScreen2(game));
                 }
             });
-        }
-
-        if(Integer.parseInt(choice)>=3) {
-            buttonOption.addListener(new ClickListener() {
+        }else if(Integer.parseInt(choice)==3) {
+            buttonStage3.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    game.setScreen(new GameScreen(game));
+                    game.setScreen(new GameScreen3(game));
                 }
             });
-        }
-
-        if(Integer.parseInt(choice)>=4) {
-            buttonExit.addListener(new ClickListener() {
+        }else if(Integer.parseInt(choice)==4) {
+            buttonStage4.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    game.setScreen(new GameScreen(game));
+                    game.setScreen(new GameScreen4(game));
                 }
             });
+        }else {
+            game.setScreen(new GameScreen(game));
         }
+
+
 
     }
 

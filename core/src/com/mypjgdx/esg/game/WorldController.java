@@ -38,11 +38,11 @@ public class WorldController extends InputAdapter {
 
     private void handleInput (float deltaTime) {
         handleCameraInput(deltaTime);
-        handleplayerInput();
+//        handleplayerInput();
     }
 
     private void handleCameraInput (float deltaTime) {
-        if (cameraHelper.hasTarget()) return; // มุมกล้องติดตาม player อยู่จะใช้ Input เลื่อนมุมกล้องเองไม่ได้
+//        if (cameraHelper.hasTarget()) return; // มุมกล้องติดตาม player อยู่จะใช้ Input เลื่อนมุมกล้องเองไม่ได้
 
         if (Gdx.input.isKeyPressed(Keys.UP)) cameraHelper.addPostion(0, CAMERA_SPEED * deltaTime); //กดลูกศรขึ้น
         if (Gdx.input.isKeyPressed(Keys.DOWN)) cameraHelper.addPostion(0, -CAMERA_SPEED * deltaTime);//กดลูกศรลง

@@ -42,6 +42,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureAtlas waterhAltas;
     public TextureAtlas waterpAltas;
 
+    public TextureAtlas uiBlue;
+
     public Texture rule1;
     public Texture white;
     public Texture light;
@@ -102,6 +104,8 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("light.png", Texture.class);
         manager.load("white.png", Texture.class);
 
+        manager.load("ui-blue.atlas", TextureAtlas.class);
+
         manager.finishLoading();
 
         map1 = manager.get("map1.tmx");
@@ -137,6 +141,8 @@ public class Assets implements Disposable, AssetErrorListener {
         enemyBallSound = manager.get("enemy_ball.wav");
         beamSound = manager.get("beam.wav");
         trapSound = manager.get("trap.wav");
+
+        uiBlue = manager.get("ui-blue.atlas");
     }
 
     public void init2() {

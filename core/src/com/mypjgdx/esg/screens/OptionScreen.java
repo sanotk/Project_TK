@@ -3,12 +3,14 @@ package com.mypjgdx.esg.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mypjgdx.esg.game.Assets;
 
@@ -27,6 +29,12 @@ public class OptionScreen extends AbstractGameScreen {
     private Label status_music;
     private Label status_sound;
 
+    private TextButton buttonStart;
+    private TextButton buttonLoad;
+    private TextButton buttonBack;
+    private TextButton buttonExit;
+    private BitmapFont font;
+
     public OptionScreen(final Game game) {
         super(game);
 
@@ -43,6 +51,12 @@ public class OptionScreen extends AbstractGameScreen {
 
         int btn_w = 150;
         int btn_h = 50;
+
+        font = new BitmapFont();
+        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+        buttonStyle.up = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_04"));
+        buttonStyle.down = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_03"));
+        buttonStyle.font = font;
 
         text_option = new Label("Option" ,skin);
 		text_option.setColor(1, 1, 1, 1);
@@ -77,28 +91,17 @@ public class OptionScreen extends AbstractGameScreen {
             stat_music.addActor(status_music);
         }
 
-        TextButton buttonStart = new TextButton("ON/OFF", skin);
-        buttonStart.setWidth(btn_w);
-        buttonStart.setHeight(btn_h);
-        buttonStart.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 350);
-
-        TextButton buttonLoad = new TextButton("ON/OFF", skin);
-        buttonLoad.setWidth(btn_w);
-        buttonLoad.setHeight(btn_h);
-        buttonLoad.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 280);
-
-        TextButton buttonBack= new TextButton("Back", skin);
+        buttonBack= new TextButton("Back", buttonStyle);
         buttonBack.setWidth(btn_w);
         buttonBack.setHeight(btn_h);
         buttonBack.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 210);
 
-        stage.addActor(buttonStart);
-        stage.addActor(buttonLoad);
         stage.addActor(buttonBack);
         stage.addActor(text_option);
         stage.addActor(text_music);
         stage.addActor(text_sound);
 
+        /*
         if(sound==false){
         	stat_sound.clear();
         	status_sound = null;
@@ -177,6 +180,8 @@ public class OptionScreen extends AbstractGameScreen {
                 }
             }
         });
+
+        */
         buttonBack.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
