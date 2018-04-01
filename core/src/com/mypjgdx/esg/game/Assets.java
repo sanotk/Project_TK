@@ -43,6 +43,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureAtlas waterpAltas;
 
     public TextureAtlas uiBlue;
+    public TextureAtlas uiRed;
 
     public Texture rule1;
     public Texture white;
@@ -105,6 +106,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("white.png", Texture.class);
 
         manager.load("ui-blue.atlas", TextureAtlas.class);
+        manager.load("ui-red.atlas", TextureAtlas.class);manager.load("ui-red.atlas", TextureAtlas.class);
 
         manager.finishLoading();
 
@@ -143,6 +145,8 @@ public class Assets implements Disposable, AssetErrorListener {
         trapSound = manager.get("trap.wav");
 
         uiBlue = manager.get("ui-blue.atlas");
+        uiRed = manager.get("ui-red.atlas");
+
     }
 
     @SuppressWarnings("rawtypes")

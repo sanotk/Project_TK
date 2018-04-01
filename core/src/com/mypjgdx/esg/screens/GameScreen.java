@@ -3,20 +3,25 @@ package com.mypjgdx.esg.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.game.SoundManager;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level1;
@@ -106,8 +111,9 @@ public class GameScreen extends AbstractGameScreen {
     private TextButton buttonBtoI;
     private TextButton buttonBtoD;
 
-    private TextButton myButton;
+    private Button buttonOption;
     private BitmapFont font;
+    private Window window;
 
     private boolean animation_status = false;
 
@@ -120,57 +126,145 @@ public class GameScreen extends AbstractGameScreen {
         bg = new Texture("bg.png");
         font = new BitmapFont();
 
-        createbutton();
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
-        buttonStyle.up = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_05"));
-        buttonStyle.down = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_04"));
-        buttonStyle.over = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_03"));
+        TextureRegionDrawable toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
+        buttonStyle.up = toolUp;
+        buttonStyle.down = toolUp.tint(Color.LIGHT_GRAY);
+        buttonOption = new Button(buttonStyle);
+        buttonOption.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 50);
 
+        window = createOptionsWindow();
+        window.setVisible(false);
 
-        buttonStyle.font = font;
-        myButton = new TextButton("Hello", buttonStyle);
+        stage.addActor(buttonOption);
+        stage.addActor(window);
 
+        buttonOption.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                window.setPosition(
+                        Gdx.graphics.getWidth() / 2 - window.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - window.getHeight() / 2);
+                window.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            }
+        });
 
-        stage.addActor(myButton);
-
+        createbutton();
         batch = new SpriteBatch();
     }
 
+    private Window createOptionsWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
+//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.BLACK;
+
+        Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
+        sliderStyle.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("slider_back_hor"));
+        TextureRegionDrawable knobRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("knob_03"));
+        sliderStyle.knob = knobRegion;
+        sliderStyle.knobDown = knobRegion.tint(Color.LIGHT_GRAY);
+
+        final Slider musicSlider = new Slider(0, 1, 0.01f, false, sliderStyle);
+        musicSlider.setValue(0.5f);
+
+        final Slider soundSlider = new Slider(0, 1, 0.01f, false, sliderStyle);
+        soundSlider.setValue(0.5f);
+
+        Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonStyle.up = buttonRegion;
+        buttonStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+
+        Button closeButton = new Button(buttonStyle);
+
+        final Window window = new Window("Options", style);
+        window.setModal(true);
+        window.padTop(40);
+        window.padLeft(40);
+        window.padRight(40);
+        window.padBottom(20);
+        window.getTitleLabel().setAlignment(Align.center);
+        window.row().padBottom(10).padTop(10);
+        window.add(new Label("Volume", labelStyle)).colspan(3);
+        window.row();
+        window.add(new Image(Assets.instance.uiBlue.findRegion("icon_music"))).padRight(10);
+        window.add(new Label("Music", labelStyle)).padRight(10);
+        window.add(musicSlider).width(250);
+        window.row().padTop(10);
+        window.add(new Image(Assets.instance.uiBlue.findRegion("icon_sound_on"))).padRight(10);
+        window.add(new Label("Sound Fx", labelStyle)).padRight(10);
+        window.add(soundSlider).width(250);
+        window.row().padTop(20);
+        window.add(closeButton).colspan(3);
+        window.pack();
+
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                window.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+            }
+        });
+
+        musicSlider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                MusicManager.instance.setVolume(musicSlider.getValue());
+            }
+        });
+
+        soundSlider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                SoundManager.instance.setVolume(soundSlider.getValue());
+            }
+        });
+
+        return window;
+    }
+
+
     public  void createbutton() {
+
         textBullet = new Label("Bullet Max : " ,skin);
         textBullet.setColor(1, 1, 1, 1);
         textBullet.setFontScale(1f,1f);
-        textBullet.setPosition(50, 550);
+        textBullet.setPosition(50, SCENE_HEIGHT - 50);
 
         textBeam = new Label("Z-Bullet Max : " ,skin);
         textBeam.setColor(1, 1, 1, 1);
         textBeam.setFontScale(1.f,1.f);
-        textBeam.setPosition(200, 550);
+        textBeam.setPosition(200, SCENE_HEIGHT - 50);
 
         textTrap = new Label("Trap Max : " ,skin);
         textTrap.setColor(1, 1, 1, 1);
         textTrap.setFontScale(1f,1f);
-        textTrap.setPosition(350, 550);
+        textTrap.setPosition(350, SCENE_HEIGHT - 50);
 
         textTime = new Label("Time : " ,skin);
         textTime.setColor(1, 1, 1, 1);
         textTime.setFontScale(1f,1f);
-        textTime.setPosition(450, 500);
+        textTime.setPosition(450, SCENE_HEIGHT - 100);
 
         energyLevel = new Label("Energy : ", skin);
         energyLevel.setColor(1, 1, 1, 1);
         energyLevel.setFontScale(1,1f);
-        energyLevel.setPosition(500, 550);
+        energyLevel.setPosition(500, SCENE_HEIGHT - 50);
 
         energyLevel2 = new Label("Product Energy : ", skin);
         energyLevel2.setColor(1, 1, 1, 1);
         energyLevel2.setFontScale(1,1f);
-        energyLevel2.setPosition(650, 550);
+        energyLevel2.setPosition(650, SCENE_HEIGHT - 50);
 
         energyLevel3 = new Label("Battery : ", skin);
         energyLevel3.setColor(1, 1, 1, 1);
         energyLevel3.setFontScale(1,1f);
-        energyLevel3.setPosition(800, 550);
+        energyLevel3.setPosition(800, SCENE_HEIGHT - 50);
 
 
         stage.addActor(textBullet);

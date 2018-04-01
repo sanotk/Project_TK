@@ -2,14 +2,18 @@ package com.mypjgdx.esg.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
 
 public class GameOverScreen extends AbstractGameScreen {
@@ -20,6 +24,8 @@ public class GameOverScreen extends AbstractGameScreen {
     private Skin skin; //
     private Label text_gameover;
 	public AbstractGameObject player;
+    private BitmapFont font;
+    private TextButton buttonBack;
 
     public GameOverScreen(final Game game) {
         super(game);
@@ -32,15 +38,26 @@ public class GameOverScreen extends AbstractGameScreen {
         int btn_w = 150;
         int btn_h = 50;
 
-        text_gameover = new Label("Game Over" ,skin);
-        text_gameover.setColor(1, 1, 1, 1);
-        text_gameover.setFontScale(1.5f,1.5f);
-        text_gameover.setPosition(SCENE_WIDTH / 2 - btn_w / 2 , 550);
+        font = new BitmapFont();
 
-        TextButton buttonBack= new TextButton("Back", skin);
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.RED;
+
+
+        text_gameover = new Label("Game Over" ,labelStyle);
+        text_gameover.setColor(1, 1, 1, 0.75f);
+        text_gameover.setFontScale(2.1f,2.1f);
+        text_gameover.setPosition(SCENE_WIDTH / 2 - btn_w / 2 , SCENE_HEIGHT - 175);
+
+        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+        buttonStyle.up = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_04"));
+        buttonStyle.down = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_03"));
+        buttonStyle.font = font;
+        buttonBack = new TextButton("Back", buttonStyle);
         buttonBack.setWidth(btn_w);
         buttonBack.setHeight(btn_h);
-        buttonBack.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 310);
+        buttonBack.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT - 300);
 
         stage.addActor(buttonBack);
         stage.addActor(text_gameover);

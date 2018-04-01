@@ -54,8 +54,8 @@ public class MenuScreen extends AbstractGameScreen {
         text_mainmenu.setPosition(SCENE_WIDTH / 2 - btn_w / 2 + 50, 450);
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
-        buttonStyle.up = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_04"));
-        buttonStyle.down = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_03"));
+        buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
+        buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
         buttonStyle.font = font;
         buttonStart = new TextButton("Start", buttonStyle);
         buttonStart.setWidth(btn_w);
