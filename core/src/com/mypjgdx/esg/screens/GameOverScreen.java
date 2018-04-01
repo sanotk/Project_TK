@@ -73,7 +73,7 @@ public class GameOverScreen extends AbstractGameScreen {
 
     @Override
     public void render(float deltaTime) {
-        Gdx.gl.glClearColor(0.1f, 0.2f, 0.4f, 1.0f);
+        Gdx.gl.glClearColor(1f, 1f, 1f, 0.5f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(Gdx.graphics.getDeltaTime());
