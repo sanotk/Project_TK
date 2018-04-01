@@ -1,7 +1,6 @@
 package com.mypjgdx.esg.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -57,9 +56,7 @@ public class WorldRenderer implements Disposable {
     }
 
     private void renderWorld() {
-        if(!worldController.level.hasSolarCell) {
-            createLightBuffer();
-        }
+        worldController.level.createFbo(batch, lightFbo);
         viewport.apply();
 
         worldController.cameraHelper.applyTo(camera); //อัพเดทมุมกล้อง
@@ -67,55 +64,7 @@ public class WorldRenderer implements Disposable {
         tiledRenderer.setView(camera);
         shapeRenderer.setProjectionMatrix(camera.combined);
         worldController.level.render(batch, tiledRenderer, shapeRenderer); // วาด Game World
-
-        if(!worldController.level.hasSolarCell){
-            batch.begin();
-            batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
-            batch.draw(lightFbo.getColorBufferTexture(),
-                    camera.position.x - camera.viewportWidth * camera.zoom / 2,
-                    camera.position.y - camera.viewportHeight * camera.zoom /2,
-                    0, 0,
-                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
-                    1 * camera.zoom, 1 * camera.zoom,
-                    0,
-                    0, 0,
-                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
-                    false, true);
-            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-            batch.end();
-        }
-
-    }
-
-//    private boolean isLevelContainsSolarcell() {
-//        for (int i = 0; i < worldController.level.items.size(); i++) {
-//            if (worldController.level.items.get(i) instanceof SolarCell)
-//                return true;
-//        }
-//        return false;
-//    }
-
-    private void createLightBuffer() {
-        lightFbo.begin();
-
-        Gdx.gl.glClearColor(0.05f, 0.05f, 0.05f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        batch.begin();
-        batch.setColor(1, 1, 1, 1);
-        batch.draw(Assets.instance.light,
-                worldController.level.player.getPositionX() + worldController.level.player.origin.x
-                        -  Assets.instance.light.getWidth()/ 2f,
-                worldController.level.player.getPositionY() + worldController.level.player.origin.y
-                        -  Assets.instance.light.getHeight() / 2f);
-        batch.draw(Assets.instance.light,
-                worldController.level.items.get(0).p_x + worldController.level.items.get(0).origin.x
-                        - Assets.instance.light.getWidth()/2f,
-                worldController.level.items.get(0).p_y + worldController.level.items.get(0).origin.y
-                        - Assets.instance.light.getHeight()/2f);
-        batch.end();
-
-        FrameBuffer.unbind();
+        worldController.level.renderFbo(batch, camera, lightFbo);
     }
 
     private void renderGui() {

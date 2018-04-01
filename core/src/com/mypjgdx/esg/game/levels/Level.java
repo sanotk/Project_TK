@@ -1,6 +1,8 @@
 package com.mypjgdx.esg.game.levels;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Level{
+public abstract class Level{
 
     public TiledMap map;
     public Player player;
@@ -74,6 +76,10 @@ public class Level{
         for (Enemy e:enemies) e.showHp(shapeRenderer);
         shapeRenderer.end();
     }
+
+    public void renderFbo(SpriteBatch batch, OrthographicCamera camera, FrameBuffer lightFbo) {}
+
+    public void createFbo(SpriteBatch batch, FrameBuffer lightFbo)  {}
 
     public void update(float deltaTime) {
 

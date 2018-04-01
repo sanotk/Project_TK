@@ -73,10 +73,10 @@ public class CameraHelper {
     }
 
     public void update (float deltaTime) {  // อัพมุมกล้องให้ติดตามเป้าหมาย
-//        if (!hasTarget()) return;
-//
-//        position.x = target.getPositionX() + target.origin.x;
-//        position.y = target.getPositionY() + target.origin.y;
+        if (!hasTarget()) return;
+
+        position.x = target.getPositionX() + target.origin.x;
+        position.y = target.getPositionY() + target.origin.y;
 
         float leftEdge =  map.getTileWidth() * 1;
         float rightEdge = (map.getWidth() - 1) *  map.getTileWidth();

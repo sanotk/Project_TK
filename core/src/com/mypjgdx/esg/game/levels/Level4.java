@@ -1,52 +1,58 @@
 package com.mypjgdx.esg.game.levels;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.objects.characters.*;
-import com.mypjgdx.esg.game.objects.items.*;
 
-import java.util.ArrayList;
-import java.util.List;
+public class Level4 extends Level {
 
-public class Level4 extends LevelGenerator {
-
-    @Override
-    public Player createPlayer(TiledMapTileLayer mapLayer) {
-        return new Player(mapLayer, 100, 100);
-    }
-    @Override
-    public List<Item> createItems(TiledMapTileLayer mapLayer, Player player, Level level) {
-        ArrayList<Item> items = new ArrayList<Item>();
-        items.add(new Switch(mapLayer, player));
-        items.add(new Television(mapLayer, player));
-        items.add(new Waterfilter(mapLayer, player));
-        items.add(new Waterheater(mapLayer, player));
-        items.add(new Microwave(mapLayer, player));
-        items.add(new Waterpump(mapLayer, player));
-        items.add(new Airconditioner(mapLayer, player));
-        items.add(new Computer(mapLayer, player));
-        items.add(new Electroacoustics(mapLayer, player));
-        items.add(new Fan(mapLayer, player));
-        items.add(new Refrigerator(mapLayer, player));
-        return items;
+    public Level4(LevelGenerator levelGenerator) {
+        super(levelGenerator);
     }
 
     @Override
-    public List<Enemy> createEnemies(TiledMapTileLayer mapLayer,Player player) {
-        ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-        enemies.add(new Pepo(mapLayer, player));
-        enemies.add(new Pepo(mapLayer, player));
-        enemies.add(new Pepo(mapLayer, player));
-        enemies.add(new PepoKnight(mapLayer, player));
-        enemies.add(new PepoKnight(mapLayer, player));
-        enemies.add(new PepoDevil(mapLayer, player));
-        return enemies;
+    public void renderFbo(SpriteBatch batch, OrthographicCamera camera, FrameBuffer lightFbo) {
+
+        batch.begin();
+        batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
+        batch.draw(lightFbo.getColorBufferTexture(),
+                camera.position.x - camera.viewportWidth * camera.zoom / 2,
+                camera.position.y - camera.viewportHeight * camera.zoom / 2,
+                0, 0,
+                lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
+                1 * camera.zoom, 1 * camera.zoom,
+                0,
+                0, 0,
+                lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
+                false, true);
+        batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        batch.end();
     }
 
     @Override
-    public TiledMap createTiledMap() {
-        return Assets.instance.map4;
-    }
+    public void createFbo(SpriteBatch batch, FrameBuffer lightFbo) {
+        lightFbo.begin();
 
+        Gdx.gl.glClearColor(0.05f, 0.05f, 0.05f, 1f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.begin();
+        batch.setColor(1, 1, 1, 1);
+        batch.draw(Assets.instance.light,
+                player.getPositionX() + player.origin.x
+                        - Assets.instance.light.getWidth() / 2f,
+                player.getPositionY() + player.origin.y
+                        - Assets.instance.light.getHeight() / 2f);
+        batch.draw(Assets.instance.light,
+                items.get(0).p_x + items.get(0).origin.x
+                        - Assets.instance.light.getWidth() / 2f,
+                items.get(0).p_y + items.get(0).origin.y
+                        - Assets.instance.light.getHeight() / 2f);
+        batch.end();
+
+        FrameBuffer.unbind();
+    }
 }

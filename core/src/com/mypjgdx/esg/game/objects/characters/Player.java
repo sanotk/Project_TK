@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.CollisionCheck;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.game.SoundManager;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
 import com.mypjgdx.esg.game.objects.items.Item;
@@ -335,7 +336,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     		resetAnimation();
             if(trapCount!=0){
                 weapons.add(new Trap(mapLayer, this));
-                Assets.instance.bulletSound.play();
+//                Assets.instance.bulletSound.play();]
+                SoundManager.instance.play(SoundManager.Sounds.BULLET);
                 trapCount--;
             }
     	}
@@ -369,7 +371,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     		state = PlayerState.ATTACK;
     		if(bulletCount!=0){
                 weapons.add(new Bullet(mapLayer, this));
-                Assets.instance.bulletSound.play();
+                SoundManager.instance.play(SoundManager.Sounds.BULLET);
 	            bulletCount--;
     		}
     		resetAnimation();
@@ -381,10 +383,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     		state = PlayerState.ATTACK;
     		if(beamCount!=0){
     		    weapons.add(new Beam(mapLayer, this));
-	            Assets.instance.beamSound.play();
 	            beamCount--;
     		}
-            Assets.instance.beamSound.play();
+            SoundManager.instance.play(SoundManager.Sounds.BEAM);
     		resetAnimation();
     	}
     }

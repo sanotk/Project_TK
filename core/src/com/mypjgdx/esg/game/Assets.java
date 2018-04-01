@@ -145,19 +145,6 @@ public class Assets implements Disposable, AssetErrorListener {
         uiBlue = manager.get("ui-blue.atlas");
     }
 
-    public void init2() {
-        manager = new AssetManager();
-        manager.setErrorListener(this);
-        manager.setLoader(TiledMap.class, new TmxMapLoader());
-        manager.load("bullet.wav", Sound.class);
-        manager.load("beam.wav", Sound.class);
-        manager.load("trap.wav", Sound.class);
-        manager.finishLoading();
-        bulletSound = manager.get("bullet.wav");
-        beamSound = manager.get("beam.wav");
-        trapSound = manager.get("trap.wav");
-    }
-
     @SuppressWarnings("rawtypes")
     @Override
     public void error(AssetDescriptor asset, Throwable throwable) {

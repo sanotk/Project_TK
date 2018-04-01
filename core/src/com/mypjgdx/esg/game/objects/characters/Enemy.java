@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
-import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.game.SoundManager;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Enemy.EnemyAnimation;
 import com.mypjgdx.esg.game.objects.weapons.EnemyBall;
@@ -98,7 +98,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
 
     public void rangeAttack(List<Weapon> weapons){
     	weapons.add(new EnemyBall(mapLayer, player, this));
-	    Assets.instance.enemyBallSound.play();
+        SoundManager.instance.play(SoundManager.Sounds.ENEMY_BALL);
         resetAnimation();
     }
 

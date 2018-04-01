@@ -18,8 +18,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
-import com.mypjgdx.esg.game.levels.Level;
-import com.mypjgdx.esg.game.levels.Level1;
+import com.mypjgdx.esg.game.levels.Level1Generator;
+import com.mypjgdx.esg.game.levels.Level4;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.*;
@@ -603,7 +603,7 @@ public class GameScreen4 extends AbstractGameScreen {
 
     @Override
     public void show() {
-        worldController = new WorldController(new Level(new Level1()));
+        worldController = new WorldController(new Level4(new Level1Generator()));
         worldRenderer = new WorldRenderer(worldController);
         Gdx.input.setInputProcessor(stage);
     }
