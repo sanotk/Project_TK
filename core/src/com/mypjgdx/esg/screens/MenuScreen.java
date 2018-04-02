@@ -34,7 +34,8 @@ public class MenuScreen extends AbstractGameScreen {
     private TextButton buttonExit;
     private BitmapFont font;
 
-    private Window window;
+    private Window optionsWindow;
+    private Window loadWindow;
 
     public MenuScreen(final Game game) {
         super(game);
@@ -57,6 +58,7 @@ public class MenuScreen extends AbstractGameScreen {
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
         buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
         buttonStyle.font = font;
+
         buttonStart = new TextButton("Start", buttonStyle);
         buttonStart.setWidth(btn_w);
         buttonStart.setHeight(btn_h);
@@ -77,38 +79,44 @@ public class MenuScreen extends AbstractGameScreen {
         buttonExit.setHeight(btn_h);
         buttonExit.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 140);
 
-        window = createOptionsWindow();
-        window.setVisible(false);
+        optionsWindow = createOptionsWindow();
+        optionsWindow.setVisible(false);
 //        window.debug();
+        loadWindow = createLoadWindow();
+        loadWindow.setVisible(false);
 
         stage.addActor(text_mainmenu);
         stage.addActor(buttonStart);
         stage.addActor(buttonLoad);
         stage.addActor(buttonOption);
         stage.addActor(buttonExit);
-        stage.addActor(window);
+        stage.addActor(optionsWindow);
+        stage.addActor(loadWindow);
 
         buttonStart.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen2(game, window));
+                game.setScreen(new GameScreen(game, optionsWindow));
             }
         });
 
         buttonLoad.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //game.setScreen(new MapScreen(game));
+                loadWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - loadWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - loadWindow.getHeight() / 2);
+                loadWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
 
         buttonOption.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                window.setPosition(
-                        Gdx.graphics.getWidth() / 2 - window.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - window.getHeight() / 2);
-                window.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                optionsWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - optionsWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - optionsWindow.getHeight() / 2);
+                optionsWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
 
@@ -119,6 +127,103 @@ public class MenuScreen extends AbstractGameScreen {
             }
         });
 
+    }
+
+    private Window createLoadWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
+//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.BLACK;
+
+        Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
+        sliderStyle.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("slider_back_hor"));
+        TextureRegionDrawable knobRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("knob_03"));
+        sliderStyle.knob = knobRegion;
+        sliderStyle.knobDown = knobRegion.tint(Color.LIGHT_GRAY);
+
+        final Slider musicSlider = new Slider(0, 1, 0.01f, false, sliderStyle);
+        musicSlider.setValue(0.5f);
+
+        final Slider soundSlider = new Slider(0, 1, 0.01f, false, sliderStyle);
+        soundSlider.setValue(0.5f);
+
+        Button.ButtonStyle buttonCrossStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonCrossStyle.up = buttonRegion;
+        buttonCrossStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+
+        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+        buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
+        buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
+        buttonStyle.font = font;
+
+        Button closeButton = new Button(buttonCrossStyle);
+        TextButton stage1Button = new TextButton("Stage 1", buttonStyle);
+        TextButton stage2Button = new TextButton("Stage 2", buttonStyle);
+        TextButton stage3Button = new TextButton("Stage 3", buttonStyle);
+        TextButton stage4Button = new TextButton("Stage 4", buttonStyle);
+
+        final Window loadWindow = new Window("Load Game", style);
+        loadWindow.setModal(true);
+        loadWindow.padTop(40);
+        loadWindow.padLeft(40);
+        loadWindow.padRight(40);
+        loadWindow.padBottom(20);
+        loadWindow.getTitleLabel().setAlignment(Align.center);
+        loadWindow.row().padBottom(10).padTop(10);
+        loadWindow.add(stage1Button).colspan(3);
+        loadWindow.row();
+        loadWindow.add(stage2Button).colspan(3);
+        loadWindow.row().padTop(10);
+        loadWindow.add(stage3Button).colspan(3);
+        loadWindow.row().padTop(10);
+        loadWindow.add(stage4Button).colspan(3);
+        loadWindow.row().padTop(20);
+        loadWindow.add(closeButton).colspan(3);
+        loadWindow.pack();
+
+        stage1Button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new GameScreen(game, optionsWindow));
+            }
+        });
+
+        stage2Button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new GameScreen2(game, optionsWindow));
+            }
+        });
+
+        stage3Button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new GameScreen3(game, optionsWindow));
+            }
+        });
+
+        stage4Button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new GameScreen4(game, optionsWindow));
+            }
+        });
+
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                loadWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+            }
+        });
+
+
+        return loadWindow;
     }
 
     private Window createOptionsWindow() {
@@ -144,38 +249,38 @@ public class MenuScreen extends AbstractGameScreen {
         final Slider soundSlider = new Slider(0, 1, 0.01f, false, sliderStyle);
         soundSlider.setValue(0.5f);
 
-        Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
+        Button.ButtonStyle buttonCrossStyle = new Button.ButtonStyle();
         TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonStyle.up = buttonRegion;
-        buttonStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+        buttonCrossStyle.up = buttonRegion;
+        buttonCrossStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
-        Button closeButton = new Button(buttonStyle);
+        Button closeButton = new Button(buttonCrossStyle);
 
-        final Window window = new Window("Options", style);
-        window.setModal(true);
-        window.padTop(40);
-        window.padLeft(40);
-        window.padRight(40);
-        window.padBottom(20);
-        window.getTitleLabel().setAlignment(Align.center);
-        window.row().padBottom(10).padTop(10);
-        window.add(new Label("Volume", labelStyle)).colspan(3);
-        window.row();
-        window.add(new Image(Assets.instance.uiBlue.findRegion("icon_music"))).padRight(10);
-        window.add(new Label("Music", labelStyle)).padRight(10);
-        window.add(musicSlider).width(250);
-        window.row().padTop(10);
-        window.add(new Image(Assets.instance.uiBlue.findRegion("icon_sound_on"))).padRight(10);
-        window.add(new Label("Sound Fx", labelStyle)).padRight(10);
-        window.add(soundSlider).width(250);
-        window.row().padTop(20);
-        window.add(closeButton).colspan(3);
-        window.pack();
+        final Window optionsWindow = new Window("Option", style);
+        optionsWindow.setModal(true);
+        optionsWindow.padTop(40);
+        optionsWindow.padLeft(40);
+        optionsWindow.padRight(40);
+        optionsWindow.padBottom(20);
+        optionsWindow.getTitleLabel().setAlignment(Align.center);
+        optionsWindow.row().padBottom(10).padTop(10);
+        optionsWindow.add(new Label("Volum", labelStyle)).colspan(3);
+        optionsWindow.row();
+        optionsWindow.add(new Image(Assets.instance.uiBlue.findRegion("icon_music"))).padRight(10);
+        optionsWindow.add(new Label("Music", labelStyle)).padRight(10);
+        optionsWindow.add(musicSlider).width(250);
+        optionsWindow.row().padTop(10);
+        optionsWindow.add(new Image(Assets.instance.uiBlue.findRegion("icon_sound_on"))).padRight(10);
+        optionsWindow.add(new Label("Sound Fx", labelStyle)).padRight(10);
+        optionsWindow.add(soundSlider).width(250);
+        optionsWindow.row().padTop(20);
+        optionsWindow.add(closeButton).colspan(3);
+        optionsWindow.pack();
 
         closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                window.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                optionsWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
 
@@ -193,7 +298,7 @@ public class MenuScreen extends AbstractGameScreen {
             }
         });
 
-        return window;
+        return optionsWindow;
     }
 
     @Override

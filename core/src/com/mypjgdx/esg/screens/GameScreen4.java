@@ -48,63 +48,6 @@ public class GameScreen4 extends AbstractGameScreen {
     private Label energyLevel3;
     private Label textRule;
 
-    public boolean status_finish =false;
-    //private Label sunleft;
-    //private Label sunright
-
-    public enum solarcellState {
-        StoC,
-        StoB,
-        StoI,
-        StoD
-    }
-
-    public enum chargecontrollercState {
-        CtoS,
-        CtoB,
-        CtoI,
-        CtoD
-    }
-
-    public enum batteryState {
-        BtoS,
-        BtoC,
-        BtoI,
-        BtoD
-    }
-
-    public enum inverterState {
-        ItoS,
-        ItoC,
-        ItoB,
-        ItoD
-    }
-
-    public solarcellState solarState = null;
-    public chargecontrollercState ccState = null;
-    public batteryState batState = null;
-    public inverterState inverState = null;
-
-    private TextButton buttonStoC;
-    private TextButton buttonStoB;
-    private TextButton buttonStoI;
-    private TextButton buttonStoD;
-
-    private TextButton buttonCtoS;
-    private TextButton buttonCtoB;
-    private TextButton buttonCtoI;
-    private TextButton buttonCtoD;
-
-    private TextButton buttonItoS;
-    private TextButton buttonItoC;
-    private TextButton buttonItoB;
-    private TextButton buttonItoD;
-
-    private TextButton buttonBtoS;
-    private TextButton buttonBtoC;
-    private TextButton buttonBtoI;
-    private TextButton buttonBtoD;
-
     private Button buttonOption;
     private BitmapFont font;
     private Window optionsWindow;
