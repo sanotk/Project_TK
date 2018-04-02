@@ -136,7 +136,10 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
                 w.attack(this);
         	}
         }
-        runToPlayer(deltaTime);
+
+        if(!player.timeStop) {
+            runToPlayer(deltaTime);
+        }
     }
 
     public boolean isAlive(){

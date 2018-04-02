@@ -38,7 +38,6 @@ public class GameScreen extends AbstractGameScreen {
     private Stage stage;
     private Skin skin;
 
-
     public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
     public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
 
@@ -136,9 +135,9 @@ public class GameScreen extends AbstractGameScreen {
         buttonOption.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 50);
 
         TextButton.TextButtonStyle buttonRuleStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable ruleUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
+        TextureRegionDrawable ruleUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_pause"));
         buttonRuleStyle.up = ruleUp;
-        buttonRuleStyle.down = toolUp.tint(Color.LIGHT_GRAY);
+        buttonRuleStyle.down = ruleUp.tint(Color.LIGHT_GRAY);
         buttonRule = new Button(buttonRuleStyle);
         buttonRule.setPosition(SCENE_WIDTH - 100, SCENE_HEIGHT - 50);
 
@@ -148,8 +147,6 @@ public class GameScreen extends AbstractGameScreen {
                 Gdx.graphics.getHeight() / 2 -  ruleWindow.getHeight() / 2);
         ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
         //ruleWindow.setVisible(true);
-
-
 
         optionsWindow.setVisible(false);
 
@@ -176,6 +173,7 @@ public class GameScreen extends AbstractGameScreen {
                         Gdx.graphics.getWidth() / 2 -  ruleWindow.getWidth() / 2,
                         Gdx.graphics.getHeight() / 2 -  ruleWindow.getHeight() / 2);
                 ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                worldController.level.player.timeStop = true;
             }
         });
 
@@ -194,34 +192,35 @@ public class GameScreen extends AbstractGameScreen {
         labelStyle.font = font;
         labelStyle.fontColor = Color.BLACK;
 
-        Button.ButtonStyle buttonCrossStyle = new Button.ButtonStyle();
+        Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
         TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonCrossStyle.up = buttonRegion;
-        buttonCrossStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+        buttonRuleStyle.up = buttonRegion;
+        buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
-        Button closeButton = new Button(buttonCrossStyle);
+        Button closeButton = new Button(buttonRuleStyle);
 
-        final Window loadWindow = new Window("Rule", style);
-        loadWindow.setModal(true);
-        loadWindow.padTop(40);
-        loadWindow.padLeft(40);
-        loadWindow.padRight(40);
-        loadWindow.padBottom(20);
-        loadWindow.getTitleLabel().setAlignment(Align.center);
-        loadWindow.row().padBottom(10).padTop(10);
-        loadWindow.row().padTop(10);
-        loadWindow.add(closeButton).colspan(3);
-        loadWindow.pack();
+        final Window ruleWindow = new Window("Rule", style);
+        ruleWindow.setModal(true);
+        ruleWindow.padTop(40);
+        ruleWindow.padLeft(40);
+        ruleWindow.padRight(40);
+        ruleWindow.padBottom(20);
+        ruleWindow.getTitleLabel().setAlignment(Align.center);
+        ruleWindow.row().padBottom(10).padTop(10);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(closeButton).colspan(3);
+        ruleWindow.pack();
 
         closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                loadWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                ruleWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                worldController.level.player.timeStop = false;
             }
         });
 
 
-        return loadWindow;
+        return ruleWindow;
     }
 
     public  void createbutton() {

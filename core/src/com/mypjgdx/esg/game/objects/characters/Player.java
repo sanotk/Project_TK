@@ -101,6 +101,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     protected CollisionCheck batteryCheck;
     protected CollisionCheck doorCheck;
 
+    public boolean timeStop = true;
+
     public Player(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         super(Assets.instance.playerAltas);
 
@@ -172,7 +174,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         	}
         }
         Countdown +=deltaTime;
-        if(Countdown>=1){
+        if((!timeStop)&&(Countdown>=1)){
             timeCount--;
             Countdown = 0;
         }

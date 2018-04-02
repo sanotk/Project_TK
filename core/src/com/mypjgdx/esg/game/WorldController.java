@@ -54,6 +54,7 @@ public class WorldController extends InputAdapter {
 
     private void handleplayerInput()  { // ควบคุม player
         if (!cameraHelper.hasTarget()) return; // มุมกล้องติดตาม player อยู่ถึงจะควมคุม player ได้
+        if (level.player.timeStop) return;
 
         final int screenWidth = Gdx.graphics.getWidth();
         final int screenHeight = Gdx.graphics.getHeight();
