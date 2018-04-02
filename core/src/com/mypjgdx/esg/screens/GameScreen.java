@@ -593,7 +593,7 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         if((findItem(Door.class).state == Item.ItemState.ON)&&(player.status_door==true)){
-            game.setScreen(new GameScreen(game, optionsWindow));
+            game.setScreen(new GameScreen2(game, optionsWindow));
         }
 
         for(int i = 0; i < worldController.level.enemies.size(); i++){

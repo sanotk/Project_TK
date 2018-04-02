@@ -34,7 +34,7 @@ public class MenuScreen extends AbstractGameScreen {
     private TextButton buttonExit;
     private BitmapFont font;
 
-    protected Window window;
+    private Window window;
 
     public MenuScreen(final Game game) {
         super(game);
@@ -121,7 +121,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     }
 
-    protected Window createOptionsWindow() {
+    private Window createOptionsWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));

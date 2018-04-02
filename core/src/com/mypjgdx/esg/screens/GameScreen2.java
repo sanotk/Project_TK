@@ -3,18 +3,19 @@ package com.mypjgdx.esg.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
@@ -105,12 +106,13 @@ public class GameScreen2 extends AbstractGameScreen {
     private TextButton buttonBtoI;
     private TextButton buttonBtoD;
 
-    private TextButton myButton;
+    private Button buttonOption;
     private BitmapFont font;
+    private Window optionsWindow;
 
     private boolean animation_status = false;
 
-    public GameScreen2(Game game) {
+    public GameScreen2(Game game , final Window optionsWindow) {
         super(game);
 
         stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT));
@@ -119,57 +121,71 @@ public class GameScreen2 extends AbstractGameScreen {
         bg = new Texture("bg.png");
         font = new BitmapFont();
 
-        createbutton();
+        this.optionsWindow = optionsWindow;
+
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
-        buttonStyle.up = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_05"));
-        buttonStyle.down = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_04"));
-        buttonStyle.over = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_03"));
+        TextureRegionDrawable toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
+        buttonStyle.up = toolUp;
+        buttonStyle.down = toolUp.tint(Color.LIGHT_GRAY);
+        buttonOption = new Button(buttonStyle);
+        buttonOption.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 50);
 
+        optionsWindow.setVisible(false);
 
-        buttonStyle.font = font;
-        myButton = new TextButton("Hello", buttonStyle);
+        stage.addActor(buttonOption);
+        stage.addActor(optionsWindow);
 
+        buttonOption.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                optionsWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 -  optionsWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 -  optionsWindow.getHeight() / 2);
+                optionsWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            }
+        });
 
-        stage.addActor(myButton);
-
+        createbutton();
         batch = new SpriteBatch();
     }
 
+
     public  void createbutton() {
+
         textBullet = new Label("Bullet Max : " ,skin);
         textBullet.setColor(1, 1, 1, 1);
         textBullet.setFontScale(1f,1f);
-        textBullet.setPosition(50, 550);
+        textBullet.setPosition(50, SCENE_HEIGHT - 50);
 
         textBeam = new Label("Z-Bullet Max : " ,skin);
         textBeam.setColor(1, 1, 1, 1);
         textBeam.setFontScale(1.f,1.f);
-        textBeam.setPosition(200, 550);
+        textBeam.setPosition(200, SCENE_HEIGHT - 50);
 
         textTrap = new Label("Trap Max : " ,skin);
         textTrap.setColor(1, 1, 1, 1);
         textTrap.setFontScale(1f,1f);
-        textTrap.setPosition(350, 550);
+        textTrap.setPosition(350, SCENE_HEIGHT - 50);
 
         textTime = new Label("Time : " ,skin);
         textTime.setColor(1, 1, 1, 1);
         textTime.setFontScale(1f,1f);
-        textTime.setPosition(450, 500);
+        textTime.setPosition(450, SCENE_HEIGHT - 100);
 
         energyLevel = new Label("Energy : ", skin);
         energyLevel.setColor(1, 1, 1, 1);
         energyLevel.setFontScale(1,1f);
-        energyLevel.setPosition(500, 550);
+        energyLevel.setPosition(500, SCENE_HEIGHT - 50);
 
         energyLevel2 = new Label("Product Energy : ", skin);
         energyLevel2.setColor(1, 1, 1, 1);
         energyLevel2.setFontScale(1,1f);
-        energyLevel2.setPosition(650, 550);
+        energyLevel2.setPosition(650, SCENE_HEIGHT - 50);
 
         energyLevel3 = new Label("Battery : ", skin);
         energyLevel3.setColor(1, 1, 1, 1);
         energyLevel3.setFontScale(1,1f);
-        energyLevel3.setPosition(800, 550);
+        energyLevel3.setPosition(800, SCENE_HEIGHT - 50);
 
 
         stage.addActor(textBullet);
@@ -577,7 +593,7 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if((findItem(Door.class).state == Item.ItemState.ON)&&(player.status_door==true)){
-            game.setScreen(new GameScreen2(game));
+            game.setScreen(new GameScreen2(game, optionsWindow));
         }
 
         for(int i = 0; i < worldController.level.enemies.size(); i++){
@@ -606,6 +622,9 @@ public class GameScreen2 extends AbstractGameScreen {
         worldController = new WorldController(new Level2(new Level1Generator()));
         worldRenderer = new WorldRenderer(worldController);
         Gdx.input.setInputProcessor(stage);
+
+        MusicManager.instance.stop();
+        MusicManager.instance.play(MusicManager.Musics.MUSIC_2, true);
     }
 
     @Override
