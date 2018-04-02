@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
 
@@ -86,7 +87,9 @@ public class GameOverScreen extends AbstractGameScreen {
     }
 
     @Override
-    public void show() {}
+    public void show() {
+        MusicManager.instance.stop();
+    }
 
     @Override
     public void hide() {

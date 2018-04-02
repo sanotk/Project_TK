@@ -42,6 +42,8 @@ public class IntroScreen extends AbstractGameScreen {
 		batch = new SpriteBatch();
 		stage = new Stage(viewport, batch);
 
+		this.optionsWindow = optionsWindow;
+
 		font = new BitmapFont(Gdx.files.internal("thai24.fnt"));
 		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		font.setColor(0.4f,0,0,1);
