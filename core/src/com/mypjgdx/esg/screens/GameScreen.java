@@ -8,20 +8,15 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.SoundManager;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level1;
@@ -113,11 +108,11 @@ public class GameScreen extends AbstractGameScreen {
 
     private Button buttonOption;
     private BitmapFont font;
-    private Window window;
+    private Window optionsWindow;
 
     private boolean animation_status = false;
 
-    public GameScreen(Game game) {
+    public GameScreen(Game game ,final Window optionsWindow) {
         super(game);
 
         stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT));
@@ -126,6 +121,8 @@ public class GameScreen extends AbstractGameScreen {
         bg = new Texture("bg.png");
         font = new BitmapFont();
 
+        this.optionsWindow = optionsWindow;
+
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
         buttonStyle.up = toolUp;
@@ -133,99 +130,23 @@ public class GameScreen extends AbstractGameScreen {
         buttonOption = new Button(buttonStyle);
         buttonOption.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 50);
 
-        window = createOptionsWindow();
-        window.setVisible(false);
+        optionsWindow.setVisible(false);
 
         stage.addActor(buttonOption);
-        stage.addActor(window);
+        stage.addActor(optionsWindow);
 
         buttonOption.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                window.setPosition(
-                        Gdx.graphics.getWidth() / 2 - window.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - window.getHeight() / 2);
-                window.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                optionsWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 -  optionsWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 -  optionsWindow.getHeight() / 2);
+                optionsWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
 
         createbutton();
         batch = new SpriteBatch();
-    }
-
-    private Window createOptionsWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.BLACK;
-
-        Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
-        sliderStyle.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("slider_back_hor"));
-        TextureRegionDrawable knobRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("knob_03"));
-        sliderStyle.knob = knobRegion;
-        sliderStyle.knobDown = knobRegion.tint(Color.LIGHT_GRAY);
-
-        final Slider musicSlider = new Slider(0, 1, 0.01f, false, sliderStyle);
-        musicSlider.setValue(0.5f);
-
-        final Slider soundSlider = new Slider(0, 1, 0.01f, false, sliderStyle);
-        soundSlider.setValue(0.5f);
-
-        Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonStyle.up = buttonRegion;
-        buttonStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonStyle);
-
-        final Window window = new Window("Options", style);
-        window.setModal(true);
-        window.padTop(40);
-        window.padLeft(40);
-        window.padRight(40);
-        window.padBottom(20);
-        window.getTitleLabel().setAlignment(Align.center);
-        window.row().padBottom(10).padTop(10);
-        window.add(new Label("Volume", labelStyle)).colspan(3);
-        window.row();
-        window.add(new Image(Assets.instance.uiBlue.findRegion("icon_music"))).padRight(10);
-        window.add(new Label("Music", labelStyle)).padRight(10);
-        window.add(musicSlider).width(250);
-        window.row().padTop(10);
-        window.add(new Image(Assets.instance.uiBlue.findRegion("icon_sound_on"))).padRight(10);
-        window.add(new Label("Sound Fx", labelStyle)).padRight(10);
-        window.add(soundSlider).width(250);
-        window.row().padTop(20);
-        window.add(closeButton).colspan(3);
-        window.pack();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                window.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-            }
-        });
-
-        musicSlider.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                MusicManager.instance.setVolume(musicSlider.getValue());
-            }
-        });
-
-        soundSlider.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                SoundManager.instance.setVolume(soundSlider.getValue());
-            }
-        });
-
-        return window;
     }
 
 
@@ -672,7 +593,7 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         if((findItem(Door.class).state == Item.ItemState.ON)&&(player.status_door==true)){
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new GameScreen(game, optionsWindow));
         }
 
         for(int i = 0; i < worldController.level.enemies.size(); i++){

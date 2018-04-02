@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mypjgdx.esg.game.Assets;
@@ -28,12 +29,13 @@ public class IntroScreen extends AbstractGameScreen {
 	private BitmapFont font;
 	private Texture dialogBackground;
 	private Dialog dialog;
+	private Window optionsWindow;
 
-	private String text =
+    private String text =
 		        "\"ในปี พ.ศ.2600 ได้เกิดสงครามโลกครั้งที่ 3\" \n\"โดยมีการใช้อาวุธนิวเคลียร์ ทำให้ทั้งโลกเกิดสภาวะอากาศเป็นพิษ\" \n\"ทำให้ผู้คนไม่สามารถอาศัยอยู่บนพื้นโลก ผู้คนจึงต้องหลบไปอยู่ในสถานที่หลบภัย\""
 		        + "\n\"คุณคือผู้กล้าที่ถูกคัดเลือกโดยต้องไปสำรวจสถานที่หลบภัยแห่งหนึ่ง\"\n\"และพาคนในพื้นที่เข้าไปหลบภัยในสถานที่หลบภัยแห่งนั้นให้มากที่สุด \"\n\"เอาล่ะ รีบเร่งมือกันเถอะ (กด Enter เพื่อเริ่มเกม)\"";
 
-    public IntroScreen(final Game game) {
+    public IntroScreen(final Game game , Window optionsWindow) {
         super(game);
         camera = new OrthographicCamera();
         viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT, camera);
@@ -69,7 +71,7 @@ public class IntroScreen extends AbstractGameScreen {
 
 		if(Gdx.input.isKeyPressed(Keys.ANY_KEY)) {
 		    if (Gdx.input.isKeyPressed(Keys.ENTER))
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new GameScreen(game , optionsWindow));
 		    else
 		        dialog.tryToChangePage();
 		}

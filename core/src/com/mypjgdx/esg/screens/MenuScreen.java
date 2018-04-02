@@ -34,7 +34,7 @@ public class MenuScreen extends AbstractGameScreen {
     private TextButton buttonExit;
     private BitmapFont font;
 
-    private Window window;
+    protected Window window;
 
     public MenuScreen(final Game game) {
         super(game);
@@ -91,7 +91,7 @@ public class MenuScreen extends AbstractGameScreen {
         buttonStart.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new GameScreen(game, window));
             }
         });
 
@@ -121,7 +121,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     }
 
-    private Window createOptionsWindow() {
+    protected Window createOptionsWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
