@@ -115,6 +115,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private Button buttonRule;
     private Window ruleWindow;
+    private Window chartWindow;
 
     public GameScreen(Game game ,final Window optionsWindow) {
         super(game);
@@ -148,6 +149,9 @@ public class GameScreen extends AbstractGameScreen {
         ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
         //ruleWindow.setVisible(true);
 
+        chartWindow =createChartWindow();
+        chartWindow.setVisible(false);
+
         optionsWindow.setVisible(false);
 
         stage.addActor(buttonOption);
@@ -155,6 +159,7 @@ public class GameScreen extends AbstractGameScreen {
 
         stage.addActor(optionsWindow);
         stage.addActor(ruleWindow);
+        stage.addActor(chartWindow);
 
         buttonOption.addListener(new ClickListener() {
             @Override
@@ -180,6 +185,48 @@ public class GameScreen extends AbstractGameScreen {
         createbutton();
         batch = new SpriteBatch();
     }
+
+    private Window createChartWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
+//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.BLACK;
+
+        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonChartStyle.up = buttonRegion;
+        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+
+        Button closeButton = new Button(buttonChartStyle);
+
+        final Window chartWindow = new Window("Chart", style);
+        chartWindow.setModal(true);
+        chartWindow.padTop(40);
+        chartWindow.padLeft(40);
+        chartWindow.padRight(40);
+        chartWindow.padBottom(20);
+        chartWindow.getTitleLabel().setAlignment(Align.center);
+        chartWindow.row().padBottom(10).padTop(10);
+        chartWindow.row().padTop(10);
+        chartWindow.add(closeButton).colspan(3);
+        chartWindow.pack();
+
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                chartWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+            }
+        });
+
+
+        return chartWindow;
+    }
+
 
     private Window createRuleWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
@@ -224,6 +271,11 @@ public class GameScreen extends AbstractGameScreen {
     }
 
     public  void createbutton() {
+
+        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+        buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
+        buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
+        buttonStyle.font = font;
 
         textBullet = new Label("Bullet Max : " ,skin);
         textBullet.setColor(1, 1, 1, 1);
@@ -272,25 +324,25 @@ public class GameScreen extends AbstractGameScreen {
         int btn_w = 200;
         int btn_h = 50;
 
-        buttonStoC = new TextButton("link to charge controler", skin);
+        buttonStoC = new TextButton("link to charge controler", buttonStyle);
         buttonStoC.setWidth(btn_w);
         buttonStoC.setHeight(btn_h);
-        buttonStoC.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 450);
+        buttonStoC.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-200);
 
-        buttonStoB = new TextButton("link to battery", skin);
+        buttonStoB = new TextButton("link to battery", buttonStyle);
         buttonStoB.setWidth(btn_w);
         buttonStoB.setHeight(btn_h);
-        buttonStoB.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 380);
+        buttonStoB.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-270);
 
-        buttonStoI = new TextButton("link to inverter", skin);
+        buttonStoI = new TextButton("link to inverter", buttonStyle);
         buttonStoI.setWidth(btn_w);
         buttonStoI.setHeight(btn_h);
-        buttonStoI.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 310);
+        buttonStoI.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-340);
 
-        buttonStoD = new TextButton("link to door", skin);
+        buttonStoD = new TextButton("link to door", buttonStyle);
         buttonStoD.setWidth(btn_w);
         buttonStoD.setHeight(btn_h);
-        buttonStoD.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 140);
+        buttonStoD.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-410);
 
         stage.addActor(buttonStoC);
         stage.addActor(buttonStoB);
@@ -343,25 +395,25 @@ public class GameScreen extends AbstractGameScreen {
             }
         });
 
-        buttonItoS = new TextButton("link to solarcell", skin);
+        buttonItoS = new TextButton("link to solarcell", buttonStyle);
         buttonItoS.setWidth(btn_w);
         buttonItoS.setHeight(btn_h);
-        buttonItoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 350);
+        buttonItoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-200);
 
-        buttonItoC = new TextButton("link to charge controler", skin);
+        buttonItoC = new TextButton("link to charge controler", buttonStyle);
         buttonItoC.setWidth(btn_w);
         buttonItoC.setHeight(btn_h);
-        buttonItoC.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 280);
+        buttonItoC.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-270);
 
-        buttonItoB = new TextButton("link to battery", skin);
+        buttonItoB = new TextButton("link to battery", buttonStyle);
         buttonItoB.setWidth(btn_w);
         buttonItoB.setHeight(btn_h);
-        buttonItoB.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 210);
+        buttonItoB.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-340);
 
-        buttonItoD = new TextButton("link to door", skin);
+        buttonItoD = new TextButton("link to door", buttonStyle);
         buttonItoD.setWidth(btn_w);
         buttonItoD.setHeight(btn_h);
-        buttonItoD.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 140);
+        buttonItoD.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-410);
 
         stage.addActor(buttonItoS);
         stage.addActor(buttonItoC);
@@ -413,25 +465,25 @@ public class GameScreen extends AbstractGameScreen {
             }
         });
 
-        buttonCtoS = new TextButton("link to solarcell", skin);
+        buttonCtoS = new TextButton("link to solarcell", buttonStyle);
         buttonCtoS.setWidth(btn_w);
         buttonCtoS.setHeight(btn_h);
-        buttonCtoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 350);
+        buttonCtoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-200);
 
-        buttonCtoB = new TextButton("link to battery", skin);
+        buttonCtoB = new TextButton("link to battery", buttonStyle);
         buttonCtoB.setWidth(btn_w);
         buttonCtoB.setHeight(btn_h);
-        buttonCtoB.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 280);
+        buttonCtoB.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-270);
 
-        buttonCtoI = new TextButton("link to inverter", skin);
+        buttonCtoI = new TextButton("link to inverter", buttonStyle);
         buttonCtoI.setWidth(btn_w);
         buttonCtoI.setHeight(btn_h);
-        buttonCtoI.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 210);
+        buttonCtoI.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-340);
 
-        buttonCtoD = new TextButton("link to door", skin);
+        buttonCtoD = new TextButton("link to door", buttonStyle);
         buttonCtoD.setWidth(btn_w);
         buttonCtoD.setHeight(btn_h);
-        buttonCtoD.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 140);
+        buttonCtoD.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-410);
 
         stage.addActor(buttonCtoS);
         stage.addActor(buttonCtoB);
@@ -483,25 +535,25 @@ public class GameScreen extends AbstractGameScreen {
             }
         });
 
-        buttonBtoS = new TextButton("link to solarcell", skin);
+        buttonBtoS = new TextButton("link to solarcell", buttonStyle);
         buttonBtoS.setWidth(btn_w);
         buttonBtoS.setHeight(btn_h);
-        buttonBtoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 350);
+        buttonBtoS.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-200);
 
-        buttonBtoC = new TextButton("link to charge controler", skin);
+        buttonBtoC = new TextButton("link to charge controler", buttonStyle);
         buttonBtoC.setWidth(btn_w);
         buttonBtoC.setHeight(btn_h);
-        buttonBtoC.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 280);
+        buttonBtoC.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-270);
 
-        buttonBtoI = new TextButton("link to inverter", skin);
+        buttonBtoI = new TextButton("link to inverter", buttonStyle);
         buttonBtoI.setWidth(btn_w);
         buttonBtoI.setHeight(btn_h);
-        buttonBtoI.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 210);
+        buttonBtoI.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-340);
 
-        buttonBtoD = new TextButton("link to door", skin);
+        buttonBtoD = new TextButton("link to door", buttonStyle);
         buttonBtoD.setWidth(btn_w);
         buttonBtoD.setHeight(btn_h);
-        buttonBtoD.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 140);
+        buttonBtoD.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-410);
 
         stage.addActor(buttonBtoS);
         stage.addActor(buttonBtoC);
@@ -664,11 +716,15 @@ public class GameScreen extends AbstractGameScreen {
             findItem(Door.class).state = Item.ItemState.ON;
             findItem(Door.class).resetAnimation();
             animation_status = true;
+            chartWindow.setPosition(
+                    Gdx.graphics.getWidth() / 2 -  chartWindow.getWidth() / 2,
+                    Gdx.graphics.getHeight() / 2 -  chartWindow.getHeight() / 2);
+            chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             worldController.level.energyTube.energy += 100;
         }
 
         if((findItem(Door.class).state == Item.ItemState.ON)&&(player.status_door==true)){
-            game.setScreen(new GameScreen(game, optionsWindow));
+            game.setScreen(new GameScreen2(game, optionsWindow));
         }
 
         for(int i = 0; i < worldController.level.enemies.size(); i++){
