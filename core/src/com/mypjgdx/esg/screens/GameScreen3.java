@@ -19,8 +19,8 @@ import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
-import com.mypjgdx.esg.game.levels.Level1Generator;
 import com.mypjgdx.esg.game.levels.Level3;
+import com.mypjgdx.esg.game.levels.Level3Generator;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.*;
@@ -618,7 +618,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
     @Override
     public void show() {
-        worldController = new WorldController(new Level3(new Level1Generator()));
+        worldController = new WorldController(new Level3(new Level3Generator()));
         worldRenderer = new WorldRenderer(worldController);
         Gdx.input.setInputProcessor(stage);
 
