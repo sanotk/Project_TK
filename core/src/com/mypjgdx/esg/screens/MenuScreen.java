@@ -34,7 +34,7 @@ public class MenuScreen extends AbstractGameScreen {
     private TextButton buttonExit;
     private BitmapFont font;
 
-    private Window window;
+    private Window optionsWindow;
 
     public MenuScreen(final Game game) {
         super(game);
@@ -77,21 +77,20 @@ public class MenuScreen extends AbstractGameScreen {
         buttonExit.setHeight(btn_h);
         buttonExit.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 140);
 
-        window = createOptionsWindow();
-        window.setVisible(false);
-//        window.debug();
+        optionsWindow = createOptionsWindow();
+        optionsWindow.setVisible(false);
 
         stage.addActor(text_mainmenu);
         stage.addActor(buttonStart);
         stage.addActor(buttonLoad);
         stage.addActor(buttonOption);
         stage.addActor(buttonExit);
-        stage.addActor(window);
+        stage.addActor(optionsWindow);
 
         buttonStart.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new GameScreen(game, optionsWindow));
             }
         });
 
@@ -105,10 +104,10 @@ public class MenuScreen extends AbstractGameScreen {
         buttonOption.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                window.setPosition(
-                        Gdx.graphics.getWidth() / 2 - window.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - window.getHeight() / 2);
-                window.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                optionsWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - optionsWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - optionsWindow.getHeight() / 2);
+                optionsWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
 
@@ -124,7 +123,6 @@ public class MenuScreen extends AbstractGameScreen {
     private Window createOptionsWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 
