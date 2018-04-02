@@ -136,22 +136,6 @@ public class MenuScreen extends AbstractGameScreen {
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.BLACK;
-
-        Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
-        sliderStyle.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("slider_back_hor"));
-        TextureRegionDrawable knobRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("knob_03"));
-        sliderStyle.knob = knobRegion;
-        sliderStyle.knobDown = knobRegion.tint(Color.LIGHT_GRAY);
-
-        final Slider musicSlider = new Slider(0, 1, 0.01f, false, sliderStyle);
-        musicSlider.setValue(0.5f);
-
-        final Slider soundSlider = new Slider(0, 1, 0.01f, false, sliderStyle);
-        soundSlider.setValue(0.5f);
-
         Button.ButtonStyle buttonCrossStyle = new Button.ButtonStyle();
         TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
         buttonCrossStyle.up = buttonRegion;

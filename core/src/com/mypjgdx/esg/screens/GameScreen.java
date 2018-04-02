@@ -13,7 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
@@ -112,6 +114,9 @@ public class GameScreen extends AbstractGameScreen {
 
     private boolean animation_status = false;
 
+    private Button buttonRule;
+    private Window ruleWindow;
+
     public GameScreen(Game game ,final Window optionsWindow) {
         super(game);
 
@@ -123,17 +128,36 @@ public class GameScreen extends AbstractGameScreen {
 
         this.optionsWindow = optionsWindow;
 
-        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+        TextButton.TextButtonStyle buttonToolStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
-        buttonStyle.up = toolUp;
-        buttonStyle.down = toolUp.tint(Color.LIGHT_GRAY);
-        buttonOption = new Button(buttonStyle);
+        buttonToolStyle.up = toolUp;
+        buttonToolStyle.down = toolUp.tint(Color.LIGHT_GRAY);
+        buttonOption = new Button(buttonToolStyle);
         buttonOption.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 50);
+
+        TextButton.TextButtonStyle buttonRuleStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable ruleUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
+        buttonRuleStyle.up = ruleUp;
+        buttonRuleStyle.down = toolUp.tint(Color.LIGHT_GRAY);
+        buttonRule = new Button(buttonRuleStyle);
+        buttonRule.setPosition(SCENE_WIDTH - 100, SCENE_HEIGHT - 50);
+
+        ruleWindow = createRuleWindow();
+        ruleWindow.setPosition(
+                Gdx.graphics.getWidth() / 2 -  ruleWindow.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 -  ruleWindow.getHeight() / 2);
+        ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+        //ruleWindow.setVisible(true);
+
+
 
         optionsWindow.setVisible(false);
 
         stage.addActor(buttonOption);
+        stage.addActor(buttonRule);
+
         stage.addActor(optionsWindow);
+        stage.addActor(ruleWindow);
 
         buttonOption.addListener(new ClickListener() {
             @Override
@@ -145,10 +169,60 @@ public class GameScreen extends AbstractGameScreen {
             }
         });
 
+        buttonRule.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ruleWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 -  ruleWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 -  ruleWindow.getHeight() / 2);
+                ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            }
+        });
+
         createbutton();
         batch = new SpriteBatch();
     }
 
+    private Window createRuleWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
+//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.BLACK;
+
+        Button.ButtonStyle buttonCrossStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonCrossStyle.up = buttonRegion;
+        buttonCrossStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+
+        Button closeButton = new Button(buttonCrossStyle);
+
+        final Window loadWindow = new Window("Rule", style);
+        loadWindow.setModal(true);
+        loadWindow.padTop(40);
+        loadWindow.padLeft(40);
+        loadWindow.padRight(40);
+        loadWindow.padBottom(20);
+        loadWindow.getTitleLabel().setAlignment(Align.center);
+        loadWindow.row().padBottom(10).padTop(10);
+        loadWindow.row().padTop(10);
+        loadWindow.add(closeButton).colspan(3);
+        loadWindow.pack();
+
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                loadWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+            }
+        });
+
+
+        return loadWindow;
+    }
 
     public  void createbutton() {
 
