@@ -147,47 +147,11 @@ public class GameScreen extends AbstractGameScreen {
                 Gdx.graphics.getHeight() / 2 -  ruleWindow.getHeight() / 2);
         ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
 
-        solarcellWindow = createRuleWindow();
-        solarcellWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 -  solarcellWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 -  solarcellWindow.getHeight() / 2);
-        solarcellWindow.addAction(Actions.sequence(Actions.visible(false), Actions.fadeIn(0.2f)));
-
-        chargeWindow = createRuleWindow();
-        chargeWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 -  chargeWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 -  chargeWindow.getHeight() / 2);
-        chargeWindow.addAction(Actions.sequence(Actions.visible(false), Actions.fadeIn(0.2f)));
-
-        batteryWindow = createRuleWindow();
-        batteryWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 -  batteryWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 -  batteryWindow.getHeight() / 2);
-        batteryWindow.addAction(Actions.sequence(Actions.visible(false), Actions.fadeIn(0.2f)));
-
-        inverterWindow = createRuleWindow();
-        inverterWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 -  inverterWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 -  inverterWindow.getHeight() / 2);
-        inverterWindow.addAction(Actions.sequence(Actions.visible(false), Actions.fadeIn(0.2f)));
-
         chartWindow =createChartWindow();
         chartWindow.setVisible(false);
 
-        solarcellWindow =createChartWindow();
+        solarcellWindow =createSolarcellWindow();
         solarcellWindow.setVisible(false);
-
-        chargeWindow =createChartWindow();
-        chargeWindow.setVisible(false);
-
-        batteryWindow =createChartWindow();
-        batteryWindow.setVisible(false);
-
-        inverterWindow =createChartWindow();
-        inverterWindow.setVisible(false);
-
-
-
 
         optionsWindow.setVisible(false);
 
@@ -197,6 +161,7 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(optionsWindow);
         stage.addActor(ruleWindow);
         stage.addActor(chartWindow);
+        stage.addActor(solarcellWindow);
 
         buttonOption.addListener(new ClickListener() {
             @Override
@@ -223,6 +188,46 @@ public class GameScreen extends AbstractGameScreen {
         batch = new SpriteBatch();
     }
 
+    private Window createChartWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
+//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.BLACK;
+
+        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonChartStyle.up = buttonRegion;
+        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+
+        Button closeButton = new Button(buttonChartStyle);
+
+        final Window chartWindow = new Window("Chart", style);
+        chartWindow.setModal(true);
+        chartWindow.padTop(40);
+        chartWindow.padLeft(40);
+        chartWindow.padRight(40);
+        chartWindow.padBottom(20);
+        chartWindow.getTitleLabel().setAlignment(Align.center);
+        chartWindow.row().padBottom(10).padTop(10);
+        chartWindow.row().padTop(10);
+        chartWindow.add(closeButton).colspan(3);
+        chartWindow.pack();
+
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                chartWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+            }
+        });
+
+        return chartWindow;
+    }
+
     private Window createSolarcellWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
@@ -234,36 +239,98 @@ public class GameScreen extends AbstractGameScreen {
         labelStyle.font = font;
         labelStyle.fontColor = Color.BLACK;
 
-        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
+        Button.ButtonStyle buttonSolarStyle = new Button.ButtonStyle();
         TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonChartStyle.up = buttonRegion;
-        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+        buttonSolarStyle.up = buttonRegion;
+        buttonSolarStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
-        Button closeButton = new Button(buttonChartStyle);
+        Button closeButton = new Button(buttonSolarStyle);
 
-        final Window chartWindow = new Window("Chart", style);
-        chartWindow.setModal(true);
-        chartWindow.padTop(40);
-        chartWindow.padLeft(40);
-        chartWindow.padRight(40);
-        chartWindow.padBottom(20);
-        chartWindow.getTitleLabel().setAlignment(Align.center);
-        chartWindow.row().padBottom(10).padTop(10);
-        chartWindow.row().padTop(10);
-        chartWindow.add(closeButton).colspan(3);
-        chartWindow.pack();
+        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+        buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
+        buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
+        buttonStyle.font = font;
+
+        buttonStoC = new TextButton("link to charge controler", buttonStyle);
+        buttonStoB = new TextButton("link to battery", buttonStyle);
+        buttonStoI = new TextButton("link to inverter", buttonStyle);
+        buttonStoD = new TextButton("link to door", buttonStyle);
+
+        final Window solarcellWindow = new Window("Choice", style);
+        solarcellWindow.setModal(true);
+        solarcellWindow.padTop(40);
+        solarcellWindow.padLeft(40);
+        solarcellWindow.padRight(40);
+        solarcellWindow.padBottom(20);
+        solarcellWindow.getTitleLabel().setAlignment(Align.center);
+        solarcellWindow.row().padBottom(10).padTop(10);
+        solarcellWindow.add(buttonStoC);
+        solarcellWindow.row().padRight(20);
+        solarcellWindow.add(buttonStoB);
+        solarcellWindow.row().padTop(10);
+        solarcellWindow.add(buttonStoI);
+        solarcellWindow.row().padRight(20);
+        solarcellWindow.add(buttonStoD);
+        solarcellWindow.row().padTop(10);
+        solarcellWindow.add(closeButton).colspan(2);
+        solarcellWindow.pack();
+
+        buttonStoC.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                solarState = solarState.StoC;
+                addLink(solarState);
+                checkGameComplete();
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
+            }
+        });
+
+        buttonStoB.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                solarState = solarState.StoB;
+                addLink(solarState);
+                checkGameComplete();
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
+            }
+        });
+
+        buttonStoI.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                solarState = solarState.StoI;
+                addLink(solarState);
+                checkGameComplete();
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
+            }
+        });
+
+        buttonStoD.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                solarState = solarState.StoD;
+                addLink(solarState);
+                checkGameComplete();
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
+            }
+        });
 
         closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                chartWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                worldController.level.player.status_find = false;
             }
         });
 
-        return chartWindow;
+        return solarcellWindow;
     }
 
-    private Window createChartWindow() {
+    private Window createChargeWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
@@ -303,7 +370,7 @@ public class GameScreen extends AbstractGameScreen {
         return chartWindow;
     }
 
-    private Window createChartWindow() {
+    private Window createBatteryWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
@@ -343,7 +410,7 @@ public class GameScreen extends AbstractGameScreen {
         return chartWindow;
     }
 
-    private Window createChartWindow() {
+    private Window createInverterWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
@@ -433,6 +500,9 @@ public class GameScreen extends AbstractGameScreen {
         buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
         buttonStyle.font = font;
 
+        int btn_w = 200;
+        int btn_h = 50;
+
         textBullet = new Label("Bullet Max : " ,skin);
         textBullet.setColor(1, 1, 1, 1);
         textBullet.setFontScale(1f,1f);
@@ -476,83 +546,6 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(energyLevel);
         stage.addActor(energyLevel2);
         stage.addActor(energyLevel3);
-
-        int btn_w = 200;
-        int btn_h = 50;
-
-        buttonStoC = new TextButton("link to charge controler", buttonStyle);
-        buttonStoC.setWidth(btn_w);
-        buttonStoC.setHeight(btn_h);
-        buttonStoC.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-200);
-
-        buttonStoB = new TextButton("link to battery", buttonStyle);
-        buttonStoB.setWidth(btn_w);
-        buttonStoB.setHeight(btn_h);
-        buttonStoB.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-270);
-
-        buttonStoI = new TextButton("link to inverter", buttonStyle);
-        buttonStoI.setWidth(btn_w);
-        buttonStoI.setHeight(btn_h);
-        buttonStoI.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-340);
-
-        buttonStoD = new TextButton("link to door", buttonStyle);
-        buttonStoD.setWidth(btn_w);
-        buttonStoD.setHeight(btn_h);
-        buttonStoD.setPosition(SCENE_WIDTH / 2 - btn_w / 2, SCENE_HEIGHT-410);
-
-        stage.addActor(buttonStoC);
-        stage.addActor(buttonStoB);
-        stage.addActor(buttonStoI);
-        stage.addActor(buttonStoD);
-
-        buttonStoC.setVisible(false);
-        buttonStoB.setVisible(false);
-        buttonStoI.setVisible(false);
-        buttonStoD.setVisible(false);
-
-        buttonStoC.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                solarState = solarcellState.StoC;
-                addLink(solarState);
-                checkGameComplete();
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonStoB.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                solarState = solarcellState.StoB;
-                addLink(solarState);
-                checkGameComplete();
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonStoI.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                solarState = solarcellState.StoI;
-                addLink(solarState);
-                checkGameComplete();
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonStoD.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                solarState = solarcellState.StoD;
-                addLink(solarState);
-                checkGameComplete();
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
 
         buttonCtoS = new TextButton("link to solarcell", buttonStyle);
         buttonCtoS.setWidth(btn_w);
@@ -873,15 +866,10 @@ public class GameScreen extends AbstractGameScreen {
 
 
         if((worldController.level.player.status_solarcell==true)&&(worldController.level.player.status_find == true)){
-            buttonStoC.setVisible(true);
-            buttonStoB.setVisible(true);
-            buttonStoI.setVisible(true);
-            buttonStoD.setVisible(true);
-        }else{
-            buttonStoC.setVisible(false);
-            buttonStoB.setVisible(false);
-            buttonStoI.setVisible(false);
-            buttonStoD.setVisible(false);
+            solarcellWindow.setPosition(
+                    Gdx.graphics.getWidth() / 2 -  solarcellWindow.getWidth() / 2,
+                    Gdx.graphics.getHeight() / 2 -  solarcellWindow.getHeight() / 2);
+            solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
         }
 
         if((worldController.level.player.status_ccontroller==true)&&(worldController.level.player.status_find == true)){
