@@ -280,54 +280,6 @@ public class GameScreen extends AbstractGameScreen {
         solarcellWindow.add(closeButton).colspan(2);
         solarcellWindow.pack();
 
-        buttonLink1.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                solarState = solarState.StoC;
-                addLink(solarState);
-                //hideButton (solarState);
-                checkGameComplete();
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonLink2.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                solarState = solarState.StoB;
-                addLink(solarState);
-                //hideButton (solarState);
-                checkGameComplete();
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonLink3.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                solarState = solarState.StoI;
-                addLink(solarState);
-                //hideButton (solarState);
-                checkGameComplete();
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        buttonLink4.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                solarState = solarState.StoD;
-                addLink(solarState);
-                //hideButton (solarState);
-                checkGameComplete();
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
         closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -632,6 +584,7 @@ public class GameScreen extends AbstractGameScreen {
                 worldController.level.player.status_windows_link = false;
             }
         });
+        solarcellWindow.pack();
     }
 
     private void checkAddedLink(solarcellState solarState) {
