@@ -334,7 +334,7 @@ public class GameScreen extends AbstractGameScreen {
         return ruleWindow;
     }
 
-    public void createbutton() {
+    private void createbutton() {
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
@@ -777,7 +777,6 @@ public class GameScreen extends AbstractGameScreen {
     @Override
     public void pause() {
     }
-
 
     private Item findItem(Class clazz) {
         for (int i = 0; i < worldController.level.items.size(); i++) {
