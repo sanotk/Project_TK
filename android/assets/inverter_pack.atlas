@@ -2,7 +2,7 @@
 inverter_pack.png
 size: 256,64
 format: RGBA8888
-filter: Linear,Nearest
+filter: Linear,MipMapLinearNearest
 repeat: none
 in_off
   rotate: false

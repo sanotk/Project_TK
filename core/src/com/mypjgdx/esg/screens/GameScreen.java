@@ -52,10 +52,6 @@ public class GameScreen extends AbstractGameScreen {
     private Label energyLevel3;
     private Label textRule;
 
-    public boolean status_finish = false;
-    //private Label sunleft;
-    //private Label sunright
-
     public enum solarcellState {
         StoC,
         StoB,

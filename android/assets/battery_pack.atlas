@@ -2,11 +2,11 @@
 battery_pack.png
 size: 256,64
 format: RGBA8888
-filter: Linear,Nearest
+filter: Linear,MipMapLinearNearest
 repeat: none
 batt_off
   rotate: false
-  xy: 106, 2
+  xy: 158, 2
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
@@ -17,18 +17,18 @@ batt_on
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
-  index: 2
+  index: 1
 batt_on
   rotate: false
   xy: 54, 2
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
-  index: 3
+  index: 2
 batt_on
   rotate: false
-  xy: 158, 2
+  xy: 106, 2
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
-  index: 1
+  index: 3

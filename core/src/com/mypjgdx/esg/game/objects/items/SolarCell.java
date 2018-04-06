@@ -7,7 +7,7 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 public class SolarCell extends Item{
 
     public static final float SCALE = 1f;
-    public static final float P_X = 1550;
+    public static final float P_X = 1500;
     public static final float P_Y = 1100f;
 
 	public SolarCell(TiledMapTileLayer mapLayer, Player player){
