@@ -48,10 +48,10 @@ public class Node {
     }
 
     public float getPositionX() {
-        return x * map.getMapLayer().getWidth();
+        return x * map.getMapLayer().getTileWidth();
     }
 
     public float getPositionY() {
-        return y * map.getMapLayer().getHeight();
+        return y * map.getMapLayer().getTileHeight();
     }
 }
