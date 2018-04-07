@@ -1,6 +1,5 @@
 package com.mypjgdx.esg.game.objects.characters;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
@@ -247,34 +246,29 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         startNode = gameMap.getNode(startX, startY);
         endNode =gameMap.getNode(goalX, goalY);
 
-         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
+        pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
+        pathOutput.reverse();
 
-        String text = "";
-        for (int i = 0; i < pathOutput.getCount(); i++) {
-            text += pathOutput.get(i).getPositionY() + ", ";
+        if (pathOutput.getCount() > 0) {
+            Node node = pathOutput.get(0);
+
+            float xdiff = node.getPositionX() - bounds.x - bounds.width / 2;
+            float ydiff = node.getPositionY() - bounds.y - bounds.height / 2;
+
+            final float minMovingDistance = movingSpeed / 8;
+
+            if (ydiff > minMovingDistance) {
+                move(Direction.UP);
+            } else if (ydiff < -minMovingDistance) {
+                move(Direction.DOWN);
+            }
+
+            if (xdiff > minMovingDistance) {
+                move(Direction.RIGHT);
+            } else if (xdiff < -minMovingDistance) {
+                move(Direction.LEFT);
+            }
         }
-        Gdx.app.log("pathOutput", "" + text);
-
-//        if (pathOutput.getCount() > 0) {
-//            Node node = pathOutput.get(0);
-//
-//            float xdiff = node.getPositionX() - bounds.x - bounds.width / 2;
-//            float ydiff = node.getPositionY() - bounds.y - bounds.height / 2;
-//
-//            final float minMovingDistance = movingSpeed / 8;
-//
-//            if (ydiff > minMovingDistance) {
-//                move(Direction.UP);
-//            } else if (ydiff < -minMovingDistance) {
-//                move(Direction.DOWN);
-//            }
-//
-//            if (xdiff > minMovingDistance) {
-//                move(Direction.RIGHT);
-//            } else if (xdiff < -minMovingDistance) {
-//                move(Direction.LEFT);
-//            }
-//        }
     }
 
     public void showHp(ShapeRenderer shapeRenderer) {
