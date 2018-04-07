@@ -641,7 +641,7 @@ public class GameScreen extends AbstractGameScreen {
                         System.out.println(trueLink);
                     }
                 }
-                //if(i>trueLink) System.out.print(link.get(i-1) + "เป็นการเชื่อมต่อที่ไม่ถูกต้อง");
+                //if(x>trueLink) System.out.print(link.get(x-1) + "เป็นการเชื่อมต่อที่ไม่ถูกต้อง");
             }
         }
     }

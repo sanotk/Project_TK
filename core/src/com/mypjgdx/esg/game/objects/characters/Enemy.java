@@ -1,13 +1,20 @@
 package com.mypjgdx.esg.game.objects.characters;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
+import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
+import com.badlogic.gdx.ai.pfa.GraphPath;
+import com.badlogic.gdx.ai.pfa.Heuristic;
+import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
+import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.SoundManager;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Enemy.EnemyAnimation;
@@ -15,14 +22,14 @@ import com.mypjgdx.esg.game.objects.weapons.EnemyBall;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.utils.Direction;
 import com.mypjgdx.esg.utils.Distance;
-import com.mypjgdx.esg.utils.Pathfinding;
-import com.mypjgdx.esg.utils.Pathfinding.Node;
+import com.mypjgdx.esg.utils.GameMap;
+import com.mypjgdx.esg.utils.Node;
 
 import java.util.List;
 
 public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Damageable {
 
-	// กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
+    // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 8.0f;
 
     private static final float INITIAL_FRICTION = 600f;
@@ -51,9 +58,10 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     public boolean count = false;
     private boolean knockback;
     private boolean stun;
-	private boolean attacktime;
-	private TiledMapTileLayer mapLayer;
-	abstract void TellMeByType();
+    private boolean attacktime;
+    private TiledMapTileLayer mapLayer;
+
+    abstract void TellMeByType();
 
     private long stunTime;
     private long lastStunTime;
@@ -62,7 +70,14 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     protected int maxHealth;
     protected float movingSpeed;
     private float findingRange;
-    private Pathfinding pathFinding;
+    private IndexedAStarPathFinder<Node> pathFinder;
+    private GameMap gameMap;
+
+    private DefaultStateMachine<Enemy, EnemyState> stateMachine;
+    private Color color = Color.WHITE;
+
+    private Node startNode;
+    private Node endNode;
 
     public Enemy(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer) {
         super(atlas);
@@ -76,28 +91,32 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
 
         scale.set(scaleX, scaleY);
+
+        stateMachine = new DefaultStateMachine<Enemy, EnemyState>(this);
     }
 
-	public void init(TiledMapTileLayer mapLayer) {
+    public void init(TiledMapTileLayer mapLayer) {
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
-        pathFinding = new Pathfinding(mapLayer);
+        gameMap = new GameMap(mapLayer);
+        pathFinder = new IndexedAStarPathFinder<Node>(gameMap);
 
         this.mapLayer = mapLayer;
 
         setCurrentAnimation(EnemyAnimation.WALK_DOWN);
         viewDirection = Direction.DOWN;
 
-        health =  maxHealth;
+        health = maxHealth;
         dead = false;
-    	knockback= false;
-    	stun = false;
-    	attacktime = false;
-    	TellMeByType();
+        knockback = false;
+        stun = false;
+        attacktime = false;
+        TellMeByType();
         randomPosition(mapLayer);
+        stateMachine.setInitialState(EnemyState.WANDER);
     }
 
-    public void rangeAttack(List<Weapon> weapons){
-    	weapons.add(new EnemyBall(mapLayer, player, this));
+    public void rangeAttack(List<Weapon> weapons) {
+        weapons.add(new EnemyBall(mapLayer, player, this));
         SoundManager.instance.play(SoundManager.Sounds.ENEMY_BALL);
         resetAnimation();
     }
@@ -106,12 +125,20 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     protected void setAnimation() {
         unFreezeAnimation();
         switch (viewDirection) {
-        case DOWN:setCurrentAnimation(EnemyAnimation.WALK_DOWN); break;
-        case LEFT: setCurrentAnimation(EnemyAnimation.WALK_LEFT); break;
-        case RIGHT: setCurrentAnimation(EnemyAnimation.WALK_RIGHT); break;
-        case UP: setCurrentAnimation(EnemyAnimation.WALK_UP); break;
-        default:
-            break;
+            case DOWN:
+                setCurrentAnimation(EnemyAnimation.WALK_DOWN);
+                break;
+            case LEFT:
+                setCurrentAnimation(EnemyAnimation.WALK_LEFT);
+                break;
+            case RIGHT:
+                setCurrentAnimation(EnemyAnimation.WALK_RIGHT);
+                break;
+            case UP:
+                setCurrentAnimation(EnemyAnimation.WALK_UP);
+                break;
+            default:
+                break;
         }
         if (velocity.x == 0 && velocity.y == 0) {
             freezeAnimation();
@@ -127,34 +154,42 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         if (bounds.overlaps(player.bounds)) {
             attackPlayer();
         }
-        if(type == EnemyType.PEPO_DEVIL && attacktime==true){
-        	rangeAttack(weapons);
-        	attacktime=false;
+        if (type == EnemyType.PEPO_DEVIL && attacktime == true) {
+            rangeAttack(weapons);
+            attacktime = false;
         }
-        for(Weapon w: weapons) {
-        	if (bounds.overlaps(w.bounds) && !w.isDestroyed()) {
+        for (Weapon w : weapons) {
+            if (bounds.overlaps(w.bounds) && !w.isDestroyed()) {
                 w.attack(this);
-        	}
+            }
         }
 
-        if(!player.timeStop) {
-            runToPlayer(deltaTime);
+        if (!player.timeStop) {
+            stateMachine.update();
         }
     }
 
-    public boolean isAlive(){
-    	return !dead;
+    public boolean isAlive() {
+        return !dead;
     }
 
     public void move(Direction direction) {
         if (knockback || stun) return;
-        switch(direction) {
-        case LEFT:  velocity.x = -movingSpeed; break;
-        case RIGHT: velocity.x = movingSpeed; break;
-        case DOWN: velocity.y = -movingSpeed; break;
-        case UP: velocity.y = movingSpeed; break;
-        default:
-            break;
+        switch (direction) {
+            case LEFT:
+                velocity.x = -movingSpeed;
+                break;
+            case RIGHT:
+                velocity.x = movingSpeed;
+                break;
+            case DOWN:
+                velocity.y = -movingSpeed;
+                break;
+            case UP:
+                velocity.y = movingSpeed;
+                break;
+            default:
+                break;
         }
         viewDirection = direction;
         velocity.setLength(movingSpeed);
@@ -176,51 +211,74 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
 
     private void updateStatus() {
         if (knockback && velocity.isZero()) {
-            knockback =  false;
+            knockback = false;
         }
         if (stun && TimeUtils.nanoTime() - lastStunTime > stunTime)
             stun = false;
     }
 
-    private void runToPlayer(float deltaTime){
+    public boolean isPlayerInRange() {
+        final float startX = bounds.x + bounds.width / 2;
+        final float startY = bounds.y + bounds.height / 2;
+        final float goalX = player.bounds.x + player.bounds.width / 2;
+        final float goalY = player.bounds.y + player.bounds.height / 2;
+        final float xDiff = startX - goalX;
+        final float yDiff = startY - goalY;
+        final double distance = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
 
-        final float startX = bounds.x + bounds.width/2;
-        final float startY =  bounds.y + bounds.height/2;
-        final float goalX =  player.bounds.x + player.bounds.width/2;
-        final float goalY =  player.bounds.y + player.bounds.height/2;
-        final float xDiff = startX-goalX;
-        final float yDiff = startY-goalY;
-        final double distance = Math.sqrt(xDiff*xDiff + yDiff*yDiff);
-        if (distance > findingRange) return;
-
-        Array<Node> list = pathFinding.findPath(startX, startY, goalX, goalY);
-
-        if (list.size > 0) {
-            Node n = list.get(0);
-
-            float xdiff = n.getPositionX() - bounds.x - bounds.width/2;
-            float ydiff = n.getPositionY()- bounds.y - bounds.height/2;
-
-            final float minMovingDistance = movingSpeed/8;
-
-            if (ydiff >  minMovingDistance) {
-                move(Direction.UP);
-            }
-            else if (ydiff < -minMovingDistance) {
-                move(Direction.DOWN);
-            }
-
-            if (xdiff > minMovingDistance)  {
-                move(Direction.RIGHT);
-            }
-            else if (xdiff < -minMovingDistance) {
-                move(Direction.LEFT);
-            }
-        }
+        return distance <= findingRange;
     }
 
-    public void showHp(ShapeRenderer shapeRenderer){
-        if(health!=maxHealth) {
+    public void runToPlayer() {
+        final float startX = bounds.x + bounds.width / 2;
+        final float startY = bounds.y + bounds.height / 2;
+        final float goalX = player.bounds.x + player.bounds.width / 2;
+        final float goalY = player.bounds.y + player.bounds.height / 2;
+
+        GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
+        Heuristic<Node> heuristic = new Heuristic<Node>() {
+            @Override
+            public float estimate(Node node, Node endNode) {
+                return 1;
+            }
+        };
+
+        gameMap.updateNeibors(); //TODO
+        startNode = gameMap.getNode(startX, startY);
+        endNode =gameMap.getNode(goalX, goalY);
+
+         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
+
+        String text = "";
+        for (int i = 0; i < pathOutput.getCount(); i++) {
+            text += pathOutput.get(i).getPositionY() + ", ";
+        }
+        Gdx.app.log("pathOutput", "" + text);
+
+//        if (pathOutput.getCount() > 0) {
+//            Node node = pathOutput.get(0);
+//
+//            float xdiff = node.getPositionX() - bounds.x - bounds.width / 2;
+//            float ydiff = node.getPositionY() - bounds.y - bounds.height / 2;
+//
+//            final float minMovingDistance = movingSpeed / 8;
+//
+//            if (ydiff > minMovingDistance) {
+//                move(Direction.UP);
+//            } else if (ydiff < -minMovingDistance) {
+//                move(Direction.DOWN);
+//            }
+//
+//            if (xdiff > minMovingDistance) {
+//                move(Direction.RIGHT);
+//            } else if (xdiff < -minMovingDistance) {
+//                move(Direction.LEFT);
+//            }
+//        }
+    }
+
+    public void showHp(ShapeRenderer shapeRenderer) {
+        if (health != maxHealth) {
             shapeRenderer.setColor(Color.BLACK);
             shapeRenderer.rect(getPositionX(), getPositionY() - 10, bounds.width, 5);
             shapeRenderer.setColor(Color.RED);
@@ -230,14 +288,31 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         }
     }
 
+    @Override
+    public void render(SpriteBatch batch) {
+        Color oldColor = batch.getColor();
+        batch.setColor(color);
+        super.render(batch);
+        batch.setColor(oldColor);
+
+        if (startNode != null && endNode != null) {
+            batch.draw(Assets.instance.bullet, startNode.getPositionX(), startNode.getPositionY());
+            batch.draw(Assets.instance.enemyBall, endNode.getPositionX(), endNode.getPositionY());
+        }
+    }
+
+    public void die() {
+        color = Color.GRAY;
+    }
+
     private void randomPosition(TiledMapTileLayer mapLayer) {
         updateBounds();
 
-        float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
-        float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
+        float mapWidth = mapLayer.getTileWidth() * mapLayer.getWidth();
+        float mapHeight = mapLayer.getTileHeight() * mapLayer.getHeight();
 
         final float MIN_DISTANCE = 200;
-        do{
+        do {
             setPosition(
                     MathUtils.random(MIN_DISTANCE, mapWidth - bounds.width),
                     MathUtils.random(MIN_DISTANCE, mapHeight - bounds.height));
@@ -249,10 +324,11 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     }
 
     @Override
-    public boolean takeDamage (float damage, float knockbackSpeed, float knockbackAngle) {
+    public boolean takeDamage(float damage, float knockbackSpeed, float knockbackAngle) {
         health -= damage;
         if (health <= 0) {
-            dead = true;
+//            dead = true;
+            stateMachine.changeState(EnemyState.DIE);
             return true;
         }
         takeKnockback(knockbackSpeed, knockbackAngle);
@@ -265,14 +341,17 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     }
 
     public void attackPlayer() {
-        float ydiff = player.bounds.y + player.bounds.height/2 -bounds.y - bounds.height/2 ;
-        float xdiff = player.bounds.x + player.bounds.width/2 - bounds.x - bounds.width/2;
-        float angle = MathUtils.atan2(ydiff, xdiff) * MathUtils.radiansToDegrees ;
+        float ydiff = player.bounds.y + player.bounds.height / 2 - bounds.y - bounds.height / 2;
+        float xdiff = player.bounds.x + player.bounds.width / 2 - bounds.x - bounds.width / 2;
+        float angle = MathUtils.atan2(ydiff, xdiff) * MathUtils.radiansToDegrees;
         float knockbackSpeed = 130 + movingSpeed * 1.2f;
 
         if (player.takeDamage(1, knockbackSpeed, angle)) {
-            takeKnockback(100,  angle + 180);
+            takeKnockback(100, angle + 180);
         }
     }
 
+    public DefaultStateMachine getStateMachine() {
+        return stateMachine;
+    }
 }
