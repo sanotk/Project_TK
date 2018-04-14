@@ -11,6 +11,7 @@ import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.etcs.Etc;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemLink {
 
@@ -25,7 +26,7 @@ public class ItemLink {
 
     private float startX,startY,goalX,goalY;
 
-    public ItemLink(TiledMapTileLayer mapLayer, float startX, float startY, float goalX , float goalY , Etc link) {
+    public ItemLink(TiledMapTileLayer mapLayer, float startX, float startY, float goalX , float goalY , List<Etc> etcList) {
 
         this.startX = startX;
         this.startY = startY;

@@ -599,7 +599,7 @@ public class GameScreen extends AbstractGameScreen {
             startY = findItem(SolarCell.class).p_y;
             goalX = findItem(Charge.class).p_x;
             goalY = findItem(Charge.class).p_y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,goalX,goalY);
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,goalX,goalY,worldController.level.etcs);
             itemLinks.add(itemLink);
         } else if (solarState == solarcellState.StoB) {
             addedStoB = true;

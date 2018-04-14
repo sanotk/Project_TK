@@ -103,7 +103,7 @@ public abstract class Level{
 
         player.update(deltaTime ,weapons);
 
-
+        for(Etc etc: etcs) etc.update(deltaTime);
         for(Item i: items) i.update(deltaTime);
         for(Enemy e: enemies) e.update(deltaTime, weapons);
         for(Weapon w: weapons) w.update(deltaTime);
