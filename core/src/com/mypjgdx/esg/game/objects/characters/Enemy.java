@@ -318,12 +318,12 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
 
     @Override
     public boolean takeDamage(float damage, float knockbackSpeed, float knockbackAngle) {
-        health -= damage;
         if (health <= 0) {
 //            dead = true;
             stateMachine.changeState(EnemyState.DIE);
             return true;
         }
+        health -= damage;
         takeKnockback(knockbackSpeed, knockbackAngle);
         return true;
     }

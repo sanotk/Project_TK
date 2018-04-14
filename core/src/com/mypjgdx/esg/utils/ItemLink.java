@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.etcs.Etc;
+import com.mypjgdx.esg.game.objects.etcs.Link;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,8 @@ public class ItemLink {
     public ArrayList<Node> nodes = new ArrayList<Node>();
 
     private float startX,startY,goalX,goalY;
+
+    private Direction direction;
 
     public ItemLink(TiledMapTileLayer mapLayer, float startX, float startY, float goalX , float goalY , List<Etc> etcList) {
 
@@ -49,11 +52,23 @@ public class ItemLink {
         endNode =gameMap.getNode(goalX, goalY);
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
-        pathOutput.reverse();
+        //pathOutput.reverse();
 
         for (int i = 0; i< pathOutput.getCount(); i++) {
             nodes.add(pathOutput.get(i));
             System.out.print(nodes.get(i));
+            if(nodes.get(i).getPositionY() < endNode.getPositionY()) direction = Direction.UP;
+            else if(nodes.get(i).getPositionY() > endNode.getPositionY()) direction = Direction.DOWN;
+            else if(nodes.get(i).getPositionX() < endNode.getPositionX()) direction = Direction.RIGHT;
+            else if(nodes.get(i).getPositionX() > endNode.getPositionX()) direction = Direction.LEFT;
+            System.out.print(nodes.get(i).getPositionX());
+            System.out.print(nodes.get(i).getPositionY());
+            System.out.print(startNode.getPositionX());
+            System.out.print(startNode.getPositionY());
+            System.out.print(endNode.getPositionX());
+            System.out.print(endNode.getPositionY());
+            System.out.print(direction);
+            etcList.add(new Link(mapLayer, nodes.get(i).getPositionX(),nodes.get(i).getPositionY(),direction));
         }
     }
 

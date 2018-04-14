@@ -33,13 +33,13 @@ public abstract class Etc extends AbstractGameObject {
         destroyed = false;
     }
 
-    public void init(TiledMapTileLayer mapLayer, float positionX, float positionY, int direction) {
+    public void init(TiledMapTileLayer mapLayer, float positionX, float positionY, Direction direction) {
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
         TellMeByType();
         spawn(positionX, positionY ,direction);
     }
 
-    protected abstract void spawn(float x, float y ,int d);
+    protected abstract void spawn(float positionX, float positionY ,Direction direction);
 
     @Override
     public void render(SpriteBatch batch) {
