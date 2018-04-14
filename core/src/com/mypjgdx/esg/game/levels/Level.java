@@ -38,7 +38,6 @@ public abstract class Level{
         etcs = new ArrayList<Etc>();
 
         energyTube = new EnergyTube(0);  // พลังงานเริ่มต้นมีค่า 100 วินาที
-        //energyTube.startDrainEnergy();
 
         init(levelGenerator);
     }

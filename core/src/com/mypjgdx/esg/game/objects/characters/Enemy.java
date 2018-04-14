@@ -35,7 +35,6 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     private static final float INITIAL_FINDING_RANGE = 400f;
 
     protected Player player;
-    public int ballCount;
 
     public enum EnemyAnimation {
         WALK_LEFT,

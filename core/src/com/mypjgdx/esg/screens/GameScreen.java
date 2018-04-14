@@ -26,6 +26,7 @@ import com.mypjgdx.esg.game.levels.Level1Generator;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.*;
+import com.mypjgdx.esg.utils.ItemLink;
 
 import java.util.ArrayList;
 
@@ -34,11 +35,13 @@ public class GameScreen extends AbstractGameScreen {
     private WorldController worldController;
     private WorldRenderer worldRenderer;
 
+    private ItemLink itemLink;
+
     SpriteBatch batch;
     public Texture bg;
 
     private Stage stage;
-    private Skin skin;
+    private Skin skin;;
 
     public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
     public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
@@ -77,6 +80,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private ArrayList<solarcellState> link = new ArrayList<solarcellState>();
     private ArrayList<solarcellState> isComplete = new ArrayList<solarcellState>();
+    private ArrayList<ItemLink> itemLinks = new ArrayList<ItemLink>();
 
     private TextButton buttonLink1;
     private TextButton buttonLink2;
@@ -105,6 +109,11 @@ public class GameScreen extends AbstractGameScreen {
     private boolean addedBtoI = false;
     private boolean addedBtoD = false;
     private boolean addedItoD = false;
+
+    private float startX;
+    private float startY;
+    private float goalX;
+    private float goalY;
 
     private int trueLink = 0;
 
@@ -586,6 +595,12 @@ public class GameScreen extends AbstractGameScreen {
     private void checkAddedLink(solarcellState solarState) {
         if (solarState == solarcellState.StoC) {
             addedStoC = true;
+            startX = findItem(SolarCell.class).p_x;
+            startY = findItem(SolarCell.class).p_y;
+            goalX = findItem(Charge.class).p_x;
+            goalY = findItem(Charge.class).p_y;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,goalX,goalY);
+            itemLinks.add(itemLink);
         } else if (solarState == solarcellState.StoB) {
             addedStoB = true;
         } else if (solarState == solarcellState.StoI) {
