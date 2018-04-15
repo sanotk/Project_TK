@@ -7,7 +7,7 @@ import com.mypjgdx.esg.utils.Direction;
 
 public class Link extends Etc {
 
-    private static final float SCALE = 1f;
+    private static final float SCALE = 2f;
 
     public Link(TiledMapTileLayer mapLayer, float positionX, float positionY, Direction direction) {
         super(Assets.instance.link, SCALE, SCALE);
