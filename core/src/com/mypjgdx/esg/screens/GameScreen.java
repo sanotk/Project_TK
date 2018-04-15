@@ -594,7 +594,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Charge.class).p_y;
             boundGoalX = findItem(Charge.class).bounds.x;
             boundGoalY = findItem(Charge.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartY,boundStartY,
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
                     goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.StoB) {
@@ -607,7 +607,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Battery.class).p_y;
             boundGoalX = findItem(Battery.class).bounds.x;
             boundGoalY = findItem(Battery.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartY,boundStartY,
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
                     goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.StoI) {
@@ -620,7 +620,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Inverter.class).p_y;
             boundGoalX = findItem(Inverter.class).bounds.x;
             boundGoalY = findItem(Inverter.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartY,boundStartY,
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
                     goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.StoD) {
@@ -633,7 +633,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Door.class).p_y;
             boundGoalX = findItem(Door.class).bounds.x;
             boundGoalY = findItem(Door.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartY,boundStartY,
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
                     goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.CtoB) {
@@ -646,7 +646,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Battery.class).p_y;
             boundGoalX = findItem(Battery.class).bounds.x;
             boundGoalY = findItem(Battery.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartY,boundStartY,
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
                     goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.CtoI) {
@@ -659,7 +659,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Inverter.class).p_y;
             boundGoalX = findItem(Inverter.class).bounds.x;
             boundGoalY = findItem(Inverter.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartY,boundStartY,
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
                     goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.CtoD) {
@@ -672,7 +672,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Door.class).p_y;
             boundGoalX = findItem(Door.class).bounds.x;
             boundGoalY = findItem(Door.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartY,boundStartY,
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
                     goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.BtoI) {
@@ -685,7 +685,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Inverter.class).p_y;
             boundGoalX = findItem(Inverter.class).bounds.x;
             boundGoalY = findItem(Inverter.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartY,boundStartY,
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
                     goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.BtoD) {
@@ -698,7 +698,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Door.class).p_y;
             boundGoalX = findItem(Door.class).bounds.x;
             boundGoalY = findItem(Door.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartY,boundStartY,
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
                     goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.ItoD) {
@@ -711,7 +711,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Door.class).p_y;
             boundGoalX = findItem(Door.class).bounds.x;
             boundGoalY = findItem(Door.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartY,boundStartY,
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
                     goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         }
