@@ -25,18 +25,23 @@ public class ItemLink {
 
     public ArrayList<Node> nodes = new ArrayList<Node>();
 
-    private float startX,startY,goalX,goalY;
+    public float startX,startY,goalX,goalY;
 
     public SolarState solarState = null;
 
     private Direction direction;
 
-    public ItemLink(TiledMapTileLayer mapLayer, float startX, float startY, float goalX, float goalY, List<Etc> etcList, SolarState solarState) {
+    public ItemLink(TiledMapTileLayer mapLayer, float startX, float startY, float boundStartX, float boundStartY, float goalX, float goalY, float boundGoalX, float boundGoalY, List<Etc> etcList, SolarState solarState) {
 
-        this.startX = startX;
-        this.startY = startY;
-        this.goalX = goalX;
-        this.goalY = goalY;
+        this.startX = startX + boundStartX/2;
+        this.startY = startY + boundStartY/2;
+        this.goalX = goalX + boundGoalX/2;
+        this.goalY = goalY + boundGoalY/2;
+
+        System.out.print(boundStartX);
+        System.out.print(boundStartY);
+
+
         this.solarState = solarState;
 
         gameMap = new GameMap(mapLayer);
@@ -64,13 +69,14 @@ public class ItemLink {
             else if(nodes.get(i).getPositionY() > endNode.getPositionY()) direction = Direction.LEFT;
             else if(nodes.get(i).getPositionX() < endNode.getPositionX()) direction = Direction.UP;
             else if(nodes.get(i).getPositionX() > endNode.getPositionX()) direction = Direction.DOWN;
-            System.out.print(nodes.get(i).getPositionX());
+            /*System.out.print(nodes.get(i).getPositionX());
             System.out.print(nodes.get(i).getPositionY());
             System.out.print(startNode.getPositionX());
             System.out.print(startNode.getPositionY());
             System.out.print(endNode.getPositionX());
             System.out.print(endNode.getPositionY());
             System.out.print(direction);
+            */
             etcList.add(new Link(mapLayer, nodes.get(i).getPositionX(),nodes.get(i).getPositionY(),direction));
         }
     }
