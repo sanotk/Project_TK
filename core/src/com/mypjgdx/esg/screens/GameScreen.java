@@ -27,6 +27,7 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.utils.ItemLink;
+import com.mypjgdx.esg.utils.SolarState;
 
 import java.util.ArrayList;
 
@@ -55,19 +56,6 @@ public class GameScreen extends AbstractGameScreen {
     private Label energyLevel3;
     private Label textRule;
 
-    public enum solarcellState {
-        StoC,
-        StoB,
-        StoI,
-        StoD,
-        CtoB,
-        CtoI,
-        CtoD,
-        BtoI,
-        BtoD,
-        ItoD
-    }
-
     public enum systemWindow {
         solarcell,
         chargecontroller,
@@ -75,11 +63,11 @@ public class GameScreen extends AbstractGameScreen {
         inverter
     }
 
-    public solarcellState solarState = null;
+    public SolarState solarState = null;
     public systemWindow solarWindow = null;
 
-    private ArrayList<solarcellState> link = new ArrayList<solarcellState>();
-    private ArrayList<solarcellState> isComplete = new ArrayList<solarcellState>();
+    private ArrayList<SolarState> link = new ArrayList<SolarState>();
+    private ArrayList<SolarState> isComplete = new ArrayList<SolarState>();
     private ArrayList<ItemLink> itemLinks = new ArrayList<ItemLink>();
 
     private TextButton buttonLink1;
@@ -394,7 +382,7 @@ public class GameScreen extends AbstractGameScreen {
 
     }
 
-    private void addLink(solarcellState solarState) {
+    private void addLink(SolarState solarState) {
         if (link.size() != 0) {
             for (int i = 0; i < link.size(); i++) {
                 if (link.get(i) == solarState) {
@@ -407,13 +395,12 @@ public class GameScreen extends AbstractGameScreen {
         link.add(solarState);
     }
 
-    private void deleteLink(solarcellState solarState) {
+    private void deleteLink(SolarState solarState) {
         if (link.size() != 0) {
             for (int i = 0; i < link.size(); i++) {
                 if (link.get(i) == solarState) {
                     System.out.print("ลบ" + link.get(i) + "แล้ว");
                     link.remove(solarState);
-
                 }
             }
         }
@@ -592,57 +579,161 @@ public class GameScreen extends AbstractGameScreen {
         solarcellWindow.pack();
     }
 
-    private void checkAddedLink(solarcellState solarState) {
-        if (solarState == solarcellState.StoC) {
+    private void checkAddedLink(SolarState solarState) {
+        if (solarState == SolarState.StoC) {
             addedStoC = true;
             startX = findItem(SolarCell.class).p_x;
             startY = findItem(SolarCell.class).p_y;
             goalX = findItem(Charge.class).p_x;
             goalY = findItem(Charge.class).p_y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,goalX,goalY,worldController.level.etcs);
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,goalX,goalY,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
-        } else if (solarState == solarcellState.StoB) {
+        } else if (solarState == SolarState.StoB) {
             addedStoB = true;
-        } else if (solarState == solarcellState.StoI) {
+            startX = findItem(SolarCell.class).p_x;
+            startY = findItem(SolarCell.class).p_y;
+            goalX = findItem(Battery.class).p_x;
+            goalY = findItem(Battery.class).p_y;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,goalX,goalY,worldController.level.etcs,solarState);
+            itemLinks.add(itemLink);
+        } else if (solarState == SolarState.StoI) {
             addedStoI = true;
-        } else if (solarState == solarcellState.StoD) {
+            startX = findItem(SolarCell.class).p_x;
+            startY = findItem(SolarCell.class).p_y;
+            goalX = findItem(Inverter.class).p_x;
+            goalY = findItem(Inverter.class).p_y;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,goalX,goalY,worldController.level.etcs,solarState);
+            itemLinks.add(itemLink);
+        } else if (solarState == SolarState.StoD) {
             addedStoD = true;
-        } else if (solarState == solarcellState.CtoB) {
+            startX = findItem(SolarCell.class).p_x;
+            startY = findItem(SolarCell.class).p_y;
+            goalX = findItem(Door.class).p_x;
+            goalY = findItem(Door.class).p_y;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,goalX,goalY,worldController.level.etcs,solarState);
+            itemLinks.add(itemLink);
+        } else if (solarState == SolarState.CtoB) {
             addedCtoB = true;
-        } else if (solarState == solarcellState.CtoI) {
+            startX = findItem(Charge.class).p_x;
+            startY = findItem(Charge.class).p_y;
+            goalX = findItem(Battery.class).p_x;
+            goalY = findItem(Battery.class).p_y;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,goalX,goalY,worldController.level.etcs,solarState);
+            itemLinks.add(itemLink);
+        } else if (solarState == SolarState.CtoI) {
             addedCtoI = true;
-        } else if (solarState == solarcellState.CtoD) {
+            startX = findItem(Charge.class).p_x;
+            startY = findItem(Charge.class).p_y;
+            goalX = findItem(Inverter.class).p_x;
+            goalY = findItem(Inverter.class).p_y;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,goalX,goalY,worldController.level.etcs,solarState);
+            itemLinks.add(itemLink);
+        } else if (solarState == SolarState.CtoD) {
             addedCtoD = true;
-        } else if (solarState == solarcellState.BtoI) {
+            startX = findItem(Charge.class).p_x;
+            startY = findItem(Charge.class).p_y;
+            goalX = findItem(Door.class).p_x;
+            goalY = findItem(Door.class).p_y;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,goalX,goalY,worldController.level.etcs,solarState);
+            itemLinks.add(itemLink);
+        } else if (solarState == SolarState.BtoI) {
             addedBtoI = true;
-        } else if (solarState == solarcellState.BtoD) {
+            startX = findItem(Battery.class).p_x;
+            startY = findItem(Battery.class).p_y;
+            goalX = findItem(Inverter.class).p_x;
+            goalY = findItem(Inverter.class).p_y;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,goalX,goalY,worldController.level.etcs,solarState);
+            itemLinks.add(itemLink);
+        } else if (solarState == SolarState.BtoD) {
             addedBtoD = true;
-        } else if (solarState == solarcellState.ItoD) {
+            startX = findItem(Battery.class).p_x;
+            startY = findItem(Battery.class).p_y;
+            goalX = findItem(Door.class).p_x;
+            goalY = findItem(Door.class).p_y;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,goalX,goalY,worldController.level.etcs,solarState);
+            itemLinks.add(itemLink);
+        } else if (solarState == SolarState.ItoD) {
             addedItoD = true;
+            startX = findItem(Inverter.class).p_x;
+            startY = findItem(Inverter.class).p_y;
+            goalX = findItem(Door.class).p_x;
+            goalY = findItem(Door.class).p_y;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,goalX,goalY,worldController.level.etcs,solarState);
+            itemLinks.add(itemLink);
         }
     }
 
-    private void checkDeledLink(solarcellState solarState) {
-        if (solarState == solarcellState.StoC) {
+    private void checkDeledLink(SolarState solarState) {
+        if (solarState == SolarState.StoC) {
             addedStoC = false;
-        } else if (solarState == solarcellState.StoB) {
+            for(int i = 0; i < itemLinks.size();i++){
+                if(itemLinks.get(i).solarState==solarState){
+                    itemLinks.remove(i);
+                }
+            }
+        } else if (solarState == SolarState.StoB) {
             addedStoB = false;
-        } else if (solarState == solarcellState.StoI) {
+            for(int i = 0; i < itemLinks.size();i++){
+                if(itemLinks.get(i).solarState==solarState){
+                    itemLinks.remove(i);
+                }
+            }
+        } else if (solarState == SolarState.StoI) {
             addedStoI = false;
-        } else if (solarState == solarcellState.StoD) {
+            for(int i = 0; i < itemLinks.size();i++){
+                if(itemLinks.get(i).solarState==solarState){
+                    itemLinks.remove(i);
+                }
+            }
+        } else if (solarState == SolarState.StoD) {
             addedStoD = false;
-        } else if (solarState == solarcellState.CtoB) {
+            for(int i = 0; i < itemLinks.size();i++){
+                if(itemLinks.get(i).solarState==solarState){
+                    itemLinks.remove(i);
+                }
+            }
+        } else if (solarState == SolarState.CtoB) {
             addedCtoB = false;
-        } else if (solarState == solarcellState.CtoI) {
+            for(int i = 0; i < itemLinks.size();i++){
+                if(itemLinks.get(i).solarState==solarState){
+                    itemLinks.remove(i);
+                }
+            }
+        } else if (solarState == SolarState.CtoI) {
             addedCtoI = false;
-        } else if (solarState == solarcellState.CtoD) {
+            for(int i = 0; i < itemLinks.size();i++){
+                if(itemLinks.get(i).solarState==solarState){
+                    itemLinks.remove(i);
+                }
+            }
+        } else if (solarState == SolarState.CtoD) {
             addedCtoD = false;
-        } else if (solarState == solarcellState.BtoI) {
+            for(int i = 0; i < itemLinks.size();i++){
+                if(itemLinks.get(i).solarState==solarState){
+                    itemLinks.remove(i);
+                }
+            }
+        } else if (solarState == SolarState.BtoI) {
             addedBtoI = false;
-        } else if (solarState == solarcellState.BtoD) {
+            for(int i = 0; i < itemLinks.size();i++){
+                if(itemLinks.get(i).solarState==solarState){
+                    itemLinks.remove(i);
+                }
+            }
+        } else if (solarState == SolarState.BtoD) {
             addedBtoD = false;
-        } else if (solarState == solarcellState.ItoD) {
+            for(int i = 0; i < itemLinks.size();i++){
+                if(itemLinks.get(i).solarState==solarState){
+                    itemLinks.remove(i);
+                }
+            }
+        } else if (solarState == SolarState.ItoD) {
             addedItoD = false;
+            for(int i = 0; i < itemLinks.size();i++){
+                if(itemLinks.get(i).solarState==solarState){
+                    itemLinks.remove(i);
+                }
+            }
         }
     }
 

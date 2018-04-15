@@ -27,14 +27,17 @@ public class ItemLink {
 
     private float startX,startY,goalX,goalY;
 
+    public SolarState solarState = null;
+
     private Direction direction;
 
-    public ItemLink(TiledMapTileLayer mapLayer, float startX, float startY, float goalX , float goalY , List<Etc> etcList) {
+    public ItemLink(TiledMapTileLayer mapLayer, float startX, float startY, float goalX, float goalY, List<Etc> etcList, SolarState solarState) {
 
         this.startX = startX;
         this.startY = startY;
         this.goalX = goalX;
         this.goalY = goalY;
+        this.solarState = solarState;
 
         gameMap = new GameMap(mapLayer);
         pathFinder = new IndexedAStarPathFinder<Node>(gameMap);
@@ -57,10 +60,10 @@ public class ItemLink {
         for (int i = 0; i< pathOutput.getCount(); i++) {
             nodes.add(pathOutput.get(i));
             System.out.print(nodes.get(i));
-            if(nodes.get(i).getPositionY() < endNode.getPositionY()) direction = Direction.UP;
-            else if(nodes.get(i).getPositionY() > endNode.getPositionY()) direction = Direction.DOWN;
-            else if(nodes.get(i).getPositionX() < endNode.getPositionX()) direction = Direction.RIGHT;
-            else if(nodes.get(i).getPositionX() > endNode.getPositionX()) direction = Direction.LEFT;
+            if((nodes.get(i).getPositionY() < endNode.getPositionY())) direction = Direction.RIGHT;
+            else if(nodes.get(i).getPositionY() > endNode.getPositionY()) direction = Direction.LEFT;
+            else if(nodes.get(i).getPositionX() < endNode.getPositionX()) direction = Direction.UP;
+            else if(nodes.get(i).getPositionX() > endNode.getPositionX()) direction = Direction.DOWN;
             System.out.print(nodes.get(i).getPositionX());
             System.out.print(nodes.get(i).getPositionY());
             System.out.print(startNode.getPositionX());
