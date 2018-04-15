@@ -720,73 +720,42 @@ public class GameScreen extends AbstractGameScreen {
     private void checkDeledLink(SolarState solarState) {
         if (solarState == SolarState.StoC) {
             addedStoC = false;
-            for(int i = 0; i < itemLinks.size();i++){
-                if(itemLinks.get(i).solarState==solarState){
-                    itemLinks.remove(i);
-                }
-            }
+            removeGuiLink(solarState);
         } else if (solarState == SolarState.StoB) {
             addedStoB = false;
-            for(int i = 0; i < itemLinks.size();i++){
-                if(itemLinks.get(i).solarState==solarState){
-                    itemLinks.remove(i);
-                }
-            }
+            removeGuiLink(solarState);
         } else if (solarState == SolarState.StoI) {
             addedStoI = false;
-            for(int i = 0; i < itemLinks.size();i++){
-                if(itemLinks.get(i).solarState==solarState){
-                    itemLinks.remove(i);
-                }
-            }
+            removeGuiLink(solarState);
         } else if (solarState == SolarState.StoD) {
             addedStoD = false;
-            for(int i = 0; i < itemLinks.size();i++){
-                if(itemLinks.get(i).solarState==solarState){
-                    itemLinks.remove(i);
-                }
-            }
+            removeGuiLink(solarState);
         } else if (solarState == SolarState.CtoB) {
             addedCtoB = false;
-            for(int i = 0; i < itemLinks.size();i++){
-                if(itemLinks.get(i).solarState==solarState){
-                    itemLinks.remove(i);
-                }
-            }
+            removeGuiLink(solarState);
         } else if (solarState == SolarState.CtoI) {
             addedCtoI = false;
-            for(int i = 0; i < itemLinks.size();i++){
-                if(itemLinks.get(i).solarState==solarState){
-                    itemLinks.remove(i);
-                }
-            }
+            removeGuiLink(solarState);
         } else if (solarState == SolarState.CtoD) {
             addedCtoD = false;
-            for(int i = 0; i < itemLinks.size();i++){
-                if(itemLinks.get(i).solarState==solarState){
-                    itemLinks.remove(i);
-                }
-            }
+            removeGuiLink(solarState);
         } else if (solarState == SolarState.BtoI) {
             addedBtoI = false;
-            for(int i = 0; i < itemLinks.size();i++){
-                if(itemLinks.get(i).solarState==solarState){
-                    itemLinks.remove(i);
-                }
-            }
+            removeGuiLink(solarState);
         } else if (solarState == SolarState.BtoD) {
             addedBtoD = false;
-            for(int i = 0; i < itemLinks.size();i++){
-                if(itemLinks.get(i).solarState==solarState){
-                    itemLinks.remove(i);
-                }
-            }
+            removeGuiLink(solarState);
         } else if (solarState == SolarState.ItoD) {
             addedItoD = false;
-            for(int i = 0; i < itemLinks.size();i++){
-                if(itemLinks.get(i).solarState==solarState){
-                    itemLinks.remove(i);
-                }
+            removeGuiLink(solarState);
+        }
+    }
+
+    private void removeGuiLink(SolarState solarState){
+        for(int i = 0; i < itemLinks.size();i++){
+            if(itemLinks.get(i).solarState==solarState){
+                itemLinks.get(i).etcList.clear();
+                itemLinks.remove(i);
             }
         }
     }
