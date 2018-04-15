@@ -38,6 +38,11 @@ public class ItemLink {
         this.goalX = goalX + goalWidth/2;
         this.goalY = goalY + goalHeight/2;
 
+        System.out.print(goalHeight);
+        System.out.print(goalWidth);
+        System.out.print(startHeight);
+        System.out.print(startWidth);
+
         this.solarState = solarState;
 
         gameMap = new GameMap(mapLayer);
@@ -58,13 +63,17 @@ public class ItemLink {
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
         //pathOutput.reverse();
 
-        for (int i = 0; i< pathOutput.getCount(); i++) {
+        for (int i = 0; i< pathOutput.getCount()-1; i++) {
             nodes.add(pathOutput.get(i));
             System.out.print(nodes.get(i));
-            if((nodes.get(i).getPositionY() < endNode.getPositionY())) direction = Direction.RIGHT;
-            else if(nodes.get(i).getPositionY() > endNode.getPositionY()) direction = Direction.LEFT;
-            else if(nodes.get(i).getPositionX() < endNode.getPositionX()) direction = Direction.UP;
-            else if(nodes.get(i).getPositionX() > endNode.getPositionX()) direction = Direction.DOWN;
+            if((nodes.get(i).getPositionY() < pathOutput.get(i+1).getPositionY())
+                    &&(nodes.get(i).getPositionX() <= pathOutput.get(i+1).getPositionX())) direction = Direction.RIGHT;
+            else if((nodes.get(i).getPositionY() > pathOutput.get(i+1).getPositionY())
+                    &&(nodes.get(i).getPositionX() >= pathOutput.get(i+1).getPositionX())) direction = Direction.LEFT;
+            else if((nodes.get(i).getPositionX() < pathOutput.get(i+1).getPositionX())
+                    &&(nodes.get(i).getPositionY() <= pathOutput.get(i+1).getPositionY())) direction = Direction.UP;
+            else if((nodes.get(i).getPositionX() > pathOutput.get(i+1).getPositionX())
+                    &&(nodes.get(i).getPositionY() >= pathOutput.get(i+1).getPositionY())) direction = Direction.DOWN;
             /*System.out.print(nodes.get(i).getPositionX());
             System.out.print(nodes.get(i).getPositionY());
             System.out.print(startNode.getPositionX());

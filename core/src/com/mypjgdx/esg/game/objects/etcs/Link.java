@@ -16,26 +16,27 @@ public class Link extends Etc {
 
     @Override
     protected void spawn(float positionX, float positionY, Direction direction) {
-        setPosition(positionX, positionY);
-
         switch (direction) {
             case UP:
                 rotation = 90;
+                positionX += 25;
                 break;
             case RIGHT:
                 rotation = 180;
+                positionY += 25;
                 break;
             case DOWN:
                 rotation = 270;
+                positionX -= 25;
                 break;
             case LEFT:
                 rotation = 360;
+                positionY -= 25;
                 break;
             default:
                 break;
         }
-
-
+        setPosition(positionX, positionY);
     }
 
     @Override
