@@ -31,16 +31,12 @@ public class ItemLink {
 
     private Direction direction;
 
-    public ItemLink(TiledMapTileLayer mapLayer, float startX, float startY, float boundStartX, float boundStartY, float goalX, float goalY, float boundGoalX, float boundGoalY, List<Etc> etcList, SolarState solarState) {
+    public ItemLink(TiledMapTileLayer mapLayer, float startX, float startY, float startWidth, float startHeight, float goalX, float goalY, float goalWidth, float goalHeight, List<Etc> etcList, SolarState solarState) {
 
-        this.startX = startX + boundStartX/2;
-        this.startY = startY + boundStartY/2;
-        this.goalX = goalX + boundGoalX/2;
-        this.goalY = goalY + boundGoalY/2;
-
-        System.out.print(boundStartX);
-        System.out.print(boundStartY);
-
+        this.startX = startX + startWidth/2;
+        this.startY = startY + startHeight/2;
+        this.goalX = goalX + goalWidth/2;
+        this.goalY = goalY + goalHeight/2;
 
         this.solarState = solarState;
 
@@ -56,8 +52,8 @@ public class ItemLink {
         };
 
         gameMap.updateNeibors(); //TODO
-        startNode = gameMap.getNode(startX, startY);
-        endNode =gameMap.getNode(goalX, goalY);
+        startNode = gameMap.getNode(this.startX, this.startY);
+        endNode =gameMap.getNode(this.goalX, this.goalY);
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
         //pathOutput.reverse();

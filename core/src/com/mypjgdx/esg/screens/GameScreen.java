@@ -102,10 +102,10 @@ public class GameScreen extends AbstractGameScreen {
     private float startY;
     private float goalX;
     private float goalY;
-    private float boundStartX;
-    private float boundStartY;
-    private float boundGoalX;
-    private float boundGoalY;
+    private float startWidth;
+    private float startHeight;
+    private float goalWidth;
+    private float goalHeight;
 
     private int trueLink = 0;
 
@@ -588,131 +588,131 @@ public class GameScreen extends AbstractGameScreen {
             addedStoC = true;
             startX = findItem(SolarCell.class).p_x;
             startY = findItem(SolarCell.class).p_y;
-            boundStartX = findItem(SolarCell.class).bounds.x;
-            boundStartY = findItem(SolarCell.class).bounds.y;
+            startWidth = findItem(SolarCell.class).bounds.width;
+            startHeight = findItem(SolarCell.class).bounds.height;
             goalX = findItem(Charge.class).p_x;
             goalY = findItem(Charge.class).p_y;
-            boundGoalX = findItem(Charge.class).bounds.x;
-            boundGoalY = findItem(Charge.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
-                    goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
+            goalWidth = findItem(Charge.class).bounds.width;
+            goalHeight = findItem(Charge.class).bounds.height;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+                    goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.StoB) {
             addedStoB = true;
             startX = findItem(SolarCell.class).p_x;
             startY = findItem(SolarCell.class).p_y;
-            boundStartX = findItem(SolarCell.class).bounds.x;
-            boundStartY = findItem(SolarCell.class).bounds.y;
+            startWidth = findItem(SolarCell.class).bounds.width;
+            startHeight = findItem(SolarCell.class).bounds.height;
             goalX = findItem(Battery.class).p_x;
             goalY = findItem(Battery.class).p_y;
-            boundGoalX = findItem(Battery.class).bounds.x;
-            boundGoalY = findItem(Battery.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
-                    goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
+            goalWidth = findItem(Battery.class).bounds.width;
+            goalHeight = findItem(Battery.class).bounds.height;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+                    goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.StoI) {
             addedStoI = true;
             startX = findItem(SolarCell.class).p_x;
             startY = findItem(SolarCell.class).p_y;
-            boundStartX = findItem(SolarCell.class).bounds.x;
-            boundStartY = findItem(SolarCell.class).bounds.y;
+            startWidth = findItem(SolarCell.class).bounds.width;
+            startHeight = findItem(SolarCell.class).bounds.height;
             goalX = findItem(Inverter.class).p_x;
             goalY = findItem(Inverter.class).p_y;
-            boundGoalX = findItem(Inverter.class).bounds.x;
-            boundGoalY = findItem(Inverter.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
-                    goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
+            goalWidth = findItem(Inverter.class).bounds.width;
+            goalHeight = findItem(Inverter.class).bounds.height;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+                    goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.StoD) {
             addedStoD = true;
             startX = findItem(SolarCell.class).p_x;
             startY = findItem(SolarCell.class).p_y;
-            boundStartX = findItem(SolarCell.class).bounds.x;
-            boundStartY = findItem(SolarCell.class).bounds.y;
+            startWidth = findItem(SolarCell.class).bounds.width;
+            startHeight = findItem(SolarCell.class).bounds.height;
             goalX = findItem(Door.class).p_x;
             goalY = findItem(Door.class).p_y;
-            boundGoalX = findItem(Door.class).bounds.x;
-            boundGoalY = findItem(Door.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
-                    goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
+            goalWidth = findItem(Door.class).bounds.width;
+            goalHeight = findItem(Door.class).bounds.height;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+                    goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.CtoB) {
             addedCtoB = true;
             startX = findItem(Charge.class).p_x;
             startY = findItem(Charge.class).p_y;
-            boundStartX = findItem(Charge.class).bounds.x;
-            boundStartY = findItem(Charge.class).bounds.y;
+            startWidth = findItem(Charge.class).bounds.width;
+            startHeight = findItem(Charge.class).bounds.height;
             goalX = findItem(Battery.class).p_x;
             goalY = findItem(Battery.class).p_y;
-            boundGoalX = findItem(Battery.class).bounds.x;
-            boundGoalY = findItem(Battery.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
-                    goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
+            goalWidth = findItem(Battery.class).bounds.width;
+            goalHeight = findItem(Battery.class).bounds.height;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+                    goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.CtoI) {
             addedCtoI = true;
             startX = findItem(Charge.class).p_x;
             startY = findItem(Charge.class).p_y;
-            boundStartX = findItem(Charge.class).bounds.x;
-            boundStartY = findItem(Charge.class).bounds.y;
+            startWidth = findItem(Charge.class).bounds.width;
+            startHeight = findItem(Charge.class).bounds.height;
             goalX = findItem(Inverter.class).p_x;
             goalY = findItem(Inverter.class).p_y;
-            boundGoalX = findItem(Inverter.class).bounds.x;
-            boundGoalY = findItem(Inverter.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
-                    goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
+            goalWidth = findItem(Inverter.class).bounds.width;
+            goalHeight = findItem(Inverter.class).bounds.height;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+                    goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.CtoD) {
             addedCtoD = true;
             startX = findItem(Charge.class).p_x;
             startY = findItem(Charge.class).p_y;
-            boundStartX = findItem(Charge.class).bounds.x;
-            boundStartY = findItem(Charge.class).bounds.y;
+            startWidth = findItem(Charge.class).bounds.width;
+            startHeight = findItem(Charge.class).bounds.height;
             goalX = findItem(Door.class).p_x;
             goalY = findItem(Door.class).p_y;
-            boundGoalX = findItem(Door.class).bounds.x;
-            boundGoalY = findItem(Door.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
-                    goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
+            goalWidth = findItem(Door.class).bounds.width;
+            goalHeight = findItem(Door.class).bounds.height;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+                    goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.BtoI) {
             addedBtoI = true;
             startX = findItem(Battery.class).p_x;
             startY = findItem(Battery.class).p_y;
-            boundStartX = findItem(Battery.class).bounds.x;
-            boundStartY = findItem(Battery.class).bounds.y;
+            startWidth = findItem(Battery.class).bounds.width;
+            startHeight = findItem(Battery.class).bounds.height;
             goalX = findItem(Inverter.class).p_x;
             goalY = findItem(Inverter.class).p_y;
-            boundGoalX = findItem(Inverter.class).bounds.x;
-            boundGoalY = findItem(Inverter.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
-                    goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
+            goalWidth = findItem(Inverter.class).bounds.width;
+            goalHeight = findItem(Inverter.class).bounds.height;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+                    goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.BtoD) {
             addedBtoD = true;
             startX = findItem(Battery.class).p_x;
             startY = findItem(Battery.class).p_y;
-            boundStartX = findItem(Battery.class).bounds.x;
-            boundStartY = findItem(Battery.class).bounds.y;
+            startWidth = findItem(Battery.class).bounds.width;
+            startHeight = findItem(Battery.class).bounds.height;
             goalX = findItem(Door.class).p_x;
             goalY = findItem(Door.class).p_y;
-            boundGoalX = findItem(Door.class).bounds.x;
-            boundGoalY = findItem(Door.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
-                    goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
+            goalWidth = findItem(Door.class).bounds.width;
+            goalHeight = findItem(Door.class).bounds.height;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+                    goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.ItoD) {
             addedItoD = true;
             startX = findItem(Inverter.class).p_x;
             startY = findItem(Inverter.class).p_y;
-            boundStartX = findItem(Inverter.class).bounds.x;
-            boundStartY = findItem(Inverter.class).bounds.y;
+            startWidth = findItem(Inverter.class).bounds.width;
+            startHeight = findItem(Inverter.class).bounds.height;
             goalX = findItem(Door.class).p_x;
             goalY = findItem(Door.class).p_y;
-            boundGoalX = findItem(Door.class).bounds.x;
-            boundGoalY = findItem(Door.class).bounds.y;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,boundStartX,boundStartY,
-                    goalX,goalY,boundGoalX, boundGoalY,worldController.level.etcs,solarState);
+            goalWidth = findItem(Door.class).bounds.width;
+            goalHeight = findItem(Door.class).bounds.height;
+            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+                    goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         }
     }
