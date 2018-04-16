@@ -445,14 +445,12 @@ public class GameScreen extends AbstractGameScreen {
                     addLink(solarState);
                 } else if ((solarWindow == systemWindow.solarcell) && (addedStoC)) {
                     deleteLink(solarState);
-                    checkDeledLink(solarState);
                 } else if (((solarWindow == systemWindow.chargecontroller) && (!addedStoC))
                         || ((solarWindow == systemWindow.battery) && (!addedStoB))
                         || ((solarWindow == systemWindow.inverter) && (!addedStoI))) {
                     addLink(solarState);
                 } else {
                     deleteLink(solarState);
-                    checkDeledLink(solarState);
                 }
                 checkGameComplete();
                 worldController.level.player.status_find = false;
@@ -506,7 +504,7 @@ public class GameScreen extends AbstractGameScreen {
                 || ((solarWindow == systemWindow.battery) && (addedBtoI))) {
             buttonLink3.setText("Canceled Link to Inverter");
             buttonLink3.setStyle(buttonStyle2);
-        } else if ((solarWindow == systemWindow.inverter) && (addedBtoI)) {
+        } else if ((solarWindow == systemWindow.inverter) && (!addedBtoI)) {
             buttonLink3.setText("Link to Battery");
             buttonLink3.setStyle(buttonStyle);
         } else {
