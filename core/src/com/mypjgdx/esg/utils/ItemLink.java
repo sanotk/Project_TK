@@ -23,6 +23,8 @@ public class ItemLink {
     private Node startNode;
     private Node endNode;
 
+    public List<Etc> etcList;
+
     public ArrayList<Node> nodes = new ArrayList<Node>();
 
     public float startX,startY,goalX,goalY;
@@ -37,6 +39,7 @@ public class ItemLink {
         this.startY = startY + startHeight/2;
         this.goalX = goalX + goalWidth/2;
         this.goalY = goalY + goalHeight/2;
+        this.etcList = etcList;
 
         System.out.print(goalHeight);
         System.out.print(goalWidth);
@@ -74,15 +77,7 @@ public class ItemLink {
                     &&(nodes.get(i).getPositionY() <= pathOutput.get(i+1).getPositionY())) direction = Direction.UP;
             else if((nodes.get(i).getPositionX() > pathOutput.get(i+1).getPositionX())
                     &&(nodes.get(i).getPositionY() >= pathOutput.get(i+1).getPositionY())) direction = Direction.DOWN;
-            /*System.out.print(nodes.get(i).getPositionX());
-            System.out.print(nodes.get(i).getPositionY());
-            System.out.print(startNode.getPositionX());
-            System.out.print(startNode.getPositionY());
-            System.out.print(endNode.getPositionX());
-            System.out.print(endNode.getPositionY());
-            System.out.print(direction);
-            */
-            etcList.add(new Link(mapLayer, nodes.get(i).getPositionX(),nodes.get(i).getPositionY(),direction));
+            this.etcList.add(new Link(mapLayer, nodes.get(i).getPositionX()+22,nodes.get(i).getPositionY(),direction,this.solarState));
         }
     }
 

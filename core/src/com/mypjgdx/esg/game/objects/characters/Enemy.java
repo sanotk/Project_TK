@@ -246,7 +246,6 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         endNode =gameMap.getNode(goalX, goalY);
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
-        pathOutput.reverse();
 
         if (pathOutput.getCount() > 0) {
             Node node = pathOutput.get(0);

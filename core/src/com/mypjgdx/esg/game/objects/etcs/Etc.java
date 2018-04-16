@@ -6,12 +6,15 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
 import com.mypjgdx.esg.utils.Direction;
+import com.mypjgdx.esg.utils.SolarState;
 
 public abstract class Etc extends AbstractGameObject {
 
     public enum EtcType {
         Link
     }
+
+    public SolarState solarState;
 
     private TextureRegion etcTexture;
 
@@ -33,7 +36,7 @@ public abstract class Etc extends AbstractGameObject {
         destroyed = false;
     }
 
-    public void init(TiledMapTileLayer mapLayer, float positionX, float positionY, Direction direction) {
+    public void init(TiledMapTileLayer mapLayer, float positionX, float positionY, Direction direction , SolarState solarState) {
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
         TellMeByType();
         spawn(positionX, positionY ,direction);

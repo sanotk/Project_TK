@@ -31,6 +31,7 @@ import com.mypjgdx.esg.utils.SolarState;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("ALL")
 public class GameScreen extends AbstractGameScreen {
 
     private WorldController worldController;
@@ -397,6 +398,7 @@ public class GameScreen extends AbstractGameScreen {
         }
         System.out.print("เพิ่ม" + solarState);
         link.add(solarState);
+        addGuiLink(solarState);
     }
 
     private void deleteLink(SolarState solarState) {
@@ -405,6 +407,8 @@ public class GameScreen extends AbstractGameScreen {
                 if (link.get(i) == solarState) {
                     System.out.print("ลบ" + link.get(i) + "แล้ว");
                     link.remove(solarState);
+                    checkDeledLink(solarState);
+                    removeGuiLink(solarState);
                 }
             }
         }
@@ -439,7 +443,6 @@ public class GameScreen extends AbstractGameScreen {
                 }
                 if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
                     addLink(solarState);
-                    checkAddedLink(solarState);
                 } else if ((solarWindow == systemWindow.solarcell) && (addedStoC)) {
                     deleteLink(solarState);
                     checkDeledLink(solarState);
@@ -447,7 +450,6 @@ public class GameScreen extends AbstractGameScreen {
                         || ((solarWindow == systemWindow.battery) && (!addedStoB))
                         || ((solarWindow == systemWindow.inverter) && (!addedStoI))) {
                     addLink(solarState);
-                    checkAddedLink(solarState);
                 } else {
                     deleteLink(solarState);
                     checkDeledLink(solarState);
@@ -484,16 +486,12 @@ public class GameScreen extends AbstractGameScreen {
                 }
                 if (((solarWindow == systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoB))) {
                     addLink(solarState);
-                    checkAddedLink(solarState);
                 } else if (((solarWindow == systemWindow.solarcell) && (addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoB))) {
                     deleteLink(solarState);
-                    checkDeledLink(solarState);
                 } else if (((solarWindow == systemWindow.battery) && (!addedCtoB)) || ((solarWindow == systemWindow.inverter) && (!addedCtoI))) {
                     addLink(solarState);
-                    checkAddedLink(solarState);
                 } else {
                     deleteLink(solarState);
-                    checkDeledLink(solarState);
                 }
                 checkGameComplete();
                 worldController.level.player.status_find = false;
@@ -529,17 +527,13 @@ public class GameScreen extends AbstractGameScreen {
                 if (((solarWindow == systemWindow.solarcell) && (!addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoI))
                         || ((solarWindow == systemWindow.battery) && (!addedBtoI))) {
                     addLink(solarState);
-                    checkAddedLink(solarState);
                 } else if (((solarWindow == systemWindow.solarcell) && (addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoI))
                         || ((solarWindow == systemWindow.battery) && (addedBtoI))) {
                     deleteLink(solarState);
-                    checkDeledLink(solarState);
                 } else if ((solarWindow == systemWindow.inverter) && (!addedBtoI)) {
                     addLink(solarState);
-                    checkAddedLink(solarState);
                 } else {
                     deleteLink(solarState);
-                    checkDeledLink(solarState);
                 }
                 checkGameComplete();
                 worldController.level.player.status_find = false;
@@ -570,10 +564,8 @@ public class GameScreen extends AbstractGameScreen {
                 if (((solarWindow == systemWindow.solarcell) && (!addedStoD)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoD))
                         || ((solarWindow == systemWindow.battery) && (!addedBtoD)) || ((solarWindow == systemWindow.inverter) && (!addedItoD))) {
                     addLink(solarState);
-                    checkAddedLink(solarState);
                 } else {
                     deleteLink(solarState);
-                    checkDeledLink(solarState);
                 }
                 checkGameComplete();
                 worldController.level.player.status_find = false;
@@ -583,7 +575,31 @@ public class GameScreen extends AbstractGameScreen {
         solarcellWindow.pack();
     }
 
-    private void checkAddedLink(SolarState solarState) {
+    private void checkDeledLink(SolarState solarState) {
+        if (solarState == SolarState.StoC) {
+            addedStoC = false;
+        } else if (solarState == SolarState.StoB) {
+            addedStoB = false;
+        } else if (solarState == SolarState.StoI) {
+            addedStoI = false;
+        } else if (solarState == SolarState.StoD) {
+            addedStoD = false;
+        } else if (solarState == SolarState.CtoB) {
+            addedCtoB = false;
+        } else if (solarState == SolarState.CtoI) {
+            addedCtoI = false;
+        } else if (solarState == SolarState.CtoD) {
+            addedCtoD = false;
+        } else if (solarState == SolarState.BtoI) {
+            addedBtoI = false;
+        } else if (solarState == SolarState.BtoD) {
+            addedBtoD = false;
+        } else if (solarState == SolarState.ItoD) {
+            addedItoD = false;
+        }
+    }
+
+    private void addGuiLink(SolarState solarState){
         if (solarState == SolarState.StoC) {
             addedStoC = true;
             startX = findItem(SolarCell.class).p_x;
@@ -594,7 +610,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Charge.class).p_y;
             goalWidth = findItem(Charge.class).bounds.width;
             goalHeight = findItem(Charge.class).bounds.height;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+            itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
                     goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.StoB) {
@@ -607,7 +623,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Battery.class).p_y;
             goalWidth = findItem(Battery.class).bounds.width;
             goalHeight = findItem(Battery.class).bounds.height;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+            itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
                     goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.StoI) {
@@ -620,7 +636,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Inverter.class).p_y;
             goalWidth = findItem(Inverter.class).bounds.width;
             goalHeight = findItem(Inverter.class).bounds.height;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+            itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
                     goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.StoD) {
@@ -646,7 +662,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Battery.class).p_y;
             goalWidth = findItem(Battery.class).bounds.width;
             goalHeight = findItem(Battery.class).bounds.height;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+            itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
                     goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.CtoI) {
@@ -659,7 +675,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Inverter.class).p_y;
             goalWidth = findItem(Inverter.class).bounds.width;
             goalHeight = findItem(Inverter.class).bounds.height;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+            itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
                     goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.CtoD) {
@@ -672,7 +688,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Door.class).p_y;
             goalWidth = findItem(Door.class).bounds.width;
             goalHeight = findItem(Door.class).bounds.height;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+            itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
                     goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.BtoI) {
@@ -685,7 +701,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Inverter.class).p_y;
             goalWidth = findItem(Inverter.class).bounds.width;
             goalHeight = findItem(Inverter.class).bounds.height;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+            itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
                     goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.BtoD) {
@@ -698,7 +714,7 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Door.class).p_y;
             goalWidth = findItem(Door.class).bounds.width;
             goalHeight = findItem(Door.class).bounds.height;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+            itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
                     goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         } else if (solarState == SolarState.ItoD) {
@@ -711,51 +727,17 @@ public class GameScreen extends AbstractGameScreen {
             goalY = findItem(Door.class).p_y;
             goalWidth = findItem(Door.class).bounds.width;
             goalHeight = findItem(Door.class).bounds.height;
-            ItemLink itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
+            itemLink = new ItemLink(worldController.level.mapLayer,startX,startY,startWidth,startHeight,
                     goalX,goalY,goalWidth, goalHeight,worldController.level.etcs,solarState);
             itemLinks.add(itemLink);
         }
-    }
-
-    private void checkDeledLink(SolarState solarState) {
-        if (solarState == SolarState.StoC) {
-            addedStoC = false;
-            removeGuiLink(solarState);
-        } else if (solarState == SolarState.StoB) {
-            addedStoB = false;
-            removeGuiLink(solarState);
-        } else if (solarState == SolarState.StoI) {
-            addedStoI = false;
-            removeGuiLink(solarState);
-        } else if (solarState == SolarState.StoD) {
-            addedStoD = false;
-            removeGuiLink(solarState);
-        } else if (solarState == SolarState.CtoB) {
-            addedCtoB = false;
-            removeGuiLink(solarState);
-        } else if (solarState == SolarState.CtoI) {
-            addedCtoI = false;
-            removeGuiLink(solarState);
-        } else if (solarState == SolarState.CtoD) {
-            addedCtoD = false;
-            removeGuiLink(solarState);
-        } else if (solarState == SolarState.BtoI) {
-            addedBtoI = false;
-            removeGuiLink(solarState);
-        } else if (solarState == SolarState.BtoD) {
-            addedBtoD = false;
-            removeGuiLink(solarState);
-        } else if (solarState == SolarState.ItoD) {
-            addedItoD = false;
-            removeGuiLink(solarState);
-        }
+        System.out.print("ขนาด" + itemLink.etcList.size()+"นะจ๊ะ");
     }
 
     private void removeGuiLink(SolarState solarState){
-        for(int i = 0; i < itemLinks.size();i++){
-            if(itemLinks.get(i).solarState==solarState){
-                itemLinks.get(i).etcList.clear();
-                itemLinks.remove(i);
+        for(int i = 0; i < itemLink.etcList.size();i++){
+            if(itemLink.etcList.get(i).solarState==solarState){
+                itemLink.etcList.remove(i);
             }
         }
     }
