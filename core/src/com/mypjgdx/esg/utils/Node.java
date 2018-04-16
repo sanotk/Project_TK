@@ -31,19 +31,27 @@ public class Node {
 
         if (x > 0) {
             Node leftNode = map.getNodes()[x - 1][y];
-            neighbors.add(new DefaultConnection<Node>(this, leftNode));
+            if (!leftNode.blocked) {
+                neighbors.add(new DefaultConnection<Node>(this, leftNode));
+            }
         }
         if (x < map.getWidth() - 1) {
             Node rightNode = map.getNodes()[x + 1][y];
-            neighbors.add(new DefaultConnection<Node>(this, rightNode));
+            if (!rightNode.blocked) {
+                neighbors.add(new DefaultConnection<Node>(this, rightNode));
+            }
         }
         if (y > 0) {
             Node bottomNode = map.getNodes()[x][y - 1];
-            neighbors.add(new DefaultConnection<Node>(this, bottomNode));
+            if (!bottomNode.blocked) {
+                neighbors.add(new DefaultConnection<Node>(this, bottomNode));
+            }
         }
         if (y < map.getHeight() - 1) {
             Node topNode = map.getNodes()[x][y + 1];
-            neighbors.add(new DefaultConnection<Node>(this, topNode));
+            if (!topNode.blocked) {
+                neighbors.add(new DefaultConnection<Node>(this, topNode));
+            }
         }
     }
 
@@ -53,5 +61,13 @@ public class Node {
 
     public float getPositionY() {
         return y * map.getMapLayer().getTileHeight();
+    }
+
+    public float getCenterPositionX() {
+        return getPositionX() + map.getMapLayer().getTileWidth() / 2;
+    }
+
+    public float getCenterPositionY() {
+        return getPositionY() + map.getMapLayer().getTileHeight() / 2;
     }
 }

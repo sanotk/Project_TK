@@ -76,6 +76,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
 
     private Node startNode;
     private Node endNode;
+    private GraphPath<Node> path;
 
     public Enemy(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer) {
         super(atlas);
@@ -241,17 +242,18 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
             }
         };
 
-        gameMap.updateNeibors(); //TODO
+        gameMap.updateNeighbors(); //TODO
         startNode = gameMap.getNode(startX, startY);
         endNode =gameMap.getNode(goalX, goalY);
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
+        path = pathOutput;
 
-        if (pathOutput.getCount() > 0) {
-            Node node = pathOutput.get(0);
+        if (pathOutput.getCount() > 1) {
+            Node node = pathOutput.get(1);
 
-            float xdiff = node.getPositionX() - bounds.x - bounds.width / 2;
-            float ydiff = node.getPositionY() - bounds.y - bounds.height / 2;
+            float xdiff = node.getCenterPositionX() - bounds.x - bounds.width / 2;
+            float ydiff = node.getCenterPositionY() - bounds.y - bounds.height / 2;
 
             final float minMovingDistance = movingSpeed / 8;
 
@@ -288,8 +290,13 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         batch.setColor(oldColor);
 
         if (startNode != null && endNode != null) {
-            batch.draw(Assets.instance.bullet, startNode.getPositionX(), startNode.getPositionY());
-            batch.draw(Assets.instance.enemyBall, endNode.getPositionX(), endNode.getPositionY());
+//            batch.draw(Assets.instance.bullet, startNode.getPositionX(), startNode.getPositionY());
+//            batch.draw(Assets.instance.enemyBall, endNode.getPositionX(), endNode.getPositionY());
+        }
+        if (path != null) {
+            for (Node node : path) {
+                batch.draw(Assets.instance.bullet, node.getCenterPositionX(), node.getCenterPositionY());
+            }
         }
     }
 

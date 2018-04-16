@@ -73,6 +73,7 @@ public abstract class Level{
         shapeRenderer.begin(ShapeType.Filled);
         player.showHp (shapeRenderer);
         for (Enemy e:enemies) e.showHp(shapeRenderer);
+        for (Item i: items) i.debug(shapeRenderer);
         shapeRenderer.end();
     }
 

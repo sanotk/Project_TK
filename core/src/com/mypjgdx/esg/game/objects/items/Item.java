@@ -1,6 +1,7 @@
 package com.mypjgdx.esg.game.objects.items;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
@@ -93,6 +94,10 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 	                || collisionCheck.isCollidesRight()
 	                || collisionCheck.isCollidesLeft());
 	    }
+
+	    public void debug(ShapeRenderer renderer) {
+			renderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
+		}
 
 	    public abstract void activate();
 }

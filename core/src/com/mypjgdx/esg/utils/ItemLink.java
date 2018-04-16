@@ -10,6 +10,7 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.etcs.Etc;
 import com.mypjgdx.esg.game.objects.etcs.Link;
+import com.mypjgdx.esg.game.objects.items.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +34,12 @@ public class ItemLink {
 
     private Direction direction;
 
-    public ItemLink(TiledMapTileLayer mapLayer, float startX, float startY, float startWidth, float startHeight, float goalX, float goalY, float goalWidth, float goalHeight, List<Etc> etcList, SolarState solarState) {
+    public ItemLink(TiledMapTileLayer mapLayer, Item item1, Item item2, List<Etc> etcList, SolarState solarState) {
 
-        this.startX = startX + startWidth/2;
-        this.startY = startY + startHeight/2;
-        this.goalX = goalX + goalWidth/2;
-        this.goalY = goalY + goalHeight/2;
+        this.startX = item1.bounds.x + item1.bounds.width/2;
+        this.startY = item1.bounds.y + item1.bounds.height/2;
+        this.goalX = item2.bounds.x + item2.bounds.width/2;
+        this.goalY = item2.bounds.y + item2.bounds.height/2;
         this.etcList = etcList;
 
         this.solarState = solarState;
@@ -54,7 +55,8 @@ public class ItemLink {
             }
         };
 
-        gameMap.updateNeibors(); //TODO
+        gameMap.updateNeighbors(item1, item2); //TODO
+
         startNode = gameMap.getNode(this.startX, this.startY);
         endNode =gameMap.getNode(this.goalX, this.goalY);
 

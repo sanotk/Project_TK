@@ -16,7 +16,7 @@ public class Level1Generator extends LevelGenerator {
 
     @Override
     public Player createPlayer(TiledMapTileLayer mapLayer) {
-        return new Player(mapLayer, 100, 100);
+        return new Player(mapLayer, 1000, 100);
     }
     @Override
     public List<Item> createItems(TiledMapTileLayer mapLayer, Player player, Level level) {
