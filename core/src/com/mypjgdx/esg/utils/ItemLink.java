@@ -41,11 +41,6 @@ public class ItemLink {
         this.goalY = goalY + goalHeight/2;
         this.etcList = etcList;
 
-        System.out.print(goalHeight);
-        System.out.print(goalWidth);
-        System.out.print(startHeight);
-        System.out.print(startWidth);
-
         this.solarState = solarState;
 
         gameMap = new GameMap(mapLayer);

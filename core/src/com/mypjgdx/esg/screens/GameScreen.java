@@ -736,8 +736,8 @@ public class GameScreen extends AbstractGameScreen {
 
     private void removeGuiLink(SolarState solarState){
         for(int i = 0; i < itemLink.etcList.size();i++){
-            System.out.print(itemLink.etcList.get(i).solarState);
             if(itemLink.etcList.get(i).solarState==solarState){
+                System.out.print(itemLink.etcList.get(i).solarState);
                 itemLink.etcList.remove(i);
             }
         }

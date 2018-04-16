@@ -38,6 +38,7 @@ public abstract class Etc extends AbstractGameObject {
 
     public void init(TiledMapTileLayer mapLayer, float positionX, float positionY, Direction direction , SolarState solarState) {
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
+        this.solarState = solarState;
         TellMeByType();
         spawn(positionX, positionY ,direction);
     }
