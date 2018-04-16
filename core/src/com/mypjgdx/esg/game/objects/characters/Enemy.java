@@ -13,7 +13,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
-import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.SoundManager;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Enemy.EnemyAnimation;
@@ -289,7 +288,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         super.render(batch);
         batch.setColor(oldColor);
 
-        if (startNode != null && endNode != null) {
+/*        if (startNode != null && endNode != null) {
 //            batch.draw(Assets.instance.bullet, startNode.getPositionX(), startNode.getPositionY());
 //            batch.draw(Assets.instance.enemyBall, endNode.getPositionX(), endNode.getPositionY());
         }
@@ -298,6 +297,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
                 batch.draw(Assets.instance.bullet, node.getCenterPositionX(), node.getCenterPositionY());
             }
         }
+        */
     }
 
     public void die() {

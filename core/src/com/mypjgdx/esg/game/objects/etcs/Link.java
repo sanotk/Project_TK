@@ -8,7 +8,7 @@ import com.mypjgdx.esg.utils.SolarState;
 
 public class Link extends Etc {
 
-    private static final float SCALE = 2f;
+    private static final float SCALE = 1f;
 
     public Link(TiledMapTileLayer mapLayer, float positionX, float positionY, Direction direction , SolarState solarState) {
         super(Assets.instance.link, SCALE, SCALE);
