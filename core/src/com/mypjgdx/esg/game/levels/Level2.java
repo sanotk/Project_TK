@@ -15,7 +15,6 @@ public class Level2 extends Level {
 
     @Override
     public void renderFbo(SpriteBatch batch, OrthographicCamera camera, FrameBuffer lightFbo) {
-
         batch.begin();
         batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
         batch.draw(lightFbo.getColorBufferTexture(),
@@ -30,7 +29,6 @@ public class Level2 extends Level {
                 false, true);
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         batch.end();
-
     }
 
     @Override
