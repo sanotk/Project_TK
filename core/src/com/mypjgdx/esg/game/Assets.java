@@ -23,6 +23,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion trap;
     public TextureRegion enemyBall;
     public TextureRegion link;
+
     public TextureAtlas playerAltas;
     public TextureAtlas solarCellAltas;
     public TextureAtlas batAltas;

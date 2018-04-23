@@ -1,0 +1,230 @@
+
+item_on_map.png
+size: 2048,64
+format: RGBA8888
+filter: Linear,MipMapLinearNearest
+repeat: none
+bed
+  rotate: false
+  xy: 1197, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1
+bed
+  rotate: false
+  xy: 1249, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 2
+bed2
+  rotate: false
+  xy: 53, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1
+bed2
+  rotate: false
+  xy: 989, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 2
+bin
+  rotate: false
+  xy: 1509, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1
+chair
+  rotate: false
+  xy: 1405, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1
+closet
+  rotate: false
+  xy: 1041, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1
+closet
+  rotate: false
+  xy: 1093, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 2
+sink
+  rotate: false
+  xy: 157, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1
+sink
+  rotate: false
+  xy: 209, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 2
+sofa
+  rotate: false
+  xy: 261, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1
+sofa
+  rotate: false
+  xy: 313, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 2
+sofa2
+  rotate: false
+  xy: 365, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1
+sofa2
+  rotate: false
+  xy: 1145, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 2
+table1
+  rotate: false
+  xy: 417, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1
+table1
+  rotate: false
+  xy: 469, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 2
+table2
+  rotate: false
+  xy: 521, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 2
+table2
+  rotate: false
+  xy: 833, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1
+table3
+  rotate: false
+  xy: 1, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1
+table3
+  rotate: false
+  xy: 573, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 2
+table3
+  rotate: false
+  xy: 625, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 3
+table3
+  rotate: false
+  xy: 677, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 4
+table4
+  rotate: false
+  xy: 729, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 4
+table4
+  rotate: false
+  xy: 781, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1
+table4
+  rotate: false
+  xy: 937, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 3
+table4
+  rotate: false
+  xy: 1613, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 2
+tub
+  rotate: false
+  xy: 105, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 2
+tub
+  rotate: false
+  xy: 885, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 6
+tub
+  rotate: false
+  xy: 1301, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 3
+tub
+  rotate: false
+  xy: 1353, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 4
+tub
+  rotate: false
+  xy: 1457, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 5
+tub
+  rotate: false
+  xy: 1561, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1

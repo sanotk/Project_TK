@@ -8,13 +8,11 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
-import com.mypjgdx.esg.game.objects.characters.Enemy.EnemyAnimation;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.utils.Direction;
 import com.mypjgdx.esg.utils.Distance;
@@ -23,7 +21,7 @@ import com.mypjgdx.esg.utils.Node;
 
 import java.util.List;
 
-public abstract class Citizen extends AnimatedObject<EnemyAnimation> implements Damageable {
+public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> implements Damageable {
 
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 8.0f;
@@ -79,10 +77,10 @@ public abstract class Citizen extends AnimatedObject<EnemyAnimation> implements 
     public Citizen(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer) {
         super(atlas);
 
-        addLoopAnimation(EnemyAnimation.WALK_UP, FRAME_DURATION, 0, 3);
-        addLoopAnimation(EnemyAnimation.WALK_DOWN, FRAME_DURATION, 3, 3);
-        addLoopAnimation(EnemyAnimation.WALK_LEFT, FRAME_DURATION, 6, 3);
-        addLoopAnimation(EnemyAnimation.WALK_RIGHT, FRAME_DURATION, 9, 3);
+        addLoopAnimation(CitizenAnimation.WALK_UP, FRAME_DURATION, 0, 3);
+        addLoopAnimation(CitizenAnimation.WALK_DOWN, FRAME_DURATION, 3, 3);
+        addLoopAnimation(CitizenAnimation.WALK_LEFT, FRAME_DURATION, 6, 3);
+        addLoopAnimation(CitizenAnimation.WALK_RIGHT, FRAME_DURATION, 9, 3);
 
         findingRange = INITIAL_FINDING_RANGE;
         friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
@@ -108,7 +106,7 @@ public abstract class Citizen extends AnimatedObject<EnemyAnimation> implements 
         stun = false;
         TellMeByType();
         randomPosition(mapLayer);
-        stateMachine.setInitialState(Citizen.WANDER);
+        stateMachine.setInitialState(CitizenState.WANDER);
     }
 
     @Override
@@ -239,34 +237,12 @@ public abstract class Citizen extends AnimatedObject<EnemyAnimation> implements 
         }
     }
 
-    public void showHp(ShapeRenderer shapeRenderer) {
-        if (health != maxHealth) {
-            shapeRenderer.setColor(Color.BLACK);
-            shapeRenderer.rect(getPositionX(), getPositionY() - 10, bounds.width, 5);
-            shapeRenderer.setColor(Color.RED);
-            shapeRenderer.rect(
-                    getPositionX(), getPositionY() - 10,
-                    bounds.width * ((float) health / maxHealth), 5);
-        }
-    }
-
     @Override
     public void render(SpriteBatch batch) {
         Color oldColor = batch.getColor();
         batch.setColor(color);
         super.render(batch);
         batch.setColor(oldColor);
-
-/*        if (startNode != null && endNode != null) {
-//            batch.draw(Assets.instance.bullet, startNode.getPositionX(), startNode.getPositionY());
-//            batch.draw(Assets.instance.enemyBall, endNode.getPositionX(), endNode.getPositionY());
-        }
-        if (path != null) {
-            for (Node node : path) {
-                batch.draw(Assets.instance.bullet, node.getCenterPositionX(), node.getCenterPositionY());
-            }
-        }
-        */
     }
 
     public void die() {
