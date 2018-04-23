@@ -293,7 +293,6 @@ public class GameScreen extends AbstractGameScreen {
     private Window createRuleWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 

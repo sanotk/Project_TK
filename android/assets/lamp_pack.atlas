@@ -1,0 +1,34 @@
+
+lamp_pack.png
+size: 256,16
+format: RGBA8888
+filter: Linear,MipMapLinearNearest
+repeat: none
+lamp_off
+  rotate: false
+  xy: 2, 9
+  size: 100, 5
+  orig: 100, 5
+  offset: 0, 0
+  index: -1
+lamp_on
+  rotate: false
+  xy: 2, 2
+  size: 100, 5
+  orig: 100, 5
+  offset: 0, 0
+  index: 2
+lamp_on
+  rotate: false
+  xy: 104, 9
+  size: 100, 5
+  orig: 100, 5
+  offset: 0, 0
+  index: 3
+lamp_on
+  rotate: false
+  xy: 104, 2
+  size: 100, 5
+  orig: 100, 5
+  offset: 0, 0
+  index: 1
