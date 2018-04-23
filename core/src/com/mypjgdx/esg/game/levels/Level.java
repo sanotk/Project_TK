@@ -65,8 +65,8 @@ public abstract class Level{
         for (Weapon w: weapons) w.render(batch);
         for (Etc e: etcs) e.render(batch);
         for (Item i: items) i.render(batch);
-        player.render(batch);
         for (Enemy e: enemies) e.render(batch);
+        player.render(batch);
 
         batch.end();
 

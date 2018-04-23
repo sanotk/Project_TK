@@ -271,13 +271,16 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     }
 
     public void showHp(ShapeRenderer shapeRenderer) {
-        if (health != maxHealth) {
-            shapeRenderer.setColor(Color.BLACK);
-            shapeRenderer.rect(getPositionX(), getPositionY() - 10, bounds.width, 5);
-            shapeRenderer.setColor(Color.RED);
-            shapeRenderer.rect(
-                    getPositionX(), getPositionY() - 10,
-                    bounds.width * ((float) health / maxHealth), 5);
+        if(stateMachine.getCurrentState()!=EnemyState.DIE) {
+            if (health != maxHealth) {
+                shapeRenderer.setColor(Color.BLACK);
+                shapeRenderer.rect(getPositionX(), getPositionY() - 10, bounds.width, 5);
+                shapeRenderer.setColor(Color.RED);
+                shapeRenderer.rect(
+                        getPositionX(), getPositionY() - 10,
+                        bounds.width * ((float) health / maxHealth), 5);
+
+            }
         }
     }
 
@@ -339,6 +342,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     }
 
     public void attackPlayer() {
+        if(stateMachine.getCurrentState() == EnemyState.DIE){return;}
         float ydiff = player.bounds.y + player.bounds.height / 2 - bounds.y - bounds.height / 2;
         float xdiff = player.bounds.x + player.bounds.width / 2 - bounds.x - bounds.width / 2;
         float angle = MathUtils.atan2(ydiff, xdiff) * MathUtils.radiansToDegrees;
