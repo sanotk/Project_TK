@@ -144,8 +144,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="118" name="add" tilewidth="25" tileheight="50" spacing="2" tilecount="1">
-  <image source="C:/Users/sanothapp/Desktop/nonuseitem/closet.png" trans="ffffff" width="25" height="50"/>
+ <tileset firstgid="118" name="closet" tilewidth="25" tileheight="50" spacing="2" tilecount="1">
+  <image source="closet.png" trans="ffffff" width="25" height="50"/>
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
