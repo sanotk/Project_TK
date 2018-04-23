@@ -123,12 +123,31 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="40" name="map_second_pack_block" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
-  <image source="C:/Users/sanothapp/Desktop/packer/output/map_second_pack.png" width="2048" height="64"/>
+ <tileset firstgid="40" name="item_on_map" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
+  <image source="item_on_map.png" trans="ffffff" width="2048" height="64"/>
+ </tileset>
+ <tileset firstgid="79" name="item" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
+  <image source="item_on_map.png" trans="ffffff" width="2048" height="64"/>
+ </tileset>
+ <tileset firstgid="118" name="closet" tilewidth="25" tileheight="50" spacing="2" tilecount="1">
+  <image source="closet.png" trans="ffffff" width="25" height="50"/>
+ </tileset>
+ <tileset firstgid="119" name="blocked" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
+  <image source="map_second_blocked.png" trans="ffffff" width="2048" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt1M0OgyAQRlGaaNXYWpW29Nf3f8x+LiaZTEiYIrJicTbOJHchsBhjlgwe0Clo98iHNe4wQR/gFDvkCxfRqOEc4BQ75OppVHAIcMq91VAapVEayRtPuEHD0KwRxsjGDK1AM/ndRjZ8bxrNUr1X/4j9H6WRp+E791ut9+PFGr5zn4JljRMcd/Bmjb39AIHzF9o=
+   eJzFkusOwiAMRiHxMuN9XvC61+T17RJMam1HGaA/Tli/ZDmUtjPGdD/gAiwI2myIB3KcgT2wRDhSS5nEE9gSxxRYIxyppUziyDh8wIbTCdkk1DE2EYdlHBY5qJv7po4rMEdYIctx9H00CEvqhjjGvhWeOb6TR1luH5r7lZi51jG2jxRHiT48oZRD82+/zyfzudMcOY7WfO80R8xB5yK94XvPuUzbh2YHcudR0zH0VqX7yOUfDu3ep7ADbsih3ftUDsixAmYVuCNHbV5iYjJH
+  </data>
+ </layer>
+ <layer name="item" width="25" height="25">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFgxHkAnEglF2GR4wSkAHEmUSIgYA9EDtA2ZpAbI0m7kUF9xAC1LCDWv6IQsKkAmLtiEbC6IBcf4QTaTcxAJcdESSYQa4/gqB0PhDHIeEcEuwmBIKR7EhEwuQAeuQPQiAEjR+GxMaWnpHDlVgQCqXjoXQqkhy29ExJuMYTVkI2gIVVJJQOw6WQAhCKxk/FqmoUjAL8AADWbxsY
   </data>
  </layer>
 </map>

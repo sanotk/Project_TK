@@ -123,12 +123,9 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="40" name="map_second_pack_block" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
-  <image source="C:/Users/sanothapp/Desktop/packer/output/map_second_pack.png" width="2048" height="64"/>
- </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJztzbkKgEAMRdEorriOG67z/5/pa4QgFlMkVilOd+F6IvI/WKEMEAd2j5M9FnBQCbqgez1SaARNH48EIkGtPexhD3vYwx4Cjw1myAX1sLPHAIWCkT1qyBQc7KHtBgJ+Fb0=
+   eJzt1MsKgCAQhWGLrnTPiu7v/5idFsEggkNom1x8u8EfHfAUQpwfmCFnCJlzj500JuigsOiARmnEUFk0aBoRBBbVvuEbvuEbDhoLpAz0DNNsC6tyjx4yA9owzUrNW3H+dtr4699+73xk7p1L3Tln329I0ighcWAjDdcu/IIXeg==
   </data>
  </layer>
 </map>
