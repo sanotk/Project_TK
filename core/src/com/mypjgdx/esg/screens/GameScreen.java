@@ -270,7 +270,7 @@ public class GameScreen extends AbstractGameScreen {
         doorWindow.getTitleLabel().setAlignment(Align.center);
         doorWindow.row().padBottom(10).padTop(10);
         doorWindow.row().padTop(10);
-        doorWindow.add("ไม่สามารถเปิดประตูได้ กรุณาเชื่อมต่อระบบพลังงานแสงอาทิตย์เพื่อเติมเต็มพลังงานให้สถานที่หลบภัยให้เรียบร้อยก่อน");
+//        doorWindow.add("ไม่สามารถเปิดประตูได้ กรุณาเชื่อมต่อระบบพลังงานแสงอาทิตย์เพื่อเติมเต็มพลังงานให้สถานที่หลบภัยให้เรียบร้อยก่อน", String.valueOf(skin));
         doorWindow.row().padTop(10);
         doorWindow.add(closeButton).colspan(3);
         doorWindow.pack();
@@ -279,6 +279,7 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 doorWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                worldController.level.player.status_find = false;
             }
         });
 
@@ -800,8 +801,8 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         doorWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - solarcellWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - solarcellWindow.getHeight() / 2);
+                Gdx.graphics.getWidth() / 2 - doorWindow.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - doorWindow.getHeight() / 2);
         if(!animation_status) {
             if ((player.status_door == true) && (player.status_find == true)) {
                 doorWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
