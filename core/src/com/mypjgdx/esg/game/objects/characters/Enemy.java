@@ -279,7 +279,6 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
                 shapeRenderer.rect(
                         getPositionX(), getPositionY() - 10,
                         bounds.width * ((float) health / maxHealth), 5);
-
             }
         }
     }
