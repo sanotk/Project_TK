@@ -33,15 +33,13 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureAtlas doorAltas;
     public TextureAtlas airAltas;
     public TextureAtlas comAltas;
-    public TextureAtlas elecAltas;
     public TextureAtlas fanAltas;
-    public TextureAtlas microAltas;
-    public TextureAtlas refAltas;
+    public TextureAtlas lampAltas;
+    public TextureAtlas microwaveAltas;
+    public TextureAtlas refrigeratorAltas;
     public TextureAtlas switchAltas;
     public TextureAtlas tvAltas;
-    public TextureAtlas waterfAltas;
-    public TextureAtlas waterhAltas;
-    public TextureAtlas waterpAltas;
+    public TextureAtlas waterpumpAltas;
 
     public TextureAtlas uiBlue;
     public TextureAtlas uiRed;
@@ -83,15 +81,24 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("bg.png", Texture.class);
         manager.load("bullet.png", Texture.class);
         manager.load("enemy_ball.png", Texture.class);
-        manager.load("link.png", Texture.class);
+
         manager.load("solarcell_pack.atlas", TextureAtlas.class);
         manager.load("cc_pack.atlas", TextureAtlas.class);
         manager.load("inverter_pack.atlas", TextureAtlas.class);
         manager.load("battery_pack.atlas", TextureAtlas.class);
         manager.load("door_pack.atlas", TextureAtlas.class);
-        manager.load("link_pack.atlas", TextureAtlas.class);
+        manager.load("link.png", Texture.class);
         manager.load("tv_pack.atlas", TextureAtlas.class);
+        manager.load("air_pack.atlas", TextureAtlas.class);
+        manager.load("computer_pack.atlas", TextureAtlas.class);
         manager.load("fan_pack.atlas", TextureAtlas.class);
+        manager.load("lamp_pack.atlas", TextureAtlas.class);
+        manager.load("microwave_pack.atlas", TextureAtlas.class);
+        manager.load("refrigerator_pack.atlas", TextureAtlas.class);
+        manager.load("ricecooker_pack.atlas", TextureAtlas.class);
+        manager.load("switch_pack.atlas", TextureAtlas.class);
+        manager.load("waterpump_pack.atlas", TextureAtlas.class);
+
         manager.load("trap.png", Texture.class);
         manager.load("beam.png", Texture.class);
         manager.load("enemy1_pack.atlas", TextureAtlas.class);
@@ -132,7 +139,7 @@ public class Assets implements Disposable, AssetErrorListener {
         batAltas = manager.get("battery_pack.atlas");
         inverAltas = manager.get("inverter_pack.atlas");
         doorAltas = manager.get("door_pack.atlas");
-        linkAltas = manager.get("link_pack.atlas");
+        fanAltas = manager.get("fan_pack.atlas");
         trap = new TextureRegion((Texture)manager.get("trap.png"));
         beam = new TextureRegion((Texture)manager.get("beam.png"));
         pepoAltas = manager.get("enemy1_pack.atlas");
