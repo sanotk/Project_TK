@@ -29,7 +29,6 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureAtlas batAltas;
     public TextureAtlas inverAltas;
     public TextureAtlas ccAltas;
-    public TextureAtlas linkAltas;
     public TextureAtlas doorAltas;
     public TextureAtlas airAltas;
     public TextureAtlas comAltas;
@@ -37,6 +36,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureAtlas lampAltas;
     public TextureAtlas microwaveAltas;
     public TextureAtlas refrigeratorAltas;
+    public TextureAtlas ricecookerAltas;
     public TextureAtlas switchAltas;
     public TextureAtlas tvAltas;
     public TextureAtlas waterpumpAltas;
@@ -140,6 +140,16 @@ public class Assets implements Disposable, AssetErrorListener {
         inverAltas = manager.get("inverter_pack.atlas");
         doorAltas = manager.get("door_pack.atlas");
         fanAltas = manager.get("fan_pack.atlas");
+        airAltas = manager.get("air_pack.atlas");
+        comAltas = manager.get("computer_pack.atlas");
+        lampAltas = manager.get("lamp_pack.atlas");
+        microwaveAltas = manager.get("microwave_pack.atlas");
+        refrigeratorAltas = manager.get("refrigerator_pack.atlas");
+        ricecookerAltas = manager.get("ricecooker_pack.atlas");
+        switchAltas = manager.get("switch_pack.atlas");
+        tvAltas = manager.get("tv_pack.atlas");
+        waterpumpAltas = manager.get("waterpump_pack.atlas");
+
         trap = new TextureRegion((Texture)manager.get("trap.png"));
         beam = new TextureRegion((Texture)manager.get("beam.png"));
         pepoAltas = manager.get("enemy1_pack.atlas");
