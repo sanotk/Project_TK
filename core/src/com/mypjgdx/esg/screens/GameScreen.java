@@ -164,7 +164,7 @@ public class GameScreen extends AbstractGameScreen {
         solarcellWindow = createSolarcellWindow();
         solarcellWindow.setVisible(false);
 
-        doorWindow = createChartWindow();
+        doorWindow = createDoorWindow();
         doorWindow.setVisible(false);
 
         optionsWindow.setVisible(false);
@@ -261,7 +261,7 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonChartStyle);
 
-        final Window doorWindow = new Window("", style);
+        final Window doorWindow = new Window("Door", style);
         doorWindow.setModal(true);
         doorWindow.padTop(40);
         doorWindow.padLeft(40);
@@ -269,6 +269,7 @@ public class GameScreen extends AbstractGameScreen {
         doorWindow.padBottom(20);
         doorWindow.getTitleLabel().setAlignment(Align.center);
         doorWindow.row().padBottom(10).padTop(10);
+        doorWindow.row().padTop(10);
         doorWindow.add("ไม่สามารถเปิดประตูได้ กรุณาเชื่อมต่อระบบพลังงานแสงอาทิตย์เพื่อเติมเต็มพลังงานให้สถานที่หลบภัยให้เรียบร้อยก่อน");
         doorWindow.row().padTop(10);
         doorWindow.add(closeButton).colspan(3);
