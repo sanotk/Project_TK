@@ -7,7 +7,7 @@ public class PepoKnight extends Enemy {
 
 	public static final int MAX_HEALTH = 8;
 	public static final int MAX_SPEED = 50;
-	public static final float SCALE = 1f;
+	public static final float SCALE = 0.8f;
 
     public PepoKnight(TiledMapTileLayer mapLayer,Player player) {
         super(Assets.instance.pepoKnightAltas, SCALE ,SCALE, mapLayer);
