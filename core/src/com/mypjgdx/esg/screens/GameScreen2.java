@@ -26,6 +26,7 @@ import com.mypjgdx.esg.game.levels.Level2Generator;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.items.Switch;
 import com.mypjgdx.esg.utils.ItemLink;
 import com.mypjgdx.esg.utils.SolarState;
 
@@ -79,9 +80,6 @@ public class GameScreen2 extends AbstractGameScreen {
     private Button buttonOption;
     private BitmapFont font;
     private Window optionsWindow;
-
-    private Window solarcellWindow;
-
     private boolean animation_status = false;
 
     private Button buttonRule;
@@ -433,6 +431,13 @@ public class GameScreen2 extends AbstractGameScreen {
         if (player.status_find && noItem) {
             player.status_find = false;
             player.status_windows_link = false;
+        }
+
+        if ((!player.isSwitch)&&(player.status_find)&&(player.status_switch)){
+            findItem(Switch.class).state = Item.ItemState.ON;
+            findItem(Switch.class).resetAnimation();
+            worldController.level.energyTube.energy += 100;
+            player.isSwitch = true;
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World

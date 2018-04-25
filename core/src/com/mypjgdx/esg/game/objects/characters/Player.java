@@ -42,6 +42,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean status_windows_link = false;
     private float Countdown;
 
+    public boolean isSwitch = false;
+
     public enum PlayerAnimation {
         ATK_LEFT,
         ATK_RIGHT,
