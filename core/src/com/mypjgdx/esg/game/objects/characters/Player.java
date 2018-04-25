@@ -94,6 +94,15 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean status_ccontroller = false;
     public boolean status_battery = false;
     public boolean status_door = false;
+    public boolean status_tv = false;
+    public boolean status_com = false;
+    public boolean status_microwave = false;
+    public boolean status_air = false;
+    public boolean status_refrigerator = false;
+    public boolean status_switch = false;
+    public boolean status_cooker = false;
+    public boolean status_fan = false;
+    public boolean status_pump = false;
 
     protected CollisionCheck solarcellCheck;
     protected CollisionCheck inverterCheck;
@@ -241,6 +250,61 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         }
         else {
             status_door = false;
+        }
+        if (comCheck.isCollidesBottom() || comCheck.isCollidesLeft() ||
+                comCheck.isCollidesRight() || comCheck .isCollidesTop()){
+            status_com = true;
+        }
+        else {
+            status_com = false;
+        }        if (fanCheck.isCollidesBottom() || fanCheck.isCollidesLeft() ||
+                fanCheck.isCollidesRight() || fanCheck .isCollidesTop()){
+            status_fan = true;
+        }
+        else {
+            status_fan = false;
+        }        if (refrigeratorCheck.isCollidesBottom() || refrigeratorCheck.isCollidesLeft() ||
+                refrigeratorCheck.isCollidesRight() || refrigeratorCheck .isCollidesTop()){
+            status_refrigerator = true;
+        }
+        else {
+            status_refrigerator = false;
+        }        if (cookerCheck.isCollidesBottom() || cookerCheck.isCollidesLeft() ||
+                cookerCheck.isCollidesRight() || cookerCheck .isCollidesTop()){
+            status_cooker = true;
+        }
+        else {
+            status_cooker = false;
+        }        if (waterpumpCheck.isCollidesBottom() || waterpumpCheck.isCollidesLeft() ||
+                waterpumpCheck.isCollidesRight() || waterpumpCheck .isCollidesTop()){
+            status_pump = true;
+        }
+        else {
+            status_pump = false;
+        }        if (airCheck.isCollidesBottom() || airCheck.isCollidesLeft() ||
+                airCheck.isCollidesRight() || airCheck .isCollidesTop()){
+            status_air = true;
+        }
+        else {
+            status_air = false;
+        }        if (switchCheck.isCollidesBottom() || switchCheck.isCollidesLeft() ||
+                switchCheck.isCollidesRight() || switchCheck .isCollidesTop()){
+            status_switch = true;
+        }
+        else {
+            status_switch = false;
+        }        if (microwaveCheck.isCollidesBottom() || microwaveCheck.isCollidesLeft() ||
+                microwaveCheck.isCollidesRight() || microwaveCheck .isCollidesTop()){
+            status_microwave = true;
+        }
+        else {
+            status_microwave = false;
+        }        if (tvCheck.isCollidesBottom() || tvCheck.isCollidesLeft() ||
+                tvCheck.isCollidesRight() || tvCheck .isCollidesTop()){
+            status_tv = true;
+        }
+        else {
+            status_tv = false;
         }
     }
 

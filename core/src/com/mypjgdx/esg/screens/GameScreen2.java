@@ -24,6 +24,7 @@ import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level2;
 import com.mypjgdx.esg.game.levels.Level2Generator;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
+import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.utils.ItemLink;
 import com.mypjgdx.esg.utils.SolarState;
@@ -358,13 +359,28 @@ public class GameScreen2 extends AbstractGameScreen {
             return;
         }
 
-
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
             Enemy enemy = worldController.level.enemies.get(i);
             if (enemy.dead && !enemy.count) {
                 worldController.level.energyTube.energy += 2;
                 enemy.count = true;
             }
+        }
+
+        Player player = worldController.level.player;
+        boolean noItem = !player.status_microwave
+                && !player.status_pump
+                && !player.status_cooker
+                && !player.status_switch
+                && !player.status_refrigerator
+                && !player.status_fan
+                && !player.status_com
+                && !player.status_air
+                && !player.status_tv ;
+
+        if (player.status_find && noItem) {
+            player.status_find = false;
+            player.status_windows_link = false;
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
