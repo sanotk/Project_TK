@@ -1,6 +1,7 @@
 package com.mypjgdx.esg.game.objects.weapons;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
@@ -20,6 +21,7 @@ public abstract class Weapon extends AbstractGameObject {
     }
 
     private TextureRegion weaponTexture;
+    private TextureAtlas weaponTextureAtlas;
     private boolean destroyed;
 
     public WeaponType type;
