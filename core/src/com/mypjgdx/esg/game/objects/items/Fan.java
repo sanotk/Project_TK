@@ -15,6 +15,11 @@ public class Fan extends Item{
         init(mapLayer,  player );
 	}
 
+    public Fan(TiledMapTileLayer mapLayer, Player player, float P_X, float P_Y){
+        super(Assets.instance.fanAltas, SCALE, SCALE , P_X , P_Y);
+        init(mapLayer,  player );
+    }
+
     @Override
     public String getName() {
         // TODO Auto-generated method stub

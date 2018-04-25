@@ -135,6 +135,51 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="29">
+   <properties>
+    <property name="switch" value=""/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="refrigerator" value=""/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="tv" value=""/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="com" value=""/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="cooker" value=""/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="microwave" value=""/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="pump" value=""/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="fan" value=""/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="air" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="79" name="item_on_map" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
   <image source="item_on_map.png" width="2048" height="64"/>
@@ -154,12 +199,17 @@
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJzVk9sKwjAMhuvwMNFadSoe5q73AL7/s/lfbBBCOxLayLz4aPkp/Uiads657gfcwdaAljhu4AR2BXmDwBwr4MEH9IRYNuZ+Ir9EHEuwKMgh4uhn7KB9+uc6NI5KQUv6xPs25dDMfmB38jXl8Aq4Q1qH5n8EwZmUg85gap/rsJ4rTR05jrm9RzXs6Z/hWW4d3J/KSswVvS+WlXgPqeMBrmAj5CnIjkM2Os6gNqAhjj1YG/AiDmu+Dysg5Q==
+   eJy9k9kKwjAQRWOpG1rrjkvtcz/AX1Dc//9zvMIUxiFpEpr04ZBwS3KYzqRUSpUdsAPjCBTMsQULMAnICeTC0QcZOIOKocvqPGvI1xpHCnoBuWgcFX170foED9pfLffdNdmsweEL/0+xHCZCOX5n3uBGa2VxJB4UzCGdTQ6f2c/FnXI1OTIPpMO1Dvk+PoSuD7kht/U8Vf8zaNq3dcSeXZ862jhcz3fVj4T2/M3IrG0d0m/KQswVv0+XheiHq2MPNmDoyMEhm1NWO5ZgFIEVc0zBIAJH5ojNFyGMJE4=
   </data>
  </layer>
  <layer name="item" width="25" height="25">
   <data encoding="base64" compression="zlib">
    eJztlMsKgzAQRf3E2tZWax8q+KJaXfn9ncUELhKMSR2wkAOHkbuYm9kYBJ5fuIG6DPMn2Fl0pKAuu0P+AAfD3qvFG+aYditix/0f0MTRsSMHTZwcO0ZQgjPPgb0IdEQ8X9xRCnSoOxKeknco1txRkTV/H8hCk/8D/g4ZJp49GS5kc2zuUP/ahmwXsi14k9mKzLMfvlulIfw=
+  </data>
+ </layer>
+ <layer name="map2" width="25" height="25">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFIwHw4ZFjRKIZ0cQI6RkF+AEjA2q4jgLagNEwHgWjYBSMRAAAu0QAGQ==
   </data>
  </layer>
 </map>

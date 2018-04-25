@@ -29,6 +29,7 @@ public class Level2Generator extends LevelGenerator {
         items.add(new Airconditioner(mapLayer, player));
         items.add(new Computer(mapLayer, player));
         items.add(new Fan(mapLayer, player));
+        items.add(new Fan(mapLayer, player,750,800));
         items.add(new Refrigerator(mapLayer, player));
         items.add(new Ricecooker(mapLayer,player));
         return items;
