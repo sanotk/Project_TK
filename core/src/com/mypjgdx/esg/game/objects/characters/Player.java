@@ -12,10 +12,7 @@ import com.mypjgdx.esg.game.SoundManager;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
 import com.mypjgdx.esg.game.objects.items.Item;
-import com.mypjgdx.esg.game.objects.weapons.Beam;
-import com.mypjgdx.esg.game.objects.weapons.Bullet;
-import com.mypjgdx.esg.game.objects.weapons.Trap;
-import com.mypjgdx.esg.game.objects.weapons.Weapon;
+import com.mypjgdx.esg.game.objects.weapons.*;
 import com.mypjgdx.esg.game.objects.weapons.Weapon.WeaponType;
 import com.mypjgdx.esg.utils.Direction;
 
@@ -68,7 +65,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public enum PlayerState {
-    	STAND, ATTACK
+        STAND, ATTACK
     }
 
     private Item item;
@@ -123,6 +120,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     public boolean timeStop = true;
 
+    public boolean swordHit = true;
+
     public Player(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         super(Assets.instance.playerAltas);
 
@@ -157,7 +156,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     public void init(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         this.mapLayer = mapLayer;
-        CollisionCheck ();
+        CollisionCheck();
 
         state = PlayerState.STAND;
         setCurrentAnimation(PlayerAnimation.STAND_DOWN);
@@ -176,7 +175,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         setPosition(positionX, positionY);
     }
 
-    public void CollisionCheck (){
+    public void CollisionCheck() {
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
         solarcellCheck = new TiledCollisionCheck(bounds, mapLayer, "solarcell");
         batteryCheck = new TiledCollisionCheck(bounds, mapLayer, "battery");
@@ -201,13 +200,13 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             item.setPosition(
                     getPositionX() + origin.x - item.origin.x,
                     getPositionY() + origin.y - item.origin.y);
-        for(Weapon w: weapons) {
-        	if (bounds.overlaps(w.bounds) && !w.isDestroyed() && w.type == WeaponType.ENEMYBALL) {
+        for (Weapon w : weapons) {
+            if (bounds.overlaps(w.bounds) && !w.isDestroyed() && w.type == WeaponType.ENEMYBALL) {
                 w.attack(this);
-        	}
+            }
         }
-        Countdown +=deltaTime;
-        if((!timeStop)&&(Countdown>=1)){
+        Countdown += deltaTime;
+        if ((!timeStop) && (Countdown >= 1)) {
             timeCount--;
             Countdown = 0;
         }
@@ -216,109 +215,111 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     private void checkCollide() {
         if (solarcellCheck.isCollidesBottom() || solarcellCheck.isCollidesLeft() ||
-                solarcellCheck.isCollidesRight() || solarcellCheck .isCollidesTop()){
+                solarcellCheck.isCollidesRight() || solarcellCheck.isCollidesTop()) {
             status_solarcell = true;
-        }
-        else {
+        } else {
             status_solarcell = false;
         }
 
         if (batteryCheck.isCollidesBottom() || batteryCheck.isCollidesLeft() ||
-                batteryCheck.isCollidesRight() || batteryCheck .isCollidesTop()){
+                batteryCheck.isCollidesRight() || batteryCheck.isCollidesTop()) {
             status_battery = true;
-        }
-        else {
+        } else {
             status_battery = false;
         }
 
         if (ccontrollerCheck.isCollidesBottom() || ccontrollerCheck.isCollidesLeft() ||
-                ccontrollerCheck.isCollidesRight() || ccontrollerCheck .isCollidesTop()){
+                ccontrollerCheck.isCollidesRight() || ccontrollerCheck.isCollidesTop()) {
             status_ccontroller = true;
-        }
-        else {
+        } else {
             status_ccontroller = false;
         }
 
         if (inverterCheck.isCollidesBottom() || inverterCheck.isCollidesLeft() ||
-                inverterCheck.isCollidesRight() || inverterCheck .isCollidesTop()){
+                inverterCheck.isCollidesRight() || inverterCheck.isCollidesTop()) {
             status_inverter = true;
-        }
-        else {
+        } else {
             status_inverter = false;
         }
         if (doorCheck.isCollidesBottom() || doorCheck.isCollidesLeft() ||
-                doorCheck.isCollidesRight() || doorCheck .isCollidesTop()){
+                doorCheck.isCollidesRight() || doorCheck.isCollidesTop()) {
             status_door = true;
-        }
-        else {
+        } else {
             status_door = false;
         }
         if (comCheck.isCollidesBottom() || comCheck.isCollidesLeft() ||
-                comCheck.isCollidesRight() || comCheck .isCollidesTop()){
+                comCheck.isCollidesRight() || comCheck.isCollidesTop()) {
             status_com = true;
-        }
-        else {
+        } else {
             status_com = false;
-        }        if (fanCheck.isCollidesBottom() || fanCheck.isCollidesLeft() ||
-                fanCheck.isCollidesRight() || fanCheck .isCollidesTop()){
+        }
+        if (fanCheck.isCollidesBottom() || fanCheck.isCollidesLeft() ||
+                fanCheck.isCollidesRight() || fanCheck.isCollidesTop()) {
             status_fan = true;
-        }
-        else {
+        } else {
             status_fan = false;
-        }        if (refrigeratorCheck.isCollidesBottom() || refrigeratorCheck.isCollidesLeft() ||
-                refrigeratorCheck.isCollidesRight() || refrigeratorCheck .isCollidesTop()){
+        }
+        if (refrigeratorCheck.isCollidesBottom() || refrigeratorCheck.isCollidesLeft() ||
+                refrigeratorCheck.isCollidesRight() || refrigeratorCheck.isCollidesTop()) {
             status_refrigerator = true;
-        }
-        else {
+        } else {
             status_refrigerator = false;
-        }        if (cookerCheck.isCollidesBottom() || cookerCheck.isCollidesLeft() ||
-                cookerCheck.isCollidesRight() || cookerCheck .isCollidesTop()){
+        }
+        if (cookerCheck.isCollidesBottom() || cookerCheck.isCollidesLeft() ||
+                cookerCheck.isCollidesRight() || cookerCheck.isCollidesTop()) {
             status_cooker = true;
-        }
-        else {
+        } else {
             status_cooker = false;
-        }        if (waterpumpCheck.isCollidesBottom() || waterpumpCheck.isCollidesLeft() ||
-                waterpumpCheck.isCollidesRight() || waterpumpCheck .isCollidesTop()){
+        }
+        if (waterpumpCheck.isCollidesBottom() || waterpumpCheck.isCollidesLeft() ||
+                waterpumpCheck.isCollidesRight() || waterpumpCheck.isCollidesTop()) {
             status_pump = true;
-        }
-        else {
+        } else {
             status_pump = false;
-        }        if (airCheck.isCollidesBottom() || airCheck.isCollidesLeft() ||
-                airCheck.isCollidesRight() || airCheck .isCollidesTop()){
+        }
+        if (airCheck.isCollidesBottom() || airCheck.isCollidesLeft() ||
+                airCheck.isCollidesRight() || airCheck.isCollidesTop()) {
             status_air = true;
-        }
-        else {
+        } else {
             status_air = false;
-        }        if (switchCheck.isCollidesBottom() || switchCheck.isCollidesLeft() ||
-                switchCheck.isCollidesRight() || switchCheck .isCollidesTop()){
+        }
+        if (switchCheck.isCollidesBottom() || switchCheck.isCollidesLeft() ||
+                switchCheck.isCollidesRight() || switchCheck.isCollidesTop()) {
             status_switch = true;
-        }
-        else {
+        } else {
             status_switch = false;
-        }        if (microwaveCheck.isCollidesBottom() || microwaveCheck.isCollidesLeft() ||
-                microwaveCheck.isCollidesRight() || microwaveCheck .isCollidesTop()){
+        }
+        if (microwaveCheck.isCollidesBottom() || microwaveCheck.isCollidesLeft() ||
+                microwaveCheck.isCollidesRight() || microwaveCheck.isCollidesTop()) {
             status_microwave = true;
-        }
-        else {
+        } else {
             status_microwave = false;
-        }        if (tvCheck.isCollidesBottom() || tvCheck.isCollidesLeft() ||
-                tvCheck.isCollidesRight() || tvCheck .isCollidesTop()){
-            status_tv = true;
         }
-        else {
+        if (tvCheck.isCollidesBottom() || tvCheck.isCollidesLeft() ||
+                tvCheck.isCollidesRight() || tvCheck.isCollidesTop()) {
+            status_tv = true;
+        } else {
             status_tv = false;
         }
     }
 
     public void move(Direction direction) {
         if (knockback) return;
-        switch(direction) {
-        case LEFT:  velocity.x = -movingSpeed; break;
-        case RIGHT: velocity.x = movingSpeed; break;
-        case DOWN: velocity.y = -movingSpeed; break;
-        case UP: velocity.y = movingSpeed; break;
-        default:
-            break;
+        switch (direction) {
+            case LEFT:
+                velocity.x = -movingSpeed;
+                break;
+            case RIGHT:
+                velocity.x = movingSpeed;
+                break;
+            case DOWN:
+                velocity.y = -movingSpeed;
+                break;
+            case UP:
+                velocity.y = movingSpeed;
+                break;
+            default:
+                break;
         }
         viewDirection = direction;
         velocity.setLength(movingSpeed);
@@ -333,7 +334,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     protected void setAnimation() {
         if (state == PlayerState.STAND && velocity.x == 0 && velocity.y == 0) {
             unFreezeAnimation();
-            if(item == null) {
+            if (item == null) {
                 switch (viewDirection) {
                     case DOWN:
                         setCurrentAnimation(PlayerAnimation.STAND_DOWN);
@@ -350,8 +351,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                     default:
                         break;
                 }
-            }
-            else {
+            } else {
                 switch (viewDirection) {
                     case DOWN:
                         setCurrentAnimation(PlayerAnimation.ITEM_STAND_DOWN);
@@ -369,16 +369,23 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                         break;
                 }
             }
-        }
-        else if (state == PlayerState.ATTACK && item == null) {
+        } else if (state == PlayerState.ATTACK && item == null) {
             unFreezeAnimation();
             switch (viewDirection) {
-            case DOWN: setCurrentAnimation(PlayerAnimation.ATK_DOWN); break;
-            case LEFT: setCurrentAnimation(PlayerAnimation.ATK_LEFT); break;
-            case RIGHT: setCurrentAnimation(PlayerAnimation.ATK_RIGHT); break;
-            case UP:  setCurrentAnimation(PlayerAnimation.ATK_UP); break;
-            default:
-                break;
+                case DOWN:
+                    setCurrentAnimation(PlayerAnimation.ATK_DOWN);
+                    break;
+                case LEFT:
+                    setCurrentAnimation(PlayerAnimation.ATK_LEFT);
+                    break;
+                case RIGHT:
+                    setCurrentAnimation(PlayerAnimation.ATK_RIGHT);
+                    break;
+                case UP:
+                    setCurrentAnimation(PlayerAnimation.ATK_UP);
+                    break;
+                default:
+                    break;
             }
             if (isAnimationFinished(PlayerAnimation.ATK_LEFT) || isAnimationFinished(PlayerAnimation.ATK_RIGHT)) {
                 state = PlayerState.STAND;
@@ -388,31 +395,45 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 state = PlayerState.STAND;
                 resetAnimation();
             }
-        }else if (item != null) {
+        } else if (item != null) {
             unFreezeAnimation();
             switch (viewDirection) {
-            case DOWN: setCurrentAnimation(PlayerAnimation.ITEM_DOWN); break;
-            case LEFT: setCurrentAnimation(PlayerAnimation.ITEM_LEFT); break;
-            case RIGHT: setCurrentAnimation(PlayerAnimation.ITEM_RIGHT); break;
-            case UP:  setCurrentAnimation(PlayerAnimation.ITEM_UP); break;
-            default:
-                break;
+                case DOWN:
+                    setCurrentAnimation(PlayerAnimation.ITEM_DOWN);
+                    break;
+                case LEFT:
+                    setCurrentAnimation(PlayerAnimation.ITEM_LEFT);
+                    break;
+                case RIGHT:
+                    setCurrentAnimation(PlayerAnimation.ITEM_RIGHT);
+                    break;
+                case UP:
+                    setCurrentAnimation(PlayerAnimation.ITEM_UP);
+                    break;
+                default:
+                    break;
             }
             if (velocity.x == 0 && velocity.y == 0) {
                 freezeAnimation();
                 resetAnimation();
             }
-        }
-        else
-        {
+        } else {
             unFreezeAnimation();
             switch (viewDirection) {
-            case DOWN:setCurrentAnimation(PlayerAnimation.WALK_DOWN); break;
-            case LEFT: setCurrentAnimation(PlayerAnimation.WALK_LEFT); break;
-            case RIGHT: setCurrentAnimation(PlayerAnimation.WALK_RIGHT); break;
-            case UP: setCurrentAnimation(PlayerAnimation.WALK_UP); break;
-            default:
-                break;
+                case DOWN:
+                    setCurrentAnimation(PlayerAnimation.WALK_DOWN);
+                    break;
+                case LEFT:
+                    setCurrentAnimation(PlayerAnimation.WALK_LEFT);
+                    break;
+                case RIGHT:
+                    setCurrentAnimation(PlayerAnimation.WALK_RIGHT);
+                    break;
+                case UP:
+                    setCurrentAnimation(PlayerAnimation.WALK_UP);
+                    break;
+                default:
+                    break;
             }
             if (velocity.x == 0 && velocity.y == 0) {
                 state = PlayerState.STAND;
@@ -420,18 +441,27 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         }
     }
 
-    public void trapAttack(List<Weapon> weapons){
-    	if(state != PlayerState.ATTACK && item == null){
-    		state = PlayerState.ATTACK;
-    		resetAnimation();
-            if(trapCount!=0){
+    public void trapAttack(List<Weapon> weapons) {
+        if (state != PlayerState.ATTACK && item == null) {
+            state = PlayerState.ATTACK;
+            resetAnimation();
+            if (trapCount != 0) {
                 weapons.add(new Trap(mapLayer, this));
-//                Assets.instance.bulletSound.play();]
+                Assets.instance.bulletSound.play();
                 SoundManager.instance.play(SoundManager.Sounds.BULLET);
                 trapCount--;
             }
-    	}
+        }
+    }
 
+    public void swordAttack(List<Sword> swords) {
+        if (state != PlayerState.ATTACK) {
+            state = PlayerState.ATTACK;
+            for (Sword sword : swords) {
+                sword.resetAnimation();
+                sword.state = Sword.SwordState.HIT;
+            }
+        }
     }
 
     public void statusUpdate() {
@@ -439,7 +469,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             invulnerable = false;
 
         if (knockback && velocity.isZero()) {
-            knockback =  false;
+            knockback = false;
         }
     }
 
@@ -451,43 +481,43 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     public void takeKnockback(float knockbackSpeed, float knockbackAngle) {
         velocity.set(
-                knockbackSpeed *MathUtils.cosDeg(knockbackAngle),
-                knockbackSpeed *MathUtils.sinDeg(knockbackAngle));
+                knockbackSpeed * MathUtils.cosDeg(knockbackAngle),
+                knockbackSpeed * MathUtils.sinDeg(knockbackAngle));
         knockback = true;
     }
 
-    public void rangeAttack(List<Weapon> weapons){
-    	if (state != PlayerState.ATTACK && item == null){
-    		state = PlayerState.ATTACK;
-    		if(bulletCount!=0){
+    public void rangeAttack(List<Weapon> weapons) {
+        if (state != PlayerState.ATTACK && item == null) {
+            state = PlayerState.ATTACK;
+            if (bulletCount != 0) {
                 weapons.add(new Bullet(mapLayer, this));
                 SoundManager.instance.play(SoundManager.Sounds.BULLET);
-	            bulletCount--;
-    		}
-    		resetAnimation();
-    	}
+                bulletCount--;
+            }
+            resetAnimation();
+        }
     }
 
-    public void beamAttack(List<Weapon> weapons){
-    	if (state != PlayerState.ATTACK && item == null){
-    		state = PlayerState.ATTACK;
-    		if(beamCount!=0){
-    		    weapons.add(new Beam(mapLayer, this));
-	            beamCount--;
-    		}
+    public void beamAttack(List<Weapon> weapons) {
+        if (state != PlayerState.ATTACK && item == null) {
+            state = PlayerState.ATTACK;
+            if (beamCount != 0) {
+                weapons.add(new Beam(mapLayer, this));
+                beamCount--;
+            }
             SoundManager.instance.play(SoundManager.Sounds.BEAM);
-    		resetAnimation();
-    	}
+            resetAnimation();
+        }
     }
 
 
-    public boolean isAlive(){
-    	return !dead;
+    public boolean isAlive() {
+        return !dead;
     }
 
 
-    public void showHp(ShapeRenderer shapeRenderer){
-        if(health!=INTITAL_HEALTH) {
+    public void showHp(ShapeRenderer shapeRenderer) {
+        if (health != INTITAL_HEALTH) {
             shapeRenderer.setColor(Color.BLACK);
             shapeRenderer.rect(getPositionX(), getPositionY() - 10, bounds.width, 5);
             shapeRenderer.setColor(Color.RED);
@@ -513,11 +543,10 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void findItem() {
-        if(status_windows_link==true){
+        if (status_windows_link == true) {
             status_windows_link = false;
             status_find = false;
-        }
-        else { // ถ้าหน้าต่างเมนูเปิดอยู่
+        } else { // ถ้าหน้าต่างเมนูเปิดอยู่
             status_windows_link = true; // ให้หน้าต่างเมนูปิดลง
             status_find = true; // ให้สเตตัสค้นหาเป็นเท็จ หรือ ไม่มีการค้นหา
         }

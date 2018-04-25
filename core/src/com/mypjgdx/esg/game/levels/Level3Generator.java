@@ -8,6 +8,7 @@ import com.mypjgdx.esg.game.objects.characters.Pepo;
 import com.mypjgdx.esg.game.objects.characters.PepoKnight;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.*;
+import com.mypjgdx.esg.game.objects.weapons.Sword;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,11 @@ public class Level3Generator extends LevelGenerator {
         items.add(new Fan(mapLayer, player));
         items.add(new Refrigerator(mapLayer, player));
         return items;
+    }
+
+    @Override
+    public List<Sword> createSwords(TiledMapTileLayer mapLayer, Player player, Level level) {
+        return null;
     }
 
     @Override

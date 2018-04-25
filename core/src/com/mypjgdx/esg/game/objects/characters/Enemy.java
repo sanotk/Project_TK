@@ -13,10 +13,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
-import com.mypjgdx.esg.game.SoundManager;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Enemy.EnemyAnimation;
-import com.mypjgdx.esg.game.objects.weapons.EnemyBall;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.utils.Direction;
 import com.mypjgdx.esg.utils.Distance;
@@ -113,12 +111,6 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         stateMachine.setInitialState(EnemyState.WANDER);
     }
 
-    public void rangeAttack(List<Weapon> weapons) {
-        weapons.add(new EnemyBall(mapLayer, player, this));
-        SoundManager.instance.play(SoundManager.Sounds.ENEMY_BALL);
-        resetAnimation();
-    }
-
     @Override
     protected void setAnimation() {
         unFreezeAnimation();
@@ -152,16 +144,11 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         if (bounds.overlaps(player.bounds)) {
             attackPlayer();
         }
-        if (type == EnemyType.PEPO_DEVIL && attacktime == true) {
-            rangeAttack(weapons);
-            attacktime = false;
-        }
         for (Weapon w : weapons) {
             if (bounds.overlaps(w.bounds) && !w.isDestroyed()) {
                 w.attack(this);
             }
         }
-
         if (!player.timeStop) {
             stateMachine.update();
         }

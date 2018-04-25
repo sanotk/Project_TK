@@ -1,72 +1,103 @@
 package com.mypjgdx.esg.game.objects.weapons;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
+import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.utils.Direction;
 
+public abstract class Sword extends AnimatedObject<Sword.SwordAnimation>{
 
-public class Sword extends Weapon{
+    protected static final float FRAME_DURATION = 0.3f / 2.0f;
 
-	    private static final float SCALE = 0.75f;
+    protected Player player;
+    protected Enemy enemy;
+    public Direction direction;
+    private boolean destroyed;
 
-	    private static final float INTITAL_FRICTION = 50f;
-	    private static final float INTITIAL_SPEED = 50f;
+    public enum SwordAnimation {
+        OFF,
+        HIT
+    }
 
-	    public Sword(TiledMapTileLayer mapLayer , Player player) {
-	        super(Assets.instance.trap, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
-            init(mapLayer ,player, enemy);
-	    }
+    public enum SwordState {
+        OFF,
+        HIT
+    }
 
-        @Override
-        protected void spawn() {
-            setPosition(
-                    player.getPositionX() + player.origin.x - origin.x,
-                    player.getPositionY() + player.origin.y - 9);
+    public SwordState state;
 
-            direction = player.getViewDirection();
+    public Sword(TextureAtlas atlas, float scaleX, float scaleY , float P_X , float P_Y) {
+        super(atlas);
 
-            switch(direction){
+        addLoopAnimation(SwordAnimation.OFF, FRAME_DURATION, 3, 1);
+        addNormalAnimation(SwordAnimation.HIT, FRAME_DURATION, 0, 3);
+
+        setPosition(P_X, P_Y);
+
+        scale.set(scaleX, scaleY);
+    }
+
+    public void init(TiledMapTileLayer mapLayer, Player player) {
+        state = SwordState.OFF;
+        setCurrentAnimation(SwordAnimation.OFF);
+        this.player = player;
+        spawn();
+    }
+
+    protected abstract void spawn();
+
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        if(state == SwordState.HIT){
+            if(isAnimationFinished(SwordAnimation.HIT)){
+                state = SwordState.OFF;
+            }
+        }
+        direction = player.getViewDirection();
+        switch(direction){
             case DOWN:
-                rotation = 90;
-                velocity.set(0,-INTITIAL_SPEED);
+                rotation = 0;
+                setPosition(player.getPositionX()-player.bounds.width/2+3,player.getPositionY()-player.bounds.height/2+3);
                 break;
             case LEFT:
-                velocity.set(-INTITIAL_SPEED,0);
+                rotation = 270;
+                setPosition(player.getPositionX()-player.bounds.width,player.getPositionY());
                 break;
             case RIGHT:
-                velocity.set(INTITIAL_SPEED,0);
+                rotation = 90;
+                setPosition(player.getPositionX()+player.bounds.width/2,player.getPositionY());
                 break;
             case UP:
-                rotation = 90;
-                velocity.set(0, INTITIAL_SPEED);
+                rotation = 180;
+                setPosition(player.getPositionX()-player.bounds.width/2,player.getPositionY()+player.bounds.height/2);
                 break;
             default:
                 break;
-            }
         }
 
-        @Override
-        public void attack(Damageable damageable) {
-            float knockbackSpeed = 800f;
-            switch(damageable.getViewDirection()) {
-            case DOWN: damageable.takeDamage(1, knockbackSpeed, 90); break;
-            case LEFT: damageable.takeDamage(1, knockbackSpeed, 0); break;
-            case RIGHT: damageable.takeDamage(1, knockbackSpeed, 180); break;
-            case UP:  damageable.takeDamage(1, knockbackSpeed, 270); break;
-            default: break;
-            }
-        }
+    }
 
-        @Override
-        public String getName() {
-            // TODO Auto-generated method stub
-            return null;
+    @Override
+    protected void setAnimation() {
+        unFreezeAnimation();
+        switch (state) {
+            case OFF: setCurrentAnimation(SwordAnimation.OFF); break;
+            case HIT: setCurrentAnimation(SwordAnimation.HIT); break;
+            default:
+                break;
         }
+    }
 
-		@Override
-		public void TellMeByType() {
-			// TODO Auto-generated method stub
-			type = WeaponType.TRAP;
-		}
+    public void debug(ShapeRenderer renderer) {
+        renderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
+    }
+
+    public abstract void activate();
+
+    public abstract void attack(Damageable damageable);
 }

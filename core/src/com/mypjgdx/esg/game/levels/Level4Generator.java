@@ -5,6 +5,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.*;
+import com.mypjgdx.esg.game.objects.weapons.NormalSword;
+import com.mypjgdx.esg.game.objects.weapons.Sword;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,13 @@ public class Level4Generator extends LevelGenerator {
         enemies.add(new PepoKnight(mapLayer, player));
         enemies.add(new PepoDevil(mapLayer, player));
         return enemies;
+    }
+
+    @Override
+    public List<Sword> createSwords(TiledMapTileLayer mapLayer, Player player, Level level) {
+        ArrayList<Sword> swords = new ArrayList<Sword>();
+        swords.add(new NormalSword(mapLayer, player));
+        return swords;
     }
 
     @Override

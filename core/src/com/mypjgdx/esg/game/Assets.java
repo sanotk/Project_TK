@@ -83,7 +83,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("bullet.png", Texture.class);
         manager.load("enemy_ball.png", Texture.class);
 
-        manager.load("sword_pack.png", TextureAtlas.class);
+        manager.load("sword_pack.atlas", TextureAtlas.class);
 
         manager.load("solarcell_pack.atlas", TextureAtlas.class);
         manager.load("cc_pack.atlas", TextureAtlas.class);

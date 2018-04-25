@@ -3,12 +3,10 @@ package com.mypjgdx.esg.game.objects.items;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.MathUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item.ItemAnimation;
-import com.mypjgdx.esg.utils.Distance;
 
 public abstract class Item extends AnimatedObject<ItemAnimation>{
 
@@ -73,27 +71,6 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 			updateBounds();
 			setPosition(p_x,p_y);
 		}
-
-	    private void randomPosition(TiledMapTileLayer mapLayer, Player player) {
-            updateBounds();
-
-	        float mapWidth = mapLayer.getTileWidth()*mapLayer.getWidth();
-	        float mapHeight = mapLayer.getTileHeight()*mapLayer.getHeight();
-
-	        final float MIN_DISTANCE = 100;
-	        do{
-	            setPosition(
-	                    MathUtils.random(MIN_DISTANCE, mapWidth - bounds.width),
-	                    MathUtils.random(MIN_DISTANCE, mapHeight - bounds.height));
-
-                if (Distance.absoluteXY(this, player) < MIN_DISTANCE)
-                    continue;
-
-	        } while ( collisionCheck.isCollidesTop()
-	                || collisionCheck.isCollidesBottom()
-	                || collisionCheck.isCollidesRight()
-	                || collisionCheck.isCollidesLeft());
-	    }
 
 	    public void debug(ShapeRenderer renderer) {
 			renderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
