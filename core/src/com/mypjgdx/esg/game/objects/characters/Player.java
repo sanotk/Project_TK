@@ -100,6 +100,15 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     protected CollisionCheck ccontrollerCheck;
     protected CollisionCheck batteryCheck;
     protected CollisionCheck doorCheck;
+    protected CollisionCheck microwaveCheck;
+    protected CollisionCheck tvCheck;
+    protected CollisionCheck waterpumpCheck;
+    protected CollisionCheck fanCheck;
+    protected CollisionCheck cookerCheck;
+    protected CollisionCheck airCheck;
+    protected CollisionCheck comCheck;
+    protected CollisionCheck switchCheck;
+    protected CollisionCheck refrigeratorCheck;
 
     public boolean timeStop = true;
 
@@ -137,12 +146,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     public void init(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         this.mapLayer = mapLayer;
-        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
-        solarcellCheck = new TiledCollisionCheck(bounds, mapLayer, "solarcell");
-        batteryCheck = new TiledCollisionCheck(bounds, mapLayer, "battery");
-        inverterCheck = new TiledCollisionCheck(bounds, mapLayer, "inverter");
-        ccontrollerCheck = new TiledCollisionCheck(bounds, mapLayer, "ccontroller");
-        doorCheck = new TiledCollisionCheck(bounds, mapLayer, "door");
+        CollisionCheck ();
 
         state = PlayerState.STAND;
         setCurrentAnimation(PlayerAnimation.STAND_DOWN);
@@ -159,6 +163,24 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         lastInvulnerableTime = 0;
         invulnerableTime = 0;
         setPosition(positionX, positionY);
+    }
+
+    public void CollisionCheck (){
+        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
+        solarcellCheck = new TiledCollisionCheck(bounds, mapLayer, "solarcell");
+        batteryCheck = new TiledCollisionCheck(bounds, mapLayer, "battery");
+        inverterCheck = new TiledCollisionCheck(bounds, mapLayer, "inverter");
+        ccontrollerCheck = new TiledCollisionCheck(bounds, mapLayer, "ccontroller");
+        doorCheck = new TiledCollisionCheck(bounds, mapLayer, "door");
+        microwaveCheck = new TiledCollisionCheck(bounds, mapLayer, "microwave");
+        tvCheck = new TiledCollisionCheck(bounds, mapLayer, "tv");
+        waterpumpCheck = new TiledCollisionCheck(bounds, mapLayer, "pump");
+        fanCheck = new TiledCollisionCheck(bounds, mapLayer, "fan");
+        cookerCheck = new TiledCollisionCheck(bounds, mapLayer, "cooker");
+        airCheck = new TiledCollisionCheck(bounds, mapLayer, "air");
+        comCheck = new TiledCollisionCheck(bounds, mapLayer, "com");
+        switchCheck = new TiledCollisionCheck(bounds, mapLayer, "switch");
+        refrigeratorCheck = new TiledCollisionCheck(bounds, mapLayer, "refrigerator");
     }
 
     public void update(float deltaTime, List<Weapon> weapons) {
