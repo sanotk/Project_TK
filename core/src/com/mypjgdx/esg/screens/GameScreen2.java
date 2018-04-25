@@ -87,6 +87,7 @@ public class GameScreen2 extends AbstractGameScreen {
     private Button buttonRule;
     private Window ruleWindow;
     private Window chartWindow;
+    private Window requestWindow;
 
     private boolean addedStoC = false;
     private boolean addedStoB = false;
@@ -160,6 +161,9 @@ public class GameScreen2 extends AbstractGameScreen {
         chartWindow = createChartWindow();
         chartWindow.setVisible(false);
 
+        requestWindow = createRequestWindow();
+        requestWindow.setVisible(false);
+
         optionsWindow.setVisible(false);
 
         stage.addActor(buttonOption);
@@ -168,6 +172,7 @@ public class GameScreen2 extends AbstractGameScreen {
         stage.addActor(optionsWindow);
         stage.addActor(ruleWindow);
         stage.addActor(chartWindow);
+        stage.addActor(requestWindow);
 
         buttonOption.addListener(new ClickListener() {
             @Override
@@ -192,6 +197,53 @@ public class GameScreen2 extends AbstractGameScreen {
 
         createbutton();
         batch = new SpriteBatch();
+    }
+
+    private Window createRequestWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
+//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.BLACK;
+
+        Button.ButtonStyle buttonSolarStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonSolarStyle.up = buttonRegion;
+        buttonSolarStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+
+        Button closeButton = new Button(buttonSolarStyle);
+
+        buttonLink1 = new TextButton("YES", buttonStyle);
+        buttonLink2 = new TextButton("NO", buttonStyle);
+
+        final Window requestWindow = new Window("Choice", style);
+        requestWindow.setModal(true);
+        requestWindow.padTop(40);
+        requestWindow.padLeft(40);
+        requestWindow.padRight(40);
+        requestWindow.padBottom(20);
+        requestWindow.getTitleLabel().setAlignment(Align.center);
+        requestWindow.row().padBottom(10).padTop(10);
+        requestWindow.add(buttonLink1);
+        requestWindow.add(buttonLink2).padLeft(10);
+        requestWindow.row().padTop(10);
+        requestWindow.add(closeButton).colspan(2);
+        requestWindow.pack();
+
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                requestWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
+            }
+        });
+
+        return requestWindow;
     }
 
     private Window createChartWindow() {
