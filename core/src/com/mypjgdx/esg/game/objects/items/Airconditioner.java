@@ -7,11 +7,11 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 public class Airconditioner extends Item{
 
     public static final float SCALE = 1f;
-    public static final float P_X = 1500f;
-    public static final float P_Y = 1100f;
+    public static final float P_X = 300f;
+    public static final float P_Y = 700f;
 
 	public Airconditioner(TiledMapTileLayer mapLayer, Player player){
-        super(Assets.instance.solarCellAltas, SCALE, SCALE , P_X , P_Y);
+        super(Assets.instance.airAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player );
 	}
 

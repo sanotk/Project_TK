@@ -4,14 +4,14 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Player;
 
-public class Fan extends Item{
+public class Ricecooker extends Item{
 
     public static final float SCALE = 1f;
-    public static final float P_X = 950f;
-    public static final float P_Y = 800f;
+    public static final float P_X = 350f;
+    public static final float P_Y = 1050f;
 
-	public Fan(TiledMapTileLayer mapLayer, Player player){
-        super(Assets.instance.fanAltas, SCALE, SCALE , P_X , P_Y);
+	public Ricecooker(TiledMapTileLayer mapLayer, Player player){
+        super(Assets.instance.ricecookerAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player );
 	}
 

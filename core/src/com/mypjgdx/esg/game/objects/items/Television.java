@@ -7,11 +7,11 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 public class Television extends Item{
 
     public static final float SCALE = 1f;
-    public static final float P_X = 1500f;
-    public static final float P_Y = 1100f;
+    public static final float P_X = 850;
+    public static final float P_Y = 900;
 
 	public Television(TiledMapTileLayer mapLayer, Player player){
-        super(Assets.instance.solarCellAltas, SCALE, SCALE , P_X , P_Y);
+        super(Assets.instance.tvAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player );
 	}
 

@@ -6,12 +6,12 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 
 public class Waterpump extends Item{
 
-    public static final float SCALE = 1f;
-    public static final float P_X = 1500f;
-    public static final float P_Y = 1100f;
+    public static final float SCALE = 0.5f;
+    public static final float P_X = 200f;
+    public static final float P_Y = 1000f;
 
 	public Waterpump(TiledMapTileLayer mapLayer, Player player){
-        super(Assets.instance.solarCellAltas, SCALE, SCALE , P_X , P_Y);
+        super(Assets.instance.waterpumpAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player );
 	}
 

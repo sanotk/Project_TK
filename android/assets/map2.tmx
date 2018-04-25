@@ -130,6 +130,11 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="12">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="79" name="item_on_map" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
   <image source="item_on_map.png" width="2048" height="64"/>
@@ -149,7 +154,7 @@
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJzVk9sKwyAMhl3ZkbVzZ9bDet33f8L9FxZC0JGgGd3Fh/IjfiTG0Tk3/oAXOBgwEMcTXMCxIG/gmWMDmsBEiGWS/B5xrMGqIKeIY1qwg/bpn+vQOCoFA+kT79s3h2b2PbuTrylHo4A7pHVo/ocXnEk56Aym9rkO67nS1JHjWNp7VGFP/wzPcuvg/lRWYq7ofbGsxHtIHS14gJ2QTpCdQzY7rmBvwI04arA1oCcOaz54miCX
+   eJzVk9sKwjAMhuvwMNFadSoe5q73AL7/s/lfbBBCOxLayLz4aPkp/Uiads657gfcwdaAljhu4AR2BXmDwBwr4MEH9IRYNuZ+Ir9EHEuwKMgh4uhn7KB9+uc6NI5KQUv6xPs25dDMfmB38jXl8Aq4Q1qH5n8EwZmUg85gap/rsJ4rTR05jrm9RzXs6Z/hWW4d3J/KSswVvS+WlXgPqeMBrmAj5CnIjkM2Os6gNqAhjj1YG/AiDmu+Dysg5Q==
   </data>
  </layer>
  <layer name="item" width="25" height="25">
