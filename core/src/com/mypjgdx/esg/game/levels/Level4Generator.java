@@ -47,6 +47,11 @@ public class Level4Generator extends LevelGenerator {
     }
 
     @Override
+    public List<Citizen> createCitizens(TiledMapTileLayer mapLayer, Player player) {
+        return null;
+    }
+
+    @Override
     public List<Sword> createSwords(TiledMapTileLayer mapLayer, Player player, Level level) {
         ArrayList<Sword> swords = new ArrayList<Sword>();
         swords.add(new NormalSword(mapLayer, player));

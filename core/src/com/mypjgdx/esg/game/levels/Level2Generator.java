@@ -3,10 +3,7 @@ package com.mypjgdx.esg.game.levels;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.objects.characters.Enemy;
-import com.mypjgdx.esg.game.objects.characters.Pepo;
-import com.mypjgdx.esg.game.objects.characters.PepoKnight;
-import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.game.objects.weapons.NormalSword;
 import com.mypjgdx.esg.game.objects.weapons.Sword;
@@ -56,6 +53,18 @@ public class Level2Generator extends LevelGenerator {
         enemies.add(new PepoKnight(mapLayer, player));
         enemies.add(new PepoKnight(mapLayer, player));
         return enemies;
+    }
+
+    @Override
+    public List<Citizen> createCitizens(TiledMapTileLayer mapLayer, Player player) {
+        ArrayList<Citizen> citizens = new ArrayList<Citizen>();
+        citizens.add(new Citizen1(mapLayer, player));
+        citizens.add(new Citizen2(mapLayer, player));
+        citizens.add(new Citizen3(mapLayer, player));
+        citizens.add(new Citizen4(mapLayer, player));
+        citizens.add(new Citizen5(mapLayer, player));
+        citizens.add(new Citizen6(mapLayer, player));
+        return citizens;
     }
 
     @Override

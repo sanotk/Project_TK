@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.etcs.Etc;
@@ -26,6 +27,7 @@ public abstract class Level {
     public Player player;
     public List<Item> items;
     public List<Enemy> enemies;
+    public List<Citizen> citizens;
     public List<Weapon> weapons;
     public List<Sword> swords;
     public List<Etc> etcs;
@@ -55,6 +57,7 @@ public abstract class Level {
         player = levelGenerator.createPlayer(mapLayer);
         items = levelGenerator.createItems(mapLayer, player, this);
         enemies = levelGenerator.createEnemies(mapLayer, player);
+        citizens = levelGenerator.createCitizens(mapLayer, player);
         swords = levelGenerator.createSwords(mapLayer, player, this);
 
         energyTube.init(mapLayer, player);
@@ -70,6 +73,7 @@ public abstract class Level {
         for (Etc e : etcs) e.render(batch);
         for (Item i : items) i.render(batch);
         for (Enemy e : enemies) e.render(batch);
+        for (Citizen c : citizens) c.render(batch);
         player.render(batch);
         for (Sword s : swords) s.render(batch);
 
@@ -97,6 +101,7 @@ public abstract class Level {
         Iterator<Weapon> weaponIterator = weapons.iterator();
         Iterator<Etc> etcIterator = etcs.iterator();
         Iterator<Enemy> enemyIterator = enemies.iterator();
+        Iterator<Citizen> citizenIterator = citizens.iterator();
 
         while (weaponIterator.hasNext()) {
             Weapon w = weaponIterator.next();
@@ -118,6 +123,7 @@ public abstract class Level {
         for (Etc etc : etcs) etc.update(deltaTime);
         for (Item i : items) i.update(deltaTime);
         for (Enemy e : enemies) e.update(deltaTime, weapons);
+        for (Citizen c : citizens) c.update(deltaTime);
         for (Weapon w : weapons) w.update(deltaTime);
         for (Sword s : swords) s.update(deltaTime);
         energyTube.update(deltaTime);

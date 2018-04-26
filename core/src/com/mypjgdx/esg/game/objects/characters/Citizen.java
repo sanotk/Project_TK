@@ -39,18 +39,19 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     }
 
     public enum CitizenType {
-        Citizen_1,
-        Citizen_2,
-        Citizen_3,
-        Citizen_4,
-        Citizen_5,
-        Citizen_6
+        Citizen1,
+        Citizen2,
+        Citizen3,
+        Citizen4,
+        Citizen5,
+        Citizen6
     }
 
     public CitizenType type;
     private Direction viewDirection;
 
     public boolean quest;
+    public int questCount;
     private boolean knockback;
     private boolean stun;
     private TiledMapTileLayer mapLayer;
@@ -97,6 +98,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
         this.mapLayer = mapLayer;
 
+        questCount = 0;
         setCurrentAnimation(CitizenAnimation.WALK_DOWN);
         viewDirection = Direction.DOWN;
 
@@ -143,8 +145,29 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
             quest = true;
         }
 
-        if (type == CitizenType.Citizen_1 && quest == true) {
-
+        if (type == CitizenType.Citizen1 && quest == true && questCount == 0) {
+            runToPlayer();
+            questCount = questCount + 1;
+        } else if (type == CitizenType.Citizen2 && quest == true && questCount == 1) {
+            runToPlayer();
+            quest = false;
+            questCount = questCount + 1;
+        } else if (type == CitizenType.Citizen3 && quest == true && questCount == 2) {
+            runToPlayer();
+            quest = false;
+            questCount = questCount + 1;
+        } else if (type == CitizenType.Citizen4 && quest == true && questCount == 3) {
+            runToPlayer();
+            quest = false;
+            questCount = questCount + 1;
+        } else if (type == CitizenType.Citizen5 && quest == true && questCount == 4) {
+            runToPlayer();
+            quest = false;
+            questCount = questCount + 1;
+        } else if (type == CitizenType.Citizen6 && quest == true && questCount == 5) {
+            runToPlayer();
+            quest = false;
+            questCount = questCount + 1;
         }
 
         if (!player.timeStop) {
@@ -210,7 +233,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
         gameMap.updateNeighbors(); //TODO
         startNode = gameMap.getNode(startX, startY);
-        endNode =gameMap.getNode(goalX, goalY);
+        endNode = gameMap.getNode(goalX, goalY);
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
         path = pathOutput;
@@ -242,7 +265,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         Color oldColor = batch.getColor();
         batch.setColor(color);
         super.render(batch);
-        batch.setColor(oldColor);
+        //batch.setColor(oldColor);
     }
 
     public void die() {

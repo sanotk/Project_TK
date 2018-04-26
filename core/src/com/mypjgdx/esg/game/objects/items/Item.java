@@ -10,7 +10,7 @@ import com.mypjgdx.esg.game.objects.items.Item.ItemAnimation;
 
 public abstract class Item extends AnimatedObject<ItemAnimation>{
 
-		protected static final float FRAME_DURATION = 1.0f / 2.0f;
+		protected static float FRAME_DURATION = 1.0f / 2.0f;
 
 		public float p_x;
 		public float p_y;
