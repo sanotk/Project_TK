@@ -34,8 +34,10 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     public enum CitizenAnimation {
         WALK_LEFT,
         WALK_RIGHT,
-        WALK_DOWN,
         WALK_UP,
+        STAND_LEFT,
+        STAND_RIGHT,
+        STAND_UP
     }
 
     public enum CitizenType {
@@ -79,9 +81,11 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         super(atlas);
 
         addLoopAnimation(CitizenAnimation.WALK_UP, FRAME_DURATION, 0, 3);
-        addLoopAnimation(CitizenAnimation.WALK_DOWN, FRAME_DURATION, 3, 3);
-        addLoopAnimation(CitizenAnimation.WALK_LEFT, FRAME_DURATION, 6, 3);
-        addLoopAnimation(CitizenAnimation.WALK_RIGHT, FRAME_DURATION, 9, 3);
+        addLoopAnimation(CitizenAnimation.WALK_LEFT, FRAME_DURATION, 3, 3);
+        addLoopAnimation(CitizenAnimation.WALK_RIGHT, FRAME_DURATION, 6, 3);
+        addLoopAnimation(CitizenAnimation.STAND_UP, FRAME_DURATION, 0, 3);
+        addLoopAnimation(CitizenAnimation.STAND_LEFT, FRAME_DURATION, 3, 3);
+        addLoopAnimation(CitizenAnimation.STAND_RIGHT, FRAME_DURATION, 6, 3);
 
         findingRange = INITIAL_FINDING_RANGE;
         friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
@@ -99,7 +103,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         this.mapLayer = mapLayer;
 
         questCount = 0;
-        setCurrentAnimation(CitizenAnimation.WALK_DOWN);
+        setCurrentAnimation(CitizenAnimation.STAND_UP);
         viewDirection = Direction.DOWN;
 
         health = maxHealth;
@@ -116,7 +120,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         unFreezeAnimation();
         switch (viewDirection) {
             case DOWN:
-                setCurrentAnimation(CitizenAnimation.WALK_DOWN);
+                setCurrentAnimation(CitizenAnimation.WALK_UP);
                 break;
             case LEFT:
                 setCurrentAnimation(CitizenAnimation.WALK_LEFT);

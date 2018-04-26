@@ -10,7 +10,7 @@ public class Citizen5 extends Citizen {
 	public static final float SCALE = 0.5f;
 
     public Citizen5(TiledMapTileLayer mapLayer, Player player) {
-        super(Assets.instance.playerAltas, SCALE, SCALE, mapLayer);
+        super(Assets.instance.citizenAltas, SCALE, SCALE, mapLayer);
 
         this.player = player;
         this.movingSpeed = MAX_SPEED;

@@ -11,7 +11,7 @@ import com.mypjgdx.esg.utils.Direction;
 
 public abstract class Sword extends AnimatedObject<Sword.SwordAnimation>{
 
-    protected static final float FRAME_DURATION = 0.3f / 2.0f;
+    protected static final float FRAME_DURATION = 0.1f / 2.0f;
 
     protected Player player;
     protected Enemy enemy;
