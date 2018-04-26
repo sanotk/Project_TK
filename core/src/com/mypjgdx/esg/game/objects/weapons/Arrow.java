@@ -1,41 +1,64 @@
 package com.mypjgdx.esg.game.objects.weapons;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Vector2;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
 import com.mypjgdx.esg.game.objects.characters.Player;
 
 
-public class Arrow extends Weapon{
+public class Arrow extends Weapon {
 
-	    private static final float SCALE = 1f;
+    private static final float SCALE = 1f;
 
-	    private static final float INTITAL_FRICTION = 50f;
-	    private static final float INTITIAL_SPEED = 400f;
+    private static final float INTITAL_FRICTION = 50f;
+    private static final float INTITIAL_SPEED = 400f;
 
-	    public Arrow(TiledMapTileLayer mapLayer , Player player) {
-	        super(Assets.instance.arrow, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
-	        init(mapLayer ,player ,enemy);
-	    }
+    private Damageable target;
+    private boolean damaged;
+    private Vector2 positionToTarget;
+//    private Vector2 verticalDimension = new Vector2();
 
-	    @Override
-        protected void spawn() {
-            setPosition(
-                    player.getPositionX() + player.origin.x - origin.x,
-                    player.getPositionY() + player.origin.y - 4);
+    public Arrow(TiledMapTileLayer mapLayer, Player player) {
+        super(Assets.instance.arrow, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
+        init(mapLayer, player, enemy);
+    }
 
-            direction = player.getViewDirection();
+    @Override
+    protected void spawn() {
+        direction = player.getViewDirection();
 
-            switch(direction){
-            case DOWN:
-                rotation = 90;
-                velocity.set(0,-INTITIAL_SPEED);
-                break;
+        switch (direction) {
             case LEFT:
-                velocity.set(-INTITIAL_SPEED,0);
+                setPosition(
+                        player.getPositionX() + player.origin.x - dimension.x,
+                        player.getPositionY() + player.origin.y - 4);
                 break;
             case RIGHT:
-                velocity.set(INTITIAL_SPEED,0);
+                setPosition(
+                        player.getPositionX() + player.origin.x,
+                        player.getPositionY() + player.origin.y - 4);
+                break;
+            case DOWN:
+            case UP:
+                setPosition(
+                        player.getPositionX() + player.origin.x - origin.x,
+                        player.getPositionY() + player.origin.y - 4);
+                break;
+        }
+
+        switch (direction) {
+            case DOWN:
+                rotation = 270;
+                velocity.set(0, -INTITIAL_SPEED);
+                break;
+            case LEFT:
+                rotation = 180;
+                velocity.set(-INTITIAL_SPEED, 0);
+                break;
+            case RIGHT:
+                velocity.set(INTITIAL_SPEED, 0);
                 break;
             case UP:
                 rotation = 90;
@@ -43,42 +66,103 @@ public class Arrow extends Weapon{
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        if (target != null) {
+            float x = target.getPosition().x + positionToTarget.x;
+            float y = target.getPosition().y + positionToTarget.y;
+            switch (direction) {
+                case LEFT:
+                    x -= 20;
+                    break;
+                case RIGHT:
+                    x += 20;
+                    break;
+                case DOWN:
+                    y -= 20;
+                    break;
+                case UP:
+                    y += 20;
+                    break;
             }
+
+            setPosition(x, y);
         }
+    }
 
-	    @Override
-	    protected void responseCollisionX (float oldPositionX) {
-	        destroy();
-	    }
+    public void debug(ShapeRenderer renderer) {
+        renderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
+    }
 
-	    @Override
-        protected void responseCollisionY (float oldPositionY) {
-	        destroy();
+    @Override
+    public void setPosition(float x, float y) {
+        position.set(x, y);
+
+        switch (direction) {
+            case LEFT:
+            case RIGHT:
+                bounds.set(position.x, position.y, dimension.x, dimension.y);
+                break;
+            case DOWN:
+            case UP:
+                float newX = position.x + dimension.x / 2 - dimension.y / 2;
+                float newY = position.y - dimension.x / 2 + dimension.y / 2;
+                bounds.set(newX, newY, dimension.y, dimension.x);
+                break;
         }
+    }
 
-	    @Override
-        public void attack(Damageable damageable) {
-            float knockbackSpeed = 100f;
-            switch(direction) {
-            case DOWN: damageable.takeDamage(1, knockbackSpeed, 270); break;
-            case LEFT: damageable.takeDamage(1, knockbackSpeed, 180); break;
-            case RIGHT: damageable.takeDamage(1, knockbackSpeed, 0); break;
-            case UP: damageable.takeDamage(1, knockbackSpeed, 90); break;
-            default: break;
-            }
-            destroy();
+    @Override
+    protected void responseCollisionX(float oldPositionX) {
+        destroy();
+    }
+
+    @Override
+    protected void responseCollisionY(float oldPositionY) {
+        destroy();
+    }
+
+    @Override
+    public void attack(Damageable damageable) {
+        if (damaged) return;
+
+        float knockbackSpeed = 100f;
+        switch (direction) {
+            case DOWN:
+                damageable.takeDamage(1, knockbackSpeed, 270);
+                break;
+            case LEFT:
+                damageable.takeDamage(1, knockbackSpeed, 180);
+                break;
+            case RIGHT:
+                damageable.takeDamage(1, knockbackSpeed, 0);
+                break;
+            case UP:
+                damageable.takeDamage(1, knockbackSpeed, 90);
+                break;
+            default:
+                break;
         }
+        velocity.setZero();
+        this.target = damageable;
+        damaged = true;
+        positionToTarget = new Vector2(getPositionX() - target.getPosition().x, getPositionY() - target.getPosition().y);
+    }
 
-        @Override
-        public String getName() {
-            // TODO Auto-generated method stub
-            return null;
-        }
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-		@Override
-		public void TellMeByType() {
-			// TODO Auto-generated method stub
-			type = WeaponType.BULLET;
-		}
+    @Override
+    public void TellMeByType() {
+        // TODO Auto-generated method stub
+        type = WeaponType.BULLET;
+    }
 
 }

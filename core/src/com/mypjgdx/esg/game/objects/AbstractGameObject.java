@@ -10,8 +10,8 @@ import com.mypjgdx.esg.collision.NullCollsionCheck;
 public abstract class AbstractGameObject {
 
     // ตำแหน่ง ขนาด จุดกำเนิด ระดับการขยาย องศาการหมุน
-    private Vector2 position;
-    private Vector2 dimension;
+    protected Vector2 position;
+    protected Vector2 dimension;
     public Vector2 origin;
     public Vector2 scale;
     public float rotation;

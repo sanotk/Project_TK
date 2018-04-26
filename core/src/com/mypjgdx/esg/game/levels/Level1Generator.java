@@ -44,7 +44,7 @@ public class Level1Generator extends LevelGenerator {
 
     @Override
     public List<Citizen> createCitizens(TiledMapTileLayer mapLayer, Player player) {
-        return null;
+        return new ArrayList<Citizen>();
     }
 
     @Override

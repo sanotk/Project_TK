@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
@@ -289,6 +290,10 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         */
     }
 
+    public void debug(ShapeRenderer renderer) {
+        renderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
+    }
+
     public void die() {
         color = Color.GRAY;
     }
@@ -341,5 +346,10 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
 
     public DefaultStateMachine getStateMachine() {
         return stateMachine;
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        return new Vector2(getPositionX(), getPositionY());
     }
 }

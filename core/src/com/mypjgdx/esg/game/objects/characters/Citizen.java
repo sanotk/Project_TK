@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
@@ -301,5 +302,10 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
     public DefaultStateMachine getStateMachine() {
         return stateMachine;
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        return null;
     }
 }

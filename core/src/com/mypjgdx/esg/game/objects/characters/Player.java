@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.CollisionCheck;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
@@ -580,4 +581,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         return null;
     }
 
+    @Override
+    public Vector2 getPosition() {
+        return null;
+    }
 }
