@@ -19,10 +19,13 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final Assets instance = new Assets();
     public AssetManager manager;
     public TextureRegion bullet;
+    public TextureRegion arrow;
+    public TextureRegion wave;
     public TextureRegion beam;
     public TextureRegion trap;
     public TextureRegion enemyBall;
     public TextureAtlas sword;
+    public TextureAtlas bow;
     public TextureRegion link;
 
     public TextureAtlas playerAltas;
@@ -83,9 +86,12 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("citizen_pack.atlas", TextureAtlas.class);
         manager.load("bg.png", Texture.class);
         manager.load("bullet.png", Texture.class);
+        manager.load("bow_shot.png",Texture.class);
+        manager.load("sword_wave.png",Texture.class);
         manager.load("enemy_ball.png", Texture.class);
 
         manager.load("sword_pack.atlas", TextureAtlas.class);
+        manager.load("bow_pack.atlas", TextureAtlas.class);
 
         manager.load("solarcell_pack.atlas", TextureAtlas.class);
         manager.load("cc_pack.atlas", TextureAtlas.class);
@@ -160,7 +166,9 @@ public class Assets implements Disposable, AssetErrorListener {
         beam = new TextureRegion((Texture)manager.get("beam.png"));
 
         sword = manager.get("sword_pack.atlas");
-
+        bow = manager.get("bow_pack.atlas");
+        arrow = new TextureRegion((Texture)manager.get("bow_shot.png"));
+        wave = new TextureRegion((Texture)manager.get("sword_wave.png"));
         pepoAltas = manager.get("enemy1_pack.atlas");
         pepoKnightAltas = manager.get("enemy2_pack.atlas");
         pepoDevilAltas = manager.get("enemy3_pack.atlas");

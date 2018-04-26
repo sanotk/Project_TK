@@ -454,12 +454,34 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         }
     }
 
-    public void swordAttack(List<Sword> swords) {
+    public void swordAttack(List<Weapon> weapons, List<Sword> swords) {
         if (state != PlayerState.ATTACK) {
             state = PlayerState.ATTACK;
             for (Sword sword : swords) {
                 sword.resetAnimation();
                 sword.state = Sword.SwordState.HIT;
+                if (bulletCount != 0) {
+                    weapons.add(new SwordWave(mapLayer, this));
+                    bulletCount--;
+                }
+                SoundManager.instance.play(SoundManager.Sounds.BEAM);
+                resetAnimation();
+            }
+        }
+    }
+
+    public void bowAttack(List<Weapon> weapons, List<Bow> bows) {
+        if (state != PlayerState.ATTACK) {
+            state = PlayerState.ATTACK;
+            for (Bow bow : bows) {
+                bow.resetAnimation();
+                bow.state = Bow.Bowstate.SHOT;
+                if (bulletCount != 0) {
+                    weapons.add(new Arrow(mapLayer, this));
+                    bulletCount--;
+                }
+                SoundManager.instance.play(SoundManager.Sounds.BEAM);
+                resetAnimation();
             }
         }
     }

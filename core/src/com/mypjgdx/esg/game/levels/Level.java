@@ -14,6 +14,7 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.etcs.Etc;
 import com.mypjgdx.esg.game.objects.items.EnergyTube;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.weapons.Bow;
 import com.mypjgdx.esg.game.objects.weapons.Sword;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 
@@ -30,6 +31,7 @@ public abstract class Level {
     public List<Citizen> citizens;
     public List<Weapon> weapons;
     public List<Sword> swords;
+    public List<Bow> bows;
     public List<Etc> etcs;
     public TiledMapTileLayer mapLayer;
 
@@ -40,6 +42,8 @@ public abstract class Level {
     public Level(LevelGenerator levelGenerator) {
         weapons = new ArrayList<Weapon>();
         swords = new ArrayList<Sword>();
+        bows = new ArrayList<Bow>();
+
         etcs = new ArrayList<Etc>();
 
         energyTube = new EnergyTube(0);  // พลังงานเริ่มต้นมีค่า 100 วินาที
@@ -59,6 +63,7 @@ public abstract class Level {
         enemies = levelGenerator.createEnemies(mapLayer, player);
         citizens = levelGenerator.createCitizens(mapLayer, player);
         swords = levelGenerator.createSwords(mapLayer, player, this);
+        bows = levelGenerator.createBows(mapLayer,player,this);
 
         energyTube.init(mapLayer, player);
     }
@@ -76,6 +81,7 @@ public abstract class Level {
         for (Citizen c : citizens) c.render(batch);
         player.render(batch);
         for (Sword s : swords) s.render(batch);
+        for (Bow b : bows) b.render(batch);
 
         batch.end();
 
@@ -87,6 +93,7 @@ public abstract class Level {
 
         shapeRenderer.begin(ShapeType.Line);
         for (Sword s : swords) s.debug(shapeRenderer);
+        for (Bow b : bows) b.debug(shapeRenderer);
         shapeRenderer.end();
     }
 
@@ -126,6 +133,7 @@ public abstract class Level {
         for (Citizen c : citizens) c.update(deltaTime);
         for (Weapon w : weapons) w.update(deltaTime);
         for (Sword s : swords) s.update(deltaTime);
+        for (Bow b : bows) b.update(deltaTime);
         energyTube.update(deltaTime);
     }
 

@@ -6,6 +6,7 @@ import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.weapons.Bow;
 import com.mypjgdx.esg.game.objects.weapons.Sword;
 
 import java.util.List;
@@ -17,5 +18,6 @@ public abstract class LevelGenerator {
     public abstract TiledMap createTiledMap();
 	public abstract List<Item> createItems(TiledMapTileLayer mapLayer, Player player, Level level);
     public abstract List<Sword> createSwords(TiledMapTileLayer mapLayer, Player player, Level level);
+    public abstract List<Bow> createBows(TiledMapTileLayer mapLayer, Player player, Level level);
 
 }

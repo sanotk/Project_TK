@@ -5,6 +5,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.*;
+import com.mypjgdx.esg.game.objects.weapons.Bow;
+import com.mypjgdx.esg.game.objects.weapons.NormalBow;
 import com.mypjgdx.esg.game.objects.weapons.Sword;
 
 import java.util.ArrayList;
@@ -62,6 +64,13 @@ public class Level3Generator extends LevelGenerator {
         citizens.add(new Citizen5(mapLayer, player));
         citizens.add(new Citizen6(mapLayer, player));
         return citizens;
+    }
+
+    @Override
+    public List<Bow> createBows(TiledMapTileLayer mapLayer, Player player, Level level) {
+        ArrayList<Bow> bows = new ArrayList<Bow>();
+        bows.add(new NormalBow(mapLayer, player));
+        return bows;
     }
 
     @Override

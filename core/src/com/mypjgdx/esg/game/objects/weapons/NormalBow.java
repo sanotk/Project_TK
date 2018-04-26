@@ -5,14 +5,14 @@ import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
 import com.mypjgdx.esg.game.objects.characters.Player;
 
-public class NormalSword extends Sword{
+public class NormalBow extends Bow{
 
     private static final float SCALE = 0.5f;
     public static final float P_X = 1700f;
     public static final float P_Y = 950f;
 
-	public NormalSword(TiledMapTileLayer mapLayer, Player player){
-        super(Assets.instance.sword, SCALE, SCALE , P_X , P_Y);
+	public NormalBow(TiledMapTileLayer mapLayer, Player player){
+        super(Assets.instance.bow, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player);
 	}
 
