@@ -386,9 +386,9 @@ public class GameScreen2 extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        textBullet.setText(String.format("Bullet Max : %d", worldController.level.player.bulletCount));
-        textBeam.setText(String.format("Z-Bullet Max : %d", worldController.level.player.beamCount));
-        textTrap.setText(String.format("Trap Max : %d", worldController.level.player.trapCount));
+        textBullet.setText(String.format("Arrow : %d", worldController.level.player.bulletCount));
+        textBeam.setText(String.format("SwordWave : %d", worldController.level.player.beamCount));
+        textTrap.setText(String.format("Trap : %d", worldController.level.player.trapCount));
         textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
         energyLevel.setText(String.format("Energy : %d", (int) worldController.level.energyTube.energy));
         //
