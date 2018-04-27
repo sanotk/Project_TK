@@ -79,7 +79,7 @@ public abstract class Level {
         for (Etc e : etcs) e.render(batch);
         for (Item i : items) i.render(batch);
         for (Enemy e : enemies) e.render(batch);
-        System.out.print(player.stageoneclear);
+        //System.out.print(player.stageoneclear);
         if (player.stageoneclear) {
             for (Citizen c : citizens) c.render(batch);
         }
