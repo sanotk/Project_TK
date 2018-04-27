@@ -22,7 +22,7 @@ public class SwordWave extends Weapon {
     protected void spawn() {
         setPosition(
                 player.getPositionX() + player.origin.x,
-                player.getPositionY() + player.origin.y - 4);
+                player.getPositionY() + player.origin.y);
 
         direction = player.getViewDirection();
 

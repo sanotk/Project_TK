@@ -14,7 +14,7 @@ public class SwordHit extends Weapon {
     private static final float INTITIAL_SPEED = 0f;
 
     public SwordHit(TiledMapTileLayer mapLayer, Player player) {
-        super(Assets.instance.wave, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
+        super(Assets.instance.box, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
         init(mapLayer, player, enemy);
     }
 
