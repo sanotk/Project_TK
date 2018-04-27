@@ -464,9 +464,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 if (beamCount != 0) {
                     weapons.add(new SwordWave(mapLayer, this));
                     beamCount--;
-                }else {
-
                 }
+                weapons.add(new SwordHit(mapLayer,this));
                 SoundManager.instance.play(SoundManager.Sounds.BEAM);
                 resetAnimation();
             }

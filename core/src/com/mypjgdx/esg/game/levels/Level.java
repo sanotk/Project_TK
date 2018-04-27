@@ -91,13 +91,14 @@ public abstract class Level {
         //for (Item i: items) i.debug(shapeRenderer);
         shapeRenderer.end();
 
-        /*
         shapeRenderer.begin(ShapeType.Line);
+        /*
         for (Sword s : swords) s.debug(shapeRenderer);
         for (Bow b : bows) b.debug(shapeRenderer);
         for (Enemy e : enemies) e.debug(shapeRenderer);
-        shapeRenderer.end();
         */
+        shapeRenderer.end();
+
     }
 
     public void renderFbo(SpriteBatch batch, OrthographicCamera camera, FrameBuffer lightFbo) {

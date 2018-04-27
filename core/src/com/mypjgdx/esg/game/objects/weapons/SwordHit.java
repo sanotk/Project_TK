@@ -1,5 +1,6 @@
 package com.mypjgdx.esg.game.objects.weapons;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
@@ -21,8 +22,8 @@ public class SwordHit extends Weapon {
     @Override
     protected void spawn() {
         setPosition(
-                player.getPositionX() + player.origin.x - origin.x,
-                player.getPositionY() + player.origin.y - 4);
+                player.getPositionX(),
+                player.getPositionY());
 
         direction = player.getViewDirection();
 
@@ -66,6 +67,10 @@ public class SwordHit extends Weapon {
             default:
                 break;
         }
+    }
+
+    public void debug(ShapeRenderer renderer) {
+        renderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
     }
 
     @Override
