@@ -60,7 +60,6 @@ public class SwordHit extends Weapon {
         setPosition(
                 x,
                 y);
-
         delay();
     }
 
