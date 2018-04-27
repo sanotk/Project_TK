@@ -844,11 +844,10 @@ public class GameScreen extends AbstractGameScreen {
             if (enemy.dead && !enemy.count) {
                 worldController.level.energyTube.energy += 2;
                 enemy.count = true;
-                enemyDeadCount += 1;
             }
         }
 
-        if (enemyDeadCount == worldController.level.enemies.size()){
+        if (worldController.level.enemies.size()==0){
             player.stageoneclear = true;
         }
 

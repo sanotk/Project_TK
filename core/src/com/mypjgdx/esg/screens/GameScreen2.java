@@ -438,11 +438,10 @@ public class GameScreen2 extends AbstractGameScreen {
             if (enemy.dead && !enemy.count) {
                 worldController.level.energyTube.energy += 2;
                 enemy.count = true;
-                enemyDeadCount += 1;
             }
         }
 
-        if (enemyDeadCount == worldController.level.enemies.size()){
+        if (worldController.level.enemies.size() == 0){
             player.stageoneclear = true;
         }
 
@@ -451,6 +450,8 @@ public class GameScreen2 extends AbstractGameScreen {
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw(); //การทำงาน
+
+        System.out.println("" + worldController.level.enemies.size());
     }
 
     @Override
