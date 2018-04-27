@@ -79,6 +79,7 @@ public abstract class Level {
         for (Etc e : etcs) e.render(batch);
         for (Item i : items) i.render(batch);
         for (Enemy e : enemies) e.render(batch);
+        System.out.print(player.stageoneclear);
         if (player.stageoneclear) {
             for (Citizen c : citizens) c.render(batch);
         }
@@ -121,7 +122,6 @@ public abstract class Level {
         Iterator<Weapon> weaponIterator = weapons.iterator();
         Iterator<Etc> etcIterator = etcs.iterator();
         Iterator<Enemy> enemyIterator = enemies.iterator();
-        Iterator<Citizen> citizenIterator = citizens.iterator();
 
         while (weaponIterator.hasNext()) {
             Weapon w = weaponIterator.next();
@@ -143,7 +143,9 @@ public abstract class Level {
         for (Etc etc : etcs) etc.update(deltaTime);
         for (Item i : items) i.update(deltaTime);
         for (Enemy e : enemies) e.update(deltaTime, weapons);
-        for (Citizen c : citizens) c.update(deltaTime);
+        if(player.stageoneclear) {
+            for (Citizen c : citizens) c.update(deltaTime);
+        }
         for (Weapon w : weapons) w.update(deltaTime);
         for (Sword s : swords) s.update(deltaTime);
         for (Bow b : bows) b.update(deltaTime);
