@@ -9,7 +9,7 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 
 public class SwordHit extends Weapon {
 
-    private static final float SCALE = 0.5f;
+    private static final float SCALE = 0.9f;
 
     private static final float INTITAL_FRICTION = 0f;
     private static final float INTITIAL_SPEED = 0f;
@@ -21,9 +21,9 @@ public class SwordHit extends Weapon {
 
     @Override
     protected void spawn() {
-        setPosition(
-                player.getPositionX(),
-                player.getPositionY());
+
+        float x = player.getPositionX();
+        float y = player .getPositionY();
 
         direction = player.getViewDirection();
 
@@ -34,6 +34,7 @@ public class SwordHit extends Weapon {
                 break;
             case LEFT:
                 rotation = 180;
+                x -= player.bounds.width;
                 velocity.set(-INTITIAL_SPEED, 0);
                 break;
             case RIGHT:
@@ -46,6 +47,9 @@ public class SwordHit extends Weapon {
             default:
                 break;
         }
+        setPosition(
+                x,
+                y);
     }
 
     @Override
@@ -67,6 +71,7 @@ public class SwordHit extends Weapon {
             default:
                 break;
         }
+        destroy();
     }
 
     public void debug(ShapeRenderer renderer) {
