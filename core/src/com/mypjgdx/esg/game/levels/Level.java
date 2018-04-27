@@ -95,12 +95,6 @@ public abstract class Level {
         for (Sword s : swords) s.debug(shapeRenderer);
         for (Bow b : bows) b.debug(shapeRenderer);
         for (Enemy e : enemies) e.debug(shapeRenderer);
-//        for (Weapon weapon : weapons) {
-//            if (weapon instanceof Arrow) {
-//                Arrow arrow = (Arrow) weapon;
-//                arrow.debug(shapeRenderer);
-//            }
-//        }
         shapeRenderer.end();
     }
 
