@@ -31,10 +31,10 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private static final float INITIAL_MOVING_SPEED = 120f;
 
     private static final int INTITAL_HEALTH = 10;
-    private static final int INTITAL_TRAP = 3;
+    private static final int INTITAL_TRAP = 5;
     private static final int INTITAL_TIME = 300;
-    private static final int INTITAL_BULLET = 99999;
-    private static final int INTITAL_BEAM = 3;
+    private static final int INTITAL_ARROW = 100;
+    private static final int INTITAL_SWORDWAVE = 3;
 
     public boolean status_find = false;
     public boolean status_windows_link = false;
@@ -165,9 +165,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
         health = INTITAL_HEALTH;
         trapCount = INTITAL_TRAP;
-        bulletCount = INTITAL_BULLET;
+        bulletCount = INTITAL_ARROW;
         timeCount = INTITAL_TIME;
-        beamCount = INTITAL_BEAM;
+        beamCount = INTITAL_SWORDWAVE;
 
         dead = false;
         invulnerable = false;
@@ -461,9 +461,11 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             for (Sword sword : swords) {
                 sword.resetAnimation();
                 sword.state = Sword.SwordState.HIT;
-                if (bulletCount != 0) {
+                if (beamCount != 0) {
                     weapons.add(new SwordWave(mapLayer, this));
-                    bulletCount--;
+                    beamCount--;
+                }else {
+
                 }
                 SoundManager.instance.play(SoundManager.Sounds.BEAM);
                 resetAnimation();
@@ -508,31 +510,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 knockbackSpeed * MathUtils.sinDeg(knockbackAngle));
         knockback = true;
     }
-
-    public void rangeAttack(List<Weapon> weapons) {
-        if (state != PlayerState.ATTACK && item == null) {
-            state = PlayerState.ATTACK;
-            if (bulletCount != 0) {
-                weapons.add(new Bullet(mapLayer, this));
-                SoundManager.instance.play(SoundManager.Sounds.BULLET);
-                bulletCount--;
-            }
-            resetAnimation();
-        }
-    }
-
-    public void beamAttack(List<Weapon> weapons) {
-        if (state != PlayerState.ATTACK && item == null) {
-            state = PlayerState.ATTACK;
-            if (beamCount != 0) {
-                weapons.add(new Beam(mapLayer, this));
-                beamCount--;
-            }
-            SoundManager.instance.play(SoundManager.Sounds.BEAM);
-            resetAnimation();
-        }
-    }
-
 
     public boolean isAlive() {
         return !dead;

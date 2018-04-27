@@ -6,14 +6,14 @@ import com.mypjgdx.esg.game.objects.characters.Damageable;
 import com.mypjgdx.esg.game.objects.characters.Player;
 
 
-public class SwordWave extends Weapon {
+public class SwordHit extends Weapon {
 
     private static final float SCALE = 0.5f;
 
-    private static final float INTITAL_FRICTION = 50f;
-    private static final float INTITIAL_SPEED = 400f;
+    private static final float INTITAL_FRICTION = 0f;
+    private static final float INTITIAL_SPEED = 0f;
 
-    public SwordWave(TiledMapTileLayer mapLayer, Player player) {
+    public SwordHit(TiledMapTileLayer mapLayer, Player player) {
         super(Assets.instance.wave, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
         init(mapLayer, player, enemy);
     }
@@ -21,7 +21,7 @@ public class SwordWave extends Weapon {
     @Override
     protected void spawn() {
         setPosition(
-                player.getPositionX() + player.origin.x,
+                player.getPositionX() + player.origin.x - origin.x,
                 player.getPositionY() + player.origin.y - 4);
 
         direction = player.getViewDirection();

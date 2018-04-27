@@ -147,10 +147,13 @@ public class Arrow extends Weapon {
             default:
                 break;
         }
+        destroy();
+        /*
         velocity.setZero();
         this.target = damageable;
         damaged = true;
         positionToTarget = new Vector2(getPositionX() - target.getPosition().x, getPositionY() - target.getPosition().y);
+        */
     }
 
     @Override
