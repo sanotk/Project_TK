@@ -107,6 +107,7 @@ public class GameScreen2 extends AbstractGameScreen {
     private float goalWidth;
     private float goalHeight;
 
+    public int enemyDeadCount = 0;
     private int trueLink = 0;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
@@ -409,14 +410,6 @@ public class GameScreen2 extends AbstractGameScreen {
             return;
         }
 
-        for (int i = 0; i < worldController.level.enemies.size(); i++) {
-            Enemy enemy = worldController.level.enemies.get(i);
-            if (enemy.dead && !enemy.count) {
-                worldController.level.energyTube.energy += 2;
-                enemy.count = true;
-            }
-        }
-
         Player player = worldController.level.player;
         boolean noItem = !player.status_microwave
                 && !player.status_pump
@@ -438,6 +431,19 @@ public class GameScreen2 extends AbstractGameScreen {
             findItem(Switch.class).resetAnimation();
             worldController.level.energyTube.energy += 100;
             player.isSwitch = true;
+        }
+
+        for (int i = 0; i < worldController.level.enemies.size(); i++) {
+            Enemy enemy = worldController.level.enemies.get(i);
+            if (enemy.dead && !enemy.count) {
+                worldController.level.energyTube.energy += 2;
+                enemy.count = true;
+                enemyDeadCount += 1;
+            }
+        }
+
+        if (enemyDeadCount == worldController.level.enemies.size()){
+            player.stageoneclear = true;
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World

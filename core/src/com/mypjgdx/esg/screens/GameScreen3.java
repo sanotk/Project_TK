@@ -24,6 +24,7 @@ import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level3;
 import com.mypjgdx.esg.game.levels.Level3Generator;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
+import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.utils.ItemLink;
 import com.mypjgdx.esg.utils.SolarState;
@@ -108,6 +109,7 @@ public class GameScreen3 extends AbstractGameScreen {
     private float goalHeight;
 
     private int trueLink = 0;
+    public int enemyDeadCount = 0;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
@@ -343,6 +345,17 @@ public class GameScreen3 extends AbstractGameScreen {
         //
         // sunleft.setText(String.format("Sun Left"));
 
+        Player player = worldController.level.player;
+        boolean noItem = !player.status_microwave
+                && !player.status_pump
+                && !player.status_cooker
+                && !player.status_switch
+                && !player.status_refrigerator
+                && !player.status_fan
+                && !player.status_com
+                && !player.status_air
+                && !player.status_tv ;
+
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));
             return;
@@ -359,12 +372,18 @@ public class GameScreen3 extends AbstractGameScreen {
         }
 
 
+
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
             Enemy enemy = worldController.level.enemies.get(i);
             if (enemy.dead && !enemy.count) {
                 worldController.level.energyTube.energy += 2;
                 enemy.count = true;
+                enemyDeadCount += 1;
             }
+        }
+
+        if (enemyDeadCount == worldController.level.enemies.size()){
+            player.stageoneclear = true;
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World

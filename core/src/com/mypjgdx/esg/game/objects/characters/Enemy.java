@@ -278,7 +278,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         super.render(batch);
         batch.setColor(oldColor);
 
-/*        if (startNode != null && endNode != null) {
+/*      if (startNode != null && endNode != null) {
 //            batch.draw(Assets.instance.bullet, startNode.getPositionX(), startNode.getPositionY());
 //            batch.draw(Assets.instance.enemyBall, endNode.getPositionX(), endNode.getPositionY());
         }
@@ -320,6 +320,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     public boolean takeDamage(float damage, float knockbackSpeed, float knockbackAngle) {
         if ((health <= 0)&&(!stateMachine.isInState(EnemyState.DIE))) {
             stateMachine.changeState(EnemyState.DIE);
+            dead = true;
             return true;
         }else if (stateMachine.isInState(EnemyState.DIE)) return true;
         health -= damage;

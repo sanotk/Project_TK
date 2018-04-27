@@ -41,6 +41,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private float Countdown;
 
     public boolean isSwitch = false;
+    public boolean stageoneclear =false;
 
     public enum PlayerAnimation {
         ATK_LEFT,

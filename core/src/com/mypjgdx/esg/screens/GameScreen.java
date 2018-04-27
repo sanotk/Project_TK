@@ -109,6 +109,8 @@ public class GameScreen extends AbstractGameScreen {
     private float goalWidth;
     private float goalHeight;
 
+    public int enemyDeadCount = 0;
+
     private int trueLink = 0;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
@@ -842,7 +844,12 @@ public class GameScreen extends AbstractGameScreen {
             if (enemy.dead && !enemy.count) {
                 worldController.level.energyTube.energy += 2;
                 enemy.count = true;
+                enemyDeadCount += 1;
             }
+        }
+
+        if (enemyDeadCount == worldController.level.enemies.size()){
+            player.stageoneclear = true;
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
