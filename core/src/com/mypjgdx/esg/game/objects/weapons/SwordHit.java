@@ -65,7 +65,7 @@ public class SwordHit extends Weapon {
 
     @Override
     public void attack(Damageable damageable) {
-        float knockbackSpeed = 100f;
+        float knockbackSpeed = 200f;
         switch (direction) {
             case DOWN:
                 damageable.takeDamage(1, knockbackSpeed, 270);

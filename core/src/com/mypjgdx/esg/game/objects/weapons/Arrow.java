@@ -130,7 +130,7 @@ public class Arrow extends Weapon {
     public void attack(Damageable damageable) {
         if (damaged) return;
 
-        float knockbackSpeed = 100f;
+        float knockbackSpeed = 150f;
         switch (direction) {
             case DOWN:
                 damageable.takeDamage(1, knockbackSpeed, 270);
