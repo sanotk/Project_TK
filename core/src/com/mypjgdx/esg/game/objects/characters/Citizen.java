@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
@@ -63,11 +62,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
     abstract void TellMeByType();
 
-    private long stunTime;
-    private long lastStunTime;
-
-    private int health;
-    protected int maxHealth;
     protected float movingSpeed;
     private float findingRange;
     private IndexedAStarPathFinder<Node> pathFinder;
@@ -109,7 +103,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         setCurrentAnimation(CitizenAnimation.STAND_UP);
         viewDirection = Direction.DOWN;
 
-        health = maxHealth;
         quest = false;
         knockback = false;
         stun = false;
@@ -208,8 +201,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         if (knockback && velocity.isZero()) {
             knockback = false;
         }
-        if (stun && TimeUtils.nanoTime() - lastStunTime > stunTime)
-            stun = false;
     }
 
     public boolean isPlayerInRange() {

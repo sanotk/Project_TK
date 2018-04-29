@@ -104,6 +104,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean status_cooker = false;
     public boolean status_fan = false;
     public boolean status_pump = false;
+    public boolean status_citizen = false;
 
     protected CollisionCheck solarcellCheck;
     protected CollisionCheck inverterCheck;
@@ -332,6 +333,14 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         } else {
             status_tv = false;
         }
+        /*
+        if (citizenCheck.isCollidesBottom() || citizenCheck.isCollidesLeft() ||
+                citizenCheck.isCollidesRight() || citizenCheck.isCollidesTop()) {
+            status_citizen = true;
+        } else {
+            status_citizen = false;
+        }
+        */
     }
 
     public void move(Direction direction) {
