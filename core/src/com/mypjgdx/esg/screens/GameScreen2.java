@@ -392,7 +392,6 @@ public class GameScreen2 extends AbstractGameScreen {
     }
 
     private void checkButton(final systemWindow requestWindow) {
-        titleQuest = "Test";
         buttonLink1.setText("YES");
         buttonLink1.addListener(new ClickListener() {
             @Override
@@ -468,6 +467,7 @@ public class GameScreen2 extends AbstractGameScreen {
         energyLevel.setText(String.format("Energy : %d", (int) worldController.level.energyTube.energy));
         //
         // sunleft.setText(String.format("Sun Left"));
+        titleQuest = "Test";
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));
