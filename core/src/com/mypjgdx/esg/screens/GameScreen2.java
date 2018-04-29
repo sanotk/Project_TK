@@ -484,20 +484,6 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         Player player = worldController.level.player;
-        boolean noItem = !player.status_microwave
-                && !player.status_pump
-                && !player.status_cooker
-                && !player.status_switch
-                && !player.status_refrigerator
-                && !player.status_fan
-                && !player.status_com
-                && !player.status_air
-                && !player.status_tv ;
-
-        if (player.status_find && noItem) {
-            player.status_find = false;
-            player.status_windows_link = false;
-        }
 
         if ((!player.isSwitch)&&(player.status_find)&&(player.status_switch)){
             findItem(Switch.class).state = Item.ItemState.ON;
