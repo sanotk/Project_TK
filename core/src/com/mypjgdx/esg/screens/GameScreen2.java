@@ -27,6 +27,7 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.utils.ItemLink;
+import com.mypjgdx.esg.utils.QuestState;
 import com.mypjgdx.esg.utils.SolarState;
 
 import java.util.ArrayList;
@@ -70,12 +71,9 @@ public class GameScreen2 extends AbstractGameScreen {
 
 
 
-    public SolarState solarState = null;
-    public systemWindow solarWindow = null;
+    public QuestState questState = null;
 
-    private ArrayList<SolarState> link = new ArrayList<SolarState>();
-    private ArrayList<SolarState> isComplete = new ArrayList<SolarState>();
-    private ArrayList<ItemLink> itemLinks = new ArrayList<ItemLink>();
+    private ArrayList<QuestState> isComplete = new ArrayList<QuestState>();
 
     private TextButton buttonLink1;
     private TextButton buttonLink2;
@@ -129,10 +127,9 @@ public class GameScreen2 extends AbstractGameScreen {
 
         this.optionsWindow = optionsWindow;
 
-        isComplete.add(solarState.StoC);
-        isComplete.add(solarState.CtoB);
-        isComplete.add(solarState.CtoI);
-        isComplete.add(solarState.ItoD);
+        isComplete.add(questState.quest2);
+        isComplete.add(questState.quest4);
+        isComplete.add(questState.quest5);
 
         TextButton.TextButtonStyle buttonToolStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
@@ -393,22 +390,17 @@ public class GameScreen2 extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (citizenQuest == systemWindow.citizen1) {
-                    solarState = solarState.StoC;
-                } else if (solarWindow == GameScreen.systemWindow.battery) {
-                    solarState = solarState.StoB;
-                } else {
-                    solarState = solarState.StoI;
-                }
-                if ((solarWindow == GameScreen.systemWindow.solarcell) && (!addedStoC)) {
-                    addLink(solarState);
-                } else if ((solarWindow == GameScreen.systemWindow.solarcell) && (addedStoC)) {
-                    deleteLink(solarState);
-                } else if (((solarWindow == GameScreen.systemWindow.chargecontroller) && (!addedStoC))
-                        || ((solarWindow == GameScreen.systemWindow.battery) && (!addedStoB))
-                        || ((solarWindow == GameScreen.systemWindow.inverter) && (!addedStoI))) {
-                    addLink(solarState);
-                } else {
-                    deleteLink(solarState);
+                    questState = questState.quest1;
+                } else if (citizenQuest == systemWindow.citizen2) {
+                    questState = questState.quest2;
+                }else if (citizenQuest == systemWindow.citizen3) {
+                    questState = questState.quest3;
+                }else if (citizenQuest == systemWindow.citizen4) {
+                    questState = questState.quest4;
+                }else if (citizenQuest == systemWindow.citizen5) {
+                    questState = questState.quest5;
+                }else (citizenQuest == systemWindow.citizen6) {
+                    questState = questState.quest6;
                 }
                 checkGameComplete();
                 worldController.level.player.status_find = false;
