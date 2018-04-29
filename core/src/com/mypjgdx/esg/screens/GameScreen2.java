@@ -444,6 +444,7 @@ public class GameScreen2 extends AbstractGameScreen {
     }
 
     private void checkGameComplete() {
+        trueLink = 0;
         if(addRequest.size()==6){
             for(int i = 0; i<addRequest.size();i++){
                 for(int j = 0; j<isComplete.size();j++)
