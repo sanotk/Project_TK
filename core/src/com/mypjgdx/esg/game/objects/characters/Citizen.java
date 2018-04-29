@@ -53,6 +53,8 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     public CitizenType type;
     private Direction viewDirection;
 
+    public boolean questStatus = false;
+
     public boolean quest;
     public int questCount;
     private boolean knockback;
@@ -307,5 +309,9 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     @Override
     public Vector2 getPosition() {
         return null;
+    }
+
+    public boolean getQuestStatus(){
+        return questStatus;
     }
 }

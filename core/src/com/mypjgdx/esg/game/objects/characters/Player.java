@@ -120,6 +120,13 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     protected CollisionCheck switchCheck;
     protected CollisionCheck refrigeratorCheck;
 
+    public boolean questScreen1 = false;
+    public boolean questScreen2 = false;
+    public boolean questScreen3 = false;
+    public boolean questScreen4 = false;
+    public boolean questScreen5 = false;
+    public boolean questScreen6 = false;
+
     public boolean timeStop = true;
 
     public boolean swordHit = true;
@@ -195,7 +202,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         refrigeratorCheck = new TiledCollisionCheck(bounds, mapLayer, "refrigerator");
     }
 
-    public void update(float deltaTime, List<Weapon> weapons) {
+    public void update(float deltaTime, List<Weapon> weapons ,List<Citizen> citizens) {
         super.update(deltaTime);
         statusUpdate();
         if (item != null) // ถ้ามีไอเทม
@@ -205,6 +212,28 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         for (Weapon w : weapons) {
             if (bounds.overlaps(w.bounds) && !w.isDestroyed() && w.type == WeaponType.ENEMYBALL) {
                 w.attack(this);
+            }
+        }
+        if(stageoneclear) {
+            for (Citizen c : citizens) {
+                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.Citizen1)) {
+                    questScreen1 = true;
+                }
+                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.Citizen2)) {
+                    questScreen2 = true;
+                }
+                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.Citizen3)) {
+                    questScreen3 = true;
+                }
+                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.Citizen4)) {
+                    questScreen4 = true;
+                }
+                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.Citizen5)) {
+                    questScreen5 = true;
+                }
+                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.Citizen6)) {
+                    questScreen6 = true;
+                }
             }
         }
         Countdown += deltaTime;

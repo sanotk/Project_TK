@@ -25,8 +25,7 @@ import com.mypjgdx.esg.game.levels.Level2;
 import com.mypjgdx.esg.game.levels.Level2Generator;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.items.Item;
-import com.mypjgdx.esg.game.objects.items.Switch;
+import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.utils.ItemLink;
 import com.mypjgdx.esg.utils.SolarState;
 
@@ -58,12 +57,18 @@ public class GameScreen2 extends AbstractGameScreen {
     private Label energyLevel3;
     private Label textRule;
 
+    public systemWindow citizenQuest = null;
+
     public enum systemWindow {
-        solarcell,
-        chargecontroller,
-        battery,
-        inverter
+        citizen1,
+        citizen2,
+        citizen3,
+        citizen4,
+        citizen5,
+        citizen6
     }
+
+
 
     public SolarState solarState = null;
     public systemWindow solarWindow = null;
@@ -198,6 +203,61 @@ public class GameScreen2 extends AbstractGameScreen {
         batch = new SpriteBatch();
     }
 
+    private void createbutton() {
+
+        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+        buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
+        buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
+        buttonStyle.font = font;
+
+        int btn_w = 200;
+        int btn_h = 50;
+
+        textBullet = new Label("Bullet Max : ", skin);
+        textBullet.setColor(1, 1, 1, 1);
+        textBullet.setFontScale(1f, 1f);
+        textBullet.setPosition(50, SCENE_HEIGHT - 50);
+
+        textBeam = new Label("Z-Bullet Max : ", skin);
+        textBeam.setColor(1, 1, 1, 1);
+        textBeam.setFontScale(1.f, 1.f);
+        textBeam.setPosition(200, SCENE_HEIGHT - 50);
+
+        textTrap = new Label("Trap Max : ", skin);
+        textTrap.setColor(1, 1, 1, 1);
+        textTrap.setFontScale(1f, 1f);
+        textTrap.setPosition(350, SCENE_HEIGHT - 50);
+
+        textTime = new Label("Time : ", skin);
+        textTime.setColor(1, 1, 1, 1);
+        textTime.setFontScale(1f, 1f);
+        textTime.setPosition(450, SCENE_HEIGHT - 100);
+
+        energyLevel = new Label("Energy : ", skin);
+        energyLevel.setColor(1, 1, 1, 1);
+        energyLevel.setFontScale(1, 1f);
+        energyLevel.setPosition(500, SCENE_HEIGHT - 50);
+
+        energyLevel2 = new Label("Product Energy : ", skin);
+        energyLevel2.setColor(1, 1, 1, 1);
+        energyLevel2.setFontScale(1, 1f);
+        energyLevel2.setPosition(650, SCENE_HEIGHT - 50);
+
+        energyLevel3 = new Label("Battery : ", skin);
+        energyLevel3.setColor(1, 1, 1, 1);
+        energyLevel3.setFontScale(1, 1f);
+        energyLevel3.setPosition(800, SCENE_HEIGHT - 50);
+
+        stage.addActor(textBullet);
+        stage.addActor(textBeam);
+        stage.addActor(textTrap);
+        stage.addActor(textTime);
+        stage.addActor(energyLevel);
+        stage.addActor(energyLevel2);
+        stage.addActor(energyLevel3);
+
+    }
+
     private Window createRequestWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
@@ -327,60 +387,192 @@ public class GameScreen2 extends AbstractGameScreen {
         return ruleWindow;
     }
 
-    private void createbutton() {
+    private void checkButton(final systemWindow requestWindow) {
+        buttonLink1.setText("OK");
+        buttonLink1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (citizenQuest == systemWindow.citizen1) {
+                    solarState = solarState.StoC;
+                } else if (solarWindow == GameScreen.systemWindow.battery) {
+                    solarState = solarState.StoB;
+                } else {
+                    solarState = solarState.StoI;
+                }
+                if ((solarWindow == GameScreen.systemWindow.solarcell) && (!addedStoC)) {
+                    addLink(solarState);
+                } else if ((solarWindow == GameScreen.systemWindow.solarcell) && (addedStoC)) {
+                    deleteLink(solarState);
+                } else if (((solarWindow == GameScreen.systemWindow.chargecontroller) && (!addedStoC))
+                        || ((solarWindow == GameScreen.systemWindow.battery) && (!addedStoB))
+                        || ((solarWindow == GameScreen.systemWindow.inverter) && (!addedStoI))) {
+                    addLink(solarState);
+                } else {
+                    deleteLink(solarState);
+                }
+                checkGameComplete();
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
+            }
+        });
 
-        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
-        buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
-        buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
-        buttonStyle.font = font;
-
-        int btn_w = 200;
-        int btn_h = 50;
-
-        textBullet = new Label("Bullet Max : ", skin);
-        textBullet.setColor(1, 1, 1, 1);
-        textBullet.setFontScale(1f, 1f);
-        textBullet.setPosition(50, SCENE_HEIGHT - 50);
-
-        textBeam = new Label("Z-Bullet Max : ", skin);
-        textBeam.setColor(1, 1, 1, 1);
-        textBeam.setFontScale(1.f, 1.f);
-        textBeam.setPosition(200, SCENE_HEIGHT - 50);
-
-        textTrap = new Label("Trap Max : ", skin);
-        textTrap.setColor(1, 1, 1, 1);
-        textTrap.setFontScale(1f, 1f);
-        textTrap.setPosition(350, SCENE_HEIGHT - 50);
-
-        textTime = new Label("Time : ", skin);
-        textTime.setColor(1, 1, 1, 1);
-        textTime.setFontScale(1f, 1f);
-        textTime.setPosition(450, SCENE_HEIGHT - 100);
-
-        energyLevel = new Label("Energy : ", skin);
-        energyLevel.setColor(1, 1, 1, 1);
-        energyLevel.setFontScale(1, 1f);
-        energyLevel.setPosition(500, SCENE_HEIGHT - 50);
-
-        energyLevel2 = new Label("Product Energy : ", skin);
-        energyLevel2.setColor(1, 1, 1, 1);
-        energyLevel2.setFontScale(1, 1f);
-        energyLevel2.setPosition(650, SCENE_HEIGHT - 50);
-
-        energyLevel3 = new Label("Battery : ", skin);
-        energyLevel3.setColor(1, 1, 1, 1);
-        energyLevel3.setFontScale(1, 1f);
-        energyLevel3.setPosition(800, SCENE_HEIGHT - 50);
-
-        stage.addActor(textBullet);
-        stage.addActor(textBeam);
-        stage.addActor(textTrap);
-        stage.addActor(textTime);
-        stage.addActor(energyLevel);
-        stage.addActor(energyLevel2);
-        stage.addActor(energyLevel3);
-
+        if (((solarWindow == GameScreen.systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == GameScreen.systemWindow.chargecontroller) && (!addedCtoB))) {
+            buttonLink2.setText("Link to Battery");
+            buttonLink2.setStyle(buttonStyle);
+        } else if (((solarWindow == GameScreen.systemWindow.solarcell) && (addedStoB)) || ((solarWindow == GameScreen.systemWindow.chargecontroller) && (addedCtoB))) {
+            buttonLink2.setText("Canceled Link to Battery");
+            buttonLink2.setStyle(buttonStyle2);
+        } else if (((solarWindow == GameScreen.systemWindow.battery) && (!addedCtoB)) || ((solarWindow == GameScreen.systemWindow.inverter) && (!addedCtoI))) {
+            buttonLink2.setText("Link to Charge Controller");
+            buttonLink2.setStyle(buttonStyle);
+        } else {
+            buttonLink2.setText("Canceled Link to Charge Controller");
+            buttonLink2.setStyle(buttonStyle2);
+        }
+        buttonLink2.clearListeners();
+        buttonLink2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if ((solarWindow == GameScreen.systemWindow.solarcell)) {
+                    solarState = solarState.StoB;
+                } else if ((solarWindow == GameScreen.systemWindow.chargecontroller) || (solarWindow == GameScreen.systemWindow.battery)) {
+                    solarState = solarState.CtoB;
+                } else {
+                    solarState = solarState.CtoI;
+                }
+                if (((solarWindow == GameScreen.systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == GameScreen.systemWindow.chargecontroller) && (!addedCtoB))) {
+                    addLink(solarState);
+                } else if (((solarWindow == GameScreen.systemWindow.solarcell) && (addedStoB)) || ((solarWindow == GameScreen.systemWindow.chargecontroller) && (addedCtoB))) {
+                    deleteLink(solarState);
+                } else if (((solarWindow == GameScreen.systemWindow.battery) && (!addedCtoB)) || ((solarWindow == GameScreen.systemWindow.inverter) && (!addedCtoI))) {
+                    addLink(solarState);
+                } else {
+                    deleteLink(solarState);
+                }
+                checkGameComplete();
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
+            }
+        });
+        solarcellWindow.pack();
     }
+
+
+    private void checkDeledLink(SolarState solarState) {
+        if (solarState == SolarState.StoC) {
+            addedStoC = false;
+        } else if (solarState == SolarState.StoB) {
+            addedStoB = false;
+        } else if (solarState == SolarState.StoI) {
+            addedStoI = false;
+        } else if (solarState == SolarState.StoD) {
+            addedStoD = false;
+        } else if (solarState == SolarState.CtoB) {
+            addedCtoB = false;
+        } else if (solarState == SolarState.CtoI) {
+            addedCtoI = false;
+        } else if (solarState == SolarState.CtoD) {
+            addedCtoD = false;
+        } else if (solarState == SolarState.BtoI) {
+            addedBtoI = false;
+        } else if (solarState == SolarState.BtoD) {
+            addedBtoD = false;
+        } else if (solarState == SolarState.ItoD) {
+            addedItoD = false;
+        }
+    }
+
+    private void addGuiLink(SolarState solarState) {
+        if (solarState == SolarState.StoC) {
+            addedStoC = true;
+            itemLink = new ItemLink(worldController.level.mapLayer,
+                    findItem(SolarCell.class),
+                    findItem(Charge.class),
+                    worldController.level.etcs, solarState);
+
+        } else if (solarState == SolarState.StoB) {
+            addedStoB = true;
+            itemLink = new ItemLink(worldController.level.mapLayer,
+                    findItem(SolarCell.class),
+                    findItem(Battery.class),
+                    worldController.level.etcs, solarState);
+        } else if (solarState == SolarState.StoI) {
+            addedStoI = true;
+            itemLink = new ItemLink(worldController.level.mapLayer,
+                    findItem(SolarCell.class),
+                    findItem(Inverter.class),
+                    worldController.level.etcs, solarState);
+        } else if (solarState == SolarState.StoD) {
+            addedStoD = true;
+            itemLink = new ItemLink(worldController.level.mapLayer,
+                    findItem(SolarCell.class),
+                    findItem(Door.class),
+                    worldController.level.etcs, solarState);
+        } else if (solarState == SolarState.CtoB) {
+            addedCtoB = true;
+            itemLink = new ItemLink(worldController.level.mapLayer,
+                    findItem(Charge.class),
+                    findItem(Battery.class),
+                    worldController.level.etcs, solarState);
+        } else if (solarState == SolarState.CtoI) {
+            addedCtoI = true;
+            itemLink = new ItemLink(worldController.level.mapLayer,
+                    findItem(Charge.class),
+                    findItem(Inverter.class),
+                    worldController.level.etcs, solarState);
+        } else if (solarState == SolarState.CtoD) {
+            addedCtoD = true;
+            itemLink = new ItemLink(worldController.level.mapLayer,
+                    findItem(Charge.class),
+                    findItem(Door.class),
+                    worldController.level.etcs, solarState);
+        } else if (solarState == SolarState.BtoI) {
+            addedBtoI = true;
+            itemLink = new ItemLink(worldController.level.mapLayer,
+                    findItem(Battery.class),
+                    findItem(Inverter.class),
+                    worldController.level.etcs, solarState);
+        } else if (solarState == SolarState.BtoD) {
+            addedBtoD = true;
+            itemLink = new ItemLink(worldController.level.mapLayer,
+                    findItem(Battery.class),
+                    findItem(Door.class),
+                    worldController.level.etcs, solarState);
+        } else if (solarState == SolarState.ItoD) {
+            addedItoD = true;
+            itemLink = new ItemLink(worldController.level.mapLayer,
+                    findItem(Inverter.class),
+                    findItem(Door.class),
+                    worldController.level.etcs, solarState);
+        }
+        System.out.print("ขนาด" + itemLink.etcList.size() + "นะจ๊ะ");
+    }
+
+    private void removeGuiLink(SolarState solarState) {
+        for (int i = 0; i < itemLink.etcList.size(); i++) {
+            if (itemLink.etcList.get(i).solarState == solarState) {
+                System.out.print(itemLink.etcList.get(i).solarState);
+                itemLink.etcList.remove(i);
+                i--;
+            }
+        }
+    }
+
+    private void checkGameComplete() {
+        trueLink = 0;
+        if ((link.size() != 0) && (link.size() <= 4)) {
+            for (int i = 0; i < link.size(); i++) {
+                for (int j = 0; j < isComplete.size(); j++) {
+                    if (link.get(i) == isComplete.get(j)) {
+                        trueLink += 1;
+                        System.out.println(trueLink);
+                    }
+                }
+                //if(x>trueLink) System.out.print(link.get(x-1) + "เป็นการเชื่อมต่อที่ไม่ถูกต้อง");
+            }
+        }
+    }
+
 
     @Override
     public void render(float deltaTime) {
@@ -443,6 +635,13 @@ public class GameScreen2 extends AbstractGameScreen {
 
         if (worldController.level.enemies.size() == 0){
             player.stageoneclear = true;
+        }
+
+        if (player.stageoneclear){
+            if((player.questScreen1)&&(player.status_find)){
+                citizenQuest = systemWindow.citizen1;
+                checkButton(solarWindow);
+            }
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
