@@ -140,36 +140,9 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     public void update(float deltaTime, List<Weapon> weapons) {
         super.update(deltaTime);
         updateStatus();
-        runToPlayer();
 
         if (bounds.overlaps(player.bounds)) {
             quest = true;
-            runToPlayer();
-        }
-
-        if (type == CitizenType.Citizen1 && quest == true && questCount == 0) {
-
-            questCount = questCount + 1;
-        } else if (type == CitizenType.Citizen2 && quest == true && questCount == 1) {
-            runToPlayer();
-            quest = false;
-            questCount = questCount + 1;
-        } else if (type == CitizenType.Citizen3 && quest == true && questCount == 2) {
-            runToPlayer();
-            quest = false;
-            questCount = questCount + 1;
-        } else if (type == CitizenType.Citizen4 && quest == true && questCount == 3) {
-            runToPlayer();
-            quest = false;
-            questCount = questCount + 1;
-        } else if (type == CitizenType.Citizen5 && quest == true && questCount == 4) {
-            runToPlayer();
-            quest = false;
-            questCount = questCount + 1;
-        } else if (type == CitizenType.Citizen6 && quest == true && questCount == 5) {
-            runToPlayer();
-            quest = false;
-            questCount = questCount + 1;
         }
 
         if (!player.timeStop) {

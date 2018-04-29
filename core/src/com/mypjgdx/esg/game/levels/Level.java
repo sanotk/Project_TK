@@ -16,7 +16,6 @@ import com.mypjgdx.esg.game.objects.items.EnergyTube;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Bow;
 import com.mypjgdx.esg.game.objects.weapons.Sword;
-import com.mypjgdx.esg.game.objects.weapons.SwordHit;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 
 import java.util.ArrayList;
@@ -94,12 +93,14 @@ public abstract class Level {
         //for (Item i: items) i.debug(shapeRenderer);
         shapeRenderer.end();
 
-        shapeRenderer.begin(ShapeType.Line);
         /*
+        shapeRenderer.begin(ShapeType.Line);
+
         for (Sword s : swords) s.debug(shapeRenderer);
         for (Bow b : bows) b.debug(shapeRenderer);
         for (Enemy e : enemies) e.debug(shapeRenderer);
-        */
+
+
         for (Weapon weapon : weapons) {
             if (weapon instanceof SwordHit) {
                 SwordHit swordHit = (SwordHit) weapon;
@@ -107,6 +108,7 @@ public abstract class Level {
             }
         }
         shapeRenderer.end();
+        */
 
     }
 
