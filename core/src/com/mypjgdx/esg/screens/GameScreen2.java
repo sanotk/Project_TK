@@ -45,6 +45,7 @@ public class GameScreen2 extends AbstractGameScreen {
 
     private Stage stage;
     private Skin skin;;
+    private String titleQuest;
 
     public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
     public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
@@ -280,8 +281,9 @@ public class GameScreen2 extends AbstractGameScreen {
 
         buttonLink1 = new TextButton("YES", buttonStyle);
         buttonLink2 = new TextButton("NO", buttonStyle);
+        titleQuest = "Choice";
 
-        final Window requestWindow = new Window("Choice", style);
+        final Window requestWindow = new Window(titleQuest, style);
         requestWindow.setModal(true);
         requestWindow.padTop(40);
         requestWindow.padLeft(40);
@@ -390,6 +392,7 @@ public class GameScreen2 extends AbstractGameScreen {
     }
 
     private void checkButton(final systemWindow requestWindow) {
+        titleQuest = "Test";
         buttonLink1.setText("YES");
         buttonLink1.addListener(new ClickListener() {
             @Override
@@ -516,10 +519,21 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if (player.stageoneclear){
-            if((player.questScreen1)&&(player.status_find)){
+            if((player.questScreen1)){
                 citizenQuest = systemWindow.citizen1;
-                checkButton(citizenQuest);
+            }else if((player.questScreen2)){
+                citizenQuest = systemWindow.citizen2;
+            }else if((player.questScreen3)){
+                citizenQuest = systemWindow.citizen3;
+            }else if((player.questScreen4)){
+                citizenQuest = systemWindow.citizen4;
+            }else if((player.questScreen5)){
+                citizenQuest = systemWindow.citizen5;
+            }else if((player.questScreen6)){
+                citizenQuest = systemWindow.citizen6;
             }
+            checkButton(citizenQuest);
+            requestWindow.setVisible(true);
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World

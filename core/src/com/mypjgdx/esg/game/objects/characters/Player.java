@@ -219,6 +219,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             for (Citizen c : citizens) {
                 if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.Citizen1)) {
                     questScreen1 = true;
+                    System.out.println(questScreen1);
                 }
                 if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.Citizen2)) {
                     questScreen2 = true;
@@ -236,6 +237,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                     questScreen6 = true;
                 }
             }
+
         }
         Countdown += deltaTime;
         if ((!timeStop) && (Countdown >= 1)) {
