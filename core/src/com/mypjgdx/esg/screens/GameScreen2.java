@@ -70,18 +70,17 @@ public class GameScreen2 extends AbstractGameScreen {
         citizen6
     }
 
-
-
     public QuestState questState = null;
 
     private ArrayList<QuestState> isComplete = new ArrayList<QuestState>();
     private ArrayList<QuestState> addRequest = new ArrayList<QuestState>();
 
-
     private TextButton buttonLink1;
     private TextButton buttonLink2;
     private TextButton buttonLink3;
     private TextButton buttonLink4;
+
+    private Label labelTitle;
 
     private Button buttonOption;
     private BitmapFont font;
@@ -281,9 +280,9 @@ public class GameScreen2 extends AbstractGameScreen {
 
         buttonLink1 = new TextButton("YES", buttonStyle);
         buttonLink2 = new TextButton("NO", buttonStyle);
-        titleQuest = "Choice";
+        labelTitle = new Label("Choice",labelStyle);
 
-        final Window requestWindow = new Window(titleQuest, style);
+        final Window requestWindow = new Window("Choice", style);
         requestWindow.setModal(true);
         requestWindow.padTop(40);
         requestWindow.padLeft(40);
@@ -467,7 +466,6 @@ public class GameScreen2 extends AbstractGameScreen {
         energyLevel.setText(String.format("Energy : %d", (int) worldController.level.energyTube.energy));
         //
         // sunleft.setText(String.format("Sun Left"));
-        titleQuest = "Test";
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));
