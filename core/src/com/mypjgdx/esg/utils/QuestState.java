@@ -1,10 +1,16 @@
 package com.mypjgdx.esg.utils;
 
 public enum QuestState {
-    quest1,
-    quest2,
-    quest3,
-    quest4,
-    quest5,
-    quest6
+    quest1yes,
+    quest2yes,
+    quest3yes,
+    quest4yes,
+    quest5yes,
+    quest6yes,
+    quest1no,
+    quest2no,
+    quest3no,
+    quest4no,
+    quest5no,
+    quest6no
 }

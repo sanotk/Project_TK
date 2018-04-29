@@ -25,10 +25,10 @@ import com.mypjgdx.esg.game.levels.Level2;
 import com.mypjgdx.esg.game.levels.Level2Generator;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.items.*;
+import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.items.Switch;
 import com.mypjgdx.esg.utils.ItemLink;
 import com.mypjgdx.esg.utils.QuestState;
-import com.mypjgdx.esg.utils.SolarState;
 
 import java.util.ArrayList;
 
@@ -74,6 +74,8 @@ public class GameScreen2 extends AbstractGameScreen {
     public QuestState questState = null;
 
     private ArrayList<QuestState> isComplete = new ArrayList<QuestState>();
+    private ArrayList<QuestState> addRequest = new ArrayList<QuestState>();
+
 
     private TextButton buttonLink1;
     private TextButton buttonLink2;
@@ -127,9 +129,12 @@ public class GameScreen2 extends AbstractGameScreen {
 
         this.optionsWindow = optionsWindow;
 
-        isComplete.add(questState.quest2);
-        isComplete.add(questState.quest4);
-        isComplete.add(questState.quest5);
+        isComplete.add(questState.quest1yes);
+        isComplete.add(questState.quest2yes);
+        isComplete.add(questState.quest3no);
+        isComplete.add(questState.quest4yes);
+        isComplete.add(questState.quest5yes);
+        isComplete.add(questState.quest6no);
 
         TextButton.TextButtonStyle buttonToolStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
@@ -385,182 +390,63 @@ public class GameScreen2 extends AbstractGameScreen {
     }
 
     private void checkButton(final systemWindow requestWindow) {
-        buttonLink1.setText("OK");
+        buttonLink1.setText("YES");
         buttonLink1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (citizenQuest == systemWindow.citizen1) {
-                    questState = questState.quest1;
+                    questState = questState.quest1yes;
                 } else if (citizenQuest == systemWindow.citizen2) {
-                    questState = questState.quest2;
+                    questState = questState.quest2yes;
                 }else if (citizenQuest == systemWindow.citizen3) {
-                    questState = questState.quest3;
+                    questState = questState.quest3yes;
                 }else if (citizenQuest == systemWindow.citizen4) {
-                    questState = questState.quest4;
+                    questState = questState.quest4yes;
                 }else if (citizenQuest == systemWindow.citizen5) {
-                    questState = questState.quest5;
-                }else (citizenQuest == systemWindow.citizen6) {
-                    questState = questState.quest6;
+                    questState = questState.quest5yes;
+                }else {
+                    questState = questState.quest6yes;
                 }
+                addRequest.add(questState);
                 checkGameComplete();
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
             }
         });
 
-        if (((solarWindow == GameScreen.systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == GameScreen.systemWindow.chargecontroller) && (!addedCtoB))) {
-            buttonLink2.setText("Link to Battery");
-            buttonLink2.setStyle(buttonStyle);
-        } else if (((solarWindow == GameScreen.systemWindow.solarcell) && (addedStoB)) || ((solarWindow == GameScreen.systemWindow.chargecontroller) && (addedCtoB))) {
-            buttonLink2.setText("Canceled Link to Battery");
-            buttonLink2.setStyle(buttonStyle2);
-        } else if (((solarWindow == GameScreen.systemWindow.battery) && (!addedCtoB)) || ((solarWindow == GameScreen.systemWindow.inverter) && (!addedCtoI))) {
-            buttonLink2.setText("Link to Charge Controller");
-            buttonLink2.setStyle(buttonStyle);
-        } else {
-            buttonLink2.setText("Canceled Link to Charge Controller");
-            buttonLink2.setStyle(buttonStyle2);
-        }
-        buttonLink2.clearListeners();
+        buttonLink2.setText("NO");
         buttonLink2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if ((solarWindow == GameScreen.systemWindow.solarcell)) {
-                    solarState = solarState.StoB;
-                } else if ((solarWindow == GameScreen.systemWindow.chargecontroller) || (solarWindow == GameScreen.systemWindow.battery)) {
-                    solarState = solarState.CtoB;
-                } else {
-                    solarState = solarState.CtoI;
+                if (citizenQuest == systemWindow.citizen1) {
+                    questState = questState.quest1no;
+                } else if (citizenQuest == systemWindow.citizen2) {
+                    questState = questState.quest2no;
+                }else if (citizenQuest == systemWindow.citizen3) {
+                    questState = questState.quest3no;
+                }else if (citizenQuest == systemWindow.citizen4) {
+                    questState = questState.quest4no;
+                }else if (citizenQuest == systemWindow.citizen5) {
+                    questState = questState.quest5no;
+                }else {
+                    questState = questState.quest6no;
                 }
-                if (((solarWindow == GameScreen.systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == GameScreen.systemWindow.chargecontroller) && (!addedCtoB))) {
-                    addLink(solarState);
-                } else if (((solarWindow == GameScreen.systemWindow.solarcell) && (addedStoB)) || ((solarWindow == GameScreen.systemWindow.chargecontroller) && (addedCtoB))) {
-                    deleteLink(solarState);
-                } else if (((solarWindow == GameScreen.systemWindow.battery) && (!addedCtoB)) || ((solarWindow == GameScreen.systemWindow.inverter) && (!addedCtoI))) {
-                    addLink(solarState);
-                } else {
-                    deleteLink(solarState);
-                }
+                addRequest.add(questState);
                 checkGameComplete();
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
             }
         });
-        solarcellWindow.pack();
-    }
-
-
-    private void checkDeledLink(SolarState solarState) {
-        if (solarState == SolarState.StoC) {
-            addedStoC = false;
-        } else if (solarState == SolarState.StoB) {
-            addedStoB = false;
-        } else if (solarState == SolarState.StoI) {
-            addedStoI = false;
-        } else if (solarState == SolarState.StoD) {
-            addedStoD = false;
-        } else if (solarState == SolarState.CtoB) {
-            addedCtoB = false;
-        } else if (solarState == SolarState.CtoI) {
-            addedCtoI = false;
-        } else if (solarState == SolarState.CtoD) {
-            addedCtoD = false;
-        } else if (solarState == SolarState.BtoI) {
-            addedBtoI = false;
-        } else if (solarState == SolarState.BtoD) {
-            addedBtoD = false;
-        } else if (solarState == SolarState.ItoD) {
-            addedItoD = false;
-        }
-    }
-
-    private void addGuiLink(SolarState solarState) {
-        if (solarState == SolarState.StoC) {
-            addedStoC = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(SolarCell.class),
-                    findItem(Charge.class),
-                    worldController.level.etcs, solarState);
-
-        } else if (solarState == SolarState.StoB) {
-            addedStoB = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(SolarCell.class),
-                    findItem(Battery.class),
-                    worldController.level.etcs, solarState);
-        } else if (solarState == SolarState.StoI) {
-            addedStoI = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(SolarCell.class),
-                    findItem(Inverter.class),
-                    worldController.level.etcs, solarState);
-        } else if (solarState == SolarState.StoD) {
-            addedStoD = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(SolarCell.class),
-                    findItem(Door.class),
-                    worldController.level.etcs, solarState);
-        } else if (solarState == SolarState.CtoB) {
-            addedCtoB = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(Charge.class),
-                    findItem(Battery.class),
-                    worldController.level.etcs, solarState);
-        } else if (solarState == SolarState.CtoI) {
-            addedCtoI = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(Charge.class),
-                    findItem(Inverter.class),
-                    worldController.level.etcs, solarState);
-        } else if (solarState == SolarState.CtoD) {
-            addedCtoD = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(Charge.class),
-                    findItem(Door.class),
-                    worldController.level.etcs, solarState);
-        } else if (solarState == SolarState.BtoI) {
-            addedBtoI = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(Battery.class),
-                    findItem(Inverter.class),
-                    worldController.level.etcs, solarState);
-        } else if (solarState == SolarState.BtoD) {
-            addedBtoD = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(Battery.class),
-                    findItem(Door.class),
-                    worldController.level.etcs, solarState);
-        } else if (solarState == SolarState.ItoD) {
-            addedItoD = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(Inverter.class),
-                    findItem(Door.class),
-                    worldController.level.etcs, solarState);
-        }
-        System.out.print("ขนาด" + itemLink.etcList.size() + "นะจ๊ะ");
-    }
-
-    private void removeGuiLink(SolarState solarState) {
-        for (int i = 0; i < itemLink.etcList.size(); i++) {
-            if (itemLink.etcList.get(i).solarState == solarState) {
-                System.out.print(itemLink.etcList.get(i).solarState);
-                itemLink.etcList.remove(i);
-                i--;
-            }
-        }
+        //requestWindow.pack();
     }
 
     private void checkGameComplete() {
-        trueLink = 0;
-        if ((link.size() != 0) && (link.size() <= 4)) {
-            for (int i = 0; i < link.size(); i++) {
-                for (int j = 0; j < isComplete.size(); j++) {
-                    if (link.get(i) == isComplete.get(j)) {
-                        trueLink += 1;
-                        System.out.println(trueLink);
-                    }
+        if(addRequest.size()==6){
+            for(int i = 0; i<addRequest.size();i++){
+                for(int j = 0; j<isComplete.size();j++)
+                if(addRequest.get(i) == isComplete.get(j)){
+                    trueLink +=1;
                 }
-                //if(x>trueLink) System.out.print(link.get(x-1) + "เป็นการเชื่อมต่อที่ไม่ถูกต้อง");
             }
         }
     }
@@ -632,7 +518,7 @@ public class GameScreen2 extends AbstractGameScreen {
         if (player.stageoneclear){
             if((player.questScreen1)&&(player.status_find)){
                 citizenQuest = systemWindow.citizen1;
-                checkButton(solarWindow);
+                checkButton(citizenQuest);
             }
         }
 

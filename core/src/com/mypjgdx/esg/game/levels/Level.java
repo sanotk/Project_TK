@@ -138,7 +138,7 @@ public abstract class Level {
             if (!e.isAlive()) enemyIterator.remove();
         }
 
-        player.update(deltaTime, weapons);
+        player.update(deltaTime, weapons, citizens);
 
         for (Etc etc : etcs) etc.update(deltaTime);
         for (Item i : items) i.update(deltaTime);
