@@ -508,19 +508,32 @@ public class GameScreen2 extends AbstractGameScreen {
         if (player.stageoneclear){
             if((player.questScreen1)){
                 citizenQuest = systemWindow.citizen1;
+                checkButton(citizenQuest);
+                requestWindow.setVisible(true);
             }else if((player.questScreen2)){
                 citizenQuest = systemWindow.citizen2;
+                checkButton(citizenQuest);
+                requestWindow.setVisible(true);
             }else if((player.questScreen3)){
                 citizenQuest = systemWindow.citizen3;
+                checkButton(citizenQuest);
+                requestWindow.setVisible(true);
             }else if((player.questScreen4)){
                 citizenQuest = systemWindow.citizen4;
+                checkButton(citizenQuest);
+                requestWindow.setVisible(true);
             }else if((player.questScreen5)){
                 citizenQuest = systemWindow.citizen5;
+                checkButton(citizenQuest);
+                requestWindow.setVisible(true);
             }else if((player.questScreen6)){
                 citizenQuest = systemWindow.citizen6;
+                checkButton(citizenQuest);
+                requestWindow.setVisible(true);
+            }else {
+                requestWindow.setVisible(false);
             }
-            checkButton(citizenQuest);
-            requestWindow.setVisible(true);
+
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
