@@ -1,10 +1,8 @@
-package com.mypjgdx.game.android;
+package com.mypjgdx.esg;
 
 import android.os.Bundle;
-
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.mypjgdx.esg.MyPjGdxGame;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

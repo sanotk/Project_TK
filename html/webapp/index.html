@@ -19,6 +19,7 @@
                 evt.preventDefault();
                 evt.stopPropagation();
                 evt.target.style.cursor = 'default';
+                window.focus();
               }
 
               function handleMouseUp(evt) {
@@ -26,7 +27,17 @@
                 evt.stopPropagation();
                 evt.target.style.cursor = '';
               }
+
               document.getElementById('embed-html').addEventListener('mousedown', handleMouseDown, false);
               document.getElementById('embed-html').addEventListener('mouseup', handleMouseUp, false);
+
+              window.onkeydown =
+                function(event) {
+                  // prevent all navigation keys except the space key
+                  if(event.keyCode >= 33 && event.keyCode <= 40){
+                    event.preventDefault();
+                    return false;
+                  }
+                };
        </script>
 </html>
