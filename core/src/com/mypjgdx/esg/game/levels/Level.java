@@ -65,6 +65,10 @@ public abstract class Level {
         swords = levelGenerator.createSwords(mapLayer, player, this);
         bows = levelGenerator.createBows(mapLayer, player, this);
 
+        for (Citizen citizen : citizens) {
+            System.out.println("" + citizen.hashCode());
+        }
+
         energyTube.init(mapLayer, player);
     }
 
@@ -93,22 +97,24 @@ public abstract class Level {
         //for (Item i: items) i.debug(shapeRenderer);
         shapeRenderer.end();
 
-        /*
+
         shapeRenderer.begin(ShapeType.Line);
-
-        for (Sword s : swords) s.debug(shapeRenderer);
-        for (Bow b : bows) b.debug(shapeRenderer);
-        for (Enemy e : enemies) e.debug(shapeRenderer);
-
-
-        for (Weapon weapon : weapons) {
-            if (weapon instanceof SwordHit) {
-                SwordHit swordHit = (SwordHit) weapon;
-                swordHit.debug(shapeRenderer);
-            }
+//
+//        for (Sword s : swords) s.debug(shapeRenderer);
+//        for (Bow b : bows) b.debug(shapeRenderer);
+//        for (Enemy e : enemies) e.debug(shapeRenderer);
+//
+//        for (Weapon weapon : weapons) {
+//            if (weapon instanceof SwordHit) {
+//                SwordHit swordHit = (SwordHit) weapon;
+//                swordHit.debug(shapeRenderer);
+//            }
+//        }
+        for (Citizen citizen : citizens) {
+            citizen.debug(shapeRenderer);
         }
         shapeRenderer.end();
-        */
+
 
     }
 

@@ -174,8 +174,8 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     public void runToItem() {
         final float startX = bounds.x + bounds.width / 2;
         final float startY = bounds.y + bounds.height / 2;
-        final float goalX = bounds.x + bounds.width / 2;
-        final float goalY = bounds.y + bounds.height / 2;
+        final float goalX = player.bounds.x + player.bounds.width / 2;
+        final float goalY = player.bounds.y + player.bounds.height / 2;
 
         GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
         Heuristic<Node> heuristic = new Heuristic<Node>() {
@@ -230,6 +230,9 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
 
     public void debug(ShapeRenderer renderer) {
         renderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
+        if (path != null) {
+            System.out.println(path.getCount() + " Citizen@" +  hashCode());
+        }
     }
 
     private void randomPosition(TiledMapTileLayer mapLayer) {
@@ -260,5 +263,9 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
 
     public Vector2 getPosition() {
         return new Vector2(getPositionX(), getPositionY());
+    }
+
+    public void setGoalItem(Item goalItem) {
+        this.goalItem = goalItem;
     }
 }

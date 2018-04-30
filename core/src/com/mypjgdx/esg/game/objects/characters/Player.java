@@ -1,5 +1,7 @@
 package com.mypjgdx.esg.game.objects.characters;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -128,6 +130,14 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean questScreen5 = false;
     public boolean questScreen6 = false;
 
+    public boolean quest_window_1;
+    public boolean quest_window_2;
+    public boolean quest_window_3;
+    public boolean quest_window_4;
+    public boolean quest_window_5;
+    public boolean quest_window_6;
+
+
     public boolean quest1 = false;
     public boolean quest2 = false;
     public boolean quest3 = false;
@@ -223,38 +233,57 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             }
         }
         if (stageoneclear) {
-            for (Citizen c : citizens) {
-                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_1)) {
+
+            questScreen1 = false;
+            questScreen2 = false;
+            questScreen3 = false;
+            questScreen4 = false;
+            questScreen5 = false;
+            questScreen6 = false;
+
+            for (Citizen citizen : citizens) {
+                if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_1)) {
                     questScreen1 = true;
                     if (quest1 == true) {
-                        c.quest = true;
+                        citizen.quest = true;
                     }
-                    System.out.print(c.type);
-                } else if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_2)) {
+                } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_2)) {
                     questScreen2 = true;
-                    System.out.print(c.type);
-                } else if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_3)) {
+                    if (quest2 == true) {
+                        citizen.quest = true;
+                    }
+                } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_3)) {
                     questScreen3 = true;
-                    System.out.print(c.type);
-                } else if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_4)) {
+                    if (quest3 == true) {
+                        citizen.quest = true;
+                    }
+                } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_4)) {
                     questScreen4 = true;
-                    System.out.print(c.type);
-                } else if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_5)) {
+                    if (quest4 == true) {
+                        citizen.quest = true;
+                    }
+                } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_5)) {
                     questScreen5 = true;
-                    System.out.print(c.type);
-                } else if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_6)) {
+                    if (quest5 == true) {
+                        citizen.quest = true;
+                    }
+                } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_6)) {
                     questScreen6 = true;
-                    System.out.print(c.type);
-                } else {
-                    questScreen1 = false;
-                    questScreen2 = false;
-                    questScreen3 = false;
-                    questScreen4 = false;
-                    questScreen5 = false;
-                    questScreen6 = false;
+                    if (quest6 == true) {
+                        citizen.quest = true;
+                    }
                 }
 
             }
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
+            System.out.println("\n" + questScreen1);
+            System.out.println("" + questScreen2);
+            System.out.println("" + questScreen3);
+            System.out.println("" + questScreen4);
+            System.out.println("" + questScreen5);
+            System.out.println("" + questScreen6);
         }
 
         Countdown += deltaTime;
@@ -604,9 +633,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         if (status_windows_link == true) {
             status_windows_link = false;
             status_find = false;
-        } else { // ถ้าหน้าต่างเมนูเปิดอยู่
-            status_windows_link = true; // ให้หน้าต่างเมนูปิดลง
-            status_find = true; // ให้สเตตัสค้นหาเป็นเท็จ หรือ ไม่มีการค้นหา
+        } else {
+            status_windows_link = true;
+            status_find = true;
         }
     }
 

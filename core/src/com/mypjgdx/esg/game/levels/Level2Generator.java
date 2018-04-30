@@ -24,7 +24,6 @@ public class Level2Generator extends LevelGenerator {
         ArrayList<Item> items = new ArrayList<Item>();
         items.add(new Switch(mapLayer, player));
         items.add(new Television(mapLayer, player));
-        items.add(new Waterheater(mapLayer, player));
         items.add(new Microwave(mapLayer, player));
         items.add(new Waterpump(mapLayer, player));
         items.add(new Airconditioner(mapLayer, player));
