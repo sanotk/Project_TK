@@ -12,10 +12,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
-import com.mypjgdx.esg.game.objects.weapons.Weapon;
+import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.utils.Direction;
 import com.mypjgdx.esg.utils.Distance;
 import com.mypjgdx.esg.utils.GameMap;
@@ -61,11 +60,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
 
     abstract void TellMeByType();
 
-    private long stunTime;
-    private long lastStunTime;
-
-    private int health;
-    protected int maxHealth;
     protected float movingSpeed;
     private float findingRange;
     private IndexedAStarPathFinder<Node> pathFinder;
@@ -104,11 +98,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
         setCurrentAnimation(CitizenAnimation.WALK_DOWN);
         viewDirection = Direction.DOWN;
 
-        health = maxHealth;
-        dead = false;
-        knockback = false;
-        stun = false;
-        attacktime = false;
         TellMeByType();
         randomPosition(mapLayer);
         stateMachine.setInitialState(CitizenState.WANDER);
@@ -139,8 +128,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
         }
     }
 
-
-    public void update(float deltaTime, List<Weapon> weapons) {
+    public void update(float deltaTime, List<Item> items) {
         super.update(deltaTime);
         updateStatus();
 
@@ -151,10 +139,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
         if (!player.timeStop) {
             stateMachine.update();
         }
-    }
-
-    public boolean isAlive() {
-        return !dead;
     }
 
     public void move(Direction direction) {
@@ -187,18 +171,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
         knockback = true;
     }
 
-    public void takeStun(long duration) {
-        stun = true;
-        lastStunTime = TimeUtils.nanoTime();
-        stunTime = TimeUtils.millisToNanos(duration);
-    }
-
     private void updateStatus() {
-        if (knockback && velocity.isZero()) {
-            knockback = false;
-        }
-        if (stun && TimeUtils.nanoTime() - lastStunTime > stunTime)
-            stun = false;
     }
 
     public boolean isPlayerInRange() {
@@ -258,14 +231,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
 
     public void showHp(ShapeRenderer shapeRenderer) {
         if(stateMachine.getCurrentState()!=CitizenState.DIE) {
-            if (health != maxHealth) {
-                shapeRenderer.setColor(Color.BLACK);
-                shapeRenderer.rect(getPositionX(), getPositionY() - 10, bounds.width, 5);
-                shapeRenderer.setColor(Color.RED);
-                shapeRenderer.rect(
-                        getPositionX(), getPositionY() - 10,
-                        bounds.width * ((float) health / maxHealth), 5);
-            }
+
         }
     }
 
@@ -275,25 +241,10 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
         batch.setColor(color);
         super.render(batch);
         batch.setColor(oldColor);
-
-/*      if (startNode != null && endNode != null) {
-//            batch.draw(Assets.instance.bullet, startNode.getPositionX(), startNode.getPositionY());
-//            batch.draw(Assets.instance.enemyBall, endNode.getPositionX(), endNode.getPositionY());
-        }
-        if (path != null) {
-            for (Node node : path) {
-                batch.draw(Assets.instance.bullet, node.getCenterPositionX(), node.getCenterPositionY());
-            }
-        }
-        */
     }
 
     public void debug(ShapeRenderer renderer) {
         renderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
-    }
-
-    public void die() {
-        color = Color.GRAY;
     }
 
     private void randomPosition(TiledMapTileLayer mapLayer) {
@@ -316,18 +267,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
 
     public Direction getViewDirection() {
         return viewDirection;
-    }
-
-    public void attackPlayer() {
-        if(stateMachine.getCurrentState() == CitizenState.DIE){return;}
-        float ydiff = player.bounds.y + player.bounds.height / 2 - bounds.y - bounds.height / 2;
-        float xdiff = player.bounds.x + player.bounds.width / 2 - bounds.x - bounds.width / 2;
-        float angle = MathUtils.atan2(ydiff, xdiff) * MathUtils.radiansToDegrees;
-        float knockbackSpeed = 130 + movingSpeed * 1.2f;
-
-        if (player.takeDamage(1, knockbackSpeed, angle)) {
-            takeKnockback(100, angle + 180);
-        }
     }
 
     public DefaultStateMachine getStateMachine() {
