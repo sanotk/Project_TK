@@ -386,16 +386,22 @@ public class GameScreen2 extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 if (citizenQuest == systemWindow.citizen1) {
                     questState = questState.quest1yes;
+                    worldController.level.player.quest1 = true;
                 } else if (citizenQuest == systemWindow.citizen2) {
                     questState = questState.quest2yes;
+                    worldController.level.player.quest2 = true;
                 }else if (citizenQuest == systemWindow.citizen3) {
                     questState = questState.quest3yes;
+                    worldController.level.player.quest3 = true;
                 }else if (citizenQuest == systemWindow.citizen4) {
                     questState = questState.quest4yes;
+                    worldController.level.player.quest4 = true;
                 }else if (citizenQuest == systemWindow.citizen5) {
                     questState = questState.quest5yes;
+                    worldController.level.player.quest5 = true;
                 }else {
                     questState = questState.quest6yes;
+                    worldController.level.player.quest6 = true;
                 }
                 addRequest.add(questState);
                 checkGameComplete();
