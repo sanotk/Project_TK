@@ -12,7 +12,6 @@ import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.etcs.Etc;
-import com.mypjgdx.esg.game.objects.items.EnergyTube;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Bow;
 import com.mypjgdx.esg.game.objects.weapons.Sword;
@@ -35,8 +34,6 @@ public abstract class Level {
     public List<Etc> etcs;
     public TiledMapTileLayer mapLayer;
 
-    public EnergyTube energyTube;
-
     public boolean hasSolarCell;
 
     public Level(LevelGenerator levelGenerator) {
@@ -45,8 +42,6 @@ public abstract class Level {
         bows = new ArrayList<Bow>();
 
         etcs = new ArrayList<Etc>();
-
-        energyTube = new EnergyTube(0);  // พลังงานเริ่มต้นมีค่า 100 วินาที
 
         init(levelGenerator);
     }
@@ -68,8 +63,6 @@ public abstract class Level {
         for (Citizen citizen : citizens) {
             System.out.println("" + citizen.hashCode());
         }
-
-        energyTube.init(mapLayer, player);
     }
 
     public void render(SpriteBatch batch, OrthogonalTiledMapRenderer tiledRenderer, ShapeRenderer shapeRenderer) {
@@ -157,7 +150,6 @@ public abstract class Level {
         for (Weapon w : weapons) w.update(deltaTime);
         for (Sword s : swords) s.update(deltaTime);
         for (Bow b : bows) b.update(deltaTime);
-        energyTube.update(deltaTime);
     }
 
 }

@@ -26,6 +26,7 @@ import com.mypjgdx.esg.game.levels.Level4Generator;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.*;
+import com.mypjgdx.esg.ui.EnergyBar;
 import com.mypjgdx.esg.utils.ItemLink;
 import com.mypjgdx.esg.utils.SolarState;
 
@@ -747,7 +748,7 @@ public class GameScreen4 extends AbstractGameScreen {
         textBeam.setText(String.format("SwordWave : %d", worldController.level.player.beamCount));
         textTrap.setText(String.format("Trap : %d", worldController.level.player.trapCount));
         textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
-        energyLevel.setText(String.format("Energy : %d", (int) worldController.level.energyTube.energy));
+        energyLevel.setText(String.format("Energy : %d", (int) EnergyBar.instance.energy));
         //
         // sunleft.setText(String.format("Sun Left"));
 
@@ -830,7 +831,7 @@ public class GameScreen4 extends AbstractGameScreen {
                     Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                     Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
             chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            worldController.level.energyTube.energy += 100;
+            EnergyBar.instance.energy += 100;
         }
 
 
@@ -841,7 +842,7 @@ public class GameScreen4 extends AbstractGameScreen {
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
             Enemy enemy = worldController.level.enemies.get(i);
             if (enemy.dead && !enemy.count) {
-                worldController.level.energyTube.energy += 2;
+                EnergyBar.instance.energy += 2;
                 enemy.count = true;
                 enemyDeadCount += 1;
             }
