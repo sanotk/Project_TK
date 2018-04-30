@@ -8,9 +8,11 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
@@ -21,7 +23,7 @@ import com.mypjgdx.esg.utils.Node;
 
 import java.util.List;
 
-public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> implements Damageable {
+public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
 
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 8.0f;
@@ -34,34 +36,36 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     public enum CitizenAnimation {
         WALK_LEFT,
         WALK_RIGHT,
+        WALK_DOWN,
         WALK_UP,
-        STAND_LEFT,
-        STAND_RIGHT,
-        STAND_UP
     }
 
     public enum CitizenType {
-        Citizen1,
-        Citizen2,
-        Citizen3,
-        Citizen4,
-        Citizen5,
-        Citizen6
+        CITIZEN_1,
+        CITIZEN_2,
+        CITIZEN_3,
+        CITIZEN_4,
+        CITIZEN_5,
+        CITIZEN_6
     }
 
     public CitizenType type;
     private Direction viewDirection;
 
-    public boolean questStatus = false;
-
-    public boolean quest;
-    public int questCount;
+    public boolean dead;
+    public boolean count = false;
     private boolean knockback;
     private boolean stun;
+    private boolean attacktime;
     private TiledMapTileLayer mapLayer;
 
     abstract void TellMeByType();
 
+    private long stunTime;
+    private long lastStunTime;
+
+    private int health;
+    protected int maxHealth;
     protected float movingSpeed;
     private float findingRange;
     private IndexedAStarPathFinder<Node> pathFinder;
@@ -78,11 +82,9 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         super(atlas);
 
         addLoopAnimation(CitizenAnimation.WALK_UP, FRAME_DURATION, 0, 3);
-        addLoopAnimation(CitizenAnimation.WALK_LEFT, FRAME_DURATION, 3, 3);
-        addLoopAnimation(CitizenAnimation.WALK_RIGHT, FRAME_DURATION, 6, 3);
-        addLoopAnimation(CitizenAnimation.STAND_UP, FRAME_DURATION, 0, 3);
-        addLoopAnimation(CitizenAnimation.STAND_LEFT, FRAME_DURATION, 3, 3);
-        addLoopAnimation(CitizenAnimation.STAND_RIGHT, FRAME_DURATION, 6, 3);
+        addLoopAnimation(CitizenAnimation.WALK_DOWN, FRAME_DURATION, 3, 3);
+        addLoopAnimation(CitizenAnimation.WALK_LEFT, FRAME_DURATION, 6, 3);
+        addLoopAnimation(CitizenAnimation.WALK_RIGHT, FRAME_DURATION, 9, 3);
 
         findingRange = INITIAL_FINDING_RANGE;
         friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
@@ -99,13 +101,14 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
         this.mapLayer = mapLayer;
 
-        questCount = 0;
-        setCurrentAnimation(CitizenAnimation.STAND_UP);
+        setCurrentAnimation(CitizenAnimation.WALK_DOWN);
         viewDirection = Direction.DOWN;
 
-        quest = false;
+        health = maxHealth;
+        dead = false;
         knockback = false;
         stun = false;
+        attacktime = false;
         TellMeByType();
         randomPosition(mapLayer);
         stateMachine.setInitialState(CitizenState.WANDER);
@@ -116,7 +119,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         unFreezeAnimation();
         switch (viewDirection) {
             case DOWN:
-                setCurrentAnimation(CitizenAnimation.WALK_UP);
+                setCurrentAnimation(CitizenAnimation.WALK_DOWN);
                 break;
             case LEFT:
                 setCurrentAnimation(CitizenAnimation.WALK_LEFT);
@@ -142,12 +145,16 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         updateStatus();
 
         if (bounds.overlaps(player.bounds)) {
-            quest = true;
+            //attackPlayer();
         }
 
         if (!player.timeStop) {
             stateMachine.update();
         }
+    }
+
+    public boolean isAlive() {
+        return !dead;
     }
 
     public void move(Direction direction) {
@@ -172,10 +179,26 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         velocity.setLength(movingSpeed);
     }
 
+    public void takeKnockback(float knockbackSpeed, float knockbackAngle) {
+        velocity.set(
+                knockbackSpeed * MathUtils.cosDeg(knockbackAngle),
+                knockbackSpeed * MathUtils.sinDeg(knockbackAngle));
+
+        knockback = true;
+    }
+
+    public void takeStun(long duration) {
+        stun = true;
+        lastStunTime = TimeUtils.nanoTime();
+        stunTime = TimeUtils.millisToNanos(duration);
+    }
+
     private void updateStatus() {
         if (knockback && velocity.isZero()) {
             knockback = false;
         }
+        if (stun && TimeUtils.nanoTime() - lastStunTime > stunTime)
+            stun = false;
     }
 
     public boolean isPlayerInRange() {
@@ -206,7 +229,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
         gameMap.updateNeighbors(); //TODO
         startNode = gameMap.getNode(startX, startY);
-        endNode = gameMap.getNode(goalX, goalY);
+        endNode =gameMap.getNode(goalX, goalY);
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
         path = pathOutput;
@@ -233,12 +256,40 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         }
     }
 
+    public void showHp(ShapeRenderer shapeRenderer) {
+        if(stateMachine.getCurrentState()!=CitizenState.DIE) {
+            if (health != maxHealth) {
+                shapeRenderer.setColor(Color.BLACK);
+                shapeRenderer.rect(getPositionX(), getPositionY() - 10, bounds.width, 5);
+                shapeRenderer.setColor(Color.RED);
+                shapeRenderer.rect(
+                        getPositionX(), getPositionY() - 10,
+                        bounds.width * ((float) health / maxHealth), 5);
+            }
+        }
+    }
+
     @Override
     public void render(SpriteBatch batch) {
         Color oldColor = batch.getColor();
         batch.setColor(color);
         super.render(batch);
-        //batch.setColor(oldColor);
+        batch.setColor(oldColor);
+
+/*      if (startNode != null && endNode != null) {
+//            batch.draw(Assets.instance.bullet, startNode.getPositionX(), startNode.getPositionY());
+//            batch.draw(Assets.instance.enemyBall, endNode.getPositionX(), endNode.getPositionY());
+        }
+        if (path != null) {
+            for (Node node : path) {
+                batch.draw(Assets.instance.bullet, node.getCenterPositionX(), node.getCenterPositionY());
+            }
+        }
+        */
+    }
+
+    public void debug(ShapeRenderer renderer) {
+        renderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
     }
 
     public void die() {
@@ -263,21 +314,27 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
                 || collisionCheck.isCollidesLeft());
     }
 
-    @Override
     public Direction getViewDirection() {
         return viewDirection;
+    }
+
+    public void attackPlayer() {
+        if(stateMachine.getCurrentState() == CitizenState.DIE){return;}
+        float ydiff = player.bounds.y + player.bounds.height / 2 - bounds.y - bounds.height / 2;
+        float xdiff = player.bounds.x + player.bounds.width / 2 - bounds.x - bounds.width / 2;
+        float angle = MathUtils.atan2(ydiff, xdiff) * MathUtils.radiansToDegrees;
+        float knockbackSpeed = 130 + movingSpeed * 1.2f;
+
+        if (player.takeDamage(1, knockbackSpeed, angle)) {
+            takeKnockback(100, angle + 180);
+        }
     }
 
     public DefaultStateMachine getStateMachine() {
         return stateMachine;
     }
 
-    @Override
     public Vector2 getPosition() {
-        return null;
-    }
-
-    public boolean getQuestStatus(){
-        return questStatus;
+        return new Vector2(getPositionX(), getPositionY());
     }
 }

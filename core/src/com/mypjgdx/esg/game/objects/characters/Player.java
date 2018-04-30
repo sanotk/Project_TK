@@ -217,33 +217,33 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         }
         if(stageoneclear) {
             for (Citizen c : citizens) {
-                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.Citizen1)) {
+                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_1)) {
                     questScreen1 = true;
                     System.out.println(questScreen1);
                 }else {
                     questScreen1 =false;
                 }
-                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.Citizen2)) {
+                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_2)) {
                     questScreen2 = true;
                 }else {
                     questScreen2 =false;
                 }
-                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.Citizen3)) {
+                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_3)) {
                     questScreen3 = true;
                 }else {
                     questScreen3 =false;
                 }
-                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.Citizen4)) {
+                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_4)) {
                     questScreen4 = true;
                 }else {
                     questScreen4 =false;
                 }
-                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.Citizen5)) {
+                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_5)) {
                     questScreen5 = true;
                 }else {
                     questScreen5 =false;
                 }
-                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.Citizen6)) {
+                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_6)) {
                     questScreen6 = true;
                 }else {
                     questScreen6 =false;

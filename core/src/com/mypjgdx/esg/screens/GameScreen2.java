@@ -453,7 +453,6 @@ public class GameScreen2 extends AbstractGameScreen {
         }
     }
 
-
     @Override
     public void render(float deltaTime) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);

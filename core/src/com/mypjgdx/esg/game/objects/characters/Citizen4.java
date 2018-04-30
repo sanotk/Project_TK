@@ -24,12 +24,7 @@ public class Citizen4 extends Citizen {
 
 	@Override
 	public void TellMeByType() {
-		type = CitizenType.Citizen4;
+		type = CitizenType.CITIZEN_4;
 	}
 
-
-    @Override
-    public boolean takeDamage(float damage, float knockbackSpeed, float knockbackAngle) {
-        return false;
-    }
 }
