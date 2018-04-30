@@ -20,8 +20,6 @@ import com.mypjgdx.esg.utils.Distance;
 import com.mypjgdx.esg.utils.GameMap;
 import com.mypjgdx.esg.utils.Node;
 
-import java.util.List;
-
 public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
 
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
@@ -48,14 +46,12 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
         CITIZEN_6
     }
 
+    public boolean quest = false;
+
     public CitizenType type;
     private Direction viewDirection;
 
-    public boolean dead;
-    public boolean count = false;
     private boolean knockback;
-    private boolean stun;
-    private boolean attacktime;
     private TiledMapTileLayer mapLayer;
 
     abstract void TellMeByType();
@@ -71,6 +67,8 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     private Node startNode;
     private Node endNode;
     private GraphPath<Node> path;
+
+    protected Item goalItem;
 
     public Citizen(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer) {
         super(atlas);
@@ -128,11 +126,11 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
         }
     }
 
-    public void update(float deltaTime, List<Item> items) {
+    public void update(float deltaTime) {
         super.update(deltaTime);
         updateStatus();
 
-        if (bounds.overlaps(player.bounds)) {
+        if (player.status_citizen) {
             //attackPlayer();
         }
 
@@ -142,7 +140,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     }
 
     public void move(Direction direction) {
-        if (knockback || stun) return;
         switch (direction) {
             case LEFT:
                 velocity.x = -movingSpeed;
@@ -163,34 +160,18 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
         velocity.setLength(movingSpeed);
     }
 
-    public void takeKnockback(float knockbackSpeed, float knockbackAngle) {
-        velocity.set(
-                knockbackSpeed * MathUtils.cosDeg(knockbackAngle),
-                knockbackSpeed * MathUtils.sinDeg(knockbackAngle));
-
-        knockback = true;
-    }
-
     private void updateStatus() {
     }
 
-    public boolean isPlayerInRange() {
-        final float startX = bounds.x + bounds.width / 2;
-        final float startY = bounds.y + bounds.height / 2;
-        final float goalX = player.bounds.x + player.bounds.width / 2;
-        final float goalY = player.bounds.y + player.bounds.height / 2;
-        final float xDiff = startX - goalX;
-        final float yDiff = startY - goalY;
-        final double distance = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
-
-        return distance <= findingRange;
+    public void die() {
+        color = Color.GRAY;
     }
 
-    public void runToPlayer() {
+    public void runToItem() {
         final float startX = bounds.x + bounds.width / 2;
         final float startY = bounds.y + bounds.height / 2;
-        final float goalX = player.bounds.x + player.bounds.width / 2;
-        final float goalY = player.bounds.y + player.bounds.height / 2;
+        final float goalX = bounds.x + bounds.width / 2;
+        final float goalY = bounds.y + bounds.height / 2;
 
         GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
         Heuristic<Node> heuristic = new Heuristic<Node>() {

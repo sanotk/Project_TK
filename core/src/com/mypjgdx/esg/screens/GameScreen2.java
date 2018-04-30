@@ -92,17 +92,6 @@ public class GameScreen2 extends AbstractGameScreen {
     private Window chartWindow;
     private Window requestWindow;
 
-    private boolean addedStoC = false;
-    private boolean addedStoB = false;
-    private boolean addedStoI = false;
-    private boolean addedStoD = false;
-    private boolean addedCtoB = false;
-    private boolean addedCtoI = false;
-    private boolean addedCtoD = false;
-    private boolean addedBtoI = false;
-    private boolean addedBtoD = false;
-    private boolean addedItoD = false;
-
     private float startX;
     private float startY;
     private float goalX;

@@ -13,8 +13,8 @@ public enum CitizenState implements State<Citizen> {
 
         @Override
         public void update(Citizen entity) {
-            if (entity.isPlayerInRange())
-                entity.getStateMachine().changeState(RUN_TO_PLAYER);
+            if (entity.quest)
+                entity.getStateMachine().changeState(RUN_TO_ITEM);
         }
 
         @Override
@@ -22,7 +22,7 @@ public enum CitizenState implements State<Citizen> {
             Gdx.app.log("exit", "WANDER");
         }
     },
-    RUN_TO_PLAYER {
+    RUN_TO_ITEM {
         @Override
         public void enter(Citizen entity) {
             Gdx.app.log("enter", "RUN_TO_PLAYER");
@@ -30,7 +30,7 @@ public enum CitizenState implements State<Citizen> {
 
         @Override
         public void update(Citizen entity) {
-            entity.runToPlayer();
+            entity.runToItem();
         }
 
         @Override

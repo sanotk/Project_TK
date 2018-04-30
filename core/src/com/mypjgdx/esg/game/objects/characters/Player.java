@@ -128,6 +128,13 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean questScreen5 = false;
     public boolean questScreen6 = false;
 
+    public boolean quest1 = false;
+    public boolean quest2 = false;
+    public boolean quest3 = false;
+    public boolean quest4 = false;
+    public boolean quest5 = false;
+    public boolean quest6 = false;
+
     public boolean timeStop = true;
 
     public boolean swordHit = true;
@@ -219,7 +226,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             for (Citizen c : citizens) {
                 if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_1)) {
                     questScreen1 = true;
-                    System.out.println(questScreen1);
+                    if(quest1==true){
+                       c.quest=true;
+                    }
                 }else {
                     questScreen1 =false;
                 }
@@ -248,9 +257,10 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 }else {
                     questScreen6 =false;
                 }
-            }
 
+            }
         }
+
         Countdown += deltaTime;
         if ((!timeStop) && (Countdown >= 1)) {
             timeCount--;
