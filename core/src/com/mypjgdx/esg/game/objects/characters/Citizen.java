@@ -62,7 +62,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     private GameMap gameMap;
 
     private DefaultStateMachine<Citizen, CitizenState> stateMachine;
-    private Color color = Color.WHITE;
+    protected Color color = Color.WHITE;
 
     private Node startNode;
     private Node endNode;
@@ -165,6 +165,10 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
 
     public void die() {
         color = Color.GRAY;
+    }
+
+    public void setColor() {
+       // color = Color.RED;
     }
 
     public void runToItem() {

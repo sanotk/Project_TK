@@ -41,7 +41,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private float Countdown;
 
     public boolean isSwitch = false;
-    public boolean stageoneclear =false;
+    public boolean stageoneclear = false;
 
     public enum PlayerAnimation {
         ATK_LEFT,
@@ -210,7 +210,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         refrigeratorCheck = new TiledCollisionCheck(bounds, mapLayer, "refrigerator");
     }
 
-    public void update(float deltaTime, List<Weapon> weapons ,List<Citizen> citizens) {
+    public void update(float deltaTime, List<Weapon> weapons, List<Citizen> citizens) {
         super.update(deltaTime);
         statusUpdate();
         if (item != null) // ถ้ามีไอเทม
@@ -222,40 +222,36 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 w.attack(this);
             }
         }
-        if(stageoneclear) {
+        if (stageoneclear) {
             for (Citizen c : citizens) {
                 if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_1)) {
                     questScreen1 = true;
-                    if(quest1==true){
-                       c.quest=true;
+                    if (quest1 == true) {
+                        c.quest = true;
                     }
-                }else {
-                    questScreen1 =false;
-                }
-                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_2)) {
+                    System.out.print(c.type);
+                } else if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_2)) {
                     questScreen2 = true;
-                }else {
-                    questScreen2 =false;
-                }
-                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_3)) {
+                    System.out.print(c.type);
+                } else if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_3)) {
                     questScreen3 = true;
-                }else {
-                    questScreen3 =false;
-                }
-                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_4)) {
+                    System.out.print(c.type);
+                } else if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_4)) {
                     questScreen4 = true;
-                }else {
-                    questScreen4 =false;
-                }
-                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_5)) {
+                    System.out.print(c.type);
+                } else if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_5)) {
                     questScreen5 = true;
-                }else {
-                    questScreen5 =false;
-                }
-                if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_6)) {
+                    System.out.print(c.type);
+                } else if (bounds.overlaps(c.bounds) && (c.type == Citizen.CitizenType.CITIZEN_6)) {
                     questScreen6 = true;
-                }else {
-                    questScreen6 =false;
+                    System.out.print(c.type);
+                } else {
+                    questScreen1 = false;
+                    questScreen2 = false;
+                    questScreen3 = false;
+                    questScreen4 = false;
+                    questScreen5 = false;
+                    questScreen6 = false;
                 }
 
             }
@@ -528,7 +524,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                     weapons.add(new SwordWave(mapLayer, this));
                     beamCount--;
                 }
-                weapons.add(new SwordHit(mapLayer,this));
+                weapons.add(new SwordHit(mapLayer, this));
                 SoundManager.instance.play(SoundManager.Sounds.BEAM);
                 resetAnimation();
             }

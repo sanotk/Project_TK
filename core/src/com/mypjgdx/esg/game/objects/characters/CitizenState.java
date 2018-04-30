@@ -9,6 +9,7 @@ public enum CitizenState implements State<Citizen> {
         @Override
         public void enter(Citizen entity) {
             Gdx.app.log("enter", "WANDER");
+            entity.setColor();
         }
 
         @Override

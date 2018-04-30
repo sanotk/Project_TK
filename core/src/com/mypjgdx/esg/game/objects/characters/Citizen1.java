@@ -1,5 +1,6 @@
 package com.mypjgdx.esg.game.objects.characters;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 
@@ -21,6 +22,10 @@ public class Citizen1 extends Citizen {
     public String getName() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    public void setColor() {
+        color = Color.RED;
     }
 
 	@Override
