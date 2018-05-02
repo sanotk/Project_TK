@@ -69,6 +69,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     private GraphPath<Node> path;
 
     protected Item goalItem;
+    public boolean itemOn;
 
     public Citizen(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer) {
         super(atlas);
@@ -174,8 +175,8 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     public void runToItem() {
         final float startX = bounds.x + bounds.width / 2;
         final float startY = bounds.y + bounds.height / 2;
-        final float goalX = player.bounds.x + player.bounds.width / 2;
-        final float goalY = player.bounds.y + player.bounds.height / 2;
+        final float goalX = goalItem.bounds.x + goalItem.bounds.width / 2;
+        final float goalY = goalItem.bounds.y + goalItem.bounds.height / 2 - 50;
 
         GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
         Heuristic<Node> heuristic = new Heuristic<Node>() {
@@ -212,11 +213,8 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
                 move(Direction.LEFT);
             }
         }
-    }
-
-    public void showHp(ShapeRenderer shapeRenderer) {
-        if(stateMachine.getCurrentState()!=CitizenState.DIE) {
-
+        if(startNode == endNode){
+            itemOn = true;
         }
     }
 

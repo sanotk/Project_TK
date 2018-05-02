@@ -539,29 +539,54 @@ public class GameScreen2 extends AbstractGameScreen {
                 citizenQuest = systemWindow.citizen1;
                 checkButton(citizenQuest);
                 requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-            } else if ((player.questScreen2)&& !player.quest_window_2) {
+            } else if ((player.questScreen2) && !player.quest_window_2) {
                 citizenQuest = systemWindow.citizen2;
                 checkButton(citizenQuest);
                 requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-            } else if ((player.questScreen3)&& !player.quest_window_3) {
+            } else if ((player.questScreen3) && !player.quest_window_3) {
                 citizenQuest = systemWindow.citizen3;
                 checkButton(citizenQuest);
                 requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-            } else if ((player.questScreen4)&& !player.quest_window_4) {
+            } else if ((player.questScreen4) && !player.quest_window_4) {
                 citizenQuest = systemWindow.citizen4;
                 checkButton(citizenQuest);
                 requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-            } else if ((player.questScreen5)&& !player.quest_window_5) {
+            } else if ((player.questScreen5) && !player.quest_window_5) {
                 citizenQuest = systemWindow.citizen5;
                 checkButton(citizenQuest);
                 requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-            } else if ((player.questScreen6)&& !player.quest_window_6) {
+            } else if ((player.questScreen6) && !player.quest_window_6) {
                 citizenQuest = systemWindow.citizen6;
                 checkButton(citizenQuest);
                 requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
             } else {
                 requestCitizenWindow.setVisible(false);
             }
+        }
+
+        if (worldController.level.citizens.get(0).itemOn) {
+            worldController.level.items.get(3).resetAnimation();
+            worldController.level.items.get(3).state = Item.ItemState.ONLOOP;
+        }
+        if (worldController.level.citizens.get(1).itemOn) {
+            worldController.level.items.get(2).resetAnimation();
+            worldController.level.items.get(2).state = Item.ItemState.ONLOOP;
+        }
+        if (worldController.level.citizens.get(2).itemOn) {
+            worldController.level.items.get(5).resetAnimation();
+            worldController.level.items.get(5).state = Item.ItemState.ONLOOP;
+        }
+        if (worldController.level.citizens.get(3).itemOn) {
+            worldController.level.items.get(8).resetAnimation();
+            worldController.level.items.get(8).state = Item.ItemState.ONLOOP;
+        }
+        if (worldController.level.citizens.get(4).itemOn) {
+            worldController.level.items.get(9).resetAnimation();
+            worldController.level.items.get(9).state = Item.ItemState.ONLOOP;
+        }
+        if (worldController.level.citizens.get(5).itemOn) {
+            worldController.level.items.get(1).resetAnimation();
+            worldController.level.items.get(1).state = Item.ItemState.ONLOOP;
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
