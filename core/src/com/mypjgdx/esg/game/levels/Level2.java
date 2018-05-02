@@ -19,6 +19,15 @@ public class Level2 extends Level {
         citizens.get(4).setGoalItem(items.get(9));
         citizens.get(5).setGoalItem(items.get(1));
 
+        items.get(1).setEnergyBurn(10);
+        items.get(2).setEnergyBurn(10);
+        items.get(3).setEnergyBurn(10);
+        items.get(4).setEnergyBurn(10);
+        items.get(5).setEnergyBurn(10);
+        items.get(6).setEnergyBurn(10);
+        items.get(7).setEnergyBurn(10);
+        items.get(8).setEnergyBurn(10);
+        items.get(9).setEnergyBurn(10);
     }
 
     @Override

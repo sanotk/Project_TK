@@ -14,6 +14,7 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 
 		public float p_x;
 		public float p_y;
+		public float energyBurn;
 
 		public enum ItemAnimation {
 		    ON,
@@ -77,4 +78,8 @@ public abstract class Item extends AnimatedObject<ItemAnimation>{
 		}
 
 	    public abstract void activate();
+
+		public void setEnergyBurn(float energyBurn){
+			this.energyBurn = energyBurn;
+		}
 }
