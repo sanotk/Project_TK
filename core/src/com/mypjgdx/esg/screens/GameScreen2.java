@@ -78,10 +78,6 @@ public class GameScreen2 extends AbstractGameScreen {
 
     private TextButton buttonLink1;
     private TextButton buttonLink2;
-    private TextButton buttonLink3;
-    private TextButton buttonLink4;
-
-    private Label labelTitle;
 
     private Button buttonOption;
     private BitmapFont font;
@@ -93,17 +89,9 @@ public class GameScreen2 extends AbstractGameScreen {
     private Window chartWindow;
     private Window requestCitizenWindow;
 
-    private float startX;
-    private float startY;
-    private float goalX;
-    private float goalY;
-    private float startWidth;
-    private float startHeight;
-    private float goalWidth;
-    private float goalHeight;
-
-    public int enemyDeadCount = 0;
     private int trueLink = 0;
+
+    private int energyStart = 0;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
@@ -270,7 +258,6 @@ public class GameScreen2 extends AbstractGameScreen {
 
         buttonLink1 = new TextButton("YES", buttonStyle);
         buttonLink2 = new TextButton("NO", buttonStyle);
-        labelTitle = new Label("Choice", labelStyle);
 
         final Window requestWindow = new Window("Choice", style);
         requestWindow.setModal(true);
@@ -490,11 +477,13 @@ public class GameScreen2 extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
+
         textBullet.setText(String.format("Arrow : %d", worldController.level.player.bulletCount));
         textBeam.setText(String.format("SwordWave : %d", worldController.level.player.beamCount));
         textTrap.setText(String.format("Trap : %d", worldController.level.player.trapCount));
         textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
-        energyLevel.setText(String.format("Energy : %d", (int) EnergyBar.instance.energy));
+        energyLevel.setText(String.format("Energy : %d" , energyStart));
         //
         // sunleft.setText(String.format("Sun Left"));
 
@@ -515,6 +504,10 @@ public class GameScreen2 extends AbstractGameScreen {
 
         Player player = worldController.level.player;
 
+        if (player.isSwitch && EnergyBar.instance.energy <= 0) {
+            game.setScreen(new GameOverScreen(game));
+        }
+
         boolean noCitizen = !player.questScreen1
                 && !player.questScreen2
                 && !player.questScreen3
@@ -531,7 +524,7 @@ public class GameScreen2 extends AbstractGameScreen {
         if ((!player.isSwitch) && (player.status_find) && (player.status_switch)) {
             findItem(Switch.class).state = Item.ItemState.ON;
             findItem(Switch.class).resetAnimation();
-            EnergyBar.instance.energy += 100;
+            energyStart += EnergyBar.instance.energy;
             player.isSwitch = true;
             player.status_find = false;
         }
@@ -540,6 +533,7 @@ public class GameScreen2 extends AbstractGameScreen {
             Enemy enemy = worldController.level.enemies.get(i);
             if (enemy.dead && !enemy.count) {
                 EnergyBar.instance.energy += 2;
+                energyStart += 2;
                 enemy.count = true;
             }
         }
@@ -553,7 +547,7 @@ public class GameScreen2 extends AbstractGameScreen {
         if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
             findItem(Switch.class).state = Item.ItemState.ON;
             findItem(Switch.class).resetAnimation();
-            EnergyBar.instance.energy += 100;
+            //EnergyBar.instance.energy += 100;
             player.isSwitch = true;
             player.status_find = false;        }
 
@@ -620,9 +614,7 @@ public class GameScreen2 extends AbstractGameScreen {
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw(); //การทำงาน
 
-//        if (EnergyBar.instance.energy <= 0) {
-//            game.setScreen(new GameOverScreen(game));
-//        }
+
     }
 
     @Override

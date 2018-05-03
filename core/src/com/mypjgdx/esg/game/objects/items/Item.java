@@ -98,6 +98,6 @@ public abstract class Item extends AnimatedObject<ItemAnimation> {
     }
 
     public float getEnergyBurn() {
-        return 0;
+        return this.energyBurn;
     }
 }
