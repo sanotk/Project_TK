@@ -550,6 +550,12 @@ public class GameScreen2 extends AbstractGameScreen {
         if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
             worldController.level.enemies.clear();
         }
+        if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
+            findItem(Switch.class).state = Item.ItemState.ON;
+            findItem(Switch.class).resetAnimation();
+            EnergyBar.instance.energy += 100;
+            player.isSwitch = true;
+            player.status_find = false;        }
 
         requestCitizenWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - requestCitizenWindow.getWidth() / 2,

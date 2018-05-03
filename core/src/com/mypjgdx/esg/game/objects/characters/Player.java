@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.CollisionCheck;
@@ -44,6 +45,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     public boolean isSwitch = false;
     public boolean stageoneclear = false;
+
+    private Rectangle walkingBounds = new Rectangle();
 
     public enum PlayerAnimation {
         ATK_LEFT,
@@ -203,7 +206,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void CollisionCheck() {
-        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
+        collisionCheck = new TiledCollisionCheck(walkingBounds, mapLayer);
+
         solarcellCheck = new TiledCollisionCheck(bounds, mapLayer, "solarcell");
         batteryCheck = new TiledCollisionCheck(bounds, mapLayer, "battery");
         inverterCheck = new TiledCollisionCheck(bounds, mapLayer, "inverter");
@@ -648,5 +652,18 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     @Override
     public Vector2 getPosition() {
         return null;
+    }
+
+    public void debug(ShapeRenderer renderer) {
+        renderer.setColor(Color.RED);
+        renderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
+        renderer.setColor(Color.BLUE);
+        renderer.rect(walkingBounds.x, walkingBounds.y, walkingBounds.width, walkingBounds.height);
+    }
+
+    @Override
+    public void setPosition(float x, float y) {
+        super.setPosition(x, y);
+        walkingBounds.set(position.x, position.y, dimension.x, dimension.y - 50);
     }
 }

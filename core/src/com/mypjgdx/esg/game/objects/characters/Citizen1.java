@@ -7,7 +7,7 @@ import com.mypjgdx.esg.game.Assets;
 public class Citizen1 extends Citizen {
 
 	public static final int MAX_SPEED = 60;
-	public static final float SCALE = 0.37f;
+	public static final float SCALE = 0.5f;
 
     public Citizen1(TiledMapTileLayer mapLayer, Player player) {
         super(Assets.instance.citizenAltas, SCALE, SCALE,mapLayer);

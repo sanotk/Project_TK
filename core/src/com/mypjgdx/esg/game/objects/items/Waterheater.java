@@ -26,4 +26,14 @@ public class Waterheater extends Item{
         // TODO Auto-generated method stub
 
     }
+
+    @Override
+    public float getGoalX() {
+        return bounds.x + bounds.width / 2;
+    }
+
+    @Override
+    public float getGoalY() {
+        return bounds.y + bounds.height / 2 - 100;
+    }
 }

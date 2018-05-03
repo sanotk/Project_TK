@@ -16,6 +16,7 @@ import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Bow;
 import com.mypjgdx.esg.game.objects.weapons.Sword;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
+import com.mypjgdx.esg.utils.LevelDebugger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -92,6 +93,7 @@ public abstract class Level {
 
 
         shapeRenderer.begin(ShapeType.Line);
+
 //
 //        for (Sword s : swords) s.debug(shapeRenderer);
 //        for (Bow b : bows) b.debug(shapeRenderer);
@@ -103,10 +105,23 @@ public abstract class Level {
 //                swordHit.debug(shapeRenderer);
 //            }
 //        }
+        player.debug(shapeRenderer);
         for (Citizen citizen : citizens) {
             citizen.debug(shapeRenderer);
         }
         shapeRenderer.end();
+
+        LevelDebugger.instance.enable(LevelDebugger.PLAYER);
+        LevelDebugger.instance.enable(LevelDebugger.ENEMY);
+        LevelDebugger.instance.enable(LevelDebugger.CITIZEN);
+        LevelDebugger.instance.enable(LevelDebugger.ARROW);
+        LevelDebugger.instance.enable(LevelDebugger.TRAP);
+        LevelDebugger.instance.enable(LevelDebugger.SWORD_HIT);
+        LevelDebugger.instance.enable(LevelDebugger.SWORD_WAVE);
+        LevelDebugger.instance.enable(LevelDebugger.SWORD);
+        LevelDebugger.instance.enable(LevelDebugger.BOW);
+        LevelDebugger.instance.enable(LevelDebugger.MAP_ALL);
+        LevelDebugger.instance.debug(this, shapeRenderer);
 
 
     }

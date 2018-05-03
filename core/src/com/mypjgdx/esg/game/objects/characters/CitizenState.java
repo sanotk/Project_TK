@@ -32,9 +32,9 @@ public enum CitizenState implements State<Citizen> {
         @Override
         public void update(Citizen entity) {
             entity.runToItem();
-            if(entity.itemOn){
-                entity.getStateMachine().changeState(ITEM_ON);
-            }
+//            if(entity.itemOn){
+//                entity.getStateMachine().changeState(ITEM_ON);
+//            }
         }
 
         @Override

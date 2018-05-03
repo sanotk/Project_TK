@@ -130,7 +130,17 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="4">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
   <tile id="12">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="19">
    <properties>
     <property name="blocked" value=""/>
    </properties>
@@ -199,7 +209,7 @@
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJy9k9kKwjAQRWOpG1rrjkvtcz/AX1Dc//9zvMIUxiFpEpr04ZBwS3KYzqRUSpUdsAPjCBTMsQULMAnICeTC0QcZOIOKocvqPGvI1xpHCnoBuWgcFX170foED9pfLffdNdmsweEL/0+xHCZCOX5n3uBGa2VxJB4UzCGdTQ6f2c/FnXI1OTIPpMO1Dvk+PoSuD7kht/U8Vf8zaNq3dcSeXZ862jhcz3fVj4T2/M3IrG0d0m/KQswVv0+XheiHq2MPNmDoyMEhm1NWO5ZgFIEVc0zBIAJH5ojNFyGMJE4=
+   eJy9k8sOwiAQRWlDfERjfUTjo3btwmV3rjX1+f+f4yyGZJwMCAIuTiC3LScXaKOUav7AGhhmoCaOFTADRgnZAxVzHIEWORCkzJa3hJPg0EAhrCVlJufPCsJZcJh3HjjegRvOL+x7zlXIJg5HKLYeqRyuPUzZ4wl0OH7rUQZQkx68l8sRcvcrtiYfbY42gF8dWn32fiHSGXCH715pJf93fE4dLnx6xBLbI8bh+33MXoWcR4lz+s/wLLYH99uyFPeKridlKc7D17EBlkDfk61HNsXMOObAIAML4hgDvQzsiCM3b+U9Kf0=
   </data>
  </layer>
  <layer name="item" width="25" height="25">

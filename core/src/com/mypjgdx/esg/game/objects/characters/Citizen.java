@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
@@ -46,6 +47,8 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
         CITIZEN_6
     }
 
+    private Rectangle walkingBounds = new Rectangle();
+
     public boolean quest = false;
 
     public CitizenType type;
@@ -68,6 +71,12 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     private Node endNode;
     private GraphPath<Node> path;
 
+
+    private float itemGoalX;
+    private float itemGoalY;
+
+    private Node walkingNode; //TODO
+
     protected Item goalItem;
     public boolean itemOn;
 
@@ -88,7 +97,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     }
 
     public void init(TiledMapTileLayer mapLayer) {
-        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
+        collisionCheck = new TiledCollisionCheck(walkingBounds, mapLayer);
         gameMap = new GameMap(mapLayer);
         pathFinder = new IndexedAStarPathFinder<Node>(gameMap);
 
@@ -175,8 +184,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     public void runToItem() {
         final float startX = bounds.x + bounds.width / 2;
         final float startY = bounds.y + bounds.height / 2;
-        final float goalX = goalItem.bounds.x + goalItem.bounds.width / 2;
-        final float goalY = goalItem.bounds.y + goalItem.bounds.height / 2 - 50;
 
         GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
         Heuristic<Node> heuristic = new Heuristic<Node>() {
@@ -188,13 +195,17 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
 
         gameMap.updateNeighbors(); //TODO
         startNode = gameMap.getNode(startX, startY);
-        endNode =gameMap.getNode(goalX, goalY);
+        endNode =gameMap.getNode(goalItem.getGoalX(), goalItem.getGoalY());
+
+        itemGoalX = goalItem.getGoalX();
+        itemGoalY = goalItem.getGoalY();
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
         path = pathOutput;
 
         if (pathOutput.getCount() > 1) {
             Node node = pathOutput.get(1);
+            walkingNode = node;
 
             float xdiff = node.getCenterPositionX() - bounds.x - bounds.width / 2;
             float ydiff = node.getCenterPositionY() - bounds.y - bounds.height / 2;
@@ -227,9 +238,11 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     }
 
     public void debug(ShapeRenderer renderer) {
-        renderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
-        if (path != null) {
-            System.out.println(path.getCount() + " Citizen@" +  hashCode());
+        if (walkingNode != null) {
+            renderer.setColor(Color.BLACK);
+            renderer.circle(walkingNode.getCenterPositionX(), walkingNode.getCenterPositionY(), 5);
+            renderer.setColor(Color.CYAN);
+            renderer.circle(itemGoalX, itemGoalY, 5);
         }
     }
 
@@ -266,4 +279,11 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     public void setGoalItem(Item goalItem) {
         this.goalItem = goalItem;
     }
+
+    @Override
+    public void setPosition(float x, float y) {
+        super.setPosition(x, y);
+        walkingBounds.set(position.x, position.y, dimension.x, dimension.y - 50);
+    }
+
 }

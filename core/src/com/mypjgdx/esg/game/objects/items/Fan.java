@@ -8,7 +8,7 @@ public class Fan extends Item{
 
     public static final float SCALE = 1f;
     public static final float P_X = 950f;
-    public static final float P_Y = 800f;
+    public static final float P_Y = 850f;
 
 	public Fan(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.fanAltas, SCALE, SCALE , P_X , P_Y);
@@ -30,5 +30,15 @@ public class Fan extends Item{
     public void activate() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public float getGoalX() {
+        return bounds.x + bounds.width / 2;
+    }
+
+    @Override
+    public float getGoalY() {
+        return bounds.y + bounds.height / 2 - 50;
     }
 }
