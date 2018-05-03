@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
@@ -46,6 +47,9 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         PEPO_KNIGHT,
         PEPO_DEVIL
     }
+
+    private Rectangle walkingBounds = new Rectangle();
+
 
     public EnemyType type;
     private Direction viewDirection;
@@ -353,4 +357,11 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     public Vector2 getPosition() {
         return new Vector2(getPositionX(), getPositionY());
     }
+
+    @Override
+    public void setPosition(float x, float y) {
+        super.setPosition(x, y);
+        walkingBounds.set(position.x, position.y, dimension.x, dimension.y - 50);
+    }
+
 }

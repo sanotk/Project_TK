@@ -374,6 +374,19 @@ public class GameScreen2 extends AbstractGameScreen {
     }
 
     private void checkButton(final systemWindow requestWindow) {
+        if (citizenQuest == systemWindow.citizen1) {
+            requestCitizenWindow.getTitleLabel().setText("1 นะจ๊ะ");
+        } else if (citizenQuest == systemWindow.citizen2) {
+            requestCitizenWindow.getTitleLabel().setText("2 นะจ๊ะ");
+        } else if (citizenQuest == systemWindow.citizen3) {
+            requestCitizenWindow.getTitleLabel().setText("3 นะจ๊ะ");
+        } else if (citizenQuest == systemWindow.citizen4) {
+            requestCitizenWindow.getTitleLabel().setText("4 นะจ๊ะ");
+        } else if (citizenQuest == systemWindow.citizen5) {
+            requestCitizenWindow.getTitleLabel().setText("5 นะจ๊ะ");
+        } else {
+            requestCitizenWindow.getTitleLabel().setText("6 นะจ๊ะ");
+        }
         buttonLink1.setText("YES");
         buttonLink1.clearListeners();
         buttonLink1.addListener(new ClickListener() {
@@ -478,12 +491,11 @@ public class GameScreen2 extends AbstractGameScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-
         textBullet.setText(String.format("Arrow : %d", worldController.level.player.bulletCount));
         textBeam.setText(String.format("SwordWave : %d", worldController.level.player.beamCount));
         textTrap.setText(String.format("Trap : %d", worldController.level.player.trapCount));
         textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
-        energyLevel.setText(String.format("Energy : %d" , energyStart));
+        energyLevel.setText(String.format("Energy : %d", energyStart));
         //
         // sunleft.setText(String.format("Sun Left"));
 
@@ -549,7 +561,8 @@ public class GameScreen2 extends AbstractGameScreen {
             findItem(Switch.class).resetAnimation();
             //EnergyBar.instance.energy += 100;
             player.isSwitch = true;
-            player.status_find = false;        }
+            player.status_find = false;
+        }
 
         requestCitizenWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - requestCitizenWindow.getWidth() / 2,
