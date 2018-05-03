@@ -419,6 +419,9 @@ public class GameScreen2 extends AbstractGameScreen {
                 }
                 addRequest.add(questState);
                 checkGameComplete();
+                System.out.println(questState);
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
                 worldController.level.player.questScreen1 = false;
                 worldController.level.player.questScreen2 = false;
                 worldController.level.player.questScreen3 = false;
@@ -454,6 +457,9 @@ public class GameScreen2 extends AbstractGameScreen {
                 }
                 addRequest.add(questState);
                 checkGameComplete();
+                System.out.println(questState);
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
                 worldController.level.player.questScreen1 = false;
                 worldController.level.player.questScreen2 = false;
                 worldController.level.player.questScreen3 = false;
@@ -509,11 +515,25 @@ public class GameScreen2 extends AbstractGameScreen {
 
         Player player = worldController.level.player;
 
+        boolean noCitizen = !player.questScreen1
+                && !player.questScreen2
+                && !player.questScreen3
+                && !player.questScreen4
+                && !player.questScreen5
+                && !player.questScreen6
+                && !player.status_switch;
+
+        if (player.status_find && noCitizen) {
+            player.status_find = false;
+            player.status_windows_link = false;
+        }
+
         if ((!player.isSwitch) && (player.status_find) && (player.status_switch)) {
             findItem(Switch.class).state = Item.ItemState.ON;
             findItem(Switch.class).resetAnimation();
             EnergyBar.instance.energy += 100;
             player.isSwitch = true;
+            player.status_find = false;
         }
 
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
@@ -534,34 +554,33 @@ public class GameScreen2 extends AbstractGameScreen {
         requestCitizenWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - requestCitizenWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - requestCitizenWindow.getHeight() / 2);
-        if (player.stageoneclear) {
-            if ((player.questScreen1) && !player.quest_window_1) {
-                citizenQuest = systemWindow.citizen1;
-                checkButton(citizenQuest);
-                requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-            } else if ((player.questScreen2) && !player.quest_window_2) {
-                citizenQuest = systemWindow.citizen2;
-                checkButton(citizenQuest);
-                requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-            } else if ((player.questScreen3) && !player.quest_window_3) {
-                citizenQuest = systemWindow.citizen3;
-                checkButton(citizenQuest);
-                requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-            } else if ((player.questScreen4) && !player.quest_window_4) {
-                citizenQuest = systemWindow.citizen4;
-                checkButton(citizenQuest);
-                requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-            } else if ((player.questScreen5) && !player.quest_window_5) {
-                citizenQuest = systemWindow.citizen5;
-                checkButton(citizenQuest);
-                requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-            } else if ((player.questScreen6) && !player.quest_window_6) {
-                citizenQuest = systemWindow.citizen6;
-                checkButton(citizenQuest);
-                requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-            } else {
-                requestCitizenWindow.setVisible(false);
-            }
+
+        if (player.stageoneclear && player.status_find && player.questScreen1 && !player.quest_window_1) {
+            citizenQuest = systemWindow.citizen1;
+            checkButton(citizenQuest);
+            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
+        } else if (player.stageoneclear && player.status_find && player.questScreen2 && !player.quest_window_2) {
+            citizenQuest = systemWindow.citizen2;
+            checkButton(citizenQuest);
+            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
+        } else if (player.stageoneclear && player.status_find && player.questScreen3 && !player.quest_window_3) {
+            citizenQuest = systemWindow.citizen3;
+            checkButton(citizenQuest);
+            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
+        } else if (player.stageoneclear && player.status_find && player.questScreen4 && !player.quest_window_4) {
+            citizenQuest = systemWindow.citizen4;
+            checkButton(citizenQuest);
+            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
+        } else if (player.stageoneclear && player.status_find && player.questScreen5 && !player.quest_window_5) {
+            citizenQuest = systemWindow.citizen5;
+            checkButton(citizenQuest);
+            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
+        } else if (player.stageoneclear && player.status_find && player.questScreen6 && !player.quest_window_6) {
+            citizenQuest = systemWindow.citizen6;
+            checkButton(citizenQuest);
+            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
+        } else {
+            requestCitizenWindow.setVisible(false);
         }
 
         if (worldController.level.citizens.get(0).itemOn) {
