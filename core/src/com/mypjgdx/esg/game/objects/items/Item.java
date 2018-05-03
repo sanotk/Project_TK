@@ -96,4 +96,8 @@ public abstract class Item extends AnimatedObject<ItemAnimation> {
     public float getGoalY() {
         return 0;
     }
+
+    public float getEnergyBurn() {
+        return 0;
+    }
 }

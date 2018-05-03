@@ -591,21 +591,27 @@ public class GameScreen2 extends AbstractGameScreen {
 
         if (worldController.level.citizens.get(0).itemOn) {
             worldController.level.items.get(3).state = Item.ItemState.ONLOOP;
+            EnergyBar.instance.energy -= worldController.level.items.get(3).getEnergyBurn();
         }
         if (worldController.level.citizens.get(1).itemOn) {
             worldController.level.items.get(2).state = Item.ItemState.ONLOOP;
+            EnergyBar.instance.energy -= worldController.level.items.get(2).getEnergyBurn();
         }
         if (worldController.level.citizens.get(2).itemOn) {
             worldController.level.items.get(5).state = Item.ItemState.ONLOOP;
+            EnergyBar.instance.energy -= worldController.level.items.get(5).getEnergyBurn();
         }
         if (worldController.level.citizens.get(3).itemOn) {
             worldController.level.items.get(8).state = Item.ItemState.ONLOOP;
+            EnergyBar.instance.energy -= worldController.level.items.get(8).getEnergyBurn();
         }
         if (worldController.level.citizens.get(4).itemOn) {
             worldController.level.items.get(9).state = Item.ItemState.ONLOOP;
+            EnergyBar.instance.energy -= worldController.level.items.get(9).getEnergyBurn();
         }
         if (worldController.level.citizens.get(5).itemOn) {
             worldController.level.items.get(1).state = Item.ItemState.ONLOOP;
+            EnergyBar.instance.energy -= worldController.level.items.get(1).getEnergyBurn();
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
@@ -613,6 +619,10 @@ public class GameScreen2 extends AbstractGameScreen {
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw(); //การทำงาน
+
+//        if (EnergyBar.instance.energy <= 0) {
+//            game.setScreen(new GameOverScreen(game));
+//        }
     }
 
     @Override
