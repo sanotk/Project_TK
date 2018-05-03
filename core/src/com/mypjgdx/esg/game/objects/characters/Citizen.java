@@ -71,6 +71,8 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     private Node endNode;
     private GraphPath<Node> path;
 
+    private boolean running;
+
 
     private float itemGoalX;
     private float itemGoalY;
@@ -178,12 +180,12 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     }
 
     public void setColor() {
-       // color = Color.RED;
+        // color = Color.RED;
     }
 
-    public void runToItem() {
+    private void findPath() {
         final float startX = bounds.x + bounds.width / 2;
-        final float startY = bounds.y + bounds.height / 2;
+        final float startY = bounds.y;
 
         GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
         Heuristic<Node> heuristic = new Heuristic<Node>() {
@@ -195,36 +197,57 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
 
         gameMap.updateNeighbors(); //TODO
         startNode = gameMap.getNode(startX, startY);
-        endNode =gameMap.getNode(goalItem.getGoalX(), goalItem.getGoalY());
+        endNode = gameMap.getNode(goalItem.getGoalX(), goalItem.getGoalY());
 
         itemGoalX = goalItem.getGoalX();
         itemGoalY = goalItem.getGoalY();
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
         path = pathOutput;
+    }
 
-        if (pathOutput.getCount() > 1) {
-            Node node = pathOutput.get(1);
-            walkingNode = node;
+    private boolean near(float value1, float value2) {
+        return Math.abs(value1 - value2) < 1f;
+    }
 
-            float xdiff = node.getCenterPositionX() - bounds.x - bounds.width / 2;
-            float ydiff = node.getCenterPositionY() - bounds.y - bounds.height / 2;
-
-            final float minMovingDistance = movingSpeed / 8;
-
-            if (ydiff > minMovingDistance) {
-                move(Direction.UP);
-            } else if (ydiff < -minMovingDistance) {
-                move(Direction.DOWN);
-            }
-
-            if (xdiff > minMovingDistance) {
-                move(Direction.RIGHT);
-            } else if (xdiff < -minMovingDistance) {
-                move(Direction.LEFT);
-            }
+    public void runToItem() {
+        if (path == null) {
+            findPath();
+            running = true;
         }
-        if(startNode == endNode){
+        if (running) {
+            if (path.getCount() > 1) {
+                Node node = path.get(1);
+                walkingNode = node;
+
+                float xdiff = node.getCenterPositionX() - bounds.x - bounds.width / 2;
+                float ydiff = node.getCenterPositionY() - bounds.y;
+
+                final float minMovingDistance = 1f;
+
+                if (ydiff > minMovingDistance) {
+                    move(Direction.UP);
+                } else if (ydiff < -minMovingDistance) {
+                    move(Direction.DOWN);
+                }
+
+                if (xdiff > minMovingDistance) {
+                    move(Direction.RIGHT);
+                } else if (xdiff < -minMovingDistance) {
+                    move(Direction.LEFT);
+                }
+
+                if (near(path.get(1).getCenterPositionX(), bounds.x + bounds.width / 2)
+                        && near(path.get(1).getCenterPositionY(), bounds.y) ) {
+                    running = false;
+                }
+            }
+
+        } else {
+            findPath();
+            running = true;
+        }
+        if (startNode == endNode) {
             itemOn = true;
         }
     }
@@ -243,6 +266,12 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
             renderer.circle(walkingNode.getCenterPositionX(), walkingNode.getCenterPositionY(), 5);
             renderer.setColor(Color.CYAN);
             renderer.circle(itemGoalX, itemGoalY, 5);
+            renderer.setColor(Color.FOREST);
+            if (path != null) {
+                for (Node node : path) {
+                    renderer.circle(node.getCenterPositionX(), node.getCenterPositionY(), 5);
+                }
+            }
         }
     }
 

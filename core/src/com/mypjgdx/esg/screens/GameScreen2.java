@@ -591,27 +591,21 @@ public class GameScreen2 extends AbstractGameScreen {
 
         if (worldController.level.citizens.get(0).itemOn) {
             worldController.level.items.get(3).state = Item.ItemState.ONLOOP;
-            worldController.level.items.get(3).resetAnimation();
         }
         if (worldController.level.citizens.get(1).itemOn) {
             worldController.level.items.get(2).state = Item.ItemState.ONLOOP;
-            worldController.level.items.get(2).resetAnimation();
         }
         if (worldController.level.citizens.get(2).itemOn) {
             worldController.level.items.get(5).state = Item.ItemState.ONLOOP;
-            worldController.level.items.get(5).resetAnimation();
         }
         if (worldController.level.citizens.get(3).itemOn) {
             worldController.level.items.get(8).state = Item.ItemState.ONLOOP;
-            worldController.level.items.get(8).resetAnimation();
         }
         if (worldController.level.citizens.get(4).itemOn) {
             worldController.level.items.get(9).state = Item.ItemState.ONLOOP;
-            worldController.level.items.get(9).resetAnimation();
         }
         if (worldController.level.citizens.get(5).itemOn) {
             worldController.level.items.get(1).state = Item.ItemState.ONLOOP;
-            worldController.level.items.get(1).resetAnimation();
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World

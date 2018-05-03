@@ -28,6 +28,7 @@ public class Level2 extends Level {
         items.get(7).setEnergyBurn(10);
         items.get(8).setEnergyBurn(10);
         items.get(9).setEnergyBurn(10);
+
     }
 
     @Override
