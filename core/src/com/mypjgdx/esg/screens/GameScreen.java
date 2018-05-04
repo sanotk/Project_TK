@@ -848,7 +848,7 @@ public class GameScreen extends AbstractGameScreen {
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
             Enemy enemy = worldController.level.enemies.get(i);
             if (enemy.dead && !enemy.count) {
-                EnergyProducedBar.instance.energyProduced += 2;
+                BatteryBar.instance.batteryStorage += 1000;
                 enemy.count = true;
             }
         }

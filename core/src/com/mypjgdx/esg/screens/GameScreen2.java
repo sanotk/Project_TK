@@ -28,7 +28,6 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.items.Switch;
 import com.mypjgdx.esg.ui.EnergyProducedBar;
-import com.mypjgdx.esg.utils.ItemLink;
 import com.mypjgdx.esg.utils.QuestState;
 
 import java.util.ArrayList;
@@ -37,8 +36,6 @@ public class GameScreen2 extends AbstractGameScreen {
 
     private WorldController worldController;
     private WorldRenderer worldRenderer;
-
-    private ItemLink itemLink;
 
     SpriteBatch batch;
     public Texture bg;
@@ -82,7 +79,6 @@ public class GameScreen2 extends AbstractGameScreen {
     private Button buttonOption;
     private BitmapFont font;
     private Window optionsWindow;
-    private boolean animation_status = false;
 
     private Button buttonRule;
     private Window ruleWindow;
