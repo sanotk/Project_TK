@@ -19,6 +19,7 @@ public class Level2Generator extends LevelGenerator {
     public Player createPlayer(TiledMapTileLayer mapLayer) {
         return new Player(mapLayer, 100, 1000);
     }
+
     @Override
     public List<Item> createItems(TiledMapTileLayer mapLayer, Player player, Level level) {
         ArrayList<Item> items = new ArrayList<Item>();

@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.mypjgdx.esg.game.levels.*;
+import com.mypjgdx.esg.game.objects.etcs.Link;
 import com.mypjgdx.esg.ui.EnergyBar;
 import com.mypjgdx.esg.utils.CameraHelper;
 import com.mypjgdx.esg.utils.Direction;
@@ -106,9 +107,24 @@ public class WorldController extends InputAdapter {
                 EnergyBar.instance.read(null, saveData);
                 loadCitizens(saveData);
                 loadItems(saveData);
+                loadLinks(saveData);
             }
             ;
         }
+    }
+
+    private void loadLinks(JsonValue saveData) {
+        JsonValue links = saveData.get("links");
+        if (links.isArray()) {
+            level.links.clear();
+            for (int i = 0; i < links.size; i++) {
+                Link link = new Link();
+                link.read(null, links.get(i));
+                link.init(level.mapLayer);
+                level.links.add(link);
+            }
+        }
+        System.out.println(level.links.size());
     }
 
     private void loadCitizens(JsonValue saveData) {

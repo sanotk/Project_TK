@@ -13,6 +13,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
@@ -25,7 +27,7 @@ import com.mypjgdx.esg.utils.Node;
 
 import java.util.List;
 
-public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Damageable {
+public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Damageable, Json.Serializable {
 
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 8.0f;
@@ -49,7 +51,6 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     }
 
     private Rectangle walkingBounds = new Rectangle();
-
 
     public EnemyType type;
     private Direction viewDirection;
@@ -235,7 +236,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
 
         gameMap.updateNeighbors(); //TODO
         startNode = gameMap.getNode(startX, startY);
-        endNode =gameMap.getNode(goalX, goalY);
+        endNode = gameMap.getNode(goalX, goalY);
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
         path = pathOutput;
@@ -263,7 +264,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     }
 
     public void showHp(ShapeRenderer shapeRenderer) {
-        if(stateMachine.getCurrentState()!=EnemyState.DIE) {
+        if (stateMachine.getCurrentState() != EnemyState.DIE) {
             if (health != maxHealth) {
                 shapeRenderer.setColor(Color.BLACK);
                 shapeRenderer.rect(getPositionX(), getPositionY() - 10, bounds.width, 5);
@@ -322,11 +323,11 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
 
     @Override
     public boolean takeDamage(float damage, float knockbackSpeed, float knockbackAngle) {
-        if ((health <= 0)&&(!stateMachine.isInState(EnemyState.DIE))) {
+        if ((health <= 0) && (!stateMachine.isInState(EnemyState.DIE))) {
             stateMachine.changeState(EnemyState.DIE);
             dead = true;
             return true;
-        }else if (stateMachine.isInState(EnemyState.DIE)) return true;
+        } else if (stateMachine.isInState(EnemyState.DIE)) return true;
         health -= damage;
         takeKnockback(knockbackSpeed, knockbackAngle);
         return true;
@@ -338,7 +339,9 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     }
 
     public void attackPlayer() {
-        if(stateMachine.getCurrentState() == EnemyState.DIE){return;}
+        if (stateMachine.getCurrentState() == EnemyState.DIE) {
+            return;
+        }
         float ydiff = player.bounds.y + player.bounds.height / 2 - bounds.y - bounds.height / 2;
         float xdiff = player.bounds.x + player.bounds.width / 2 - bounds.x - bounds.width / 2;
         float angle = MathUtils.atan2(ydiff, xdiff) * MathUtils.radiansToDegrees;
@@ -364,4 +367,43 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         walkingBounds.set(position.x, position.y, dimension.x, dimension.y - 50);
     }
 
+    @Override
+    public void write(Json json) {
+        json.writeValue("position", position);
+        json.writeValue("type",type);
+        json.writeValue("viewDirection",viewDirection);
+        json.writeValue("dead",dead);
+        json.writeValue("count",count);
+        json.writeValue("knockback",knockback);
+        json.writeValue("stun",stun);
+        json.writeValue("attacktime",attacktime);
+        json.writeValue("stunTime",stunTime);
+        json.writeValue("health",health);
+        json.writeValue("maxHealth",maxHealth);
+        json.writeValue("movingSpeed",movingSpeed);
+        json.writeValue("findingRange",findingRange);
+        json.writeValue("stateMachine",stateMachine);
+
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+
+        JsonValue positionJson = jsonData.get("position");
+        setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
+        
+        json.writeValue("type",type);
+        json.writeValue("viewDirection",viewDirection);
+        json.writeValue("dead",dead);
+        json.writeValue("count",count);
+        json.writeValue("knockback",knockback);
+        json.writeValue("stun",stun);
+        json.writeValue("attacktime",attacktime);
+        json.writeValue("stunTime",stunTime);
+        json.writeValue("health",health);
+        json.writeValue("maxHealth",maxHealth);
+        json.writeValue("movingSpeed",movingSpeed);
+        json.writeValue("findingRange",findingRange);
+        json.writeValue("stateMachine",stateMachine);
+    }
 }

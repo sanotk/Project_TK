@@ -239,7 +239,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
             findPath();
             running = true;
         }
-        if (startNode == endNode) {
+        if (path.getCount() <= 1) {
             itemOn = true;
         }
     }
@@ -325,5 +325,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         stateMachine.changeState(CitizenState.valueOf(jsonData.getString("stateMachine")));
         running = jsonData.getBoolean("running");
         itemOn = jsonData.getBoolean("itemOn");
+
+        path = null;
     }
 }

@@ -8,7 +8,6 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
-import com.mypjgdx.esg.game.objects.etcs.Etc;
 import com.mypjgdx.esg.game.objects.etcs.Link;
 import com.mypjgdx.esg.game.objects.items.Item;
 
@@ -24,7 +23,7 @@ public class ItemLink {
     private Node startNode;
     private Node endNode;
 
-    public List<Etc> etcList;
+    public List<Link> linkList;
 
     public ArrayList<Node> nodes = new ArrayList<Node>();
 
@@ -34,13 +33,13 @@ public class ItemLink {
 
     private Direction direction;
 
-    public ItemLink(TiledMapTileLayer mapLayer, Item item1, Item item2, List<Etc> etcList, SolarState solarState) {
+    public ItemLink(TiledMapTileLayer mapLayer, Item item1, Item item2, List<Link> linkList, SolarState solarState) {
 
         this.startX = item1.bounds.x + item1.bounds.width/2;
         this.startY = item1.bounds.y + item1.bounds.height/2;
         this.goalX = item2.bounds.x + item2.bounds.width/2;
         this.goalY = item2.bounds.y + item2.bounds.height/2;
-        this.etcList = etcList;
+        this.linkList = linkList;
 
         this.solarState = solarState;
 
@@ -74,7 +73,7 @@ public class ItemLink {
                     &&(nodes.get(i).getPositionY() <= pathOutput.get(i+1).getPositionY())) direction = Direction.UP;
             else if((nodes.get(i).getPositionX() > pathOutput.get(i+1).getPositionX())
                     &&(nodes.get(i).getPositionY() >= pathOutput.get(i+1).getPositionY())) direction = Direction.DOWN;
-            this.etcList.add(new Link(mapLayer, nodes.get(i).getPositionX()+22,nodes.get(i).getPositionY(),direction,this.solarState));
+            this.linkList.add(new Link(mapLayer, nodes.get(i).getPositionX()+22,nodes.get(i).getPositionY(),direction,this.solarState));
         }
     }
 

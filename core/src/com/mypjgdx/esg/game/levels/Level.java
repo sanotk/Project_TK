@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.etcs.Etc;
+import com.mypjgdx.esg.game.objects.etcs.Link;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Bow;
 import com.mypjgdx.esg.game.objects.weapons.Sword;
@@ -34,7 +34,7 @@ public abstract class Level implements Json.Serializable {
     public List<Weapon> weapons;
     public List<Sword> swords;
     public List<Bow> bows;
-    public List<Etc> etcs;
+    public List<Link> links;
     public TiledMapTileLayer mapLayer;
 
     public boolean hasSolarCell;
@@ -47,14 +47,14 @@ public abstract class Level implements Json.Serializable {
         swords = new ArrayList<Sword>();
         bows = new ArrayList<Bow>();
 
-        etcs = new ArrayList<Etc>();
+        links = new ArrayList<Link>();
 
         init(levelGenerator);
     }
 
     public void init(LevelGenerator levelGenerator) {
         weapons.clear();
-        etcs.clear();
+        links.clear();
 
         map = levelGenerator.createTiledMap();
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
@@ -78,7 +78,7 @@ public abstract class Level implements Json.Serializable {
         batch.begin();
 
         for (Weapon w : weapons) w.render(batch);
-        for (Etc e : etcs) e.render(batch);
+        for (Link e : links) e.render(batch);
         for (Item i : items) i.render(batch);
         for (Enemy e : enemies) e.render(batch);
         if (player.stageoneclear) {
@@ -140,7 +140,7 @@ public abstract class Level implements Json.Serializable {
     public void update(float deltaTime) {
 
         Iterator<Weapon> weaponIterator = weapons.iterator();
-        Iterator<Etc> etcIterator = etcs.iterator();
+        Iterator<Link> etcIterator = links.iterator();
         Iterator<Enemy> enemyIterator = enemies.iterator();
         Iterator<Citizen> citizenIterator = citizens.iterator();
 
@@ -150,7 +150,7 @@ public abstract class Level implements Json.Serializable {
         }
 
         while (etcIterator.hasNext()) {
-            Etc e = etcIterator.next();
+            Link e = etcIterator.next();
             if (e.isDestroyed()) etcIterator.remove();
         }
 
@@ -161,7 +161,7 @@ public abstract class Level implements Json.Serializable {
 
         player.update(deltaTime, weapons, citizens);
 
-        for (Etc etc : etcs) etc.update(deltaTime);
+        for (Link link : links) link.update(deltaTime);
         for (Item i : items) i.update(deltaTime);
         for (Enemy e : enemies) e.update(deltaTime, weapons);
         if (player.stageoneclear) {
@@ -175,7 +175,7 @@ public abstract class Level implements Json.Serializable {
     @Override
     public void write(Json json) {
         json.writeValue("player", player);
-//        json.writeValue(level.etcs);
+        json.writeValue("links",links);
 //        json.writeValue(level.enemies);
         json.writeValue("citizens", citizens);
         json.writeValue("items" , items);
