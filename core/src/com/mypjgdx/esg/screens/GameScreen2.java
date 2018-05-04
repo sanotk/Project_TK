@@ -495,7 +495,6 @@ public class GameScreen2 extends AbstractGameScreen {
         textTrap.setText(String.format("Trap : %d", worldController.level.player.trapCount));
         textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
         energyLevel.setText(String.format("Energy Produced : %d", (int) EnergyProducedBar.instance.energyProduced));
-        BatteryBar.instance.batteryStorage += EnergyProducedBar.instance.energyProduced * deltaTime;
         energyLevel2.setText(String.format("Energy Used : %d", (int) EnergyUsedBar.instance.energyUse));
         energyLevel3.setText(String.format("Battery : %d", (int) BatteryBar.instance.batteryStorage));
         //
@@ -568,6 +567,9 @@ public class GameScreen2 extends AbstractGameScreen {
             player.isSwitch = true;
             player.status_find = false;
         }
+
+        BatteryBar.instance.batteryStorage += EnergyProducedBar.instance.energyProduced * deltaTime;
+        BatteryBar.instance.batteryStorage -= EnergyUsedBar.instance.energyUse * deltaTime;
 
         requestCitizenWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - requestCitizenWindow.getWidth() / 2,
