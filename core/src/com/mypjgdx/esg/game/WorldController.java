@@ -13,7 +13,9 @@ import com.mypjgdx.esg.game.levels.*;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemySpawner;
 import com.mypjgdx.esg.game.objects.etcs.Link;
-import com.mypjgdx.esg.ui.EnergyBar;
+import com.mypjgdx.esg.ui.BatteryBar;
+import com.mypjgdx.esg.ui.EnergyProducedBar;
+import com.mypjgdx.esg.ui.EnergyUsedBar;
 import com.mypjgdx.esg.utils.CameraHelper;
 import com.mypjgdx.esg.utils.Direction;
 
@@ -87,7 +89,7 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyJustPressed(Keys.S)) {
 //                Json json = new Json();
 //                String choice = json.toJson(level);
-//                String energy = json.toJson(EnergyBar.instance.energy);
+//                String energyProduced = json.toJson(EnergyProducedBar.instance.energyProduced);
                 FileHandle file = Gdx.files.absolute("C:/Users/sanothapp/Desktop/choice.json"); // TODO
 //                file.delete();
 //                file.writeString(choice, true);         // True means append, false means overwrite.
@@ -106,7 +108,9 @@ public class WorldController extends InputAdapter {
                 JsonReader reader = new JsonReader();
                 JsonValue saveData = reader.parse(file);
                 loadPlayer(saveData);
-                EnergyBar.instance.read(null, saveData);
+                EnergyProducedBar.instance.read(null, saveData);
+                EnergyUsedBar.instance.read(null, saveData);
+                BatteryBar.instance.read(null, saveData);
                 loadCitizens(saveData);
                 loadItems(saveData);
                 loadLinks(saveData);

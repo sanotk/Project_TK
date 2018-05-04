@@ -26,7 +26,7 @@ import com.mypjgdx.esg.game.levels.Level4Generator;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.*;
-import com.mypjgdx.esg.ui.EnergyBar;
+import com.mypjgdx.esg.ui.EnergyProducedBar;
 import com.mypjgdx.esg.utils.ItemLink;
 import com.mypjgdx.esg.utils.SolarState;
 
@@ -423,7 +423,7 @@ public class GameScreen4 extends AbstractGameScreen {
         energyLevel2.setFontScale(1, 1f);
         energyLevel2.setPosition(650, SCENE_HEIGHT - 50);
 
-        energyLevel3 = new Label("Battery : ", skin);
+        energyLevel3 = new Label("BatteryBar : ", skin);
         energyLevel3.setColor(1, 1, 1, 1);
         energyLevel3.setFontScale(1, 1f);
         energyLevel3.setPosition(800, SCENE_HEIGHT - 50);
@@ -510,10 +510,10 @@ public class GameScreen4 extends AbstractGameScreen {
         });
 
         if (((solarWindow == systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoB))) {
-            buttonLink2.setText("Link to Battery");
+            buttonLink2.setText("Link to BatteryBar");
             buttonLink2.setStyle(buttonStyle);
         } else if (((solarWindow == systemWindow.solarcell) && (addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoB))) {
-            buttonLink2.setText("Canceled Link to Battery");
+            buttonLink2.setText("Canceled Link to BatteryBar");
             buttonLink2.setStyle(buttonStyle2);
         } else if (((solarWindow == systemWindow.battery) && (!addedCtoB)) || ((solarWindow == systemWindow.inverter) && (!addedCtoI))) {
             buttonLink2.setText("Link to Charge Controller");
@@ -556,10 +556,10 @@ public class GameScreen4 extends AbstractGameScreen {
             buttonLink3.setText("Canceled Link to Inverter");
             buttonLink3.setStyle(buttonStyle2);
         } else if ((solarWindow == systemWindow.inverter) && (!addedBtoI)) {
-            buttonLink3.setText("Link to Battery");
+            buttonLink3.setText("Link to BatteryBar");
             buttonLink3.setStyle(buttonStyle);
         } else {
-            buttonLink3.setText("Canceled Link to Battery");
+            buttonLink3.setText("Canceled Link to BatteryBar");
             buttonLink3.setStyle(buttonStyle2);
         }
         buttonLink3.clearListeners();
@@ -748,7 +748,7 @@ public class GameScreen4 extends AbstractGameScreen {
         textBeam.setText(String.format("SwordWave : %d", worldController.level.player.swordWaveCount));
         textTrap.setText(String.format("Trap : %d", worldController.level.player.trapCount));
         textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
-        energyLevel.setText(String.format("Energy : %d", (int) EnergyBar.instance.energy));
+        energyLevel.setText(String.format("Energy : %d", (int) EnergyProducedBar.instance.energyProduced));
         //
         // sunleft.setText(String.format("Sun Left"));
 
@@ -831,7 +831,7 @@ public class GameScreen4 extends AbstractGameScreen {
                     Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                     Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
             chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            EnergyBar.instance.energy += 100;
+            EnergyProducedBar.instance.energyProduced += 100;
         }
 
 
@@ -842,7 +842,7 @@ public class GameScreen4 extends AbstractGameScreen {
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
             Enemy enemy = worldController.level.enemies.get(i);
             if (enemy.dead && !enemy.count) {
-                EnergyBar.instance.energy += 2;
+                EnergyProducedBar.instance.energyProduced += 2;
                 enemy.count = true;
                 enemyDeadCount += 1;
             }

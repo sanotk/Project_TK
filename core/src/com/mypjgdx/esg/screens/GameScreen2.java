@@ -27,7 +27,7 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.items.Switch;
-import com.mypjgdx.esg.ui.EnergyBar;
+import com.mypjgdx.esg.ui.EnergyProducedBar;
 import com.mypjgdx.esg.utils.ItemLink;
 import com.mypjgdx.esg.utils.QuestState;
 
@@ -223,7 +223,7 @@ public class GameScreen2 extends AbstractGameScreen {
         energyLevel2.setFontScale(1, 1f);
         energyLevel2.setPosition(650, SCENE_HEIGHT - 50);
 
-        energyLevel3 = new Label("Battery : ", skin);
+        energyLevel3 = new Label("BatteryBar : ", skin);
         energyLevel3.setColor(1, 1, 1, 1);
         energyLevel3.setFontScale(1, 1f);
         energyLevel3.setPosition(800, SCENE_HEIGHT - 50);
@@ -505,8 +505,8 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.E)) {
-            EnergyBar.instance.energy += 100;
-            System.out.println(EnergyBar.instance.energy);
+            EnergyProducedBar.instance.energyProduced += 100;
+            System.out.println(EnergyProducedBar.instance.energyProduced);
         }
 
         if (!worldController.level.player.isAlive()) {
@@ -521,7 +521,7 @@ public class GameScreen2 extends AbstractGameScreen {
 
         Player player = worldController.level.player;
 
-        if (player.isSwitch && EnergyBar.instance.energy <= 0) {
+        if (player.isSwitch && EnergyProducedBar.instance.energyProduced <= 0) {
             game.setScreen(new GameOverScreen(game));
         }
 
@@ -541,7 +541,7 @@ public class GameScreen2 extends AbstractGameScreen {
         if ((!player.isSwitch) && (player.status_find) && (player.status_switch)) {
             findItem(Switch.class).state = Item.ItemState.ON;
             findItem(Switch.class).resetAnimation();
-            energyStart += EnergyBar.instance.energy;
+            energyStart += EnergyProducedBar.instance.energyProduced;
             player.isSwitch = true;
             player.status_find = false;
         }
@@ -549,7 +549,7 @@ public class GameScreen2 extends AbstractGameScreen {
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
             Enemy enemy = worldController.level.enemies.get(i);
             if (enemy.dead && !enemy.count) {
-                EnergyBar.instance.energy += 2;
+                EnergyProducedBar.instance.energyProduced += 2;
                 energyStart += 2;
                 enemy.count = true;
             }
@@ -564,7 +564,7 @@ public class GameScreen2 extends AbstractGameScreen {
         if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
             findItem(Switch.class).state = Item.ItemState.ON;
             findItem(Switch.class).resetAnimation();
-            //EnergyBar.instance.energy += 100;
+            //EnergyProducedBar.instance.energyProduced += 100;
             player.isSwitch = true;
             player.status_find = false;
         }
@@ -603,27 +603,27 @@ public class GameScreen2 extends AbstractGameScreen {
 
         if (worldController.level.citizens.get(0).itemOn) {
             worldController.level.items.get(3).state = Item.ItemState.ONLOOP;
-            EnergyBar.instance.energy -= worldController.level.items.get(3).getEnergyBurn() * deltaTime;
+            EnergyProducedBar.instance.energyProduced -= worldController.level.items.get(3).getEnergyBurn() * deltaTime;
         }
         if (worldController.level.citizens.get(1).itemOn) {
             worldController.level.items.get(2).state = Item.ItemState.ONLOOP;
-            EnergyBar.instance.energy -= worldController.level.items.get(2).getEnergyBurn() * deltaTime;
+            EnergyProducedBar.instance.energyProduced -= worldController.level.items.get(2).getEnergyBurn() * deltaTime;
         }
         if (worldController.level.citizens.get(2).itemOn) {
             worldController.level.items.get(5).state = Item.ItemState.ONLOOP;
-            EnergyBar.instance.energy -= worldController.level.items.get(5).getEnergyBurn() * deltaTime;
+            EnergyProducedBar.instance.energyProduced -= worldController.level.items.get(5).getEnergyBurn() * deltaTime;
         }
         if (worldController.level.citizens.get(3).itemOn) {
             worldController.level.items.get(8).state = Item.ItemState.ONLOOP;
-            EnergyBar.instance.energy -= worldController.level.items.get(8).getEnergyBurn() * deltaTime;
+            EnergyProducedBar.instance.energyProduced -= worldController.level.items.get(8).getEnergyBurn() * deltaTime;
         }
         if (worldController.level.citizens.get(4).itemOn) {
             worldController.level.items.get(9).state = Item.ItemState.ONLOOP;
-            EnergyBar.instance.energy -= worldController.level.items.get(9).getEnergyBurn() * deltaTime;
+            EnergyProducedBar.instance.energyProduced -= worldController.level.items.get(9).getEnergyBurn() * deltaTime;
         }
         if (worldController.level.citizens.get(5).itemOn) {
             worldController.level.items.get(1).state = Item.ItemState.ONLOOP;
-            EnergyBar.instance.energy -= worldController.level.items.get(1).getEnergyBurn() * deltaTime;
+            EnergyProducedBar.instance.energyProduced -= worldController.level.items.get(1).getEnergyBurn() * deltaTime;
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
