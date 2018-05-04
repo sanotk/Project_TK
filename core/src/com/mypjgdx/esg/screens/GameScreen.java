@@ -419,7 +419,7 @@ public class GameScreen extends AbstractGameScreen {
         energyLevel = new Label("Energy Produced : ", skin);
         energyLevel.setColor(1, 1, 1, 1);
         energyLevel.setFontScale(1, 1f);
-        energyLevel.setPosition(500, SCENE_HEIGHT - 50);
+        energyLevel.setPosition(450, SCENE_HEIGHT - 50);
 
         energyLevel2 = new Label("Energy Used: ", skin);
         energyLevel2.setColor(1, 1, 1, 1);
@@ -751,7 +751,12 @@ public class GameScreen extends AbstractGameScreen {
         textBeam.setText(String.format("SwordWave : %d", worldController.level.player.swordWaveCount));
         textTrap.setText(String.format("Trap : %d", worldController.level.player.trapCount));
         textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
-        energyLevel.setText(String.format("Energy Produced : %d", (int) EnergyProducedBar.instance.energyProduced));
+        if(animation_status){
+            energyLevel.setText(String.format("Energy Produced : %d", (int) EnergyProducedBar.instance.energyProduced));
+        }else {
+            energyLevel.setText(String.format("Energy Produced : %d", 0));
+        }
+
         energyLevel2.setText(String.format("Energy Used : %d", (int) EnergyUsedBar.instance.energyUse));
         energyLevel3.setText(String.format("Battery : %d", (int) BatteryBar.instance.batteryStorage));
 

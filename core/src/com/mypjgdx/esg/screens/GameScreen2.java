@@ -214,7 +214,7 @@ public class GameScreen2 extends AbstractGameScreen {
         energyLevel = new Label("Energy : ", skin);
         energyLevel.setColor(1, 1, 1, 1);
         energyLevel.setFontScale(1, 1f);
-        energyLevel.setPosition(500, SCENE_HEIGHT - 50);
+        energyLevel.setPosition(450, SCENE_HEIGHT - 50);
 
         energyLevel2 = new Label("Product Energy : ", skin);
         energyLevel2.setColor(1, 1, 1, 1);
@@ -488,12 +488,14 @@ public class GameScreen2 extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        Player player = worldController.level.player;
 
         textBullet.setText(String.format("Arrow : %d", worldController.level.player.arrowCount));
         textBeam.setText(String.format("SwordWave : %d", worldController.level.player.swordWaveCount));
         textTrap.setText(String.format("Trap : %d", worldController.level.player.trapCount));
         textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
         energyLevel.setText(String.format("Energy Produced : %d", (int) EnergyProducedBar.instance.energyProduced));
+        BatteryBar.instance.batteryStorage += EnergyProducedBar.instance.energyProduced * deltaTime;
         energyLevel2.setText(String.format("Energy Used : %d", (int) EnergyUsedBar.instance.energyUse));
         energyLevel3.setText(String.format("Battery : %d", (int) BatteryBar.instance.batteryStorage));
         //
@@ -518,8 +520,6 @@ public class GameScreen2 extends AbstractGameScreen {
             game.setScreen(new GameOverScreen(game));
             return;
         }
-
-        Player player = worldController.level.player;
 
         if (player.isSwitch && EnergyProducedBar.instance.energyProduced <= 0) {
             game.setScreen(new GameOverScreen(game));
