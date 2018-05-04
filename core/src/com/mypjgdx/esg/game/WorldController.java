@@ -4,8 +4,8 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.mypjgdx.esg.game.levels.*;
 import com.mypjgdx.esg.utils.CameraHelper;
 import com.mypjgdx.esg.utils.Direction;
@@ -79,11 +79,16 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.X)) level.player.bowAttack(level.weapons ,level.bows);
             if (Gdx.input.isKeyJustPressed(Keys.A)) level.player.findItem();
             if (Gdx.input.isKeyJustPressed(Keys.O)) {
-                Json json = new Json();
-                String choice = json.toJson("2");
-                FileHandle file = Gdx.files.local("choice.json");
-                file.delete();
-                file.writeString(choice, true);         // True means append, false means overwrite.
+//                Json json = new Json();
+//                String choice = json.toJson(level);
+//                String energy = json.toJson(EnergyBar.instance.energy);
+//                FileHandle file = Gdx.files.absolute("C:/Users/sanothapp/Desktop/choice.json"); // TODO
+//                file.delete();
+//                file.writeString(choice, true);         // True means append, false means overwrite.
+
+
+                Json json = new Json(JsonWriter.OutputType.json);
+                System.out.print(json.prettyPrint(level));
             };
         }
      }

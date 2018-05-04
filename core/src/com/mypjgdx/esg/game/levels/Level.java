@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
@@ -16,12 +18,13 @@ import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Bow;
 import com.mypjgdx.esg.game.objects.weapons.Sword;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
+import com.mypjgdx.esg.ui.EnergyBar;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class Level {
+public abstract class Level implements Json.Serializable {
 
     public TiledMap map;
     public Player player;
@@ -158,7 +161,7 @@ public abstract class Level {
         for (Etc etc : etcs) etc.update(deltaTime);
         for (Item i : items) i.update(deltaTime);
         for (Enemy e : enemies) e.update(deltaTime, weapons);
-        if(player.stageoneclear){
+        if (player.stageoneclear) {
             for (Citizen c : citizens) c.update(deltaTime);
         }
         for (Weapon w : weapons) w.update(deltaTime);
@@ -166,4 +169,18 @@ public abstract class Level {
         for (Bow b : bows) b.update(deltaTime);
     }
 
+    @Override
+    public void write(Json json) {
+        json.writeValue("player", player);
+//        json.writeValue(level.etcs);
+//        json.writeValue(level.enemies);
+//        json.writeValue(level.citizens);
+//        json.writeValue(level.items);
+        json.writeValue("energy", EnergyBar.instance.energy);
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+
+    }
 }

@@ -8,6 +8,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.CollisionCheck;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
@@ -22,7 +24,7 @@ import com.mypjgdx.esg.utils.Direction;
 
 import java.util.List;
 
-public class Player extends AnimatedObject<PlayerAnimation> implements Damageable {
+public class Player extends AnimatedObject<PlayerAnimation> implements Damageable, Json.Serializable {
 
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 16.0f;
@@ -80,8 +82,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private PlayerState state;
     private int health;
     public int trapCount;
-    public int bulletCount;
-    public int beamCount;
+    public int arrowCount;
+    public int swordWaveCount;
     public int timeCount;
     private boolean dead;
     private boolean invulnerable;
@@ -93,7 +95,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     private TiledMapTileLayer mapLayer;
     private Direction viewDirection;
-
 
     public boolean status_solarcell = false;
     public boolean status_inverter = false;
@@ -139,7 +140,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean quest_window_4;
     public boolean quest_window_5;
     public boolean quest_window_6;
-
 
     public boolean quest1 = false;
     public boolean quest2 = false;
@@ -194,9 +194,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
         health = INTITAL_HEALTH;
         trapCount = INTITAL_TRAP;
-        bulletCount = INTITAL_ARROW;
+        arrowCount = INTITAL_ARROW;
         timeCount = INTITAL_TIME;
-        beamCount = INTITAL_SWORDWAVE;
+        swordWaveCount = INTITAL_SWORDWAVE;
 
         dead = false;
         invulnerable = false;
@@ -553,9 +553,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             for (Sword sword : swords) {
                 sword.resetAnimation();
                 sword.state = Sword.SwordState.HIT;
-                if (beamCount != 0) {
+                if (swordWaveCount != 0) {
                     weapons.add(new SwordWave(mapLayer, this));
-                    beamCount--;
+                    swordWaveCount--;
                 }
                 weapons.add(new SwordHit(mapLayer, this));
                 SoundManager.instance.play(SoundManager.Sounds.BEAM);
@@ -570,9 +570,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             for (Bow bow : bows) {
                 bow.resetAnimation();
                 bow.state = Bow.Bowstate.SHOT;
-                if (bulletCount != 0) {
+                if (arrowCount != 0) {
                     weapons.add(new Arrow(mapLayer, this));
-                    bulletCount--;
+                    arrowCount--;
                 }
                 SoundManager.instance.play(SoundManager.Sounds.BEAM);
                 resetAnimation();
@@ -665,5 +665,66 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public void setPosition(float x, float y) {
         super.setPosition(x, y);
         walkingBounds.set(position.x, position.y, dimension.x, dimension.y - 50);
+    }
+
+    @Override
+    public void write(Json json) {
+        json.writeValue("hp", health);
+        json.writeValue("position", position);
+        json.writeValue("arrowCount", arrowCount);
+        json.writeValue("trapCount", trapCount);
+        json.writeValue("swordWaveCount", swordWaveCount);
+
+        json.writeValue("questScreen1", questScreen1);
+        json.writeValue("questScreen2", questScreen2);
+        json.writeValue("questScreen3", questScreen3);
+        json.writeValue("questScreen4", questScreen4);
+        json.writeValue("questScreen5", questScreen5);
+        json.writeValue("questScreen6", questScreen6);
+
+        json.writeValue("quest_window_1", quest_window_1);
+        json.writeValue("quest_window_2", quest_window_2);
+        json.writeValue("quest_window_3", quest_window_3);
+        json.writeValue("quest_window_4", quest_window_4);
+        json.writeValue("quest_window_5", quest_window_5);
+        json.writeValue("quest_window_6", quest_window_6);
+
+        json.writeValue("quest1", quest1);
+        json.writeValue("quest2", quest2);
+        json.writeValue("quest3", quest3);
+        json.writeValue("quest4", quest4);
+        json.writeValue("quest5", quest5);
+        json.writeValue("quest6", quest6);
+
+        json.writeValue("dead", dead);
+        json.writeValue("invulnerable", invulnerable);
+        json.writeValue("knockback", knockback);
+
+        json.writeValue("lastInvulnerableTime", lastInvulnerableTime);
+        json.writeValue("invulnerableTime", invulnerableTime);
+        json.writeValue("movingSpeed", movingSpeed);
+
+        json.writeValue("viewDirection", viewDirection);
+
+        json.writeValue("status_solarcell", status_solarcell);
+        json.writeValue("status_inverter", status_inverter);
+        json.writeValue("status_ccontroller", status_ccontroller);
+        json.writeValue("status_battery", status_battery);
+        json.writeValue("status_door", status_door);
+        json.writeValue("status_tv", status_tv);
+        json.writeValue("status_com", status_com);
+        json.writeValue("status_microwave", status_microwave);
+        json.writeValue("status_air", status_air);
+        json.writeValue("status_refrigerator", status_refrigerator);
+        json.writeValue("status_switch", status_switch);
+        json.writeValue("status_cooker", status_cooker);
+        json.writeValue("status_fan", status_fan);
+        json.writeValue("status_pump", status_pump);
+        json.writeValue("status_citizen", status_citizen);
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+
     }
 }
