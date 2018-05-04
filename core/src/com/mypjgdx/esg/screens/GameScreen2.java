@@ -504,6 +504,11 @@ public class GameScreen2 extends AbstractGameScreen {
             return;
         }
 
+        if (Gdx.input.isKeyJustPressed(Keys.E)) {
+            EnergyBar.instance.energy += 100;
+            System.out.println(EnergyBar.instance.energy);
+        }
+
         if (!worldController.level.player.isAlive()) {
             game.setScreen(new GameOverScreen(game));
             return;
@@ -598,27 +603,27 @@ public class GameScreen2 extends AbstractGameScreen {
 
         if (worldController.level.citizens.get(0).itemOn) {
             worldController.level.items.get(3).state = Item.ItemState.ONLOOP;
-            EnergyBar.instance.energy -= worldController.level.items.get(3).getEnergyBurn();
+            EnergyBar.instance.energy -= worldController.level.items.get(3).getEnergyBurn() * deltaTime;
         }
         if (worldController.level.citizens.get(1).itemOn) {
             worldController.level.items.get(2).state = Item.ItemState.ONLOOP;
-            EnergyBar.instance.energy -= worldController.level.items.get(2).getEnergyBurn();
+            EnergyBar.instance.energy -= worldController.level.items.get(2).getEnergyBurn() * deltaTime;
         }
         if (worldController.level.citizens.get(2).itemOn) {
             worldController.level.items.get(5).state = Item.ItemState.ONLOOP;
-            EnergyBar.instance.energy -= worldController.level.items.get(5).getEnergyBurn();
+            EnergyBar.instance.energy -= worldController.level.items.get(5).getEnergyBurn() * deltaTime;
         }
         if (worldController.level.citizens.get(3).itemOn) {
             worldController.level.items.get(8).state = Item.ItemState.ONLOOP;
-            EnergyBar.instance.energy -= worldController.level.items.get(8).getEnergyBurn();
+            EnergyBar.instance.energy -= worldController.level.items.get(8).getEnergyBurn() * deltaTime;
         }
         if (worldController.level.citizens.get(4).itemOn) {
             worldController.level.items.get(9).state = Item.ItemState.ONLOOP;
-            EnergyBar.instance.energy -= worldController.level.items.get(9).getEnergyBurn();
+            EnergyBar.instance.energy -= worldController.level.items.get(9).getEnergyBurn() * deltaTime;
         }
         if (worldController.level.citizens.get(5).itemOn) {
             worldController.level.items.get(1).state = Item.ItemState.ONLOOP;
-            EnergyBar.instance.energy -= worldController.level.items.get(1).getEnergyBurn();
+            EnergyBar.instance.energy -= worldController.level.items.get(1).getEnergyBurn() * deltaTime;
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World

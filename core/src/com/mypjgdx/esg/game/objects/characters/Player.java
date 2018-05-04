@@ -674,6 +674,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         json.writeValue("arrowCount", arrowCount);
         json.writeValue("trapCount", trapCount);
         json.writeValue("swordWaveCount", swordWaveCount);
+        json.writeValue("timeCount", timeCount);
 
         json.writeValue("questScreen1", questScreen1);
         json.writeValue("questScreen2", questScreen2);
@@ -705,26 +706,46 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         json.writeValue("movingSpeed", movingSpeed);
 
         json.writeValue("viewDirection", viewDirection);
-
-        json.writeValue("status_solarcell", status_solarcell);
-        json.writeValue("status_inverter", status_inverter);
-        json.writeValue("status_ccontroller", status_ccontroller);
-        json.writeValue("status_battery", status_battery);
-        json.writeValue("status_door", status_door);
-        json.writeValue("status_tv", status_tv);
-        json.writeValue("status_com", status_com);
-        json.writeValue("status_microwave", status_microwave);
-        json.writeValue("status_air", status_air);
-        json.writeValue("status_refrigerator", status_refrigerator);
-        json.writeValue("status_switch", status_switch);
-        json.writeValue("status_cooker", status_cooker);
-        json.writeValue("status_fan", status_fan);
-        json.writeValue("status_pump", status_pump);
-        json.writeValue("status_citizen", status_citizen);
     }
 
     @Override
     public void read(Json json, JsonValue jsonData) {
+        JsonValue player = jsonData.get("player");
+        JsonValue positionJson = player.get("position");
+
+        setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
+
+        arrowCount = player.getInt("arrowCount");
+        trapCount = player.getInt("trapCount");
+        swordWaveCount = player.getInt("swordWaveCount");
+        timeCount = player.getInt("timeCount");
+
+        questScreen1 = player.getBoolean("questScreen1");
+        questScreen2 = player.getBoolean("questScreen2");
+        questScreen3 = player.getBoolean("questScreen3");
+        questScreen4 = player.getBoolean("questScreen4");
+        questScreen5 = player.getBoolean("questScreen5");
+        questScreen6 = player.getBoolean("questScreen6");
+        quest_window_1 = player.getBoolean("quest_window_1");
+        quest_window_2 = player.getBoolean("quest_window_2");
+        quest_window_3 = player.getBoolean("quest_window_3");
+        quest_window_4 = player.getBoolean("quest_window_4");
+        quest_window_5 = player.getBoolean("quest_window_5");
+        quest_window_6 = player.getBoolean("quest_window_6");
+        quest1 = player.getBoolean("quest1");
+        quest2 = player.getBoolean("quest2");
+        quest3 = player.getBoolean("quest3");
+        quest4 = player.getBoolean("quest4");
+        quest5 = player.getBoolean("quest5");
+        quest6 = player.getBoolean("quest6");
+
+        invulnerable = player.getBoolean("invulnerable");
+        knockback = player.getBoolean("knockback");
+        lastInvulnerableTime = player.getLong("lastInvulnerableTime");
+        invulnerableTime = player.getLong("invulnerableTime");
+        movingSpeed = player.getFloat("movingSpeed");
+
+        viewDirection = Direction.valueOf(player.getString("viewDirection"));
 
     }
 }

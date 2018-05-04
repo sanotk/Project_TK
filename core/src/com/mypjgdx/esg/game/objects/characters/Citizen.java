@@ -6,13 +6,14 @@ import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.items.Item;
@@ -21,13 +22,12 @@ import com.mypjgdx.esg.utils.Distance;
 import com.mypjgdx.esg.utils.GameMap;
 import com.mypjgdx.esg.utils.Node;
 
-public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
+public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> implements Json.Serializable {
 
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 8.0f;
 
     private static final float INITIAL_FRICTION = 600f;
-    private static final float INITIAL_FINDING_RANGE = 400f;
 
     protected Player player;
 
@@ -60,19 +60,16 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     abstract void TellMeByType();
 
     protected float movingSpeed;
-    private float findingRange;
     private IndexedAStarPathFinder<Node> pathFinder;
     private GameMap gameMap;
 
     private DefaultStateMachine<Citizen, CitizenState> stateMachine;
-    protected Color color = Color.WHITE;
 
     private Node startNode;
     private Node endNode;
     private GraphPath<Node> path;
 
     private boolean running;
-
 
     private float itemGoalX;
     private float itemGoalY;
@@ -90,7 +87,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
         addLoopAnimation(CitizenAnimation.WALK_LEFT, FRAME_DURATION, 6, 3);
         addLoopAnimation(CitizenAnimation.WALK_RIGHT, FRAME_DURATION, 9, 3);
 
-        findingRange = INITIAL_FINDING_RANGE;
         friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
 
         scale.set(scaleX, scaleY);
@@ -175,10 +171,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
     private void updateStatus() {
     }
 
-    public void die() {
-        color = Color.GRAY;
-    }
-
     public void setColor() {
         // color = Color.RED;
     }
@@ -252,14 +244,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
         }
     }
 
-    @Override
-    public void render(SpriteBatch batch) {
-        Color oldColor = batch.getColor();
-        batch.setColor(color);
-        super.render(batch);
-        batch.setColor(oldColor);
-    }
-
     public void debug(ShapeRenderer renderer) {
         if (walkingNode != null) {
             renderer.setColor(Color.BLACK);
@@ -315,4 +299,31 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> {
         walkingBounds.set(position.x, position.y, dimension.x, dimension.y - 50);
     }
 
+    @Override
+    public void write(Json json) {
+        json.writeValue("position", position);
+        json.writeValue("running", running);
+        json.writeValue("quest", quest);
+        json.writeValue("type", type);
+        json.writeValue("viewDirection", viewDirection);
+        json.writeValue("movingSpeed", movingSpeed);
+        json.writeValue("stateMachine", stateMachine.getCurrentState());
+        json.writeValue("running", running);
+//        json.writeValue("goalItem", goalItem); // TODO
+        json.writeValue("itemOn", itemOn);
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+        JsonValue positionJson = jsonData.get("position");
+        setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
+
+        quest = jsonData.getBoolean("quest");
+        type = CitizenType.valueOf(jsonData.getString("type"));
+        viewDirection = Direction.valueOf(jsonData.getString("viewDirection"));
+        movingSpeed = jsonData.getInt("movingSpeed");
+        stateMachine.changeState(CitizenState.valueOf(jsonData.getString("stateMachine")));
+        running = jsonData.getBoolean("running");
+        itemOn = jsonData.getBoolean("itemOn");
+    }
 }

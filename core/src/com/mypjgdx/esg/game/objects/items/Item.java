@@ -3,12 +3,14 @@ package com.mypjgdx.esg.game.objects.items;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item.ItemAnimation;
 
-public abstract class Item extends AnimatedObject<ItemAnimation> {
+public abstract class Item extends AnimatedObject<ItemAnimation> implements Json.Serializable{
 
     protected static float FRAME_DURATION = 1.0f / 2.0f;
 
@@ -36,7 +38,6 @@ public abstract class Item extends AnimatedObject<ItemAnimation> {
         addLoopAnimation(ItemAnimation.OFF, FRAME_DURATION, 0, 1);
         addNormalAnimation(ItemAnimation.ON, FRAME_DURATION, 1, 3);
         addLoopAnimation(ItemAnimation.ONLOOP, FRAME_DURATION, 1, 3);
-
 
         p_x = P_X;
         p_y = P_Y;
@@ -99,5 +100,15 @@ public abstract class Item extends AnimatedObject<ItemAnimation> {
 
     public float getEnergyBurn() {
         return this.energyBurn;
+    }
+
+    @Override
+    public void write(Json json) {
+        json.writeValue("state", state);
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+        state = ItemState.valueOf(jsonData.getString("state"));
     }
 }

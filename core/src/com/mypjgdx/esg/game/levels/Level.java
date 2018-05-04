@@ -39,6 +39,9 @@ public abstract class Level implements Json.Serializable {
 
     public boolean hasSolarCell;
 
+    public Level(){
+    }
+
     public Level(LevelGenerator levelGenerator) {
         weapons = new ArrayList<Weapon>();
         swords = new ArrayList<Sword>();
@@ -174,13 +177,13 @@ public abstract class Level implements Json.Serializable {
         json.writeValue("player", player);
 //        json.writeValue(level.etcs);
 //        json.writeValue(level.enemies);
-//        json.writeValue(level.citizens);
-//        json.writeValue(level.items);
-        json.writeValue("energy", EnergyBar.instance.energy);
+        json.writeValue("citizens", citizens);
+        json.writeValue("items" , items);
+        json.writeValue("energyBar", EnergyBar.instance);
     }
 
     @Override
     public void read(Json json, JsonValue jsonData) {
-
+//        System.out.println(jsonData.get("player"));
     }
 }
