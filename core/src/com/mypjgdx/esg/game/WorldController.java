@@ -10,6 +10,8 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.mypjgdx.esg.game.levels.*;
+import com.mypjgdx.esg.game.objects.characters.Enemy;
+import com.mypjgdx.esg.game.objects.characters.EnemySpawner;
 import com.mypjgdx.esg.game.objects.etcs.Link;
 import com.mypjgdx.esg.ui.EnergyBar;
 import com.mypjgdx.esg.utils.CameraHelper;
@@ -108,8 +110,22 @@ public class WorldController extends InputAdapter {
                 loadCitizens(saveData);
                 loadItems(saveData);
                 loadLinks(saveData);
+                loadEnemys(saveData);
             }
-            ;
+        }
+    }
+
+    private void loadEnemys(JsonValue saveData) {
+        JsonValue enemies = saveData.get("enemies");
+        if (enemies.isArray()) {
+            level.enemies.clear();
+            for (int i = 0; i < enemies.size; i++) {
+                Enemy enemy = EnemySpawner.valueOf(enemies.get(i).getString("type")).spawn();
+                enemy.setPlayer(level.player);
+                enemy.init(level.mapLayer);
+                enemy.read(null, enemies.get(i));
+                level.enemies.add(enemy);
+            }
         }
     }
 
@@ -124,7 +140,6 @@ public class WorldController extends InputAdapter {
                 level.links.add(link);
             }
         }
-        System.out.println(level.links.size());
     }
 
     private void loadCitizens(JsonValue saveData) {

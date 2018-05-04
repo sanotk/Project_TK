@@ -276,6 +276,10 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         }
     }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     @Override
     public void render(SpriteBatch batch) {
         Color oldColor = batch.getColor();
@@ -370,20 +374,19 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     @Override
     public void write(Json json) {
         json.writeValue("position", position);
-        json.writeValue("type",type);
-        json.writeValue("viewDirection",viewDirection);
-        json.writeValue("dead",dead);
-        json.writeValue("count",count);
-        json.writeValue("knockback",knockback);
-        json.writeValue("stun",stun);
-        json.writeValue("attacktime",attacktime);
-        json.writeValue("stunTime",stunTime);
-        json.writeValue("health",health);
-        json.writeValue("maxHealth",maxHealth);
-        json.writeValue("movingSpeed",movingSpeed);
-        json.writeValue("findingRange",findingRange);
-        json.writeValue("stateMachine",stateMachine);
-
+        json.writeValue("type", type);
+        json.writeValue("viewDirection", viewDirection);
+        json.writeValue("dead", dead);
+        json.writeValue("count", count);
+        json.writeValue("knockback", knockback);
+        json.writeValue("stun", stun);
+        json.writeValue("attacktime", attacktime);
+        json.writeValue("stunTime", stunTime);
+        json.writeValue("health", health);
+        json.writeValue("maxHealth", maxHealth);
+        json.writeValue("movingSpeed", movingSpeed);
+        json.writeValue("findingRange", findingRange);
+        json.writeValue("stateMachine", stateMachine.getCurrentState());
     }
 
     @Override
@@ -391,19 +394,19 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
 
         JsonValue positionJson = jsonData.get("position");
         setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
-        
-        json.writeValue("type",type);
-        json.writeValue("viewDirection",viewDirection);
-        json.writeValue("dead",dead);
-        json.writeValue("count",count);
-        json.writeValue("knockback",knockback);
-        json.writeValue("stun",stun);
-        json.writeValue("attacktime",attacktime);
-        json.writeValue("stunTime",stunTime);
-        json.writeValue("health",health);
-        json.writeValue("maxHealth",maxHealth);
-        json.writeValue("movingSpeed",movingSpeed);
-        json.writeValue("findingRange",findingRange);
-        json.writeValue("stateMachine",stateMachine);
+
+        type = EnemyType.valueOf(jsonData.getString("type"));
+        viewDirection = Direction.valueOf(jsonData.getString("viewDirection"));
+        dead = jsonData.getBoolean("dead");
+        count = jsonData.getBoolean("count");
+        knockback = jsonData.getBoolean("knockback");
+        stun = jsonData.getBoolean("stun");
+        attacktime = jsonData.getBoolean("attacktime");
+        stunTime = jsonData.getInt("stunTime");
+        health = jsonData.getInt("health");
+        maxHealth = jsonData.getInt("maxHealth");
+        movingSpeed = jsonData.getInt("movingSpeed" );
+        findingRange = jsonData.getFloat("findingRange");
+        stateMachine.changeState(EnemyState.valueOf(jsonData.getString("stateMachine")));
     }
 }

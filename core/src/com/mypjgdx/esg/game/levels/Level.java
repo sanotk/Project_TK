@@ -39,7 +39,7 @@ public abstract class Level implements Json.Serializable {
 
     public boolean hasSolarCell;
 
-    public Level(){
+    public Level() {
     }
 
     public Level(LevelGenerator levelGenerator) {
@@ -175,10 +175,10 @@ public abstract class Level implements Json.Serializable {
     @Override
     public void write(Json json) {
         json.writeValue("player", player);
-        json.writeValue("links",links);
-//        json.writeValue(level.enemies);
+        json.writeValue("links", links);
+        json.writeValue("enemies", enemies);
         json.writeValue("citizens", citizens);
-        json.writeValue("items" , items);
+        json.writeValue("items", items);
         json.writeValue("energyBar", EnergyBar.instance);
     }
 
