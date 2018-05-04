@@ -753,7 +753,7 @@ public class GameScreen extends AbstractGameScreen {
         textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
         energyLevel.setText(String.format("Energy Produced : %d", (int) EnergyProducedBar.instance.energyProduced));
         energyLevel2.setText(String.format("Energy Used : %d", (int) EnergyUsedBar.instance.energyUse));
-        energyLevel3.setText(String.format("BatteryBar : %d", (int) BatteryBar.instance.batteryStorage));
+        energyLevel3.setText(String.format("Battery : %d", (int) BatteryBar.instance.batteryStorage));
 
         //
         // sunleft.setText(String.format("Sun Left"));
@@ -837,9 +837,9 @@ public class GameScreen extends AbstractGameScreen {
                     Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                     Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
             chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            EnergyProducedBar.instance.energyProduced += 100;
+        }else if(animation_status && BatteryBar.instance.batteryStorage != BatteryBar.instance.BATTERY_MAX){
+            BatteryBar.instance.batteryStorage += EnergyProducedBar.instance.energyProduced * deltaTime;
         }
-
 
         if ((findItem(Door.class).state == Item.ItemState.ON) && (player.status_door == true)) {
             game.setScreen(new GameScreen2(game, optionsWindow));

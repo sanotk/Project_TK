@@ -6,16 +6,12 @@ import com.badlogic.gdx.utils.JsonValue;
 public class EnergyProducedBar implements Json.Serializable {
 
     public static final EnergyProducedBar instance = new EnergyProducedBar();
-    private static final float ENERGY_MAX = 500;
 
-    public float energyProduced;
+    public float energyProduced = 1000;
 
     private EnergyProducedBar() {
-    }
 
-//    public void draw(ShapeRenderer renderer, float x, float y) {
-//        renderer.rect(x, y, 300 * (energyProduced / ENERGY_MAX), 30);
-//    }
+    }
 
     @Override
     public void write(Json json) {

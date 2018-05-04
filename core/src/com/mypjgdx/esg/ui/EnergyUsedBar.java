@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.JsonValue;
 public class EnergyUsedBar implements Json.Serializable {
 
     public static final EnergyUsedBar instance = new EnergyUsedBar();
-    private static final float ENERGY_USE_MAX = 500;
+    private static final float ENERGY_USE_MAX = 1000;
 
     public float energyUse;
 

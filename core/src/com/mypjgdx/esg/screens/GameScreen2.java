@@ -27,7 +27,9 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.items.Switch;
+import com.mypjgdx.esg.ui.BatteryBar;
 import com.mypjgdx.esg.ui.EnergyProducedBar;
+import com.mypjgdx.esg.ui.EnergyUsedBar;
 import com.mypjgdx.esg.utils.QuestState;
 
 import java.util.ArrayList;
@@ -491,7 +493,9 @@ public class GameScreen2 extends AbstractGameScreen {
         textBeam.setText(String.format("SwordWave : %d", worldController.level.player.swordWaveCount));
         textTrap.setText(String.format("Trap : %d", worldController.level.player.trapCount));
         textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
-        energyLevel.setText(String.format("Energy : %d", energyStart));
+        energyLevel.setText(String.format("Energy Produced : %d", (int) EnergyProducedBar.instance.energyProduced));
+        energyLevel2.setText(String.format("Energy Used : %d", (int) EnergyUsedBar.instance.energyUse));
+        energyLevel3.setText(String.format("Battery : %d", (int) BatteryBar.instance.batteryStorage));
         //
         // sunleft.setText(String.format("Sun Left"));
 

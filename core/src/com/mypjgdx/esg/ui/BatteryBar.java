@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.JsonValue;
 public class BatteryBar implements Json.Serializable {
 
     public static final BatteryBar instance = new BatteryBar();
-    private static final float BATTERY_MAX = 500;
+    public static final float BATTERY_MAX = 1000000;
 
     public float batteryStorage;
 
