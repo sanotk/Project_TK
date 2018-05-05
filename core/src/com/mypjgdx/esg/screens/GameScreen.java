@@ -118,6 +118,8 @@ public class GameScreen extends AbstractGameScreen {
 
     public int enemyDeadCount = 0;
 
+    public boolean stringDraw;
+
     private int trueLink = 0;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
@@ -132,7 +134,7 @@ public class GameScreen extends AbstractGameScreen {
         bg = new Texture("bg.png");
         font = new BitmapFont(Gdx.files.internal("thai24.fnt"));
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font.setColor(0.4f,0,0,1);
+        font.setColor(0.4f, 0, 0, 1);
 
         this.optionsWindow = optionsWindow;
 
@@ -231,10 +233,10 @@ public class GameScreen extends AbstractGameScreen {
         buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonChartStyle);
-        String textString = ("เวลาที่ใช้ : "+ String.valueOf((1)+ " วินาที"));
-        text1 = new Label("สถิติ",skin);
-        text2 = new Label(textString,skin);
-        text3 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว",skin);
+        String textString = ("เวลาที่ใช้ : " + String.valueOf((1) + " วินาที"));
+        text1 = new Label("สถิติ", skin);
+        text2 = new Label(textString, skin);
+        text3 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
@@ -381,9 +383,9 @@ public class GameScreen extends AbstractGameScreen {
         buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonRuleStyle);
-        Label text1 = new Label("ตามหาทางเข้าสถานที่หลบภัยให้พบ",skin);
-        Label text2 = new Label("เชื่อมต่อแผงโซล่าเซลล์เพื่อเติมเต็มพลังงานให้สถานที่หลบภัย",skin);
-        Label text3 = new Label("หลังจากเติมเต็มพลังงานได้แล้ว จะสามารถเข้าไปยังสถานที่หลบภัยได้",skin);
+        Label text1 = new Label("ตามหาทางเข้าสถานที่หลบภัยให้พบ", skin);
+        Label text2 = new Label("เชื่อมต่อแผงโซล่าเซลล์เพื่อเติมเต็มพลังงานให้สถานที่หลบภัย", skin);
+        Label text3 = new Label("หลังจากเติมเต็มพลังงานได้แล้ว จะสามารถเข้าไปยังสถานที่หลบภัยได้", skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
@@ -428,7 +430,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonStyle.font = font;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font =font;
+        labelStyle.font = font;
 
         int btn_w = 200;
         int btn_h = 50;
@@ -848,19 +850,19 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        textBullet.setText(String.format("ลูกธนู : %d", worldController.level.player.arrowCount) + " ดอก");
-        textBeam.setText(String.format("คลื่นดาบ : %d", worldController.level.player.swordWaveCount) + " ครั้ง");
-        textTrap.setText(String.format("กับดัก : %d", worldController.level.player.trapCount) + " ครั้ง");
-        textTime.setText(String.format("เวลาที่เหลือ : %d", worldController.level.player.timeCount) + " วินาที");
-        if(animation_status){
-            energyLevel.setText(String.format("พลังงานที่ผลิตต่อวินาที : %d", (int) EnergyProducedBar.instance.energyProduced)+ " วัตต์");
-        }else {
-            energyLevel.setText(String.format("พลังงานที่ผลิตต่อวินาที : %d", 0)+ " วัตต์");
+        if (!stringDraw) {
+            textBullet.setText(String.format("ลูกธนู : %d", worldController.level.player.arrowCount) + " ดอก");
+            textBeam.setText(String.format("คลื่นดาบ : %d", worldController.level.player.swordWaveCount) + " ครั้ง");
+            textTrap.setText(String.format("กับดัก : %d", worldController.level.player.trapCount) + " ครั้ง");
+            textTime.setText(String.format("เวลาที่เหลือ : %d", worldController.level.player.timeCount) + " วินาที");
+            if (animation_status) {
+                energyLevel.setText(String.format("พลังงานที่ผลิตต่อวินาที : %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
+            } else {
+                energyLevel.setText(String.format("พลังงานที่ผลิตต่อวินาที : %d", 0) + " วัตต์");
+            }
+            energyLevel2.setText(String.format("พลังงานที่ใช้ต่อวินาที : %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
+            energyLevel3.setText(String.format("พลังงานภายในแบตเตอรี : %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
         }
-
-        energyLevel2.setText(String.format("พลังงานที่ใช้ต่อวินาที : %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
-        energyLevel3.setText(String.format("พลังงานภายในแบตเตอรี : %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
-
         //
         // sunleft.setText(String.format("Sun Left"));
 
@@ -940,13 +942,13 @@ public class GameScreen extends AbstractGameScreen {
             findItem(Door.class).resetAnimation();
             animation_status = true;
             player.timeStop = true;
-            String textString = ("เวลาที่ใช้ : "+ String.valueOf((player.getIntitalTime()-player.timeCount)+ " วินาที"));
+            String textString = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
             text2.setText(textString);
             chartWindow.setPosition(
                     Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                     Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
             chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-        }else if(animation_status && BatteryBar.instance.getBatteryStorage() < BatteryBar.instance.BATTERY_MAX){
+        } else if (animation_status && BatteryBar.instance.getBatteryStorage() < BatteryBar.instance.BATTERY_MAX) {
             BatteryBar.instance.update(deltaTime);
             player.timeStop = true;
         }
@@ -963,7 +965,7 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if (worldController.level.enemies.size()==0){
+        if (worldController.level.enemies.size() == 0) {
             player.stageoneclear = true;
         }
 
