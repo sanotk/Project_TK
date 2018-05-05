@@ -395,41 +395,52 @@ public class GameScreen extends AbstractGameScreen {
         buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
         buttonStyle.font = font;
 
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font =font;
+
+
         int btn_w = 200;
         int btn_h = 50;
 
         textBullet = new Label("Bullet Max : ", skin);
         textBullet.setColor(1, 1, 1, 1);
+        textBullet.setStyle(labelStyle);
         textBullet.setFontScale(1f, 1f);
         textBullet.setPosition(50, SCENE_HEIGHT - 50);
 
         textBeam = new Label("Z-Bullet Max : ", skin);
         textBeam.setColor(1, 1, 1, 1);
+        textBeam.setStyle(labelStyle);
         textBeam.setFontScale(1.f, 1.f);
         textBeam.setPosition(200, SCENE_HEIGHT - 50);
 
         textTrap = new Label("Trap Max : ", skin);
         textTrap.setColor(1, 1, 1, 1);
+        textTrap.setStyle(labelStyle);
         textTrap.setFontScale(1f, 1f);
         textTrap.setPosition(350, SCENE_HEIGHT - 50);
 
         textTime = new Label("Time : ", skin);
         textTime.setColor(1, 1, 1, 1);
+        textTime.setStyle(labelStyle);
         textTime.setFontScale(1f, 1f);
         textTime.setPosition(450, SCENE_HEIGHT - 100);
 
         energyLevel = new Label("Energy Produced : ", skin);
         energyLevel.setColor(1, 1, 1, 1);
+        energyLevel.setStyle(labelStyle);
         energyLevel.setFontScale(1, 1f);
         energyLevel.setPosition(450, SCENE_HEIGHT - 50);
 
         energyLevel2 = new Label("Energy Used: ", skin);
         energyLevel2.setColor(1, 1, 1, 1);
+        energyLevel2.setStyle(labelStyle);
         energyLevel2.setFontScale(1, 1f);
         energyLevel2.setPosition(650, SCENE_HEIGHT - 50);
 
         energyLevel3 = new Label("Battery : ", skin);
         energyLevel3.setColor(1, 1, 1, 1);
+        energyLevel3.setStyle(labelStyle);
         energyLevel3.setFontScale(1, 1f);
         energyLevel3.setPosition(800, SCENE_HEIGHT - 50);
 
@@ -749,18 +760,18 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        textBullet.setText(String.format("Arrow : %d", worldController.level.player.arrowCount));
-        textBeam.setText(String.format("SwordWave : %d", worldController.level.player.swordWaveCount));
-        textTrap.setText(String.format("Trap : %d", worldController.level.player.trapCount));
-        textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
+        textBullet.setText(String.format("ลูกธนู : %d", worldController.level.player.arrowCount) + " ดอก");
+        textBeam.setText(String.format("ฟันคลื่น : %d", worldController.level.player.swordWaveCount) + " ครั้ง");
+        textTrap.setText(String.format("กับดัก : %d", worldController.level.player.trapCount) + " ครั้ง");
+        textTime.setText(String.format("เวลาที่เหลือ : %d", worldController.level.player.timeCount) + " วินาที");
         if(animation_status){
-            energyLevel.setText(String.format("Energy Produced : %d", (int) EnergyProducedBar.instance.energyProduced));
+            energyLevel.setText(String.format("พลังงานที่ผลิตต่อวินาที : %d", (int) EnergyProducedBar.instance.energyProduced)+ " วัตต์");
         }else {
-            energyLevel.setText(String.format("Energy Produced : %d", 0));
+            energyLevel.setText(String.format("พลังงานที่ผลิตต่อวินาที : %d", 0)+ " วัตต์");
         }
 
-        energyLevel2.setText(String.format("Energy Used : %d", (int) EnergyUsedBar.instance.energyUse));
-        energyLevel3.setText(String.format("Battery : %d", (int) BatteryBar.instance.getBatteryStorage()));
+        energyLevel2.setText(String.format("พลังงานที่ใช้ต่อวินาที : %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
+        energyLevel3.setText(String.format("พลังงานภายในแบตเตอรี : %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
 
         //
         // sunleft.setText(String.format("Sun Left"));
