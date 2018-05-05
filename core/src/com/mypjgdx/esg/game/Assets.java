@@ -30,7 +30,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion iconSword;
     public TextureRegion iconTrap;
     public TextureRegion iconEnergyPlus;
-    public TextureRegion IconEnergyMinus;
+    public TextureRegion iconEnergyMinus;
     public TextureRegion iconBattery;
     public TextureRegion iconTime;
 
@@ -187,13 +187,13 @@ public class Assets implements Disposable, AssetErrorListener {
         beam = new TextureRegion((Texture)manager.get("beam.png"));
         box = new TextureRegion((Texture)manager.get("box.png"));
 
-        iconBow = manager.get("");
-        iconSword = manager.get("");
-        iconSword = manager.get("");
-        iconSword = manager.get("");
-        iconSword = manager.get("");
-        iconSword = manager.get("");
-        iconBattery = manager.get("");
+        iconBow = manager.get("icon_bow");
+        iconSword = manager.get("icon_sword");
+        iconTrap = manager.get("icon_trap");
+        iconEnergyPlus = manager.get("icon_energy_plus");
+        iconEnergyMinus = manager.get("icon_energy_minus");
+        iconBattery = manager.get("icon_battery.png");
+        iconTime = manager.get("icon_time.png");
 
         sword = manager.get("sword_pack.atlas");
         bow = manager.get("bow_pack.atlas");
