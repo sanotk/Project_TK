@@ -748,4 +748,25 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         viewDirection = Direction.valueOf(player.getString("viewDirection"));
 
     }
+
+    public int getIntitalHealth(){
+        return INTITAL_HEALTH;
+    }
+
+    public int getIntitalTrap(){
+        return INTITAL_TRAP;
+    }
+
+    public int getIntitalTime(){
+        return INTITAL_TIME;
+    }
+
+    public int getIntitalArrow(){
+        return INTITAL_ARROW;
+    }
+
+    public int getIntitalSwordwave(){
+        return INTITAL_SWORDWAVE;
+    }
+
 }

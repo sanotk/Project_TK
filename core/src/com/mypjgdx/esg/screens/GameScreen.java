@@ -60,6 +60,10 @@ public class GameScreen extends AbstractGameScreen {
     private Label energyLevel3;
     private Label textRule;
 
+    private Label text1;
+    private Label text2;
+    private Label text3;
+
     public enum systemWindow {
         solarcell,
         chargecontroller,
@@ -227,11 +231,14 @@ public class GameScreen extends AbstractGameScreen {
         buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonChartStyle);
-        Label text1 = new Label("ยินดีด้วย คุณได้รับชัยชนะ",skin);
-        Label text2 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว",skin);
+        String textString = ("เวลาที่ใช้ : "+ String.valueOf((1)+ " วินาที"));
+        text1 = new Label(textString,skin);
+        text2 = new Label("ยินดีด้วย คุณได้รับชัยชนะ",skin);
+        text3 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว",skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
 
         final Window chartWindow = new Window("สถิติ", style);
         chartWindow.setModal(true);
@@ -245,6 +252,8 @@ public class GameScreen extends AbstractGameScreen {
         chartWindow.add(text1);
         chartWindow.row().padTop(10);
         chartWindow.add(text2);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text3);
         chartWindow.row().padTop(10);
         chartWindow.add(closeButton).colspan(3);
         chartWindow.pack();
@@ -873,12 +882,16 @@ public class GameScreen extends AbstractGameScreen {
             findItem(Door.class).state = Item.ItemState.ON;
             findItem(Door.class).resetAnimation();
             animation_status = true;
+            player.timeStop = true;
+            String textString = ("เวลาที่ใช้ : "+ String.valueOf((player.getIntitalTime()-player.timeCount)+ " วินาที"));
+            text1.setText(textString);
             chartWindow.setPosition(
                     Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                     Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
             chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
         }else if(animation_status && BatteryBar.instance.getBatteryStorage() < BatteryBar.instance.BATTERY_MAX){
             BatteryBar.instance.update(deltaTime);
+            player.timeStop = true;
         }
 
         if ((findItem(Door.class).state == Item.ItemState.ON) && (player.status_door == true)) {
