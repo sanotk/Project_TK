@@ -316,7 +316,7 @@ public class GameScreen2 extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonChartStyle);
 
-        final Window chartWindow = new Window("Chart", style);
+        final Window chartWindow = new Window("สถิติ", style);
         chartWindow.setModal(true);
         chartWindow.padTop(40);
         chartWindow.padLeft(40);
