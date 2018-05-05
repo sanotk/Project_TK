@@ -440,39 +440,39 @@ public class GameScreen extends AbstractGameScreen {
         buttonBowStyle.up = iconBow;
         buttonBowStyle.over = iconBow.tint(Color.LIME);
         Button iconBowButton = new Button(buttonBowStyle);
-        iconBowButton.setPosition(300, SCENE_HEIGHT - 50);
+        iconBowButton.setPosition(225, SCENE_HEIGHT - 50);
 
         textBullet = new Label("", skin);
         textBullet.setColor(0, 0, 0, 1);
         textBullet.setStyle(labelStyle);
         textBullet.setFontScale(1f, 1f);
-        textBullet.setPosition(325, SCENE_HEIGHT - 42);
+        textBullet.setPosition(250, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonSwordStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconSword = new TextureRegionDrawable(Assets.instance.iconSword);
         buttonSwordStyle.up = iconSword;
         buttonSwordStyle.over = iconSword.tint(Color.LIME);
         Button iconSwordButton = new Button(buttonSwordStyle);
-        iconSwordButton.setPosition(350, SCENE_HEIGHT - 50);
+        iconSwordButton.setPosition(300, SCENE_HEIGHT - 50);
 
         textBeam = new Label("", skin);
         textBeam.setColor(0, 0, 0, 1);
         textBeam.setStyle(labelStyle);
         textBeam.setFontScale(1.f, 1.f);
-        textBeam.setPosition(375, SCENE_HEIGHT - 42);
+        textBeam.setPosition(325, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonTrapStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconTrap = new TextureRegionDrawable(Assets.instance.iconTrap);
         buttonTrapStyle.up = iconTrap;
         buttonTrapStyle.over = iconTrap.tint(Color.LIME);
         Button iconTrapButton = new Button(buttonTrapStyle);
-        iconTrapButton.setPosition(400, SCENE_HEIGHT - 50);
+        iconTrapButton.setPosition(375, SCENE_HEIGHT - 50);
 
         textTrap = new Label("", skin);
         textTrap.setColor(0, 0, 0, 1);
         textTrap.setStyle(labelStyle);
         textTrap.setFontScale(1f, 1f);
-        textTrap.setPosition(425, SCENE_HEIGHT - 42);
+        textTrap.setPosition(400, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonTimeStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconTime = new TextureRegionDrawable(Assets.instance.iconTime);
