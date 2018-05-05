@@ -440,91 +440,91 @@ public class GameScreen extends AbstractGameScreen {
         buttonBowStyle.up = iconBow;
         buttonBowStyle.over = iconBow.tint(Color.LIME);
         Button iconBowButton = new Button(buttonBowStyle);
-        iconBowButton.setPosition(50, SCENE_HEIGHT - 50);
+        iconBowButton.setPosition(300, SCENE_HEIGHT - 50);
 
         textBullet = new Label("", skin);
-        textBullet.setColor(1, 1, 1, 1);
+        textBullet.setColor(0, 0, 0, 1);
         textBullet.setStyle(labelStyle);
         textBullet.setFontScale(1f, 1f);
-        textBullet.setPosition(50, SCENE_HEIGHT - 50);
+        textBullet.setPosition(325, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonSwordStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconSword = new TextureRegionDrawable(Assets.instance.iconSword);
         buttonSwordStyle.up = iconSword;
         buttonSwordStyle.over = iconSword.tint(Color.LIME);
         Button iconSwordButton = new Button(buttonSwordStyle);
-        iconSwordButton.setPosition(150, SCENE_HEIGHT - 50);
+        iconSwordButton.setPosition(350, SCENE_HEIGHT - 50);
 
         textBeam = new Label("", skin);
-        textBeam.setColor(1, 1, 1, 1);
+        textBeam.setColor(0, 0, 0, 1);
         textBeam.setStyle(labelStyle);
         textBeam.setFontScale(1.f, 1.f);
-        textBeam.setPosition(150, SCENE_HEIGHT - 50);
+        textBeam.setPosition(375, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonTrapStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconTrap = new TextureRegionDrawable(Assets.instance.iconTrap);
         buttonTrapStyle.up = iconTrap;
         buttonTrapStyle.over = iconTrap.tint(Color.LIME);
         Button iconTrapButton = new Button(buttonTrapStyle);
-        iconTrapButton.setPosition(250, SCENE_HEIGHT - 50);
+        iconTrapButton.setPosition(400, SCENE_HEIGHT - 50);
 
         textTrap = new Label("", skin);
-        textTrap.setColor(1, 1, 1, 1);
+        textTrap.setColor(0, 0, 0, 1);
         textTrap.setStyle(labelStyle);
         textTrap.setFontScale(1f, 1f);
-        textTrap.setPosition(250, SCENE_HEIGHT - 50);
+        textTrap.setPosition(425, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonTimeStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconTime = new TextureRegionDrawable(Assets.instance.iconTime);
         buttonTimeStyle.up = iconTime;
         buttonTimeStyle.over = iconTime.tint(Color.LIME);
         Button iconTimeButton = new Button(buttonTimeStyle);
-        iconTimeButton.setPosition(450, SCENE_HEIGHT - 100);
+        iconTimeButton.setPosition(450, SCENE_HEIGHT - 50);
 
         textTime = new Label("", skin);
-        textTime.setColor(1, 1, 1, 1);
+        textTime.setColor(0, 0, 0, 1);
         textTime.setStyle(labelStyle);
         textTime.setFontScale(1f, 1f);
-        textTime.setPosition(450, SCENE_HEIGHT - 100);
+        textTime.setPosition(475, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonEnergyPlusStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconEnergyPlus = new TextureRegionDrawable(Assets.instance.iconEnergyPlus);
         buttonEnergyPlusStyle.up = iconEnergyPlus;
         buttonEnergyPlusStyle.over = iconEnergyPlus.tint(Color.LIME);
         Button iconEnergyPlusButton = new Button(buttonEnergyPlusStyle);
-        iconEnergyPlusButton.setPosition(330, SCENE_HEIGHT - 50);
+        iconEnergyPlusButton.setPosition(550, SCENE_HEIGHT - 50);
 
         energyLevel = new Label("", skin);
-        energyLevel.setColor(1, 1, 1, 1);
+        energyLevel.setColor(0, 0, 0, 1);
         energyLevel.setStyle(labelStyle);
         energyLevel.setFontScale(1, 1f);
-        energyLevel.setPosition(330, SCENE_HEIGHT - 50);
+        energyLevel.setPosition(575, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonEnergyMinusStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconEnergyMinus = new TextureRegionDrawable(Assets.instance.iconEnergyMinus);
         buttonEnergyMinusStyle.up = iconEnergyMinus;
         buttonEnergyMinusStyle.over = iconEnergyMinus.tint(Color.LIME);
         Button iconEnergyMinusButton = new Button(buttonEnergyMinusStyle);
-        iconEnergyMinusButton.setPosition(530, SCENE_HEIGHT - 50);
+        iconEnergyMinusButton.setPosition(650, SCENE_HEIGHT - 50);
 
         energyLevel2 = new Label("", skin);
-        energyLevel2.setColor(1, 1, 1, 1);
+        energyLevel2.setColor(0, 0, 0, 1);
         energyLevel2.setStyle(labelStyle);
         energyLevel2.setFontScale(1, 1f);
-        energyLevel2.setPosition(530, SCENE_HEIGHT - 50);
+        energyLevel2.setPosition(675, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonBatteryStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconBattery = new TextureRegionDrawable(Assets.instance.iconBattery);
         buttonBatteryStyle.up = iconBattery;
         buttonBatteryStyle.over = iconBattery.tint(Color.LIME);
         Button iconBatteryButton = new Button(buttonBatteryStyle);
-        iconBatteryButton.setPosition(720, SCENE_HEIGHT - 50);
+        iconBatteryButton.setPosition(750, SCENE_HEIGHT - 50);
 
         energyLevel3 = new Label("", skin);
-        energyLevel3.setColor(1, 1, 1, 1);
+        energyLevel3.setColor(0, 0, 0, 1);
         energyLevel3.setStyle(labelStyle);
         energyLevel3.setFontScale(1, 1f);
-        energyLevel3.setPosition(720, SCENE_HEIGHT - 50);
+        energyLevel3.setPosition(775, SCENE_HEIGHT - 42);
 
         stage.addActor(iconBowButton);
         stage.addActor(iconSwordButton);
@@ -866,13 +866,13 @@ public class GameScreen extends AbstractGameScreen {
         textBullet.setText(String.format(" %d", worldController.level.player.arrowCount));
         textBeam.setText(String.format(" %d", worldController.level.player.swordWaveCount));
         textTrap.setText(String.format(" %d", worldController.level.player.trapCount));
-        textTime.setText(String.format(" %d", worldController.level.player.timeCount));
+        textTime.setText(String.format(" %d", worldController.level.player.timeCount)+ " วินาที");
         if (animation_status) {
-            energyLevel.setText(String.format("พ %d", (int) EnergyProducedBar.instance.energyProduced));
+            energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced)+ " วัตต์");
         } else {
-            energyLevel.setText(String.format(" %d", 0) );
+            energyLevel.setText(String.format(" %d", 0) + " วัตต์");
         }
-        energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse));
+        energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse)+ " วัตต์");
         energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()));
         //      }
         //
