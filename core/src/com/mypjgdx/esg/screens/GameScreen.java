@@ -232,15 +232,15 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonChartStyle);
         String textString = ("เวลาที่ใช้ : "+ String.valueOf((1)+ " วินาที"));
-        text1 = new Label(textString,skin);
-        text2 = new Label("ยินดีด้วย คุณได้รับชัยชนะ",skin);
+        text1 = new Label("สถิติ",skin);
+        text2 = new Label(textString,skin);
         text3 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว",skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
         text3.setStyle(labelStyle);
 
-        final Window chartWindow = new Window("สถิติ", style);
+        final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
         chartWindow.setModal(true);
         chartWindow.padTop(40);
         chartWindow.padLeft(40);
@@ -875,7 +875,7 @@ public class GameScreen extends AbstractGameScreen {
             findItem(SolarCell.class).resetAnimation();
             findItem(Inverter.class).state = Item.ItemState.ONLOOP;
             findItem(Inverter.class).resetAnimation();
-            findItem(Battery.class).state = Item.ItemState.ON;
+            findItem(Battery.class).state = Item.ItemState.ONLOOP;
             findItem(Battery.class).resetAnimation();
             findItem(Charge.class).state = Item.ItemState.ONLOOP;
             findItem(Charge.class).resetAnimation();
@@ -884,7 +884,7 @@ public class GameScreen extends AbstractGameScreen {
             animation_status = true;
             player.timeStop = true;
             String textString = ("เวลาที่ใช้ : "+ String.valueOf((player.getIntitalTime()-player.timeCount)+ " วินาที"));
-            text1.setText(textString);
+            text2.setText(textString);
             chartWindow.setPosition(
                     Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                     Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
