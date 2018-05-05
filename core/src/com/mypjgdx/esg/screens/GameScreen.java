@@ -351,7 +351,7 @@ public class GameScreen extends AbstractGameScreen {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
         style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
+        style.titleFontColor = Color.BLACK;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
@@ -363,15 +363,29 @@ public class GameScreen extends AbstractGameScreen {
         buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonRuleStyle);
+        Label text1 = new Label("ตามหาทางเข้าสถานที่หลบภัยให้พบ",skin);
+        Label text2 = new Label("เชื่อมต่อแผงโซล่าเซลล์เพื่อเติมเต็มพลังงานให้สถานที่หลบภัย",skin);
+        Label text3 = new Label("หลังจากเติมเต็มพลังงานได้แล้ว จะสามารถเข้าไปยังสถานที่หลบภัยได้",skin);
+
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
 
         final Window ruleWindow = new Window("กติกา", style);
         ruleWindow.setModal(true);
+        ruleWindow.setSkin(skin);
         ruleWindow.padTop(40);
         ruleWindow.padLeft(40);
         ruleWindow.padRight(40);
         ruleWindow.padBottom(20);
         ruleWindow.getTitleLabel().setAlignment(Align.center);
         ruleWindow.row().padBottom(10).padTop(10);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text1);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text2);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text3);
         ruleWindow.row().padTop(10);
         ruleWindow.add(closeButton).colspan(3);
         ruleWindow.pack();
