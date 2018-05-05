@@ -105,11 +105,11 @@ public class Assets implements Disposable, AssetErrorListener {
 
         manager.load("icon_sword.png",Texture.class);
         manager.load("icon_bow.png",Texture.class);
-        manager.load("icon_trap",Texture.class);
-        manager.load("icon_energy_plus",Texture.class);
-        manager.load("icon_energy_minus",Texture.class);
-        manager.load("icon_battery",Texture.class);
-        manager.load("icon_time",Texture.class);
+        manager.load("icon_trap.png",Texture.class);
+        manager.load("icon_energy_plus.png",Texture.class);
+        manager.load("icon_energy_minus.png",Texture.class);
+        manager.load("icon_battery.png",Texture.class);
+        manager.load("icon_time.png",Texture.class);
 
         manager.load("sword_pack.atlas", TextureAtlas.class);
         manager.load("bow_pack.atlas", TextureAtlas.class);
@@ -187,13 +187,13 @@ public class Assets implements Disposable, AssetErrorListener {
         beam = new TextureRegion((Texture)manager.get("beam.png"));
         box = new TextureRegion((Texture)manager.get("box.png"));
 
-        iconBow = manager.get("icon_bow");
-        iconSword = manager.get("icon_sword");
-        iconTrap = manager.get("icon_trap");
-        iconEnergyPlus = manager.get("icon_energy_plus");
-        iconEnergyMinus = manager.get("icon_energy_minus");
-        iconBattery = manager.get("icon_battery.png");
-        iconTime = manager.get("icon_time.png");
+        iconBow = new TextureRegion((Texture)manager.get("icon_bow.png"));
+        iconSword = new TextureRegion((Texture)manager.get("icon_sword.png"));
+        iconTrap = new TextureRegion((Texture)manager.get("icon_trap.png"));
+        iconEnergyPlus = new TextureRegion((Texture)manager.get("icon_energy_plus.png"));
+        iconEnergyMinus = new TextureRegion((Texture)manager.get("icon_energy_minus.png"));
+        iconBattery = new TextureRegion((Texture)manager.get("icon_battery.png"));
+        iconTime = new TextureRegion((Texture)manager.get("icon_time.png"));
 
         sword = manager.get("sword_pack.atlas");
         bow = manager.get("bow_pack.atlas");
