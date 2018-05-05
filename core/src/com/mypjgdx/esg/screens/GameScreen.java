@@ -227,8 +227,13 @@ public class GameScreen extends AbstractGameScreen {
         buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonChartStyle);
+        Label text1 = new Label("ยินดีด้วย คุณได้รับชัยชนะ",skin);
+        Label text2 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว",skin);
 
-        final Window chartWindow = new Window("Chart", style);
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+
+        final Window chartWindow = new Window("สถิติ", style);
         chartWindow.setModal(true);
         chartWindow.padTop(40);
         chartWindow.padLeft(40);
@@ -236,6 +241,10 @@ public class GameScreen extends AbstractGameScreen {
         chartWindow.padBottom(20);
         chartWindow.getTitleLabel().setAlignment(Align.center);
         chartWindow.row().padBottom(10).padTop(10);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text1);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text2);
         chartWindow.row().padTop(10);
         chartWindow.add(closeButton).colspan(3);
         chartWindow.pack();
@@ -351,7 +360,7 @@ public class GameScreen extends AbstractGameScreen {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
         style.titleFont = font;
-        style.titleFontColor = Color.BLACK;
+        style.titleFontColor = Color.WHITE;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
