@@ -101,6 +101,16 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("box.png",Texture.class);
         manager.load("enemy_ball.png", Texture.class);
 
+
+
+        manager.load("icon_sword.png",Texture.class);
+        manager.load("icon_bow.png",Texture.class);
+        manager.load("icon_trap",Texture.class);
+        manager.load("icon_energy_plus",Texture.class);
+        manager.load("icon_energy_minus",Texture.class);
+        manager.load("icon_battery",Texture.class);
+        manager.load("icon_time",Texture.class);
+
         manager.load("sword_pack.atlas", TextureAtlas.class);
         manager.load("bow_pack.atlas", TextureAtlas.class);
 
@@ -176,6 +186,14 @@ public class Assets implements Disposable, AssetErrorListener {
         trap = new TextureRegion((Texture)manager.get("trap.png"));
         beam = new TextureRegion((Texture)manager.get("beam.png"));
         box = new TextureRegion((Texture)manager.get("box.png"));
+
+        iconBow = manager.get("");
+        iconSword = manager.get("");
+        iconSword = manager.get("");
+        iconSword = manager.get("");
+        iconSword = manager.get("");
+        iconSword = manager.get("");
+        iconBattery = manager.get("");
 
         sword = manager.get("sword_pack.atlas");
         bow = manager.get("bow_pack.atlas");
