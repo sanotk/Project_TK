@@ -126,7 +126,9 @@ public class GameScreen extends AbstractGameScreen {
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         bg = new Texture("bg.png");
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("thai24.fnt"));
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font.setColor(0.4f,0,0,1);
 
         this.optionsWindow = optionsWindow;
 
