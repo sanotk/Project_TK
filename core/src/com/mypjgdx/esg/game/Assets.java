@@ -25,6 +25,15 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion beam;
     public TextureRegion trap;
     public TextureRegion enemyBall;
+
+    public TextureRegion iconBow;
+    public TextureRegion iconSword;
+    public TextureRegion iconTrap;
+    public TextureRegion iconEnergyPlus;
+    public TextureRegion IconEnergyMinus;
+    public TextureRegion iconBattery;
+    public TextureRegion iconTime;
+
     public TextureAtlas sword;
     public TextureAtlas bow;
     public TextureRegion link;
