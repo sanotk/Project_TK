@@ -605,28 +605,48 @@ public class GameScreen2 extends AbstractGameScreen {
 
         if (worldController.level.citizens.get(0).itemOn) {
             worldController.level.items.get(3).state = Item.ItemState.ONLOOP;
-            EnergyProducedBar.instance.energyProduced -= worldController.level.items.get(3).getEnergyBurn() * deltaTime;
+            if(!worldController.level.items.get(3).count) {
+                EnergyUsedBar.instance.energyUse += worldController.level.items.get(3).getEnergyBurn();
+                worldController.level.items.get(3).count = true;
+            }
         }
         if (worldController.level.citizens.get(1).itemOn) {
             worldController.level.items.get(2).state = Item.ItemState.ONLOOP;
-            EnergyProducedBar.instance.energyProduced -= worldController.level.items.get(2).getEnergyBurn() * deltaTime;
+            if(!worldController.level.items.get(2).count) {
+                EnergyUsedBar.instance.energyUse += worldController.level.items.get(2).getEnergyBurn();
+                worldController.level.items.get(2).count = true;
+            }
         }
         if (worldController.level.citizens.get(2).itemOn) {
             worldController.level.items.get(5).state = Item.ItemState.ONLOOP;
-            EnergyProducedBar.instance.energyProduced -= worldController.level.items.get(5).getEnergyBurn() * deltaTime;
+            if(!worldController.level.items.get(5).count) {
+                EnergyUsedBar.instance.energyUse += worldController.level.items.get(5).getEnergyBurn();
+                worldController.level.items.get(5).count = true;
+            }
         }
         if (worldController.level.citizens.get(3).itemOn) {
             worldController.level.items.get(8).state = Item.ItemState.ONLOOP;
-            EnergyProducedBar.instance.energyProduced -= worldController.level.items.get(8).getEnergyBurn() * deltaTime;
+            if(!worldController.level.items.get(8).count) {
+                EnergyUsedBar.instance.energyUse += worldController.level.items.get(8).getEnergyBurn();
+                worldController.level.items.get(8).count = true;
+            }
         }
         if (worldController.level.citizens.get(4).itemOn) {
             worldController.level.items.get(9).state = Item.ItemState.ONLOOP;
-            EnergyProducedBar.instance.energyProduced -= worldController.level.items.get(9).getEnergyBurn() * deltaTime;
+            if(!worldController.level.items.get(9).count) {
+                EnergyUsedBar.instance.energyUse += worldController.level.items.get(9).getEnergyBurn();
+                worldController.level.items.get(9).count = true;
+            }
         }
         if (worldController.level.citizens.get(5).itemOn) {
             worldController.level.items.get(1).state = Item.ItemState.ONLOOP;
-            EnergyProducedBar.instance.energyProduced -= worldController.level.items.get(1).getEnergyBurn() * deltaTime;
+            if(!worldController.level.items.get(1).count) {
+                EnergyUsedBar.instance.energyUse += worldController.level.items.get(1).getEnergyBurn();
+                worldController.level.items.get(1).count = true;
+            }
         }
+
+        BatteryBar.instance.batteryStorage -= EnergyUsedBar.instance.energyUse * deltaTime;
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
         worldRenderer.render();

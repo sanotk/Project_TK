@@ -17,6 +17,7 @@ public abstract class Item extends AnimatedObject<ItemAnimation> implements Json
     public float p_x;
     public float p_y;
     public float energyBurn;
+    public boolean count;
 
     public enum ItemAnimation {
         ON,
@@ -105,10 +106,12 @@ public abstract class Item extends AnimatedObject<ItemAnimation> implements Json
     @Override
     public void write(Json json) {
         json.writeValue("state", state);
+        json.writeValue("count",count);
     }
 
     @Override
     public void read(Json json, JsonValue jsonData) {
         state = ItemState.valueOf(jsonData.getString("state"));
+        count = jsonData.getBoolean("count");
     }
 }
