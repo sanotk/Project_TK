@@ -12,7 +12,7 @@ public class Level2 extends Level {
     public Level2(LevelGenerator levelGenerator) {
         super(levelGenerator);
 
-        citizens.get(0).setGoalItem(items.get(3));
+        citizens.get(0).setGoalItem(items.get(4));
         citizens.get(1).setGoalItem(items.get(2));
         citizens.get(2).setGoalItem(items.get(5));
         citizens.get(3).setGoalItem(items.get(8));

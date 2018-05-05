@@ -313,10 +313,10 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonSolarStyle);
 
-        buttonLink1 = new TextButton("link to charge controller", buttonStyle);
-        buttonLink2 = new TextButton("link to battery", buttonStyle);
-        buttonLink3 = new TextButton("link to inverter", buttonStyle);
-        buttonLink4 = new TextButton("link to door", buttonStyle);
+        buttonLink1 = new TextButton("เชื่อมต่อไปยังชาร์จคอนโทรลเลอร์", buttonStyle);
+        buttonLink2 = new TextButton("เชื่อมต่อไปยังแบตเตอรี", buttonStyle);
+        buttonLink3 = new TextButton("เชื่อมต่อไปยังอินเวอร์เตอร์", buttonStyle);
+        buttonLink4 = new TextButton("เชื่อมต่อไปยังประตู", buttonStyle);
 
         final Window solarcellWindow = new Window("Choice", style);
         solarcellWindow.setModal(true);
@@ -364,7 +364,7 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonRuleStyle);
 
-        final Window ruleWindow = new Window("Rule", style);
+        final Window ruleWindow = new Window("กติกา", style);
         ruleWindow.setModal(true);
         ruleWindow.padTop(40);
         ruleWindow.padLeft(40);
@@ -398,7 +398,6 @@ public class GameScreen extends AbstractGameScreen {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font =font;
 
-
         int btn_w = 200;
         int btn_h = 50;
 
@@ -412,13 +411,13 @@ public class GameScreen extends AbstractGameScreen {
         textBeam.setColor(1, 1, 1, 1);
         textBeam.setStyle(labelStyle);
         textBeam.setFontScale(1.f, 1.f);
-        textBeam.setPosition(200, SCENE_HEIGHT - 50);
+        textBeam.setPosition(150, SCENE_HEIGHT - 50);
 
         textTrap = new Label("Trap Max : ", skin);
         textTrap.setColor(1, 1, 1, 1);
         textTrap.setStyle(labelStyle);
         textTrap.setFontScale(1f, 1f);
-        textTrap.setPosition(350, SCENE_HEIGHT - 50);
+        textTrap.setPosition(250, SCENE_HEIGHT - 50);
 
         textTime = new Label("Time : ", skin);
         textTime.setColor(1, 1, 1, 1);
@@ -430,19 +429,19 @@ public class GameScreen extends AbstractGameScreen {
         energyLevel.setColor(1, 1, 1, 1);
         energyLevel.setStyle(labelStyle);
         energyLevel.setFontScale(1, 1f);
-        energyLevel.setPosition(450, SCENE_HEIGHT - 50);
+        energyLevel.setPosition(330, SCENE_HEIGHT - 50);
 
         energyLevel2 = new Label("Energy Used: ", skin);
         energyLevel2.setColor(1, 1, 1, 1);
         energyLevel2.setStyle(labelStyle);
         energyLevel2.setFontScale(1, 1f);
-        energyLevel2.setPosition(650, SCENE_HEIGHT - 50);
+        energyLevel2.setPosition(530, SCENE_HEIGHT - 50);
 
         energyLevel3 = new Label("Battery : ", skin);
         energyLevel3.setColor(1, 1, 1, 1);
         energyLevel3.setStyle(labelStyle);
         energyLevel3.setFontScale(1, 1f);
-        energyLevel3.setPosition(800, SCENE_HEIGHT - 50);
+        energyLevel3.setPosition(720, SCENE_HEIGHT - 50);
 
         stage.addActor(textBullet);
         stage.addActor(textBeam);
@@ -483,18 +482,18 @@ public class GameScreen extends AbstractGameScreen {
 
     private void checkButton(final systemWindow solarWindow) {
         if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
-            buttonLink1.setText("Link to Charge Controller");
+            buttonLink1.setText("เชื่อมต่อไปยังชาร์จคอนโทรลเลอร์");
             buttonLink1.setStyle(buttonStyle);
         } else if ((solarWindow == systemWindow.solarcell) && (addedStoC)) {
-            buttonLink1.setText("Canceled Link to Charge Controller");
+            buttonLink1.setText("ยกเลิกการเชื่อมต่อไปยังชาร์จคอนโทรลเลอร์");
             buttonLink1.setStyle(buttonStyle2);
         } else if (((solarWindow == systemWindow.chargecontroller) && (!addedStoC))
                 || ((solarWindow == systemWindow.battery) && (!addedStoB))
                 || ((solarWindow == systemWindow.inverter) && (!addedStoI))) {
-            buttonLink1.setText("Link to Solar Cell");
+            buttonLink1.setText("เชื่อมต่อไปยังโซล่าเซลล์");
             buttonLink1.setStyle(buttonStyle);
         } else {
-            buttonLink1.setText("Canceled Link to Solar Cell");
+            buttonLink1.setText("ยกเลิกการเชื่อมต่อไปยังโซล่าเซลล์");
             buttonLink1.setStyle(buttonStyle2);
         }
         buttonLink1.clearListeners();
@@ -526,16 +525,16 @@ public class GameScreen extends AbstractGameScreen {
         });
 
         if (((solarWindow == systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoB))) {
-            buttonLink2.setText("Link to BatteryBar");
+            buttonLink2.setText("เชื่อมต่อไปยังแบตเตอรี");
             buttonLink2.setStyle(buttonStyle);
         } else if (((solarWindow == systemWindow.solarcell) && (addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoB))) {
-            buttonLink2.setText("Canceled Link to BatteryBar");
+            buttonLink2.setText("ยกเลิกการเชื่อมต่อไปยังแบตเตอรี");
             buttonLink2.setStyle(buttonStyle2);
         } else if (((solarWindow == systemWindow.battery) && (!addedCtoB)) || ((solarWindow == systemWindow.inverter) && (!addedCtoI))) {
-            buttonLink2.setText("Link to Charge Controller");
+            buttonLink2.setText("เชื่อมต่อไปยังชาร์จคอนโทรลเลอร์");
             buttonLink2.setStyle(buttonStyle);
         } else {
-            buttonLink2.setText("Canceled Link to Charge Controller");
+            buttonLink2.setText("ยกเลิกการเชื่อมต่อไปยังชาร์จคอนโทรลเลอร์");
             buttonLink2.setStyle(buttonStyle2);
         }
         buttonLink2.clearListeners();
@@ -565,17 +564,17 @@ public class GameScreen extends AbstractGameScreen {
         });
         if (((solarWindow == systemWindow.solarcell) && (!addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoI))
                 || ((solarWindow == systemWindow.battery) && (!addedBtoI))) {
-            buttonLink3.setText("Link to Inverter");
+            buttonLink3.setText("เชื่อมต่อไปยังอินเวอร์เตอร์");
             buttonLink3.setStyle(buttonStyle);
         } else if (((solarWindow == systemWindow.solarcell) && (addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoI))
                 || ((solarWindow == systemWindow.battery) && (addedBtoI))) {
-            buttonLink3.setText("Canceled Link to Inverter");
+            buttonLink3.setText("ยกเลิกการเชื่อมต่อไปยังอินเวอร์เตอร์");
             buttonLink3.setStyle(buttonStyle2);
         } else if ((solarWindow == systemWindow.inverter) && (!addedBtoI)) {
-            buttonLink3.setText("Link to BatteryBar");
+            buttonLink3.setText("เชื่อมต่อไปยังแบตเตอรี่");
             buttonLink3.setStyle(buttonStyle);
         } else {
-            buttonLink3.setText("Canceled Link to BatteryBar");
+            buttonLink3.setText("ยกเลิกการเชื่อมต่อไปยังแบตเตอรี่");
             buttonLink3.setStyle(buttonStyle2);
         }
         buttonLink3.clearListeners();
@@ -607,10 +606,10 @@ public class GameScreen extends AbstractGameScreen {
         });
         if (((solarWindow == systemWindow.solarcell) && (!addedStoD)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoD))
                 || ((solarWindow == systemWindow.battery) && (!addedBtoD)) || ((solarWindow == systemWindow.inverter) && (!addedItoD))) {
-            buttonLink4.setText("Link to Door");
+            buttonLink4.setText("เชื่อมต่อไปยังประตู");
             buttonLink4.setStyle(buttonStyle);
         } else {
-            buttonLink4.setText("Canceled Link to Door");
+            buttonLink4.setText("ยกเลิกการเชื่อมต่อไปยังประตู");
             buttonLink4.setStyle(buttonStyle2);
         }
         buttonLink4.clearListeners();
@@ -761,7 +760,7 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         textBullet.setText(String.format("ลูกธนู : %d", worldController.level.player.arrowCount) + " ดอก");
-        textBeam.setText(String.format("ฟันคลื่น : %d", worldController.level.player.swordWaveCount) + " ครั้ง");
+        textBeam.setText(String.format("คลื่นดาบ : %d", worldController.level.player.swordWaveCount) + " ครั้ง");
         textTrap.setText(String.format("กับดัก : %d", worldController.level.player.trapCount) + " ครั้ง");
         textTime.setText(String.format("เวลาที่เหลือ : %d", worldController.level.player.timeCount) + " วินาที");
         if(animation_status){

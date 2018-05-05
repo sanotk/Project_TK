@@ -101,7 +101,9 @@ public class GameScreen2 extends AbstractGameScreen {
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         bg = new Texture("bg.png");
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("thai24.fnt"));
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font.setColor(0.4f, 0, 0, 1);
 
         this.optionsWindow = optionsWindow;
 
@@ -188,43 +190,50 @@ public class GameScreen2 extends AbstractGameScreen {
         buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
         buttonStyle.font = font;
 
-        int btn_w = 200;
-        int btn_h = 50;
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
 
         textBullet = new Label("Bullet Max : ", skin);
         textBullet.setColor(1, 1, 1, 1);
+        textBullet.setStyle(labelStyle);
         textBullet.setFontScale(1f, 1f);
         textBullet.setPosition(50, SCENE_HEIGHT - 50);
 
         textBeam = new Label("Z-Bullet Max : ", skin);
         textBeam.setColor(1, 1, 1, 1);
+        textBeam.setStyle(labelStyle);
         textBeam.setFontScale(1.f, 1.f);
-        textBeam.setPosition(200, SCENE_HEIGHT - 50);
+        textBeam.setPosition(150, SCENE_HEIGHT - 50);
 
         textTrap = new Label("Trap Max : ", skin);
         textTrap.setColor(1, 1, 1, 1);
+        textTrap.setStyle(labelStyle);
         textTrap.setFontScale(1f, 1f);
-        textTrap.setPosition(350, SCENE_HEIGHT - 50);
+        textTrap.setPosition(250, SCENE_HEIGHT - 50);
 
         textTime = new Label("Time : ", skin);
         textTime.setColor(1, 1, 1, 1);
+        textTime.setStyle(labelStyle);
         textTime.setFontScale(1f, 1f);
         textTime.setPosition(450, SCENE_HEIGHT - 100);
 
-        energyLevel = new Label("Energy : ", skin);
+        energyLevel = new Label("Energy Produced : ", skin);
         energyLevel.setColor(1, 1, 1, 1);
+        energyLevel.setStyle(labelStyle);
         energyLevel.setFontScale(1, 1f);
-        energyLevel.setPosition(450, SCENE_HEIGHT - 50);
+        energyLevel.setPosition(330, SCENE_HEIGHT - 50);
 
-        energyLevel2 = new Label("Product Energy : ", skin);
+        energyLevel2 = new Label("Energy Used: ", skin);
         energyLevel2.setColor(1, 1, 1, 1);
+        energyLevel2.setStyle(labelStyle);
         energyLevel2.setFontScale(1, 1f);
-        energyLevel2.setPosition(650, SCENE_HEIGHT - 50);
+        energyLevel2.setPosition(530, SCENE_HEIGHT - 50);
 
-        energyLevel3 = new Label("BatteryBar : ", skin);
+        energyLevel3 = new Label("Battery : ", skin);
         energyLevel3.setColor(1, 1, 1, 1);
+        energyLevel3.setStyle(labelStyle);
         energyLevel3.setFontScale(1, 1f);
-        energyLevel3.setPosition(800, SCENE_HEIGHT - 50);
+        energyLevel3.setPosition(720, SCENE_HEIGHT - 50);
 
         stage.addActor(textBullet);
         stage.addActor(textBeam);
@@ -373,17 +382,17 @@ public class GameScreen2 extends AbstractGameScreen {
 
     private void checkButton(final systemWindow requestWindow) {
         if (citizenQuest == systemWindow.citizen1) {
-            requestCitizenWindow.getTitleLabel().setText("1 นะจ๊ะ");
+            requestCitizenWindow.getTitleLabel().setText("ต้องเปิดเครื่องปรับอากาศ");
         } else if (citizenQuest == systemWindow.citizen2) {
-            requestCitizenWindow.getTitleLabel().setText("2 นะจ๊ะ");
+            requestCitizenWindow.getTitleLabel().setText("ต้องการอุ่นอาหารโดยใช้ไมโครเวฟ");
         } else if (citizenQuest == systemWindow.citizen3) {
-            requestCitizenWindow.getTitleLabel().setText("3 นะจ๊ะ");
+            requestCitizenWindow.getTitleLabel().setText("ต้องการเล่นเกมคอมพิวเตอร์");
         } else if (citizenQuest == systemWindow.citizen4) {
-            requestCitizenWindow.getTitleLabel().setText("4 นะจ๊ะ");
+            requestCitizenWindow.getTitleLabel().setText("ต้องการเสียบตู้เย็น");
         } else if (citizenQuest == systemWindow.citizen5) {
-            requestCitizenWindow.getTitleLabel().setText("5 นะจ๊ะ");
+            requestCitizenWindow.getTitleLabel().setText("ต้องการหุงข้าวกิน");
         } else {
-            requestCitizenWindow.getTitleLabel().setText("6 นะจ๊ะ");
+            requestCitizenWindow.getTitleLabel().setText("ต้องการเปิดโทรทัศน์ดูหนัง");
         }
         buttonLink1.setText("YES");
         buttonLink1.clearListeners();
@@ -490,15 +499,13 @@ public class GameScreen2 extends AbstractGameScreen {
 
         Player player = worldController.level.player;
 
-        textBullet.setText(String.format("Arrow : %d", worldController.level.player.arrowCount));
-        textBeam.setText(String.format("SwordWave : %d", worldController.level.player.swordWaveCount));
-        textTrap.setText(String.format("Trap : %d", worldController.level.player.trapCount));
-        textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
-        energyLevel.setText(String.format("Energy Produced : %d", (int) EnergyProducedBar.instance.energyProduced));
-        energyLevel2.setText(String.format("Energy Used : %d", (int) EnergyUsedBar.instance.energyUse));
-        energyLevel3.setText(String.format("Battery : %d", (int) BatteryBar.instance.getBatteryStorage()));
-        //
-        // sunleft.setText(String.format("Sun Left"));
+        textBullet.setText(String.format("ลูกธนู : %d", worldController.level.player.arrowCount) + " ดอก");
+        textBeam.setText(String.format("คลื่นดาบ : %d", worldController.level.player.swordWaveCount) + " ครั้ง");
+        textTrap.setText(String.format("กับดัก : %d", worldController.level.player.trapCount) + " ครั้ง");
+        textTime.setText(String.format("เวลาที่เหลือ : %d", worldController.level.player.timeCount) + " วินาที");
+        energyLevel.setText(String.format("พลังงานที่ผลิตต่อวินาที : %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
+        energyLevel2.setText(String.format("พลังงานที่ใช้ต่อวินาที : %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
+        energyLevel3.setText(String.format("พลังงานภายในแบตเตอรี : %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));
@@ -520,7 +527,7 @@ public class GameScreen2 extends AbstractGameScreen {
             return;
         }
 
-        if (player.isSwitch && EnergyProducedBar.instance.energyProduced <= 0) {
+        if (player.isSwitch && BatteryBar.instance.getBatteryStorage() <= 0) {
             game.setScreen(new GameOverScreen(game));
         }
 
@@ -602,42 +609,42 @@ public class GameScreen2 extends AbstractGameScreen {
 
         if (worldController.level.citizens.get(0).itemOn) {
             worldController.level.items.get(3).state = Item.ItemState.ONLOOP;
-            if(!worldController.level.items.get(3).count) {
+            if (!worldController.level.items.get(3).count) {
                 EnergyUsedBar.instance.energyUse += worldController.level.items.get(3).getEnergyBurn();
                 worldController.level.items.get(3).count = true;
             }
         }
         if (worldController.level.citizens.get(1).itemOn) {
             worldController.level.items.get(2).state = Item.ItemState.ONLOOP;
-            if(!worldController.level.items.get(2).count) {
+            if (!worldController.level.items.get(2).count) {
                 EnergyUsedBar.instance.energyUse += worldController.level.items.get(2).getEnergyBurn();
                 worldController.level.items.get(2).count = true;
             }
         }
         if (worldController.level.citizens.get(2).itemOn) {
             worldController.level.items.get(5).state = Item.ItemState.ONLOOP;
-            if(!worldController.level.items.get(5).count) {
+            if (!worldController.level.items.get(5).count) {
                 EnergyUsedBar.instance.energyUse += worldController.level.items.get(5).getEnergyBurn();
                 worldController.level.items.get(5).count = true;
             }
         }
         if (worldController.level.citizens.get(3).itemOn) {
             worldController.level.items.get(8).state = Item.ItemState.ONLOOP;
-            if(!worldController.level.items.get(8).count) {
+            if (!worldController.level.items.get(8).count) {
                 EnergyUsedBar.instance.energyUse += worldController.level.items.get(8).getEnergyBurn();
                 worldController.level.items.get(8).count = true;
             }
         }
         if (worldController.level.citizens.get(4).itemOn) {
             worldController.level.items.get(9).state = Item.ItemState.ONLOOP;
-            if(!worldController.level.items.get(9).count) {
+            if (!worldController.level.items.get(9).count) {
                 EnergyUsedBar.instance.energyUse += worldController.level.items.get(9).getEnergyBurn();
                 worldController.level.items.get(9).count = true;
             }
         }
         if (worldController.level.citizens.get(5).itemOn) {
             worldController.level.items.get(1).state = Item.ItemState.ONLOOP;
-            if(!worldController.level.items.get(1).count) {
+            if (!worldController.level.items.get(1).count) {
                 EnergyUsedBar.instance.energyUse += worldController.level.items.get(1).getEnergyBurn();
                 worldController.level.items.get(1).count = true;
             }
