@@ -442,7 +442,7 @@ public class GameScreen extends AbstractGameScreen {
         Button iconBowButton = new Button(buttonBowStyle);
         iconBowButton.setPosition(50, SCENE_HEIGHT - 50);
 
-        textBullet = new Label("ลูกธนู : ", skin);
+        textBullet = new Label("", skin);
         textBullet.setColor(1, 1, 1, 1);
         textBullet.setStyle(labelStyle);
         textBullet.setFontScale(1f, 1f);
@@ -455,7 +455,7 @@ public class GameScreen extends AbstractGameScreen {
         Button iconSwordButton = new Button(buttonSwordStyle);
         iconSwordButton.setPosition(150, SCENE_HEIGHT - 50);
 
-        textBeam = new Label("คลื่นดาบ : ", skin);
+        textBeam = new Label("", skin);
         textBeam.setColor(1, 1, 1, 1);
         textBeam.setStyle(labelStyle);
         textBeam.setFontScale(1.f, 1.f);
@@ -468,7 +468,7 @@ public class GameScreen extends AbstractGameScreen {
         Button iconTrapButton = new Button(buttonTrapStyle);
         iconTrapButton.setPosition(250, SCENE_HEIGHT - 50);
 
-        textTrap = new Label("กับดัก : ", skin);
+        textTrap = new Label("", skin);
         textTrap.setColor(1, 1, 1, 1);
         textTrap.setStyle(labelStyle);
         textTrap.setFontScale(1f, 1f);
@@ -481,7 +481,7 @@ public class GameScreen extends AbstractGameScreen {
         Button iconTimeButton = new Button(buttonTimeStyle);
         iconTimeButton.setPosition(450, SCENE_HEIGHT - 100);
 
-        textTime = new Label("เวลาที่เหลือ : ", skin);
+        textTime = new Label("", skin);
         textTime.setColor(1, 1, 1, 1);
         textTime.setStyle(labelStyle);
         textTime.setFontScale(1f, 1f);
@@ -494,7 +494,7 @@ public class GameScreen extends AbstractGameScreen {
         Button iconEnergyPlusButton = new Button(buttonEnergyPlusStyle);
         iconEnergyPlusButton.setPosition(330, SCENE_HEIGHT - 50);
 
-        energyLevel = new Label("พลังงานที่ผลิตต่อวินาที : ", skin);
+        energyLevel = new Label("", skin);
         energyLevel.setColor(1, 1, 1, 1);
         energyLevel.setStyle(labelStyle);
         energyLevel.setFontScale(1, 1f);
@@ -507,7 +507,7 @@ public class GameScreen extends AbstractGameScreen {
         Button iconEnergyMinusButton = new Button(buttonEnergyMinusStyle);
         iconEnergyMinusButton.setPosition(530, SCENE_HEIGHT - 50);
 
-        energyLevel2 = new Label("พลังงานที่ใช้่อวินาที: ", skin);
+        energyLevel2 = new Label("", skin);
         energyLevel2.setColor(1, 1, 1, 1);
         energyLevel2.setStyle(labelStyle);
         energyLevel2.setFontScale(1, 1f);
@@ -520,7 +520,7 @@ public class GameScreen extends AbstractGameScreen {
         Button iconBatteryButton = new Button(buttonBatteryStyle);
         iconBatteryButton.setPosition(720, SCENE_HEIGHT - 50);
 
-        energyLevel3 = new Label("พลังงานภายในแบตเตอรี่ : ", skin);
+        energyLevel3 = new Label("", skin);
         energyLevel3.setColor(1, 1, 1, 1);
         energyLevel3.setStyle(labelStyle);
         energyLevel3.setFontScale(1, 1f);
@@ -850,19 +850,31 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (!stringDraw) {
-            textBullet.setText(String.format("ลูกธนู : %d", worldController.level.player.arrowCount) + " ดอก");
-            textBeam.setText(String.format("คลื่นดาบ : %d", worldController.level.player.swordWaveCount) + " ครั้ง");
-            textTrap.setText(String.format("กับดัก : %d", worldController.level.player.trapCount) + " ครั้ง");
-            textTime.setText(String.format("เวลาที่เหลือ : %d", worldController.level.player.timeCount) + " วินาที");
-            if (animation_status) {
-                energyLevel.setText(String.format("พลังงานที่ผลิตต่อวินาที : %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
-            } else {
-                energyLevel.setText(String.format("พลังงานที่ผลิตต่อวินาที : %d", 0) + " วัตต์");
-            }
-            energyLevel2.setText(String.format("พลังงานที่ใช้ต่อวินาที : %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
-            energyLevel3.setText(String.format("พลังงานภายในแบตเตอรี : %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
+//        if (stringDraw) {
+//            textBullet.setText(String.format("ลูกธนู : %d", worldController.level.player.arrowCount) + " ดอก");
+//            textBeam.setText(String.format("คลื่นดาบ : %d", worldController.level.player.swordWaveCount) + " ครั้ง");
+//            textTrap.setText(String.format("กับดัก : %d", worldController.level.player.trapCount) + " ครั้ง");
+//            textTime.setText(String.format("เวลาที่เหลือ : %d", worldController.level.player.timeCount) + " วินาที");
+//            if (animation_status) {
+//                energyLevel.setText(String.format("พลังงานที่ผลิตต่อวินาที : %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
+//            } else {
+//                energyLevel.setText(String.format("พลังงานที่ผลิตต่อวินาที : %d", 0) + " วัตต์");
+//            }
+//            energyLevel2.setText(String.format("พลังงานที่ใช้ต่อวินาที : %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
+//            energyLevel3.setText(String.format("พลังงานภายในแบตเตอรี : %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
+//        }else {
+        textBullet.setText(String.format(" %d", worldController.level.player.arrowCount));
+        textBeam.setText(String.format(" %d", worldController.level.player.swordWaveCount));
+        textTrap.setText(String.format(" %d", worldController.level.player.trapCount));
+        textTime.setText(String.format(" %d", worldController.level.player.timeCount));
+        if (animation_status) {
+            energyLevel.setText(String.format("พ %d", (int) EnergyProducedBar.instance.energyProduced));
+        } else {
+            energyLevel.setText(String.format(" %d", 0) );
         }
+        energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse));
+        energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()));
+        //      }
         //
         // sunleft.setText(String.format("Sun Left"));
 
