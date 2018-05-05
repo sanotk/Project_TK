@@ -496,7 +496,7 @@ public class GameScreen2 extends AbstractGameScreen {
         textTime.setText(String.format("Time limit : %d", worldController.level.player.timeCount));
         energyLevel.setText(String.format("Energy Produced : %d", (int) EnergyProducedBar.instance.energyProduced));
         energyLevel2.setText(String.format("Energy Used : %d", (int) EnergyUsedBar.instance.energyUse));
-        energyLevel3.setText(String.format("Battery : %d", (int) BatteryBar.instance.batteryStorage));
+        energyLevel3.setText(String.format("Battery : %d", (int) BatteryBar.instance.getBatteryStorage()));
         //
         // sunleft.setText(String.format("Sun Left"));
 
@@ -540,7 +540,6 @@ public class GameScreen2 extends AbstractGameScreen {
         if ((!player.isSwitch) && (player.status_find) && (player.status_switch)) {
             findItem(Switch.class).state = Item.ItemState.ON;
             findItem(Switch.class).resetAnimation();
-            energyStart += EnergyProducedBar.instance.energyProduced;
             player.isSwitch = true;
             player.status_find = false;
         }
@@ -548,8 +547,7 @@ public class GameScreen2 extends AbstractGameScreen {
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
             Enemy enemy = worldController.level.enemies.get(i);
             if (enemy.dead && !enemy.count) {
-                EnergyProducedBar.instance.energyProduced += 2;
-                energyStart += 2;
+                BatteryBar.instance.addEnergy(1000);
                 enemy.count = true;
             }
         }
@@ -568,8 +566,7 @@ public class GameScreen2 extends AbstractGameScreen {
             player.status_find = false;
         }
 
-        BatteryBar.instance.batteryStorage += EnergyProducedBar.instance.energyProduced * deltaTime;
-        BatteryBar.instance.batteryStorage -= EnergyUsedBar.instance.energyUse * deltaTime;
+        BatteryBar.instance.update(deltaTime);
 
         requestCitizenWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - requestCitizenWindow.getWidth() / 2,
@@ -645,8 +642,6 @@ public class GameScreen2 extends AbstractGameScreen {
                 worldController.level.items.get(1).count = true;
             }
         }
-
-        BatteryBar.instance.batteryStorage -= EnergyUsedBar.instance.energyUse * deltaTime;
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
         worldRenderer.render();

@@ -758,7 +758,7 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         energyLevel2.setText(String.format("Energy Used : %d", (int) EnergyUsedBar.instance.energyUse));
-        energyLevel3.setText(String.format("Battery : %d", (int) BatteryBar.instance.batteryStorage));
+        energyLevel3.setText(String.format("Battery : %d", (int) BatteryBar.instance.getBatteryStorage()));
 
         //
         // sunleft.setText(String.format("Sun Left"));
@@ -842,8 +842,8 @@ public class GameScreen extends AbstractGameScreen {
                     Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                     Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
             chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-        }else if(animation_status && BatteryBar.instance.batteryStorage != BatteryBar.instance.BATTERY_MAX){
-            BatteryBar.instance.batteryStorage += EnergyProducedBar.instance.energyProduced * deltaTime;
+        }else if(animation_status && BatteryBar.instance.getBatteryStorage() < BatteryBar.instance.BATTERY_MAX){
+            BatteryBar.instance.update(deltaTime);
         }
 
         if ((findItem(Door.class).state == Item.ItemState.ON) && (player.status_door == true)) {
@@ -853,7 +853,7 @@ public class GameScreen extends AbstractGameScreen {
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
             Enemy enemy = worldController.level.enemies.get(i);
             if (enemy.dead && !enemy.count) {
-                BatteryBar.instance.batteryStorage += 1000;
+                BatteryBar.instance.addEnergy(1000);
                 enemy.count = true;
             }
         }

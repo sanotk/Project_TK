@@ -8,7 +8,7 @@ public class BatteryBar implements Json.Serializable {
     public static final BatteryBar instance = new BatteryBar();
     public static final float BATTERY_MAX = 1000000;
 
-    public float batteryStorage;
+    private float batteryStorage;
 
     private BatteryBar() {
     }
@@ -25,5 +25,18 @@ public class BatteryBar implements Json.Serializable {
     @Override
     public void read(Json json, JsonValue jsonData) {
         batteryStorage = jsonData.get("BatteryBar").getFloat("batteryStorage");
+    }
+
+    public void update(float deltatime){
+        batteryStorage += EnergyProducedBar.instance.energyProduced * deltatime;
+        batteryStorage -= EnergyUsedBar.instance.energyUse * deltatime;
+    }
+
+    public float getBatteryStorage(){
+        return batteryStorage;
+    }
+
+    public void addEnergy(float energyProduced) {
+        batteryStorage += energyProduced;
     }
 }
