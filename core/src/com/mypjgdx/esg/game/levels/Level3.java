@@ -13,14 +13,14 @@ public class Level3 extends Level {
         super(levelGenerator);
 
         items.get(1).setEnergyBurn(500);
-        items.get(2).setEnergyBurn(100);
-        items.get(3).setEnergyBurn(100);
-        items.get(4).setEnergyBurn(100);
+        items.get(2).setEnergyBurn(500);
+        items.get(3).setEnergyBurn(500);
+        items.get(4).setEnergyBurn(500);
         items.get(5).setEnergyBurn(500);
-        items.get(6).setEnergyBurn(100);
-        items.get(7).setEnergyBurn(100);
-        items.get(8).setEnergyBurn(100);
-        items.get(9).setEnergyBurn(100);
+        items.get(6).setEnergyBurn(500);
+        items.get(7).setEnergyBurn(500);
+        items.get(8).setEnergyBurn(500);
+        items.get(9).setEnergyBurn(500);
     }
 
     @Override

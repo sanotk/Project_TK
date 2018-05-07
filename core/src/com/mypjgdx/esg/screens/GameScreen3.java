@@ -607,6 +607,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
         if ((!player.isSwitch) && (player.status_find) && (player.status_switch)) {
             findItem(Switch.class).state = Item.ItemState.ON;
+            findItem(Switch.class).count = true;
             findItem(Switch.class).resetAnimation();
             player.isSwitch = true;
             player.status_find = false;
