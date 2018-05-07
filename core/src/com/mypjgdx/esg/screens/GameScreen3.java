@@ -25,9 +25,7 @@ import com.mypjgdx.esg.game.levels.Level3;
 import com.mypjgdx.esg.game.levels.Level3Generator;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.items.Item;
-import com.mypjgdx.esg.game.objects.items.Switch;
-import com.mypjgdx.esg.game.objects.items.Waterpump;
+import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.ui.BatteryBar;
 import com.mypjgdx.esg.ui.EnergyProducedBar;
 import com.mypjgdx.esg.ui.EnergyUsedBar;
@@ -652,6 +650,34 @@ public class GameScreen3 extends AbstractGameScreen {
         if ((player.status_find) && (player.status_pump)) {
             findItem(Waterpump.class).state = Item.ItemState.OFF;
             EnergyUsedBar.instance.energyUse -= findItem(Waterpump.class).getEnergyBurn();
+            player.status_find = false;
+        }else if((player.status_find) && (player.status_cooker)) {
+            findItem(Ricecooker.class).state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= findItem(Ricecooker.class).getEnergyBurn();
+            player.status_find = false;
+        }else if((player.status_find) && (player.status_tv)) {
+            findItem(Television.class).state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= findItem(Television.class).getEnergyBurn();
+            player.status_find = false;
+        }else if((player.status_find) && (player.status_com)) {
+            findItem(Computer.class).state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= findItem(Computer.class).getEnergyBurn();
+            player.status_find = false;
+        }else if((player.status_find) && (player.status_air)) {
+            findItem(Airconditioner.class).state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= findItem(Airconditioner.class).getEnergyBurn();
+            player.status_find = false;
+        }else if((player.status_find) && (player.status_fan)) {
+            findItem(Fan.class).state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= findItem(Fan.class).getEnergyBurn();
+            player.status_find = false;
+        }else if((player.status_find) && (player.status_refrigerator)) {
+            findItem(Refrigerator.class).state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= findItem(Refrigerator.class).getEnergyBurn();
+            player.status_find = false;
+        }else if((player.status_find) && (player.status_microwave)) {
+            findItem(Microwave.class).state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= findItem(Microwave.class).getEnergyBurn();
             player.status_find = false;
         }
 
