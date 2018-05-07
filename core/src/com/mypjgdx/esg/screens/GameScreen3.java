@@ -668,8 +668,12 @@ public class GameScreen3 extends AbstractGameScreen {
             EnergyUsedBar.instance.energyUse -= findItem(Airconditioner.class).getEnergyBurn();
             player.status_find = false;
         }else if((player.status_find) && (player.status_fan)) {
-            findItem(Fan.class).state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= findItem(Fan.class).getEnergyBurn();
+            worldController.level.items.get(6).state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= worldController.level.items.get(6).getEnergyBurn();
+            player.status_find = false;
+        }else if((player.status_find) && (player.status_fan2)) {
+            worldController.level.items.get(7).state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -=worldController.level.items.get(7).getEnergyBurn();
             player.status_find = false;
         }else if((player.status_find) && (player.status_refrigerator)) {
             findItem(Refrigerator.class).state = Item.ItemState.OFF;

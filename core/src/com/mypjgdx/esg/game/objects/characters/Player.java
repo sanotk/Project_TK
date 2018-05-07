@@ -109,6 +109,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean status_switch = false;
     public boolean status_cooker = false;
     public boolean status_fan = false;
+    public boolean status_fan2 = false;
     public boolean status_pump = false;
     public boolean status_citizen = false;
 
@@ -121,6 +122,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     protected CollisionCheck tvCheck;
     protected CollisionCheck waterpumpCheck;
     protected CollisionCheck fanCheck;
+    protected CollisionCheck fan2Check;
     protected CollisionCheck cookerCheck;
     protected CollisionCheck airCheck;
     protected CollisionCheck comCheck;
@@ -218,6 +220,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         tvCheck = new TiledCollisionCheck(bounds, mapLayer, "tv");
         waterpumpCheck = new TiledCollisionCheck(bounds, mapLayer, "pump");
         fanCheck = new TiledCollisionCheck(bounds, mapLayer, "fan");
+        fanCheck = new TiledCollisionCheck(bounds, mapLayer, "fan2");
         cookerCheck = new TiledCollisionCheck(bounds, mapLayer, "cooker");
         airCheck = new TiledCollisionCheck(bounds, mapLayer, "air");
         comCheck = new TiledCollisionCheck(bounds, mapLayer, "com");
