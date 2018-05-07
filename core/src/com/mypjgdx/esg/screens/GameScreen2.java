@@ -569,7 +569,7 @@ public class GameScreen2 extends AbstractGameScreen {
             energyLevel.setText(String.format(" %d", 0) + " วัตต์");
         }
         energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse)+ " วัตต์");
-        energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()));
+        energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage())+ " จูล");
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));
