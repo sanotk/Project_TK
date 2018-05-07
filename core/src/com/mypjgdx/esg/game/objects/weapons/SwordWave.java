@@ -30,14 +30,10 @@ public class SwordWave extends Weapon {
 
         switch (direction) {
             case LEFT:
-                setPosition(
-                        player.getPositionX() + player.origin.x - dimension.x,
-                        player.getPositionY() + player.origin.y - 4);
-                break;
             case RIGHT:
                 setPosition(
-                        player.getPositionX() + player.origin.x,
-                        player.getPositionY() + player.origin.y - 4);
+                        player.getPositionX() ,
+                        player.getPositionY() );
                 break;
             case DOWN:
                 setPosition(
