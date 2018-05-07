@@ -63,6 +63,9 @@ public class GameScreen extends AbstractGameScreen {
     private Label text1;
     private Label text2;
     private Label text3;
+    private Label text4;
+    private Label text5;
+    private Label text6;
 
     public enum systemWindow {
         solarcell,
@@ -115,6 +118,8 @@ public class GameScreen extends AbstractGameScreen {
     private float startHeight;
     private float goalWidth;
     private float goalHeight;
+
+    private int countEnemy;
 
     public int enemyDeadCount = 0;
 
@@ -236,11 +241,17 @@ public class GameScreen extends AbstractGameScreen {
         String textString = ("เวลาที่ใช้ : " + String.valueOf((1) + " วินาที"));
         text1 = new Label("สถิติ", skin);
         text2 = new Label(textString, skin);
-        text3 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
+        text3 = new Label(textString, skin);
+        text4 = new Label(textString, skin);
+        text5 = new Label(textString, skin);
+        text6 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
         text3.setStyle(labelStyle);
+        text4.setStyle(labelStyle);
+        text5.setStyle(labelStyle);
+        text6.setStyle(labelStyle);
 
         final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
         chartWindow.setModal(true);
@@ -256,6 +267,12 @@ public class GameScreen extends AbstractGameScreen {
         chartWindow.add(text2);
         chartWindow.row().padTop(10);
         chartWindow.add(text3);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text4);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text5);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text6);
         chartWindow.row().padTop(10);
         chartWindow.add(closeButton).colspan(3);
         chartWindow.pack();
@@ -873,7 +890,7 @@ public class GameScreen extends AbstractGameScreen {
             energyLevel.setText(String.format(" %d", 0) + " วัตต์");
         }
         energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse)+ " วัตต์");
-        energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()));
+        energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage())+" จูล");
         //      }
         //
         // sunleft.setText(String.format("Sun Left"));
@@ -953,16 +970,24 @@ public class GameScreen extends AbstractGameScreen {
             findItem(Door.class).state = Item.ItemState.ON;
             findItem(Door.class).resetAnimation();
             animation_status = true;
-            player.timeStop = true;
-            String textString = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
-            text2.setText(textString);
+            player.timeClear = true;
+            String textString5 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
+            String textString4 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
+            String textString3 = ("อัตราการผลิตพลังงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์ต่อวินาที"));
+            String textString2 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์ต่อวินาที");
+            String textString = ("พลังงานที่ได้รับจากมอนสเตอร์ : " + String.valueOf((BatteryBar.instance.getBatteryStorage()) + " จูล"));
+            text2.setText(textString5);
+            text3.setText(textString4);
+            text4.setText(textString3);
+            text5.setText(textString2);
+            text6.setText(textString);
             chartWindow.setPosition(
                     Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                     Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
             chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
         } else if (animation_status && BatteryBar.instance.getBatteryStorage() < BatteryBar.instance.BATTERY_MAX) {
             BatteryBar.instance.update(deltaTime);
-            player.timeStop = true;
+            player.timeClear = true;
         }
 
         if ((findItem(Door.class).state == Item.ItemState.ON) && (player.status_door == true)) {
@@ -974,6 +999,7 @@ public class GameScreen extends AbstractGameScreen {
             if (enemy.dead && !enemy.count) {
                 BatteryBar.instance.addEnergy(1000);
                 enemy.count = true;
+                countEnemy +=1;
             }
         }
 

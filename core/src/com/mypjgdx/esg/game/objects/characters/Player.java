@@ -149,6 +149,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean quest6 = false;
 
     public boolean timeStop = true;
+    public boolean timeClear;
 
     public boolean swordHit = true;
 
@@ -291,10 +292,11 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         }
 
         Countdown += deltaTime;
-        if ((!timeStop) && (Countdown >= 1)) {
+        if ((!timeStop) && (Countdown >= 1) && !timeClear) {
             timeCount--;
             Countdown = 0;
         }
+
         checkCollide();
     }
 
