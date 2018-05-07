@@ -641,10 +641,6 @@ public class GameScreen3 extends AbstractGameScreen {
 
         BatteryBar.instance.update(deltaTime);
 
-        requestCitizenWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - requestCitizenWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - requestCitizenWindow.getHeight() / 2);
-
         if (player.stageoneclear && player.status_find && player.status_pump) {
 
         }
