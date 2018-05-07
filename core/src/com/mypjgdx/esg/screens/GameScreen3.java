@@ -711,6 +711,7 @@ public class GameScreen3 extends AbstractGameScreen {
     public void hide() {
         worldRenderer.dispose();
         font.dispose();
+
     }
 
     @Override
