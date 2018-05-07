@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
@@ -18,7 +17,6 @@ import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.utils.Direction;
-import com.mypjgdx.esg.utils.Distance;
 import com.mypjgdx.esg.utils.GameMap;
 import com.mypjgdx.esg.utils.Node;
 
@@ -28,6 +26,9 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     private static final float FRAME_DURATION = 1.0f / 8.0f;
 
     private static final float INITIAL_FRICTION = 600f;
+
+    private static final float INITIAL_POSITION_X = 100;
+    private static final float INITIAL_POSITION_Y = 1000;
 
     protected Player player;
 
@@ -54,7 +55,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     public CitizenType type;
     private Direction viewDirection;
 
-    private boolean knockback;
     private TiledMapTileLayer mapLayer;
 
     abstract void TellMeByType();
@@ -78,6 +78,10 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
     protected Item goalItem;
     public boolean itemOn;
+    public boolean toGoal;
+
+    protected float positionGoalX;
+    protected float positionGoalY;
 
     public Citizen(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer) {
         super(atlas);
@@ -105,8 +109,9 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         viewDirection = Direction.DOWN;
 
         TellMeByType();
-        randomPosition(mapLayer);
-        stateMachine.setInitialState(CitizenState.WANDER);
+        setPosition(INITIAL_POSITION_X,INITIAL_POSITION_Y);
+        //randomPosition(mapLayer);
+        stateMachine.setInitialState(CitizenState.RUN_TO_GOAL);
     }
 
     @Override
@@ -175,7 +180,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         // color = Color.RED;
     }
 
-    private void findPath() {
+    private void findPathItem() {
         final float startX = bounds.x + bounds.width / 2;
         final float startY = bounds.y;
 
@@ -198,13 +203,33 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         path = pathOutput;
     }
 
+    private void findPathGoal() {
+        final float startX = bounds.x + bounds.width / 2;
+        final float startY = bounds.y;
+
+        GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
+        Heuristic<Node> heuristic = new Heuristic<Node>() {
+            @Override
+            public float estimate(Node node, Node endNode) {
+                return 1;
+            }
+        };
+
+        gameMap.updateNeighbors(); //TODO
+        startNode = gameMap.getNode(startX, startY);
+        endNode = gameMap.getNode(positionGoalX, positionGoalY);
+
+        pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
+        path = pathOutput;
+    }
+
     private boolean near(float value1, float value2) {
         return Math.abs(value1 - value2) < 1f;
     }
 
     public void runToItem() {
         if (path == null) {
-            findPath();
+            findPathItem();
             running = true;
         }
         if (running) {
@@ -236,11 +261,53 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
             }
 
         } else {
-            findPath();
+            findPathItem();
             running = true;
         }
         if (path.getCount() <= 1) {
             itemOn = true;
+        }
+    }
+
+    public void runToGoal() {
+        if (path == null) {
+            findPathGoal();
+            running = true;
+        }
+        if (running) {
+            if (path.getCount() > 1) {
+                Node node = path.get(1);
+                walkingNode = node;
+
+                float xdiff = node.getCenterPositionX() - bounds.x - bounds.width / 2;
+                float ydiff = node.getCenterPositionY() - bounds.y;
+
+                final float minMovingDistance = 1f;
+
+                if (ydiff > minMovingDistance) {
+                    move(Direction.UP);
+                } else if (ydiff < -minMovingDistance) {
+                    move(Direction.DOWN);
+                }
+
+                if (xdiff > minMovingDistance) {
+                    move(Direction.RIGHT);
+                } else if (xdiff < -minMovingDistance) {
+                    move(Direction.LEFT);
+                }
+
+                if (near(path.get(1).getCenterPositionX(), bounds.x + bounds.width / 2)
+                        && near(path.get(1).getCenterPositionY(), bounds.y) ) {
+                    running = false;
+                }
+            }
+
+        } else {
+            findPathGoal();
+            running = true;
+        }
+        if (path.getCount() <= 1) {
+            toGoal = true;
         }
     }
 
@@ -257,24 +324,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
                 }
             }
         }
-    }
-
-    private void randomPosition(TiledMapTileLayer mapLayer) {
-        updateBounds();
-
-        float mapWidth = mapLayer.getTileWidth() * mapLayer.getWidth();
-        float mapHeight = mapLayer.getTileHeight() * mapLayer.getHeight();
-
-        final float MIN_DISTANCE = 200;
-        do {
-            setPosition(
-                    MathUtils.random(MIN_DISTANCE, mapWidth - bounds.width),
-                    MathUtils.random(MIN_DISTANCE, mapHeight - bounds.height));
-        } while ((Distance.absoluteXY(this, player) < MIN_DISTANCE)
-                || collisionCheck.isCollidesTop()
-                || collisionCheck.isCollidesBottom()
-                || collisionCheck.isCollidesRight()
-                || collisionCheck.isCollidesLeft());
     }
 
     public Direction getViewDirection() {

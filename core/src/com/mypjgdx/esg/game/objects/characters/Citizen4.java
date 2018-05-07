@@ -5,14 +5,17 @@ import com.mypjgdx.esg.game.Assets;
 
 public class Citizen4 extends Citizen {
 
-	public static final int MAX_SPEED = 60;
+	public static final int MAX_SPEED = 100;
 	public static final float SCALE = 0.5f;
+    public static final float INITIAL_GOAL_X = 550;
+    public static final float INITIAL_GOAL_Y = 350;
 
     public Citizen4(TiledMapTileLayer mapLayer, Player player) {
         super(Assets.instance.citizenAltas, SCALE, SCALE, mapLayer);
 
         this.player = player;
         this.movingSpeed = MAX_SPEED;
+        setGoalPosition(INITIAL_GOAL_X,INITIAL_GOAL_Y);
         init(mapLayer);
     }
 
@@ -26,5 +29,8 @@ public class Citizen4 extends Citizen {
 	public void TellMeByType() {
 		type = CitizenType.CITIZEN_4;
 	}
-
+    public void setGoalPosition(float x,float y){
+        positionGoalX = x;
+        positionGoalY = y;
+    }
 }
