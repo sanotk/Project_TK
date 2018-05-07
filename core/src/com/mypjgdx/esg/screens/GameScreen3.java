@@ -595,12 +595,14 @@ public class GameScreen3 extends AbstractGameScreen {
             game.setScreen(new GameOverScreen(game));
         }
 
-        boolean noItem = !player.questScreen1
-                && !player.questScreen2
-                && !player.questScreen3
-                && !player.questScreen4
-                && !player.questScreen5
-                && !player.questScreen6
+        boolean noItem = !player.status_tv
+                && !player.status_com
+                && !player.status_microwave
+                && !player.status_air
+                && !player.status_refrigerator
+                && !player.status_cooker
+                && !player.status_fan
+                && !player.status_pump
                 && !player.status_switch;
 
         if (player.status_find && noItem) {
@@ -643,75 +645,8 @@ public class GameScreen3 extends AbstractGameScreen {
                 Gdx.graphics.getWidth() / 2 - requestCitizenWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - requestCitizenWindow.getHeight() / 2);
 
-        if (player.stageoneclear && player.status_find && player.questScreen1 && !player.quest_window_1) {
-            citizenQuest = systemWindow.citizen1;
-            checkButton(citizenQuest);
-            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageoneclear && player.status_find && player.questScreen2 && !player.quest_window_2) {
-            citizenQuest = systemWindow.citizen2;
-            checkButton(citizenQuest);
-            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageoneclear && player.status_find && player.questScreen3 && !player.quest_window_3) {
-            citizenQuest = systemWindow.citizen3;
-            checkButton(citizenQuest);
-            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageoneclear && player.status_find && player.questScreen4 && !player.quest_window_4) {
-            citizenQuest = systemWindow.citizen4;
-            checkButton(citizenQuest);
-            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageoneclear && player.status_find && player.questScreen5 && !player.quest_window_5) {
-            citizenQuest = systemWindow.citizen5;
-            checkButton(citizenQuest);
-            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageoneclear && player.status_find && player.questScreen6 && !player.quest_window_6) {
-            citizenQuest = systemWindow.citizen6;
-            checkButton(citizenQuest);
-            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else {
-            requestCitizenWindow.setVisible(false);
-        }
+        if (player.stageoneclear && player.status_find && player.status_pump) {
 
-        if (worldController.level.citizens.get(0).itemOn) {
-            worldController.level.items.get(3).state = Item.ItemState.ONLOOP;
-            if (!worldController.level.items.get(3).count) {
-                EnergyUsedBar.instance.energyUse += worldController.level.items.get(3).getEnergyBurn();
-                worldController.level.items.get(3).count = true;
-            }
-        }
-        if (worldController.level.citizens.get(1).itemOn) {
-            worldController.level.items.get(2).state = Item.ItemState.ONLOOP;
-            if (!worldController.level.items.get(2).count) {
-                EnergyUsedBar.instance.energyUse += worldController.level.items.get(2).getEnergyBurn();
-                worldController.level.items.get(2).count = true;
-            }
-        }
-        if (worldController.level.citizens.get(2).itemOn) {
-            worldController.level.items.get(5).state = Item.ItemState.ONLOOP;
-            if (!worldController.level.items.get(5).count) {
-                EnergyUsedBar.instance.energyUse += worldController.level.items.get(5).getEnergyBurn();
-                worldController.level.items.get(5).count = true;
-            }
-        }
-        if (worldController.level.citizens.get(3).itemOn) {
-            worldController.level.items.get(8).state = Item.ItemState.ONLOOP;
-            if (!worldController.level.items.get(8).count) {
-                EnergyUsedBar.instance.energyUse += worldController.level.items.get(8).getEnergyBurn();
-                worldController.level.items.get(8).count = true;
-            }
-        }
-        if (worldController.level.citizens.get(4).itemOn) {
-            worldController.level.items.get(9).state = Item.ItemState.ONLOOP;
-            if (!worldController.level.items.get(9).count) {
-                EnergyUsedBar.instance.energyUse += worldController.level.items.get(9).getEnergyBurn();
-                worldController.level.items.get(9).count = true;
-            }
-        }
-        if (worldController.level.citizens.get(5).itemOn) {
-            worldController.level.items.get(1).state = Item.ItemState.ONLOOP;
-            if (!worldController.level.items.get(1).count) {
-                EnergyUsedBar.instance.energyUse += worldController.level.items.get(1).getEnergyBurn();
-                worldController.level.items.get(1).count = true;
-            }
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
