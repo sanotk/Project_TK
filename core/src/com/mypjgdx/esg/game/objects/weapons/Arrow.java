@@ -41,11 +41,16 @@ public class Arrow extends Weapon {
                         player.getPositionY() + player.origin.y - 4);
                 break;
             case DOWN:
+                setPosition(
+                        player.getPositionX() + player.origin.x - origin.x,
+                        player.getPositionY() + player.origin.y - player.bounds.height/2);
+                break;
             case UP:
                 setPosition(
                         player.getPositionX() + player.origin.x - origin.x,
-                        player.getPositionY() + player.origin.y - 4);
+                        player.getPositionY() + player.origin.y + player.bounds.height/2);
                 break;
+
         }
 
         switch (direction) {

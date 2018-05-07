@@ -35,7 +35,7 @@ public class LevelDebugger {
     public static final int MAP_INVERTER = 13;
     public static final int MAP_CONTROLLER = 14;
     public static final int MAP_BATTERY = 15;
-    public static final int MAP_DOOR = 16;
+    public static final int MAP_FAN2 = 16;
     public static final int MAP_REFRIGERATOR = 17;
     public static final int MAP_TV = 18;
     public static final int MAP_COMPUTER = 19;
@@ -45,7 +45,7 @@ public class LevelDebugger {
     public static final int MAP_RICE_COOKER = 23;
     public static final int MAP_MICROWAVE = 24;
     public static final int MAP_SWITCH = 25;
-    public static final int MAP_FAN2 = 26;
+
 
     public static final int MAP_ALL = 100;
 
@@ -65,7 +65,7 @@ public class LevelDebugger {
         COMPUTER("com", Color.CORAL),
         PUMP("pump", Color.CHARTREUSE),
         FAN("fan", Color.FOREST),
-        FAN2("fan", Color.LIME),
+        FAN2("fan2", Color.BLUE),
         AIR_CONDITIONER("air", Color.NAVY),
         RICE_COOKER("cooker", Color.TEAL),
         MICROWAVE("microwave",Color.valueOf("#ff00bf")),
@@ -174,9 +174,9 @@ public class LevelDebugger {
         if (settings.contains(MAP_BATTERY)) {
             drawMapTileOverlay(TiledDrawingData.BATTERY);
         }
-        if (settings.contains(MAP_DOOR)) {
-            drawMapTileOverlay(TiledDrawingData.DOOR);
-        }
+//        if (settings.contains(MAP_DOOR)) {
+//            drawMapTileOverlay(TiledDrawingData.DOOR);
+//        }
         if (settings.contains(MAP_REFRIGERATOR)) {
             drawMapTileOverlay(TiledDrawingData.REFRIGERATOR);
         }

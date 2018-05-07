@@ -203,6 +203,11 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="32">
+   <properties>
+    <property name="fan2" value=""/>
+   </properties>
+  </tile>
   <tile id="38">
    <properties>
     <property name="fan2" value=""/>
@@ -214,12 +219,12 @@
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJy9k7kOwjAMhtMq4hCIcgjEUTozMHZjBnG/De+PB0cylhMSkjB8cvS3ySfnaJRSzR9YAv0M1MSxACbAICFboGKOPdAiO4KU2fKWcBAcGiiEtaTM5PxbQTgKDvPPHesNuOL4xOZzLkI2cjhCsfWRyuHaw1SOF9Yz1scXRxlATfrgfbkcIXe/YmvyanO0Afzq0Oqz7ycinQN3+O6VVvK742PqcOHTRyyxfcQ4fOfH7FXIeZQ4pm+GZ7F9cL8tS3Gv6HpSluI8fB0rYA50PVl7ZGPMjGMK9DIwI44h0MnAhjhy8wbljCol
+   eJy9k7kOwjAMhtMq4hCIcgjEUTozMHZjBnG/Cu+/4cGRjOWEhCQMnxz9bfLJORqlVPMHlkA/AzVxLIAJMEjIFqiYYw+0yI4gZba8JRwEhwYKYS0pMzn/VhCOgsP8c8d6A644PrH5nIuQjRyOUGx9pHK49jCV44X1jPXxxVEGUJM+eF8uR8jdr9iavNocbQC/OrT67PuJSOfAHb57pZX87viYOlz49BFLbB8xDt/5MXsVch4ljumb4VlsH9xvy1LcK7qelKU4D1/HCpgDXU/WHtkYM+OYAr0MzIhjCHQysCGO3LwBvxwqHw==
   </data>
  </layer>
  <layer name="item" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFlIAoJIxNDFk8DgnnkGBHNBLGJhaDJB6LhPMJmBtOghvQASGzYSCCTPPzkDAhEESmHYlImBAIJtOOAiTsS6YZ+EAIlM6H4jAa2BEKpeOhdqTSwA6YPyKhNC39AQPE+CMNiNOh7AAgTsIiPhTAqD9oA8qgdC4QB+IRQwek+ANW1mYAcSYeMWqAbCBOIEJsFAweAABEOyJJ
+   eJxjYBgFlIAoJIxNDFk8DgnnkGBHNBLGJhaDJB6LhPMJmBtOghvQASGzYSCCTPPzkDAhEESmHYlImBAIJsN8UBiVoGFqgxAku0A4jAZ2hELpeKgdqTSwA+aPSChNS3/AADH+SAPidCg7AIiTsIgPBTDqD9qAMiidC8SBeMTQASn+gJW1GUCciUeMGiAbiBOIEBsFgwcAAE93Ius=
   </data>
  </layer>
  <layer name="map2" width="25" height="25">

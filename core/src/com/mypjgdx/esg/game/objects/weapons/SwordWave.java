@@ -1,6 +1,7 @@
 package com.mypjgdx.esg.game.objects.weapons;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Vector2;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
 import com.mypjgdx.esg.game.objects.characters.Player;
@@ -13,6 +14,10 @@ public class SwordWave extends Weapon {
     private static final float INTITAL_FRICTION = 50f;
     private static final float INTITIAL_SPEED = 400f;
 
+    private Damageable target;
+    private boolean damaged;
+    private Vector2 positionToTarget;
+
     public SwordWave(TiledMapTileLayer mapLayer, Player player) {
         super(Assets.instance.wave, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
         init(mapLayer, player, enemy);
@@ -20,11 +25,32 @@ public class SwordWave extends Weapon {
 
     @Override
     protected void spawn() {
-        setPosition(
-                player.getPositionX(),
-                player.getPositionY());
 
         direction = player.getViewDirection();
+
+        switch (direction) {
+            case LEFT:
+                setPosition(
+                        player.getPositionX() + player.origin.x - dimension.x,
+                        player.getPositionY() + player.origin.y - 4);
+                break;
+            case RIGHT:
+                setPosition(
+                        player.getPositionX() + player.origin.x,
+                        player.getPositionY() + player.origin.y - 4);
+                break;
+            case DOWN:
+                setPosition(
+                        player.getPositionX() + player.origin.x - origin.x,
+                        player.getPositionY() + player.origin.y - player.bounds.height/2);
+                break;
+            case UP:
+                setPosition(
+                        player.getPositionX() + player.origin.x - origin.x,
+                        player.getPositionY() + player.origin.y + player.bounds.height/2);
+                break;
+
+        }
 
         switch (direction) {
             case DOWN:
@@ -45,6 +71,34 @@ public class SwordWave extends Weapon {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        if(target != null){
+            float x = target.getPosition().x + positionToTarget.x;
+            float y = target.getPosition().y + positionToTarget.y;
+            switch (direction) {
+                case LEFT:
+                    x -= 20;
+                    break;
+                case RIGHT:
+                    x += 20;
+                    break;
+                case DOWN:
+                    y -= 20;
+                    break;
+                case UP:
+                    y += 20;
+                    break;
+            }
+            setPosition(x, y);
+        }
+
+
+
+
     }
 
     @Override
@@ -76,6 +130,24 @@ public class SwordWave extends Weapon {
     @Override
     protected void responseCollisionY(float oldPositionY) {
         destroy();
+    }
+
+    @Override
+    public void setPosition(float x, float y) {
+        position.set(x, y);
+
+        switch (direction) {
+            case LEFT:
+            case RIGHT:
+                bounds.set(position.x, position.y, dimension.x, dimension.y);
+                break;
+            case DOWN:
+            case UP:
+                float newX = position.x + dimension.x / 2 - dimension.y / 2;
+                float newY = position.y - dimension.x / 2 + dimension.y / 2;
+                bounds.set(newX, newY, dimension.y, dimension.x);
+                break;
+        }
     }
 
     @Override
