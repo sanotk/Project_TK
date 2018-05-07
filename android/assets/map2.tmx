@@ -203,23 +203,28 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="38">
+   <properties>
+    <property name="fan2" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="118" name="closet" tilewidth="25" tileheight="50" spacing="2" tilecount="1">
   <image source="closet.png" trans="ffffff" width="25" height="50"/>
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJy9k8sOwiAQRWlDfERjfUTjo3btwmV3rjX1+f+f4yyGZJwMCAIuTiC3LScXaKOUav7AGhhmoCaOFTADRgnZAxVzHIEWORCkzJa3hJPg0EAhrCVlJufPCsJZcJh3HjjegRvOL+x7zlXIJg5HKLYeqRyuPUzZ4wl0OH7rUQZQkx68l8sRcvcrtiYfbY42gF8dWn32fiHSGXCH715pJf93fE4dLnx6xBLbI8bh+33MXoWcR4lz+s/wLLYH99uyFPeKridlKc7D17EBlkDfk61HNsXMOObAIAML4hgDvQzsiCM3b+U9Kf0=
+   eJy9k7kOwjAMhtMq4hCIcgjEUTozMHZjBnG/De+PB0cylhMSkjB8cvS3ySfnaJRSzR9YAv0M1MSxACbAICFboGKOPdAiO4KU2fKWcBAcGiiEtaTM5PxbQTgKDvPPHesNuOL4xOZzLkI2cjhCsfWRyuHaw1SOF9Yz1scXRxlATfrgfbkcIXe/YmvyanO0Afzq0Oqz7ycinQN3+O6VVvK742PqcOHTRyyxfcQ4fOfH7FXIeZQ4pm+GZ7F9cL8tS3Gv6HpSluI8fB0rYA50PVl7ZGPMjGMK9DIwI44h0MnAhjhy8wbljCol
   </data>
  </layer>
  <layer name="item" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJztlMsKgzAQRf3E2tZWax8q+KJaXfn9ncUELhKMSR2wkAOHkbuYm9kYBJ5fuIG6DPMn2Fl0pKAuu0P+AAfD3qvFG+aYditix/0f0MTRsSMHTZwcO0ZQgjPPgb0IdEQ8X9xRCnSoOxKeknco1txRkTV/H8hCk/8D/g4ZJp49GS5kc2zuUP/ahmwXsi14k9mKzLMfvlulIfw=
+   eJxjYBgFlIAoJIxNDFk8DgnnkGBHNBLGJhaDJB6LhPMJmBtOghvQASGzYSCCTPPzkDAhEESmHYlImBAIJtOOAiTsS6YZ+EAIlM6H4jAa2BEKpeOhdqTSwA6YPyKhNC39AQPE+CMNiNOh7AAgTsIiPhTAqD9oA8qgdC4QB+IRQwek+ANW1mYAcSYeMWqAbCBOIEJsFAweAABEOyJJ
   </data>
  </layer>
  <layer name="map2" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFIwHw4ZFjRKIZ0cQI6RkF+AEjA2q4jgLagNEwHgWjYBSMRAAAu0QAGQ==
+   eJxjYBgFIwHw4ZFjRKIZ0cQI6RkFuAEjFjwKaANGw3cUjIJRMBIBAMgEABs=
   </data>
  </layer>
 </map>
