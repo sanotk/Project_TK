@@ -7,6 +7,7 @@ import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.game.objects.weapons.Bow;
 import com.mypjgdx.esg.game.objects.weapons.NormalBow;
+import com.mypjgdx.esg.game.objects.weapons.NormalSword;
 import com.mypjgdx.esg.game.objects.weapons.Sword;
 
 import java.util.ArrayList;
@@ -16,20 +17,20 @@ public class Level3Generator extends LevelGenerator {
 
     @Override
     public Player createPlayer(TiledMapTileLayer mapLayer) {
-        return new Player(mapLayer, 100, 100);
+        return new Player(mapLayer, 100, 1000);
     }
+
     @Override
     public List<Item> createItems(TiledMapTileLayer mapLayer, Player player, Level level) {
         ArrayList<Item> items = new ArrayList<Item>();
         items.add(new Switch(mapLayer, player));
         items.add(new Television(mapLayer, player));
-        items.add(new Waterheater(mapLayer, player));
         items.add(new Microwave(mapLayer, player));
         items.add(new Waterpump(mapLayer, player));
         items.add(new Airconditioner(mapLayer, player));
         items.add(new Computer(mapLayer, player));
         items.add(new Fan(mapLayer, player));
-        items.add(new Fan(mapLayer, player,750,800));
+        items.add(new Fan(mapLayer, player,750,850));
         items.add(new Refrigerator(mapLayer, player));
         items.add(new Ricecooker(mapLayer,player));
         return items;
@@ -37,7 +38,9 @@ public class Level3Generator extends LevelGenerator {
 
     @Override
     public List<Sword> createSwords(TiledMapTileLayer mapLayer, Player player, Level level) {
-        return null;
+        ArrayList<Sword> swords = new ArrayList<Sword>();
+        swords.add(new NormalSword(mapLayer, player));
+        return swords;
     }
 
     @Override
@@ -75,7 +78,7 @@ public class Level3Generator extends LevelGenerator {
 
     @Override
     public TiledMap createTiledMap() {
-        return Assets.instance.map3;
+        return Assets.instance.map2;
     }
 
 }

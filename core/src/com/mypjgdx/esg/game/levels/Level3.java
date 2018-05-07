@@ -11,11 +11,20 @@ public class Level3 extends Level {
 
     public Level3(LevelGenerator levelGenerator) {
         super(levelGenerator);
+
+        items.get(1).setEnergyBurn(500);
+        items.get(2).setEnergyBurn(100);
+        items.get(3).setEnergyBurn(100);
+        items.get(4).setEnergyBurn(100);
+        items.get(5).setEnergyBurn(500);
+        items.get(6).setEnergyBurn(100);
+        items.get(7).setEnergyBurn(100);
+        items.get(8).setEnergyBurn(100);
+        items.get(9).setEnergyBurn(100);
     }
 
     @Override
     public void renderFbo(SpriteBatch batch, OrthographicCamera camera, FrameBuffer lightFbo) {
-
         batch.begin();
         batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
         batch.draw(lightFbo.getColorBufferTexture(),
@@ -30,7 +39,6 @@ public class Level3 extends Level {
                 false, true);
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         batch.end();
-
     }
 
     @Override

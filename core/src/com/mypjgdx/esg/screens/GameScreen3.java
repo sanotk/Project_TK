@@ -21,8 +21,8 @@ import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
-import com.mypjgdx.esg.game.levels.Level2;
-import com.mypjgdx.esg.game.levels.Level2Generator;
+import com.mypjgdx.esg.game.levels.Level3;
+import com.mypjgdx.esg.game.levels.Level3Generator;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
@@ -595,7 +595,7 @@ public class GameScreen3 extends AbstractGameScreen {
             game.setScreen(new GameOverScreen(game));
         }
 
-        boolean noCitizen = !player.questScreen1
+        boolean noItem = !player.questScreen1
                 && !player.questScreen2
                 && !player.questScreen3
                 && !player.questScreen4
@@ -603,7 +603,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 && !player.questScreen6
                 && !player.status_switch;
 
-        if (player.status_find && noCitizen) {
+        if (player.status_find && noItem) {
             player.status_find = false;
             player.status_windows_link = false;
         }
@@ -731,7 +731,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
     @Override
     public void show() {
-        worldController = new WorldController(new Level2(new Level2Generator()));
+        worldController = new WorldController(new Level3(new Level3Generator()));
         worldRenderer = new WorldRenderer(worldController);
         Gdx.input.setInputProcessor(stage);
 

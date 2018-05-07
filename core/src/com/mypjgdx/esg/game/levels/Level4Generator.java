@@ -4,7 +4,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.*;
-import com.mypjgdx.esg.game.objects.items.*;
+import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.items.Switch;
 import com.mypjgdx.esg.game.objects.weapons.Bow;
 import com.mypjgdx.esg.game.objects.weapons.NormalBow;
 import com.mypjgdx.esg.game.objects.weapons.NormalSword;
@@ -17,17 +18,12 @@ public class Level4Generator extends LevelGenerator {
 
     @Override
     public Player createPlayer(TiledMapTileLayer mapLayer) {
-        return new Player(mapLayer, 100, 100);
+        return new Player(mapLayer, 600, 200);
     }
     @Override
     public List<Item> createItems(TiledMapTileLayer mapLayer, Player player, Level level) {
         ArrayList<Item> items = new ArrayList<Item>();
-        items.add(new SolarCell(mapLayer, player));
-        items.add(new Inverter(mapLayer, player));
-        items.add(new Battery(mapLayer, player));
-        items.add(new Charge(mapLayer, player));
-        items.add(new Door(mapLayer,player));
-        level.hasSolarCell = false;
+        items.add(new Switch(mapLayer, player));
         return items;
     }
 
@@ -45,7 +41,14 @@ public class Level4Generator extends LevelGenerator {
 
     @Override
     public List<Citizen> createCitizens(TiledMapTileLayer mapLayer, Player player) {
-        return null;
+        ArrayList<Citizen> citizens = new ArrayList<Citizen>();
+        citizens.add(new Citizen1(mapLayer, player));
+        citizens.add(new Citizen2(mapLayer, player));
+        citizens.add(new Citizen3(mapLayer, player));
+        citizens.add(new Citizen4(mapLayer, player));
+        citizens.add(new Citizen5(mapLayer, player));
+        citizens.add(new Citizen6(mapLayer, player));
+        return citizens;
     }
 
     @Override

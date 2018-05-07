@@ -123,31 +123,103 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="40" name="item_on_map" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
-  <image source="item_on_map.png" trans="ffffff" width="2048" height="64"/>
- </tileset>
- <tileset firstgid="79" name="item" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
-  <image source="item_on_map.png" trans="ffffff" width="2048" height="64"/>
- </tileset>
- <tileset firstgid="118" name="closet" tilewidth="25" tileheight="50" spacing="2" tilecount="1">
-  <image source="closet.png" trans="ffffff" width="25" height="50"/>
- </tileset>
- <tileset firstgid="119" name="blocked" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
-  <image source="map_second_blocked.png" trans="ffffff" width="2048" height="64"/>
+ <tileset firstgid="40" name="blocked" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
+  <image source="map_second_blocked.png" width="2048" height="64"/>
   <tile id="0">
    <properties>
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="4">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="switch" value=""/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="refrigerator" value=""/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="tv" value=""/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="com" value=""/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="cooker" value=""/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="microwave" value=""/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="pump" value=""/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="fan" value=""/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="air" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="79" name="item_on_map" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
+  <image source="item_on_map.png" width="2048" height="64"/>
+  <tile id="15">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="118" name="closet" tilewidth="25" tileheight="50" spacing="2" tilecount="1">
+  <image source="closet.png" trans="ffffff" width="25" height="50"/>
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJzFkusOwiAMRiHxMuN9XvC61+T17RJMam1HGaA/Tli/ZDmUtjPGdD/gAiwI2myIB3KcgT2wRDhSS5nEE9gSxxRYIxyppUziyDh8wIbTCdkk1DE2EYdlHBY5qJv7po4rMEdYIctx9H00CEvqhjjGvhWeOb6TR1luH5r7lZi51jG2jxRHiT48oZRD82+/zyfzudMcOY7WfO80R8xB5yK94XvPuUzbh2YHcudR0zH0VqX7yOUfDu3ep7ADbsih3ftUDsixAmYVuCNHbV5iYjJH
+   eJy9k8sOwiAQRWlDfERjfUTjo3btwmV3rjX1+f+f4yyGZJwMCAIuTiC3LScXaKOUav7AGhhmoCaOFTADRgnZAxVzHIEWORCkzJa3hJPg0EAhrCVlJufPCsJZcJh3HjjegRvOL+x7zlXIJg5HKLYeqRyuPUzZ4wl0OH7rUQZQkx68l8sRcvcrtiYfbY42gF8dWn32fiHSGXCH715pJf93fE4dLnx6xBLbI8bh+33MXoWcR4lz+s/wLLYH99uyFPeKridlKc7D17EBlkDfk61HNsXMOObAIAML4hgDvQzsiCM3b+U9Kf0=
   </data>
  </layer>
  <layer name="item" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFgxHkAnEglF2GR4wSkAHEmUSIgYA9EDtA2ZpAbI0m7kUF9xAC1LCDWv6IQsKkAmLtiEbC6IBcf4QTaTcxAJcdESSYQa4/gqB0PhDHIeEcEuwmBIKR7EhEwuQAeuQPQiAEjR+GxMaWnpHDlVgQCqXjoXQqkhy29ExJuMYTVkI2gIVVJJQOw6WQAhCKxk/FqmoUjAL8AADWbxsY
+   eJztlMsKgzAQRf3E2tZWax8q+KJaXfn9ncUELhKMSR2wkAOHkbuYm9kYBJ5fuIG6DPMn2Fl0pKAuu0P+AAfD3qvFG+aYditix/0f0MTRsSMHTZwcO0ZQgjPPgb0IdEQ8X9xRCnSoOxKeknco1txRkTV/H8hCk/8D/g4ZJp49GS5kc2zuUP/ahmwXsi14k9mKzLMfvlulIfw=
+  </data>
+ </layer>
+ <layer name="map2" width="25" height="25">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFIwHw4ZFjRKIZ0cQI6RkF+AEjA2q4jgLagNEwHgWjYBSMRAAAu0QAGQ==
   </data>
  </layer>
 </map>

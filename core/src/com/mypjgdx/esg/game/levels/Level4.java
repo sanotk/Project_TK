@@ -11,11 +11,11 @@ public class Level4 extends Level {
 
     public Level4(LevelGenerator levelGenerator) {
         super(levelGenerator);
+
     }
 
     @Override
     public void renderFbo(SpriteBatch batch, OrthographicCamera camera, FrameBuffer lightFbo) {
-
         batch.begin();
         batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
         batch.draw(lightFbo.getColorBufferTexture(),
