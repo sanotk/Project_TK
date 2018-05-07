@@ -588,6 +588,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
         if (player.isSwitch && BatteryBar.instance.getBatteryStorage() <= 0) {
             game.setScreen(new GameOverScreen(game));
+            return;
         }
 
         boolean noItem = !player.status_tv
@@ -629,6 +630,7 @@ public class GameScreen3 extends AbstractGameScreen {
         }
         if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
             findItem(Switch.class).state = Item.ItemState.ON;
+            findItem(Switch.class).count = true;
             findItem(Switch.class).resetAnimation();
             //EnergyProducedBar.instance.energyProduced += 100;
             player.isSwitch = true;
@@ -711,7 +713,6 @@ public class GameScreen3 extends AbstractGameScreen {
     public void hide() {
         worldRenderer.dispose();
         font.dispose();
-
     }
 
     @Override

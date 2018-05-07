@@ -388,6 +388,7 @@ public class GameScreen4 extends AbstractGameScreen {
 
         if (player.isSwitch && BatteryBar.instance.getBatteryStorage() <= 0) {
             game.setScreen(new GameOverScreen(game));
+            return;
         }
 
         boolean noCitizen = !player.status_switch;
@@ -461,6 +462,7 @@ public class GameScreen4 extends AbstractGameScreen {
 
     @Override
     public void pause() {
+
     }
 
     private Item findItem(Class clazz) {

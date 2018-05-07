@@ -589,6 +589,7 @@ public class GameScreen2 extends AbstractGameScreen {
 
         if (player.isSwitch && BatteryBar.instance.getBatteryStorage() <= 0) {
             game.setScreen(new GameOverScreen(game));
+            return;
         }
 
         boolean noCitizen = !player.questScreen1
