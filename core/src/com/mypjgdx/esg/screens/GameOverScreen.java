@@ -93,6 +93,7 @@ public class GameOverScreen extends AbstractGameScreen {
 
     @Override
     public void hide() {
+
         dispose();
     }
 
@@ -103,6 +104,7 @@ public class GameOverScreen extends AbstractGameScreen {
     public void dispose() {
         stage.dispose();
         skin.dispose();
+        font.dispose();
     }
 
 }
