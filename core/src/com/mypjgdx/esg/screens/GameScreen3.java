@@ -27,6 +27,7 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.items.Switch;
+import com.mypjgdx.esg.game.objects.items.Waterpump;
 import com.mypjgdx.esg.ui.BatteryBar;
 import com.mypjgdx.esg.ui.EnergyProducedBar;
 import com.mypjgdx.esg.ui.EnergyUsedBar;
@@ -562,14 +563,14 @@ public class GameScreen3 extends AbstractGameScreen {
         textBullet.setText(String.format(" %d", worldController.level.player.arrowCount));
         textBeam.setText(String.format(" %d", worldController.level.player.swordWaveCount));
         textTrap.setText(String.format(" %d", worldController.level.player.trapCount));
-        textTime.setText(String.format(" %d", worldController.level.player.timeCount)+ " วินาที");
+        textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
         if (player.isSwitch) {
-            energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced)+ " วัตต์");
+            energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
         } else {
             energyLevel.setText(String.format(" %d", 0) + " วัตต์");
         }
-        energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse)+ " วัตต์");
-        energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage())+ " จูล");
+        energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
+        energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));
@@ -641,8 +642,17 @@ public class GameScreen3 extends AbstractGameScreen {
 
         BatteryBar.instance.update(deltaTime);
 
-        if (player.stageoneclear && player.status_find && player.status_pump) {
+        for (int i=0; i<worldController.level.items.size(); i++){
+            if (!worldController.level.items.get(i).count && worldController.level.items.get(i).state == Item.ItemState.ONLOOP) {
+                EnergyUsedBar.instance.energyUse += worldController.level.items.get(i).getEnergyBurn();
+                worldController.level.items.get(i).count = true;
+            }
+        }
 
+        if ((player.status_find) && (player.status_pump)) {
+            findItem(Waterpump.class).state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= findItem(Waterpump.class).getEnergyBurn();
+            player.status_find = false;
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
@@ -650,7 +660,6 @@ public class GameScreen3 extends AbstractGameScreen {
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw(); //การทำงาน
-
 
     }
 
