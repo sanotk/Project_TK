@@ -399,8 +399,8 @@ public class GameScreen4 extends AbstractGameScreen {
         }
 
         if ((!player.isSwitch) && (player.status_find) && (level4.switchItem.nearPlayer())) {
-            findItem(Switch.class).state = Item.ItemState.ON;
-            findItem(Switch.class).resetAnimation();
+            level4.switchItem.state = Item.ItemState.ON;
+            level4.switchItem.resetAnimation();
             player.isSwitch = true;
             player.status_find = false;
         }

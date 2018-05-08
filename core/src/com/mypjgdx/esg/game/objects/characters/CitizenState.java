@@ -52,6 +52,7 @@ public enum CitizenState implements State<Citizen> {
         public void update(Citizen entity) {
             entity.runToGoal();
             if(entity.toGoal){
+                entity.path = null;
                 entity.getStateMachine().changeState(WANDER);
             }
         }

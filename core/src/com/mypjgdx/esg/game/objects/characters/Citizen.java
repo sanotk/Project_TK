@@ -67,7 +67,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
     private Node startNode;
     private Node endNode;
-    private GraphPath<Node> path;
+    protected GraphPath<Node> path;
 
     private boolean running;
 
