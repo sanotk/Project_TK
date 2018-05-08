@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Pepo;
 import com.mypjgdx.esg.game.objects.characters.PepoKnight;
 import com.mypjgdx.esg.game.objects.characters.Player;
@@ -15,9 +14,13 @@ import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.game.objects.weapons.NormalBow;
 import com.mypjgdx.esg.game.objects.weapons.NormalSword;
 
-import java.util.ArrayList;
-
 public class Level1 extends Level {
+
+    public Item solarCell;
+    public Item inverter;
+    public Item battery;
+    public Item charge;
+    public Item door;
 
     public Level1() {
         map = Assets.instance.map1;
@@ -25,11 +28,18 @@ public class Level1 extends Level {
 
         player = new Player(mapLayer, 1000, 100);
 
-        items.add(new SolarCell(mapLayer, player));
-        items.add(new Inverter(mapLayer, player));
-        items.add(new Battery(mapLayer, player));
-        items.add(new Charge(mapLayer, player));
-        items.add(new Door(mapLayer,player));
+        solarCell = new SolarCell(mapLayer, player);
+        inverter = new Inverter(mapLayer, player);
+        battery = new Battery(mapLayer, player);
+        charge = new Charge(mapLayer, player);
+        door = new Door(mapLayer, player);
+
+        items.add(solarCell);
+        items.add(inverter);
+        items.add(battery);
+        items.add(charge);
+        items.add(door);
+
         hasSolarCell = false;
 
         enemies.add(new Pepo(mapLayer, player));

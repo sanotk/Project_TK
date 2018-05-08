@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.mypjgdx.esg.collision.CollisionCheck;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.SoundManager;
@@ -96,38 +95,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private TiledMapTileLayer mapLayer;
     private Direction viewDirection;
 
-    public boolean status_solarcell = false;
-    public boolean status_inverter = false;
-    public boolean status_ccontroller = false;
-    public boolean status_battery = false;
-    public boolean status_door = false;
-    public boolean status_tv = false;
-    public boolean status_com = false;
-    public boolean status_microwave = false;
-    public boolean status_air = false;
-    public boolean status_refrigerator = false;
-    public boolean status_switch = false;
-    public boolean status_cooker = false;
-    public boolean status_fan = false;
-    public boolean status_fan2 = false;
-    public boolean status_pump = false;
     public boolean status_citizen = false;
 
-    protected CollisionCheck solarcellCheck;
-    protected CollisionCheck inverterCheck;
-    protected CollisionCheck ccontrollerCheck;
-    protected CollisionCheck batteryCheck;
-    protected CollisionCheck doorCheck;
-    protected CollisionCheck microwaveCheck;
-    protected CollisionCheck tvCheck;
-    protected CollisionCheck waterpumpCheck;
-    protected CollisionCheck fanCheck;
-    protected CollisionCheck fan2Check;
-    protected CollisionCheck cookerCheck;
-    protected CollisionCheck airCheck;
-    protected CollisionCheck comCheck;
-    protected CollisionCheck switchCheck;
-    protected CollisionCheck refrigeratorCheck;
 
     public boolean questScreen1 = false;
     public boolean questScreen2 = false;
@@ -210,22 +179,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     public void CollisionCheck() {
         collisionCheck = new TiledCollisionCheck(walkingBounds, mapLayer);
-
-        solarcellCheck = new TiledCollisionCheck(bounds, mapLayer, "solarcell");
-        batteryCheck = new TiledCollisionCheck(bounds, mapLayer, "battery");
-        inverterCheck = new TiledCollisionCheck(bounds, mapLayer, "inverter");
-        ccontrollerCheck = new TiledCollisionCheck(bounds, mapLayer, "ccontroller");
-        doorCheck = new TiledCollisionCheck(bounds, mapLayer, "door");
-        microwaveCheck = new TiledCollisionCheck(bounds, mapLayer, "microwave");
-        tvCheck = new TiledCollisionCheck(bounds, mapLayer, "tv");
-        waterpumpCheck = new TiledCollisionCheck(bounds, mapLayer, "pump");
-        fanCheck = new TiledCollisionCheck(bounds, mapLayer, "fan");
-        fanCheck = new TiledCollisionCheck(bounds, mapLayer, "fan2");
-        cookerCheck = new TiledCollisionCheck(bounds, mapLayer, "cooker");
-        airCheck = new TiledCollisionCheck(bounds, mapLayer, "air");
-        comCheck = new TiledCollisionCheck(bounds, mapLayer, "com");
-        switchCheck = new TiledCollisionCheck(bounds, mapLayer, "switch");
-        refrigeratorCheck = new TiledCollisionCheck(bounds, mapLayer, "refrigerator");
     }
 
     public void update(float deltaTime, List<Weapon> weapons, List<Citizen> citizens) {
@@ -299,106 +252,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             timeCount--;
             Countdown = 0;
         }
-
-        checkCollide();
-    }
-
-    private void checkCollide() {
-        if (solarcellCheck.isCollidesBottom() || solarcellCheck.isCollidesLeft() ||
-                solarcellCheck.isCollidesRight() || solarcellCheck.isCollidesTop()) {
-            status_solarcell = true;
-        } else {
-            status_solarcell = false;
-        }
-
-        if (batteryCheck.isCollidesBottom() || batteryCheck.isCollidesLeft() ||
-                batteryCheck.isCollidesRight() || batteryCheck.isCollidesTop()) {
-            status_battery = true;
-        } else {
-            status_battery = false;
-        }
-
-        if (ccontrollerCheck.isCollidesBottom() || ccontrollerCheck.isCollidesLeft() ||
-                ccontrollerCheck.isCollidesRight() || ccontrollerCheck.isCollidesTop()) {
-            status_ccontroller = true;
-        } else {
-            status_ccontroller = false;
-        }
-
-        if (inverterCheck.isCollidesBottom() || inverterCheck.isCollidesLeft() ||
-                inverterCheck.isCollidesRight() || inverterCheck.isCollidesTop()) {
-            status_inverter = true;
-        } else {
-            status_inverter = false;
-        }
-        if (doorCheck.isCollidesBottom() || doorCheck.isCollidesLeft() ||
-                doorCheck.isCollidesRight() || doorCheck.isCollidesTop()) {
-            status_door = true;
-        } else {
-            status_door = false;
-        }
-        if (comCheck.isCollidesBottom() || comCheck.isCollidesLeft() ||
-                comCheck.isCollidesRight() || comCheck.isCollidesTop()) {
-            status_com = true;
-        } else {
-            status_com = false;
-        }
-        if (fanCheck.isCollidesBottom() || fanCheck.isCollidesLeft() ||
-                fanCheck.isCollidesRight() || fanCheck.isCollidesTop()) {
-            status_fan = true;
-        } else {
-            status_fan = false;
-        }
-        if (refrigeratorCheck.isCollidesBottom() || refrigeratorCheck.isCollidesLeft() ||
-                refrigeratorCheck.isCollidesRight() || refrigeratorCheck.isCollidesTop()) {
-            status_refrigerator = true;
-        } else {
-            status_refrigerator = false;
-        }
-        if (cookerCheck.isCollidesBottom() || cookerCheck.isCollidesLeft() ||
-                cookerCheck.isCollidesRight() || cookerCheck.isCollidesTop()) {
-            status_cooker = true;
-        } else {
-            status_cooker = false;
-        }
-        if (waterpumpCheck.isCollidesBottom() || waterpumpCheck.isCollidesLeft() ||
-                waterpumpCheck.isCollidesRight() || waterpumpCheck.isCollidesTop()) {
-            status_pump = true;
-        } else {
-            status_pump = false;
-        }
-        if (airCheck.isCollidesBottom() || airCheck.isCollidesLeft() ||
-                airCheck.isCollidesRight() || airCheck.isCollidesTop()) {
-            status_air = true;
-        } else {
-            status_air = false;
-        }
-        if (switchCheck.isCollidesBottom() || switchCheck.isCollidesLeft() ||
-                switchCheck.isCollidesRight() || switchCheck.isCollidesTop()) {
-            status_switch = true;
-        } else {
-            status_switch = false;
-        }
-        if (microwaveCheck.isCollidesBottom() || microwaveCheck.isCollidesLeft() ||
-                microwaveCheck.isCollidesRight() || microwaveCheck.isCollidesTop()) {
-            status_microwave = true;
-        } else {
-            status_microwave = false;
-        }
-        if (tvCheck.isCollidesBottom() || tvCheck.isCollidesLeft() ||
-                tvCheck.isCollidesRight() || tvCheck.isCollidesTop()) {
-            status_tv = true;
-        } else {
-            status_tv = false;
-        }
-        /*
-        if (citizenCheck.isCollidesBottom() || citizenCheck.isCollidesLeft() ||
-                citizenCheck.isCollidesRight() || citizenCheck.isCollidesTop()) {
-            status_citizen = true;
-        } else {
-            status_citizen = false;
-        }
-        */
     }
 
     public void move(Direction direction) {

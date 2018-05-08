@@ -26,7 +26,6 @@ import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
-import com.mypjgdx.esg.game.objects.items.Switch;
 import com.mypjgdx.esg.ui.BatteryBar;
 import com.mypjgdx.esg.ui.EnergyProducedBar;
 import com.mypjgdx.esg.ui.EnergyUsedBar;
@@ -599,14 +598,14 @@ public class GameScreen2 extends AbstractGameScreen {
                 && !player.questScreen4
                 && !player.questScreen5
                 && !player.questScreen6
-                && !player.status_switch;
+                && !level2.switchItem.nearPlayer();
 
         if (player.status_find && noCitizen) {
             player.status_find = false;
             player.status_windows_link = false;
         }
 
-        if ((!player.isSwitch) && (player.status_find) && (player.status_switch)) {
+        if ((!player.isSwitch) && (player.status_find) && (level2.switchItem.nearPlayer())) {
             level2.switchItem.state = Item.ItemState.ON;
             level2.switchItem.resetAnimation();
             player.isSwitch = true;

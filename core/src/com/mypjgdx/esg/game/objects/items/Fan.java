@@ -1,6 +1,7 @@
 package com.mypjgdx.esg.game.objects.items;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Player;
 
@@ -13,11 +14,15 @@ public class Fan extends Item{
 	public Fan(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.fanAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player );
+
+        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "fan");
 	}
 
     public Fan(TiledMapTileLayer mapLayer, Player player, float P_X, float P_Y){
         super(Assets.instance.fanAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player );
+
+        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "fan2");
     }
 
     @Override

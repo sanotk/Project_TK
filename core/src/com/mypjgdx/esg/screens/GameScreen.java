@@ -910,11 +910,16 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         Player player = worldController.level.player;
-        boolean noItem = !player.status_battery
-                && !player.status_ccontroller
-                && !player.status_inverter
-                && !player.status_solarcell
-                && !player.status_door;
+        Level1 level1 = (Level1) worldController.level;
+
+        boolean noItem = true;
+
+        for (Item item : level1.items) {
+            if (item.nearPlayer()) {
+                noItem = false;
+                break;
+            }
+        }
 
         if (player.status_find && noItem) {
             player.status_find = false;
@@ -925,19 +930,19 @@ public class GameScreen extends AbstractGameScreen {
                 Gdx.graphics.getWidth() / 2 - solarcellWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - solarcellWindow.getHeight() / 2);
         if (!animation_status) {
-            if ((player.status_solarcell == true) && (player.status_find == true)) {
+            if (level1.solarCell.nearPlayer() && (player.status_find == true)) {
                 solarWindow = systemWindow.solarcell;
                 checkButton(solarWindow);
                 solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            } else if ((player.status_ccontroller == true) && (player.status_find == true)) {
+            } else if (level1.charge.nearPlayer() && (player.status_find == true)) {
                 solarWindow = systemWindow.chargecontroller;
                 checkButton(solarWindow);
                 solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            } else if ((player.status_battery == true) && (player.status_find == true)) {
+            } else if (level1.battery.nearPlayer() && (player.status_find == true)) {
                 solarWindow = systemWindow.battery;
                 checkButton(solarWindow);
                 solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            } else if ((player.status_inverter == true) && (player.status_find == true)) {
+            } else if (level1.inverter.nearPlayer() && (player.status_find == true)) {
                 solarWindow = systemWindow.inverter;
                 checkButton(solarWindow);
                 solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
@@ -950,7 +955,7 @@ public class GameScreen extends AbstractGameScreen {
                 Gdx.graphics.getWidth() / 2 - doorWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - doorWindow.getHeight() / 2);
         if (!animation_status) {
-            if ((player.status_door == true) && (player.status_find == true)) {
+            if ((level1.door.nearPlayer()) && (player.status_find == true)) {
                 doorWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else {
                 doorWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
@@ -958,16 +963,12 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         if ((trueLink == 4) && (!animation_status)) {
-            findItem(SolarCell.class).state = Item.ItemState.ONLOOP;
-            findItem(SolarCell.class).resetAnimation();
-            findItem(Inverter.class).state = Item.ItemState.ONLOOP;
-            findItem(Inverter.class).resetAnimation();
-            findItem(Battery.class).state = Item.ItemState.ONLOOP;
-            findItem(Battery.class).resetAnimation();
-            findItem(Charge.class).state = Item.ItemState.ONLOOP;
-            findItem(Charge.class).resetAnimation();
-            findItem(Door.class).state = Item.ItemState.ON;
-            findItem(Door.class).resetAnimation();
+            for (Item item : level1.items) {
+                item.state = Item.ItemState.ONLOOP;
+                item.resetAnimation();
+            }
+            level1.door.state = Item.ItemState.ON;
+
             animation_status = true;
             player.timeClear = true;
             String textString5 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
@@ -989,7 +990,7 @@ public class GameScreen extends AbstractGameScreen {
             player.timeClear = true;
         }
 
-        if ((findItem(Door.class).state == Item.ItemState.ON) && (player.status_door == true)) {
+        if ((level1.door.state == Item.ItemState.ON) && (level1.door.nearPlayer())) {
             game.setScreen(new GameScreen2(game, optionsWindow));
         }
 

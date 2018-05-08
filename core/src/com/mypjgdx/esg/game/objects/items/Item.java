@@ -19,6 +19,8 @@ public abstract class Item extends AnimatedObject<ItemAnimation> implements Json
     public float energyBurn;
     public boolean count;
 
+    public TiledCollisionCheck playerCheck;
+
     public enum ItemAnimation {
         ON,
         ONLOOP,
@@ -101,6 +103,13 @@ public abstract class Item extends AnimatedObject<ItemAnimation> implements Json
 
     public float getEnergyBurn() {
         return this.energyBurn;
+    }
+
+    public boolean nearPlayer() {
+        return  playerCheck.isCollidesBottom()
+                ||  playerCheck.isCollidesTop()
+                ||  playerCheck.isCollidesLeft()
+                ||  playerCheck.isCollidesRight();
     }
 
     @Override

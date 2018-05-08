@@ -356,6 +356,7 @@ public class GameScreen4 extends AbstractGameScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Player player = worldController.level.player;
+        Level4 level4 = (Level4) worldController.level;
 
         textBullet.setText(String.format(" %d", worldController.level.player.arrowCount));
         textBeam.setText(String.format(" %d", worldController.level.player.swordWaveCount));
@@ -390,14 +391,14 @@ public class GameScreen4 extends AbstractGameScreen {
             return;
         }
 
-        boolean noCitizen = !player.status_switch;
+        boolean noCitizen = !level4.switchItem.nearPlayer();
 
         if (player.status_find && noCitizen) {
             player.status_find = false;
             player.status_windows_link = false;
         }
 
-        if ((!player.isSwitch) && (player.status_find) && (player.status_switch)) {
+        if ((!player.isSwitch) && (player.status_find) && (level4.switchItem.nearPlayer())) {
             findItem(Switch.class).state = Item.ItemState.ON;
             findItem(Switch.class).resetAnimation();
             player.isSwitch = true;

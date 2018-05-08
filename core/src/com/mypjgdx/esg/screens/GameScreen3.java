@@ -21,11 +21,11 @@ import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
-import com.mypjgdx.esg.game.levels.Level2;
 import com.mypjgdx.esg.game.levels.Level3;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.items.*;
+import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.items.Switch;
 import com.mypjgdx.esg.ui.BatteryBar;
 import com.mypjgdx.esg.ui.EnergyProducedBar;
 import com.mypjgdx.esg.ui.EnergyUsedBar;
@@ -592,25 +592,28 @@ public class GameScreen3 extends AbstractGameScreen {
             return;
         }
 
-        boolean noItem = !player.status_tv
-                && !player.status_com
-                && !player.status_microwave
-                && !player.status_air
-                && !player.status_refrigerator
-                && !player.status_cooker
-                && !player.status_fan
-                && !player.status_pump
-                && !player.status_switch;
+
+
+        boolean noItem = true;
+
+        for (Item item : level3.items) {
+            if (item.nearPlayer()) {
+                noItem = false;
+                break;
+            }
+        }
+
+
 
         if (player.status_find && noItem) {
             player.status_find = false;
             player.status_windows_link = false;
         }
 
-        if ((!player.isSwitch) && (player.status_find) && (player.status_switch)) {
-            findItem(Switch.class).state = Item.ItemState.ON;
-            findItem(Switch.class).count = true;
-            findItem(Switch.class).resetAnimation();
+        if ((!player.isSwitch) && (player.status_find) && level3.switchItem.nearPlayer()) {
+            level3.switchItem.state = Item.ItemState.ON;
+            level3.switchItem.count = true;
+            level3.switchItem.resetAnimation();
             player.isSwitch = true;
             player.status_find = false;
         }
@@ -648,42 +651,12 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
-        if ((player.status_find) && (player.status_pump)) {
-            level3.waterPump.state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= level3.waterPump.getEnergyBurn();
-            player.status_find = false;
-        } else if ((player.status_find) && (player.status_cooker)) {
-            level3.riceCooker.state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= level3.riceCooker.getEnergyBurn();
-            player.status_find = false;
-        } else if ((player.status_find) && (player.status_tv)) {
-            level3.television.state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= level3.television.getEnergyBurn();
-            player.status_find = false;
-        } else if ((player.status_find) && (player.status_com)) {
-            level3.computer.state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= level3.computer.getEnergyBurn();
-            player.status_find = false;
-        } else if ((player.status_find) && (player.status_air)) {
-            level3.airConditioner.state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= level3.airConditioner.getEnergyBurn();
-            player.status_find = false;
-        } else if ((player.status_find) && (player.status_fan)) {
-            level3.fan1.state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= level3.fan2.getEnergyBurn();
-            player.status_find = false;
-        } else if ((player.status_find) && (player.status_fan2)) {
-            worldController.level.items.get(7).state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= worldController.level.items.get(7).getEnergyBurn();
-            player.status_find = false;
-        } else if ((player.status_find) && (player.status_refrigerator)) {
-            findItem(Refrigerator.class).state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= findItem(Refrigerator.class).getEnergyBurn();
-            player.status_find = false;
-        } else if ((player.status_find) && (player.status_microwave)) {
-            findItem(Microwave.class).state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= findItem(Microwave.class).getEnergyBurn();
-            player.status_find = false;
+        for (Item item : level3.items) {
+            if ((player.status_find) && item.nearPlayer()) {
+                item.state = Item.ItemState.OFF;
+                EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
+                player.status_find = false;
+            }
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World

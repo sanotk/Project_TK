@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
-import com.mypjgdx.esg.game.levels.*;
+import com.mypjgdx.esg.game.levels.Level;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemySpawner;
 import com.mypjgdx.esg.game.objects.etcs.Link;
@@ -177,19 +177,19 @@ public class WorldController extends InputAdapter {
                 else cameraHelper.setTarget(null);
                 break;
             case Keys.NUMPAD_1:
-                level.init(new Level1Generator());
+                level.init();
                 init(level);
                 break;
             case Keys.NUMPAD_2:
-                level.init(new Level2Generator());
+                level.init();
                 init(level);
                 break;
             case Keys.NUMPAD_3:
-                level.init(new Level3Generator());
+                level.init();
                 init(level);
                 break;
             case Keys.NUMPAD_4:
-                level.init(new Level4Generator());
+                level.init();
                 init(level);
                 break;
         }

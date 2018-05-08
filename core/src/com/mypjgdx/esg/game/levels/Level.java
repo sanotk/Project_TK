@@ -49,6 +49,9 @@ public abstract class Level implements Json.Serializable {
         bows = new ArrayList<Bow>();
 
         links = new ArrayList<Link>();
+        items = new ArrayList<Item>();
+        enemies = new ArrayList<Enemy>();
+        citizens = new ArrayList<Citizen>();
 
         init();
     }

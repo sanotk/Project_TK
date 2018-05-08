@@ -1,6 +1,7 @@
 package com.mypjgdx.esg.game.objects.items;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Player;
 
@@ -13,6 +14,8 @@ public class Ricecooker extends Item{
 	public Ricecooker(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.ricecookerAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player );
+
+        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "cooker");
 	}
 
     @Override
