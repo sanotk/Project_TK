@@ -391,7 +391,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         if (state != PlayerState.ATTACK && item == null) {
             state = PlayerState.ATTACK;
             resetAnimation();
-            if (BatteryBar.instance.getBatteryStorage() != 0) {
+            if (BatteryBar.instance.getBatteryStorage() >= TrapBar.instance.energyTrap) {
                 weapons.add(new Trap(mapLayer, this));
                 Assets.instance.bulletSound.play();
                 SoundManager.instance.play(SoundManager.Sounds.BULLET);
@@ -406,7 +406,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             for (Sword sword : swords) {
                 sword.resetAnimation();
                 sword.state = Sword.SwordState.HIT;
-                if (BatteryBar.instance.getBatteryStorage() != 0) {
+                if (BatteryBar.instance.getBatteryStorage() >= SwordWaveBar.instance.energySwordWave) {
                     weapons.add(new SwordWave(mapLayer, this));
                     BatteryBar.instance.batteryStorage -= SwordWaveBar.instance.energySwordWave;
                 }
@@ -423,7 +423,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             for (Bow bow : bows) {
                 bow.resetAnimation();
                 bow.state = Bow.Bowstate.SHOT;
-                if (BatteryBar.instance.getBatteryStorage() != 0) {
+                if (BatteryBar.instance.getBatteryStorage() >= ArrowBar.instance.energyArrow) {
                     weapons.add(new Arrow(mapLayer, this));
                     BatteryBar.instance.batteryStorage -= ArrowBar.instance.energyArrow;
                 }
