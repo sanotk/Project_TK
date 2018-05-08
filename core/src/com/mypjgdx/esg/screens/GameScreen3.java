@@ -88,6 +88,19 @@ public class GameScreen3 extends AbstractGameScreen {
 
     private int energyStart = 0;
 
+    private boolean animation_status = false;
+
+    private int countEnemy;
+
+    private Label text1;
+    private Label text2;
+    private Label text3;
+    private Label text4;
+    private Label text5;
+    private Label text6;
+
+    private int questCount;
+
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
 
@@ -372,8 +385,22 @@ public class GameScreen3 extends AbstractGameScreen {
         buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonChartStyle);
+        String textString = ("เวลาที่ใช้ : " + String.valueOf((1) + " วินาที"));
+        text1 = new Label("สถิติ", skin);
+        text2 = new Label(textString, skin);
+        text3 = new Label(textString, skin);
+        text4 = new Label(textString, skin);
+        text5 = new Label(textString, skin);
+        text6 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
 
-        final Window chartWindow = new Window("สถิติ", style);
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
+        text4.setStyle(labelStyle);
+        text5.setStyle(labelStyle);
+        text6.setStyle(labelStyle);
+
+        final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
         chartWindow.setModal(true);
         chartWindow.padTop(40);
         chartWindow.padLeft(40);
@@ -381,6 +408,18 @@ public class GameScreen3 extends AbstractGameScreen {
         chartWindow.padBottom(20);
         chartWindow.getTitleLabel().setAlignment(Align.center);
         chartWindow.row().padBottom(10).padTop(10);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text1);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text2);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text3);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text4);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text5);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text6);
         chartWindow.row().padTop(10);
         chartWindow.add(closeButton).colspan(3);
         chartWindow.pack();
@@ -653,11 +692,31 @@ public class GameScreen3 extends AbstractGameScreen {
         }
 
         for (Item item : level3.items) {
-            if ((player.status_find) && item.nearPlayer()) {
+            if ((player.status_find) && item.nearPlayer()&& item.state != Item.ItemState.OFF) {
                 item.state = Item.ItemState.OFF;
                 EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
                 player.status_find = false;
+                questCount += 1;
             }
+        }
+
+        if(questCount == 6 && !animation_status){
+            animation_status = true;
+            player.timeClear = true;
+            String textString5 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
+            String textString4 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
+            String textString3 = ("อัตราการผลิตพลังงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์ต่อวินาที"));
+            String textString2 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์ต่อวินาที");
+            String textString = ("พลังงานที่ได้รับจากมอนสเตอร์ : " + String.valueOf((BatteryBar.instance.getBatteryStorage()) + " จูล"));
+            text2.setText(textString5);
+            text3.setText(textString4);
+            text4.setText(textString3);
+            text5.setText(textString2);
+            text6.setText(textString);
+            chartWindow.setPosition(
+                    Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
+                    Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
+            chartWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
