@@ -93,7 +93,6 @@ public class GameOverScreen extends AbstractGameScreen {
 
     @Override
     public void hide() {
-
         dispose();
     }
 

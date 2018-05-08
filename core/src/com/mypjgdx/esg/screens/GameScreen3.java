@@ -576,16 +576,19 @@ public class GameScreen3 extends AbstractGameScreen {
         }
 
         if (!worldController.level.player.isAlive()) {
+            MusicManager.instance.stop();
             game.setScreen(new GameOverScreen(game));
             return;
         }
 
         if (worldController.level.player.timeCount <= 0) {
+            MusicManager.instance.stop();
             game.setScreen(new GameOverScreen(game));
             return;
         }
 
         if (player.isSwitch && BatteryBar.instance.getBatteryStorage() <= 0) {
+            MusicManager.instance.stop();
             game.setScreen(new GameOverScreen(game));
             return;
         }

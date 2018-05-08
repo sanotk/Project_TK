@@ -581,11 +581,13 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if (worldController.level.player.timeCount <= 0) {
+            MusicManager.instance.stop();
             game.setScreen(new GameOverScreen(game));
             return;
         }
 
         if (player.isSwitch && BatteryBar.instance.getBatteryStorage() <= 0) {
+            MusicManager.instance.stop();
             game.setScreen(new GameOverScreen(game));
             return;
         }
