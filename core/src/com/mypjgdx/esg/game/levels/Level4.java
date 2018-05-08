@@ -30,10 +30,9 @@ public class Level4 extends Level {
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));
-        enemies.add(new Pepo(mapLayer, player));
-        enemies.add(new Pepo(mapLayer, player));
         enemies.add(new PepoKnight(mapLayer, player));
         enemies.add(new PepoKnight(mapLayer, player));
+        enemies.add(new PepoDevil(mapLayer, player));
 
         Citizen citizen1 = new Citizen1(mapLayer, player);
         Citizen citizen2 = new Citizen2(mapLayer, player);
