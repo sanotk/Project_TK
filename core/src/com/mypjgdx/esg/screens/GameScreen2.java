@@ -84,9 +84,25 @@ public class GameScreen2 extends AbstractGameScreen {
     private Window chartWindow;
     private Window requestCitizenWindow;
 
+    private boolean animation_status = false;
+
     private int trueLink = 0;
 
     private int energyStart = 0;
+
+    private int countEnemy;
+
+    public int enemyDeadCount = 0;
+    public boolean stringDraw;
+
+    private Label text1;
+    private Label text2;
+    private Label text3;
+    private Label text4;
+    private Label text5;
+    private Label text6;
+
+    private int questCount;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
@@ -104,12 +120,12 @@ public class GameScreen2 extends AbstractGameScreen {
 
         this.optionsWindow = optionsWindow;
 
-        isComplete.add(questState.quest1yes);
-        isComplete.add(questState.quest2yes);
-        isComplete.add(questState.quest3no);
-        isComplete.add(questState.quest4yes);
-        isComplete.add(questState.quest5yes);
-        isComplete.add(questState.quest6no);
+//        isComplete.add(questState.quest1yes);
+//        isComplete.add(questState.quest2yes);
+//        isComplete.add(questState.quest3no);
+//        isComplete.add(questState.quest4yes);
+//        isComplete.add(questState.quest5yes);
+//        isComplete.add(questState.quest6no);
 
         TextButton.TextButtonStyle buttonToolStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
@@ -304,10 +320,10 @@ public class GameScreen2 extends AbstractGameScreen {
 
     private Window createRequestWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("textbox_01"));
+        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
-        style.titleFontColor = Color.BLUE;
+        style.titleFontColor = Color.WHITE;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
@@ -668,7 +684,6 @@ public class GameScreen2 extends AbstractGameScreen {
             requestCitizenWindow.setVisible(false);
         }
 
-
         for (Citizen citizen : level2.citizens){
             if (citizen.itemOn) {
                 citizen.getGoalItem().state = Item.ItemState.ONLOOP;
@@ -679,12 +694,30 @@ public class GameScreen2 extends AbstractGameScreen {
             }
         }
 
+        if( questCount == 6 && !animation_status){
+            animation_status = true;
+            player.timeClear = true;
+            String textString5 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
+            String textString4 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
+            String textString3 = ("อัตราการผลิตพลังงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์ต่อวินาที"));
+            String textString2 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์ต่อวินาที");
+            String textString = ("พลังงานที่ได้รับจากมอนสเตอร์ : " + String.valueOf((BatteryBar.instance.getBatteryStorage()) + " จูล"));
+            text2.setText(textString5);
+            text3.setText(textString4);
+            text4.setText(textString3);
+            text5.setText(textString2);
+            text6.setText(textString);
+            chartWindow.setPosition(
+                    Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
+                    Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
+            chartWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
+        }
+
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
         worldRenderer.render();
 
         stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw(); //การทำงาน
-
+        stage.draw(); //การทำงา
 
     }
 
