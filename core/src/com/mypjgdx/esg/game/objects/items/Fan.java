@@ -13,6 +13,7 @@ public class Fan extends Item{
 
 	public Fan(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.fanAltas, SCALE, SCALE , P_X , P_Y);
+
         init(mapLayer,  player );
 
         playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "fan");
@@ -46,4 +47,5 @@ public class Fan extends Item{
     public float getGoalY() {
         return bounds.y + bounds.height / 2 - 50;
     }
+
 }
