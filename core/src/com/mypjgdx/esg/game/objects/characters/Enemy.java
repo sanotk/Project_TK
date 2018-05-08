@@ -329,7 +329,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     public boolean takeDamage(float damage, float knockbackSpeed, float knockbackAngle) {
         if ((health <= 0) && (!stateMachine.isInState(EnemyState.DIE))) {
             stateMachine.changeState(EnemyState.DIE);
-            if(type != EnemyType.PEPO_DEVIL) {
+            if(type != EnemyType.PEPO_DEVIL){
                 dead = true;
             }else {
                 die();
