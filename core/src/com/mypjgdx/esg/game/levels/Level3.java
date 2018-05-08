@@ -96,7 +96,7 @@ public class Level3 extends Level {
         television.setEnergyBurn(100);
         microwave.setEnergyBurn(800);
         waterPump.setEnergyBurn(250);
-        airConditioner.setEnergyBurn(2000);
+        airConditioner.setEnergyBurn(1300);
         computer.setEnergyBurn(500);
         fan1.setEnergyBurn(60);
         fan2.setEnergyBurn(60);
