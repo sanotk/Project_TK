@@ -30,6 +30,7 @@ public class Citizen2 extends Citizen {
 	public void TellMeByType() {
 		type = CitizenType.CITIZEN_2;
 	}
+
     public void setGoalPosition(float x,float y){
         positionGoalX = x;
         positionGoalY = y;
