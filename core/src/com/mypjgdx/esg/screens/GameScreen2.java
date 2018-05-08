@@ -694,7 +694,7 @@ public class GameScreen2 extends AbstractGameScreen {
             }
         }
 
-        if( questCount == 6 && !animation_status){
+        if(questCount == 6 && !animation_status){
             animation_status = true;
             player.timeClear = true;
             String textString5 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
