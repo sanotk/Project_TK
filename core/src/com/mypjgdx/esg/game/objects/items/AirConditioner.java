@@ -5,17 +5,17 @@ import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Player;
 
-public class Ricecooker extends Item{
+public class AirConditioner extends Item{
 
     public static final float SCALE = 1f;
-    public static final float P_X = 350f;
-    public static final float P_Y = 1050f;
+    public static final float P_X = 300f;
+    public static final float P_Y = 700f;
 
-	public Ricecooker(TiledMapTileLayer mapLayer, Player player){
-        super(Assets.instance.ricecookerAltas, SCALE, SCALE , P_X , P_Y);
+	public AirConditioner(TiledMapTileLayer mapLayer, Player player){
+        super(Assets.instance.airAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player );
 
-        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "cooker");
+        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "air");
 	}
 
     @Override

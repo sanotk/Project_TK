@@ -41,12 +41,12 @@ public class Level2 extends Level {
         television = new Television(mapLayer, player);
         microwave = new Microwave(mapLayer, player);
         waterPump = new Waterpump(mapLayer, player);
-        airConditioner = new Airconditioner(mapLayer, player);
+        airConditioner = new AirConditioner(mapLayer, player);
         computer = new Computer(mapLayer, player);
         fan1 = new Fan(mapLayer, player);
         fan2 = new Fan(mapLayer, player, 750, 850);
         refrigerator = new Refrigerator(mapLayer, player);
-        riceCooker = new Ricecooker(mapLayer, player);
+        riceCooker = new RiceCooker(mapLayer, player);
 
         items.add(switchItem);
         items.add(television);

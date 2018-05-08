@@ -5,13 +5,13 @@ import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Player;
 
-public class Airconditioner extends Item{
+public class AtmosphereConditioner extends Item{
 
     public static final float SCALE = 1f;
-    public static final float P_X = 300f;
-    public static final float P_Y = 700f;
+    public static final float P_X = 600f;
+    public static final float P_Y = 800f;
 
-	public Airconditioner(TiledMapTileLayer mapLayer, Player player){
+	public AtmosphereConditioner(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.airAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player );
 
