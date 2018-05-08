@@ -304,10 +304,10 @@ public class GameScreen2 extends AbstractGameScreen {
 
     private Window createRequestWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
+        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("textbox_01"));
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
+        style.titleFontColor = Color.BLUE;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
@@ -615,7 +615,7 @@ public class GameScreen2 extends AbstractGameScreen {
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
             Enemy enemy = worldController.level.enemies.get(i);
             if (enemy.dead && !enemy.count) {
-                BatteryBar.instance.addEnergy(10000);
+                BatteryBar.instance.addEnergy(1000);
                 enemy.count = true;
             }
         }
