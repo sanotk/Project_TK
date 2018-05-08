@@ -1,0 +1,34 @@
+
+refrigerator_pack.png
+size: 64,512
+format: RGBA8888
+filter: Linear,MipMapLinearNearest
+repeat: none
+refrigerator_off
+  rotate: false
+  xy: 2, 308
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+refrigerator_on
+  rotate: false
+  xy: 2, 206
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: 2
+refrigerator_on
+  rotate: false
+  xy: 2, 104
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: 3
+refrigerator_on
+  rotate: false
+  xy: 2, 2
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: 1
