@@ -439,17 +439,17 @@ public class GameScreen2 extends AbstractGameScreen {
 
     private void checkButton(final systemWindow requestWindow) {
         if (citizenQuest == systemWindow.citizen1) {
-            requestCitizenWindow.getTitleLabel().setText("ต้องเปิดเครื่องปรับอากาศ");
+            requestCitizenWindow.getTitleLabel().setText("ขอเปิดเครื่องปรับอากาศ");
         } else if (citizenQuest == systemWindow.citizen2) {
-            requestCitizenWindow.getTitleLabel().setText("ต้องการอุ่นอาหารโดยใช้ไมโครเวฟ");
+            requestCitizenWindow.getTitleLabel().setText("ขออุ่นอาหารทานโดยใช้ไมโครเวฟ");
         } else if (citizenQuest == systemWindow.citizen3) {
-            requestCitizenWindow.getTitleLabel().setText("ต้องการเล่นเกมคอมพิวเตอร์");
+            requestCitizenWindow.getTitleLabel().setText("ขอเล่นคอมพิวเตอร์");
         } else if (citizenQuest == systemWindow.citizen4) {
-            requestCitizenWindow.getTitleLabel().setText("ต้องการเสียบตู้เย็น");
+            requestCitizenWindow.getTitleLabel().setText("ขอใช้งานตู้เย็นถนอมอาหาร");
         } else if (citizenQuest == systemWindow.citizen5) {
-            requestCitizenWindow.getTitleLabel().setText("ต้องการหุงข้าวกิน");
+            requestCitizenWindow.getTitleLabel().setText("ต้องการใช้หม้อหุงข้าว");
         } else {
-            requestCitizenWindow.getTitleLabel().setText("ต้องการเปิดโทรทัศน์ดูหนัง");
+            requestCitizenWindow.getTitleLabel().setText("ขอดูโทรทัศน์ 30 นาที");
         }
         buttonLink1.setText("YES");
         buttonLink1.clearListeners();
