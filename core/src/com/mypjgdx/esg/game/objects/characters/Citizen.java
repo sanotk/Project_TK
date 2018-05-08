@@ -143,10 +143,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         super.update(deltaTime);
         updateStatus();
 
-        if (player.status_citizen) {
-            //attackPlayer();
-        }
-
         if (!player.timeStop) {
             stateMachine.update();
         }

@@ -26,9 +26,7 @@ import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
-import com.mypjgdx.esg.ui.BatteryBar;
-import com.mypjgdx.esg.ui.EnergyProducedBar;
-import com.mypjgdx.esg.ui.EnergyUsedBar;
+import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.utils.QuestState;
 
 import java.util.ArrayList;
@@ -559,9 +557,9 @@ public class GameScreen2 extends AbstractGameScreen {
         Player player = worldController.level.player;
         Level2 level2 = (Level2) worldController.level;
 
-        textBullet.setText(String.format(" %d", worldController.level.player.arrowCount));
-        textBeam.setText(String.format(" %d", worldController.level.player.swordWaveCount));
-        textTrap.setText(String.format(" %d", worldController.level.player.trapCount));
+        textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
+        textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
+        textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
         textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
         energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
         energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");

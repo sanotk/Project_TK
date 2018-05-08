@@ -25,9 +25,7 @@ import com.mypjgdx.esg.game.levels.Level1;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.*;
-import com.mypjgdx.esg.ui.BatteryBar;
-import com.mypjgdx.esg.ui.EnergyProducedBar;
-import com.mypjgdx.esg.ui.EnergyUsedBar;
+import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.utils.ItemLink;
 import com.mypjgdx.esg.utils.SolarState;
 
@@ -879,9 +877,9 @@ public class GameScreen extends AbstractGameScreen {
 //            energyLevel2.setText(String.format("พลังงานที่ใช้ต่อวินาที : %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
 //            energyLevel3.setText(String.format("พลังงานภายในแบตเตอรี : %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
 //        }else {
-        textBullet.setText(String.format(" %d", worldController.level.player.arrowCount));
-        textBeam.setText(String.format(" %d", worldController.level.player.swordWaveCount));
-        textTrap.setText(String.format(" %d", worldController.level.player.trapCount));
+        textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
+        textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
+        textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
         textTime.setText(String.format(" %d", worldController.level.player.timeCount)+ " วินาที");
         if (animation_status) {
             energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced)+ " วัตต์");
@@ -889,7 +887,7 @@ public class GameScreen extends AbstractGameScreen {
             energyLevel.setText(String.format(" %d", 0) + " วัตต์");
         }
         energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse)+ " วัตต์");
-        energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage())+" จูล");
+        energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage())+" วัตต์");
         //      }
         //
         // sunleft.setText(String.format("Sun Left"));

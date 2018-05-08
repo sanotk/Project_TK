@@ -19,6 +19,10 @@ import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.*;
 import com.mypjgdx.esg.game.objects.weapons.Weapon.WeaponType;
+import com.mypjgdx.esg.ui.ArrowBar;
+import com.mypjgdx.esg.ui.BatteryBar;
+import com.mypjgdx.esg.ui.SwordWaveBar;
+import com.mypjgdx.esg.ui.TrapBar;
 import com.mypjgdx.esg.utils.Direction;
 
 import java.util.List;
@@ -35,10 +39,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private static final float INITIAL_MOVING_SPEED = 120f;
 
     private static final int INTITAL_HEALTH = 10;
-    private static final int INTITAL_TRAP = 5;
     private static final int INTITAL_TIME = 300;
-    private static final int INTITAL_ARROW = 100;
-    private static final int INTITAL_SWORDWAVE = 3;
 
     public boolean status_find = false;
     public boolean status_windows_link = false;
@@ -80,9 +81,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     private PlayerState state;
     private int health;
-    public int trapCount;
-    public int arrowCount;
-    public int swordWaveCount;
     public int timeCount;
     private boolean dead;
     private boolean invulnerable;
@@ -165,10 +163,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         viewDirection = Direction.DOWN;
 
         health = INTITAL_HEALTH;
-        trapCount = INTITAL_TRAP;
-        arrowCount = INTITAL_ARROW;
         timeCount = INTITAL_TIME;
-        swordWaveCount = INTITAL_SWORDWAVE;
 
         dead = false;
         invulnerable = false;
@@ -396,11 +391,11 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         if (state != PlayerState.ATTACK && item == null) {
             state = PlayerState.ATTACK;
             resetAnimation();
-            if (trapCount != 0) {
+            if (BatteryBar.instance.getBatteryStorage() != 0) {
                 weapons.add(new Trap(mapLayer, this));
                 Assets.instance.bulletSound.play();
                 SoundManager.instance.play(SoundManager.Sounds.BULLET);
-                trapCount--;
+                BatteryBar.instance.batteryStorage -= TrapBar.instance.energyTrap;
             }
         }
     }
@@ -411,9 +406,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             for (Sword sword : swords) {
                 sword.resetAnimation();
                 sword.state = Sword.SwordState.HIT;
-                if (swordWaveCount != 0) {
+                if (BatteryBar.instance.getBatteryStorage() != 0) {
                     weapons.add(new SwordWave(mapLayer, this));
-                    swordWaveCount--;
+                    BatteryBar.instance.batteryStorage -= SwordWaveBar.instance.energySwordWave;
                 }
                 weapons.add(new SwordHit(mapLayer, this));
                 SoundManager.instance.play(SoundManager.Sounds.BEAM);
@@ -428,9 +423,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             for (Bow bow : bows) {
                 bow.resetAnimation();
                 bow.state = Bow.Bowstate.SHOT;
-                if (arrowCount != 0) {
+                if (BatteryBar.instance.getBatteryStorage() != 0) {
                     weapons.add(new Arrow(mapLayer, this));
-                    arrowCount--;
+                    BatteryBar.instance.batteryStorage -= ArrowBar.instance.energyArrow;
                 }
                 SoundManager.instance.play(SoundManager.Sounds.BEAM);
                 resetAnimation();
@@ -529,9 +524,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public void write(Json json) {
         json.writeValue("hp", health);
         json.writeValue("position", position);
-        json.writeValue("arrowCount", arrowCount);
-        json.writeValue("trapCount", trapCount);
-        json.writeValue("swordWaveCount", swordWaveCount);
         json.writeValue("timeCount", timeCount);
 
         json.writeValue("questScreen1", questScreen1);
@@ -573,9 +565,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
         setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
 
-        arrowCount = player.getInt("arrowCount");
-        trapCount = player.getInt("trapCount");
-        swordWaveCount = player.getInt("swordWaveCount");
         timeCount = player.getInt("timeCount");
 
         questScreen1 = player.getBoolean("questScreen1");
@@ -611,20 +600,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         return INTITAL_HEALTH;
     }
 
-    public int getIntitalTrap(){
-        return INTITAL_TRAP;
-    }
-
     public int getIntitalTime(){
         return INTITAL_TIME;
-    }
-
-    public int getIntitalArrow(){
-        return INTITAL_ARROW;
-    }
-
-    public int getIntitalSwordwave(){
-        return INTITAL_SWORDWAVE;
     }
 
 }

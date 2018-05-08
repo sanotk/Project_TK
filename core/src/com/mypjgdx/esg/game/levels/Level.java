@@ -18,9 +18,7 @@ import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Bow;
 import com.mypjgdx.esg.game.objects.weapons.Sword;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
-import com.mypjgdx.esg.ui.BatteryBar;
-import com.mypjgdx.esg.ui.EnergyProducedBar;
-import com.mypjgdx.esg.ui.EnergyUsedBar;
+import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.utils.LevelDebugger;
 
 import java.util.ArrayList;
@@ -172,6 +170,9 @@ public abstract class Level implements Json.Serializable {
         json.writeValue("EnergyProducedBar", EnergyProducedBar.instance);
         json.writeValue("EnergyUsedBar", EnergyUsedBar.instance);
         json.writeValue("BatteryBar", BatteryBar.instance);
+        json.writeValue("ArrowBar", ArrowBar.instance);
+        json.writeValue("SwordWaveBar", SwordWaveBar.instance);
+        json.writeValue("TrapBar", TrapBar.instance);
     }
 
     @Override

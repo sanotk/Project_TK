@@ -8,7 +8,7 @@ public class BatteryBar implements Json.Serializable {
     public static final BatteryBar instance = new BatteryBar();
     public static final float BATTERY_MAX = 1000000;
 
-    private float batteryStorage;
+    public float batteryStorage;
 
     private BatteryBar() {
     }
