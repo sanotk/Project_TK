@@ -687,6 +687,7 @@ public class GameScreen2 extends AbstractGameScreen {
         for (Citizen citizen : level2.citizens){
             if (citizen.itemOn) {
                 citizen.getGoalItem().state = Item.ItemState.ONLOOP;
+                questCount += 1;
                 if (!citizen.getGoalItem().count) {
                     EnergyUsedBar.instance.energyUse += citizen.getGoalItem().getEnergyBurn();
                     citizen.getGoalItem().count = true;
