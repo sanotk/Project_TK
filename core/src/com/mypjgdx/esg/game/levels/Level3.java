@@ -93,15 +93,15 @@ public class Level3 extends Level {
         citizen5.setGoalItem(riceCooker);
         citizen6.setGoalItem(television);
 
-        television.setEnergyBurn(500);
-        microwave.setEnergyBurn(100);
-        waterPump.setEnergyBurn(100);
-        airConditioner.setEnergyBurn(100);
+        television.setEnergyBurn(100);
+        microwave.setEnergyBurn(800);
+        waterPump.setEnergyBurn(250);
+        airConditioner.setEnergyBurn(2000);
         computer.setEnergyBurn(500);
-        fan1.setEnergyBurn(100);
-        fan2.setEnergyBurn(100);
-        refrigerator.setEnergyBurn(100);
-        riceCooker.setEnergyBurn(100);
+        fan1.setEnergyBurn(60);
+        fan2.setEnergyBurn(60);
+        refrigerator.setEnergyBurn(150);
+        riceCooker.setEnergyBurn(800);
     }
 
     @Override
