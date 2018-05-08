@@ -22,7 +22,7 @@ import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level2;
-import com.mypjgdx.esg.game.levels.Level2Generator;
+import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
@@ -558,6 +558,7 @@ public class GameScreen2 extends AbstractGameScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Player player = worldController.level.player;
+        Level2 level2 = (Level2) worldController.level;
 
         textBullet.setText(String.format(" %d", worldController.level.player.arrowCount));
         textBeam.setText(String.format(" %d", worldController.level.player.swordWaveCount));
@@ -606,8 +607,8 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if ((!player.isSwitch) && (player.status_find) && (player.status_switch)) {
-            findItem(Switch.class).state = Item.ItemState.ON;
-            findItem(Switch.class).resetAnimation();
+            level2.switchItem.state = Item.ItemState.ON;
+            level2.switchItem.resetAnimation();
             player.isSwitch = true;
             player.status_find = false;
         }
@@ -627,8 +628,8 @@ public class GameScreen2 extends AbstractGameScreen {
             worldController.level.enemies.clear();
         }
         if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
-            findItem(Switch.class).state = Item.ItemState.ON;
-            findItem(Switch.class).resetAnimation();
+            level2.switchItem.state = Item.ItemState.ON;
+            level2.switchItem.resetAnimation();
             //EnergyProducedBar.instance.energyProduced += 100;
             player.isSwitch = true;
             player.status_find = false;
@@ -668,46 +669,14 @@ public class GameScreen2 extends AbstractGameScreen {
             requestCitizenWindow.setVisible(false);
         }
 
-        if (worldController.level.citizens.get(0).itemOn) {
-            worldController.level.items.get(3).state = Item.ItemState.ONLOOP;
-            if (!worldController.level.items.get(3).count) {
-                EnergyUsedBar.instance.energyUse += worldController.level.items.get(3).getEnergyBurn();
-                worldController.level.items.get(3).count = true;
-            }
-        }
-        if (worldController.level.citizens.get(1).itemOn) {
-            worldController.level.items.get(2).state = Item.ItemState.ONLOOP;
-            if (!worldController.level.items.get(2).count) {
-                EnergyUsedBar.instance.energyUse += worldController.level.items.get(2).getEnergyBurn();
-                worldController.level.items.get(2).count = true;
-            }
-        }
-        if (worldController.level.citizens.get(2).itemOn) {
-            worldController.level.items.get(5).state = Item.ItemState.ONLOOP;
-            if (!worldController.level.items.get(5).count) {
-                EnergyUsedBar.instance.energyUse += worldController.level.items.get(5).getEnergyBurn();
-                worldController.level.items.get(5).count = true;
-            }
-        }
-        if (worldController.level.citizens.get(3).itemOn) {
-            worldController.level.items.get(8).state = Item.ItemState.ONLOOP;
-            if (!worldController.level.items.get(8).count) {
-                EnergyUsedBar.instance.energyUse += worldController.level.items.get(8).getEnergyBurn();
-                worldController.level.items.get(8).count = true;
-            }
-        }
-        if (worldController.level.citizens.get(4).itemOn) {
-            worldController.level.items.get(9).state = Item.ItemState.ONLOOP;
-            if (!worldController.level.items.get(9).count) {
-                EnergyUsedBar.instance.energyUse += worldController.level.items.get(9).getEnergyBurn();
-                worldController.level.items.get(9).count = true;
-            }
-        }
-        if (worldController.level.citizens.get(5).itemOn) {
-            worldController.level.items.get(1).state = Item.ItemState.ONLOOP;
-            if (!worldController.level.items.get(1).count) {
-                EnergyUsedBar.instance.energyUse += worldController.level.items.get(1).getEnergyBurn();
-                worldController.level.items.get(1).count = true;
+
+        for (Citizen citizen : level2.citizens){
+            if (citizen.itemOn) {
+                citizen.getGoalItem().state = Item.ItemState.ONLOOP;
+                if (!citizen.getGoalItem().count) {
+                    EnergyUsedBar.instance.energyUse += citizen.getGoalItem().getEnergyBurn();
+                    citizen.getGoalItem().count = true;
+                }
             }
         }
 
@@ -728,7 +697,7 @@ public class GameScreen2 extends AbstractGameScreen {
 
     @Override
     public void show() {
-        worldController = new WorldController(new Level2(new Level2Generator()));
+        worldController = new WorldController(new Level2());
         worldRenderer = new WorldRenderer(worldController);
         Gdx.input.setInputProcessor(stage);
 

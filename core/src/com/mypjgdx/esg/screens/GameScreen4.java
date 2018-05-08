@@ -22,7 +22,6 @@ import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level4;
-import com.mypjgdx.esg.game.levels.Level4Generator;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
@@ -446,7 +445,7 @@ public class GameScreen4 extends AbstractGameScreen {
 
     @Override
     public void show() {
-        worldController = new WorldController(new Level4(new Level4Generator()));
+        worldController = new WorldController(new Level4());
         worldRenderer = new WorldRenderer(worldController);
         Gdx.input.setInputProcessor(stage);
 

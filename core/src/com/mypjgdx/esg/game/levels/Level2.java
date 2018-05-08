@@ -5,29 +5,103 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.game.objects.characters.*;
+import com.mypjgdx.esg.game.objects.items.*;
+import com.mypjgdx.esg.game.objects.weapons.NormalBow;
+import com.mypjgdx.esg.game.objects.weapons.NormalSword;
 
 public class Level2 extends Level {
 
-    public Level2(LevelGenerator levelGenerator) {
-        super(levelGenerator);
+    public Citizen citizen1;
+    public Citizen citizen2;
+    public Citizen citizen3;
+    public Citizen citizen4;
+    public Citizen citizen5;
+    public Citizen citizen6;
+    public Item switchItem;
+    public Item television;
+    public Item microwave;
+    public Item waterPump;
+    public Item airConditioner;
+    public Item computer;
+    public Item fan1;
+    public Item fan2;
+    public Item refrigerator;
+    public Item riceCooker;
 
-        citizens.get(0).setGoalItem(items.get(4));
-        citizens.get(1).setGoalItem(items.get(2));
-        citizens.get(2).setGoalItem(items.get(5));
-        citizens.get(3).setGoalItem(items.get(8));
-        citizens.get(4).setGoalItem(items.get(9));
-        citizens.get(5).setGoalItem(items.get(1));
+    public Level2() {
+        map = Assets.instance.map2;
+        mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
-        items.get(1).setEnergyBurn(500);
-        items.get(2).setEnergyBurn(100);
-        items.get(3).setEnergyBurn(100);
-        items.get(4).setEnergyBurn(100);
-        items.get(5).setEnergyBurn(500);
-        items.get(6).setEnergyBurn(100);
-        items.get(7).setEnergyBurn(100);
-        items.get(8).setEnergyBurn(100);
-        items.get(9).setEnergyBurn(100);
+        player = new Player(mapLayer, 100, 1000);
+
+        switchItem = new Switch(mapLayer, player);
+        television = new Television(mapLayer, player);
+        microwave = new Microwave(mapLayer, player);
+        waterPump = new Waterpump(mapLayer, player);
+        airConditioner = new Airconditioner(mapLayer, player);
+        computer = new Computer(mapLayer, player);
+        fan1 = new Fan(mapLayer, player);
+        fan2 = new Fan(mapLayer, player, 750, 850);
+        refrigerator = new Refrigerator(mapLayer, player);
+        riceCooker = new Ricecooker(mapLayer, player);
+
+        items.add(switchItem);
+        items.add(television);
+        items.add(microwave);
+        items.add(waterPump);
+        items.add(airConditioner);
+        items.add(computer);
+        items.add(fan1);
+        items.add(fan2);
+        items.add(refrigerator);
+        items.add(riceCooker);
+
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new PepoKnight(mapLayer, player));
+        enemies.add(new PepoKnight(mapLayer, player));
+
+        citizen1 = new Citizen1(mapLayer, player);
+        citizen2 = new Citizen2(mapLayer, player);
+        citizen3 = new Citizen3(mapLayer, player);
+        citizen4 = new Citizen4(mapLayer, player);
+        citizen5 = new Citizen5(mapLayer, player);
+        citizen6 = new Citizen6(mapLayer, player);
+
+        citizens.add(citizen1);
+        citizens.add(citizen2);
+        citizens.add(citizen3);
+        citizens.add(citizen4);
+        citizens.add(citizen5);
+        citizens.add(citizen6);
+
+        bows.add(new NormalBow(mapLayer, player));
+
+        swords.add(new NormalSword(mapLayer, player));
+
+        citizen1.setGoalItem(airConditioner);
+        citizen2.setGoalItem(microwave);
+        citizen3.setGoalItem(computer);
+        citizen4.setGoalItem(refrigerator);
+        citizen5.setGoalItem(riceCooker);
+        citizen6.setGoalItem(television);
+
+        television.setEnergyBurn(500);
+        microwave.setEnergyBurn(100);
+        waterPump.setEnergyBurn(100);
+        airConditioner.setEnergyBurn(100);
+        computer.setEnergyBurn(500);
+        fan1.setEnergyBurn(100);
+        fan2.setEnergyBurn(100);
+        refrigerator.setEnergyBurn(100);
+        riceCooker.setEnergyBurn(100);
     }
 
     @Override

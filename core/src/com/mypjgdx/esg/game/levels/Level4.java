@@ -5,13 +5,51 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.game.objects.characters.*;
+import com.mypjgdx.esg.game.objects.items.*;
+import com.mypjgdx.esg.game.objects.weapons.NormalBow;
+import com.mypjgdx.esg.game.objects.weapons.NormalSword;
 
 public class Level4 extends Level {
 
-    public Level4(LevelGenerator levelGenerator) {
-        super(levelGenerator);
+    public Level4() {
+        map = Assets.instance.map4;
+        mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
+        player = new Player(mapLayer, 100, 1000);
+
+        Item switchItem = new Switch(mapLayer, player);
+
+        items.add(switchItem);
+
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new PepoKnight(mapLayer, player));
+        enemies.add(new PepoKnight(mapLayer, player));
+
+        Citizen citizen1 = new Citizen1(mapLayer, player);
+        Citizen citizen2 = new Citizen2(mapLayer, player);
+        Citizen citizen3 = new Citizen3(mapLayer, player);
+        Citizen citizen4 = new Citizen4(mapLayer, player);
+        Citizen citizen5 = new Citizen5(mapLayer, player);
+        Citizen citizen6 = new Citizen6(mapLayer, player);
+
+        citizens.add(citizen1);
+        citizens.add(citizen2);
+        citizens.add(citizen3);
+        citizens.add(citizen4);
+        citizens.add(citizen5);
+        citizens.add(citizen6);
+
+        bows.add(new NormalBow(mapLayer, player));
+
+        swords.add(new NormalSword(mapLayer, player));
     }
 
     @Override

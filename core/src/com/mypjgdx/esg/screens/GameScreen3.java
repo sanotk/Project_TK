@@ -21,8 +21,8 @@ import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
+import com.mypjgdx.esg.game.levels.Level2;
 import com.mypjgdx.esg.game.levels.Level3;
-import com.mypjgdx.esg.game.levels.Level3Generator;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.*;
@@ -557,6 +557,7 @@ public class GameScreen3 extends AbstractGameScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Player player = worldController.level.player;
+        Level3 level3 = (Level3) worldController.level;
 
         textBullet.setText(String.format(" %d", worldController.level.player.arrowCount));
         textBeam.setText(String.format(" %d", worldController.level.player.swordWaveCount));
@@ -648,28 +649,28 @@ public class GameScreen3 extends AbstractGameScreen {
         }
 
         if ((player.status_find) && (player.status_pump)) {
-            findItem(Waterpump.class).state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= findItem(Waterpump.class).getEnergyBurn();
+            level3.waterPump.state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= level3.waterPump.getEnergyBurn();
             player.status_find = false;
         } else if ((player.status_find) && (player.status_cooker)) {
-            findItem(Ricecooker.class).state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= findItem(Ricecooker.class).getEnergyBurn();
+            level3.riceCooker.state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= level3.riceCooker.getEnergyBurn();
             player.status_find = false;
         } else if ((player.status_find) && (player.status_tv)) {
-            findItem(Television.class).state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= findItem(Television.class).getEnergyBurn();
+            level3.television.state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= level3.television.getEnergyBurn();
             player.status_find = false;
         } else if ((player.status_find) && (player.status_com)) {
-            findItem(Computer.class).state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= findItem(Computer.class).getEnergyBurn();
+            level3.computer.state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= level3.computer.getEnergyBurn();
             player.status_find = false;
         } else if ((player.status_find) && (player.status_air)) {
-            findItem(Airconditioner.class).state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= findItem(Airconditioner.class).getEnergyBurn();
+            level3.airConditioner.state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= level3.airConditioner.getEnergyBurn();
             player.status_find = false;
         } else if ((player.status_find) && (player.status_fan)) {
-            worldController.level.items.get(6).state = Item.ItemState.OFF;
-            EnergyUsedBar.instance.energyUse -= worldController.level.items.get(6).getEnergyBurn();
+            level3.fan1.state = Item.ItemState.OFF;
+            EnergyUsedBar.instance.energyUse -= level3.fan2.getEnergyBurn();
             player.status_find = false;
         } else if ((player.status_find) && (player.status_fan2)) {
             worldController.level.items.get(7).state = Item.ItemState.OFF;
@@ -701,7 +702,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
     @Override
     public void show() {
-        worldController = new WorldController(new Level3(new Level3Generator()));
+        worldController = new WorldController(new Level3());
         worldRenderer = new WorldRenderer(worldController);
         Gdx.input.setInputProcessor(stage);
 

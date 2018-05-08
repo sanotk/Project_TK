@@ -5,11 +5,41 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.game.objects.characters.Enemy;
+import com.mypjgdx.esg.game.objects.characters.Pepo;
+import com.mypjgdx.esg.game.objects.characters.PepoKnight;
+import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.game.objects.items.*;
+import com.mypjgdx.esg.game.objects.weapons.NormalBow;
+import com.mypjgdx.esg.game.objects.weapons.NormalSword;
+
+import java.util.ArrayList;
 
 public class Level1 extends Level {
 
-    public Level1(LevelGenerator levelGenerator) {
-        super(levelGenerator);
+    public Level1() {
+        map = Assets.instance.map1;
+        mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
+
+        player = new Player(mapLayer, 1000, 100);
+
+        items.add(new SolarCell(mapLayer, player));
+        items.add(new Inverter(mapLayer, player));
+        items.add(new Battery(mapLayer, player));
+        items.add(new Charge(mapLayer, player));
+        items.add(new Door(mapLayer,player));
+        hasSolarCell = false;
+
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new Pepo(mapLayer, player));
+        enemies.add(new PepoKnight(mapLayer, player));
+        enemies.add(new PepoKnight(mapLayer, player));
+
+        bows.add(new NormalBow(mapLayer, player));
+        swords.add(new NormalSword(mapLayer, player));
     }
 
     @Override

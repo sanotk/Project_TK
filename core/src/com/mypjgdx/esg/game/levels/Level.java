@@ -42,36 +42,20 @@ public abstract class Level implements Json.Serializable {
 
     public boolean hasSolarCell;
 
-    public Level() {
-    }
 
-    public Level(LevelGenerator levelGenerator) {
+    public Level() {
         weapons = new ArrayList<Weapon>();
         swords = new ArrayList<Sword>();
         bows = new ArrayList<Bow>();
 
         links = new ArrayList<Link>();
 
-        init(levelGenerator);
+        init();
     }
 
-    public void init(LevelGenerator levelGenerator) {
+    public void init() {
         weapons.clear();
         links.clear();
-
-        map = levelGenerator.createTiledMap();
-        mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
-
-        player = levelGenerator.createPlayer(mapLayer);
-        items = levelGenerator.createItems(mapLayer, player, this);
-        enemies = levelGenerator.createEnemies(mapLayer, player);
-        citizens = levelGenerator.createCitizens(mapLayer, player);
-        swords = levelGenerator.createSwords(mapLayer, player, this);
-        bows = levelGenerator.createBows(mapLayer, player, this);
-
-        for (Citizen citizen : citizens) {
-            System.out.println("" + citizen.hashCode());
-        }
     }
 
     public void render(SpriteBatch batch, OrthogonalTiledMapRenderer tiledRenderer, ShapeRenderer shapeRenderer) {

@@ -377,4 +377,8 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
         path = null;
     }
+
+    public Item getGoalItem() {
+        return goalItem;
+    }
 }
