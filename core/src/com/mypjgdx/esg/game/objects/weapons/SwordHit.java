@@ -51,7 +51,7 @@ public class SwordHit extends Weapon {
             case UP:
                 rotation = 90;
                 x -= player.origin.x/2;
-                y += player.bounds.height/2;
+                y += player.bounds.height/1.5;
                 velocity.set(0, INTITIAL_SPEED);
                 break;
             default:
