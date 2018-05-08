@@ -48,7 +48,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean isSwitch = false;
     public boolean stageoneclear = false;
 
-    private Rectangle walkingBounds = new Rectangle();
+    public Rectangle walkingBounds = new Rectangle();
 
     public enum PlayerAnimation {
         ATK_LEFT,

@@ -100,7 +100,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     }
 
     public void init(TiledMapTileLayer mapLayer) {
-        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
+        collisionCheck = new TiledCollisionCheck(walkingBounds, mapLayer);
         gameMap = new GameMap(mapLayer);
         pathFinder = new IndexedAStarPathFinder<Node>(gameMap);
 
@@ -223,10 +223,10 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     }
 
     private void findPathPlayer() {
-        final float startX = bounds.x + bounds.width / 2;
-        final float startY = bounds.y + bounds.height / 2;
-        final float goalX = player.bounds.x + player.bounds.width / 2;
-        final float goalY = player.bounds.y + player.bounds.height / 2;
+        final float startX = walkingBounds.x + walkingBounds.width / 2;
+        final float startY = walkingBounds.y + walkingBounds.height / 2;
+        final float goalX = player.walkingBounds.x + player.walkingBounds.width / 2;
+        final float goalY = player.walkingBounds.y + player.walkingBounds.height / 2;
 
         GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
         Heuristic<Node> heuristic = new Heuristic<Node>() {
@@ -258,8 +258,8 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
             if (path.getCount() > 1) {
                 Node node = path.get(1);
 
-                float xdiff = node.getCenterPositionX() - bounds.x - bounds.width / 2;
-                float ydiff = node.getCenterPositionY() - bounds.y - bounds.height / 2;
+                float xdiff = node.getCenterPositionX() - walkingBounds.x - walkingBounds.width / 2;
+                float ydiff = node.getCenterPositionY() - walkingBounds.y - walkingBounds.height / 2;
 
                 final float minMovingDistance = 1f;
 
@@ -268,16 +268,17 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
                 } else if (ydiff < -minMovingDistance) {
                     move(Direction.DOWN);
                 }
-
                 if (xdiff > minMovingDistance) {
                     move(Direction.RIGHT);
                 } else if (xdiff < -minMovingDistance) {
                     move(Direction.LEFT);
                 }
-                if (near(path.get(1).getCenterPositionX(), bounds.x + bounds.width / 2)
-                        && near(path.get(1).getCenterPositionY(), bounds.y) ) {
+                if (near(node.getCenterPositionX(), walkingBounds.x + walkingBounds.width / 2)
+                        && near(node.getCenterPositionY(), walkingBounds.y + walkingBounds.height / 2)) {
                     running = false;
                 }
+            } else {
+                running = false;
             }
         }else {
             findPathPlayer();
