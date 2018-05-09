@@ -30,6 +30,8 @@ public class Level3 extends Level {
     public Item fan2;
     public Item refrigerator;
     public Item riceCooker;
+    public Item gate;
+
 
     public Level3() {
         map = Assets.instance.map3;
@@ -47,6 +49,7 @@ public class Level3 extends Level {
         fan2 = new Fan(mapLayer, player, 750, 850);
         refrigerator = new Refrigerator(mapLayer, player);
         riceCooker = new RiceCooker(mapLayer, player);
+        gate = new Gate(mapLayer,player);
 
         items.add(switchItem);
         items.add(television);
@@ -58,6 +61,8 @@ public class Level3 extends Level {
         items.add(fan2);
         items.add(refrigerator);
         items.add(riceCooker);
+        items.add(gate);
+
 
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));

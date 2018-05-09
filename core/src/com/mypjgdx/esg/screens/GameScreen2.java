@@ -337,8 +337,8 @@ public class GameScreen2 extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonSolarStyle);
 
-        buttonLink1 = new TextButton("YES", buttonStyle);
-        buttonLink2 = new TextButton("NO", buttonStyle);
+        buttonLink1 = new TextButton("ตกลง", buttonStyle);
+        buttonLink2 = new TextButton("ปฎิเสธ", buttonStyle);
 
         final Window requestWindow = new Window("Choice", style);
         requestWindow.setModal(true);

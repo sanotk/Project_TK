@@ -32,7 +32,6 @@ import com.mypjgdx.esg.utils.SolarState;
 
 import java.util.ArrayList;
 
-@SuppressWarnings("ALL")
 public class GameScreen extends AbstractGameScreen {
 
     private WorldController worldController;
@@ -64,6 +63,8 @@ public class GameScreen extends AbstractGameScreen {
     private Label text4;
     private Label text5;
     private Label text6;
+    private Label text7;
+    private Label text8;
 
     public enum systemWindow {
         solarcell,
@@ -83,6 +84,9 @@ public class GameScreen extends AbstractGameScreen {
     private TextButton buttonLink2;
     private TextButton buttonLink3;
     private TextButton buttonLink4;
+
+    private TextButton buttonN1;
+    private TextButton buttonN2;
 
     private Button buttonOption;
     private BitmapFont font;
@@ -303,6 +307,18 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonChartStyle);
 
+        text7 = new Label("กรุณาเชื่อมต่อแผงโซล่าเซลล์ก่อนประตูจึงจะเปิดออกได้", skin);
+        text8 = new Label("", skin);
+
+//        text7 = new Label("คุณต้องการไปด่านถัดไปหรือไม่", skin);
+//        text8 = new Label("หากตกลงจะเริ่มด่านต่อไปทันที หากปฏิเสธจะบันทึกเกมแล้วกลับหน้าเมนู", skin);
+
+        buttonN1 = new TextButton("ตกลง", buttonStyle);
+        buttonN2 = new TextButton("ปฎิเสธ", buttonStyle);
+
+        buttonN1.setVisible(false);
+        buttonN2.setVisible(false);
+
         final Window doorWindow = new Window("Door", style);
         doorWindow.setModal(true);
         doorWindow.setSkin(skin);
@@ -313,8 +329,12 @@ public class GameScreen extends AbstractGameScreen {
         doorWindow.getTitleLabel().setAlignment(Align.center);
         doorWindow.row().padBottom(10).padTop(10);
         doorWindow.row().padTop(10);
-        //doorWindow.add("ไม่สามารถเปิดประตูได้ กรุณาเชื่อมต่อระบบพลังงานแสงอาทิตย์เพื่อเติมเต็มพลังงานให้สถานที่หลบภัยให้เรียบร้อยก่อน");
-        doorWindow.add("teeeeesst");
+        doorWindow.add(text7);
+        doorWindow.row().padTop(10);
+        doorWindow.add(text8);
+        doorWindow.row().padTop(20);
+        doorWindow.add(buttonLink1);
+        doorWindow.add(buttonLink2);
         doorWindow.row().padTop(10);
         doorWindow.add(closeButton).colspan(3);
         doorWindow.pack();
