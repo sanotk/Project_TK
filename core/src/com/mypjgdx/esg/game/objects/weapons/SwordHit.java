@@ -10,7 +10,7 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 
 public class SwordHit extends Weapon {
 
-    private static final float SCALE = 0.8f;
+    private static final float SCALE = 0.85f;
 
     private static final float INTITAL_FRICTION = 0f;
     private static final float INTITIAL_SPEED = 0f;
@@ -86,7 +86,7 @@ public class SwordHit extends Weapon {
     }
 
     public void delay(){
-        float delay = 0.3f; // seconds
+        float delay = 0.33f; // seconds
         Timer.schedule(new Timer.Task(){
             @Override
             public void run() {
@@ -115,9 +115,4 @@ public class SwordHit extends Weapon {
         return null;
     }
 
-    @Override
-    public void TellMeByType() {
-        // TODO Auto-generated method stub
-        type = WeaponType.BULLET;
-    }
 }

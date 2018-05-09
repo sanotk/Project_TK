@@ -81,7 +81,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     private Node endNode;
     private GraphPath<Node> path;
 
-    private boolean running;
+    public boolean running;
 
     public Enemy(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer) {
         super(atlas);
@@ -360,6 +360,8 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
 
             return true;
         } else if (stateMachine.isInState(EnemyState.DIE)) return true;
+        path = null;
+        running = false;
         health -= damage;
         takeKnockback(knockbackSpeed, knockbackAngle);
         return true;

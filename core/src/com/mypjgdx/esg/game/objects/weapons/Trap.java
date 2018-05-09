@@ -12,6 +12,7 @@ public class Trap extends Weapon{
 
 	    private static final float INTITAL_FRICTION = 50f;
 	    private static final float INTITIAL_SPEED = 50f;
+	    private int damageCount = 0;
 
 	    public Trap(TiledMapTileLayer mapLayer ,Player player) {
 	        super(Assets.instance.trap, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
@@ -48,13 +49,17 @@ public class Trap extends Weapon{
 
         @Override
         public void attack(Damageable damageable) {
-            float knockbackSpeed = 800f;
+            float knockbackSpeed = 500f;
             switch(damageable.getViewDirection()) {
             case DOWN: damageable.takeDamage(1, knockbackSpeed, 90); break;
             case LEFT: damageable.takeDamage(1, knockbackSpeed, 0); break;
             case RIGHT: damageable.takeDamage(1, knockbackSpeed, 180); break;
             case UP:  damageable.takeDamage(1, knockbackSpeed, 270); break;
             default: break;
+            }
+            this.damageCount += 1;
+            if(damageCount==3){
+                destroy();
             }
         }
 
@@ -63,10 +68,4 @@ public class Trap extends Weapon{
             // TODO Auto-generated method stub
             return null;
         }
-
-		@Override
-		public void TellMeByType() {
-			// TODO Auto-generated method stub
-			type = WeaponType.TRAP;
-		}
 }

@@ -153,24 +153,12 @@ public class Arrow extends Weapon {
                 break;
         }
         destroy();
-        /*
-        velocity.setZero();
-        this.target = damageable;
-        damaged = true;
-        positionToTarget = new Vector2(getPositionX() - target.getPosition().x, getPositionY() - target.getPosition().y);
-        */
     }
 
     @Override
     public String getName() {
         // TODO Auto-generated method stub
         return null;
-    }
-
-    @Override
-    public void TellMeByType() {
-        // TODO Auto-generated method stub
-        type = WeaponType.BULLET;
     }
 
 }

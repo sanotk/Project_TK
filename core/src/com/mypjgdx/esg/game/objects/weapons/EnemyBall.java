@@ -59,8 +59,4 @@ public class EnemyBall extends Weapon {
 			//attack(player);
 		}
 
-		@Override
-		public void TellMeByType() {
-			type = WeaponType.ENEMYBALL;
-		}
 }

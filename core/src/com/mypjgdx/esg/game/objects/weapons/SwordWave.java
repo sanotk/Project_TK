@@ -151,10 +151,4 @@ public class SwordWave extends Weapon {
         // TODO Auto-generated method stub
         return null;
     }
-
-    @Override
-    public void TellMeByType() {
-        // TODO Auto-generated method stub
-        type = WeaponType.BULLET;
-    }
 }
