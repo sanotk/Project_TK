@@ -26,7 +26,6 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
-import com.mypjgdx.esg.game.objects.items.Switch;
 import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.utils.QuestState;
 
@@ -676,9 +675,9 @@ public class GameScreen3 extends AbstractGameScreen {
             worldController.level.enemies.clear();
         }
         if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
-            findItem(Switch.class).state = Item.ItemState.ON;
-            findItem(Switch.class).count = true;
-            findItem(Switch.class).resetAnimation();
+            level3.switchItem.state = Item.ItemState.ON;
+            level3.switchItem.count = true;
+            level3.switchItem.resetAnimation();
             //EnergyProducedBar.instance.energyProduced += 100;
             player.isSwitch = true;
             player.status_find = false;
