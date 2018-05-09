@@ -72,7 +72,7 @@ public class LevelDebugger {
         MICROWAVE("microwave",Color.valueOf("#ff00bf")),
         SWITCH("switch", Color.CYAN),
         POLLUTION_CONTROLER("pollutioncontrol", Color.BLUE);
-        
+
         public final String propertyName;
         public final Color color;
 
@@ -232,7 +232,7 @@ public class LevelDebugger {
 
     public void enable(int setting) {
         if (setting == MAP_ALL) {
-            for (int i = MAP_GRID; i <= MAP_SWITCH; i++) {
+            for (int i = MAP_GRID; i <= MAP_POLLUTION_CONTROL; i++) {
                 settings.add(i);
             }
         } else {
@@ -242,7 +242,7 @@ public class LevelDebugger {
 
     public void disable(int setting) {
         if (setting == MAP_ALL) {
-            for (int i = MAP_GRID; i <= MAP_SWITCH; i++) {
+            for (int i = MAP_GRID; i <= MAP_POLLUTION_CONTROL; i++) {
                 settings.add(i);
             }
         } else {
