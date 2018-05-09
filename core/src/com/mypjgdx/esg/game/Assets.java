@@ -55,6 +55,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureAtlas switchAltas;
     public TextureAtlas tvAltas;
     public TextureAtlas waterpumpAltas;
+    public TextureAtlas pollutionAtlas;
 
     public TextureAtlas uiBlue;
     public TextureAtlas uiRed;
@@ -130,6 +131,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("ricecooker_pack.atlas", TextureAtlas.class);
         manager.load("switch_pack.atlas", TextureAtlas.class);
         manager.load("waterpump_pack.atlas", TextureAtlas.class);
+        manager.load("pollutioncontrol_pack.atlas", TextureAtlas.class);
 
         manager.load("trap.png", Texture.class);
         manager.load("beam.png", Texture.class);
@@ -182,6 +184,7 @@ public class Assets implements Disposable, AssetErrorListener {
         switchAltas = manager.get("switch_pack.atlas");
         tvAltas = manager.get("tv_pack.atlas");
         waterpumpAltas = manager.get("waterpump_pack.atlas");
+        pollutionAtlas = manager.get("pollutioncontrol_pack.atlas");
 
         trap = new TextureRegion((Texture)manager.get("trap.png"));
         beam = new TextureRegion((Texture)manager.get("beam.png"));

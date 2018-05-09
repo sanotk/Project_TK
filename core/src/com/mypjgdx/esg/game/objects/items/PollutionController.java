@@ -5,17 +5,17 @@ import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Player;
 
-public class AtmosphereConditioner extends Item{
+public class PollutionController extends Item{
 
     public static final float SCALE = 1f;
-    public static final float P_X = 600f;
-    public static final float P_Y = 800f;
+    public static final float P_X = 500f;
+    public static final float P_Y = 900f;
 
-	public AtmosphereConditioner(TiledMapTileLayer mapLayer, Player player){
-        super(Assets.instance.airAltas, SCALE, SCALE , P_X , P_Y);
+	public PollutionController(TiledMapTileLayer mapLayer, Player player){
+        super(Assets.instance.pollutionAtlas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player );
 
-        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "air");
+        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "pollutioncontrol");
 	}
 
     @Override

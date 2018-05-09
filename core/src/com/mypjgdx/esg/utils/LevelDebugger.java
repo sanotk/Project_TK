@@ -35,7 +35,7 @@ public class LevelDebugger {
     public static final int MAP_INVERTER = 13;
     public static final int MAP_CONTROLLER = 14;
     public static final int MAP_BATTERY = 15;
-    public static final int MAP_FAN2 = 16;
+    public static final int MAP_DOOR = 16;
     public static final int MAP_REFRIGERATOR = 17;
     public static final int MAP_TV = 18;
     public static final int MAP_COMPUTER = 19;
@@ -45,6 +45,8 @@ public class LevelDebugger {
     public static final int MAP_RICE_COOKER = 23;
     public static final int MAP_MICROWAVE = 24;
     public static final int MAP_SWITCH = 25;
+    public static final int MAP_FAN2 = 26;
+    public static final int MAP_POLLUTION_CONTROL = 27;
 
     public static final int MAP_ALL = 100;
 
@@ -68,8 +70,9 @@ public class LevelDebugger {
         AIR_CONDITIONER("air", Color.NAVY),
         RICE_COOKER("cooker", Color.TEAL),
         MICROWAVE("microwave",Color.valueOf("#ff00bf")),
-        SWITCH("switch", Color.CYAN);
-
+        SWITCH("switch", Color.CYAN),
+        POLLUTION_CONTROLER("pollutioncontrol", Color.BLUE);
+        
         public final String propertyName;
         public final Color color;
 
@@ -173,9 +176,9 @@ public class LevelDebugger {
         if (settings.contains(MAP_BATTERY)) {
             drawMapTileOverlay(TiledDrawingData.BATTERY);
         }
-//        if (settings.contains(MAP_DOOR)) {
-//            drawMapTileOverlay(TiledDrawingData.DOOR);
-//        }
+        if (settings.contains(MAP_DOOR)) {
+            drawMapTileOverlay(TiledDrawingData.DOOR);
+        }
         if (settings.contains(MAP_REFRIGERATOR)) {
             drawMapTileOverlay(TiledDrawingData.REFRIGERATOR);
         }
@@ -191,8 +194,8 @@ public class LevelDebugger {
         if (settings.contains(MAP_FAN)) {
             drawMapTileOverlay(TiledDrawingData.FAN);
         }
-        if (settings.contains(MAP_FAN2)) {
-            drawMapTileOverlay(TiledDrawingData.FAN2);
+        if (settings.contains(MAP_DOOR)) {
+            drawMapTileOverlay(TiledDrawingData.DOOR);
         }
         if (settings.contains(MAP_AIR_CONDITIONER)) {
             drawMapTileOverlay(TiledDrawingData.AIR_CONDITIONER);
@@ -205,6 +208,12 @@ public class LevelDebugger {
         }
         if (settings.contains(MAP_SWITCH)) {
             drawMapTileOverlay(TiledDrawingData.SWITCH);
+        }
+        if (settings.contains(MAP_FAN2)) {
+            drawMapTileOverlay(TiledDrawingData.FAN2);
+        }
+        if (settings.contains(MAP_POLLUTION_CONTROL)) {
+            drawMapTileOverlay(TiledDrawingData.POLLUTION_CONTROLER);
         }}
 
     private void drawMapTileOverlay(TiledDrawingData tiledDrawingData) {

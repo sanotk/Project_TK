@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="50" tileheight="50" backgroundcolor="#000000" nextobjectid="33">
- <tileset firstgid="1" name="map_second_pack" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="50" tileheight="50" infinite="0" backgroundcolor="#000000" nextobjectid="33">
+ <tileset firstgid="1" name="map_second_pack" tilewidth="50" tileheight="50" spacing="2" tilecount="39" columns="39">
   <image source="map_second_pack.png" width="2048" height="64"/>
   <tile id="1">
    <properties>
@@ -8,6 +8,11 @@
    </properties>
   </tile>
   <tile id="2">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="4">
    <properties>
     <property name="blocked" value=""/>
    </properties>
@@ -47,6 +52,11 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="12">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
   <tile id="14">
    <properties>
     <property name="blocked" value=""/>
@@ -68,6 +78,11 @@
    </properties>
   </tile>
   <tile id="18">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="19">
    <properties>
     <property name="blocked" value=""/>
    </properties>
@@ -122,10 +137,25 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="30">
+   <properties>
+    <property name="switch" value=""/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="pollutioncontrol" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt1MsKgCAQhWGLrnTPiu7v/5idFsEggkNom1x8u8EfHfAUQpwfmCFnCJlzj500JuigsOiARmnEUFk0aBoRBBbVvuEbvuEbDhoLpAz0DNNsC6tyjx4yA9owzUrNW3H+dtr4699+73xk7p1L3Tln329I0ighcWAjDdcu/IIXeg==
+   eJzt1FEPgiAUhmF0qTXNVKqZFfn/f2XfDRtjEIcNmDkunrsz3sHZEIwxkcAMJ4KSOCe9lMYdRmgDesNFa1RwDuhqaByg+MH2zrb5T4JGv9HGahGy4Ss3cmMvjQc0RPIM19wAi3aPCY4EsuGa44a3ov7tshHjb/+Xnd889k6h75y6b19caXRQR/BUGrF9AUqMGmg=
+  </data>
+ </layer>
+ <layer name="map2" width="25" height="25">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFQxEw4sC4AB8d7CAHDBc7RsEoGAWjYBSMAnoDACn7ACc=
   </data>
  </layer>
 </map>

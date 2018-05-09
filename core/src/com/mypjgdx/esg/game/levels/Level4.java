@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.items.PollutionController;
 import com.mypjgdx.esg.game.objects.items.Switch;
 import com.mypjgdx.esg.game.objects.weapons.NormalBow;
 import com.mypjgdx.esg.game.objects.weapons.NormalSword;
@@ -16,6 +17,7 @@ import com.mypjgdx.esg.game.objects.weapons.NormalSword;
 public class Level4 extends Level {
 
     public Item switchItem;
+    public Item pollutionControll;
 
     public Level4() {
         map = Assets.instance.map4;
@@ -24,7 +26,9 @@ public class Level4 extends Level {
         player = new Player(mapLayer, 100, 1000);
 
         switchItem = new Switch(mapLayer, player);
+        pollutionControll = new PollutionController(mapLayer,player);
         items.add(switchItem);
+        items.add(pollutionControll);
 
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));

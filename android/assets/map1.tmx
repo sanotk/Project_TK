@@ -172,9 +172,157 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="120" name="map_second_pack" tilewidth="50" tileheight="50" spacing="2" tilecount="39" columns="39">
+  <image source="map_second_pack.png" width="2048" height="64"/>
+  <tile id="1">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="switch" value=""/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="pollutioncontrol" value=""/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="ground" width="40" height="30">
   <data encoding="base64" compression="zlib">
-   eJzNmD1qxDAQhXUH3SExSe0itrdPkTao2xO42r0/BIMGHsP8Wl5I8cCWV5pP82bkxa2U0v653kGV3U9d/HdXaWLCZxG+kVhTX08a96TxZfOE+7mK75hzV/iyovlarJZgouu98z2DfBHPz3iI+oHru5O/Wxfy3YTxSK1L91HPiW8JehjNoZfPCrLqNMp3pj+sHB0x37po7MvgG+kP5FvZ2nS9CrEz/o7w7T0+isfRxr18H2yPRH4saXxrieXw92T+rOcfgj6BhbipNrM+a3xezjgP5hAZq8EXOWMsPurppcS4KR5ycwaPD8fIO4lP89TyGtcmvlb0upTee1E+SQuIj2vxMFa03jw+7it6Ondpe8C1+ViWXeObmXZhzOLzuKLvXo2vCjxcWp9sIKxJ5I3+37L4vh1JfMhGMfaT3iIfj9UcP2dhT8g32iMen+enVX9bybNo9Zjha8Xmo9zxWBHODJ/XF5rnmxPLktYvnC/KRf0tnS3R3hypP+zRaO96fcjPmug8iY9yKZ2DNEfrD0ve+0+bo+XjVd8zsnuqF+iV34b+AP+01/w=
+   eJzNmD1qxDAQhXUH3SExSe0itrdPkTaoSk7gKnt/WAwaeAzza3khxQNbXmk+zZuRF7dSSvvnegVVdj918d9dpYkJn0X4RmJNfT1p3JPGl80T7ucqvmPOr8KXFc3XYrUEE13vne8e5It4fsZD1Bdc/zj5u3Uh300Yj9S6dB/1nPiWoIfRHHr5rCCrTqN8Z/rDytER86WLxj4MvpH+QL6VrU3XqxA74+8I397jo3gcbdzL98H2l8iPJY1vLbEcfp/Mn/X8TdA7sBA31WbWZ43PyxnnwRwiYzX4ImeMxUc9vZQYN8VDbs7g8eEYeSfxaZ5aXuPaxNeKXpfSey/KJ2kB8XEtHsaK1pvHx31FT+cubQ+4Nh/Lsmt8M9MujFl8Hlf03avxVYGHS+uTDYQ1ibzR/1sW36cjiQ/ZKMZ+0lvk47Ga4+cs7An5RnvE4/P8tOpvK3kWrR4zfK3YfJQ7HivCmeHz+kLzfHNiWdL6hfNFuai/pbMl2psj9Yc9Gu1drw/5WROdJ/FRLqVzkOZo/WHJe/9pc7R8POt7RnZP9QI989vQA/Co1/s=
   </data>
  </layer>
  <layer name="ground3" width="40" height="30">
