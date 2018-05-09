@@ -254,7 +254,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
             findPathPlayer();
             running = true;
         }
-        if (running) {
+        if (running && !knockback) {
             if (path.getCount() > 1) {
                 Node node = path.get(1);
 
@@ -309,17 +309,6 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
         batch.setColor(color);
         super.render(batch);
         batch.setColor(oldColor);
-
-/*      if (startNode != null && endNode != null) {
-//            batch.draw(Assets.instance.bullet, startNode.getPositionX(), startNode.getPositionY());
-//            batch.draw(Assets.instance.enemyBall, endNode.getPositionX(), endNode.getPositionY());
-        }
-        if (path != null) {
-            for (Node node : path) {
-                batch.draw(Assets.instance.bullet, node.getCenterPositionX(), node.getCenterPositionY());
-            }
-        }
-        */
     }
 
     public void debug(ShapeRenderer renderer) {
@@ -355,7 +344,6 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
             die();
             return true;
         } else if (stateMachine.isInState(EnemyState.DIE)) return true;
-        running = false;
         health -= damage;
         takeKnockback(knockbackSpeed, knockbackAngle);
         return true;
