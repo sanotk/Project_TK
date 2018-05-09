@@ -268,16 +268,17 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
                 } else if (ydiff < -minMovingDistance) {
                     move(Direction.DOWN);
                 }
-
                 if (xdiff > minMovingDistance) {
                     move(Direction.RIGHT);
                 } else if (xdiff < -minMovingDistance) {
                     move(Direction.LEFT);
                 }
                 if (near(node.getCenterPositionX(), walkingBounds.x + walkingBounds.width / 2)
-                        && near(node.getCenterPositionY(), walkingBounds.y + walkingBounds.height / 2) ) {
+                        && near(node.getCenterPositionY(), walkingBounds.y + walkingBounds.height / 2)) {
                     running = false;
                 }
+            } else {
+                running = false;
             }
         }else {
             findPathPlayer();
@@ -351,7 +352,12 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     public boolean takeDamage(float damage, float knockbackSpeed, float knockbackAngle) {
         if ((health <= 0) && (!stateMachine.isInState(EnemyState.DIE))) {
             stateMachine.changeState(EnemyState.DIE);
-            die();
+            if(type != EnemyType.PEPO_DEVIL){
+                dead = true;
+            }else {
+                die();
+            }
+
             return true;
         } else if (stateMachine.isInState(EnemyState.DIE)) return true;
         health -= damage;
