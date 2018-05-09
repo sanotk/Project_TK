@@ -26,7 +26,6 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
-import com.mypjgdx.esg.game.objects.items.Switch;
 import com.mypjgdx.esg.ui.*;
 
 public class GameScreen4 extends AbstractGameScreen {
@@ -394,7 +393,8 @@ public class GameScreen4 extends AbstractGameScreen {
             return;
         }
 
-        boolean noCitizen = !level4.switchItem.nearPlayer();
+        boolean noCitizen = !level4.switchItem.nearPlayer()
+                && !level4.pollutionControll.nearPlayer();
 
         if (player.status_find && noCitizen) {
             player.status_find = false;
@@ -425,11 +425,17 @@ public class GameScreen4 extends AbstractGameScreen {
             worldController.level.enemies.clear();
         }
         if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
-            findItem(Switch.class).state = Item.ItemState.ON;
-            findItem(Switch.class).resetAnimation();
+            level4.switchItem.state = Item.ItemState.ON;
+            level4.switchItem.resetAnimation();
             //EnergyProducedBar.instance.energyProduced += 100;
             player.isSwitch = true;
             player.status_find = false;
+        }
+
+        if (player.stageoneclear && player.status_find && level4.pollutionControll.nearPlayer()
+                && level4.pollutionControll.state != Item.ItemState.ONLOOP) {
+            level4.pollutionControll.state = Item.ItemState.ONLOOP;
+            EnergyUsedBar.instance.energyUse += level4.pollutionControll.getEnergyBurn();
         }
 
         BatteryBar.instance.update(deltaTime);

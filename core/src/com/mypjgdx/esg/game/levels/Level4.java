@@ -30,6 +30,8 @@ public class Level4 extends Level {
         items.add(switchItem);
         items.add(pollutionControll);
 
+        pollutionControll.setEnergyBurn(10000);
+
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));
