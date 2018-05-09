@@ -652,6 +652,9 @@ public class GameScreen3 extends AbstractGameScreen {
             level3.switchItem.state = Item.ItemState.ON;
             level3.switchItem.count = true;
             level3.switchItem.resetAnimation();
+            level3.gate.state = Item.ItemState.OFF;
+            level3.gate.count = true;
+            level3.gate.resetAnimation();
             player.isSwitch = true;
             player.status_find = false;
         }
@@ -676,7 +679,9 @@ public class GameScreen3 extends AbstractGameScreen {
             level3.switchItem.state = Item.ItemState.ON;
             level3.switchItem.count = true;
             level3.switchItem.resetAnimation();
-            //EnergyProducedBar.instance.energyProduced += 100;
+            level3.gate.state = Item.ItemState.OFF;
+            level3.gate.count = true;
+            level3.gate.resetAnimation();
             player.isSwitch = true;
             player.status_find = false;
         }
@@ -700,7 +705,7 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
-        if(questCount == 6 && !animation_status){
+        if(EnergyUsedBar.instance.energyUse < EnergyProducedBar.instance.energyProduced && !animation_status){
             animation_status = true;
             player.timeClear = true;
             String textString5 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
