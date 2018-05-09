@@ -23,6 +23,7 @@ import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level4;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
+import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.items.Switch;
@@ -65,6 +66,7 @@ public class GameScreen4 extends AbstractGameScreen {
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
+    private int countEnemy;
 
     public GameScreen4(Game game, final Window optionsWindow) {
         super(game);
@@ -408,15 +410,17 @@ public class GameScreen4 extends AbstractGameScreen {
 
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
             Enemy enemy = worldController.level.enemies.get(i);
-            if (enemy.dead && !enemy.count) {
+            if (enemy.stateMachine.getCurrentState() == EnemyState.DIE && !enemy.count) {
                 BatteryBar.instance.addEnergy(1000);
                 enemy.count = true;
+                countEnemy +=1;
             }
         }
 
-        if (worldController.level.enemies.size() == 0) {
+        if (countEnemy == worldController.level.enemies.size()) {
             player.stageoneclear = true;
         }
+
         if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
             worldController.level.enemies.clear();
         }

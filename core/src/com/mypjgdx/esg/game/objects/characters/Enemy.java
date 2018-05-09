@@ -74,7 +74,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     private IndexedAStarPathFinder<Node> pathFinder;
     private GameMap gameMap;
 
-    private DefaultStateMachine<Enemy, EnemyState> stateMachine;
+    public DefaultStateMachine<Enemy, EnemyState> stateMachine;
     private Color color = Color.WHITE;
 
     private Node startNode;

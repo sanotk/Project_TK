@@ -23,6 +23,7 @@ import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level1;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
+import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.ui.*;
@@ -996,14 +997,14 @@ public class GameScreen extends AbstractGameScreen {
 
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
             Enemy enemy = worldController.level.enemies.get(i);
-            if (enemy.dead && !enemy.count) {
+            if (enemy.stateMachine.getCurrentState() == EnemyState.DIE && !enemy.count) {
                 BatteryBar.instance.addEnergy(1000);
                 enemy.count = true;
                 countEnemy +=1;
             }
         }
 
-        if (worldController.level.enemies.size() == 0) {
+        if (countEnemy == worldController.level.enemies.size()) {
             player.stageoneclear = true;
         }
 
