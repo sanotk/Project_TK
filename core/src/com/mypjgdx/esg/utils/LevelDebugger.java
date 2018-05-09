@@ -46,7 +46,6 @@ public class LevelDebugger {
     public static final int MAP_MICROWAVE = 24;
     public static final int MAP_SWITCH = 25;
 
-
     public static final int MAP_ALL = 100;
 
     private IntSet settings = new IntSet();
