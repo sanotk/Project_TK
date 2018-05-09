@@ -245,7 +245,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     }
 
     private boolean near(float value1, float value2) {
-        return Math.abs(value1 - value2) < 3f;
+        return Math.abs(value1 - value2) < 1f;
     }
 
 
@@ -352,15 +352,9 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
     public boolean takeDamage(float damage, float knockbackSpeed, float knockbackAngle) {
         if ((health <= 0) && (!stateMachine.isInState(EnemyState.DIE))) {
             stateMachine.changeState(EnemyState.DIE);
-            if(type != EnemyType.PEPO_DEVIL){
-                dead = true;
-            }else {
-                die();
-            }
-
+            die();
             return true;
         } else if (stateMachine.isInState(EnemyState.DIE)) return true;
-        path = null;
         running = false;
         health -= damage;
         takeKnockback(knockbackSpeed, knockbackAngle);
