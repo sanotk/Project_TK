@@ -333,8 +333,8 @@ public class GameScreen extends AbstractGameScreen {
         doorWindow.row().padTop(10);
         doorWindow.add(text8);
         doorWindow.row().padTop(20);
-        doorWindow.add(buttonLink1);
-        doorWindow.add(buttonLink2);
+        doorWindow.add(buttonN1);
+        doorWindow.add(buttonN2);
         doorWindow.row().padTop(10);
         doorWindow.add(closeButton).colspan(3);
         doorWindow.pack();
@@ -1011,7 +1011,7 @@ public class GameScreen extends AbstractGameScreen {
             player.timeClear = true;
         }
 
-        if ((level1.door.state == Item.ItemState.ON) && (level1.door.nearPlayer())) {
+        if ((level1.door.state == Item.ItemState.ON) && (level1.door.nearPlayer()) && player.status_find) {
             game.setScreen(new GameScreen2(game, optionsWindow));
         }
 

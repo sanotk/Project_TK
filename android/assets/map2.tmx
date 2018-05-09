@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="50" tileheight="50" backgroundcolor="#000000" nextobjectid="33">
- <tileset firstgid="1" name="map_second_pack" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="50" tileheight="50" infinite="0" backgroundcolor="#000000" nextobjectid="33">
+ <tileset firstgid="1" name="map_second_pack" tilewidth="50" tileheight="50" spacing="2" tilecount="39" columns="39">
   <image source="map_second_pack.png" width="2048" height="64"/>
   <tile id="1">
    <properties>
@@ -123,7 +123,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="40" name="blocked" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
+ <tileset firstgid="40" name="blocked" tilewidth="50" tileheight="50" spacing="2" tilecount="39" columns="39">
   <image source="map_second_blocked.png" width="2048" height="64"/>
   <tile id="0">
    <properties>
@@ -191,7 +191,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="79" name="item_on_map" tilewidth="50" tileheight="50" spacing="2" tilecount="39">
+ <tileset firstgid="79" name="item_on_map" tilewidth="50" tileheight="50" spacing="2" tilecount="39" columns="39">
   <image source="item_on_map.png" width="2048" height="64"/>
   <tile id="15">
    <properties>
@@ -208,23 +208,28 @@
     <property name="fan2" value=""/>
    </properties>
   </tile>
+  <tile id="33">
+   <properties>
+    <property name="gate" value=""/>
+   </properties>
+  </tile>
   <tile id="38">
    <properties>
     <property name="fan2" value=""/>
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="118" name="closet" tilewidth="25" tileheight="50" spacing="2" tilecount="1">
+ <tileset firstgid="118" name="closet" tilewidth="25" tileheight="50" spacing="2" tilecount="1" columns="1">
   <image source="closet.png" trans="ffffff" width="25" height="50"/>
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJy9k7kOwjAMhtMq4hCIcgjEUTozMHZjBnG/Cu+/4cGRjOWEhCQMnxz9bfLJORqlVPMHlkA/AzVxLIAJMEjIFqiYYw+0yI4gZba8JRwEhwYKYS0pMzn/VhCOgsP8c8d6A644PrH5nIuQjRyOUGx9pHK49jCV44X1jPXxxVEGUJM+eF8uR8jdr9iavNocbQC/OrT67PuJSOfAHb57pZX87viYOlz49BFLbB8xDt/5MXsVch4ljumb4VlsH9xvy1LcK7qelKU4D1/HCpgDXU/WHtkYM+OYAr0MzIhjCHQysCGO3LwBvxwqHw==
+   eJy9k7kOwjAMhkNVcQhEOQTiKJ0ZGLMxg8r5KvD+E0ZyJWM5ISEJwyenf9t8co5KKVX9gQXQS0BJHHNgDPQjsgEK5tgBGtkSpMyUa8JecORAS5hLypqcv3s/P5GD4Gi+uWK9AGccH8mcEichG1ocvki9xXTY1jCW44G1xnr74sg8KEkfvC+bw+fsF2xOXk0O7cGvjlx99n1HpH3gDte1ypV87/iYOmy49BFKaB8hDtf/Q9bKZz8yHNM7w7PQPrjflMU4V3Q+KYuxH66OJTADOo6sHLIRZo1jAnQTMCWOAdBOwJo4UvMClYEq/Q==
   </data>
  </layer>
  <layer name="item" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFlIAoJIxNDFk8DgnnkGBHNBLGJhaDJB6LhPMJmBtOghvQASGzYSCCTPPzkDAhEESmHYlImBAIJsN8UBiVoGFqgxAku0A4jAZ2hELpeKgdqTSwA+aPSChNS3/AADH+SAPidCg7AIiTsIgPBTDqD9qAMiidC8SBeMTQASn+gJW1GUCciUeMGiAbiBOIEBsFgwcAAE93Ius=
+   eJxjYBgFlIAoJIxNDFk8DgnnkGBHNBLGJhaDJB6LhPOBmBGKsYFwEtyADvKJVBdBpvl5SJgQCCLTjkQkTAgEk2E+KIxK0DC1QQiSXSAcRgM7QqF0PNSOVBrYAfNHJJSmpT9ggBh/pAFxOpQdAMRJWMSHAhj1B21AGZTOBeJAPGLogBR/wMraDCDOxCNGDZANxAlEiI2CwQMAXzsi7Q==
   </data>
  </layer>
  <layer name="map2" width="25" height="25">

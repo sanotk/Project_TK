@@ -643,8 +643,6 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
-
-
         if (player.status_find && noItem) {
             player.status_find = false;
             player.status_windows_link = false;
@@ -719,6 +717,11 @@ public class GameScreen3 extends AbstractGameScreen {
                     Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                     Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
             chartWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
+            level3.gate.state = Item.ItemState.ON;
+        }
+
+        if ((level3.gate.state == Item.ItemState.ON) && (level3.gate.nearPlayer()) && player.status_find) {
+            game.setScreen(new GameScreen4(game, optionsWindow));
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World

@@ -47,6 +47,7 @@ public class LevelDebugger {
     public static final int MAP_SWITCH = 25;
     public static final int MAP_FAN2 = 26;
     public static final int MAP_POLLUTION_CONTROL = 27;
+    public static final int MAP_GATE = 28;
 
     public static final int MAP_ALL = 100;
 
@@ -71,7 +72,9 @@ public class LevelDebugger {
         RICE_COOKER("cooker", Color.TEAL),
         MICROWAVE("microwave",Color.valueOf("#ff00bf")),
         SWITCH("switch", Color.CYAN),
-        POLLUTION_CONTROLER("pollutioncontrol", Color.BLUE);
+        POLLUTION_CONTROLER("pollutioncontrol", Color.BLUE),
+        GATE("gate", Color.LIME);
+
 
         public final String propertyName;
         public final Color color;
@@ -194,9 +197,6 @@ public class LevelDebugger {
         if (settings.contains(MAP_FAN)) {
             drawMapTileOverlay(TiledDrawingData.FAN);
         }
-        if (settings.contains(MAP_DOOR)) {
-            drawMapTileOverlay(TiledDrawingData.DOOR);
-        }
         if (settings.contains(MAP_AIR_CONDITIONER)) {
             drawMapTileOverlay(TiledDrawingData.AIR_CONDITIONER);
         }
@@ -214,6 +214,9 @@ public class LevelDebugger {
         }
         if (settings.contains(MAP_POLLUTION_CONTROL)) {
             drawMapTileOverlay(TiledDrawingData.POLLUTION_CONTROLER);
+        }
+        if (settings.contains(MAP_GATE)) {
+            drawMapTileOverlay(TiledDrawingData.GATE);
         }}
 
     private void drawMapTileOverlay(TiledDrawingData tiledDrawingData) {
@@ -232,7 +235,7 @@ public class LevelDebugger {
 
     public void enable(int setting) {
         if (setting == MAP_ALL) {
-            for (int i = MAP_GRID; i <= MAP_POLLUTION_CONTROL; i++) {
+            for (int i = MAP_GRID; i <= MAP_GATE; i++) {
                 settings.add(i);
             }
         } else {
@@ -242,7 +245,7 @@ public class LevelDebugger {
 
     public void disable(int setting) {
         if (setting == MAP_ALL) {
-            for (int i = MAP_GRID; i <= MAP_POLLUTION_CONTROL; i++) {
+            for (int i = MAP_GRID; i <= MAP_GATE; i++) {
                 settings.add(i);
             }
         } else {

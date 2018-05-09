@@ -642,7 +642,8 @@ public class GameScreen2 extends AbstractGameScreen {
                 && !player.questScreen4
                 && !player.questScreen5
                 && !player.questScreen6
-                && !level2.switchItem.nearPlayer();
+                && !level2.switchItem.nearPlayer()
+                && !level2.gate.nearPlayer();
 
         if (player.status_find && noCitizen) {
             player.status_find = false;
@@ -744,6 +745,11 @@ public class GameScreen2 extends AbstractGameScreen {
                     Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                     Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
             chartWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
+            level2.gate.state = Item.ItemState.ON;
+        }
+
+        if ((level2.gate.state == Item.ItemState.ON) && (level2.gate.nearPlayer()) && player.status_find) {
+            game.setScreen(new GameScreen3(game, optionsWindow));
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
