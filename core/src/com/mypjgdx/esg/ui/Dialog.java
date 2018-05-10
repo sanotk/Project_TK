@@ -27,8 +27,6 @@ public class Dialog extends Actor {
     private int charCount = 0;
     private float stringCompleteness = 0;
 
-    private boolean hiding = false;
-    private boolean showing = false;
     private Action showingEffect = null;
     private Action hidingEffect = null;
 
@@ -131,24 +129,14 @@ public class Dialog extends Actor {
     }
 
     public void hide(final Action afterHideAction) {
-        if (isVisible() && !hiding && !showing) {
-            hiding = true;
-            Action completedAction = new Action() {
-                @Override
-                public boolean act(float delta) {
-                    hiding = false;
-                    if (hidingEffect != null) hidingEffect.restart();
-                    addAction(afterHideAction);
-                    return true;
-                }
-            };
-
-            SequenceAction allActions = Actions.action(SequenceAction.class);
-            if (hidingEffect != null) allActions.addAction(hidingEffect);
-            allActions.addAction(Actions.hide());
-            allActions.addAction(completedAction);
-            addAction(allActions);
+        SequenceAction allActions = Actions.action(SequenceAction.class);
+        if (hidingEffect != null) {
+            hidingEffect.restart();
+            allActions.addAction(hidingEffect);
         }
+        allActions.addAction(Actions.hide());
+        allActions.addAction(afterHideAction);
+        addAction(allActions);
     }
 
     public void show() {
@@ -157,24 +145,14 @@ public class Dialog extends Actor {
 
 
     public void show(final Action afterShowAction) {
-        if (!isVisible() && !hiding && !showing) {
-            showing = true;
-            Action completedAction = new Action() {
-                @Override
-                public boolean act(float delta) {
-                    showing = false;
-                    if (showingEffect != null) showingEffect.restart();
-                    addAction(afterShowAction);
-                    return true;
-                }
-            };
-
-            SequenceAction allActions = Actions.action(SequenceAction.class);
-            allActions.addAction(Actions.show());
-            if (showingEffect != null) allActions.addAction(showingEffect);
-            allActions.addAction(completedAction);
-            addAction(allActions);
+        SequenceAction allActions = Actions.action(SequenceAction.class);
+        allActions.addAction(Actions.show());
+        if (showingEffect != null) {
+            hidingEffect.restart();
+            allActions.addAction(hidingEffect);
         }
+        allActions.addAction(afterShowAction);
+        addAction(allActions);
     }
 
     public void addPage(final String text, float delaySec) {
