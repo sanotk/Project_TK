@@ -145,10 +145,10 @@ public class GameScreen extends AbstractGameScreen {
         dialogStory = new Texture("dialogStory.png");
         dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        dialog = new Dialog(font, dialogStory, 65f, 220f);
+        dialog = new Dialog(font, dialogStory, 65f, 100f);
         dialog.setPosition(
-                SCENE_WIDTH/2-dialogStory.getWidth()*0.5f,
-                SCENE_HEIGHT/2-dialogStory.getHeight()*0.5f);
+                SCENE_WIDTH / 2 - dialogStory.getWidth() * 0.5f,
+                SCENE_HEIGHT / 2 - dialogStory.getHeight() * 0.5f);
         dialog.setColor(Color.WHITE);
 
         this.optionsWindow = optionsWindow;
@@ -897,11 +897,13 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(Gdx.input.isKeyPressed(Keys.ANY_KEY)) {
-            if (Gdx.input.isKeyPressed(Keys.ENTER))
+        if (Gdx.input.isKeyPressed(Keys.ANY_KEY)) {
+            if (Gdx.input.isKeyPressed(Keys.ENTER)) {
+                dialog.hide();
                 worldController.level.player.timeStop = false;
-            else
+            } else {
                 dialog.tryToChangePage();
+            }
         }
 
 //        if (stringDraw) {
@@ -920,14 +922,14 @@ public class GameScreen extends AbstractGameScreen {
         textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
         textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
         textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
-        textTime.setText(String.format(" %d", worldController.level.player.timeCount)+ " วินาที");
+        textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
         if (animation_status) {
-            energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced)+ " วัตต์");
+            energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
         } else {
             energyLevel.setText(String.format(" %d", 0) + " วัตต์");
         }
-        energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse)+ " วัตต์");
-        energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage())+" จูล");
+        energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
+        energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
         //      }
         //
         // sunleft.setText(String.format("Sun Left"));
@@ -1039,7 +1041,7 @@ public class GameScreen extends AbstractGameScreen {
             if (enemy.stateMachine.getCurrentState() == EnemyState.DIE && !enemy.count) {
                 BatteryBar.instance.addEnergy(1000);
                 enemy.count = true;
-                countEnemy +=1;
+                countEnemy += 1;
             }
         }
 
