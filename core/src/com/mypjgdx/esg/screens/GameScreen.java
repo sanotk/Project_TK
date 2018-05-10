@@ -985,7 +985,7 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if(!dialogEnemy && dialogStart){
+        if(!dialogEnemy){
             for (int i = 0; i < worldController.level.enemies.size(); i++) {
                 Enemy enemy = worldController.level.enemies.get(i);
                 if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
@@ -994,7 +994,7 @@ public class GameScreen extends AbstractGameScreen {
                     String text =
                             "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                     dialog.show();
-                    dialog.setText(text);
+                    dialog.addWaitingPage(text);
                 }
             }
         }
