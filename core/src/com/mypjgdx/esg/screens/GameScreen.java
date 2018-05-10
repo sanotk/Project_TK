@@ -113,15 +113,6 @@ public class GameScreen extends AbstractGameScreen {
     private boolean addedBtoD = false;
     private boolean addedItoD = false;
 
-    private float startX;
-    private float startY;
-    private float goalX;
-    private float goalY;
-    private float startWidth;
-    private float startHeight;
-    private float goalWidth;
-    private float goalHeight;
-
     private int countEnemy;
 
     public int enemyDeadCount = 0;
@@ -130,8 +121,8 @@ public class GameScreen extends AbstractGameScreen {
 
     private int trueLink = 0;
 
-    private Texture dialogBackground;
     private Dialog dialog;
+    private Texture dialogStory;
 
     private String text =
             "\"ในปี พ.ศ.2600 ได้เกิดสงครามโลกครั้งที่ 3\" \n\"โดยมีการใช้อาวุธนิวเคลียร์ ทำให้ทั้งโลกเกิดสภาวะอากาศเป็นพิษ\" \n\"ทำให้ผู้คนไม่สามารถอาศัยอยู่บนพื้นโลก ผู้คนจึงต้องหลบไปอยู่ในสถานที่หลบภัย\""
@@ -151,13 +142,13 @@ public class GameScreen extends AbstractGameScreen {
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(0.4f, 0, 0, 1);
 
-        dialogBackground = new Texture("dialog.png");
-        dialogBackground.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        dialogStory = new Texture("dialogStory.png");
+        dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        dialog = new Dialog(font, dialogBackground, 65f, 220f);
+        dialog = new Dialog(font, dialogStory, 65f, 220f);
         dialog.setPosition(
-                SCENE_WIDTH/2-dialogBackground.getWidth()*0.5f,
-                SCENE_HEIGHT/2-dialogBackground.getHeight()*0.5f);
+                SCENE_WIDTH/2-dialogStory.getWidth()*0.5f,
+                SCENE_HEIGHT/2-dialogStory.getHeight()*0.5f);
 
         this.optionsWindow = optionsWindow;
 
@@ -193,6 +184,7 @@ public class GameScreen extends AbstractGameScreen {
                 Gdx.graphics.getWidth() / 2 - ruleWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
         ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+        ruleWindow.setVisible(false);
 
         chartWindow = createChartWindow();
         chartWindow.setVisible(false);
@@ -206,7 +198,6 @@ public class GameScreen extends AbstractGameScreen {
         optionsWindow.setVisible(false);
 
         dialog.addWaitingPage(text);
-        dialog.setVisible(false);
 
         stage.addActor(dialog);
 
@@ -1081,7 +1072,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void hide() {
-        dialogBackground.dispose();
+        dialogStory.dispose();
         worldRenderer.dispose();
         font.dispose();
     }
