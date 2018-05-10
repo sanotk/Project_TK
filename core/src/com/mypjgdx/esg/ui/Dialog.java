@@ -35,8 +35,7 @@ public class Dialog extends Actor {
     private float dragStartX = 0;
     private float dragStartY = 0;
 
-    private Action hideAction = null;
-    private Action showAction = null;
+    private SequenceAction allPageAction = Actions.action(SequenceAction.class);
 
     private Action typingAction = new Action() {
         @Override
@@ -139,14 +138,12 @@ public class Dialog extends Actor {
         }
         allActions.addAction(Actions.hide());
         allActions.addAction(afterHideAction);
-        hideAction = allActions;
-        addAction(hideAction);
+        addAction(allActions);
     }
 
     public void show() {
         show(noAction);
     }
-
 
     public void show(final Action afterShowAction) {
         SequenceAction allActions = Actions.action(SequenceAction.class);
@@ -156,8 +153,7 @@ public class Dialog extends Actor {
             allActions.addAction(hidingEffect);
         }
         allActions.addAction(afterShowAction);
-        showAction = allActions;
-        addAction(showAction);
+        addAction(allActions);
     }
 
     public void addPage(final String text, float delaySec) {
@@ -172,7 +168,8 @@ public class Dialog extends Actor {
         addPageAction.addAction(typingAction);
         addPageAction.addAction(Actions.delay(delaySec));
 
-        addAction(Actions.after(addPageAction));
+        allPageAction.addAction(Actions.after(addPageAction));
+        ensureAllPageAction();
     }
 
     public void addLastPage(String text, float delaySec) {
@@ -186,7 +183,7 @@ public class Dialog extends Actor {
 
     public void addWaitingPage(String text) {
         addPage(text, 0);
-        addAction(Actions.after(waitingAction));
+        allPageAction.addAction(Actions.after(waitingAction));
     }
 
     public void addLastWaitingPage(String text) {
@@ -199,7 +196,7 @@ public class Dialog extends Actor {
     }
 
     private void addAfterLastAction(final Action afterHideAction) {
-        addAction(Actions.after(new Action() {
+        allPageAction.addAction(Actions.after(new Action() {
             @Override
             public boolean act(float delta) {
                 hide(afterHideAction);
@@ -208,25 +205,10 @@ public class Dialog extends Actor {
         }));
     }
 
-    public void setPageText(final String text) {
-        for (int i = 0; i < getActions().size; i++) {
-            Action action = getActions().get(i);
-            if (action != showAction && action != hideAction) {
-                removeAction(action);
-            }
+    private void ensureAllPageAction() {
+        if (!getActions().contains(allPageAction, true)) {
+            addAction(allPageAction);
         }
-
-        SequenceAction addPageAction = Actions.action(SequenceAction.class);
-        addPageAction.addAction(new Action() {
-            @Override
-            public boolean act(float delta) {
-                setText(text);
-                return true;
-            }
-        });
-        addPageAction.addAction(typingAction);
-        addPageAction.addAction(waitingAction);
-        addAction(addPageAction);
     }
 
     private void setText(String text) {
@@ -235,6 +217,12 @@ public class Dialog extends Actor {
         charCount = 0;
 
         this.text = text;
+    }
+
+    public void clearPages() {
+        removeAction(allPageAction);
+        allPageAction.reset();
+        charCount = 0;
     }
 
     public void tryToChangePage() {
