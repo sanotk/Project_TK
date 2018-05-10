@@ -65,7 +65,7 @@ public class Dialog extends Actor {
         }
     };
 
-    private DragListener dragListenner = new DragListener() {
+    private DragListener dragListener = new DragListener() {
         @Override
         public void dragStart(InputEvent event, float x, float y, int pointer) {
             dragStartX = x;
@@ -94,12 +94,12 @@ public class Dialog extends Actor {
     }
 
     public void enableDragging() {
-        addListener(dragListenner);
+        removeListener(dragListener);
+        addListener(dragListener);
     }
 
-
     public void disableDragging() {
-        removeListener(dragListenner);
+        removeListener(dragListener);
     }
 
     @Override
@@ -115,14 +115,14 @@ public class Dialog extends Actor {
                 getX() + textStartX,
                 getY() + textStartY,
                 0, charCount,
-                getWidth() - textStartX*2, Align.left, true);
+                getWidth() - textStartX * 2, Align.left, true);
     }
 
     public void setShowingEffect(Action effect) {
         showingEffect = effect;
     }
 
-    public void setHidingEffect(final Action effect) {
+    public void setHidingEffect(Action effect) {
         hidingEffect = effect;
     }
 
@@ -197,7 +197,7 @@ public class Dialog extends Actor {
     }
 
     public void addLastPage(String text, float delaySec, Action afterHideAction) {
-        addPage(text, 0);
+        addPage(text, delaySec);
         addAfterLastAction(afterHideAction);
     }
 
@@ -225,7 +225,7 @@ public class Dialog extends Actor {
         }));
     }
 
-    public void setText(String text) {
+    private void setText(String text) {
         textSpeed = DEFAULT_TEXT_SPEED;
         stringCompleteness = 0;
         charCount = 0;
