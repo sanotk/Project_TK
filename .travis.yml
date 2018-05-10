@@ -13,12 +13,22 @@ before_cache:
 
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+    - '$HOME/.gradle/caches/'
+    - '$HOME/.gradle/wrapper/'
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
+    - '.gradle'
 
+addons:
+  sonarcloud:
+    organization: "skyousuke-github"
+    token:
+      secure: "RF2DGyvfmbvcDIdXT3B/7xN8O4GgRyaK4y0aGRNniPYh2wOR4OccpSMEnqiGy1yQUTU9/m02Zkg+T12lQ1Kb4HcfQSAmeMqnwcwiA2+omIpucr2AI0TWJmFhIyBZkJGp8FhO4L3sqSU4vdsxdtE8VTlwTIikKPj/hOaChR5T1FqRWhKgg6nHmjqK28HW+19NWD31YP/4NwfHRVeZgl78zBqzvmIL7Iw7NzDr43Pmgrue4kDO2vOe3DslWoICplZyWMYVXuGFgWDNaZ7TlQuTjzICg0LH1074LY+A40pFjWed7gEDx88rdDS8T4lOEjvPqrG3YSRJxuVSg47nZojHZ7LLIOnUflmIf3tOlKMKGiueCXl5F4Nn5iGKYA6Ckr9LYo84aiAWQYKqztoatFWDizECZzw+Q0h+kvTtB9ZFgSRsYJO3TJmj6cMn17HpMVhI2HgiPe3vHWq3H49jmbjvnE2jdZsUk5VVeJMiVccpmuvDtGWliFQFKh0IhtZq1nekY/OHIXbrIY7ypr/M2rbRnivFW3oVWehnYNVVsNuE11capy6MDT0Klbz6k5y5ZnHxxQSNiREnGr8CmekvtQxGo+Qyn1eXfWWIhbsyO4f8F4CDV9Z02K0zbuaJDlL9ic3Mi+cSjqZBs1nZH12wi01kl2qBW+rSg9Rhq5ksiaZzpDQ="
+      
 before_install:
   - chmod +x gradlew
 
 script:
   - ./gradlew clean
   - ./gradlew check
+  - ./gradlew sonarqube
