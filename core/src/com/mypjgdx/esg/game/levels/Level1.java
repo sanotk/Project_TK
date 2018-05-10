@@ -7,9 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.objects.characters.Pepo;
-import com.mypjgdx.esg.game.objects.characters.PepoKnight;
-import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.game.objects.weapons.NormalBow;
 import com.mypjgdx.esg.game.objects.weapons.NormalSword;
@@ -21,6 +19,13 @@ public class Level1 extends Level {
     public Item battery;
     public Item charge;
     public Item door;
+
+    public Citizen citizen1;
+    public Citizen citizen2;
+    public Citizen citizen3;
+    public Citizen citizen4;
+    public Citizen citizen5;
+    public Citizen citizen6;
 
     public Level1() {
         map = Assets.instance.map1;
@@ -47,6 +52,20 @@ public class Level1 extends Level {
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new PepoKnight(mapLayer, player));
         enemies.add(new PepoKnight(mapLayer, player));
+
+        citizen1 = new Citizen1(mapLayer, player);
+        citizen2 = new Citizen2(mapLayer, player);
+        citizen3 = new Citizen3(mapLayer, player);
+        citizen4 = new Citizen4(mapLayer, player);
+        citizen5 = new Citizen5(mapLayer, player);
+        citizen6 = new Citizen6(mapLayer, player);
+
+        citizens.add(citizen1);
+        citizens.add(citizen2);
+        citizens.add(citizen3);
+        citizens.add(citizen4);
+        citizens.add(citizen5);
+        citizens.add(citizen6);
 
         bows.add(new NormalBow(mapLayer, player));
         swords.add(new NormalSword(mapLayer, player));
