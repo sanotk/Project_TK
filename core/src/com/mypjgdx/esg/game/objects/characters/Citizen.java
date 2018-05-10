@@ -251,19 +251,19 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         }else if(player.getViewDirection() == Direction.DOWN){
             goalY += range;
         }else if(player.getViewDirection() == Direction.LEFT){
-            goalX -= range;
-        }else if(player.getViewDirection() == Direction.RIGHT){
             goalX += range;
+        }else if(player.getViewDirection() == Direction.RIGHT){
+            goalX -= range;
         }
 
         if (goalX < 0){
             goalX = 0;
         }else if (goalY < 0){
             goalY = 0;
-        }else if (goalX > mapLayer.getTileWidth()){
-            goalX = mapLayer.getTileWidth();
-        }else if (goalY > mapLayer.getTileHeight()){
-            goalY = mapLayer.getTileHeight();
+        }else if (goalX > mapLayer.getTileWidth()*mapLayer.getWidth()){
+            goalX = mapLayer.getTileWidth()*mapLayer.getWidth();
+        }else if (goalY > mapLayer.getTileHeight()*mapLayer.getHeight()){
+            goalY = mapLayer.getTileHeight()*mapLayer.getHeight();
         }
 
         GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
