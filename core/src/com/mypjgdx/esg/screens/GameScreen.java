@@ -1016,7 +1016,7 @@ public class GameScreen extends AbstractGameScreen {
         if(player.stageoneclear && player.status_find){
             for (int i = 0; i < worldController.level.citizens.size(); i++) {
                 Citizen citizen = worldController.level.citizens.get(i);
-                if (citizen.overlapPlayer) {
+                if (citizen.overlapPlayer && !citizen.runPlayer) {
                     dialogCitizen = true;
                     player.timeStop = true;
                     String text =
@@ -1025,7 +1025,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
                     citizen.runPlayer = true;
-                    break;
+
                 }
             }
         }
