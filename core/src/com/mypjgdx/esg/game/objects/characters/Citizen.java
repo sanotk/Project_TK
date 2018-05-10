@@ -241,10 +241,30 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
             range = Range.instance.rangeToPlayer;
         }
 
-        final float startX = walkingBounds.x + walkingBounds.width / 2;
-        final float startY = walkingBounds.y + walkingBounds.height / 2;
-        final float goalX = player.walkingBounds.x + player.walkingBounds.width / 2;
-        final float goalY = player.walkingBounds.y + player.walkingBounds.height / 2 - range;
+        float startX = walkingBounds.x + walkingBounds.width / 2;
+        float startY = walkingBounds.y + walkingBounds.height / 2;
+        float goalX = player.walkingBounds.x + player.walkingBounds.width / 2;
+        float goalY = player.walkingBounds.y + player.walkingBounds.height / 2;
+
+        if(player.getViewDirection() == Direction.UP){
+            goalY -= range;
+        }else if(player.getViewDirection() == Direction.DOWN){
+            goalY += range;
+        }else if(player.getViewDirection() == Direction.LEFT){
+            goalX -= range;
+        }else if(player.getViewDirection() == Direction.RIGHT){
+            goalX += range;
+        }
+
+        if (goalX < 0){
+            goalX = 0;
+        }else if (goalY < 0){
+            goalY = 0;
+        }else if (goalX > mapLayer.getWidth()){
+            goalX = mapLayer.getWidth()-100;
+        }else if (goalY > mapLayer.getHeight()){
+            goalY = mapLayer.getHeight()-100;
+        }
 
         GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
         Heuristic<Node> heuristic = new Heuristic<Node>() {
