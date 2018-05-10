@@ -225,7 +225,7 @@ public class Dialog extends Actor {
         }));
     }
 
-    protected void setText(String text) {
+    public void setText(String text) {
         textSpeed = DEFAULT_TEXT_SPEED;
         stringCompleteness = 0;
         charCount = 0;

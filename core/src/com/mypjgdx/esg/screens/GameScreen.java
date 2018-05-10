@@ -1007,6 +1007,10 @@ public class GameScreen extends AbstractGameScreen {
                 if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
                     dialogEnemy = true;
                     player.timeStop = true;
+                    String text =
+                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    dialog.show();
+                    dialog.setText(text);
                 }
             }
         }
