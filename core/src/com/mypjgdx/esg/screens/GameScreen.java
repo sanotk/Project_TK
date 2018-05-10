@@ -894,8 +894,8 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (Gdx.input.isKeyPressed(Keys.ANY_KEY)) {
-            if (Gdx.input.isKeyPressed(Keys.ENTER)) {
+        if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
+            if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
                 dialog.hide();
                 worldController.level.player.timeStop = false;
             } else {
