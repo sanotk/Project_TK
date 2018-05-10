@@ -127,6 +127,7 @@ public class GameScreen extends AbstractGameScreen {
     private String text =
             "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้\" \n\"เอาล่ะ รีบเร่งมือกันเถอะ (กด Enter เพื่อเริ่มเกม)\"";
 
+    private boolean dialogStart;
     private boolean dialogEnemy;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
@@ -884,7 +885,6 @@ public class GameScreen extends AbstractGameScreen {
                         System.out.println(trueLink);
                     }
                 }
-                //if(x>trueLink) System.out.print(link.get(x-1) + "เป็นการเชื่อมต่อที่ไม่ถูกต้อง");
             }
         }
     }
@@ -903,19 +903,6 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-//        if (stringDraw) {
-//            textBullet.setText(String.format("ลูกธนู : %d", worldController.level.player.arrowCount) + " ดอก");
-//            textBeam.setText(String.format("คลื่นดาบ : %d", worldController.level.player.swordWaveCount) + " ครั้ง");
-//            textTrap.setText(String.format("กับดัก : %d", worldController.level.player.trapCount) + " ครั้ง");
-//            textTime.setText(String.format("เวลาที่เหลือ : %d", worldController.level.player.timeCount) + " วินาที");
-//            if (animation_status) {
-//                energyLevel.setText(String.format("พลังงานที่ผลิตต่อวินาที : %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
-//            } else {
-//                energyLevel.setText(String.format("พลังงานที่ผลิตต่อวินาที : %d", 0) + " วัตต์");
-//            }
-//            energyLevel2.setText(String.format("พลังงานที่ใช้ต่อวินาที : %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
-//            energyLevel3.setText(String.format("พลังงานภายในแบตเตอรี : %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
-//        }else {
         textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
         textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
         textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
@@ -927,9 +914,6 @@ public class GameScreen extends AbstractGameScreen {
         }
         energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
         energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
-        //      }
-        //
-        // sunleft.setText(String.format("Sun Left"));
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));
@@ -1001,7 +985,7 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if(!dialogEnemy){
+        if(!dialogEnemy && dialogStart){
             for (int i = 0; i < worldController.level.enemies.size(); i++) {
                 Enemy enemy = worldController.level.enemies.get(i);
                 if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
