@@ -198,7 +198,7 @@ public class GameScreen extends AbstractGameScreen {
 
         optionsWindow.setVisible(false);
 
-        dialog.addWaitingPage(text);
+        dialog.setPageText(text);
 
         stage.addActor(dialog);
 
@@ -994,7 +994,7 @@ public class GameScreen extends AbstractGameScreen {
                     String text =
                             "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                     dialog.show();
-                    dialog.addWaitingPage(text);
+                    dialog.setPageText(text);
                 }
             }
         }
