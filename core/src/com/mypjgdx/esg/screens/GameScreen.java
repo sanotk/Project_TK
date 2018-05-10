@@ -125,8 +125,9 @@ public class GameScreen extends AbstractGameScreen {
     private Texture dialogStory;
 
     private String text =
-            "\"ในปี พ.ศ.2600 ได้เกิดสงครามโลกครั้งที่ 3\" \n\"โดยมีการใช้อาวุธนิวเคลียร์ ทำให้ทั้งโลกเกิดสภาวะอากาศเป็นพิษ\" \n\"ทำให้ผู้คนไม่สามารถอาศัยอยู่บนพื้นโลก ผู้คนจึงต้องหลบไปอยู่ในสถานที่หลบภัย\""
-                    + "\n\"คุณคือผู้กล้าที่ถูกคัดเลือกโดยต้องไปสำรวจสถานที่หลบภัยแห่งหนึ่ง\"\n\"และพาคนในพื้นที่เข้าไปหลบภัยในสถานที่หลบภัยแห่งนั้นให้มากที่สุด \"\n\"เอาล่ะ รีบเร่งมือกันเถอะ (กด Enter เพื่อเริ่มเกม)\"";
+            "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้\" \n\"เอาล่ะ รีบเร่งมือกันเถอะ (กด Enter เพื่อเริ่มเกม)\"";
+
+    private boolean dialogEnemy;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
@@ -140,16 +141,15 @@ public class GameScreen extends AbstractGameScreen {
         bg = new Texture("bg.png");
         font = new BitmapFont(Gdx.files.internal("thai24.fnt"));
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font.setColor(0.4f, 0, 0, 1);
+        font.setColor(Color.WHITE);
 
         dialogStory = new Texture("dialogStory.png");
         dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        dialog = new Dialog(font, dialogStory, 65f, 100f);
+        dialog = new Dialog(font, dialogStory, 65f, 120f);
         dialog.setPosition(
                 SCENE_WIDTH / 2 - dialogStory.getWidth() * 0.5f,
-                SCENE_HEIGHT / 2 - dialogStory.getHeight() * 0.5f);
-        dialog.setColor(Color.WHITE);
+                SCENE_HEIGHT / 4 - dialogStory.getHeight() * 0.5f);
 
         this.optionsWindow = optionsWindow;
 
@@ -465,7 +465,6 @@ public class GameScreen extends AbstractGameScreen {
             }
         });
 
-
         return ruleWindow;
     }
 
@@ -479,8 +478,6 @@ public class GameScreen extends AbstractGameScreen {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
 
-        int btn_w = 200;
-        int btn_h = 50;
 
         TextButton.TextButtonStyle buttonBowStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconBow = new TextureRegionDrawable(Assets.instance.iconBow);
@@ -1001,6 +998,16 @@ public class GameScreen extends AbstractGameScreen {
                 doorWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else {
                 doorWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+            }
+        }
+
+        if(!dialogEnemy){
+            for (int i = 0; i < worldController.level.enemies.size(); i++) {
+                Enemy enemy = worldController.level.enemies.get(i);
+                if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
+                    dialogEnemy = true;
+                    player.timeStop = true;
+                }
             }
         }
 
