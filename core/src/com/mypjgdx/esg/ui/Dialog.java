@@ -35,6 +35,9 @@ public class Dialog extends Actor {
     private float dragStartX = 0;
     private float dragStartY = 0;
 
+    private Action hideAction = null;
+    private Action showAction = null;
+
     private Action typingAction = new Action() {
         @Override
         public boolean act(float delta) {
@@ -136,7 +139,8 @@ public class Dialog extends Actor {
         }
         allActions.addAction(Actions.hide());
         allActions.addAction(afterHideAction);
-        addAction(allActions);
+        hideAction = allActions;
+        addAction(hideAction);
     }
 
     public void show() {
@@ -152,7 +156,8 @@ public class Dialog extends Actor {
             allActions.addAction(hidingEffect);
         }
         allActions.addAction(afterShowAction);
-        addAction(allActions);
+        showAction = allActions;
+        addAction(showAction);
     }
 
     public void addPage(final String text, float delaySec) {
@@ -201,6 +206,27 @@ public class Dialog extends Actor {
                 return true;
             }
         }));
+    }
+
+    public void setPageText(final String text) {
+        for (int i = 0; i < getActions().size; i++) {
+            Action action = getActions().get(i);
+            if (action != showAction && action != hideAction) {
+                removeAction(action);
+            }
+        }
+
+        SequenceAction addPageAction = Actions.action(SequenceAction.class);
+        addPageAction.addAction(new Action() {
+            @Override
+            public boolean act(float delta) {
+                setText(text);
+                return true;
+            }
+        });
+        addPageAction.addAction(typingAction);
+        addPageAction.addAction(waitingAction);
+        addAction(addPageAction);
     }
 
     private void setText(String text) {
