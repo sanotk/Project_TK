@@ -149,6 +149,7 @@ public class GameScreen extends AbstractGameScreen {
         dialog.setPosition(
                 SCENE_WIDTH/2-dialogStory.getWidth()*0.5f,
                 SCENE_HEIGHT/2-dialogStory.getHeight()*0.5f);
+        dialog.setColor(Color.WHITE);
 
         this.optionsWindow = optionsWindow;
 
@@ -183,7 +184,6 @@ public class GameScreen extends AbstractGameScreen {
         ruleWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - ruleWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
-        ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
         ruleWindow.setVisible(false);
 
         chartWindow = createChartWindow();
