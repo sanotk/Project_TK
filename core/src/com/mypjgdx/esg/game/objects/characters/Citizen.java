@@ -260,10 +260,10 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
             goalX = 0;
         }else if (goalY < 0){
             goalY = 0;
-        }else if (goalX > mapLayer.getWidth()){
-            goalX = mapLayer.getWidth()-100;
-        }else if (goalY > mapLayer.getHeight()){
-            goalY = mapLayer.getHeight()-100;
+        }else if (goalX > mapLayer.getTileWidth()){
+            goalX = mapLayer.getTileWidth();
+        }else if (goalY > mapLayer.getTileHeight()){
+            goalY = mapLayer.getTileHeight();
         }
 
         GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
