@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.ui.Range;
 import com.mypjgdx.esg.utils.Direction;
 import com.mypjgdx.esg.utils.GameMap;
 import com.mypjgdx.esg.utils.Node;
@@ -84,7 +85,9 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     protected float positionGoalY;
 
     public boolean overlapPlayer;
-    public boolean runCount;
+    private boolean rangeAdd;
+    private float range;
+    public boolean runPlayer;
 
     public Citizen(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer) {
         super(atlas);
@@ -231,10 +234,17 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     }
 
     private void findPathPlayer() {
+
+        if(!rangeAdd){
+            rangeAdd = true;
+            Range.instance.rangeToPlayer+=50;
+            range = Range.instance.rangeToPlayer;
+        }
+
         final float startX = walkingBounds.x + walkingBounds.width / 2;
         final float startY = walkingBounds.y + walkingBounds.height / 2;
         final float goalX = player.walkingBounds.x + player.walkingBounds.width / 2;
-        final float goalY = player.walkingBounds.y + player.walkingBounds.height / 2;
+        final float goalY = player.walkingBounds.y + player.walkingBounds.height / 2 - range;
 
         GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
         Heuristic<Node> heuristic = new Heuristic<Node>() {

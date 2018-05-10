@@ -16,7 +16,7 @@ public enum CitizenState implements State<Citizen> {
         public void update(Citizen entity) {
             if (entity.quest)
                 entity.getStateMachine().changeState(RUN_TO_ITEM);
-            if (entity.overlapPlayer){
+            if (entity.runPlayer){
                 entity.getStateMachine().changeState(RUN_TO_PLAYER);
             }
         }

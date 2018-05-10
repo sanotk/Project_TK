@@ -25,7 +25,7 @@ public class Range implements Json.Serializable {
     public void read(Json json, JsonValue jsonData) {
         rangeToPlayer = jsonData.get("Range").getFloat("rangeToPlayer");
     }
-    
+
     public float getRangeToPlayer(){
         return rangeToPlayer;
     }

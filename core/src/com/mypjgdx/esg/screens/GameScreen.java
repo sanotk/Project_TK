@@ -922,6 +922,10 @@ public class GameScreen extends AbstractGameScreen {
             return;
         }
 
+        if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
+            worldController.level.enemies.clear();
+        }
+
         if (!worldController.level.player.isAlive()) {
             MusicManager.instance.stop();
             game.setScreen(new GameOverScreen(game));
@@ -961,20 +965,20 @@ public class GameScreen extends AbstractGameScreen {
         solarcellWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - solarcellWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - solarcellWindow.getHeight() / 2);
-        if (!animation_status) {
-            if (level1.solarCell.nearPlayer() && (player.status_find == true)) {
+        if (!animation_status&& player.status_find) {
+            if (level1.solarCell.nearPlayer() ) {
                 solarWindow = systemWindow.solarcell;
                 checkButton(solarWindow);
                 solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            } else if (level1.charge.nearPlayer() && (player.status_find == true)) {
+            } else if (level1.charge.nearPlayer()) {
                 solarWindow = systemWindow.chargecontroller;
                 checkButton(solarWindow);
                 solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            } else if (level1.battery.nearPlayer() && (player.status_find == true)) {
+            } else if (level1.battery.nearPlayer()) {
                 solarWindow = systemWindow.battery;
                 checkButton(solarWindow);
                 solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            } else if (level1.inverter.nearPlayer() && (player.status_find == true)) {
+            } else if (level1.inverter.nearPlayer()) {
                 solarWindow = systemWindow.inverter;
                 checkButton(solarWindow);
                 solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
@@ -987,7 +991,7 @@ public class GameScreen extends AbstractGameScreen {
                 Gdx.graphics.getWidth() / 2 - doorWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - doorWindow.getHeight() / 2);
         if (!animation_status) {
-            if ((level1.door.nearPlayer()) && (player.status_find == true)) {
+            if ((level1.door.nearPlayer()) && (player.status_find)) {
                 doorWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else {
                 doorWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
@@ -1016,10 +1020,12 @@ public class GameScreen extends AbstractGameScreen {
                     dialogCitizen = true;
                     player.timeStop = true;
                     String text =
-                            "\"โปรดตามเรามา เราจะท่านไปยังสถานที่ปลอดภัย\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                            "\"โปรดตามเรามา เราจะพาท่านไปยังสถานที่ปลอดภัย\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
+                    citizen.runPlayer = true;
+                    break;
                 }
             }
         }
@@ -1049,7 +1055,7 @@ public class GameScreen extends AbstractGameScreen {
                     Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                     Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
             chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-        } else if (animation_status && BatteryBar.instance.getBatteryStorage() < BatteryBar.instance.BATTERY_MAX) {
+        } else if (animation_status && BatteryBar.instance.getBatteryStorage() < BatteryBar.BATTERY_MAX) {
             BatteryBar.instance.update(deltaTime);
             player.timeClear = true;
         }
