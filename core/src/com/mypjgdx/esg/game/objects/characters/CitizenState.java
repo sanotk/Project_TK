@@ -16,6 +16,9 @@ public enum CitizenState implements State<Citizen> {
         public void update(Citizen entity) {
             if (entity.quest)
                 entity.getStateMachine().changeState(RUN_TO_ITEM);
+            if (entity.overlapPlayer){
+                entity.getStateMachine().changeState(RUN_TO_PLAYER);
+            }
         }
 
         @Override
@@ -60,6 +63,21 @@ public enum CitizenState implements State<Citizen> {
         @Override
         public void exit(Citizen entity) {
             Gdx.app.log("exit", "RUN_TO_GOAL");
+        }
+    }, RUN_TO_PLAYER {
+        @Override
+        public void enter(Citizen entity) {
+
+        }
+
+        @Override
+        public void update(Citizen entity) {
+            entity.runToPlayer();
+        }
+
+        @Override
+        public void exit(Citizen entity) {
+            Gdx.app.log("exit", "RUN_TO_PLAYER");
         }
     };
 

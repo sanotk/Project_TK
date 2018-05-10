@@ -244,7 +244,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
             }
         };
 
-        gameMap.updateNeighbors(); //TODO
+        gameMap.updateNeighbors();
         startNode = gameMap.getNode(startX, startY);
         endNode = gameMap.getNode(goalX, goalY);
 
