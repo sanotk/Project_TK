@@ -13,7 +13,7 @@ public enum EnemyState implements State<Enemy> {
 
         @Override
         public void update(Enemy entity) {
-            if (entity.isPlayerInRange())
+            if (entity.isPlayerInRange() && !entity.player.timeStop)
                 entity.getStateMachine().changeState(RUN_TO_PLAYER);
         }
 
