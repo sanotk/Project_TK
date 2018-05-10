@@ -15,6 +15,20 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.sonarqube" version "2.2"
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "Project_TK"
+        property "sonar.projectKey", "com.mypjgdx.esg.project-tk"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.language", "java"
+
+    }
+}
+
 allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
