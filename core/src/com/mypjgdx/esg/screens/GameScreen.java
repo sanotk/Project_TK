@@ -27,6 +27,7 @@ import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.ui.*;
+import com.mypjgdx.esg.ui.Dialog;
 import com.mypjgdx.esg.utils.ItemLink;
 import com.mypjgdx.esg.utils.SolarState;
 
@@ -129,6 +130,13 @@ public class GameScreen extends AbstractGameScreen {
 
     private int trueLink = 0;
 
+    private Texture dialogBackground;
+    private Dialog dialog;
+
+    private String text =
+            "\"ในปี พ.ศ.2600 ได้เกิดสงครามโลกครั้งที่ 3\" \n\"โดยมีการใช้อาวุธนิวเคลียร์ ทำให้ทั้งโลกเกิดสภาวะอากาศเป็นพิษ\" \n\"ทำให้ผู้คนไม่สามารถอาศัยอยู่บนพื้นโลก ผู้คนจึงต้องหลบไปอยู่ในสถานที่หลบภัย\""
+                    + "\n\"คุณคือผู้กล้าที่ถูกคัดเลือกโดยต้องไปสำรวจสถานที่หลบภัยแห่งหนึ่ง\"\n\"และพาคนในพื้นที่เข้าไปหลบภัยในสถานที่หลบภัยแห่งนั้นให้มากที่สุด \"\n\"เอาล่ะ รีบเร่งมือกันเถอะ (กด Enter เพื่อเริ่มเกม)\"";
+
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
 
@@ -142,6 +150,14 @@ public class GameScreen extends AbstractGameScreen {
         font = new BitmapFont(Gdx.files.internal("thai24.fnt"));
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(0.4f, 0, 0, 1);
+
+        dialogBackground = new Texture("dialog.png");
+        dialogBackground.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        dialog = new Dialog(font, dialogBackground, 65f, 220f);
+        dialog.setPosition(
+                SCENE_WIDTH/2-dialogBackground.getWidth()*0.5f,
+                SCENE_HEIGHT/2-dialogBackground.getHeight()*0.5f);
 
         this.optionsWindow = optionsWindow;
 
@@ -188,6 +204,11 @@ public class GameScreen extends AbstractGameScreen {
         doorWindow.setVisible(false);
 
         optionsWindow.setVisible(false);
+
+        dialog.addWaitingPage(text);
+        dialog.setVisible(false);
+
+        stage.addActor(dialog);
 
         stage.addActor(buttonOption);
         stage.addActor(buttonRule);
@@ -885,6 +906,13 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if(Gdx.input.isKeyPressed(Keys.ANY_KEY)) {
+            if (Gdx.input.isKeyPressed(Keys.ENTER))
+                worldController.level.player.timeStop = false;
+            else
+                dialog.tryToChangePage();
+        }
+
 //        if (stringDraw) {
 //            textBullet.setText(String.format("ลูกธนู : %d", worldController.level.player.arrowCount) + " ดอก");
 //            textBeam.setText(String.format("คลื่นดาบ : %d", worldController.level.player.swordWaveCount) + " ครั้ง");
@@ -1053,6 +1081,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void hide() {
+        dialogBackground.dispose();
         worldRenderer.dispose();
         font.dispose();
     }
