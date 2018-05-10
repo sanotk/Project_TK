@@ -83,6 +83,9 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     protected float positionGoalX;
     protected float positionGoalY;
 
+    public boolean overlapPlayer;
+    public boolean runCount;
+
     public Citizen(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer) {
         super(atlas);
 
@@ -143,6 +146,12 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         super.update(deltaTime);
         updateStatus();
 
+        if (player.bounds.overlaps(bounds)){
+            overlapPlayer = true;
+        } else {
+            overlapPlayer = false;
+        }
+
         if (!player.timeStop) {
             stateMachine.update();
         }
@@ -199,6 +208,8 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         path = pathOutput;
     }
 
+
+
     private void findPathGoal() {
         final float startX = bounds.x + bounds.width / 2;
         final float startY = bounds.y;
@@ -214,6 +225,28 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         gameMap.updateNeighbors(); //TODO
         startNode = gameMap.getNode(startX, startY);
         endNode = gameMap.getNode(positionGoalX, positionGoalY);
+
+        pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
+        path = pathOutput;
+    }
+
+    private void findPathPlayer() {
+        final float startX = walkingBounds.x + walkingBounds.width / 2;
+        final float startY = walkingBounds.y + walkingBounds.height / 2;
+        final float goalX = player.walkingBounds.x + player.walkingBounds.width / 2;
+        final float goalY = player.walkingBounds.y + player.walkingBounds.height / 2;
+
+        GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
+        Heuristic<Node> heuristic = new Heuristic<Node>() {
+            @Override
+            public float estimate(Node node, Node endNode) {
+                return 1;
+            }
+        };
+
+        gameMap.updateNeighbors(); //TODO
+        startNode = gameMap.getNode(startX, startY);
+        endNode = gameMap.getNode(goalX, goalY);
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
         path = pathOutput;
@@ -304,6 +337,43 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         }
         if (path.getCount() <= 1) {
             toGoal = true;
+        }
+    }
+
+    public void runToPlayer() {
+        if (path == null) {
+            findPathPlayer();
+            running = true;
+        }
+        if (running) {
+            if (path.getCount() > 1) {
+                Node node = path.get(1);
+
+                float xdiff = node.getCenterPositionX() - walkingBounds.x - walkingBounds.width / 2;
+                float ydiff = node.getCenterPositionY() - walkingBounds.y - walkingBounds.height / 2;
+
+                final float minMovingDistance = 1f;
+
+                if (ydiff > minMovingDistance) {
+                    move(Direction.UP);
+                } else if (ydiff < -minMovingDistance) {
+                    move(Direction.DOWN);
+                }
+                if (xdiff > minMovingDistance) {
+                    move(Direction.RIGHT);
+                } else if (xdiff < -minMovingDistance) {
+                    move(Direction.LEFT);
+                }
+                if (near(node.getCenterPositionX(), walkingBounds.x + walkingBounds.width / 2)
+                        && near(node.getCenterPositionY(), walkingBounds.y + walkingBounds.height / 2)) {
+                    running = false;
+                }
+            } else {
+                running = false;
+            }
+        } else {
+            findPathPlayer();
+            running = true;
         }
     }
 

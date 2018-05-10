@@ -22,6 +22,7 @@ import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level1;
+import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
@@ -127,8 +128,8 @@ public class GameScreen extends AbstractGameScreen {
     private String text =
             "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้\" \n\"เอาล่ะ รีบเร่งมือกันเถอะ (กด Enter เพื่อเริ่มเกม)\"";
 
-    private boolean dialogStart;
     private boolean dialogEnemy;
+    private boolean dialogCitizen;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
@@ -945,7 +946,14 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if (player.status_find && noItem) {
+        boolean noCitizen = !player.questScreen1
+                && !player.questScreen2
+                && !player.questScreen3
+                && !player.questScreen4
+                && !player.questScreen5
+                && !player.questScreen6;
+
+        if (player.status_find && noItem && noCitizen) {
             player.status_find = false;
             player.status_windows_link = false;
         }
@@ -1000,6 +1008,22 @@ public class GameScreen extends AbstractGameScreen {
                 }
             }
         }
+
+        if(player.stageoneclear && player.status_find){
+            for (int i = 0; i < worldController.level.citizens.size(); i++) {
+                Citizen citizen = worldController.level.citizens.get(i);
+                if (citizen.overlapPlayer) {
+                    dialogCitizen = true;
+                    player.timeStop = true;
+                    String text =
+                            "\"โปรดตามเรามา เราจะท่านไปยังสถานที่ปลอดภัย\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    dialog.show();
+                    dialog.clearPages();
+                    dialog.addWaitingPage(text);
+                }
+            }
+        }
+
 
         if ((trueLink == 4) && (!animation_status)) {
             for (Item item : level1.items) {
