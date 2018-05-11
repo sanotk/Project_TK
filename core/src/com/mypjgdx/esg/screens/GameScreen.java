@@ -1030,7 +1030,7 @@ public class GameScreen extends AbstractGameScreen {
             dialogCitizen = true;
             player.timeStop = true;
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัยพร้อมกัน\" \n\"เ(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัยพร้อมกัน\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
