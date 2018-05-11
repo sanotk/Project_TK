@@ -998,24 +998,21 @@ public class GameScreen extends AbstractGameScreen {
                 Gdx.graphics.getHeight() / 2 - doorWindow.getHeight() / 2);
         if (!animation_status) {
             if ((level1.door.nearPlayer()) && (player.status_find)) {
-                if(!stageTwoClear){
-                    stageTwoClear = true;
+                if(player.stageOneClear && !stageTwoClear){
                     player.timeStop = true;
                     String text =
                             "\"พื้นที่แห่งนี้ยังอันตรายอยู่ โปรกำจัดมอนสเตอร์ให้หมด แล้วประชาชนที่ซ่อนอยู่จะปรากฎตัวออกมา\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
-                }else if(!stageThreeClear){
-                    stageThreeClear = true;
+                }else if(stageTwoClear && !stageThreeClear){
                     player.timeStop = true;
                     String text =
                             "\"ยังตามหาประชาชนที่ซ่อนตัวอยู่ไม่ครบ กรุณาตามหาให้ครบก่อน\" \n\"เ (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
-                }else if(!stageFourClear){
-                    stageFourClear = true;
+                }else if(stageThreeClear && !stageFourClear){
                     player.timeStop = true;
                     String text =
                             "\"เหมือนว่าพลังงานในสถานที่หลบภัยจะหมดลง กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงาน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
