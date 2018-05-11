@@ -130,6 +130,9 @@ public class GameScreen extends AbstractGameScreen {
 
     private boolean dialogEnemy;
     private boolean dialogCitizen;
+    private boolean stageTwoClear;
+    private boolean stageThreeClear;
+    private boolean stageFourClear;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
@@ -992,17 +995,42 @@ public class GameScreen extends AbstractGameScreen {
                 Gdx.graphics.getHeight() / 2 - doorWindow.getHeight() / 2);
         if (!animation_status) {
             if ((level1.door.nearPlayer()) && (player.status_find)) {
-                doorWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                if(!stageTwoClear){
+                    stageTwoClear = true;
+                    player.timeStop = true;
+                    String text =
+                            "\"พื้นที่แห่งนี้ยังอันตรายอยู่ โปรกำจัดมอนสเตอร์ให้หมด แล้วประชาชนที่ซ่อนอยู่จะปรากฎตัวออกมา\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    dialog.show();
+                    dialog.clearPages();
+                    dialog.addWaitingPage(text);
+                }else if(!stageThreeClear){
+                    stageThreeClear = true;
+                    player.timeStop = true;
+                    String text =
+                            "\"ยังตามหาประชาชนที่ซ่อนตัวอยู่ไม่ครบ กรุณาตามหาให้ครบก่อน\" \n\"เ (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    dialog.show();
+                    dialog.clearPages();
+                    dialog.addWaitingPage(text);
+                }else if(!stageFourClear){
+                    stageFourClear = true;
+                    player.timeStop = true;
+                    String text =
+                            "\"เหมือนว่าพลังงานในสถานที่หลบภัยจะหมดลง กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงาน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    dialog.show();
+                    dialog.clearPages();
+                    dialog.addWaitingPage(text);
+                }
+                //doorWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else {
-                doorWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                //doorWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         }
 
-        if(player.stageoneclear && !dialogCitizen){
+        if(stageTwoClear && !dialogCitizen){
             dialogCitizen = true;
             player.timeStop = true;
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัยพร้อมกัน\" \n\"เอาล่ะ (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัยพร้อมกัน\" \n\"เ(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
@@ -1023,7 +1051,7 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if(player.stageoneclear && player.status_find){
+        if(player.stageOneClear && player.status_find){
             for (int i = 0; i < worldController.level.citizens.size(); i++) {
                 Citizen citizen = worldController.level.citizens.get(i);
                 if (citizen.overlapPlayer && !citizen.runPlayer) {
@@ -1083,7 +1111,7 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         if (countEnemy == worldController.level.enemies.size()) {
-            player.stageoneclear = true;
+            player.stageOneClear = true;
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World

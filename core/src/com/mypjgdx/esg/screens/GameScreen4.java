@@ -418,7 +418,7 @@ public class GameScreen4 extends AbstractGameScreen {
         }
 
         if (countEnemy == worldController.level.enemies.size()) {
-            player.stageoneclear = true;
+            player.stageOneClear = true;
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
@@ -432,7 +432,7 @@ public class GameScreen4 extends AbstractGameScreen {
             player.status_find = false;
         }
 
-        if (player.stageoneclear && player.status_find && level4.pollutionControll.nearPlayer()
+        if (player.stageOneClear && player.status_find && level4.pollutionControll.nearPlayer()
                 && level4.pollutionControll.state != Item.ItemState.ONLOOP) {
             level4.pollutionControll.state = Item.ItemState.ONLOOP;
             EnergyUsedBar.instance.energyUse += level4.pollutionControll.getEnergyBurn();

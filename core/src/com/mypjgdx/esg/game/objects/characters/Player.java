@@ -46,7 +46,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private float Countdown;
 
     public boolean isSwitch = false;
-    public boolean stageoneclear = false;
+    public boolean stageOneClear = false;
 
     public Rectangle walkingBounds = new Rectangle();
 
@@ -188,7 +188,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 w.attack(this);
             }
         }
-        if (stageoneclear) {
+        if (stageOneClear) {
 
             questScreen1 = false;
             questScreen2 = false;

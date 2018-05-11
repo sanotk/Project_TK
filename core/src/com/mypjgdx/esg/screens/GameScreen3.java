@@ -669,7 +669,7 @@ public class GameScreen3 extends AbstractGameScreen {
         }
 
         if (countEnemy == worldController.level.enemies.size()) {
-            player.stageoneclear = true;
+            player.stageOneClear = true;
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {

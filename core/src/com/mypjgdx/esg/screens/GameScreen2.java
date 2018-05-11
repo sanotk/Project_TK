@@ -667,7 +667,7 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if (countEnemy == worldController.level.enemies.size()) {
-            player.stageoneclear = true;
+            player.stageOneClear = true;
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
@@ -687,27 +687,27 @@ public class GameScreen2 extends AbstractGameScreen {
                 Gdx.graphics.getWidth() / 2 - requestCitizenWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - requestCitizenWindow.getHeight() / 2);
 
-        if (player.stageoneclear && player.status_find && player.questScreen1 && !player.quest_window_1) {
+        if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
             citizenQuest = systemWindow.citizen1;
             checkButton(citizenQuest);
             requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageoneclear && player.status_find && player.questScreen2 && !player.quest_window_2) {
+        } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
             citizenQuest = systemWindow.citizen2;
             checkButton(citizenQuest);
             requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageoneclear && player.status_find && player.questScreen3 && !player.quest_window_3) {
+        } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
             citizenQuest = systemWindow.citizen3;
             checkButton(citizenQuest);
             requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageoneclear && player.status_find && player.questScreen4 && !player.quest_window_4) {
+        } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
             citizenQuest = systemWindow.citizen4;
             checkButton(citizenQuest);
             requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageoneclear && player.status_find && player.questScreen5 && !player.quest_window_5) {
+        } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
             citizenQuest = systemWindow.citizen5;
             checkButton(citizenQuest);
             requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageoneclear && player.status_find && player.questScreen6 && !player.quest_window_6) {
+        } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
             citizenQuest = systemWindow.citizen6;
             checkButton(citizenQuest);
             requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
