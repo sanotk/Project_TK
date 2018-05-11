@@ -1,5 +1,6 @@
 package com.mypjgdx.esg.game.objects.characters;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
@@ -258,12 +259,13 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
         if (goalX < 0){
             goalX = 0;
-        }else if (goalY < 0){
+        }else if (goalX > mapLayer.getTileWidth()*mapLayer.getWidth()-mapLayer.getTileWidth()/2){
+            goalX = mapLayer.getTileWidth()*mapLayer.getWidth()-mapLayer.getTileWidth()/2;
+        }
+        if (goalY < 0){
             goalY = 0;
-        }else if (goalX > mapLayer.getTileWidth()*mapLayer.getWidth()){
-            goalX = mapLayer.getTileWidth()*mapLayer.getWidth();
-        }else if (goalY > mapLayer.getTileHeight()*mapLayer.getHeight()){
-            goalY = mapLayer.getTileHeight()*mapLayer.getHeight();
+        }else if (goalY > mapLayer.getTileHeight()*mapLayer.getHeight()-mapLayer.getTileHeight()/2){
+            goalY = mapLayer.getTileHeight()*mapLayer.getHeight()-mapLayer.getTileHeight()/2;
         }
 
         GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
@@ -276,6 +278,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
         gameMap.updateNeighbors();
         startNode = gameMap.getNode(startX, startY);
+        Gdx.app.log("goal", "" + goalX + " " + goalY);
         endNode = gameMap.getNode(goalX, goalY);
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
