@@ -998,6 +998,16 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
+        if(player.stageoneclear && !dialogCitizen){
+            dialogCitizen = true;
+            player.timeStop = true;
+            String text =
+                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัยพร้อมกัน\" \n\"เอาล่ะ (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+        }
+
         if(!dialogEnemy){
             for (int i = 0; i < worldController.level.enemies.size(); i++) {
                 Enemy enemy = worldController.level.enemies.get(i);
@@ -1029,7 +1039,6 @@ public class GameScreen extends AbstractGameScreen {
                 }
             }
         }
-
 
         if ((trueLink == 4) && (!animation_status)) {
             for (Item item : level1.items) {
