@@ -903,6 +903,9 @@ public class GameScreen extends AbstractGameScreen {
             if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
                 dialog.hide();
                 worldController.level.player.timeStop = false;
+                if(stageFourClear){
+                    game.setScreen(new GameScreen2(game, optionsWindow));
+                }
             } else {
                 dialog.tryToChangePage();
             }
@@ -1019,6 +1022,14 @@ public class GameScreen extends AbstractGameScreen {
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
+                }else if(stageFourClear){
+                    stageFourClear = true;
+                    player.timeStop = true;
+                    String text =
+                            "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
+                    dialog.show();
+                    dialog.clearPages();
+                    dialog.addWaitingPage(text);
                 }
                 //doorWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else {
@@ -1097,9 +1108,9 @@ public class GameScreen extends AbstractGameScreen {
             player.timeClear = true;
         }
 
-        if ((level1.door.state == Item.ItemState.ON) && (level1.door.nearPlayer()) && player.status_find) {
-            game.setScreen(new GameScreen2(game, optionsWindow));
-        }
+//        if ((level1.door.state == Item.ItemState.ON) && (level1.door.nearPlayer()) && player.status_find) {
+//            game.setScreen(new GameScreen2(game, optionsWindow));
+//        }
 
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
             Enemy enemy = worldController.level.enemies.get(i);
