@@ -59,7 +59,8 @@ public class GameScreen3 extends AbstractGameScreen {
     private Label textRule;
 
     public systemWindow citizenQuest = null;
-    private boolean dialogSaveEnergy;
+    private boolean dialogSaveEnergy1;
+    private boolean dialogSaveEnergy2;
 
     public enum systemWindow {
         citizen1,
@@ -711,12 +712,21 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
-        if(EnergyUsedBar.instance.energyUse > EnergyProducedBar.instance.energyProduced && !dialogSaveEnergy){
-            dialogSaveEnergy = true;
+        if(EnergyUsedBar.instance.energyUse > EnergyProducedBar.instance.energyProduced && !dialogSaveEnergy1){
+            dialogSaveEnergy1 = true;
             dialogEnemy = true;
             player.timeStop = true;
             String text =
                     "\"อันตราย! พลังงานที่เครื่องไฟฟ้าใช้มากกว่าพลังงานที่ผลิต ปล่อยไว้พลังงานจะหมดลงแล้วจะตายกันหมด รีบปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+        } else if(EnergyUsedBar.instance.energyUse < EnergyProducedBar.instance.energyProduced && !dialogSaveEnergy2){
+            dialogSaveEnergy2 = true;
+            dialogEnemy = true;
+            player.timeStop = true;
+            String text =
+                    "\"ทำได้ดีมาก อัตราการใช้พลังงานกลับมาเป็นปกติแล้ว\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
