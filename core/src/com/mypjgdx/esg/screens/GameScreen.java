@@ -642,6 +642,7 @@ public class GameScreen extends AbstractGameScreen {
                 checkGameComplete();
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
+                solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
 
@@ -681,6 +682,7 @@ public class GameScreen extends AbstractGameScreen {
                 checkGameComplete();
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
+                solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
         if (((solarWindow == systemWindow.solarcell) && (!addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoI))
@@ -723,6 +725,7 @@ public class GameScreen extends AbstractGameScreen {
                 checkGameComplete();
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
+                solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
         if (((solarWindow == systemWindow.solarcell) && (!addedStoD)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoD))
@@ -756,6 +759,7 @@ public class GameScreen extends AbstractGameScreen {
                 checkGameComplete();
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
+                solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
         solarcellWindow.pack();
@@ -965,6 +969,8 @@ public class GameScreen extends AbstractGameScreen {
             return;
         }
 
+
+
         boolean noItem = true;
 
         for (Item item : level1.items) {
@@ -974,12 +980,19 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
+        if (noItem == false){
+            solarcellWindow.setVisible(false);
+        }
+
         boolean noCitizen = !player.questScreen1
                 && !player.questScreen2
                 && !player.questScreen3
                 && !player.questScreen4
                 && !player.questScreen5
                 && !player.questScreen6;
+
+        System.out.println("noItem" + noItem);
+        System.out.println("noCitizen" + noCitizen);
 
         if (player.status_find && noItem && noCitizen) {
             player.status_find = false;
@@ -1040,6 +1053,8 @@ public class GameScreen extends AbstractGameScreen {
                 }
             }
         }
+
+
         if (animation_status && stageThreeClear && !dialogDoor4 && level1.door.nearPlayer() && player.status_find) {
             chartStatus();
         }
@@ -1163,14 +1178,6 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void pause() {
-    }
-
-    private Item findItem(Class clazz) {
-        for (int i = 0; i < worldController.level.items.size(); i++) {
-            if (clazz.isInstance(worldController.level.items.get(i)))
-                return worldController.level.items.get(i);
-        }
-        return null;
     }
 
 }
