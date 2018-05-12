@@ -118,10 +118,6 @@ public class GameScreen extends AbstractGameScreen {
 
     private int countEnemy;
 
-    public int enemyDeadCount = 0;
-
-    public boolean stringDraw;
-
     private int trueLink = 0;
 
     private Dialog dialog;
