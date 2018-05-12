@@ -1,6 +1,5 @@
 package com.mypjgdx.esg.game.objects.characters;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
@@ -278,7 +277,6 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
         gameMap.updateNeighbors();
         startNode = gameMap.getNode(startX, startY);
-        Gdx.app.log("goal", "" + goalX + " " + goalY);
         endNode = gameMap.getNode(goalX, goalY);
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);

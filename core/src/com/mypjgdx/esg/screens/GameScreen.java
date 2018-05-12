@@ -68,6 +68,7 @@ public class GameScreen extends AbstractGameScreen {
     private Label text7;
     private Label text8;
     private boolean dialogSolarcell;
+    private boolean dialogSolarcel2;
 
     public enum systemWindow {
         solarcell,
@@ -979,7 +980,7 @@ public class GameScreen extends AbstractGameScreen {
                 Gdx.graphics.getWidth() / 2 - solarcellWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - solarcellWindow.getHeight() / 2);
         if (!animation_status && player.status_find && dialogDoor3) {
-            if (level1.solarCell.nearPlayer() ) {
+            if (level1.solarCell.nearPlayer()) {
                 solarWindow = systemWindow.solarcell;
                 checkButton(solarWindow);
                 solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
@@ -998,15 +999,24 @@ public class GameScreen extends AbstractGameScreen {
             } else {
                 solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
-        } else if (!dialogSolarcell){
-            dialogSolarcell = true;
-            player.timeStop = true;
-            String text =
-                    "\"ยังไม่สามารถใช้งานได้ กรุณาทำภารกิจที่ค้างอยู่ให้สำเร็จก่อน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-            dialog.show();
-            dialog.clearPages();
-            dialog.addWaitingPage(text);
         }
+//        } else if (!animation_status && player.status_find && dialogDoor1 && !dialogSolarcell){
+//            dialogSolarcell = true;
+//            player.timeStop = true;
+//            String text =
+//                    "\"อันตราย! ยังไม่สามารถใช้งานได้ กรุณากำจัดมอนสเตอร์ให้หมดก่อน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+//            dialog.show();
+//            dialog.clearPages();
+//            dialog.addWaitingPage(text);
+//        } else if (!animation_status && player.status_find && dialogDoor2 && !dialogSolarcell){
+//            dialogSolarcel2 = true;
+//            player.timeStop = true;
+//            String text =
+//                    "\"ยังไม่สามารถใช้งานได้ กรุณาตามหาประชาชนให้ครบก่อน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+//            dialog.show();
+//            dialog.clearPages();
+//            dialog.addWaitingPage(text);
+//        }
 
         doorWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - doorWindow.getWidth() / 2,
@@ -1037,19 +1047,18 @@ public class GameScreen extends AbstractGameScreen {
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
-                }else if(stageThreeClear && !dialogDoor4){
-                    dialogDoor4 = true;
-                    player.timeStop = true;
-                    String text =
-                            "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
-                    dialog.show();
-                    dialog.clearPages();
-                    dialog.addWaitingPage(text);
                 }
-                //doorWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            } else {
-                //doorWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
+        }
+        if(animation_status && stageThreeClear && !dialogDoor4 && level1.door.nearPlayer() && player.status_find){
+            dialogDoor4 = true;
+            player.timeStop = true;
+            String text =
+                    "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+            System.out.print(text);
         }
 
         if(player.stageOneClear && !dialogCitizen){
