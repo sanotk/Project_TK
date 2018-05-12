@@ -60,6 +60,7 @@ public class GameScreen2 extends AbstractGameScreen {
     private Label textRule;
 
     public systemWindow citizenQuest = null;
+    private boolean dialogStage4fail;
 
     public enum systemWindow {
         citizen1,
@@ -794,7 +795,8 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if(questCount == 6 && !animation_status){
-            if(EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
+            if(EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && dialogStage4) {
+                dialogStage4 = true;
                 animation_status = true;
                 player.timeStop = true;
                 String text =
@@ -803,7 +805,8 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
                 level2.gate.state = Item.ItemState.ON;
-            }else {
+            }else if(!dialogStage4fail){
+                dialogStage4fail = true;
                 player.timeStop = true;
                 String text =
                         "\"อันตราย! พลังงานที่เครื่องไฟฟ้าใช้มากกว่าพลังงานที่ผลิต ปล่อยไว้ไม่นานพลังงานหมดแล้วจะตายกันหมด รีบปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
