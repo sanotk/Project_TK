@@ -27,12 +27,14 @@ import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.ui.*;
+import com.mypjgdx.esg.ui.Dialog;
 import com.mypjgdx.esg.utils.QuestState;
 
 import java.util.ArrayList;
 
 public class GameScreen3 extends AbstractGameScreen {
 
+    private Dialog dialog;
     private WorldController worldController;
     private WorldRenderer worldRenderer;
 
@@ -100,6 +102,16 @@ public class GameScreen3 extends AbstractGameScreen {
     private Label text6;
 
     private int questCount;
+
+    private boolean dialogEnemy;
+    private boolean dialogCitizen;
+    private boolean dialogStage1;
+    private boolean dialogStage2;
+    private boolean dialogStage3;
+    private boolean dialogStage4;
+
+    private boolean stageTwoClear;
+    private boolean stageThreeClear;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
@@ -596,6 +608,18 @@ public class GameScreen3 extends AbstractGameScreen {
         Player player = worldController.level.player;
         Level3 level3 = (Level3) worldController.level;
 
+        if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
+            if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+                dialog.hide();
+                worldController.level.player.timeStop = false;
+                if(stageThreeClear){
+                    game.setScreen(new GameScreen4(game, optionsWindow));
+                }
+            } else {
+                dialog.tryToChangePage();
+            }
+        }
+
         textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
         textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
         textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
@@ -632,7 +656,30 @@ public class GameScreen3 extends AbstractGameScreen {
             return;
         }
 
+        if(!dialogEnemy){
+            for (int i = 0; i < worldController.level.enemies.size(); i++) {
+                Enemy enemy = worldController.level.enemies.get(i);
+                if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
+                    dialogEnemy = true;
+                    player.timeStop = true;
+                    String text =
+                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    dialog.show();
+                    dialog.clearPages();
+                    dialog.addWaitingPage(text);
+                }
+            }
+        }
 
+        if(player.stageOneClear && !dialogCitizen){
+            dialogCitizen = true;
+            player.timeStop = true;
+            String text =
+                    "\"กำจัดมอนสเตอร์หมดแล้ว ลองถามประชาชนดีกว่าว่าต้องการอะไรรึเปล่า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+        }
 
         boolean noItem = true;
 
