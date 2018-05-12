@@ -94,9 +94,6 @@ public class GameScreen2 extends AbstractGameScreen {
 
     private boolean animation_status = false;
 
-    private Player player = worldController.level.player;
-    private Level2 level2 = (Level2) worldController.level;
-
     private int trueLink = 0;
 
     private int energyStart = 0;
@@ -628,6 +625,9 @@ public class GameScreen2 extends AbstractGameScreen {
     public void render(float deltaTime) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        Player player = worldController.level.player;
+        Level2 level2 = (Level2) worldController.level;
 
         if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
             if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {

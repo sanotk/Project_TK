@@ -138,9 +138,6 @@ public class GameScreen extends AbstractGameScreen {
     private boolean dialogDoor3;
     private boolean dialogDoor4;
 
-    private Player player = worldController.level.player;
-    private Level1 level1 = (Level1) worldController.level;
-
     private boolean stageTwoClear;
     private boolean stageThreeClear;
 
@@ -815,6 +812,9 @@ public class GameScreen extends AbstractGameScreen {
     }
 
     private void addGuiLink(SolarState solarState) {
+
+        Level1 level1 = (Level1) worldController.level;
+
         if (solarState == SolarState.StoC) {
             addedStoC = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
@@ -909,6 +909,9 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        Player player = worldController.level.player;
+        Level1 level1 = (Level1) worldController.level;
+
         if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
             if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
                 dialog.hide();
@@ -1000,23 +1003,6 @@ public class GameScreen extends AbstractGameScreen {
                 solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         }
-//        } else if (!animation_status && player.status_find && dialogDoor1 && !dialogSolarcell){
-//            dialogSolarcell = true;
-//            player.timeStop = true;
-//            String text =
-//                    "\"อันตราย! ยังไม่สามารถใช้งานได้ กรุณากำจัดมอนสเตอร์ให้หมดก่อน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-//            dialog.show();
-//            dialog.clearPages();
-//            dialog.addWaitingPage(text);
-//        } else if (!animation_status && player.status_find && dialogDoor2 && !dialogSolarcell){
-//            dialogSolarcel2 = true;
-//            player.timeStop = true;
-//            String text =
-//                    "\"ยังไม่สามารถใช้งานได้ กรุณาตามหาประชาชนให้ครบก่อน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-//            dialog.show();
-//            dialog.clearPages();
-//            dialog.addWaitingPage(text);
-//        }
 
         doorWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - doorWindow.getWidth() / 2,
