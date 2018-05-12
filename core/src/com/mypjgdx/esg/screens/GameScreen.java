@@ -636,18 +636,18 @@ public class GameScreen extends AbstractGameScreen {
 
     private void checkButton(final systemWindow solarWindow) {
         if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
-            imageLink1.setText("เชื่อมต่อไปยังชาร์จคอนโทรลเลอร์");
+            imageLink1.setBackground((Drawable) Assets.instance.buttonChargeAdd);
             imageLink1.setStyle(buttonStyle);
         } else if ((solarWindow == systemWindow.solarcell) && (addedStoC)) {
-            imageLink1.setText("ยกเลิกการเชื่อมต่อไปยังชาร์จคอนโทรลเลอร์");
+            imageLink1.setBackground((Drawable) Assets.instance.buttonChargeDel);
             imageLink1.setStyle(buttonStyle2);
         } else if (((solarWindow == systemWindow.chargecontroller) && (!addedStoC))
                 || ((solarWindow == systemWindow.battery) && (!addedStoB))
                 || ((solarWindow == systemWindow.inverter) && (!addedStoI))) {
-            imageLink1.setText("เชื่อมต่อไปยังโซล่าเซลล์");
+            imageLink1.setBackground((Drawable) Assets.instance.buttonSolarcellAdd);
             imageLink1.setStyle(buttonStyle);
         } else {
-            imageLink1.setText("ยกเลิกการเชื่อมต่อไปยังโซล่าเซลล์");
+            imageLink1.setBackground((Drawable) Assets.instance.buttonSolarcellDel);
             imageLink1.setStyle(buttonStyle2);
         }
         imageLink1.clearListeners();
@@ -679,10 +679,10 @@ public class GameScreen extends AbstractGameScreen {
         });
 
         if (((solarWindow == systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoB))) {
-            imageLink2.setText("เชื่อมต่อไปยังแบตเตอรี");
+            imageLink2.setBackground((Drawable) Assets.instance.buttonBatteryAdd);
             imageLink2.setStyle(buttonStyle);
         } else if (((solarWindow == systemWindow.solarcell) && (addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoB))) {
-            imageLink2.setText("ยกเลิกการเชื่อมต่อไปยังแบตเตอรี");
+            imageLink2.setBackground((Drawable) Assets.instance.buttonBatteryDel);
             imageLink2.setStyle(buttonStyle2);
         } else if (((solarWindow == systemWindow.battery) && (!addedCtoB)) || ((solarWindow == systemWindow.inverter) && (!addedCtoI))) {
             imageLink2.setBackground((Drawable) Assets.instance.buttonChargeAdd);
