@@ -923,6 +923,7 @@ public class GameScreen extends AbstractGameScreen {
         textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
         textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
         textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
+
         if (animation_status) {
             energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
         } else {

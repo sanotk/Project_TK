@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Align;
 
 public class Dialog extends Actor {
-    private static final float DEFAULT_TEXT_SPEED = 30.0f;
+    private static final float DEFAULT_TEXT_SPEED = 50f;
     private static final float MAX_TEXT_SPEED = 100.0f;
 
     private BitmapFont font;

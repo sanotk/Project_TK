@@ -28,12 +28,14 @@ import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.ui.*;
+import com.mypjgdx.esg.ui.Dialog;
 import com.mypjgdx.esg.utils.QuestState;
 
 import java.util.ArrayList;
 
 public class GameScreen2 extends AbstractGameScreen {
 
+    private final Dialog dialog;
     private WorldController worldController;
     private WorldRenderer worldRenderer;
 
@@ -67,6 +69,11 @@ public class GameScreen2 extends AbstractGameScreen {
         citizen5,
         citizen6
     }
+
+    private Texture dialogStory;
+
+    private String text =
+            "\"ทุกคนรออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าไม่มีอันตรายเ\" \n\"เ(กด Enter เพื่อเริ่มเกม)\"";
 
     public QuestState questState = null;
 
@@ -104,6 +111,17 @@ public class GameScreen2 extends AbstractGameScreen {
     private Label text6;
 
     private int questCount;
+
+
+    private boolean dialogEnemy;
+    private boolean dialogCitizen;
+    private boolean dialogStage1;
+    private boolean dialogStage2;
+    private boolean dialogStage3;
+    private boolean dialogStage4;
+
+    private boolean stageTwoClear;
+    private boolean stageThreeClear;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
@@ -163,6 +181,19 @@ public class GameScreen2 extends AbstractGameScreen {
         requestCitizenWindow.setVisible(false);
 
         optionsWindow.setVisible(false);
+
+        dialogStory = new Texture("dialogStory.png");
+        dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        dialog = new Dialog(font, dialogStory, 65f, 120f);
+        dialog.setPosition(
+                SCENE_WIDTH / 2 - dialogStory.getWidth() * 0.5f,
+                SCENE_HEIGHT / 4 - dialogStory.getHeight() * 0.5f);
+
+        dialog.clearPages();
+        dialog.addWaitingPage(text);
+
+        stage.addActor(dialog);
 
         stage.addActor(buttonOption);
         stage.addActor(buttonRule);
@@ -600,6 +631,18 @@ public class GameScreen2 extends AbstractGameScreen {
 
         Player player = worldController.level.player;
         Level2 level2 = (Level2) worldController.level;
+
+        if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
+            if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+                dialog.hide();
+                worldController.level.player.timeStop = false;
+                if(stageThreeClear){
+                    game.setScreen(new GameScreen3(game, optionsWindow));
+                }
+            } else {
+                dialog.tryToChangePage();
+            }
+        }
 
         textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
         textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
