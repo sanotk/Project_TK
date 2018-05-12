@@ -68,6 +68,18 @@ public class GameScreen extends AbstractGameScreen {
     private Label text7;
     private Label text8;
 
+    private String textSolarcell = "แผงโซล่าเซลล์";
+    private String textCharge = "ชาร์จคอนโทรลเลอร์";
+    private String textBattery = "แบตเตอรี";
+    private String textInverter = "อินเวอร์เตอร์";
+    private String textDoor = "ประตูไฟฟ้า";
+
+    private Label labelSolarCell;
+    private Label labelBattery;
+    private Label labelCharge;
+    private Label labelInverter;
+    private Label labelDoor;
+
     private boolean stageFourClear;
     private boolean dialogCitizen2;
 
@@ -102,9 +114,9 @@ public class GameScreen extends AbstractGameScreen {
     private boolean animation_status = false;
 
     private Button buttonRule;
+
     private Window ruleWindow;
     private Window chartWindow;
-    private Window doorWindow;
 
     private boolean addedStoC = false;
     private boolean addedStoB = false;
@@ -201,9 +213,6 @@ public class GameScreen extends AbstractGameScreen {
         solarcellWindow = createSolarcellWindow();
         solarcellWindow.setVisible(false);
 
-        doorWindow = createDoorWindow();
-        doorWindow.setVisible(false);
-
         optionsWindow.setVisible(false);
 
         dialog.clearPages();
@@ -218,7 +227,6 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(ruleWindow);
         stage.addActor(chartWindow);
         stage.addActor(solarcellWindow);
-        stage.addActor(doorWindow);
 
         buttonOption.addListener(new ClickListener() {
             @Override
@@ -250,11 +258,11 @@ public class GameScreen extends AbstractGameScreen {
         style.background = new TextureRegionDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
+        style.titleFontColor = Color.BLACK;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
-        labelStyle.fontColor = Color.BLACK;
+        labelStyle.fontColor = Color.WHITE;
 
         Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
         TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
@@ -279,7 +287,7 @@ public class GameScreen extends AbstractGameScreen {
 
         final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
         chartWindow.setModal(true);
-        chartWindow.padTop(40);
+        chartWindow.padTop(50);
         chartWindow.padLeft(40);
         chartWindow.padRight(40);
         chartWindow.padBottom(20);
@@ -320,73 +328,12 @@ public class GameScreen extends AbstractGameScreen {
         return chartWindow;
     }
 
-    private Window createDoorWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.BLACK;
-
-        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonChartStyle.up = buttonRegion;
-        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonChartStyle);
-
-        text7 = new Label("กรุณาเชื่อมต่อแผงโซล่าเซลล์ก่อนประตูจึงจะเปิดออกได้", skin);
-        text8 = new Label("", skin);
-
-//        text7 = new Label("คุณต้องการไปด่านถัดไปหรือไม่", skin);
-//        text8 = new Label("หากตกลงจะเริ่มด่านต่อไปทันที หากปฏิเสธจะบันทึกเกมแล้วกลับหน้าเมนู", skin);
-
-        buttonN1 = new TextButton("ตกลง", buttonStyle);
-        buttonN2 = new TextButton("ปฎิเสธ", buttonStyle);
-
-        buttonN1.setVisible(false);
-        buttonN2.setVisible(false);
-
-        final Window doorWindow = new Window("Door", style);
-        doorWindow.setModal(true);
-        doorWindow.setSkin(skin);
-        doorWindow.padTop(40);
-        doorWindow.padLeft(40);
-        doorWindow.padRight(40);
-        doorWindow.padBottom(20);
-        doorWindow.getTitleLabel().setAlignment(Align.center);
-        doorWindow.row().padBottom(10).padTop(10);
-        doorWindow.row().padTop(10);
-        doorWindow.add(text7);
-        doorWindow.row().padTop(10);
-        doorWindow.add(text8);
-        doorWindow.row().padTop(20);
-        doorWindow.add(buttonN1);
-        doorWindow.add(buttonN2);
-        doorWindow.row().padTop(10);
-        doorWindow.add(closeButton).colspan(3);
-        doorWindow.pack();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                doorWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                worldController.level.player.status_find = false;
-            }
-        });
-
-        return doorWindow;
-    }
-
     private Window createSolarcellWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new TextureRegionDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
+        style.titleFontColor = Color.BLACK;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
@@ -404,9 +351,15 @@ public class GameScreen extends AbstractGameScreen {
         imageLink3 = new ImageButton(new TextureRegionDrawable( Assets.instance.buttonInverterAdd));
         imageLink4 = new ImageButton(new TextureRegionDrawable( Assets.instance.buttonDoorAdd));
 
-        final Window solarcellWindow = new Window("Choice", style);
+        labelSolarCell = new Label(textSolarcell, skin);
+        labelBattery = new Label(textBattery, skin);
+        labelCharge = new Label(textCharge, skin);
+        labelInverter = new Label(textInverter, skin);
+        labelDoor = new Label(textDoor, skin);
+
+        final Window solarcellWindow = new Window("ตัวเลือกการเชื่อมต่อ", style);
         solarcellWindow.setModal(true);
-        solarcellWindow.padTop(40);
+        solarcellWindow.padTop(50);
         solarcellWindow.padLeft(40);
         solarcellWindow.padRight(40);
         solarcellWindow.padBottom(20);
@@ -415,8 +368,14 @@ public class GameScreen extends AbstractGameScreen {
         solarcellWindow.add(imageLink1);
         solarcellWindow.add(imageLink2).padLeft(20);
         solarcellWindow.row().padTop(10);
+        solarcellWindow.add(labelCharge);
+        solarcellWindow.add(labelBattery).padLeft(20);
+        solarcellWindow.row().padTop(10);
         solarcellWindow.add(imageLink3);
         solarcellWindow.add(imageLink4).padLeft(20);
+        solarcellWindow.row().padTop(10);
+        solarcellWindow.add(labelInverter);
+        solarcellWindow.add(labelDoor).padLeft(20);
         solarcellWindow.row().padTop(10);
         solarcellWindow.add(closeButton).colspan(2);
         solarcellWindow.pack();
@@ -435,13 +394,13 @@ public class GameScreen extends AbstractGameScreen {
 
     private Window createRuleWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
+        style.background = new TextureRegionDrawable(Assets.instance.window);
         style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
+        style.titleFontColor = Color.BLACK;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
-        labelStyle.fontColor = Color.BLACK;
+        labelStyle.fontColor = Color.WHITE;
 
         Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
         TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
@@ -460,7 +419,7 @@ public class GameScreen extends AbstractGameScreen {
         final Window ruleWindow = new Window("กติกา", style);
         ruleWindow.setModal(true);
         ruleWindow.setSkin(skin);
-        ruleWindow.padTop(40);
+        ruleWindow.padTop(50);
         ruleWindow.padLeft(40);
         ruleWindow.padRight(40);
         ruleWindow.padBottom(20);
@@ -637,6 +596,7 @@ public class GameScreen extends AbstractGameScreen {
     private void checkButton(final systemWindow solarWindow) {
         if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
             imageLink1.setBackground(new TextureRegionDrawable( Assets.instance.buttonChargeAdd));
+            solarCell.setText("");
         } else if ((solarWindow == systemWindow.solarcell) && (addedStoC)) {
             imageLink1.setBackground(new TextureRegionDrawable( Assets.instance.buttonChargeDel));
         } else if (((solarWindow == systemWindow.chargecontroller) && (!addedStoC))
@@ -1029,9 +989,6 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        doorWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - doorWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - doorWindow.getHeight() / 2);
         if (!animation_status) {
             if ((level1.door.nearPlayer()) && (player.status_find)) {
                 if (!player.stageOneClear && !dialogDoor1) {
