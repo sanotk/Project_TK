@@ -84,10 +84,10 @@ public class GameScreen extends AbstractGameScreen {
     private ArrayList<SolarState> isComplete = new ArrayList<SolarState>();
     private ArrayList<ItemLink> itemLinks = new ArrayList<ItemLink>();
 
-    private TextButton buttonLink1;
-    private TextButton buttonLink2;
-    private TextButton buttonLink3;
-    private TextButton buttonLink4;
+    private ImageButton imageLink1;
+    private ImageButton imageLink2;
+    private ImageButton imageLink3;
+    private ImageButton imageLink4;
 
     private TextButton buttonN1;
     private TextButton buttonN2;
@@ -398,10 +398,8 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonSolarStyle);
 
-        buttonLink1 = new TextButton("เชื่อมต่อไปยังชาร์จคอนโทรลเลอร์", buttonStyle);
-        buttonLink2 = new TextButton("เชื่อมต่อไปยังแบตเตอรี", buttonStyle);
-        buttonLink3 = new TextButton("เชื่อมต่อไปยังอินเวอร์เตอร์", buttonStyle);
-        buttonLink4 = new TextButton("เชื่อมต่อไปยังประตู", buttonStyle);
+        imageLink1 = new ImageButton();
+
 
         final Window solarcellWindow = new Window("Choice", style);
         solarcellWindow.setModal(true);
@@ -980,7 +978,8 @@ public class GameScreen extends AbstractGameScreen {
                     citizen.runPlayer = true;
                     citizenCount += 1;
                 }
-            }        }
+            }
+        }
 
         if (!worldController.level.player.isAlive()) {
             MusicManager.instance.stop();
