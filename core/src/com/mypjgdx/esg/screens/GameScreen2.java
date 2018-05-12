@@ -135,7 +135,7 @@ public class GameScreen2 extends AbstractGameScreen {
         bg = new Texture("bg.png");
         font = new BitmapFont(Gdx.files.internal("thai24.fnt"));
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font.setColor(0.4f, 0, 0, 1);
+        font.setColor(Color.WHITE);
 
         this.optionsWindow = optionsWindow;
 
@@ -172,7 +172,7 @@ public class GameScreen2 extends AbstractGameScreen {
         ruleWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - ruleWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
-        ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+        ruleWindow.addAction(Actions.sequence(Actions.visible(false), Actions.fadeIn(0.2f)));
 
         chartWindow = createChartWindow();
         chartWindow.setVisible(false);
