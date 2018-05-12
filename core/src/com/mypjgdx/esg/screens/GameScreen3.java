@@ -726,7 +726,7 @@ public class GameScreen3 extends AbstractGameScreen {
             dialogEnemy = true;
             player.timeStop = true;
             String text =
-                    "\"ทำได้ดีมาก อัตราการใช้พลังงานกลับมาเป็นปกติแล้ว\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    "\"เยี่ยม อัตราการใช้พลังงานกลับมาเป็นปกติแล้ว\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
