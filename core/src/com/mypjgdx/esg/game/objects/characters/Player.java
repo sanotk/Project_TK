@@ -41,8 +41,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private static final int INTITAL_HEALTH = 10;
     private static final int INTITAL_TIME = 300;
 
-    public boolean status_find = false;
-    public boolean status_windows_link = false;
+    public boolean status_find;
+    public boolean status_windows_link;
     private float Countdown;
 
     public boolean isSwitch = false;
