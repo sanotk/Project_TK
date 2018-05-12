@@ -36,10 +36,17 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion iconBattery;
     public TextureRegion iconTime;
 
-    public TextureRegion buttonSolarcell;
-    public TextureRegion buttonCharge;
-    public TextureRegion buttonInverter;
-    public TextureRegion buttonBattery;
+    public TextureRegion buttonSolarcellAdd;
+    public TextureRegion buttonChargeAdd;
+    public TextureRegion buttonInverterAdd;
+    public TextureRegion buttonBatteryAdd;
+    public TextureRegion buttonDoorAdd;
+
+    public TextureRegion buttonSolarcellDel;
+    public TextureRegion buttonChargeDel;
+    public TextureRegion buttonInverterDel;
+    public TextureRegion buttonBatteryDel;
+    public TextureRegion buttonDoorDel;
 
     public TextureAtlas sword;
     public TextureAtlas bow;
@@ -120,6 +127,19 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("icon_battery.png",Texture.class);
         manager.load("icon_time.png",Texture.class);
 
+        manager.load("solarcell_add.png",Texture.class);
+        manager.load("charge_add.png",Texture.class);
+        manager.load("battery_add.png",Texture.class);
+        manager.load("inverter_add.png",Texture.class);
+        manager.load("door_add.png",Texture.class);
+
+        manager.load("solarcell_del.png",Texture.class);
+        manager.load("charge_del.png",Texture.class);
+        manager.load("battery_del.png",Texture.class);
+        manager.load("inverter_del.png",Texture.class);
+        manager.load("door_del.png",Texture.class);
+
+
         manager.load("sword_pack.atlas", TextureAtlas.class);
         manager.load("bow_pack.atlas", TextureAtlas.class);
 
@@ -175,6 +195,18 @@ public class Assets implements Disposable, AssetErrorListener {
         white = manager.get("white.png");
 
         window = new TextureRegion((Texture)manager.get("window.png"));
+
+        buttonSolarcellAdd = new TextureRegion((Texture)manager.get("solarcell_add.png"));
+        buttonChargeAdd = new TextureRegion((Texture)manager.get("charge_add.png"));
+        buttonBatteryAdd = new TextureRegion((Texture)manager.get("battery_add.png"));
+        buttonInverterAdd = new TextureRegion((Texture)manager.get("inverter_add.png"));
+        buttonDoorAdd = new TextureRegion((Texture)manager.get("door_add.png"));
+
+        buttonSolarcellDel = new TextureRegion((Texture)manager.get("solarcell_del.png"));
+        buttonChargeDel = new TextureRegion((Texture)manager.get("charge_del.png"));
+        buttonBatteryDel = new TextureRegion((Texture)manager.get("battery_del.png"));
+        buttonInverterDel = new TextureRegion((Texture)manager.get("inverter_del.png"));
+        buttonDoorDel = new TextureRegion((Texture)manager.get("door_del.png"));
 
         bg = new TextureRegion((Texture)manager.get("bg.png"));
         bullet = new TextureRegion((Texture)manager.get("bullet.png"));

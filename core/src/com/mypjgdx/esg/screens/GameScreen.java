@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -398,8 +399,10 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonSolarStyle);
 
-        imageLink1 = new ImageButton();
-
+        imageLink1 = new ImageButton((Drawable) Assets.instance.buttonChargeAdd);
+        imageLink2 = new ImageButton((Drawable) Assets.instance.buttonBatteryAdd);
+        imageLink3 = new ImageButton((Drawable) Assets.instance.buttonInverterAdd);
+        imageLink4 = new ImageButton((Drawable) Assets.instance.buttonDoorAdd);
 
         final Window solarcellWindow = new Window("Choice", style);
         solarcellWindow.setModal(true);
@@ -409,11 +412,11 @@ public class GameScreen extends AbstractGameScreen {
         solarcellWindow.padBottom(20);
         solarcellWindow.getTitleLabel().setAlignment(Align.center);
         solarcellWindow.row().padBottom(10).padTop(10);
-        solarcellWindow.add(buttonLink1);
-        solarcellWindow.add(buttonLink2).padLeft(10);
+        solarcellWindow.add(imageLink1);
+        solarcellWindow.add(imageLink2).padLeft(10);
         solarcellWindow.row().padTop(10);
-        solarcellWindow.add(buttonLink3);
-        solarcellWindow.add(buttonLink4).padLeft(10);
+        solarcellWindow.add(imageLink3);
+        solarcellWindow.add(imageLink4).padLeft(10);
         solarcellWindow.row().padTop(10);
         solarcellWindow.add(closeButton).colspan(2);
         solarcellWindow.pack();
@@ -633,22 +636,22 @@ public class GameScreen extends AbstractGameScreen {
 
     private void checkButton(final systemWindow solarWindow) {
         if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
-            buttonLink1.setText("เชื่อมต่อไปยังชาร์จคอนโทรลเลอร์");
-            buttonLink1.setStyle(buttonStyle);
+            imageLink1.setText("เชื่อมต่อไปยังชาร์จคอนโทรลเลอร์");
+            imageLink1.setStyle(buttonStyle);
         } else if ((solarWindow == systemWindow.solarcell) && (addedStoC)) {
-            buttonLink1.setText("ยกเลิกการเชื่อมต่อไปยังชาร์จคอนโทรลเลอร์");
-            buttonLink1.setStyle(buttonStyle2);
+            imageLink1.setText("ยกเลิกการเชื่อมต่อไปยังชาร์จคอนโทรลเลอร์");
+            imageLink1.setStyle(buttonStyle2);
         } else if (((solarWindow == systemWindow.chargecontroller) && (!addedStoC))
                 || ((solarWindow == systemWindow.battery) && (!addedStoB))
                 || ((solarWindow == systemWindow.inverter) && (!addedStoI))) {
-            buttonLink1.setText("เชื่อมต่อไปยังโซล่าเซลล์");
-            buttonLink1.setStyle(buttonStyle);
+            imageLink1.setText("เชื่อมต่อไปยังโซล่าเซลล์");
+            imageLink1.setStyle(buttonStyle);
         } else {
-            buttonLink1.setText("ยกเลิกการเชื่อมต่อไปยังโซล่าเซลล์");
-            buttonLink1.setStyle(buttonStyle2);
+            imageLink1.setText("ยกเลิกการเชื่อมต่อไปยังโซล่าเซลล์");
+            imageLink1.setStyle(buttonStyle2);
         }
-        buttonLink1.clearListeners();
-        buttonLink1.addListener(new ClickListener() {
+        imageLink1.clearListeners();
+        imageLink1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if ((solarWindow == systemWindow.solarcell) || (solarWindow == systemWindow.chargecontroller)) {
@@ -676,20 +679,20 @@ public class GameScreen extends AbstractGameScreen {
         });
 
         if (((solarWindow == systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoB))) {
-            buttonLink2.setText("เชื่อมต่อไปยังแบตเตอรี");
-            buttonLink2.setStyle(buttonStyle);
+            imageLink2.setText("เชื่อมต่อไปยังแบตเตอรี");
+            imageLink2.setStyle(buttonStyle);
         } else if (((solarWindow == systemWindow.solarcell) && (addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoB))) {
-            buttonLink2.setText("ยกเลิกการเชื่อมต่อไปยังแบตเตอรี");
-            buttonLink2.setStyle(buttonStyle2);
+            imageLink2.setText("ยกเลิกการเชื่อมต่อไปยังแบตเตอรี");
+            imageLink2.setStyle(buttonStyle2);
         } else if (((solarWindow == systemWindow.battery) && (!addedCtoB)) || ((solarWindow == systemWindow.inverter) && (!addedCtoI))) {
-            buttonLink2.setText("เชื่อมต่อไปยังชาร์จคอนโทรลเลอร์");
-            buttonLink2.setStyle(buttonStyle);
+            imageLink2.setBackground((Drawable) Assets.instance.buttonChargeAdd);
+            imageLink2.setStyle(buttonStyle);
         } else {
-            buttonLink2.setText("ยกเลิกการเชื่อมต่อไปยังชาร์จคอนโทรลเลอร์");
-            buttonLink2.setStyle(buttonStyle2);
+            imageLink2.setBackground((Drawable) Assets.instance.buttonChargeDel);
+            imageLink2.setStyle(buttonStyle2);
         }
-        buttonLink2.clearListeners();
-        buttonLink2.addListener(new ClickListener() {
+        imageLink2.clearListeners();
+        imageLink2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if ((solarWindow == systemWindow.solarcell)) {
@@ -715,21 +718,21 @@ public class GameScreen extends AbstractGameScreen {
         });
         if (((solarWindow == systemWindow.solarcell) && (!addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoI))
                 || ((solarWindow == systemWindow.battery) && (!addedBtoI))) {
-            buttonLink3.setText("เชื่อมต่อไปยังอินเวอร์เตอร์");
-            buttonLink3.setStyle(buttonStyle);
+            imageLink3.setBackground((Drawable) Assets.instance.buttonInverterAdd);
+            imageLink3.setStyle(buttonStyle);
         } else if (((solarWindow == systemWindow.solarcell) && (addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoI))
                 || ((solarWindow == systemWindow.battery) && (addedBtoI))) {
-            buttonLink3.setText("ยกเลิกการเชื่อมต่อไปยังอินเวอร์เตอร์");
-            buttonLink3.setStyle(buttonStyle2);
+            imageLink3.setBackground((Drawable) Assets.instance.buttonInverterDel);
+            imageLink3.setStyle(buttonStyle2);
         } else if ((solarWindow == systemWindow.inverter) && (!addedBtoI)) {
-            buttonLink3.setText("เชื่อมต่อไปยังแบตเตอรี่");
-            buttonLink3.setStyle(buttonStyle);
+            imageLink3.setBackground((Drawable) Assets.instance.buttonBatteryAdd);
+            imageLink3.setStyle(buttonStyle);
         } else {
-            buttonLink3.setText("ยกเลิกการเชื่อมต่อไปยังแบตเตอรี่");
-            buttonLink3.setStyle(buttonStyle2);
+            imageLink3.setBackground((Drawable) Assets.instance.buttonBatteryDel);
+            imageLink3.setStyle(buttonStyle2);
         }
-        buttonLink3.clearListeners();
-        buttonLink3.addListener(new ClickListener() {
+        imageLink3.clearListeners();
+        imageLink3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if ((solarWindow == systemWindow.solarcell)) {
@@ -757,14 +760,14 @@ public class GameScreen extends AbstractGameScreen {
         });
         if (((solarWindow == systemWindow.solarcell) && (!addedStoD)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoD))
                 || ((solarWindow == systemWindow.battery) && (!addedBtoD)) || ((solarWindow == systemWindow.inverter) && (!addedItoD))) {
-            buttonLink4.setText("เชื่อมต่อไปยังประตู");
-            buttonLink4.setStyle(buttonStyle);
+            imageLink4.setBackground((Drawable) Assets.instance.buttonDoorAdd);
+            imageLink4.setStyle(buttonStyle);
         } else {
-            buttonLink4.setText("ยกเลิกการเชื่อมต่อไปยังประตู");
-            buttonLink4.setStyle(buttonStyle2);
+            imageLink4.setBackground((Drawable) Assets.instance.buttonDoorDel);
+            imageLink4.setStyle(buttonStyle2);
         }
-        buttonLink4.clearListeners();
-        buttonLink4.addListener(new ClickListener() {
+        imageLink4.clearListeners();
+        imageLink4.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if ((solarWindow == systemWindow.solarcell)) {
