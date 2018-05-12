@@ -160,7 +160,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
         state = PlayerState.STAND;
         setCurrentAnimation(PlayerAnimation.STAND_DOWN);
-        viewDirection = Direction.DOWN;
+        viewDirection = Direction.UP;
 
         health = INTITAL_HEALTH;
         timeCount = INTITAL_TIME;
