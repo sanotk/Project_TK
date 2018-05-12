@@ -198,7 +198,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             questScreen6 = false;
 
             for (Citizen citizen : citizens) {
-                if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_1)) {
+                if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_1) )  {
                     questScreen1 = true;
                     if (quest1 == true) {
                         citizen.quest = true;
