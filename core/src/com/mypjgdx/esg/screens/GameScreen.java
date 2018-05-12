@@ -67,6 +67,7 @@ public class GameScreen extends AbstractGameScreen {
     private Label text6;
     private Label text7;
     private Label text8;
+    private boolean dialogSolarcell;
 
     public enum systemWindow {
         solarcell,
@@ -977,7 +978,7 @@ public class GameScreen extends AbstractGameScreen {
         solarcellWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - solarcellWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - solarcellWindow.getHeight() / 2);
-        if (!animation_status&& player.status_find) {
+        if (!animation_status && player.status_find && dialogDoor3) {
             if (level1.solarCell.nearPlayer() ) {
                 solarWindow = systemWindow.solarcell;
                 checkButton(solarWindow);
@@ -997,6 +998,14 @@ public class GameScreen extends AbstractGameScreen {
             } else {
                 solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
+        } else if (!dialogSolarcell){
+            dialogSolarcell = true;
+            player.timeStop = true;
+            String text =
+                    "\"ยังไม่สามารถใช้งานได้ กรุณาทำภารกิจที่ค้างอยู่ให้สำเร็จก่อน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
         }
 
         doorWindow.setPosition(
