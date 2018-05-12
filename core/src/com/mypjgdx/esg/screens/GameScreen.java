@@ -67,8 +67,8 @@ public class GameScreen extends AbstractGameScreen {
     private Label text6;
     private Label text7;
     private Label text8;
-    private boolean dialogSolarcell;
-    private boolean dialogSolarcel2;
+
+    private boolean stageFourClear;
 
     public enum systemWindow {
         solarcell,
@@ -122,7 +122,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private Dialog dialog;
     private Texture dialogStory;
-    private int citizenCount =0;
+    private int citizenCount = 0;
 
     private String text =
             "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้\" \n\"เอาล่ะ รีบเร่งมือกันเถอะ (กด Enter เพื่อเริ่มเกม)\"";
@@ -304,6 +304,15 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 chartWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                dialogDoor4 = true;
+                stageFourClear = true;
+                worldController.level.player.timeStop = true;
+                String text =
+                        "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
+                dialog.show();
+                dialog.clearPages();
+                dialog.addWaitingPage(text);
+                System.out.print(text);
             }
         });
 
@@ -900,6 +909,26 @@ public class GameScreen extends AbstractGameScreen {
         }
     }
 
+    private void chartStatus() {
+        Player player = worldController.level.player;
+        player.timeClear = true;
+        String textString5 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
+        String textString4 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
+        String textString3 = ("อัตราการผลิตพลั" +
+                "งงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์ต่อวินาที"));
+        String textString2 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์ต่อวินาที");
+        String textString = ("พลังงานที่ได้รับจากมอนสเตอร์ : " + String.valueOf((BatteryBar.instance.getBatteryStorage()) + " จูล"));
+        text2.setText(textString5);
+        text3.setText(textString4);
+        text4.setText(textString3);
+        text5.setText(textString2);
+        text6.setText(textString);
+        chartWindow.setPosition(
+                Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
+        chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+    }
+
     @Override
     public void render(float deltaTime) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
@@ -911,8 +940,8 @@ public class GameScreen extends AbstractGameScreen {
         if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
             if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
                 dialog.hide();
-                worldController.level.player.timeStop = false;
-                if(stageThreeClear){
+                player.timeStop = false;
+                if (stageFourClear) {
                     game.setScreen(new GameScreen2(game, optionsWindow));
                 }
             } else {
@@ -1005,7 +1034,7 @@ public class GameScreen extends AbstractGameScreen {
                 Gdx.graphics.getHeight() / 2 - doorWindow.getHeight() / 2);
         if (!animation_status) {
             if ((level1.door.nearPlayer()) && (player.status_find)) {
-                if(!player.stageOneClear && !dialogDoor1){
+                if (!player.stageOneClear && !dialogDoor1) {
                     dialogDoor1 = true;
                     player.timeStop = true;
                     String text =
@@ -1013,7 +1042,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
-                }else if(player.stageOneClear && !stageTwoClear && !dialogDoor2){
+                } else if (player.stageOneClear && !stageTwoClear && !dialogDoor2) {
                     dialogDoor2 = true;
                     player.timeStop = true;
                     String text =
@@ -1021,7 +1050,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
-                }else if(stageTwoClear && !stageThreeClear && !dialogDoor3){
+                } else if (stageTwoClear && !stageThreeClear && !dialogDoor3) {
                     dialogDoor3 = true;
                     player.timeStop = true;
                     String text =
@@ -1032,18 +1061,11 @@ public class GameScreen extends AbstractGameScreen {
                 }
             }
         }
-        if(animation_status && stageThreeClear && !dialogDoor4 && level1.door.nearPlayer() && player.status_find){
-            dialogDoor4 = true;
-            player.timeStop = true;
-            String text =
-                    "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
-            dialog.show();
-            dialog.clearPages();
-            dialog.addWaitingPage(text);
-            System.out.print(text);
+        if (animation_status && stageThreeClear && !dialogDoor4 && level1.door.nearPlayer() && player.status_find) {
+            chartStatus();
         }
 
-        if(player.stageOneClear && !dialogCitizen){
+        if (player.stageOneClear && !dialogCitizen) {
             dialogCitizen = true;
             player.timeStop = true;
             String text =
@@ -1053,7 +1075,7 @@ public class GameScreen extends AbstractGameScreen {
             dialog.addWaitingPage(text);
         }
 
-        if(!dialogEnemy){
+        if (!dialogEnemy) {
             for (int i = 0; i < worldController.level.enemies.size(); i++) {
                 Enemy enemy = worldController.level.enemies.get(i);
                 if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
@@ -1068,7 +1090,7 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if(player.stageOneClear && player.status_find){
+        if (player.stageOneClear && player.status_find) {
             for (int i = 0; i < worldController.level.citizens.size(); i++) {
                 Citizen citizen = worldController.level.citizens.get(i);
                 if (citizen.overlapPlayer && !citizen.runPlayer) {
@@ -1085,7 +1107,7 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if(player.stageOneClear && citizenCount == level1.citizens.size() && !stageTwoClear){
+        if (player.stageOneClear && citizenCount == level1.citizens.size() && !stageTwoClear) {
             stageTwoClear = true;
         }
 
@@ -1097,30 +1119,15 @@ public class GameScreen extends AbstractGameScreen {
             stageThreeClear = true;
             level1.door.state = Item.ItemState.ON;
             animation_status = true;
-            player.timeClear = true;
-            String textString5 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
-            String textString4 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
-            String textString3 = ("อัตราการผลิตพลั" +
-                    "งงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์ต่อวินาที"));
-            String textString2 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์ต่อวินาที");
-            String textString = ("พลังงานที่ได้รับจากมอนสเตอร์ : " + String.valueOf((BatteryBar.instance.getBatteryStorage()) + " จูล"));
-            text2.setText(textString5);
-            text3.setText(textString4);
-            text4.setText(textString3);
-            text5.setText(textString2);
-            text6.setText(textString);
-            chartWindow.setPosition(
-                    Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
-                    Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
-            chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-        } else if (animation_status && BatteryBar.instance.getBatteryStorage() < BatteryBar.BATTERY_MAX) {
-            BatteryBar.instance.update(deltaTime);
-            player.timeClear = true;
-        }
+            dialogCitizen = true;
+            player.timeStop = true;
+            String text =
+                    "\"เยี่ยม ระบบผลิตพลังงานไฟฟ้าด้วยแสงอาทิตย์ทำงานแล้ว รีบพาประชาชนไปยังประตูกันเถอะ\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
 
-//        if ((level1.door.state == Item.ItemState.ON) && (level1.door.nearPlayer()) && player.status_find) {
-//            game.setScreen(new GameScreen2(game, optionsWindow));
-//        }
+        }
 
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
             Enemy enemy = worldController.level.enemies.get(i);
