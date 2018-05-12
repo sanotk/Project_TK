@@ -73,7 +73,7 @@ public class GameScreen2 extends AbstractGameScreen {
     private Texture dialogStory;
 
     private String text =
-            "\"ทุกคนรออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าไม่มีอันตรายเ\" \n\"เ(กด Enter เพื่อเริ่มเกม)\"";
+            "\"ทุกคนรออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าไม่มีอันตราย\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
 
     public QuestState questState = null;
 
@@ -677,6 +677,21 @@ public class GameScreen2 extends AbstractGameScreen {
             MusicManager.instance.stop();
             game.setScreen(new GameOverScreen(game));
             return;
+        }
+
+        if(!dialogEnemy){
+            for (int i = 0; i < worldController.level.enemies.size(); i++) {
+                Enemy enemy = worldController.level.enemies.get(i);
+                if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
+                    dialogEnemy = true;
+                    player.timeStop = true;
+                    String text =
+                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    dialog.show();
+                    dialog.clearPages();
+                    dialog.addWaitingPage(text);
+                }
+            }
         }
 
         boolean noCitizen = !player.questScreen1

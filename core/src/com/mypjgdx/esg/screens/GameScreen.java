@@ -26,7 +26,7 @@ import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.items.*;
+import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.ui.Dialog;
 import com.mypjgdx.esg.utils.ItemLink;
@@ -138,6 +138,8 @@ public class GameScreen extends AbstractGameScreen {
     private boolean dialogDoor3;
     private boolean dialogDoor4;
 
+    private Player player = worldController.level.player;
+    private Level1 level1 = (Level1) worldController.level;
 
     private boolean stageTwoClear;
     private boolean stageThreeClear;
@@ -816,63 +818,63 @@ public class GameScreen extends AbstractGameScreen {
         if (solarState == SolarState.StoC) {
             addedStoC = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(SolarCell.class),
-                    findItem(Charge.class),
+                    level1.solarCell,
+                    level1.charge,
                     worldController.level.links, solarState);
 
         } else if (solarState == SolarState.StoB) {
             addedStoB = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(SolarCell.class),
-                    findItem(Battery.class),
+                    level1.solarCell,
+                    level1.battery,
                     worldController.level.links, solarState);
         } else if (solarState == SolarState.StoI) {
             addedStoI = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(SolarCell.class),
-                    findItem(Inverter.class),
+                    level1.solarCell,
+                    level1.inverter,
                     worldController.level.links, solarState);
         } else if (solarState == SolarState.StoD) {
             addedStoD = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(SolarCell.class),
-                    findItem(Door.class),
+                    level1.solarCell,
+                    level1.door,
                     worldController.level.links, solarState);
         } else if (solarState == SolarState.CtoB) {
             addedCtoB = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(Charge.class),
-                    findItem(Battery.class),
+                    level1.charge,
+                    level1.battery,
                     worldController.level.links, solarState);
         } else if (solarState == SolarState.CtoI) {
             addedCtoI = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(Charge.class),
-                    findItem(Inverter.class),
+                    level1.charge,
+                    level1.inverter,
                     worldController.level.links, solarState);
         } else if (solarState == SolarState.CtoD) {
             addedCtoD = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(Charge.class),
-                    findItem(Door.class),
+                    level1.charge,
+                    level1.door,
                     worldController.level.links, solarState);
         } else if (solarState == SolarState.BtoI) {
             addedBtoI = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(Battery.class),
-                    findItem(Inverter.class),
+                    level1.battery,
+                    level1.inverter,
                     worldController.level.links, solarState);
         } else if (solarState == SolarState.BtoD) {
             addedBtoD = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(Battery.class),
-                    findItem(Door.class),
+                    level1.battery,
+                    level1.door,
                     worldController.level.links, solarState);
         } else if (solarState == SolarState.ItoD) {
             addedItoD = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
-                    findItem(Inverter.class),
-                    findItem(Door.class),
+                    level1.inverter,
+                    level1.door,
                     worldController.level.links, solarState);
         }
         System.out.print("ขนาด" + itemLink.linkList.size() + "นะจ๊ะ");
@@ -906,6 +908,9 @@ public class GameScreen extends AbstractGameScreen {
     public void render(float deltaTime) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        Player player = worldController.level.player;
+        Level1 level1 = (Level1) worldController.level;
 
         if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
             if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
@@ -952,9 +957,6 @@ public class GameScreen extends AbstractGameScreen {
             game.setScreen(new GameOverScreen(game));
             return;
         }
-
-        Player player = worldController.level.player;
-        Level1 level1 = (Level1) worldController.level;
 
         boolean noItem = true;
 
