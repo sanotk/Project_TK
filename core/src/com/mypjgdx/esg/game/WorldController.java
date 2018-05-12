@@ -90,7 +90,7 @@ public class WorldController extends InputAdapter {
 //                Json json = new Json();
 //                String choice = json.toJson(level);
 //                String energyProduced = json.toJson(EnergyProducedBar.instance.energyProduced);
-                FileHandle file = Gdx.files.absolute("C:\\Save\\save.txt"); // TODO
+                FileHandle file = Gdx.files.internal("C:\\Data\\save.txt"); // TODO
 //                file.delete();
 //                file.writeString(choice, true);         // True means append, false means overwrite.
 
@@ -101,7 +101,7 @@ public class WorldController extends InputAdapter {
             }
             ;
             if (Gdx.input.isKeyJustPressed(Keys.L)) {
-                FileHandle file = Gdx.files.absolute("C:\\Save\\save.txt");
+                FileHandle file = Gdx.files.absolute("C:\\Data\\save.txt");
 
                 Json json = new Json(JsonWriter.OutputType.json);
 
