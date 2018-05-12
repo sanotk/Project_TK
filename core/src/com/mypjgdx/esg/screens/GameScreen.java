@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -399,10 +398,10 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonSolarStyle);
 
-        imageLink1 = new ImageButton((Drawable) Assets.instance.buttonChargeAdd);
-        imageLink2 = new ImageButton((Drawable) Assets.instance.buttonBatteryAdd);
-        imageLink3 = new ImageButton((Drawable) Assets.instance.buttonInverterAdd);
-        imageLink4 = new ImageButton((Drawable) Assets.instance.buttonDoorAdd);
+        imageLink1 = new ImageButton(new TextureRegionDrawable(Assets.instance.buttonChargeAdd));
+        imageLink2 = new ImageButton(new TextureRegionDrawable( Assets.instance.buttonBatteryAdd));
+        imageLink3 = new ImageButton(new TextureRegionDrawable( Assets.instance.buttonInverterAdd));
+        imageLink4 = new ImageButton(new TextureRegionDrawable( Assets.instance.buttonDoorAdd));
 
         final Window solarcellWindow = new Window("Choice", style);
         solarcellWindow.setModal(true);
@@ -636,19 +635,15 @@ public class GameScreen extends AbstractGameScreen {
 
     private void checkButton(final systemWindow solarWindow) {
         if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
-            imageLink1.setBackground((Drawable) Assets.instance.buttonChargeAdd);
-            imageLink1.setStyle(buttonStyle);
+            imageLink1.setBackground(new TextureRegionDrawable( Assets.instance.buttonChargeAdd));
         } else if ((solarWindow == systemWindow.solarcell) && (addedStoC)) {
-            imageLink1.setBackground((Drawable) Assets.instance.buttonChargeDel);
-            imageLink1.setStyle(buttonStyle2);
+            imageLink1.setBackground(new TextureRegionDrawable( Assets.instance.buttonChargeDel));
         } else if (((solarWindow == systemWindow.chargecontroller) && (!addedStoC))
                 || ((solarWindow == systemWindow.battery) && (!addedStoB))
                 || ((solarWindow == systemWindow.inverter) && (!addedStoI))) {
-            imageLink1.setBackground((Drawable) Assets.instance.buttonSolarcellAdd);
-            imageLink1.setStyle(buttonStyle);
+            imageLink1.setBackground(new TextureRegionDrawable( Assets.instance.buttonSolarcellAdd));
         } else {
-            imageLink1.setBackground((Drawable) Assets.instance.buttonSolarcellDel);
-            imageLink1.setStyle(buttonStyle2);
+            imageLink1.setBackground(new TextureRegionDrawable( Assets.instance.buttonSolarcellDel));
         }
         imageLink1.clearListeners();
         imageLink1.addListener(new ClickListener() {
@@ -679,17 +674,13 @@ public class GameScreen extends AbstractGameScreen {
         });
 
         if (((solarWindow == systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoB))) {
-            imageLink2.setBackground((Drawable) Assets.instance.buttonBatteryAdd);
-            imageLink2.setStyle(buttonStyle);
+            imageLink2.setBackground(new TextureRegionDrawable( Assets.instance.buttonBatteryAdd));
         } else if (((solarWindow == systemWindow.solarcell) && (addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoB))) {
-            imageLink2.setBackground((Drawable) Assets.instance.buttonBatteryDel);
-            imageLink2.setStyle(buttonStyle2);
+            imageLink2.setBackground(new TextureRegionDrawable( Assets.instance.buttonBatteryDel));
         } else if (((solarWindow == systemWindow.battery) && (!addedCtoB)) || ((solarWindow == systemWindow.inverter) && (!addedCtoI))) {
-            imageLink2.setBackground((Drawable) Assets.instance.buttonChargeAdd);
-            imageLink2.setStyle(buttonStyle);
+            imageLink2.setBackground(new TextureRegionDrawable( Assets.instance.buttonChargeAdd));
         } else {
-            imageLink2.setBackground((Drawable) Assets.instance.buttonChargeDel);
-            imageLink2.setStyle(buttonStyle2);
+            imageLink2.setBackground(new TextureRegionDrawable( Assets.instance.buttonChargeDel));
         }
         imageLink2.clearListeners();
         imageLink2.addListener(new ClickListener() {
@@ -718,18 +709,14 @@ public class GameScreen extends AbstractGameScreen {
         });
         if (((solarWindow == systemWindow.solarcell) && (!addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoI))
                 || ((solarWindow == systemWindow.battery) && (!addedBtoI))) {
-            imageLink3.setBackground((Drawable) Assets.instance.buttonInverterAdd);
-            imageLink3.setStyle(buttonStyle);
+            imageLink3.setBackground(new TextureRegionDrawable( Assets.instance.buttonInverterAdd));
         } else if (((solarWindow == systemWindow.solarcell) && (addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoI))
                 || ((solarWindow == systemWindow.battery) && (addedBtoI))) {
-            imageLink3.setBackground((Drawable) Assets.instance.buttonInverterDel);
-            imageLink3.setStyle(buttonStyle2);
+            imageLink3.setBackground(new TextureRegionDrawable( Assets.instance.buttonInverterDel));
         } else if ((solarWindow == systemWindow.inverter) && (!addedBtoI)) {
-            imageLink3.setBackground((Drawable) Assets.instance.buttonBatteryAdd);
-            imageLink3.setStyle(buttonStyle);
+            imageLink3.setBackground(new TextureRegionDrawable( Assets.instance.buttonBatteryAdd));
         } else {
-            imageLink3.setBackground((Drawable) Assets.instance.buttonBatteryDel);
-            imageLink3.setStyle(buttonStyle2);
+            imageLink3.setBackground(new TextureRegionDrawable( Assets.instance.buttonBatteryDel));
         }
         imageLink3.clearListeners();
         imageLink3.addListener(new ClickListener() {
@@ -760,11 +747,9 @@ public class GameScreen extends AbstractGameScreen {
         });
         if (((solarWindow == systemWindow.solarcell) && (!addedStoD)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoD))
                 || ((solarWindow == systemWindow.battery) && (!addedBtoD)) || ((solarWindow == systemWindow.inverter) && (!addedItoD))) {
-            imageLink4.setBackground((Drawable) Assets.instance.buttonDoorAdd);
-            imageLink4.setStyle(buttonStyle);
+            imageLink4.setBackground(new TextureRegionDrawable( Assets.instance.buttonDoorAdd));
         } else {
-            imageLink4.setBackground((Drawable) Assets.instance.buttonDoorDel);
-            imageLink4.setStyle(buttonStyle2);
+            imageLink4.setBackground(new TextureRegionDrawable( Assets.instance.buttonDoorDel));
         }
         imageLink4.clearListeners();
         imageLink4.addListener(new ClickListener() {
