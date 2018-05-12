@@ -69,6 +69,7 @@ public class GameScreen extends AbstractGameScreen {
     private Label text8;
 
     private boolean stageFourClear;
+    private boolean dialogCitizen2;
 
     public enum systemWindow {
         solarcell,
@@ -412,10 +413,10 @@ public class GameScreen extends AbstractGameScreen {
         solarcellWindow.getTitleLabel().setAlignment(Align.center);
         solarcellWindow.row().padBottom(10).padTop(10);
         solarcellWindow.add(imageLink1);
-        solarcellWindow.add(imageLink2).padLeft(10);
+        solarcellWindow.add(imageLink2).padLeft(20);
         solarcellWindow.row().padTop(10);
         solarcellWindow.add(imageLink3);
-        solarcellWindow.add(imageLink4).padLeft(10);
+        solarcellWindow.add(imageLink4).padLeft(20);
         solarcellWindow.row().padTop(10);
         solarcellWindow.add(closeButton).colspan(2);
         solarcellWindow.pack();
@@ -750,6 +751,7 @@ public class GameScreen extends AbstractGameScreen {
             imageLink4.setBackground(new TextureRegionDrawable( Assets.instance.buttonDoorAdd));
         } else {
             imageLink4.setBackground(new TextureRegionDrawable( Assets.instance.buttonDoorDel));
+
         }
         imageLink4.clearListeners();
         imageLink4.addListener(new ClickListener() {
@@ -1103,6 +1105,16 @@ public class GameScreen extends AbstractGameScreen {
                     citizenCount += 1;
                 }
             }
+        }
+        
+        if(citizenCount == worldController.level.citizens.size() && !dialogCitizen2){
+            dialogCitizen2 = true;
+            player.timeStop = true;
+            String text =
+                    "\"ค้นพบประชาชนในพื้นที่แถบนี้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
         }
 
         if (player.stageOneClear && citizenCount == level1.citizens.size() && !stageTwoClear) {
