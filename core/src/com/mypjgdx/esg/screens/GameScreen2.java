@@ -94,6 +94,9 @@ public class GameScreen2 extends AbstractGameScreen {
 
     private boolean animation_status = false;
 
+    private Player player = worldController.level.player;
+    private Level2 level2 = (Level2) worldController.level;
+
     private int trueLink = 0;
 
     private int energyStart = 0;
@@ -237,9 +240,6 @@ public class GameScreen2 extends AbstractGameScreen {
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
-
-        int btn_w = 200;
-        int btn_h = 50;
 
         TextButton.TextButtonStyle buttonBowStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconBow = new TextureRegionDrawable(Assets.instance.iconBow);
@@ -629,9 +629,6 @@ public class GameScreen2 extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        Player player = worldController.level.player;
-        Level2 level2 = (Level2) worldController.level;
-
         if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
             if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
                 dialog.hide();
@@ -692,6 +689,16 @@ public class GameScreen2 extends AbstractGameScreen {
                     dialog.addWaitingPage(text);
                 }
             }
+        }
+
+        if(player.stageOneClear && !dialogCitizen){
+            dialogCitizen = true;
+            player.timeStop = true;
+            String text =
+                    "\"กำจัดมอนสเตอร์หมดแล้ว ลองถามประชาชนดีกว่าว่าต้องการอะไรรึเปล่า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
         }
 
         boolean noCitizen = !player.questScreen1

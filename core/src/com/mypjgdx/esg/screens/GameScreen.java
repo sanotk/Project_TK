@@ -877,7 +877,7 @@ public class GameScreen extends AbstractGameScreen {
                     level1.door,
                     worldController.level.links, solarState);
         }
-        System.out.print("ขนาด" + itemLink.linkList.size() + "นะจ๊ะ");
+        //System.out.print("ขนาด" + itemLink.linkList.size() + "นะจ๊ะ");
     }
 
     private void removeGuiLink(SolarState solarState) {
@@ -908,9 +908,6 @@ public class GameScreen extends AbstractGameScreen {
     public void render(float deltaTime) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        Player player = worldController.level.player;
-        Level1 level1 = (Level1) worldController.level;
 
         if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
             if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
