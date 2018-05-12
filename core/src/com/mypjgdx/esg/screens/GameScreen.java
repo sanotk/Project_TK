@@ -900,6 +900,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void render(float deltaTime) {
+
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -1126,7 +1127,7 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if (countEnemy == worldController.level.enemies.size()) {
+        if (countEnemy == worldController.level.enemies.size() || worldController.level.enemies.size()==0) {
             player.stageOneClear = true;
         }
 
