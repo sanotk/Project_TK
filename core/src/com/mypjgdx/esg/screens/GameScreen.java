@@ -246,7 +246,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private Window createChartWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
+        style.background = new TextureRegionDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
@@ -321,7 +321,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private Window createDoorWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
+        style.background = new TextureRegionDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
@@ -382,7 +382,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private Window createSolarcellWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
+        style.background = new TextureRegionDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
@@ -970,6 +970,17 @@ public class GameScreen extends AbstractGameScreen {
         if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
             worldController.level.enemies.clear();
         }
+
+
+        if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
+            for (int i = 0; i < worldController.level.citizens.size(); i++) {
+                Citizen citizen = worldController.level.citizens.get(i);
+                if (!citizen.runPlayer) {
+                    dialogCitizen = true;
+                    citizen.runPlayer = true;
+                    citizenCount += 1;
+                }
+            }        }
 
         if (!worldController.level.player.isAlive()) {
             MusicManager.instance.stop();
