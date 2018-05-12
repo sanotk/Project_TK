@@ -27,9 +27,11 @@ import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.ui.*;
+import com.mypjgdx.esg.ui.Dialog;
 
 public class GameScreen4 extends AbstractGameScreen {
 
+    private Dialog dialog;
     private WorldController worldController;
     private WorldRenderer worldRenderer;
 
@@ -62,6 +64,21 @@ public class GameScreen4 extends AbstractGameScreen {
     private Button buttonRule;
     private Window ruleWindow;
     private Window chartWindow;
+
+    private Texture dialogStory;
+
+    private String text =
+            "\"ทุกคนรออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าไม่มีอันตราย\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
+
+    private boolean dialogEnemy;
+    private boolean dialogCitizen;
+    private boolean dialogStage1;
+    private boolean dialogStage2;
+    private boolean dialogStage3;
+    private boolean dialogStage4;
+
+    private boolean stageTwoClear;
+    private boolean stageThreeClear;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();

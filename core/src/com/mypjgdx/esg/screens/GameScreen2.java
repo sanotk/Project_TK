@@ -794,23 +794,39 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if(questCount == 6 && !animation_status){
-            animation_status = true;
-            player.timeClear = true;
-            String textString5 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
-            String textString4 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
-            String textString3 = ("อัตราการผลิตพลังงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์ต่อวินาที"));
-            String textString2 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์ต่อวินาที");
-            String textString = ("พลังงานที่ได้รับจากมอนสเตอร์ : " + String.valueOf((countEnemy*1000) + " จูล"));
-            text2.setText(textString5);
-            text3.setText(textString4);
-            text4.setText(textString3);
-            text5.setText(textString2);
-            text6.setText(textString);
-            chartWindow.setPosition(
-                    Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
-                    Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
-            chartWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-            level2.gate.state = Item.ItemState.ON;
+            if(EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
+                animation_status = true;
+                player.timeStop = true;
+                String text =
+                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและพลังงานจะเหลือเพียงพอใช้ในด่านถัดไป\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                dialog.show();
+                dialog.clearPages();
+                dialog.addWaitingPage(text);
+                level2.gate.state = Item.ItemState.ON;
+            }else {
+                player.timeStop = true;
+                String text =
+                        "\"อันตราย! พลังงานที่เครื่องไฟฟ้าใช้มากกว่าพลังงานที่ผลิต ปล่อยไว้ไม่นานพลังงานหมดแล้วจะตายกันหมด รีบปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                dialog.show();
+                dialog.clearPages();
+                dialog.addWaitingPage(text);
+            }
+
+//            player.timeClear = true;
+//            String textString5 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
+//            String textString4 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
+//            String textString3 = ("อัตราการผลิตพลังงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์ต่อวินาที"));
+//            String textString2 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์ต่อวินาที");
+//            String textString = ("พลังงานที่ได้รับจากมอนสเตอร์ : " + String.valueOf((countEnemy * 1000) + " จูล"));
+//            text2.setText(textString5);
+//            text3.setText(textString4);
+//            text4.setText(textString3);
+//            text5.setText(textString2);
+//            text6.setText(textString);
+//            chartWindow.setPosition(
+//                    Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
+//                    Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
+//            chartWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
         }
 
         if ((level2.gate.state == Item.ItemState.ON) && (level2.gate.nearPlayer()) && player.status_find) {

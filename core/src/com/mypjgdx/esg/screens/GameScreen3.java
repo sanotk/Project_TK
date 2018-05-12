@@ -103,6 +103,11 @@ public class GameScreen3 extends AbstractGameScreen {
 
     private int questCount;
 
+    private Texture dialogStory;
+
+    private String text =
+            "\"ทุกคนรออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าไม่มีอันตราย\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
+
     private boolean dialogEnemy;
     private boolean dialogCitizen;
     private boolean dialogStage1;
