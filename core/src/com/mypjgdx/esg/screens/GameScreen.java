@@ -360,12 +360,12 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonChartStyle);
         String textString = ("เวลาที่ใช้ : " + String.valueOf((1) + " วินาที"));
-        text1 = new Label("สถิติ", skin);
+        text1 = new Label(textString, skin);
         text2 = new Label(textString, skin);
         text3 = new Label(textString, skin);
         text4 = new Label(textString, skin);
-        text5 = new Label(textString, skin);
-        text6 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
+        text5 = new Label("", skin);
+        text6 = new Label("", skin);
         text7 = new Label("", skin);
         text8 = new Label("", skin);
         text9 = new Label("", skin);
@@ -380,15 +380,13 @@ public class GameScreen extends AbstractGameScreen {
         text8.setStyle(labelStyle);
         text9.setStyle(labelStyle);
 
-        final Window statusWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
+        final Window statusWindow = new Window("ข้อมูลสถานะการใช้พลังงานไฟฟ้า", style);
         statusWindow.setModal(true);
-        statusWindow.padTop(50);
+        statusWindow.padTop(60);
         statusWindow.padLeft(40);
         statusWindow.padRight(40);
         statusWindow.padBottom(20);
         statusWindow.getTitleLabel().setAlignment(Align.center);
-        statusWindow.row().padBottom(10).padTop(10);
-        statusWindow.row().padTop(10);
         statusWindow.add(text1);
         statusWindow.row().padTop(10);
         statusWindow.add(text2);
@@ -413,11 +411,11 @@ public class GameScreen extends AbstractGameScreen {
         closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                chartWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
 
-        return chartWindow;
+        return statusWindow;
     }
 
 
@@ -1023,19 +1021,19 @@ public class GameScreen extends AbstractGameScreen {
     }
 
     private void status() {
-        Player player = worldController.level.player;
-        String textString5 = ("อัตราการผลิตพลังงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์ต่อวินาทีv"));
-        String textString4 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์ต่อวินาที");
-        String textString2 = ("อัตราการผลิตพลังงานคงเหลือ : " + String.valueOf((EnergyProducedBar.instance.energyProduced-EnergyUsedBar.instance.energyUse)) + " พลังงานจะหมดลง");
+        String textString1 = ("อัตราการผลิตพลังงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์ต่อวินาที"));
+        String textString2 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์ต่อวินาที");
         if(EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse){
-            String textString3 = ("อีก : " + String.valueOf((BatteryBar.instance.getBatteryStorage()/(EnergyProducedBar.instance.energyProduced-EnergyUsedBar.instance.energyUse)) + " พลังงานจะหมดลง"));
-            text4.setText(textString3);
+            String textString3 = ("อีก : " + String.valueOf((BatteryBar.instance.getBatteryStorage()/(EnergyProducedBar.instance.energyProduced-EnergyUsedBar.instance.energyUse)) + " วินาทีพลังงานจะหมดลง"));
+            text3.setText(textString3);
         }else {
-
+            String textString3 = ("อีก : " + String.valueOf((BatteryBar.BATTERY_MAX/(EnergyProducedBar.instance.energyProduced-EnergyUsedBar.instance.energyUse)) + " วินาทีพลังงานจะเต็มแบต"));
+            text3.setText(textString3);
         }
-        text2.setText(textString5);
-        text3.setText(textString4);
-        text5.setText(textString2);
+        String textString4 = ("อัตราการผลิตพลังงานคงเหลือ : " + String.valueOf((EnergyProducedBar.instance.energyProduced-EnergyUsedBar.instance.energyUse)) + " พลังงานจะหมดลง");
+        text1.setText(textString1);
+        text2.setText(textString2);
+        text4.setText(textString4);
         statusWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
@@ -1069,6 +1067,7 @@ public class GameScreen extends AbstractGameScreen {
         textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
 
         if (animation_status) {
+            EnergyProducedBar.instance.energyProduced = 2500;
             energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
         } else {
             energyLevel.setText(String.format(" %d", 0) + " วัตต์");
