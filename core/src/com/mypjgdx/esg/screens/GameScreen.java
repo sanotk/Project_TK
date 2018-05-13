@@ -440,15 +440,19 @@ public class GameScreen extends AbstractGameScreen {
         buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonRuleStyle);
-        Label text1 = new Label("ตามหาทางเข้าสถานที่หลบภัยให้พบ", skin);
-        Label text2 = new Label("เชื่อมต่อแผงโซล่าเซลล์เพื่อเติมเต็มพลังงานให้สถานที่หลบภัย", skin);
-        Label text3 = new Label("หลังจากเติมเต็มพลังงานได้แล้ว จะสามารถเข้าไปยังสถานที่หลบภัยได้", skin);
+        
+        Label text1 = new Label("กด c เพื่อฟัน", skin);
+        Label text2 = new Label("กด x เพื่อยิงธนู (ยิงธนู 1 ดอกใช้พลังงานไฟฟ้าจำนวน 200 จูล)", skin);
+        Label text3 = new Label("กด Z เพื่อวางกับดักสปริง เมื่อมอนสเตอร์เดินมาชนจะกระเด็นถอยหลังใช้งานได้ 3 ครั้ง (กับดัก 1 อันใช้พลังงานไฟฟ้าจำนวน 1000 จูล)", skin);
+        Label text4 = new Label("กด W เพื่อฟันคลื่นดาบพลังสูง (ฟัน 1 ครั้งใช้พลังงานไฟฟ้าจำนวน 3000 จูล", skin);
+        Label text5 = new Label("กด A เพื่อติดต่อกับวัตถุ หรือประชาชน", skin);
+        Label text6 = new Label("กด S เพื่อดูแผงการใช้พลังงานแบบละเอียด", skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
         text3.setStyle(labelStyle);
 
-        final Window ruleWindow = new Window("กติกา", style);
+        final Window ruleWindow = new Window("การควบคุม", style);
         ruleWindow.setModal(true);
         ruleWindow.setSkin(skin);
         ruleWindow.padTop(50);
@@ -463,6 +467,12 @@ public class GameScreen extends AbstractGameScreen {
         ruleWindow.add(text2);
         ruleWindow.row().padTop(10);
         ruleWindow.add(text3);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text4);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text5);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text6);
         ruleWindow.row().padTop(10);
         ruleWindow.add(closeButton).colspan(3);
         ruleWindow.pack();
