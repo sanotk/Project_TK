@@ -89,6 +89,11 @@ public class GameScreen extends AbstractGameScreen {
     private Label labelSolarCell3;
     private Label labelSolarCell4;
 
+    private Button solarCellButton1;
+    private Button solarCellButton2;
+    private Button solarCellButton3;
+    private Button solarCellButton4;
+
     public enum systemWindow {
         solarcell,
         chargecontroller,
@@ -103,10 +108,10 @@ public class GameScreen extends AbstractGameScreen {
     private ArrayList<SolarState> isComplete = new ArrayList<SolarState>();
     private ArrayList<ItemLink> itemLinks = new ArrayList<ItemLink>();
 
-    private ImageButton imageLink1;
-    private ImageButton imageLink2;
-    private ImageButton imageLink3;
-    private ImageButton imageLink4;
+    private TextureRegionDrawable imageLink1;
+    private TextureRegionDrawable imageLink2;
+    private TextureRegionDrawable imageLink3;
+    private TextureRegionDrawable imageLink4;
 
     private Button buttonOption;
     private BitmapFont font;
@@ -349,10 +354,29 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonSolarStyle);
 
-        imageLink1 = new ImageButton(new TextureRegionDrawable(Assets.instance.buttonChargeAdd));
-        imageLink2 = new ImageButton(new TextureRegionDrawable(Assets.instance.buttonBatteryAdd));
-        imageLink3 = new ImageButton(new TextureRegionDrawable(Assets.instance.buttonInverterAdd));
-        imageLink4 = new ImageButton(new TextureRegionDrawable(Assets.instance.buttonDoorAdd));
+        Button.ButtonStyle buttonImageLink1 = new Button.ButtonStyle();
+        Button.ButtonStyle buttonImageLink2 = new Button.ButtonStyle();
+        Button.ButtonStyle buttonImageLink3 = new Button.ButtonStyle();
+        Button.ButtonStyle buttonImageLink4 = new Button.ButtonStyle();
+
+        imageLink1 = new TextureRegionDrawable((Assets.instance.buttonChargeAdd));
+        imageLink2 = new TextureRegionDrawable((Assets.instance.buttonBatteryAdd));
+        imageLink3 = new TextureRegionDrawable((Assets.instance.buttonInverterAdd));
+        imageLink4 = new TextureRegionDrawable((Assets.instance.buttonDoorAdd));
+
+        buttonImageLink1.up = imageLink1;
+        buttonImageLink1.down = imageLink1.tint(Color.LIGHT_GRAY);
+        buttonImageLink2.up = imageLink2;
+        buttonImageLink2.down = imageLink2.tint(Color.LIGHT_GRAY);
+        buttonImageLink3.up = imageLink3;
+        buttonImageLink3.down = imageLink3.tint(Color.LIGHT_GRAY);
+        buttonImageLink4.up = imageLink4;
+        buttonImageLink4.down = imageLink4.tint(Color.LIGHT_GRAY);
+
+        solarCellButton1 = new Button(imageLink1);
+        solarCellButton2 = new Button(imageLink2);
+        solarCellButton3 = new Button(imageLink3);
+        solarCellButton4 = new Button(imageLink4);
 
         labelSolarCell1 = new Label(textCharge, skin);
         labelSolarCell2 = new Label(textBattery, skin);
@@ -373,14 +397,14 @@ public class GameScreen extends AbstractGameScreen {
         solarcellWindow.padBottom(20);
         solarcellWindow.getTitleLabel().setAlignment(Align.center);
         solarcellWindow.row().padBottom(10).padTop(10);
-        solarcellWindow.add(imageLink1);
-        solarcellWindow.add(imageLink2).padLeft(20);
+        solarcellWindow.add(solarCellButton1);
+        solarcellWindow.add(solarCellButton2).padLeft(20);
         solarcellWindow.row().padTop(10);
         solarcellWindow.add(labelSolarCell1);
         solarcellWindow.add(labelSolarCell2).padLeft(20);
         solarcellWindow.row().padTop(10);
-        solarcellWindow.add(imageLink3);
-        solarcellWindow.add(imageLink4).padLeft(20);
+        solarcellWindow.add(solarCellButton3);
+        solarcellWindow.add(solarCellButton4).padLeft(20);
         solarcellWindow.row().padTop(10);
         solarcellWindow.add(labelSolarCell3);
         solarcellWindow.add(labelSolarCell4).padLeft(20);
@@ -603,22 +627,22 @@ public class GameScreen extends AbstractGameScreen {
 
     private void checkButton(final systemWindow solarWindow) {
         if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
-            imageLink1.getImage().setDrawable(new TextureRegionDrawable(Assets.instance.buttonChargeAdd));
+            imageLink1.setRegion(Assets.instance.buttonChargeAdd);
             labelSolarCell1.setText(textCharge);
         } else if ((solarWindow == systemWindow.solarcell) && (addedStoC)) {
-            imageLink1.getImage().setDrawable(new TextureRegionDrawable(Assets.instance.buttonChargeDel));
+            imageLink1.setRegion(Assets.instance.buttonChargeDel);
             labelSolarCell1.setText(textCharge2);
         } else if (((solarWindow == systemWindow.chargecontroller) && (!addedStoC))
                 || ((solarWindow == systemWindow.battery) && (!addedStoB))
                 || ((solarWindow == systemWindow.inverter) && (!addedStoI))) {
-            imageLink1.getImage().setDrawable(new TextureRegionDrawable(Assets.instance.buttonSolarcellAdd));
+            imageLink1.setRegion(Assets.instance.buttonSolarcellAdd);
             labelSolarCell1.setText(textSolarcell);
         } else {
-            imageLink1.getImage().setDrawable(new TextureRegionDrawable(Assets.instance.buttonSolarcellDel));
+            imageLink1.setRegion(Assets.instance.buttonSolarcellDel);
             labelSolarCell1.setText(textSolarcell2);
         }
-        imageLink1.clearListeners();
-        imageLink1.addListener(new ClickListener() {
+        solarCellButton1.clearListeners();
+        solarCellButton1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if ((solarWindow == systemWindow.solarcell) || (solarWindow == systemWindow.chargecontroller)) {
@@ -647,20 +671,20 @@ public class GameScreen extends AbstractGameScreen {
         });
 
         if (((solarWindow == systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoB))) {
-            imageLink2.setBackground(new TextureRegionDrawable( Assets.instance.buttonBatteryAdd));
+            imageLink2.setRegion(Assets.instance.buttonBatteryAdd);
             labelSolarCell2.setText(textBattery);
         } else if (((solarWindow == systemWindow.solarcell) && (addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoB))) {
-            imageLink2.setBackground(new TextureRegionDrawable( Assets.instance.buttonBatteryDel));
+            imageLink2.setRegion(Assets.instance.buttonBatteryDel);
             labelSolarCell2.setText(textBattery2);
         } else if (((solarWindow == systemWindow.battery) && (!addedCtoB)) || ((solarWindow == systemWindow.inverter) && (!addedCtoI))) {
-            imageLink2.setBackground(new TextureRegionDrawable( Assets.instance.buttonChargeAdd));
+            imageLink2.setRegion(Assets.instance.buttonChargeAdd);
             labelSolarCell2.setText(textCharge);
         } else {
-            imageLink2.setBackground(new TextureRegionDrawable( Assets.instance.buttonChargeDel));
+            imageLink2.setRegion(Assets.instance.buttonChargeDel);
             labelSolarCell2.setText(textCharge2);
         }
-        imageLink2.clearListeners();
-        imageLink2.addListener(new ClickListener() {
+        solarCellButton2.clearListeners();
+        solarCellButton2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if ((solarWindow == systemWindow.solarcell)) {
@@ -687,21 +711,21 @@ public class GameScreen extends AbstractGameScreen {
         });
         if (((solarWindow == systemWindow.solarcell) && (!addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoI))
                 || ((solarWindow == systemWindow.battery) && (!addedBtoI))) {
-            imageLink3.setBackground(new TextureRegionDrawable( Assets.instance.buttonInverterAdd));
+            imageLink3.setRegion(Assets.instance.buttonInverterAdd);
             labelSolarCell3.setText(textInverter);
         } else if (((solarWindow == systemWindow.solarcell) && (addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoI))
                 || ((solarWindow == systemWindow.battery) && (addedBtoI))) {
-            imageLink3.setBackground(new TextureRegionDrawable( Assets.instance.buttonInverterDel));
+            imageLink3.setRegion(Assets.instance.buttonInverterDel);
             labelSolarCell3.setText(textInverter2);
         } else if ((solarWindow == systemWindow.inverter) && (!addedBtoI)) {
-            imageLink3.setBackground(new TextureRegionDrawable( Assets.instance.buttonBatteryAdd));
+            imageLink3.setRegion(Assets.instance.buttonBatteryAdd);
             labelSolarCell3.setText(textBattery);
         } else {
-            imageLink3.setBackground(new TextureRegionDrawable( Assets.instance.buttonBatteryDel));
+            imageLink3.setRegion(Assets.instance.buttonBatteryDel);
             labelSolarCell3.setText(textBattery2);
         }
-        imageLink3.clearListeners();
-        imageLink3.addListener(new ClickListener() {
+        solarCellButton3.clearListeners();
+        solarCellButton3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if ((solarWindow == systemWindow.solarcell)) {
@@ -730,15 +754,15 @@ public class GameScreen extends AbstractGameScreen {
         });
         if (((solarWindow == systemWindow.solarcell) && (!addedStoD)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoD))
                 || ((solarWindow == systemWindow.battery) && (!addedBtoD)) || ((solarWindow == systemWindow.inverter) && (!addedItoD))) {
-            imageLink4.setBackground(new TextureRegionDrawable( Assets.instance.buttonDoorAdd));
+            imageLink4.setRegion(Assets.instance.buttonDoorAdd);
             labelSolarCell4.setText(textDoor);
         } else {
-            imageLink4.setBackground(new TextureRegionDrawable( Assets.instance.buttonDoorDel));
+            imageLink4.setRegion(Assets.instance.buttonDoorDel);
             labelSolarCell4.setText(textDoor2);
 
         }
-        imageLink4.clearListeners();
-        imageLink4.addListener(new ClickListener() {
+        solarCellButton4.clearListeners();
+        solarCellButton4.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if ((solarWindow == systemWindow.solarcell)) {
