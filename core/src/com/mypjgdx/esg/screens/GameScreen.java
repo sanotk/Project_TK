@@ -1030,13 +1030,13 @@ public class GameScreen extends AbstractGameScreen {
             String textString3 = ("อีก : " + String.valueOf((BatteryBar.BATTERY_MAX/(EnergyProducedBar.instance.energyProduced-EnergyUsedBar.instance.energyUse)) + " วินาทีพลังงานจะเต็มแบต"));
             text3.setText(textString3);
         }
-        String textString4 = ("อัตราการผลิตพลังงานคงเหลือ : " + String.valueOf((EnergyProducedBar.instance.energyProduced-EnergyUsedBar.instance.energyUse)) + " พลังงานจะหมดลง");
+        String textString4 = ("อัตราการผลิตพลังงานหลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced-EnergyUsedBar.instance.energyUse)) + " วัตต์ต่อวินาที");
         text1.setText(textString1);
         text2.setText(textString2);
         text4.setText(textString4);
         statusWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
+                Gdx.graphics.getWidth() / 2 - statusWindow.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - statusWindow.getHeight() / 2);
         statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
