@@ -49,7 +49,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean stageOneClear = false;
 
     public Rectangle walkingBounds = new Rectangle();
-    private boolean statusEnergyWindow;
+    public boolean statusEnergyWindow;
 
     public enum PlayerAnimation {
         ATK_LEFT,
