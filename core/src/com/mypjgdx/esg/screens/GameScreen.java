@@ -245,6 +245,7 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(ruleWindow);
         stage.addActor(chartWindow);
         stage.addActor(statusWindow);
+        stage.addActor(solarCellGuideWindow);
         stage.addActor(solarCellWindow);
 
         buttonOption.addListener(new ClickListener() {
@@ -463,48 +464,47 @@ public class GameScreen extends AbstractGameScreen {
         text8.setStyle(labelStyle);
         text9.setStyle(labelStyle);
 
-        final Window statusWindow = new Window("ข้อมูลสถานะการใช้พลังงานไฟฟ้า", style);
-        statusWindow.setModal(true);
-        statusWindow.padTop(60);
-        statusWindow.padLeft(40);
-        statusWindow.padRight(40);
-        statusWindow.padBottom(20);
-        statusWindow.getTitleLabel().setAlignment(Align.center);
-        statusWindow.row().padBottom(10).padTop(10);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text1);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text2);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text3);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text4);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text5);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text6);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text7);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text8);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text9);
-        statusWindow.row().padTop(10);
-        statusWindow.add(closeButton).colspan(3);
-        statusWindow.pack();
+        final Window solarCellGuideWindow = new Window("ข้อมูลสถานะการใช้พลังงานไฟฟ้า", style);
+        solarCellGuideWindow.setModal(true);
+        solarCellGuideWindow.padTop(60);
+        solarCellGuideWindow.padLeft(40);
+        solarCellGuideWindow.padRight(40);
+        solarCellGuideWindow.padBottom(20);
+        solarCellGuideWindow.getTitleLabel().setAlignment(Align.center);
+        solarCellGuideWindow.row().padBottom(10).padTop(10);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text1);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text2);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text3);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text4);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text5);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text6);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text7);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text8);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text9);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(closeButton).colspan(3);
+        solarCellGuideWindow.pack();
 
         closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                worldController.level.player.statusEnergyWindow = false;
+                solarCellGuideWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                worldController.level.player.solarCellGuideWindow = false;
                 worldController.level.player.timeStop = false;
             }
         });
 
         return statusWindow;
     }
-
 
     private Window createSolarCellWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
@@ -1131,6 +1131,15 @@ public class GameScreen extends AbstractGameScreen {
         statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
+    private void solarCellGuide() {
+        worldController.level.player.timeStop = true;
+        solarCellGuideWindow.setPosition(
+                Gdx.graphics.getWidth() / 2 - solarCellGuideWindow.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - solarCellGuideWindow.getHeight() / 2);
+        solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+    }
+
+
     private void controllAndDebug(){
 
         Player player = worldController.level.player;
@@ -1327,10 +1336,16 @@ public class GameScreen extends AbstractGameScreen {
         Player player = worldController.level.player;
         Level1 level1 = (Level1) worldController.level;
 
-        if(player.getStatusEnergyWindow()){
+        if(player.statusEnergyWindow){
             status();
         }else {
             statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+        }
+
+        if(player.solarCellGuideWindow){
+            solarCellGuide();
+        }else {
+            solarCellGuideWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
         }
 
         solarCellWindow.setPosition(
