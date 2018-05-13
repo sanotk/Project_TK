@@ -350,9 +350,9 @@ public class GameScreen extends AbstractGameScreen {
         Button closeButton = new Button(buttonSolarStyle);
 
         imageLink1 = new ImageButton(new TextureRegionDrawable(Assets.instance.buttonChargeAdd));
-        imageLink2 = new ImageButton(new TextureRegionDrawable( Assets.instance.buttonBatteryAdd));
-        imageLink3 = new ImageButton(new TextureRegionDrawable( Assets.instance.buttonInverterAdd));
-        imageLink4 = new ImageButton(new TextureRegionDrawable( Assets.instance.buttonDoorAdd));
+        imageLink2 = new ImageButton(new TextureRegionDrawable(Assets.instance.buttonBatteryAdd));
+        imageLink3 = new ImageButton(new TextureRegionDrawable(Assets.instance.buttonInverterAdd));
+        imageLink4 = new ImageButton(new TextureRegionDrawable(Assets.instance.buttonDoorAdd));
 
         labelSolarCell1 = new Label(textCharge, skin);
         labelSolarCell2 = new Label(textBattery, skin);
@@ -603,18 +603,18 @@ public class GameScreen extends AbstractGameScreen {
 
     private void checkButton(final systemWindow solarWindow) {
         if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
-            imageLink1.setBackground(new TextureRegionDrawable( Assets.instance.buttonChargeAdd));
+            imageLink1.getImage().setDrawable(new TextureRegionDrawable(Assets.instance.buttonChargeAdd));
             labelSolarCell1.setText(textCharge);
         } else if ((solarWindow == systemWindow.solarcell) && (addedStoC)) {
-            imageLink1.setBackground(new TextureRegionDrawable( Assets.instance.buttonChargeDel));
+            imageLink1.getImage().setDrawable(new TextureRegionDrawable(Assets.instance.buttonChargeDel));
             labelSolarCell1.setText(textCharge2);
         } else if (((solarWindow == systemWindow.chargecontroller) && (!addedStoC))
                 || ((solarWindow == systemWindow.battery) && (!addedStoB))
                 || ((solarWindow == systemWindow.inverter) && (!addedStoI))) {
-            imageLink1.setBackground(new TextureRegionDrawable( Assets.instance.buttonSolarcellAdd));
+            imageLink1.getImage().setDrawable(new TextureRegionDrawable(Assets.instance.buttonSolarcellAdd));
             labelSolarCell1.setText(textSolarcell);
         } else {
-            imageLink1.setBackground(new TextureRegionDrawable( Assets.instance.buttonSolarcellDel));
+            imageLink1.getImage().setDrawable(new TextureRegionDrawable(Assets.instance.buttonSolarcellDel));
             labelSolarCell1.setText(textSolarcell2);
         }
         imageLink1.clearListeners();
