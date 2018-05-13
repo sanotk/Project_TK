@@ -532,7 +532,7 @@ public class GameScreen extends AbstractGameScreen {
         Label text4 = new Label("กด W เพื่อฟันคลื่นดาบพลังสูง (ฟัน 1 ครั้งใช้พลังงานไฟฟ้าจำนวน 3000 จูล", skin);
         Label text5 = new Label("กด A เพื่อติดต่อกับวัตถุ หรือประชาชน", skin);
         Label text6 = new Label("กด S เพื่อดูผังการใช้พลังงานแบบละเอียด", skin);
-        Label text7 = new Label("กด D เพื่อดูวิธีการเชื่อมต่อแผงโซล่าเซลล์", skin);
+        Label text7 = new Label("กด D เพื่ออ่านวิธีการทำงานของโซล่าเซลล์", skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
