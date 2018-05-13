@@ -67,6 +67,7 @@ public class GameScreen extends AbstractGameScreen {
     private Label text6;
     private Label text7;
     private Label text8;
+    private Label text9;
 
     private String textSolarcell = "เชื่อมต่อไปยังแผงโซล่าเซลล์";
     private String textCharge = "เชื่อมต่อไปยังชาร์จคอนโทรลเลอร์";
@@ -365,6 +366,9 @@ public class GameScreen extends AbstractGameScreen {
         text4 = new Label(textString, skin);
         text5 = new Label(textString, skin);
         text6 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
+        text7 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
+        text8 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
+        text9 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
@@ -372,30 +376,39 @@ public class GameScreen extends AbstractGameScreen {
         text4.setStyle(labelStyle);
         text5.setStyle(labelStyle);
         text6.setStyle(labelStyle);
+        text7.setStyle(labelStyle);
+        text8.setStyle(labelStyle);
+        text9.setStyle(labelStyle);
 
-        final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
-        chartWindow.setModal(true);
-        chartWindow.padTop(50);
-        chartWindow.padLeft(40);
-        chartWindow.padRight(40);
-        chartWindow.padBottom(20);
-        chartWindow.getTitleLabel().setAlignment(Align.center);
-        chartWindow.row().padBottom(10).padTop(10);
-        chartWindow.row().padTop(10);
-        chartWindow.add(text1);
-        chartWindow.row().padTop(10);
-        chartWindow.add(text2);
-        chartWindow.row().padTop(10);
-        chartWindow.add(text3);
-        chartWindow.row().padTop(10);
-        chartWindow.add(text4);
-        chartWindow.row().padTop(10);
-        chartWindow.add(text5);
-        chartWindow.row().padTop(10);
-        chartWindow.add(text6);
-        chartWindow.row().padTop(10);
-        chartWindow.add(closeButton).colspan(3);
-        chartWindow.pack();
+        final Window statusWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
+        statusWindow.setModal(true);
+        statusWindow.padTop(50);
+        statusWindow.padLeft(40);
+        statusWindow.padRight(40);
+        statusWindow.padBottom(20);
+        statusWindow.getTitleLabel().setAlignment(Align.center);
+        statusWindow.row().padBottom(10).padTop(10);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text1);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text2);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text3);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text5);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text6);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text7);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text8);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text9);
+        statusWindow.row().padTop(10);
+        statusWindow.add(closeButton).colspan(3);
+        statusWindow.pack();
 
         closeButton.addListener(new ClickListener() {
             @Override
