@@ -86,11 +86,12 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.C)) level.player.swordAttack(level.weapons, level.swords);
             if (Gdx.input.isKeyPressed(Keys.X)) level.player.bowAttack(level.weapons, level.bows);
             if (Gdx.input.isKeyJustPressed(Keys.A)) level.player.findItem();
-            if (Gdx.input.isKeyJustPressed(Keys.S)) {
+            if (Gdx.input.isKeyJustPressed(Keys.S)) level.player.status();
+            if (Gdx.input.isKeyJustPressed(Keys.B)) {
 //                Json json = new Json();
 //                String choice = json.toJson(level);
 //                String energyProduced = json.toJson(EnergyProducedBar.instance.energyProduced);
-                FileHandle file = Gdx.files.internal("C:\\Data\\save.txt"); // TODO
+                FileHandle file = Gdx.files.absolute("C:\\Data\\save.txt"); // TODO
 //                file.delete();
 //                file.writeString(choice, true);         // True means append, false means overwrite.
 

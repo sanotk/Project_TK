@@ -125,6 +125,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private Window ruleWindow;
     private Window chartWindow;
+    private Window statusWindow;
 
     private boolean addedStoC = false;
     private boolean addedStoB = false;
@@ -218,6 +219,9 @@ public class GameScreen extends AbstractGameScreen {
         chartWindow = createChartWindow();
         chartWindow.setVisible(false);
 
+        statusWindow = createChartWindow();
+        statusWindow.setVisible(false);
+
         solarcellWindow = createSolarcellWindow();
         solarcellWindow.setVisible(false);
 
@@ -234,6 +238,7 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(optionsWindow);
         stage.addActor(ruleWindow);
         stage.addActor(chartWindow);
+        stage.addActor(statusWindow);
         stage.addActor(solarcellWindow);
 
         buttonOption.addListener(new ClickListener() {
@@ -335,6 +340,73 @@ public class GameScreen extends AbstractGameScreen {
 
         return chartWindow;
     }
+
+    private Window createStatusWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new TextureRegionDrawable(Assets.instance.window);
+//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
+        style.titleFont = font;
+        style.titleFontColor = Color.BLACK;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.WHITE;
+
+        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonChartStyle.up = buttonRegion;
+        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+
+        Button closeButton = new Button(buttonChartStyle);
+        String textString = ("เวลาที่ใช้ : " + String.valueOf((1) + " วินาที"));
+        text1 = new Label("สถิติ", skin);
+        text2 = new Label(textString, skin);
+        text3 = new Label(textString, skin);
+        text4 = new Label(textString, skin);
+        text5 = new Label(textString, skin);
+        text6 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
+
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
+        text4.setStyle(labelStyle);
+        text5.setStyle(labelStyle);
+        text6.setStyle(labelStyle);
+
+        final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
+        chartWindow.setModal(true);
+        chartWindow.padTop(50);
+        chartWindow.padLeft(40);
+        chartWindow.padRight(40);
+        chartWindow.padBottom(20);
+        chartWindow.getTitleLabel().setAlignment(Align.center);
+        chartWindow.row().padBottom(10).padTop(10);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text1);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text2);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text3);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text4);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text5);
+        chartWindow.row().padTop(10);
+        chartWindow.add(text6);
+        chartWindow.row().padTop(10);
+        chartWindow.add(closeButton).colspan(3);
+        chartWindow.pack();
+
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                chartWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+            }
+        });
+
+        return chartWindow;
+    }
+
 
     private Window createSolarcellWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
@@ -970,6 +1042,12 @@ public class GameScreen extends AbstractGameScreen {
         }
         energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
         energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
+
+        if(player.getStatusEnergyWindow()){
+            statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+        }else {
+            statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+        }
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));

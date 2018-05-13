@@ -49,6 +49,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean stageOneClear = false;
 
     public Rectangle walkingBounds = new Rectangle();
+    private boolean statusEnergyWindow;
 
     public enum PlayerAnimation {
         ATK_LEFT,
@@ -496,6 +497,14 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         }
     }
 
+    public void status() {
+        if (statusEnergyWindow == true) {
+            statusEnergyWindow = false;
+        } else {
+            statusEnergyWindow = true;
+        }
+    }
+
     @Override
     public String getName() {
         // TODO Auto-generated method stub
@@ -604,4 +613,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         return INTITAL_TIME;
     }
 
+    public boolean getStatusEnergyWindow(){
+        return statusEnergyWindow;
+    }
 }
