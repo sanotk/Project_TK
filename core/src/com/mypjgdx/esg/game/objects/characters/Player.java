@@ -50,6 +50,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     public Rectangle walkingBounds = new Rectangle();
     public boolean statusEnergyWindow;
+    public boolean solarCellGuideWindow;
 
     public enum PlayerAnimation {
         ATK_LEFT,
@@ -497,11 +498,19 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         }
     }
 
-    public void status() {
+    public void statusEnergy() {
         if (statusEnergyWindow == true) {
             statusEnergyWindow = false;
         } else {
             statusEnergyWindow = true;
+        }
+    }
+
+    public void solarCellGuide() {
+        if (solarCellGuideWindow == true) {
+            solarCellGuideWindow = false;
+        } else {
+            solarCellGuideWindow = true;
         }
     }
 

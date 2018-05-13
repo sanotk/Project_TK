@@ -86,7 +86,8 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyPressed(Keys.C)) level.player.swordAttack(level.weapons, level.swords);
             if (Gdx.input.isKeyPressed(Keys.X)) level.player.bowAttack(level.weapons, level.bows);
             if (Gdx.input.isKeyJustPressed(Keys.A)) level.player.findItem();
-            if (Gdx.input.isKeyJustPressed(Keys.S)) level.player.status();
+            if (Gdx.input.isKeyJustPressed(Keys.S)) level.player.statusEnergy();
+            if (Gdx.input.isKeyJustPressed(Keys.D)) level.player.solarCellGuide();
             if (Gdx.input.isKeyJustPressed(Keys.B)) {
 //                Json json = new Json();
 //                String choice = json.toJson(level);

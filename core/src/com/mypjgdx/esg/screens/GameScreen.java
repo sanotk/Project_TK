@@ -102,8 +102,10 @@ public class GameScreen extends AbstractGameScreen {
         inverter
     }
 
-    public SolarState solarState = null;
-    public systemWindow solarWindow = null;
+    private SolarState solarState;
+    private systemWindow solarWindow;
+
+    private Window solarCellGuideWindow;
 
     private ArrayList<SolarState> link = new ArrayList<SolarState>();
     private ArrayList<SolarState> isComplete = new ArrayList<SolarState>();
@@ -118,7 +120,7 @@ public class GameScreen extends AbstractGameScreen {
     private BitmapFont font;
     private Window optionsWindow;
 
-    private Window solarcellWindow;
+    private Window solarCellWindow;
 
     private boolean animation_status = false;
 
@@ -223,8 +225,11 @@ public class GameScreen extends AbstractGameScreen {
         statusWindow = createStatusWindow();
         statusWindow.setVisible(false);
 
-        solarcellWindow = createSolarcellWindow();
-        solarcellWindow.setVisible(false);
+        solarCellGuideWindow = createSolarCellGuideWindow();
+        solarCellGuideWindow.setVisible(false);
+
+        solarCellWindow = createSolarCellWindow();
+        solarCellWindow.setVisible(false);
 
         optionsWindow.setVisible(false);
 
@@ -240,7 +245,7 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(ruleWindow);
         stage.addActor(chartWindow);
         stage.addActor(statusWindow);
-        stage.addActor(solarcellWindow);
+        stage.addActor(solarCellWindow);
 
         buttonOption.addListener(new ClickListener() {
             @Override
@@ -421,7 +426,87 @@ public class GameScreen extends AbstractGameScreen {
         return statusWindow;
     }
 
-    private Window createSolarcellWindow() {
+    private Window createSolarCellGuideWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new TextureRegionDrawable(Assets.instance.window);
+//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.WHITE;
+
+        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonChartStyle.up = buttonRegion;
+        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+
+        Button closeButton = new Button(buttonChartStyle);
+        text1 = new Label("", skin);
+        text2 = new Label("", skin);
+        text3 = new Label("", skin);
+        text4 = new Label("", skin);
+        text5 = new Label("", skin);
+        text6 = new Label("", skin);
+        text7 = new Label("", skin);
+        text8 = new Label("", skin);
+        text9 = new Label("", skin);
+
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
+        text4.setStyle(labelStyle);
+        text5.setStyle(labelStyle);
+        text6.setStyle(labelStyle);
+        text7.setStyle(labelStyle);
+        text8.setStyle(labelStyle);
+        text9.setStyle(labelStyle);
+
+        final Window statusWindow = new Window("ข้อมูลสถานะการใช้พลังงานไฟฟ้า", style);
+        statusWindow.setModal(true);
+        statusWindow.padTop(60);
+        statusWindow.padLeft(40);
+        statusWindow.padRight(40);
+        statusWindow.padBottom(20);
+        statusWindow.getTitleLabel().setAlignment(Align.center);
+        statusWindow.row().padBottom(10).padTop(10);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text1);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text2);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text3);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text5);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text6);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text7);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text8);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text9);
+        statusWindow.row().padTop(10);
+        statusWindow.add(closeButton).colspan(3);
+        statusWindow.pack();
+
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                worldController.level.player.statusEnergyWindow = false;
+                worldController.level.player.timeStop = false;
+            }
+        });
+
+        return statusWindow;
+    }
+
+
+    private Window createSolarCellWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new TextureRegionDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
@@ -764,7 +849,7 @@ public class GameScreen extends AbstractGameScreen {
                 checkGameComplete();
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
-                solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
 
@@ -804,7 +889,7 @@ public class GameScreen extends AbstractGameScreen {
                 checkGameComplete();
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
-                solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
         if (((solarWindow == systemWindow.solarcell) && (!addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoI))
@@ -847,7 +932,7 @@ public class GameScreen extends AbstractGameScreen {
                 checkGameComplete();
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
-                solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
         if (((solarWindow == systemWindow.solarcell) && (!addedStoD)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoD))
@@ -881,10 +966,10 @@ public class GameScreen extends AbstractGameScreen {
                 checkGameComplete();
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
-                solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
-        solarcellWindow.pack();
+        solarCellWindow.pack();
     }
 
     private void checkDeledLink(SolarState solarState) {
@@ -1248,30 +1333,30 @@ public class GameScreen extends AbstractGameScreen {
             statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
         }
 
-        solarcellWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - solarcellWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - solarcellWindow.getHeight() / 2);
+        solarCellWindow.setPosition(
+                Gdx.graphics.getWidth() / 2 - solarCellWindow.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - solarCellWindow.getHeight() / 2);
         if (!animation_status && player.status_find && dialogDoor3) {
             if (level1.solarCell.nearPlayer()) {
                 solarWindow = systemWindow.solarcell;
                 checkButton(solarWindow);
-                solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else if (level1.charge.nearPlayer()) {
                 solarWindow = systemWindow.chargecontroller;
                 checkButton(solarWindow);
-                solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else if (level1.battery.nearPlayer()) {
                 solarWindow = systemWindow.battery;
                 checkButton(solarWindow);
-                solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else if (level1.inverter.nearPlayer()) {
                 solarWindow = systemWindow.inverter;
                 checkButton(solarWindow);
-                solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else {
                 player.status_find = false;
                 player.status_windows_link = false;
-                solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         }
 
@@ -1295,7 +1380,7 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         if (noItem == false){
-            solarcellWindow.setVisible(false);
+            solarCellWindow.setVisible(false);
         }
 
         boolean noCitizen = !player.questScreen1
@@ -1308,7 +1393,7 @@ public class GameScreen extends AbstractGameScreen {
         if (noItem && noCitizen) {
             player.status_find = false;
             player.status_windows_link = false;
-            solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+            solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
         }
     }
 
