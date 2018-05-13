@@ -366,9 +366,9 @@ public class GameScreen extends AbstractGameScreen {
         text4 = new Label(textString, skin);
         text5 = new Label(textString, skin);
         text6 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
-        text7 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
-        text8 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
-        text9 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
+        text7 = new Label("", skin);
+        text8 = new Label("", skin);
+        text9 = new Label("", skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
@@ -1022,6 +1022,26 @@ public class GameScreen extends AbstractGameScreen {
         chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
+    private void status() {
+        Player player = worldController.level.player;
+        String textString5 = ("อัตราการผลิตพลังงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์ต่อวินาทีv"));
+        String textString4 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์ต่อวินาที");
+        String textString2 = ("อัตราการผลิตพลังงานคงเหลือ : " + String.valueOf((EnergyProducedBar.instance.energyProduced-EnergyUsedBar.instance.energyUse)) + " พลังงานจะหมดลง");
+        if(EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse){
+            String textString3 = ("อีก : " + String.valueOf((BatteryBar.instance.getBatteryStorage()/(EnergyProducedBar.instance.energyProduced-EnergyUsedBar.instance.energyUse)) + " พลังงานจะหมดลง"));
+            text4.setText(textString3);
+        }else {
+
+        }
+        text2.setText(textString5);
+        text3.setText(textString4);
+        text5.setText(textString2);
+        statusWindow.setPosition(
+                Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
+        statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+    }
+
     @Override
     public void render(float deltaTime) {
 
@@ -1057,7 +1077,7 @@ public class GameScreen extends AbstractGameScreen {
         energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
 
         if(player.getStatusEnergyWindow()){
-            statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            status();
         }else {
             statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
         }
