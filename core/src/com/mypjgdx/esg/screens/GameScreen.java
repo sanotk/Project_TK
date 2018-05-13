@@ -414,6 +414,7 @@ public class GameScreen extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
                 worldController.level.player.statusEnergyWindow = false;
+                worldController.level.player.timeStop = false;
             }
         });
 
@@ -530,7 +531,8 @@ public class GameScreen extends AbstractGameScreen {
         Label text3 = new Label("กด Z เพื่อวางกับดักสปริง เมื่อมอนสเตอร์เดินมาชนจะกระเด็นถอยหลัง (วางกับดัก 1 ครั้งใช้พลังงานไฟฟ้าจำนวน 1000 จูล)", skin);
         Label text4 = new Label("กด W เพื่อฟันคลื่นดาบพลังสูง (ฟัน 1 ครั้งใช้พลังงานไฟฟ้าจำนวน 3000 จูล", skin);
         Label text5 = new Label("กด A เพื่อติดต่อกับวัตถุ หรือประชาชน", skin);
-        Label text6 = new Label("กด S เพื่อดูแผงการใช้พลังงานแบบละเอียด", skin);
+        Label text6 = new Label("กด S เพื่อดูผังการใช้พลังงานแบบละเอียด", skin);
+        Label text7 = new Label("กด D เพื่อดูวิธีการเชื่อมต่อแผงโซล่าเซลล์", skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
@@ -538,6 +540,7 @@ public class GameScreen extends AbstractGameScreen {
         text4.setStyle(labelStyle);
         text5.setStyle(labelStyle);
         text6.setStyle(labelStyle);
+        text7.setStyle(labelStyle);
 
         final Window ruleWindow = new Window("การควบคุม", style);
         ruleWindow.setModal(true);
@@ -1022,6 +1025,7 @@ public class GameScreen extends AbstractGameScreen {
     }
 
     private void status() {
+        worldController.level.player.timeStop = true;
         String textString1 = ("อัตราการผลิตพลังงานไฟฟ้า : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์ต่อวินาที"));
         String textString2 = ("อัตราการใช้พลังงานไฟฟ้า : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์ต่อวินาที");
         if(EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse){
