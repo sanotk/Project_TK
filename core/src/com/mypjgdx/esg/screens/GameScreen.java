@@ -444,11 +444,12 @@ public class GameScreen extends AbstractGameScreen {
         buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonChartStyle);
-        text1 = new Label("", skin);
-        text2 = new Label("", skin);
-        text3 = new Label("", skin);
-        text4 = new Label("", skin);
-        text5 = new Label("", skin);
+
+        text1 = new Label("1", skin);
+        text2 = new Label("2", skin);
+        text3 = new Label("3", skin);
+        text4 = new Label("4", skin);
+        text5 = new Label("5", skin);
         text6 = new Label("", skin);
         text7 = new Label("", skin);
         text8 = new Label("", skin);
@@ -464,7 +465,7 @@ public class GameScreen extends AbstractGameScreen {
         text8.setStyle(labelStyle);
         text9.setStyle(labelStyle);
 
-        final Window solarCellGuideWindow = new Window("ข้อมูลสถานะการใช้พลังงานไฟฟ้า", style);
+        final Window solarCellGuideWindow = new Window("ระบบผลิตพลังงานไฟฟ้าด้วยโซล่าเซลล์", style);
         solarCellGuideWindow.setModal(true);
         solarCellGuideWindow.padTop(60);
         solarCellGuideWindow.padLeft(40);
@@ -503,7 +504,7 @@ public class GameScreen extends AbstractGameScreen {
             }
         });
 
-        return statusWindow;
+        return solarCellGuideWindow;
     }
 
     private Window createSolarCellWindow() {
@@ -1138,7 +1139,6 @@ public class GameScreen extends AbstractGameScreen {
                 Gdx.graphics.getHeight() / 2 - solarCellGuideWindow.getHeight() / 2);
         solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
-
 
     private void controllAndDebug(){
 

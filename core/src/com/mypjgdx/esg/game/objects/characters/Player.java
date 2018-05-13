@@ -622,7 +622,4 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         return INTITAL_TIME;
     }
 
-    public boolean getStatusEnergyWindow(){
-        return statusEnergyWindow;
-    }
 }
