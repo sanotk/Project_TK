@@ -994,11 +994,12 @@ public class GameScreen extends AbstractGameScreen {
         System.out.println("noItem" + noItem);
         System.out.println("noCitizen" + noCitizen);
 
-        if (player.status_find && noItem && noCitizen) {
+        if (noItem && noCitizen) {
             player.status_find = false;
             player.status_windows_link = false;
         }
 
+        System.out.println("status_find" + player.status_find);
         solarcellWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - solarcellWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - solarcellWindow.getHeight() / 2);
@@ -1020,6 +1021,8 @@ public class GameScreen extends AbstractGameScreen {
                 checkButton(solarWindow);
                 solarcellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else {
+                player.status_find = false;
+                player.status_windows_link = false;
                 solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         }
