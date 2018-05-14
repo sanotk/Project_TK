@@ -701,7 +701,6 @@ public class GameScreen2 extends AbstractGameScreen {
             player.status_find = false;
         }
 
-
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             game.setScreen(new MenuScreen(game));
             return;
@@ -737,6 +736,7 @@ public class GameScreen2 extends AbstractGameScreen {
                     game.setScreen(new GameScreen3(game, optionsWindow));
                 }
                 dialogShow = false;
+                player.status_find = false;
             } else {
                 dialog.tryToChangePage();
             }
@@ -807,9 +807,56 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialog.addWaitingPage(text);
                 dialogShow = true;
             }
-
-
         }
+        if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
+            player.timeStop = true;
+            String text =
+                    "\"ขอเปิดเครื่องปรับอากาศ 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+            dialogShow = true;
+        } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
+            player.timeStop = true;
+            String text =
+                    "\"ขออุ่นอาหาร 3 นาที\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+            dialogShow = true;
+        } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
+            player.timeStop = true;
+            String text =
+                    "\"ขอใช้งานคอมพิวเตอร์ 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+            dialogShow = true;
+        } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
+            player.timeStop = true;
+            String text =
+                    "\"ขอใช้งานตู้เย็น\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+            dialogShow = true;
+        } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
+            player.timeStop = true;
+            String text =
+                    "\"ขอหุงข้าวใช้เวลา 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+            dialogShow = true;
+        } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
+            player.timeStop = true;
+            String text =
+                    "\"ขอดูโทรทัศน์ 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+            dialogShow = true;
+        } 
     }
 
     private void checkStageAndCount() {
@@ -829,46 +876,6 @@ public class GameScreen2 extends AbstractGameScreen {
         if (countEnemy == worldController.level.enemies.size()) {
             player.stageOneClear = true;
         }
-
-    }
-
-    private void checkWindow() {
-
-        Player player = worldController.level.player;
-        Level2 level2 = (Level2) worldController.level;
-
-        requestCitizenWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - requestCitizenWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - requestCitizenWindow.getHeight() / 2);
-
-        if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
-            citizenQuest = systemWindow.citizen1;
-            checkButton(citizenQuest);
-            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
-            citizenQuest = systemWindow.citizen2;
-            checkButton(citizenQuest);
-            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
-            citizenQuest = systemWindow.citizen3;
-            checkButton(citizenQuest);
-            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
-            citizenQuest = systemWindow.citizen4;
-            checkButton(citizenQuest);
-            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
-            citizenQuest = systemWindow.citizen5;
-            checkButton(citizenQuest);
-            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
-            citizenQuest = systemWindow.citizen6;
-            checkButton(citizenQuest);
-            requestCitizenWindow.addAction(Actions.sequence(Actions.show(), Actions.fadeIn(0.2f)));
-        } else {
-            requestCitizenWindow.setVisible(false);
-        }
-
 
     }
 
@@ -912,7 +919,6 @@ public class GameScreen2 extends AbstractGameScreen {
         textIconDraw();
         dialogDraw();
         checkStageAndCount();
-        checkWindow();
         checkObject();
 
         if(!player.timeStop) {
