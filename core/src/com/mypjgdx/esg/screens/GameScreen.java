@@ -450,12 +450,12 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonChartStyle);
 
-        Label text1 = new Label("ลำดับการทำงานของโซล่าเซลล์", skin);
-        Label text2 = new Label("1. ตัวแผงโซล่าเซลล์จะคอยดูดซับพลังงานแสงอาทิตย์เปลี่ยนเป็นพลังงานไฟฟ้ากระแส", skin);
-        Label text3 = new Label("3", skin);
-        Label text4 = new Label("4", skin);
-        Label text5 = new Label("5", skin);
-        Label text6 = new Label("", skin);
+        Label text1 = new Label("การทำงานของระบบโซล่าเซลล์", skin);
+        Label text2 = new Label("ตัวแผงโซล่าเซลล์จะคอยดูดซับพลังงานแสงอาทิตย์เปลี่ยนเป็นพลังงานไฟฟ้า", skin);
+        Label text3 = new Label("โดยจะมีชาร์จคอนโทรลเลอร์คอยคุมกระแสไฟฟ้าว่าจะนำส่งไปยังที่ใด", skin);
+        Label text4 = new Label("พลังงานไฟฟ้าจะถูกจัดเก็บภายในแบตเตอรี่ก่อนเป็นอันดับแรก", skin);
+        Label text5 = new Label("หากมีการใช้งานเครื่องใช้ไฟฟ้าจะมาดึงพลังงานจากแบตเตอรี่ผ่านชาร์จคอนโทรลเลอร์ไม่ใช่จากแผงโซล่าเซลล์โดยตรง", skin);
+        Label text6 = new Label("หากเครื่องใช้ไฟฟ้าใช้งานไฟฟ้ากระแสตรงต้องเชื่อมต่อไปยังอินเวอร์เตอร์เพื่อแปลงกระแสไฟฟ้าจากกระแสสลับเป็นกระแสตรงก่อน", skin);
         Label text7 = new Label("", skin);
         Label text8 = new Label("", skin);
         Label text9 = new Label("", skin);
