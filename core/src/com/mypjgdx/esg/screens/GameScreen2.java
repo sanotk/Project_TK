@@ -1032,6 +1032,7 @@ public class GameScreen2 extends AbstractGameScreen {
                     if(citizen.getGoalItem().timeCount == 0){
                         citizen.getGoalItem().state = Item.ItemState.OFF;
                         EnergyUsedBar.instance.energyUse -= citizen.getGoalItem().getEnergyBurn();
+                        citizen.itemOn = false;
                     }
                 }
             }
