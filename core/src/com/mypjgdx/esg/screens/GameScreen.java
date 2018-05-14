@@ -465,7 +465,7 @@ public class GameScreen extends AbstractGameScreen {
         text8.setStyle(labelStyle);
         text9.setStyle(labelStyle);
 
-        final Window solarCellGuideWindow = new Window("ระบบผลิตพลังงานไฟฟ้าด้วยโซล่าเซลล์", style);
+        final Window solarCellGuideWindow = new Window("ข้อมูลระบบโซล่าเซลล์", style);
         solarCellGuideWindow.setModal(true);
         solarCellGuideWindow.padTop(60);
         solarCellGuideWindow.padLeft(40);
