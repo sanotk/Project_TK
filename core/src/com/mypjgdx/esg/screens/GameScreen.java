@@ -1429,6 +1429,10 @@ public class GameScreen extends AbstractGameScreen {
         checkStageAndCount();
         checkWindow();
 
+        if(!worldController.level.player.timeStop){
+            BatteryBar.instance.update(deltaTime);
+        }
+
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
         worldRenderer.render();
 
