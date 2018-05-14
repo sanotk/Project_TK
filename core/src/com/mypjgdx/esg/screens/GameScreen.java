@@ -164,6 +164,7 @@ public class GameScreen extends AbstractGameScreen {
     private boolean dialogDoor2;
     private boolean dialogDoor3;
     private boolean dialogDoor4;
+    private boolean dialogShow;
 
     private boolean stageTwoClear;
     private boolean stageThreeClear;
@@ -659,7 +660,9 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ruleWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                worldController.level.player.timeStop = false;
+                if(!dialogShow){
+                    worldController.level.player.timeStop = false;
+                }
             }
         });
 
@@ -1158,7 +1161,6 @@ public class GameScreen extends AbstractGameScreen {
             worldController.level.enemies.clear();
         }
 
-
         if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
             for (int i = 0; i < worldController.level.citizens.size(); i++) {
                 Citizen citizen = worldController.level.citizens.get(i);
@@ -1189,6 +1191,7 @@ public class GameScreen extends AbstractGameScreen {
                 if (stageFourClear) {
                     game.setScreen(new GameScreen2(game, optionsWindow));
                 }
+                dialogShow = false;
             } else {
                 dialog.tryToChangePage();
             }
@@ -1222,6 +1225,7 @@ public class GameScreen extends AbstractGameScreen {
             dialog.addWaitingPage(text);
             dialog.show();
             dialogStart = true;
+            dialogShow = true;
         }
 
         if (!animation_status) {
@@ -1234,6 +1238,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
+                    dialogShow = true;
                 } else if (player.stageOneClear && !stageTwoClear && !dialogDoor2) {
                     dialogDoor2 = true;
                     player.timeStop = true;
@@ -1242,6 +1247,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
+                    dialogShow = true;
                 } else if (stageTwoClear && !stageThreeClear && !dialogDoor3) {
                     dialogDoor3 = true;
                     player.timeStop = true;
@@ -1250,6 +1256,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
+                    dialogShow = true;
                 }
             }
             if (player.stageOneClear && !dialogCitizen) {
@@ -1260,6 +1267,7 @@ public class GameScreen extends AbstractGameScreen {
                 dialog.show();
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
+                dialogShow = true;
             }
             if (player.timeCount <= 298 && !dialogEnemy && dialogStart) {
                 for (int i = 0; i < worldController.level.enemies.size(); i++) {
@@ -1272,6 +1280,7 @@ public class GameScreen extends AbstractGameScreen {
                         dialog.show();
                         dialog.clearPages();
                         dialog.addWaitingPage(text);
+                        dialogShow = true;
                     }
                 }
             }
@@ -1288,6 +1297,7 @@ public class GameScreen extends AbstractGameScreen {
                         dialog.show();
                         dialog.clearPages();
                         dialog.addWaitingPage(text);
+                        dialogShow = true;
                     }
                 }
             }
@@ -1299,6 +1309,7 @@ public class GameScreen extends AbstractGameScreen {
                 dialog.show();
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
+                dialogShow = true;
             }
             if ((trueLink == 4)) {
                 for (Item item : level1.items) {
@@ -1315,6 +1326,7 @@ public class GameScreen extends AbstractGameScreen {
                 dialog.show();
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
+                dialogShow = true;
             }
         }
 
