@@ -1116,8 +1116,8 @@ public class GameScreen extends AbstractGameScreen {
 
     private void status() {
         worldController.level.player.timeStop = true;
-        String textString1 = ("อัตราการผลิตพลังงานไฟฟ้า : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์ต่อวินาที"));
-        String textString2 = ("อัตราการใช้พลังงานไฟฟ้า : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์ต่อวินาที");
+        String textString1 = ("อัตราการผลิตพลังงานไฟฟ้า : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
+        String textString2 = ("อัตราการใช้พลังงานไฟฟ้า : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
         if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
             String textString3 = ("อีก : " + String.valueOf((BatteryBar.instance.getBatteryStorage() / (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วินาทีพลังงานจะหมดลง"));
             text3.setText(textString3);
@@ -1126,7 +1126,7 @@ public class GameScreen extends AbstractGameScreen {
             text3.setText(textString3);
         }
 
-        String textString4 = ("อัตราการผลิตพลังงานไฟฟ้าหลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์ต่อวินาที");
+        String textString4 = ("อัตราการผลิตพลังงานไฟฟ้าหลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
         text1.setText(textString1);
         text2.setText(textString2);
         text4.setText(textString4);
