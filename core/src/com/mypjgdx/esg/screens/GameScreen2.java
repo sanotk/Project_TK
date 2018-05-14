@@ -122,7 +122,7 @@ public class GameScreen2 extends AbstractGameScreen {
     private Label text6;
 
     private int questCount;
-
+    private float Countdown;
 
     private boolean dialogEnemy;
     private boolean dialogCitizen;
@@ -1022,6 +1022,17 @@ public class GameScreen2 extends AbstractGameScreen {
                     questCount += 1;
                     System.out.print(questCount);
                     System.out.print(addRequest.size());
+                }else if(citizen.getGoalItem().count) {
+                    citizen.getGoalItem().countDown += deltaTime;
+                    if (Countdown >= 1) {
+                        citizen.getGoalItem().timeCount--;
+                        citizen.getGoalItem().countDown = 0;
+                    }
+                    System.out.println(citizen.getGoalItem().timeCount);
+                    if(citizen.getGoalItem().timeCount == 0){
+                        citizen.getGoalItem().state = Item.ItemState.OFF;
+                        EnergyUsedBar.instance.energyUse -= citizen.getGoalItem().getEnergyBurn();
+                    }
                 }
             }
         }

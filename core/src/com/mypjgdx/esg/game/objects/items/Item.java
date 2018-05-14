@@ -19,6 +19,7 @@ public abstract class Item extends AnimatedObject<ItemAnimation> implements Json
     public float energyBurn;
     public boolean count;
     public float timeCount;
+    public float countDown;
 
     public TiledCollisionCheck playerCheck;
 
