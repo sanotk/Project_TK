@@ -763,6 +763,9 @@ public class GameScreen2 extends AbstractGameScreen {
                     worldController.level.player.quest_window_6 = true;
                     worldController.level.player.quest6 = true;
                 }
+                dialog.hide();
+                dialogShow = false;
+                worldController.level.player.timeStop = false;
                 addRequest.add(questState);
                 checkGameComplete();
                 System.out.println(questState);
@@ -794,6 +797,9 @@ public class GameScreen2 extends AbstractGameScreen {
                     worldController.level.player.quest_window_6 = true;
                     questState = QuestState.quest6no;
                 }
+                dialog.hide();
+                dialogShow = false;
+                worldController.level.player.timeStop = false;
                 questCount +=1;
                 addRequest.add(questState);
                 checkGameComplete();
