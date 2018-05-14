@@ -1448,7 +1448,7 @@ public class GameScreen extends AbstractGameScreen {
         checkStageAndCount();
         checkWindow();
 
-        if(!worldController.level.player.timeStop){
+        if(!worldController.level.player.timeStop && BatteryBar.instance.getBatteryStorage()<BatteryBar.BATTERY_MAX){
             BatteryBar.instance.update(deltaTime);
         }
 

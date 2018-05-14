@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -43,41 +44,54 @@ public class MenuScreen extends AbstractGameScreen {
         stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT)); //สร้างจุดโฟกัสของหน้าจอ
         Gdx.input.setInputProcessor(stage);
 
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("thai24.fnt"));
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font.setColor(Color.WHITE);
         skin = new Skin(Gdx.files.internal("uiskin.json")); //โหลดฟ้อน
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.GREEN;
 
         int btn_w = 200;
         int btn_h = 50;
 
-        text_mainmenu = new Label("Main Menu", skin);
+        text_mainmenu = new Label("เกมประหยัดพลังงาน", skin);
         text_mainmenu.setColor(1, 1, 1, 1);
-        text_mainmenu.setFontScale(1.2f, 1.2f);
-        text_mainmenu.setPosition(SCENE_WIDTH / 2 - btn_w / 2 + 50, 450);
+        text_mainmenu.setFontScale(1.5f, 1.5f);
+        text_mainmenu.setPosition(SCENE_WIDTH / 2 - btn_w/2+20, 450);
+
+        text_mainmenu.setStyle(labelStyle);
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
         buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
         buttonStyle.font = font;
 
-        buttonStart = new TextButton("Start", buttonStyle);
+        buttonStart = new TextButton("เริ่มเกม", buttonStyle);
         buttonStart.setWidth(btn_w);
         buttonStart.setHeight(btn_h);
         buttonStart.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 350);
 
-        buttonLoad = new TextButton("Load", buttonStyle);
+        buttonLoad = new TextButton("โหลดเกม", buttonStyle);
         buttonLoad.setWidth(btn_w);
         buttonLoad.setHeight(btn_h);
         buttonLoad.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 280);
 
-        buttonOption = new TextButton("Option", buttonStyle);
+        buttonOption = new TextButton("ปรับแต่ง", buttonStyle);
         buttonOption.setWidth(btn_w);
         buttonOption.setHeight(btn_h);
         buttonOption.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 210);
 
-        buttonExit = new TextButton("Exit", buttonStyle);
+        buttonExit = new TextButton("ปิดเกม", buttonStyle);
         buttonExit.setWidth(btn_w);
         buttonExit.setHeight(btn_h);
         buttonExit.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 140);
+
+        buttonStart.setStyle(buttonStyle);
+        buttonLoad.setStyle(buttonStyle);
+        buttonOption.setStyle(buttonStyle);
+        buttonExit.setStyle(buttonStyle);
 
         optionsWindow = createOptionsWindow();
         optionsWindow.setVisible(false);
@@ -131,7 +145,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     private Window createLoadWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
+        style.background = new TextureRegionDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
@@ -147,12 +161,17 @@ public class MenuScreen extends AbstractGameScreen {
         buttonStyle.font = font;
 
         Button closeButton = new Button(buttonCrossStyle);
-        TextButton stage1Button = new TextButton("Stage 1", buttonStyle);
-        TextButton stage2Button = new TextButton("Stage 2", buttonStyle);
-        TextButton stage3Button = new TextButton("Stage 3", buttonStyle);
-        TextButton stage4Button = new TextButton("Stage 4", buttonStyle);
+        TextButton stage1Button = new TextButton("ด่านที่ 1", buttonStyle);
+        TextButton stage2Button = new TextButton("ด่านที่ 2", buttonStyle);
+        TextButton stage3Button = new TextButton("ด่านที่ 3", buttonStyle);
+        TextButton stage4Button = new TextButton("ด่านที่ 4", buttonStyle);
 
-        final Window loadWindow = new Window("Load Game", style);
+        stage1Button.setStyle(buttonStyle);
+        stage2Button.setStyle(buttonStyle);
+        stage3Button.setStyle(buttonStyle);
+        stage4Button.setStyle(buttonStyle);
+
+        final Window loadWindow = new Window("โหลดเกม", style);
         loadWindow.setModal(true);
         loadWindow.padTop(40);
         loadWindow.padLeft(40);
@@ -212,14 +231,14 @@ public class MenuScreen extends AbstractGameScreen {
 
     private Window createOptionsWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
+        style.background = new TextureRegionDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
-        labelStyle.fontColor = Color.BLACK;
+        labelStyle.fontColor = Color.WHITE;
 
         Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
         sliderStyle.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("slider_back_hor"));
@@ -240,7 +259,7 @@ public class MenuScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonCrossStyle);
 
-        final Window optionsWindow = new Window("Option", style);
+        final Window optionsWindow = new Window("ปรับแต่ง", style);
         optionsWindow.setModal(true);
         optionsWindow.padTop(40);
         optionsWindow.padLeft(40);
@@ -248,14 +267,14 @@ public class MenuScreen extends AbstractGameScreen {
         optionsWindow.padBottom(20);
         optionsWindow.getTitleLabel().setAlignment(Align.center);
         optionsWindow.row().padBottom(10).padTop(10);
-        optionsWindow.add(new Label("Volum", labelStyle)).colspan(3);
+        optionsWindow.add(new Label("เสียง", labelStyle)).colspan(3);
         optionsWindow.row();
         optionsWindow.add(new Image(Assets.instance.uiBlue.findRegion("icon_music"))).padRight(10);
-        optionsWindow.add(new Label("Music", labelStyle)).padRight(10);
+        optionsWindow.add(new Label("เพลงประกอบฉาก", labelStyle)).padRight(10);
         optionsWindow.add(musicSlider).width(250);
         optionsWindow.row().padTop(10);
         optionsWindow.add(new Image(Assets.instance.uiBlue.findRegion("icon_sound_on"))).padRight(10);
-        optionsWindow.add(new Label("Sound Fx", labelStyle)).padRight(10);
+        optionsWindow.add(new Label("เอฟเฟค", labelStyle)).padRight(10);
         optionsWindow.add(soundSlider).width(250);
         optionsWindow.row().padTop(20);
         optionsWindow.add(closeButton).colspan(3);

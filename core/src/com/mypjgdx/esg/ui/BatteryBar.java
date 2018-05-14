@@ -28,8 +28,11 @@ public class BatteryBar implements Json.Serializable {
     }
 
     public void update(float deltatime){
-        batteryStorage += EnergyProducedBar.instance.energyProduced * deltatime;
-        batteryStorage -= EnergyUsedBar.instance.energyUse * deltatime;
+        batteryStorage += EnergyProducedBar.instance.energyProduced *30 * deltatime;
+        batteryStorage -= EnergyUsedBar.instance.energyUse *30 * deltatime;
+        if(batteryStorage>BATTERY_MAX){
+            batteryStorage = BATTERY_MAX;
+        }
     }
 
     public float getBatteryStorage(){
