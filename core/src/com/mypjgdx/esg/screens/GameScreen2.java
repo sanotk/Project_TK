@@ -59,6 +59,13 @@ public class GameScreen2 extends AbstractGameScreen {
     private Label energyLevel3;
     private Label textRule;
 
+    private Label textChart1;
+    private Label textChart2;
+    private Label textChart3;
+    private Label textChart4;
+    private Label textChart5;
+    private Label textChart6;
+
     public systemWindow citizenQuest = null;
     private boolean dialogStage4fail;
 
@@ -121,8 +128,14 @@ public class GameScreen2 extends AbstractGameScreen {
     private boolean dialogStage3;
     private boolean dialogStage4;
 
+    private boolean dialogDoor1;
+    private boolean dialogDoor2;
+    private boolean dialogDoor3;
+    private boolean dialogDoor4;
+
     private boolean stageTwoClear;
     private boolean stageThreeClear;
+    private boolean stageFourClear;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
@@ -410,7 +423,7 @@ public class GameScreen2 extends AbstractGameScreen {
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
-        labelStyle.fontColor = Color.BLACK;
+        labelStyle.fontColor = Color.WHITE;
 
         Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
         TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
@@ -418,41 +431,39 @@ public class GameScreen2 extends AbstractGameScreen {
         buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonChartStyle);
-        String textString = ("เวลาที่ใช้ : " + String.valueOf((1) + " วินาที"));
-        text1 = new Label("สถิติ", skin);
-        text2 = new Label(textString, skin);
-        text3 = new Label(textString, skin);
-        text4 = new Label(textString, skin);
-        text5 = new Label(textString, skin);
-        text6 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
 
-        text1.setStyle(labelStyle);
-        text2.setStyle(labelStyle);
-        text3.setStyle(labelStyle);
-        text4.setStyle(labelStyle);
-        text5.setStyle(labelStyle);
-        text6.setStyle(labelStyle);
+        textChart1 = new Label("สถิติ", skin);
+        textChart2 = new Label("", skin);
+        textChart3 = new Label("", skin);
+        textChart4 = new Label("", skin);
+        textChart5 = new Label("", skin);
+        textChart6 = new Label("", skin);
+
+        textChart1.setStyle(labelStyle);
+        textChart2.setStyle(labelStyle);
+        textChart3.setStyle(labelStyle);
+        textChart4.setStyle(labelStyle);
+        textChart5.setStyle(labelStyle);
+        textChart6 = new Label("", skin);
 
         final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
         chartWindow.setModal(true);
-        chartWindow.padTop(40);
+        chartWindow.padTop(50);
         chartWindow.padLeft(40);
         chartWindow.padRight(40);
         chartWindow.padBottom(20);
         chartWindow.getTitleLabel().setAlignment(Align.center);
-        chartWindow.row().padBottom(10).padTop(10);
+        chartWindow.add(textChart1);
         chartWindow.row().padTop(10);
-        chartWindow.add(text1);
+        chartWindow.add(textChart2);
         chartWindow.row().padTop(10);
-        chartWindow.add(text2);
+        chartWindow.add(textChart3);
         chartWindow.row().padTop(10);
-        chartWindow.add(text3);
+        chartWindow.add(textChart4);
         chartWindow.row().padTop(10);
-        chartWindow.add(text4);
+        chartWindow.add(textChart5);
         chartWindow.row().padTop(10);
-        chartWindow.add(text5);
-        chartWindow.row().padTop(10);
-        chartWindow.add(text6);
+        chartWindow.add(textChart6);
         chartWindow.row().padTop(10);
         chartWindow.add(closeButton).colspan(3);
         chartWindow.pack();
@@ -461,6 +472,15 @@ public class GameScreen2 extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 chartWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                dialogDoor4 = true;
+                stageFourClear = true;
+                worldController.level.player.timeStop = true;
+                String text =
+                        "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
+                dialog.show();
+                dialog.clearPages();
+                dialog.addWaitingPage(text);
+                System.out.print(text);
             }
         });
 
@@ -470,13 +490,12 @@ public class GameScreen2 extends AbstractGameScreen {
     private Window createRuleWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new TextureRegionDrawable(Assets.instance.window);
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
-        labelStyle.fontColor = Color.BLACK;
+        labelStyle.fontColor = Color.WHITE;
 
         Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
         TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
@@ -485,15 +504,42 @@ public class GameScreen2 extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonRuleStyle);
 
-        final Window ruleWindow = new Window("Rule", style);
+        Label text1 = new Label("กด c เพื่อฟัน", skin);
+        Label text2 = new Label("กด x เพื่อยิงธนู (ยิงธนู 1 ดอกใช้พลังงานไฟฟ้าจำนวน 200 จูล)", skin);
+        Label text3 = new Label("กด Z เพื่อวางกับดักสปริง เมื่อมอนสเตอร์เดินมาชนจะกระเด็นถอยหลัง (วางกับดัก 1 ครั้งใช้พลังงานไฟฟ้าจำนวน 1000 จูล)", skin);
+        Label text4 = new Label("กด W เพื่อฟันคลื่นดาบพลังสูง (ฟัน 1 ครั้งใช้พลังงานไฟฟ้าจำนวน 3000 จูล", skin);
+        Label text5 = new Label("กด A เพื่อติดต่อกับวัตถุ หรือประชาชน", skin);
+        Label text6 = new Label("กด S เพื่อดูผังการใช้พลังงานแบบละเอียด", skin);
+        Label text7 = new Label("กด D เพื่ออ่านวิธีการทำงานของโซล่าเซลล์", skin);
+
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
+        text4.setStyle(labelStyle);
+        text5.setStyle(labelStyle);
+        text6.setStyle(labelStyle);
+        text7.setStyle(labelStyle);
+
+        final Window ruleWindow = new Window("การควบคุม", style);
         ruleWindow.setModal(true);
-        ruleWindow.padTop(40);
+        ruleWindow.setSkin(skin);
+        ruleWindow.padTop(60);
         ruleWindow.padLeft(40);
         ruleWindow.padRight(40);
         ruleWindow.padBottom(20);
         ruleWindow.getTitleLabel().setAlignment(Align.center);
-        ruleWindow.row().padBottom(10).padTop(10);
+        ruleWindow.add(text1);
         ruleWindow.row().padTop(10);
+        ruleWindow.add(text2);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text3);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text4);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text5);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text6);
+        ruleWindow.row().padTop(20);
         ruleWindow.add(closeButton).colspan(3);
         ruleWindow.pack();
 
@@ -504,7 +550,6 @@ public class GameScreen2 extends AbstractGameScreen {
                 worldController.level.player.timeStop = false;
             }
         });
-
 
         return ruleWindow;
     }
