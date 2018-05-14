@@ -708,24 +708,17 @@ public class GameScreen2 extends AbstractGameScreen {
             return;
         }
 
-        if (Gdx.input.isKeyJustPressed(Keys.E)) {
-            EnergyProducedBar.instance.energyProduced += 100;
-            System.out.println(EnergyProducedBar.instance.energyProduced);
-        }
-
         if (!worldController.level.player.isAlive()) {
             game.setScreen(new GameOverScreen(game));
             return;
         }
 
         if (worldController.level.player.timeCount <= 0) {
-            MusicManager.instance.stop();
             game.setScreen(new GameOverScreen(game));
             return;
         }
 
         if (player.isSwitch && BatteryBar.instance.getBatteryStorage() < 1000) {
-            MusicManager.instance.stop();
             game.setScreen(new GameOverScreen(game));
             return;
         }
