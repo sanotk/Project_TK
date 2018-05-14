@@ -85,7 +85,7 @@ public class SwordHit extends Weapon {
     }
 
     public void delay(){
-        float delay = 0.3f; // seconds
+        float delay = 0.2f; // seconds
         Timer.schedule(new Timer.Task(){
             @Override
             public void run() {
