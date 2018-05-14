@@ -691,8 +691,11 @@ public class GameScreen2 extends AbstractGameScreen {
         Level2 level2 = (Level2) worldController.level;
 
         if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
-            worldController.level.enemies.clear();
+            for(Enemy enemy : worldController.level.enemies){
+                enemy.getStateMachine().changeState(EnemyState.DIE);
+            }
         }
+        
         if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
             level2.switchItem.state = Item.ItemState.ON;
             level2.switchItem.resetAnimation();

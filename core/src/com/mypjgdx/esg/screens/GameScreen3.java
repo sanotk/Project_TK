@@ -737,8 +737,11 @@ public class GameScreen3 extends AbstractGameScreen {
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
-            worldController.level.enemies.clear();
+            for(Enemy enemy : worldController.level.enemies){
+                enemy.getStateMachine().changeState(EnemyState.DIE);
+            }
         }
+
         if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
             level3.switchItem.state = Item.ItemState.ON;
             level3.switchItem.count = true;
