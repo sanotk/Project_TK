@@ -419,7 +419,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 worldController.level.player.questScreen4 = false;
                 worldController.level.player.questScreen5 = false;
                 worldController.level.player.questScreen6 = false;
-                if(!dialogShow){
+                if (!dialogShow) {
                     worldController.level.player.timeStop = false;
                 }
             }
@@ -488,7 +488,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 chartWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
                 dialogDoor4 = true;
                 stageFourClear = true;
-                if(!dialogShow){
+                if (!dialogShow) {
                     worldController.level.player.timeStop = false;
                 }
                 String text =
@@ -563,7 +563,7 @@ public class GameScreen2 extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ruleWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                if(!dialogShow){
+                if (!dialogShow) {
                     worldController.level.player.timeStop = false;
                 }
             }
@@ -654,7 +654,7 @@ public class GameScreen2 extends AbstractGameScreen {
                     worldController.level.player.quest_window_6 = true;
                     questState = QuestState.quest6no;
                 }
-                questCount +=1;
+                questCount += 1;
                 addRequest.add(questState);
                 checkGameComplete();
                 System.out.println(questState);
@@ -728,94 +728,18 @@ public class GameScreen2 extends AbstractGameScreen {
             return;
         }
 
-        if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
-            if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-                dialog.hide();
-                worldController.level.player.timeStop = false;
-                if(stageThreeClear){
-                    game.setScreen(new GameScreen3(game, optionsWindow));
-                }
-                dialogShow = false;
-                player.status_find = false;
-            } else if (player.status_find == true && Gdx.input.isKeyJustPressed(Keys.Y)){
-                if (citizenQuest == systemWindow.citizen1) {
-                    questState = QuestState.quest1yes;
-                    worldController.level.player.quest1 = true;
-                    worldController.level.player.quest_window_1 = true;
-                } else if (citizenQuest == systemWindow.citizen2) {
-                    questState = QuestState.quest2yes;
-                    worldController.level.player.quest_window_2 = true;
-                    worldController.level.player.quest2 = true;
-                } else if (citizenQuest == systemWindow.citizen3) {
-                    questState = QuestState.quest3yes;
-                    worldController.level.player.quest_window_3 = true;
-                    worldController.level.player.quest3 = true;
-                } else if (citizenQuest == systemWindow.citizen4) {
-                    questState = QuestState.quest4yes;
-                    worldController.level.player.quest_window_4 = true;
-                    worldController.level.player.quest4 = true;
-                } else if (citizenQuest == systemWindow.citizen5) {
-                    questState = QuestState.quest5yes;
-                    worldController.level.player.quest_window_5 = true;
-                    worldController.level.player.quest5 = true;
-                } else {
-                    questState = QuestState.quest6yes;
-                    worldController.level.player.quest_window_6 = true;
-                    worldController.level.player.quest6 = true;
-                }
-                dialog.hide();
-                dialogShow = false;
-                worldController.level.player.timeStop = false;
-                addRequest.add(questState);
-                checkGameComplete();
-                System.out.println(questState);
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-                worldController.level.player.questScreen1 = false;
-                worldController.level.player.questScreen2 = false;
-                worldController.level.player.questScreen3 = false;
-                worldController.level.player.questScreen4 = false;
-                worldController.level.player.questScreen5 = false;
-                worldController.level.player.questScreen6 = false;
-            } else if (player.status_find == true && Gdx.input.isKeyJustPressed(Keys.N)){
-                if (citizenQuest == systemWindow.citizen1) {
-                    worldController.level.player.quest_window_1 = true;
-                    questState = QuestState.quest1no;
-                } else if (citizenQuest == systemWindow.citizen2) {
-                    worldController.level.player.quest_window_2 = true;
-                    questState = QuestState.quest2no;
-                } else if (citizenQuest == systemWindow.citizen3) {
-                    worldController.level.player.quest_window_3 = true;
-                    questState = QuestState.quest3no;
-                } else if (citizenQuest == systemWindow.citizen4) {
-                    worldController.level.player.quest_window_4 = true;
-                    questState = QuestState.quest4no;
-                } else if (citizenQuest == systemWindow.citizen5) {
-                    worldController.level.player.quest_window_5 = true;
-                    questState = QuestState.quest5no;
-                } else {
-                    worldController.level.player.quest_window_6 = true;
-                    questState = QuestState.quest6no;
-                }
-                dialog.hide();
-                dialogShow = false;
-                worldController.level.player.timeStop = false;
-                questCount +=1;
-                addRequest.add(questState);
-                checkGameComplete();
-                System.out.println(questState);
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-                worldController.level.player.questScreen1 = false;
-                worldController.level.player.questScreen2 = false;
-                worldController.level.player.questScreen3 = false;
-                worldController.level.player.questScreen4 = false;
-                worldController.level.player.questScreen5 = false;
-                worldController.level.player.questScreen6 = false;
-            } else {
-                dialog.tryToChangePage();
+        if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+            dialog.hide();
+            worldController.level.player.timeStop = false;
+            if (stageThreeClear) {
+                game.setScreen(new GameScreen3(game, optionsWindow));
             }
+            dialogShow = false;
+            player.status_find = false;
+        } else {
+            dialog.tryToChangePage();
         }
+
     }
 
     private void textIconDraw() {
@@ -885,52 +809,151 @@ public class GameScreen2 extends AbstractGameScreen {
         }
         if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
             player.timeStop = true;
+            player.status_find = false;
             String text =
                     "\"ขอเปิดเครื่องปรับอากาศ 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+            dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
-            dialog.show();
             dialogShow = true;
+            citizenQuest = systemWindow.citizen1;
+            checkCitizen(citizenQuest);
         } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
             player.timeStop = true;
+            player.status_find = false;
             String text =
                     "\"ขออุ่นอาหาร 3 นาที\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+            dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
-            dialog.show();
             dialogShow = true;
+            citizenQuest = systemWindow.citizen2;
+            checkCitizen(citizenQuest);
         } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
             player.timeStop = true;
+            player.status_find = false;
             String text =
                     "\"ขอใช้งานคอมพิวเตอร์ 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+            dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
-            dialog.show();
             dialogShow = true;
+            citizenQuest = systemWindow.citizen3;
+            checkCitizen(citizenQuest);
         } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
             player.timeStop = true;
+            player.status_find = false;
             String text =
                     "\"ขอใช้งานตู้เย็น\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+            dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
-            dialog.show();
             dialogShow = true;
+            citizenQuest = systemWindow.citizen4;
+            checkCitizen(citizenQuest);
         } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
             player.timeStop = true;
+            player.status_find = false;
             String text =
                     "\"ขอหุงข้าวใช้เวลา 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+            dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
-            dialog.show();
             dialogShow = true;
+            citizenQuest = systemWindow.citizen5;
+            checkCitizen(citizenQuest);
         } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
             player.timeStop = true;
+            player.status_find = false;
             String text =
                     "\"ขอดูโทรทัศน์ 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+            dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
-            dialog.show();
             dialogShow = true;
+            citizenQuest = systemWindow.citizen6;
+            checkCitizen(citizenQuest);
+        }
+    }
+
+    private void checkCitizen(systemWindow citizenQuest) {
+        if (Gdx.input.isKeyJustPressed(Keys.Y)) {
+            if (citizenQuest == systemWindow.citizen1) {
+                questState = QuestState.quest1yes;
+                worldController.level.player.quest1 = true;
+                worldController.level.player.quest_window_1 = true;
+            } else if (citizenQuest == systemWindow.citizen2) {
+                questState = QuestState.quest2yes;
+                worldController.level.player.quest_window_2 = true;
+                worldController.level.player.quest2 = true;
+            } else if (citizenQuest == systemWindow.citizen3) {
+                questState = QuestState.quest3yes;
+                worldController.level.player.quest_window_3 = true;
+                worldController.level.player.quest3 = true;
+            } else if (citizenQuest == systemWindow.citizen4) {
+                questState = QuestState.quest4yes;
+                worldController.level.player.quest_window_4 = true;
+                worldController.level.player.quest4 = true;
+            } else if (citizenQuest == systemWindow.citizen5) {
+                questState = QuestState.quest5yes;
+                worldController.level.player.quest_window_5 = true;
+                worldController.level.player.quest5 = true;
+            } else {
+                questState = QuestState.quest6yes;
+                worldController.level.player.quest_window_6 = true;
+                worldController.level.player.quest6 = true;
+            }
+            addRequest.add(questState);
+            checkGameComplete();
+            System.out.println(questState);
+            worldController.level.player.status_find = false;
+            worldController.level.player.status_windows_link = false;
+            worldController.level.player.questScreen1 = false;
+            worldController.level.player.questScreen2 = false;
+            worldController.level.player.questScreen3 = false;
+            worldController.level.player.questScreen4 = false;
+            worldController.level.player.questScreen5 = false;
+            worldController.level.player.questScreen6 = false;
+            dialog.hide();
+            worldController.level.player.timeStop = false;
+            dialogShow = false;
+        } else if (Gdx.input.isKeyJustPressed(Keys.Y)){
+            if (citizenQuest == systemWindow.citizen1) {
+                worldController.level.player.quest_window_1 = true;
+                questState = QuestState.quest1no;
+            } else if (citizenQuest == systemWindow.citizen2) {
+                worldController.level.player.quest_window_2 = true;
+                questState = QuestState.quest2no;
+            } else if (citizenQuest == systemWindow.citizen3) {
+                worldController.level.player.quest_window_3 = true;
+                questState = QuestState.quest3no;
+            } else if (citizenQuest == systemWindow.citizen4) {
+                worldController.level.player.quest_window_4 = true;
+                questState = QuestState.quest4no;
+            } else if (citizenQuest == systemWindow.citizen5) {
+                worldController.level.player.quest_window_5 = true;
+                questState = QuestState.quest5no;
+            } else {
+                worldController.level.player.quest_window_6 = true;
+                questState = QuestState.quest6no;
+            }
+            questCount += 1;
+            addRequest.add(questState);
+            checkGameComplete();
+            System.out.println(questState);
+            worldController.level.player.status_find = false;
+            worldController.level.player.status_windows_link = false;
+            worldController.level.player.questScreen1 = false;
+            worldController.level.player.questScreen2 = false;
+            worldController.level.player.questScreen3 = false;
+            worldController.level.player.questScreen4 = false;
+            worldController.level.player.questScreen5 = false;
+            worldController.level.player.questScreen6 = false;
+            dialog.hide();
+            worldController.level.player.timeStop = false;
+            dialogShow = false;
+        }else{
+            dialog.tryToChangePage();
         }
     }
 
@@ -944,7 +967,7 @@ public class GameScreen2 extends AbstractGameScreen {
             if (enemy.stateMachine.getCurrentState() == EnemyState.DIE && !enemy.count) {
                 BatteryBar.instance.addEnergy(1000);
                 enemy.count = true;
-                countEnemy +=1;
+                countEnemy += 1;
             }
         }
 
@@ -996,17 +1019,17 @@ public class GameScreen2 extends AbstractGameScreen {
         checkStageAndCount();
         checkObject();
 
-        if(!player.timeStop) {
+        if (!player.timeStop) {
             BatteryBar.instance.update(deltaTime);
         }
 
-        for (Citizen citizen : level2.citizens){
+        for (Citizen citizen : level2.citizens) {
             if (citizen.itemOn) {
                 citizen.getGoalItem().state = Item.ItemState.ONLOOP;
                 if (!citizen.getGoalItem().count) {
                     EnergyUsedBar.instance.energyUse += citizen.getGoalItem().getEnergyBurn();
                     citizen.getGoalItem().count = true;
-                    questCount +=1;
+                    questCount += 1;
                     System.out.print(questCount);
                     System.out.print(addRequest.size());
                 }
