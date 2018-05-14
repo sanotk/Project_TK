@@ -40,8 +40,7 @@ public class AirConditioner extends Item{
     }
 
     @Override
-    public float getTimeCount() {
+    public void setTimeCount() {
 	    timeCount = 120;
-        return timeCount;
     }
 }

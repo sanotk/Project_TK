@@ -19,7 +19,6 @@ public abstract class Item extends AnimatedObject<ItemAnimation> implements Json
     public float energyBurn;
     public boolean count;
     public float timeCount;
-    public float countDown;
 
     public TiledCollisionCheck playerCheck;
 
@@ -55,6 +54,7 @@ public abstract class Item extends AnimatedObject<ItemAnimation> implements Json
         state = ItemState.OFF;
         setCurrentAnimation(ItemAnimation.OFF);
         setPosition(mapLayer, player);
+        setTimeCount();
     }
 
     @Override
@@ -114,8 +114,8 @@ public abstract class Item extends AnimatedObject<ItemAnimation> implements Json
                 ||  playerCheck.isCollidesRight();
     }
 
-    public float getTimeCount(){
-        return timeCount;
+    public void setTimeCount(){
+        timeCount = 0;
     }
 
     @Override

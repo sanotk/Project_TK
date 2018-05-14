@@ -1015,18 +1015,18 @@ public class GameScreen2 extends AbstractGameScreen {
 
         for (Citizen citizen : level2.citizens) {
             if (citizen.itemOn) {
-                citizen.getGoalItem().state = Item.ItemState.ONLOOP;
                 if (!citizen.getGoalItem().count) {
+                    citizen.getGoalItem().state = Item.ItemState.ONLOOP;
                     EnergyUsedBar.instance.energyUse += citizen.getGoalItem().getEnergyBurn();
                     citizen.getGoalItem().count = true;
                     questCount += 1;
                     System.out.print(questCount);
                     System.out.print(addRequest.size());
-                }else if(citizen.getGoalItem().count) {
+                }else if(citizen.getGoalItem().count && citizen.getGoalItem().state != Item.ItemState.OFF) {
                     System.out.println(citizen.getGoalItem().timeCount);
                     citizen.getGoalItem().timeCount-= deltaTime;
-                    if(citizen.getGoalItem().timeCount == 0){
-                        citizen.getGoalItem().state = Item.ItemState.OFF;
+                    if(citizen.getGoalItem().timeCount <= 0){
+                        citizen.getGoalItem().state = Item.ItemState.OFF; // ทำงาน
                         EnergyUsedBar.instance.energyUse -= citizen.getGoalItem().getEnergyBurn();
                         citizen.itemOn = false;
                     }

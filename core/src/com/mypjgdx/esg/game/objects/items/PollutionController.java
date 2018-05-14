@@ -41,8 +41,7 @@ public class PollutionController extends Item{
     }
 
     @Override
-    public float getTimeCount() {
+    public void setTimeCount() {
         timeCount = 300;
-        return timeCount;
     }
 }

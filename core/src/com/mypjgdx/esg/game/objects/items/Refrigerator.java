@@ -14,7 +14,7 @@ public class Refrigerator extends Item{
 	public Refrigerator(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.refrigeratorAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player );
-
+        timeCount = 300;
         playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "refrigerator");
 	}
 
@@ -41,8 +41,7 @@ public class Refrigerator extends Item{
     }
 
     @Override
-    public float getTimeCount() {
+    public void setTimeCount() {
         timeCount = 300;
-        return timeCount;
     }
 }

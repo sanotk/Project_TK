@@ -43,9 +43,8 @@ public class Microwave extends Item{
     }
 
     @Override
-    public float getTimeCount() {
+    public void setTimeCount() {
         timeCount = 6;
-        return timeCount;
     }
 }
 
