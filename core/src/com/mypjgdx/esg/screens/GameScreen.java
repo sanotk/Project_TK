@@ -456,7 +456,7 @@ public class GameScreen extends AbstractGameScreen {
         Label text4 = new Label("พลังงานไฟฟ้าจะถูกจัดเก็บภายในแบตเตอรี่ก่อนเป็นอันดับแรก", skin);
         Label text5 = new Label("หากมีการใช้งานเครื่องใช้ไฟฟ้าจะมาดึงพลังงานจากแบตเตอรี่ผ่านชาร์จคอนโทรลเลอร์ไม่ใช่จากแผงโซล่าเซลล์โดยตรง", skin);
         Label text6 = new Label("ไฟฟ้าที่ผลิตได้จะเป็นไฟฟ้ากระแสตรง ต้องผ่านอินเวอร์เตอร์ก่อนถึงจะนำไปใช้กับเครื่องใช้ไฟฟ้าภายในที่หลบภัยได้", skin);
-        Label text7 = new Label("", skin);
+        Label text7 = new Label("เนื่องจากอินเวอร์เตอร์ และชาร์จคอนโทรลเลอร์ต้องใช้ไฟฟ้าในการทำงาน จำเป็นต้องมีพลังงานภายในแบตเตอรี่ก่อน", skin);
         Label text8 = new Label("", skin);
         Label text9 = new Label("", skin);
 
