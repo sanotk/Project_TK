@@ -1105,7 +1105,7 @@ public class GameScreen extends AbstractGameScreen {
         String textString2 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
         String textString3 = ("อัตราการผลิตพลังงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
         String textString4 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
-        String textString5 = ("พลังงานที่ได้รับจากมอนสเตอร์ : " + String.valueOf((BatteryBar.instance.getBatteryStorage()) + " จูล"));
+        String textString5 = ("พลังงานที่ได้รับจากมอนสเตอร์ : " + String.valueOf((countEnemy*1000) + " จูล"));
         textChart2.setText(textString1);
         textChart3.setText(textString2);
         textChart4.setText(textString3);
