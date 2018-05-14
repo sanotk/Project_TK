@@ -450,8 +450,8 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonChartStyle);
 
-        Label text1 = new Label("1", skin);
-        Label text2 = new Label("2", skin);
+        Label text1 = new Label("ลำดับการทำงานของโซล่าเซลล์", skin);
+        Label text2 = new Label("1. ตัวแผงโซล่าเซลล์จะคอยดูดซับพลังงานแสงอาทิตย์เปลี่ยนเป็นพลังงานไฟฟ้ากระแส", skin);
         Label text3 = new Label("3", skin);
         Label text4 = new Label("4", skin);
         Label text5 = new Label("5", skin);
