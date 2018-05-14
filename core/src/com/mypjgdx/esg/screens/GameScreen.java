@@ -310,7 +310,7 @@ public class GameScreen extends AbstractGameScreen {
         textChart3.setStyle(labelStyle);
         textChart4.setStyle(labelStyle);
         textChart5.setStyle(labelStyle);
-        textChart6 = new Label("", skin);
+        textChart6.setStyle(labelStyle);
 
         final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
         chartWindow.setModal(true);
