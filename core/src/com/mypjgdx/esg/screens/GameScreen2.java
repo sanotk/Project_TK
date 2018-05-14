@@ -722,7 +722,7 @@ public class GameScreen2 extends AbstractGameScreen {
             return;
         }
 
-        if (player.isSwitch && BatteryBar.instance.getBatteryStorage() <= 0) {
+        if (player.isSwitch && BatteryBar.instance.getBatteryStorage() < 1000) {
             MusicManager.instance.stop();
             game.setScreen(new GameOverScreen(game));
             return;
