@@ -95,6 +95,13 @@ public class GameScreen extends AbstractGameScreen {
     private Button solarCellButton3;
     private Button solarCellButton4;
 
+    private Label textChart1;
+    private Label textChart2;
+    private Label textChart3;
+    private Label textChart4;
+    private Label textChart5;
+    private Label textChart6;
+
     public enum systemWindow {
         solarcell,
         chargecontroller,
@@ -290,20 +297,20 @@ public class GameScreen extends AbstractGameScreen {
         buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonChartStyle);
-        String textString = ("เวลาที่ใช้ : " + String.valueOf((1) + " วินาที"));
-        text1 = new Label("สถิติ", skin);
-        text2 = new Label(textString, skin);
-        text3 = new Label(textString, skin);
-        text4 = new Label(textString, skin);
-        text5 = new Label(textString, skin);
-        text6 = new Label("หากเดินไปยังประตูจะสามารถเข้าสถานที่หลบภัยได้แล้ว", skin);
 
-        text1.setStyle(labelStyle);
-        text2.setStyle(labelStyle);
-        text3.setStyle(labelStyle);
-        text4.setStyle(labelStyle);
-        text5.setStyle(labelStyle);
-        text6.setStyle(labelStyle);
+        textChart1 = new Label("สถิติ", skin);
+        textChart2 = new Label("", skin);
+        textChart3 = new Label("", skin);
+        textChart4 = new Label("", skin);
+        textChart5 = new Label("", skin);
+        textChart6 = new Label("", skin);
+
+        textChart1.setStyle(labelStyle);
+        textChart2.setStyle(labelStyle);
+        textChart3.setStyle(labelStyle);
+        textChart4.setStyle(labelStyle);
+        textChart5.setStyle(labelStyle);
+        textChart6 = new Label("", skin);
 
         final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
         chartWindow.setModal(true);
@@ -312,19 +319,17 @@ public class GameScreen extends AbstractGameScreen {
         chartWindow.padRight(40);
         chartWindow.padBottom(20);
         chartWindow.getTitleLabel().setAlignment(Align.center);
-        chartWindow.row().padBottom(10).padTop(10);
+        chartWindow.add(textChart1);
         chartWindow.row().padTop(10);
-        chartWindow.add(text1);
+        chartWindow.add(textChart2);
         chartWindow.row().padTop(10);
-        chartWindow.add(text2);
+        chartWindow.add(textChart3);
         chartWindow.row().padTop(10);
-        chartWindow.add(text3);
+        chartWindow.add(textChart4);
         chartWindow.row().padTop(10);
-        chartWindow.add(text4);
+        chartWindow.add(textChart5);
         chartWindow.row().padTop(10);
-        chartWindow.add(text5);
-        chartWindow.row().padTop(10);
-        chartWindow.add(text6);
+        chartWindow.add(textChart6);
         chartWindow.row().padTop(10);
         chartWindow.add(closeButton).colspan(3);
         chartWindow.pack();
@@ -445,15 +450,15 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonChartStyle);
 
-        text1 = new Label("1", skin);
-        text2 = new Label("2", skin);
-        text3 = new Label("3", skin);
-        text4 = new Label("4", skin);
-        text5 = new Label("5", skin);
-        text6 = new Label("", skin);
-        text7 = new Label("", skin);
-        text8 = new Label("", skin);
-        text9 = new Label("", skin);
+        Label text1 = new Label("1", skin);
+        Label text2 = new Label("2", skin);
+        Label text3 = new Label("3", skin);
+        Label text4 = new Label("4", skin);
+        Label text5 = new Label("5", skin);
+        Label text6 = new Label("", skin);
+        Label text7 = new Label("", skin);
+        Label text8 = new Label("", skin);
+        Label text9 = new Label("", skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
@@ -1093,17 +1098,16 @@ public class GameScreen extends AbstractGameScreen {
     private void chartStatus() {
         Player player = worldController.level.player;
         player.timeClear = true;
-        String textString5 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
-        String textString4 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
-        String textString3 = ("อัตราการผลิตพลั" +
-                "งงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์ต่อวินาที"));
-        String textString2 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์ต่อวินาที");
-        String textString = ("พลังงานที่ได้รับจากมอนสเตอร์ : " + String.valueOf((BatteryBar.instance.getBatteryStorage()) + " จูล"));
-        text2.setText(textString5);
-        text3.setText(textString4);
-        text4.setText(textString3);
-        text5.setText(textString2);
-        text6.setText(textString);
+        String textString1 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
+        String textString2 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
+        String textString3 = ("อัตราการผลิตพลังงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
+        String textString4 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
+        String textString5 = ("พลังงานที่ได้รับจากมอนสเตอร์ : " + String.valueOf((BatteryBar.instance.getBatteryStorage()) + " จูล"));
+        textChart2.setText(textString1);
+        textChart3.setText(textString2);
+        textChart4.setText(textString3);
+        textChart5.setText(textString4);
+        textChart6.setText(textString5);
         chartWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
@@ -1114,15 +1118,15 @@ public class GameScreen extends AbstractGameScreen {
         worldController.level.player.timeStop = true;
         String textString1 = ("อัตราการผลิตพลังงานไฟฟ้า : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์ต่อวินาที"));
         String textString2 = ("อัตราการใช้พลังงานไฟฟ้า : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์ต่อวินาที");
-        if(EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse){
-            String textString3 = ("อีก : " + String.valueOf((BatteryBar.instance.getBatteryStorage()/(EnergyProducedBar.instance.energyProduced-EnergyUsedBar.instance.energyUse)) + " วินาทีพลังงานจะหมดลง"));
+        if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
+            String textString3 = ("อีก : " + String.valueOf((BatteryBar.instance.getBatteryStorage() / (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วินาทีพลังงานจะหมดลง"));
             text3.setText(textString3);
-        }else {
-            String textString3 = ("อีก : " + String.valueOf((BatteryBar.BATTERY_MAX/(EnergyProducedBar.instance.energyProduced-EnergyUsedBar.instance.energyUse)) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
+        } else {
+            String textString3 = ("อีก : " + String.valueOf((BatteryBar.BATTERY_MAX / (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
             text3.setText(textString3);
         }
 
-        String textString4 = ("อัตราการผลิตพลังงานไฟฟ้าหลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced-EnergyUsedBar.instance.energyUse)) + " วัตต์ต่อวินาที");
+        String textString4 = ("อัตราการผลิตพลังงานไฟฟ้าหลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์ต่อวินาที");
         text1.setText(textString1);
         text2.setText(textString2);
         text4.setText(textString4);
@@ -1140,7 +1144,7 @@ public class GameScreen extends AbstractGameScreen {
         solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
-    private void controllAndDebug(){
+    private void controllAndDebug() {
 
         Player player = worldController.level.player;
         Level1 level1 = (Level1) worldController.level;
@@ -1192,7 +1196,7 @@ public class GameScreen extends AbstractGameScreen {
         }
     }
 
-    private void textIconDraw(){
+    private void textIconDraw() {
         textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
         textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
         textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
@@ -1208,7 +1212,7 @@ public class GameScreen extends AbstractGameScreen {
         energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
     }
 
-    public void dialogDraw(){
+    public void dialogDraw() {
 
         Player player = worldController.level.player;
         Level1 level1 = (Level1) worldController.level;
@@ -1280,7 +1284,7 @@ public class GameScreen extends AbstractGameScreen {
                     }
                 }
             }
-            if(citizenCount == worldController.level.citizens.size() && !dialogCitizen2){
+            if (citizenCount == worldController.level.citizens.size() && !dialogCitizen2) {
                 dialogCitizen2 = true;
                 player.timeStop = true;
                 String text =
@@ -1309,11 +1313,11 @@ public class GameScreen extends AbstractGameScreen {
 
     }
 
-    private void checkStageAndCount(){
+    private void checkStageAndCount() {
 
         Player player = worldController.level.player;
         Level1 level1 = (Level1) worldController.level;
-        if (countEnemy == worldController.level.enemies.size() || worldController.level.enemies.size()==0) {
+        if (countEnemy == worldController.level.enemies.size() || worldController.level.enemies.size() == 0) {
             player.stageOneClear = true;
         }
 
@@ -1331,20 +1335,20 @@ public class GameScreen extends AbstractGameScreen {
         }
     }
 
-    private void checkWindow(){
+    private void checkWindow() {
 
         Player player = worldController.level.player;
         Level1 level1 = (Level1) worldController.level;
 
-        if(player.statusEnergyWindow){
+        if (player.statusEnergyWindow) {
             status();
-        }else {
+        } else {
             statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
         }
 
-        if(player.solarCellGuideWindow){
+        if (player.solarCellGuideWindow) {
             solarCellGuide();
-        }else {
+        } else {
             solarCellGuideWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
         }
 
@@ -1380,7 +1384,7 @@ public class GameScreen extends AbstractGameScreen {
         }
     }
 
-    private void checkObject(){
+    private void checkObject() {
 
         Player player = worldController.level.player;
         Level1 level1 = (Level1) worldController.level;
@@ -1394,7 +1398,7 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if (noItem == false){
+        if (noItem == false) {
             solarCellWindow.setVisible(false);
         }
 
