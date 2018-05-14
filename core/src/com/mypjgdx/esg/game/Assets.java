@@ -184,7 +184,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         manager.load("tv_icon_off.png", Texture.class);
         manager.load("air_icon_off.png", Texture.class);
-        manager.load("computer_icon_off.png", Texture.class);
+        manager.load("com_icon_off.png", Texture.class);
         manager.load("fan_icon_off.png", Texture.class);
         manager.load("microwave_icon_off.png", Texture.class);
         manager.load("refrigerator_icon_off.png", Texture.class);
@@ -193,7 +193,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         manager.load("tv_icon_on.png", Texture.class);
         manager.load("air_icon_on.png", Texture.class);
-        manager.load("computer_icon_on.png", Texture.class);
+        manager.load("com_icon_on.png", Texture.class);
         manager.load("fan_icon_on.png", Texture.class);
         manager.load("microwave_icon_on.png", Texture.class);
         manager.load("refrigerator_icon_on.png", Texture.class);
@@ -291,7 +291,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         airIconOff = new TextureRegion((Texture)manager.get("air_icon_off.png"));
         tvIconOff = new TextureRegion((Texture)manager.get("tv_icon_off.png"));
-        comIconOff = new TextureRegion((Texture)manager.get("computer_icon_off.png"));
+        comIconOff = new TextureRegion((Texture)manager.get("com_icon_off.png"));
         fanIconOff = new TextureRegion((Texture)manager.get("fan_icon_off.png"));
         microwaveIconOff = new TextureRegion((Texture)manager.get("microwave_icon_off.png"));
         refrigeratorIconOff = new TextureRegion((Texture)manager.get("refrigerator_icon_off.png"));
@@ -300,7 +300,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         airIconOn = new TextureRegion((Texture)manager.get("air_icon_on.png"));
         tvIconOn = new TextureRegion((Texture)manager.get("tv_icon_on.png"));
-        comIconOn = new TextureRegion((Texture)manager.get("computer_icon_on.png"));
+        comIconOn = new TextureRegion((Texture)manager.get("com_icon_on.png"));
         fanIconOn = new TextureRegion((Texture)manager.get("fan_icon_on.png"));
         microwaveIconOn = new TextureRegion((Texture)manager.get("microwave_icon_on.png"));
         refrigeratorIconOn = new TextureRegion((Texture)manager.get("refrigerator_icon_on.png"));

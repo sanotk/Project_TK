@@ -68,6 +68,7 @@ public class GameScreen2 extends AbstractGameScreen {
 
     public systemWindow citizenQuest = null;
     private boolean dialogStage4fail;
+    private TextureRegionDrawable iconRegion;
 
     public enum systemWindow {
         citizen1,
@@ -379,6 +380,12 @@ public class GameScreen2 extends AbstractGameScreen {
         buttonSolarStyle.up = buttonRegion;
         buttonSolarStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
+        Button.ButtonStyle iconItemStyle = new Button.ButtonStyle();
+        iconRegion = new TextureRegionDrawable(Assets.instance.refrigeratorIconOff);
+        iconItemStyle.up = iconRegion;
+        iconItemStyle.over = iconRegion.tint(Color.LIGHT_GRAY);
+
+        Button iconItem = new Button(iconItemStyle);
         Button closeButton = new Button(buttonSolarStyle);
 
         buttonLink1 = new TextButton("ตกลง", buttonStyle);
@@ -392,6 +399,8 @@ public class GameScreen2 extends AbstractGameScreen {
         requestWindow.padBottom(20);
         requestWindow.getTitleLabel().setAlignment(Align.center);
         requestWindow.row().padBottom(10).padTop(10);
+        requestWindow.add(iconItem);
+        requestWindow.row().padTop(20);
         requestWindow.add(buttonLink1);
         requestWindow.add(buttonLink2).padLeft(10);
         requestWindow.row().padTop(10);
