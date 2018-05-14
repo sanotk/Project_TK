@@ -737,10 +737,16 @@ public class GameScreen2 extends AbstractGameScreen {
                 }
                 dialogShow = false;
                 player.status_find = false;
+            } else if (player.status_find == true && Gdx.input.isKeyJustPressed(Keys.Y)){
+                player.status_find = false;
+            } else if (player.status_find == true && Gdx.input.isKeyJustPressed(Keys.N)){
+                player.status_find = false;
             } else {
                 dialog.tryToChangePage();
             }
         }
+
+
     }
 
     private void textIconDraw() {
@@ -856,7 +862,7 @@ public class GameScreen2 extends AbstractGameScreen {
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
-        } 
+        }
     }
 
     private void checkStageAndCount() {
