@@ -134,16 +134,18 @@ public class GameScreen extends AbstractGameScreen {
     private Window chartWindow;
     private Window statusWindow;
 
-    private boolean addedStoC = false;
-    private boolean addedStoB = false;
-    private boolean addedStoI = false;
-    private boolean addedStoD = false;
-    private boolean addedCtoB = false;
-    private boolean addedCtoI = false;
-    private boolean addedCtoD = false;
-    private boolean addedBtoI = false;
-    private boolean addedBtoD = false;
-    private boolean addedItoD = false;
+    private boolean addedStoC;
+    private boolean addedStoB;
+    private boolean addedStoI;
+    private boolean addedStoD;
+    private boolean addedCtoB;
+    private boolean addedCtoI;
+    private boolean addedCtoD;
+    private boolean addedBtoI;
+    private boolean addedBtoD;
+    private boolean addedItoD;
+
+    private boolean dialogStart;
 
     private int countEnemy;
 
@@ -221,7 +223,6 @@ public class GameScreen extends AbstractGameScreen {
         ruleWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - ruleWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
-        ruleWindow.setVisible(false);
 
         chartWindow = createChartWindow();
         chartWindow.setVisible(false);
@@ -237,8 +238,7 @@ public class GameScreen extends AbstractGameScreen {
 
         optionsWindow.setVisible(false);
 
-        dialog.clearPages();
-        dialog.addWaitingPage(text);
+        dialog.hide();
 
         stage.addActor(dialog);
 
@@ -615,9 +615,9 @@ public class GameScreen extends AbstractGameScreen {
         Button closeButton = new Button(buttonRuleStyle);
 
         Label text1 = new Label("กด c เพื่อฟัน", skin);
-        Label text2 = new Label("กด x เพื่อยิงธนู (ยิงธนู 1 ดอกใช้พลังงานไฟฟ้าจำนวน 200 จูล)", skin);
-        Label text3 = new Label("กด Z เพื่อวางกับดักสปริง เมื่อมอนสเตอร์เดินมาชนจะกระเด็นถอยหลัง (วางกับดัก 1 ครั้งใช้พลังงานไฟฟ้าจำนวน 1000 จูล)", skin);
-        Label text4 = new Label("กด W เพื่อฟันคลื่นดาบพลังสูง (ฟัน 1 ครั้งใช้พลังงานไฟฟ้าจำนวน 3000 จูล", skin);
+        Label text2 = new Label("กด x เพื่อยิงธนู (ยิงธนู 1 ดอกใช้พลังงานไฟฟ้า 200 จูล)", skin);
+        Label text3 = new Label("กด Z เพื่อวางกับดักสปริง เมื่อมอนสเตอร์เดินมาชนจะกระเด็นถอยหลัง (วางกับดัก 1 ครั้งใช้พลังงานไฟฟ้า 1000 จูล)", skin);
+        Label text4 = new Label("กด W เพื่อฟันคลื่นดาบพลังสูง (ฟัน 1 ครั้งใช้พลังงานไฟฟ้า 3000 จูล)", skin);
         Label text5 = new Label("กด A เพื่อติดต่อกับวัตถุ หรือประชาชน", skin);
         Label text6 = new Label("กด S เพื่อดูผังการใช้พลังงานแบบละเอียด", skin);
         Label text7 = new Label("กด D เพื่ออ่านวิธีการทำงานของโซล่าเซลล์", skin);
@@ -649,6 +649,8 @@ public class GameScreen extends AbstractGameScreen {
         ruleWindow.add(text5);
         ruleWindow.row().padTop(10);
         ruleWindow.add(text6);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text7);
         ruleWindow.row().padTop(20);
         ruleWindow.add(closeButton).colspan(3);
         ruleWindow.pack();
@@ -1214,6 +1216,14 @@ public class GameScreen extends AbstractGameScreen {
         Player player = worldController.level.player;
         Level1 level1 = (Level1) worldController.level;
 
+        if(player.timeCount == 299 && !dialogStart){
+            player.timeStop = true;
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+            dialog.show();
+            dialogStart = true;
+        }
+
         if (!animation_status) {
             if ((level1.door.nearPlayer()) && (player.status_find)) {
                 if (!player.stageOneClear && !dialogDoor1) {
@@ -1251,7 +1261,7 @@ public class GameScreen extends AbstractGameScreen {
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
             }
-            if (!dialogEnemy) {
+            if (player.timeCount <= 298 && !dialogEnemy && dialogStart) {
                 for (int i = 0; i < worldController.level.enemies.size(); i++) {
                     Enemy enemy = worldController.level.enemies.get(i);
                     if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
