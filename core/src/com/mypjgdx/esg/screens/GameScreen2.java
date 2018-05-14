@@ -704,23 +704,43 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
-            game.setScreen(new MenuScreen(game));
-            return;
+            MusicManager.instance.stop();
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new MenuScreen(game));
+                }
+            });
         }
 
         if (!worldController.level.player.isAlive()) {
-            game.setScreen(new GameOverScreen(game));
-            return;
+            MusicManager.instance.stop();
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new GameOverScreen(game));
+                }
+            });
         }
 
         if (worldController.level.player.timeCount <= 0) {
-            game.setScreen(new GameOverScreen(game));
-            return;
+            MusicManager.instance.stop();
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new GameOverScreen(game));
+                }
+            });
         }
 
         if (player.isSwitch && BatteryBar.instance.getBatteryStorage() < 1000) {
-            game.setScreen(new GameOverScreen(game));
-            return;
+            MusicManager.instance.stop();
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new GameOverScreen(game));
+                }
+            });
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
@@ -1058,8 +1078,12 @@ public class GameScreen2 extends AbstractGameScreen {
 
     @Override
     public void hide() {
+        batch.dispose();
+        stage.dispose();
+        dialogStory.dispose();
         worldRenderer.dispose();
         font.dispose();
+        bg.dispose();
     }
 
     @Override

@@ -636,8 +636,13 @@ public class GameScreen3 extends AbstractGameScreen {
         energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
-            game.setScreen(new MenuScreen(game));
-            return;
+            MusicManager.instance.stop();
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new GameOverScreen(game));
+                }
+            });
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.E)) {
@@ -647,14 +652,22 @@ public class GameScreen3 extends AbstractGameScreen {
 
         if (!worldController.level.player.isAlive()) {
             MusicManager.instance.stop();
-            game.setScreen(new GameOverScreen(game));
-            return;
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new GameOverScreen(game));
+                }
+            });
         }
 
         if (worldController.level.player.timeCount <= 0) {
             MusicManager.instance.stop();
-            game.setScreen(new GameOverScreen(game));
-            return;
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new GameOverScreen(game));
+                }
+            });
         }
 
         if (player.isSwitch && BatteryBar.instance.getBatteryStorage() <= 0) {
@@ -822,8 +835,12 @@ public class GameScreen3 extends AbstractGameScreen {
 
     @Override
     public void hide() {
+        batch.dispose();
+        stage.dispose();
+        dialogStory.dispose();
         worldRenderer.dispose();
         font.dispose();
+        bg.dispose();
     }
 
     @Override

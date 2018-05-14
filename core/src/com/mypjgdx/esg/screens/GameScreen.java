@@ -1153,8 +1153,12 @@ public class GameScreen extends AbstractGameScreen {
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             MusicManager.instance.stop();
-            game.setScreen(new MenuScreen(game));
-            return;
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new MenuScreen(game));
+                }
+            });
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
@@ -1175,13 +1179,21 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         if (!worldController.level.player.isAlive()) {
-            game.setScreen(new GameOverScreen(game));
-            return;
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new GameOverScreen(game));
+                }
+            });
         }
 
         if (worldController.level.player.timeCount <= 0) {
-            game.setScreen(new GameOverScreen(game));
-            return;
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new GameOverScreen(game));
+                }
+            });
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
@@ -1477,9 +1489,12 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void hide() {
+        batch.dispose();
+        stage.dispose();
         dialogStory.dispose();
         worldRenderer.dispose();
         font.dispose();
+        bg.dispose();
     }
 
     @Override
