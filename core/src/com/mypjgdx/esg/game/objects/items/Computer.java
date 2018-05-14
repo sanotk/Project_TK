@@ -30,7 +30,6 @@ public class Computer extends Item{
 
     }
 
-
     @Override
     public float getGoalX() {
         return bounds.x + bounds.width / 2;
@@ -39,5 +38,11 @@ public class Computer extends Item{
     @Override
     public float getGoalY() {
         return bounds.y + bounds.height / 2 - 100;
+    }
+
+    @Override
+    public float getTimeCount() {
+        timeCount = 120;
+        return timeCount;
     }
 }

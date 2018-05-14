@@ -695,11 +695,10 @@ public class GameScreen2 extends AbstractGameScreen {
                 enemy.getStateMachine().changeState(EnemyState.DIE);
             }
         }
-        
+
         if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
             level2.switchItem.state = Item.ItemState.ON;
             level2.switchItem.resetAnimation();
-            //EnergyProducedBar.instance.energyProduced += 100;
             player.isSwitch = true;
             player.status_find = false;
         }

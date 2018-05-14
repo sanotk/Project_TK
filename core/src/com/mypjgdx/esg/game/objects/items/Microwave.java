@@ -41,5 +41,11 @@ public class Microwave extends Item{
     public float getGoalY() {
         return bounds.y + bounds.height / 2 - 100;
     }
+
+    @Override
+    public float getTimeCount() {
+        timeCount = 6;
+        return timeCount;
+    }
 }
 

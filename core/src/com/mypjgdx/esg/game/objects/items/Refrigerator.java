@@ -30,8 +30,6 @@ public class Refrigerator extends Item{
 
     }
 
-
-
     @Override
     public float getGoalX() {
         return bounds.x + bounds.width / 2;
@@ -40,5 +38,11 @@ public class Refrigerator extends Item{
     @Override
     public float getGoalY() {
         return bounds.y + bounds.height / 2 - 100;
+    }
+
+    @Override
+    public float getTimeCount() {
+        timeCount = 300;
+        return timeCount;
     }
 }

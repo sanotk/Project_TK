@@ -14,7 +14,6 @@ public class AirConditioner extends Item{
 	public AirConditioner(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.airAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player );
-
         playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "air");
 	}
 
@@ -38,5 +37,11 @@ public class AirConditioner extends Item{
     @Override
     public float getGoalY() {
         return bounds.y + bounds.height / 2 - 100;
+    }
+
+    @Override
+    public float getTimeCount() {
+	    timeCount = 120;
+        return timeCount;
     }
 }

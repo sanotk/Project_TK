@@ -48,4 +48,10 @@ public class Fan extends Item{
         return bounds.y + bounds.height / 2 - 50;
     }
 
+    @Override
+    public float getTimeCount() {
+        timeCount = 300;
+        return timeCount;
+    }
+
 }
