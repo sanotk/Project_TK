@@ -92,10 +92,10 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     public Citizen(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer) {
         super(atlas);
 
-        addLoopAnimation(CitizenAnimation.WALK_UP, FRAME_DURATION, 0, 3);
-        addLoopAnimation(CitizenAnimation.WALK_DOWN, FRAME_DURATION, 3, 3);
-        addLoopAnimation(CitizenAnimation.WALK_LEFT, FRAME_DURATION, 6, 3);
-        addLoopAnimation(CitizenAnimation.WALK_RIGHT, FRAME_DURATION, 9, 3);
+        addLoopAnimation(CitizenAnimation.WALK_UP, FRAME_DURATION, 15, 3);
+        addLoopAnimation(CitizenAnimation.WALK_DOWN, FRAME_DURATION, 15, 3);
+        addLoopAnimation(CitizenAnimation.WALK_LEFT, FRAME_DURATION, 9, 3);
+        addLoopAnimation(CitizenAnimation.WALK_RIGHT, FRAME_DURATION, 12, 3);
 
         friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
 

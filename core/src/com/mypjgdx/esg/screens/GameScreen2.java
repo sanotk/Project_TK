@@ -791,7 +791,7 @@ public class GameScreen2 extends AbstractGameScreen {
             dialog.hide();
             worldController.level.player.timeStop = false;
             dialogShow = false;
-        } else if (Gdx.input.isKeyJustPressed(Keys.Y)){
+        } else if (Gdx.input.isKeyJustPressed(Keys.N)){
             if (citizenQuest == systemWindow.citizen1) {
                 worldController.level.player.quest_window_1 = true;
                 questState = QuestState.quest1no;
@@ -901,7 +901,9 @@ public class GameScreen2 extends AbstractGameScreen {
             player.timeStop = true;
             player.status_find = false;
             String text =
-                    "\"ขอเปิดเครื่องปรับอากาศ 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+                    "\"ขอเปิดเครื่องปรับอากาศ 1 ชั่วโมง เครื่องปรับอากาศใช้พลังงาน \""
+                            + "\n\"( เครื่องปรับอากาศใช้พลังงาน "  + level2.airConditioner.getEnergyBurn() + " วัตต์ )\" "
+                            + "\n\"( กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ )\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
@@ -921,7 +923,8 @@ public class GameScreen2 extends AbstractGameScreen {
             player.timeStop = true;
             player.status_find = false;
             String text =
-                    "\"ขอใช้งานคอมพิวเตอร์ 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+                    "\"ขอใช้งานคอมพิวเตอร์ 1 ชั่วโมง\"" + "\n\"( เครื่องปรับอากาศใช้พลังงาน "  + "\n\"( เครื่องปรับอากาศใช้พลังงาน "  + level2.computer.getEnergyBurn() + " วัตต์ )\" "
+                            + "\n\"( กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ )\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
@@ -931,7 +934,8 @@ public class GameScreen2 extends AbstractGameScreen {
             player.timeStop = true;
             player.status_find = false;
             String text =
-                    "\"ขอใช้งานตู้เย็น\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+                    "\"ขอใช้งานตู้เย็น\" \""+ "\n\"( เครื่องปรับอากาศใช้พลังงาน "  + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" "
+                            + "\n\"( กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ )\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
@@ -941,7 +945,8 @@ public class GameScreen2 extends AbstractGameScreen {
             player.timeStop = true;
             player.status_find = false;
             String text =
-                    "\"ขอหุงข้าวใช้เวลา 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+                    "\"ขอหุงข้าวใช้เวลา 1 ชั่วโมง\" "+ "\n\"( เครื่องปรับอากาศใช้พลังงาน "  + level2.riceCooker.getEnergyBurn() + " วัตต์ )\" "
+                            + "\n\"( กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ )\"";;
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
@@ -951,7 +956,8 @@ public class GameScreen2 extends AbstractGameScreen {
             player.timeStop = true;
             player.status_find = false;
             String text =
-                    "\"ขอดูโทรทัศน์ 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
+                    "\"ขอดูโทรทัศน์ 1 ชั่วโมง\" " + "\n\"( เครื่องปรับอากาศใช้พลังงาน "  + level2.television.getEnergyBurn() + " วัตต์ )\" "
+                            + "\n\"( กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ )\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
