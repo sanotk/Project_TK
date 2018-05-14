@@ -1097,6 +1097,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private void chartStatus() {
         Player player = worldController.level.player;
+        player.timeStop = true;
         player.timeClear = true;
         String textString1 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
         String textString2 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
@@ -1144,10 +1145,9 @@ public class GameScreen extends AbstractGameScreen {
         solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
-    private void controllAndDebug() {
+    private void controlAndDebug() {
 
         Player player = worldController.level.player;
-        Level1 level1 = (Level1) worldController.level;
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             MusicManager.instance.stop();
@@ -1212,7 +1212,7 @@ public class GameScreen extends AbstractGameScreen {
         energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
     }
 
-    public void dialogDraw() {
+    private void dialogDraw() {
 
         Player player = worldController.level.player;
         Level1 level1 = (Level1) worldController.level;
@@ -1423,13 +1423,13 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         checkObject();
-        controllAndDebug();
+        controlAndDebug();
         textIconDraw();
         dialogDraw();
         checkStageAndCount();
         checkWindow();
 
-        if(!worldController.level.player.timeStop || !worldController.level.player.timeClear){
+        if(!worldController.level.player.timeStop){
             BatteryBar.instance.update(deltaTime);
         }
 
