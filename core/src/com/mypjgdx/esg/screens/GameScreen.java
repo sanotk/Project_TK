@@ -57,7 +57,6 @@ public class GameScreen extends AbstractGameScreen {
     private Label energyLevel;
     private Label energyLevel2;
     private Label energyLevel3;
-    private Label textRule;
 
     private Label text1;
     private Label text2;
@@ -80,7 +79,6 @@ public class GameScreen extends AbstractGameScreen {
     private String textBattery2 = "ยกเลิกการเชื่อมต่อไปยังแบตเตอรี";
     private String textInverter2 = "ยกเลิกการเชื่อมต่อไปยังอินเวอร์เตอร์";
     private String textDoor2 = "ยกเลิกการเชื่อมต่อไปยังประตูไฟฟ้า";
-
 
     private boolean stageFourClear;
     private boolean dialogCitizen2;
@@ -116,7 +114,6 @@ public class GameScreen extends AbstractGameScreen {
 
     private ArrayList<SolarState> link = new ArrayList<SolarState>();
     private ArrayList<SolarState> isComplete = new ArrayList<SolarState>();
-    private ArrayList<ItemLink> itemLinks = new ArrayList<ItemLink>();
 
     private TextureRegionDrawable imageLink1;
     private TextureRegionDrawable imageLink2;
