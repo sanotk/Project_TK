@@ -1023,12 +1023,8 @@ public class GameScreen2 extends AbstractGameScreen {
                     System.out.print(questCount);
                     System.out.print(addRequest.size());
                 }else if(citizen.getGoalItem().count) {
-                    citizen.getGoalItem().countDown += deltaTime;
-                    if (Countdown >= 1) {
-                        citizen.getGoalItem().timeCount--;
-                        citizen.getGoalItem().countDown = 0;
-                    }
                     System.out.println(citizen.getGoalItem().timeCount);
+                    citizen.getGoalItem().timeCount-= deltaTime;
                     if(citizen.getGoalItem().timeCount == 0){
                         citizen.getGoalItem().state = Item.ItemState.OFF;
                         EnergyUsedBar.instance.energyUse -= citizen.getGoalItem().getEnergyBurn();
