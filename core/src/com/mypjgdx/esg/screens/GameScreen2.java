@@ -816,8 +816,6 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialog.tryToChangePage();
             }
         }
-
-
     }
 
     private void textIconDraw() {
@@ -889,49 +887,49 @@ public class GameScreen2 extends AbstractGameScreen {
             player.timeStop = true;
             String text =
                     "\"ขอเปิดเครื่องปรับอากาศ 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
-            dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
+            dialog.show();
             dialogShow = true;
         } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
             player.timeStop = true;
             String text =
                     "\"ขออุ่นอาหาร 3 นาที\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
-            dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
+            dialog.show();
             dialogShow = true;
         } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
             player.timeStop = true;
             String text =
                     "\"ขอใช้งานคอมพิวเตอร์ 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
-            dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
+            dialog.show();
             dialogShow = true;
         } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
             player.timeStop = true;
             String text =
                     "\"ขอใช้งานตู้เย็น\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
-            dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
+            dialog.show();
             dialogShow = true;
         } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
             player.timeStop = true;
             String text =
                     "\"ขอหุงข้าวใช้เวลา 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
-            dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
+            dialog.show();
             dialogShow = true;
         } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
             player.timeStop = true;
             String text =
                     "\"ขอดูโทรทัศน์ 1 ชั่วโมง\" \n\"(กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ)\"";
-            dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
+            dialog.show();
             dialogShow = true;
         }
     }
