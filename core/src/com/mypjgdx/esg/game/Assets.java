@@ -72,6 +72,26 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureAtlas pollutionAtlas;
     public TextureAtlas gateAtlas;
 
+    public TextureRegion airIconOff;
+    public TextureRegion comIconOff;
+    public TextureRegion fanIconOff;
+    public TextureRegion microwaveIconOff;
+    public TextureRegion refrigeratorIconOff;
+    public TextureRegion ricecookerIconOff;
+    public TextureRegion tvIconOff;
+    public TextureRegion waterpumpIconOff;
+    public TextureRegion pollutionIconOff;
+
+    public TextureRegion airIconOn;
+    public TextureRegion comIconOn;
+    public TextureRegion fanIconOn;
+    public TextureRegion microwaveIconOn;
+    public TextureRegion refrigeratorIconOn;
+    public TextureRegion ricecookerIconOn;
+    public TextureRegion tvIconOn;
+    public TextureRegion waterpumpIconOn;
+    public TextureRegion pollutionIconOn;
+
     public TextureAtlas uiBlue;
     public TextureAtlas uiRed;
 
@@ -162,6 +182,24 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("pollutioncontrol_pack.atlas", TextureAtlas.class);
         manager.load("gate_pack.atlas", TextureAtlas.class);
 
+        manager.load("tv_icon_off.png", Texture.class);
+        manager.load("air_icon_off.png", Texture.class);
+        manager.load("computer_icon_off.png", Texture.class);
+        manager.load("fan_icon_off.png", Texture.class);
+        manager.load("microwave_icon_off.png", Texture.class);
+        manager.load("refrigerator_icon_off.png", Texture.class);
+        manager.load("ricecooker_icon_off.png", Texture.class);
+        manager.load("waterpump_icon_off.png", Texture.class);
+
+        manager.load("tv_icon_on.png", Texture.class);
+        manager.load("air_icon_on.png", Texture.class);
+        manager.load("computer_icon_on.png", Texture.class);
+        manager.load("fan_icon_on.png", Texture.class);
+        manager.load("microwave_icon_on.png", Texture.class);
+        manager.load("refrigerator_icon_on.png", Texture.class);
+        manager.load("ricecooker_icon_on.png", Texture.class);
+        manager.load("waterpump_icon_on.png", Texture.class);
+
         manager.load("trap.png", Texture.class);
         manager.load("beam.png", Texture.class);
         manager.load("enemy1_pack.atlas", TextureAtlas.class);
@@ -241,6 +279,33 @@ public class Assets implements Disposable, AssetErrorListener {
         iconEnergyMinus = new TextureRegion((Texture)manager.get("icon_energy_minus.png"));
         iconBattery = new TextureRegion((Texture)manager.get("icon_battery.png"));
         iconTime = new TextureRegion((Texture)manager.get("icon_time.png"));
+
+        manager.load("tv_icon_on.png", Texture.class);
+        manager.load("air_icon_on.png", Texture.class);
+        manager.load("computer_icon_on.png", Texture.class);
+        manager.load("fan_icon_on.png", Texture.class);
+        manager.load("microwave_icon_on.png", Texture.class);
+        manager.load("refrigerator_icon_on.png", Texture.class);
+        manager.load("ricecooker_icon_on.png", Texture.class);
+        manager.load("waterpump_icon_on.png", Texture.class);
+
+        airIconOff = new TextureRegion((Texture)manager.get("air_icon_off.png"));
+        tvIconOff = new TextureRegion((Texture)manager.get("tv_icon_off.png"));
+        comIconOff = new TextureRegion((Texture)manager.get("computer_icon_off.png"));
+        fanIconOff = new TextureRegion((Texture)manager.get("fan_icon_off.png"));
+        microwaveIconOff = new TextureRegion((Texture)manager.get("microwave_icon_off.png"));
+        refrigeratorIconOff = new TextureRegion((Texture)manager.get("refrigerator_icon_off.png"));
+        ricecookerIconOff = new TextureRegion((Texture)manager.get("ricecooker_icon_off.png"));
+        waterpumpIconOff = new TextureRegion((Texture)manager.get("waterpump_icon_off.png"));
+
+        airIconOn = new TextureRegion((Texture)manager.get("air_icon_on.png"));
+        tvIconOn = new TextureRegion((Texture)manager.get("tv_icon_on.png"));
+        comIconOn = new TextureRegion((Texture)manager.get("computer_icon_on.png"));
+        fanIconOn = new TextureRegion((Texture)manager.get("fan_icon_on.png"));
+        microwaveIconOn = new TextureRegion((Texture)manager.get("microwave_icon_on.png"));
+        refrigeratorIconOn = new TextureRegion((Texture)manager.get("refrigerator_icon_on.png"));
+        ricecookerIconOn = new TextureRegion((Texture)manager.get("ricecooker_icon_on.png"));
+        waterpumpIconOn = new TextureRegion((Texture)manager.get("waterpump_icon_on.png"));
 
         sword = manager.get("sword_pack.atlas");
         bow = manager.get("bow_pack.atlas");
