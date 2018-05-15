@@ -42,4 +42,8 @@ public class BatteryBar implements Json.Serializable {
     public void addEnergy(float energyProduced) {
         batteryStorage += energyProduced;
     }
+
+    public float getBatteryStorageBlank(){
+        return BATTERY_MAX-batteryStorage;
+    }
 }

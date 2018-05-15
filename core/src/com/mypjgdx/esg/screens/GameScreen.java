@@ -1125,7 +1125,7 @@ public class GameScreen extends AbstractGameScreen {
             String textString3 = ("อีก : " + String.valueOf((BatteryBar.instance.getBatteryStorage() / (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วินาทีพลังงานจะหมดลง"));
             text3.setText(textString3);
         } else {
-            String textString3 = ("อีก : " + String.valueOf((BatteryBar.BATTERY_MAX / (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
+            String textString3 = ("อีก : " + String.valueOf((BatteryBar.instance.getBatteryStorageBlank() / ((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
             text3.setText(textString3);
         }
 

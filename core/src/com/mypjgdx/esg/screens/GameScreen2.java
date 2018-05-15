@@ -120,6 +120,8 @@ public class GameScreen2 extends AbstractGameScreen {
     private Label text5;
     private Label text6;
 
+    private Window statusWindow;
+
     private int questCount;
     private float Countdown;
 
@@ -200,6 +202,9 @@ public class GameScreen2 extends AbstractGameScreen {
         chartWindow = createChartWindow();
         chartWindow.setVisible(false);
 
+        statusWindow = createStatusWindow();
+        statusWindow.setVisible(false);
+
         optionsWindow.setVisible(false);
 
         dialogStory = new Texture("dialogStory.png");
@@ -223,6 +228,7 @@ public class GameScreen2 extends AbstractGameScreen {
         stage.addActor(optionsWindow);
         stage.addActor(ruleWindow);
         stage.addActor(chartWindow);
+        stage.addActor(statusWindow);
 
         buttonOption.addListener(new ClickListener() {
             @Override
@@ -947,6 +953,29 @@ public class GameScreen2 extends AbstractGameScreen {
         }
     }
 
+    private void status() {
+        worldController.level.player.timeStop = true;
+        String textString1 = ("อัตราการผลิตพลังงานไฟฟ้า : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
+        String textString2 = ("อัตราการใช้พลังงานไฟฟ้า : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
+        if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
+            String textString3 = ("อีก : " + String.valueOf((BatteryBar.instance.getBatteryStorage() / (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วินาทีพลังงานจะหมดลง"));
+            text3.setText(textString3);
+        } else {
+            String textString3 = ("อีก : " + String.valueOf((BatteryBar.BATTERY_MAX / (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
+            text3.setText(textString3);
+        }
+
+        String textString4 = ("อัตราการผลิตพลังงานไฟฟ้าหลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
+        text1.setText(textString1);
+        text2.setText(textString2);
+        text4.setText(textString4);
+        statusWindow.setPosition(
+                Gdx.graphics.getWidth() / 2 - statusWindow.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - statusWindow.getHeight() / 2);
+        statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+    }
+
+
     @Override
     public void render(float deltaTime) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
@@ -963,6 +992,12 @@ public class GameScreen2 extends AbstractGameScreen {
 
         if (!player.timeStop) {
             BatteryBar.instance.update(deltaTime);
+        }
+
+        if (player.statusEnergyWindow) {
+            status();
+        } else {
+            statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
         }
 
         for (Citizen citizen : level2.citizens) {
