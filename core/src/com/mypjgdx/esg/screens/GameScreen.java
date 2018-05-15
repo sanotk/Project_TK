@@ -1118,18 +1118,20 @@ public class GameScreen extends AbstractGameScreen {
     }
 
     private void status() {
+
         worldController.level.player.timeStop = true;
-        String textString1 = ("อัตราการผลิตพลังงานไฟฟ้า : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
-        String textString2 = ("อัตราการใช้พลังงานไฟฟ้า : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
+
+        String textString1 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
+        String textString2 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
         if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
-            String textString3 = ("อีก : " + String.valueOf((BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced*30) - (EnergyUsedBar.instance.energyUse*30)))) + " วินาทีพลังงานจะหมดลง"));
+            String textString3 = ("อีก : " + String.valueOf((int)(BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced*30) - (EnergyUsedBar.instance.energyUse*30)))) + " วินาทีพลังงานจะหมดลง"));
             text3.setText(textString3);
         } else {
-            String textString3 = ("อีก : " + String.valueOf((BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced*30) - (EnergyUsedBar.instance.energyUse*30)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
+            String textString3 = ("อีก : " + String.valueOf((int)(BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced*30) - (EnergyUsedBar.instance.energyUse*30)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
             text3.setText(textString3);
         }
 
-        String textString4 = ("อัตราการผลิตพลังงานไฟฟ้าหลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
+        String textString4 = ("กำลังไฟฟ้าผลิตที่ผลิตได้หลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
         text1.setText(textString1);
         text2.setText(textString2);
         text4.setText(textString4);
