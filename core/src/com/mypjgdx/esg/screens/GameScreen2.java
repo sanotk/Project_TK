@@ -88,6 +88,7 @@ public class GameScreen2 extends AbstractGameScreen {
     private TextureRegionDrawable buttonItem6;
     private TextureRegionDrawable buttonItem7;
     private TextureRegionDrawable buttonItem8;
+    private boolean dialogWarning;
 
     public enum systemWindow {
         citizen1,
@@ -925,6 +926,18 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialogShow = true;
             }
         }
+
+        if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogWarning) {
+            dialogWarning = true;
+            player.timeStop = true;
+            String text =
+                    "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+            dialogShow = true;
+        }
+        
         if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
             player.timeStop = true;
             player.status_find = false;
