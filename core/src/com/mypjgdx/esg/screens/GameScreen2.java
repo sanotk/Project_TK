@@ -610,6 +610,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 addRequest.add(questState);
                 checkGameComplete();
                 System.out.println(questState);
+                questState = null;
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
                 worldController.level.player.questScreen1 = false;
@@ -648,6 +649,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 addRequest.add(questState);
                 checkGameComplete();
                 System.out.println(questState);
+                questState = null;
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
                 worldController.level.player.questScreen1 = false;
@@ -709,7 +711,7 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if (questCount == 6 && !animation_status) {
-            if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && dialogStage4) {
+            if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
                 dialogStage4 = true;
                 animation_status = true;
                 player.timeStop = true;
@@ -720,7 +722,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialog.addWaitingPage(text);
                 level2.gate.state = Item.ItemState.ON;
                 dialogShow = true;
-            } else if (!dialogStage4fail) {
+            } else if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
                 dialogStage4fail = true;
                 player.timeStop = true;
                 String text =
@@ -847,7 +849,6 @@ public class GameScreen2 extends AbstractGameScreen {
         }
     }
 
-
     @Override
     public void render(float deltaTime) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
@@ -876,7 +877,6 @@ public class GameScreen2 extends AbstractGameScreen {
                     System.out.print(questCount);
                     System.out.print(addRequest.size());
                 }else if(citizen.getGoalItem().count && citizen.getGoalItem().state != Item.ItemState.OFF) {
-                    System.out.println(citizen.getGoalItem().timeCount);
                     citizen.getGoalItem().timeCount-= deltaTime;
                     if(citizen.getGoalItem().timeCount <= 0){
                         citizen.getGoalItem().state = Item.ItemState.OFF; // ทำงาน
@@ -898,7 +898,6 @@ public class GameScreen2 extends AbstractGameScreen {
         stage.draw(); //การทำงา
 
     }
-
 
     @Override
     public void resize(int width, int height) {
