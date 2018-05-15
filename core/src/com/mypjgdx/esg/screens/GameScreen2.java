@@ -652,35 +652,27 @@ public class GameScreen2 extends AbstractGameScreen {
         statusWindow.getTitleLabel().setAlignment(Align.center);
         statusWindow.row().padBottom(10).padTop(10);
         statusWindow.row().padTop(10);
-        statusWindow.add(text1).colspan(8);
+        statusWindow.add(text1).colspan(4);
         statusWindow.row().padTop(10);
-        statusWindow.add(text2).colspan(8);
+        statusWindow.add(text2).colspan(4);
         statusWindow.row().padTop(10);
-        statusWindow.add(text3).colspan(8);
+        statusWindow.add(text3).colspan(4);
         statusWindow.row().padTop(10);
-        statusWindow.add(text4).colspan(8);
+        statusWindow.add(text4).colspan(4);
         statusWindow.row().padTop(20);
         statusWindow.add(itemIcon1);
-        statusWindow.add(textItem1);
         statusWindow.add(itemIcon2);
-        statusWindow.add(textItem2);
         statusWindow.add(itemIcon3);
-        statusWindow.add(textItem3);
         statusWindow.add(itemIcon4);
-        statusWindow.add(textItem4);
         statusWindow.row().padTop(20);
         statusWindow.add(itemIcon5);
-        statusWindow.add(textItem5);
         statusWindow.add(itemIcon6);
-        statusWindow.add(textItem6);
         statusWindow.add(itemIcon7);
-        statusWindow.add(textItem7);
         statusWindow.add(itemIcon8);
-        statusWindow.add(textItem8);
-        statusWindow.row().padTop(10);
-        statusWindow.add(closeButton).colspan(8);
+        statusWindow.row().padTop(20);
+        statusWindow.add(closeButton).colspan(4);
         statusWindow.pack();
-
+        
         closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
