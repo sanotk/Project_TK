@@ -534,6 +534,76 @@ public class GameScreen2 extends AbstractGameScreen {
         return chartWindow;
     }
 
+    private Window createStatusWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new TextureRegionDrawable(Assets.instance.window);
+//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.WHITE;
+
+        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonChartStyle.up = buttonRegion;
+        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+
+        Button closeButton = new Button(buttonChartStyle);
+        text1 = new Label("", skin);
+        text2 = new Label("", skin);
+        text3 = new Label("", skin);
+        text4 = new Label("", skin);
+        text5 = new Label("", skin);
+        text6 = new Label("", skin);
+
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
+        text4.setStyle(labelStyle);
+        text5.setStyle(labelStyle);
+        text6.setStyle(labelStyle);
+
+        final Window statusWindow = new Window("ข้อมูลสถานะการใช้พลังงานไฟฟ้า", style);
+        statusWindow.setModal(true);
+        statusWindow.padTop(60);
+        statusWindow.padLeft(40);
+        statusWindow.padRight(40);
+        statusWindow.padBottom(20);
+        statusWindow.getTitleLabel().setAlignment(Align.center);
+        statusWindow.row().padBottom(10).padTop(10);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text1);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text2);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text3);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text5);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text6);
+        statusWindow.row().padTop(10);
+        statusWindow.add(closeButton).colspan(3);
+        statusWindow.pack();
+
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                worldController.level.player.statusEnergyWindow = false;
+                if(!dialogShow) {
+                    worldController.level.player.timeStop = false;
+                }
+            }
+        });
+
+        return statusWindow;
+    }
+
+
     private Window createRuleWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new TextureRegionDrawable(Assets.instance.window);
