@@ -623,7 +623,6 @@ public class GameScreen2 extends AbstractGameScreen {
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
             }
-
         } else if (Gdx.input.isKeyJustPressed(Keys.N)){
             if(citizenQuest != null){
                 if (citizenQuest == systemWindow.citizen1) {
