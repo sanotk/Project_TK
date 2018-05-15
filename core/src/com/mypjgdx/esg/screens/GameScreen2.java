@@ -650,7 +650,6 @@ public class GameScreen2 extends AbstractGameScreen {
         textItem7.setStyle(labelStyle);
         textItem8.setStyle(labelStyle);
 
-
         final Window statusWindow = new Window("ข้อมูลสถานะการใช้พลังงานไฟฟ้า", style);
         statusWindow.setModal(true);
         statusWindow.padTop(60);
@@ -704,7 +703,6 @@ public class GameScreen2 extends AbstractGameScreen {
 
         return statusWindow;
     }
-
 
     private Window createRuleWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
@@ -920,7 +918,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialogStage4fail = true;
                 player.timeStop = true;
                 String text =
-                        "\"อันตราย! พลังงานที่เครื่องไฟฟ้าใช้มากกว่าพลังงานที่ผลิต ปล่อยไว้พลังงานจะหมดลงแล้วจะตายกันหมด รีบปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                        "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต ปล่อยไว้พลังงานจะหมดลงแล้วทุกคนจะขาดอากาศตายกันหมด รีบปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                 dialog.show();
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
@@ -1027,16 +1025,31 @@ public class GameScreen2 extends AbstractGameScreen {
         Player player = worldController.level.player;
         Level2 level2 = (Level2) worldController.level;
 
+        boolean noItem = true;
+
+        for (Item item : level2.items) {
+            if (item.nearPlayer()) {
+                noItem = false;
+                break;
+            }
+        }
+
+        for (Item item : level2.items) {
+            if ((player.status_find) && item.nearPlayer()&& item.state == Item.ItemState.ONLOOP) {
+                item.state = Item.ItemState.OFF;
+                EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
+                player.status_find = false;
+            }
+        }
+
         boolean noCitizen = !player.questScreen1
                 && !player.questScreen2
                 && !player.questScreen3
                 && !player.questScreen4
                 && !player.questScreen5
-                && !player.questScreen6
-                && !level2.switchItem.nearPlayer()
-                && !level2.gate.nearPlayer();
+                && !player.questScreen6;
 
-        if (player.status_find && noCitizen) {
+        if (player.status_find && noCitizen && noItem) {
             player.status_find = false;
             player.status_windows_link = false;
         }
