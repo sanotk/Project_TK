@@ -1202,7 +1202,7 @@ public class GameScreen2 extends AbstractGameScreen {
                     questCount += 1;
                     System.out.print(questCount);
                     System.out.print(addRequest.size());
-                }else if(citizen.getGoalItem().count && citizen.getGoalItem().state != Item.ItemState.OFF) {
+                }else if(citizen.getGoalItem().count && citizen.getGoalItem().state != Item.ItemState.OFF && !player.timeStop) {
                     citizen.getGoalItem().timeCount-= deltaTime;
                     if(citizen.getGoalItem().timeCount <= 0){
                         citizen.getGoalItem().state = Item.ItemState.OFF; // ทำงาน
@@ -1249,6 +1249,9 @@ public class GameScreen2 extends AbstractGameScreen {
         worldRenderer.dispose();
         font.dispose();
         bg.dispose();
+        EnergyProducedBar.instance.energyProduced = 0;
+        EnergyUsedBar.instance.energyUse = 0;
+        BatteryBar.instance.batteryStorage = 0;
     }
 
     @Override

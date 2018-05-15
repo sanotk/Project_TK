@@ -1495,6 +1495,9 @@ public class GameScreen extends AbstractGameScreen {
         worldRenderer.dispose();
         font.dispose();
         bg.dispose();
+        EnergyProducedBar.instance.energyProduced = 0;
+        EnergyUsedBar.instance.energyUse = 0;
+        BatteryBar.instance.batteryStorage = 0;
     }
 
     @Override
