@@ -80,6 +80,14 @@ public class GameScreen2 extends AbstractGameScreen {
     private Label textItem7;
     private Label textItem8;
 
+    private TextureRegionDrawable buttonItem1;
+    private TextureRegionDrawable buttonItem2;
+    private TextureRegionDrawable buttonItem3;
+    private TextureRegionDrawable buttonItem4;
+    private TextureRegionDrawable buttonItem5;
+    private TextureRegionDrawable buttonItem6;
+    private TextureRegionDrawable buttonItem7;
+    private TextureRegionDrawable buttonItem8;
 
     public enum systemWindow {
         citizen1,
@@ -567,49 +575,49 @@ public class GameScreen2 extends AbstractGameScreen {
         Button closeButton = new Button(buttonChartStyle);
 
         Button.ButtonStyle buttonItem1Style1 = new Button.ButtonStyle();
-        TextureRegionDrawable buttonItem1 = new TextureRegionDrawable(Assets.instance.comIconOff);
+        buttonItem1 = new TextureRegionDrawable(Assets.instance.comIconOff);
         buttonItem1Style1.up = buttonItem1;
         buttonItem1Style1.over = buttonItem1.tint(Color.FIREBRICK);
         Button itemIcon1 = new Button(buttonItem1Style1);
 
         Button.ButtonStyle buttonItem1Style2 = new Button.ButtonStyle();
-        TextureRegionDrawable buttonItem2 = new TextureRegionDrawable(Assets.instance.refrigeratorIconOff);
+        buttonItem2 = new TextureRegionDrawable(Assets.instance.refrigeratorIconOff);
         buttonItem1Style2.up = buttonItem2;
         buttonItem1Style2.over = buttonItem2.tint(Color.FIREBRICK);
         Button itemIcon2 = new Button(buttonItem1Style2);
 
         Button.ButtonStyle buttonItem1Style3 = new Button.ButtonStyle();
-        TextureRegionDrawable buttonItem3 = new TextureRegionDrawable(Assets.instance.fanIconOff);
+        buttonItem3 = new TextureRegionDrawable(Assets.instance.fanIconOff);
         buttonItem1Style3.up = buttonItem3;
         buttonItem1Style3.over = buttonItem3.tint(Color.FIREBRICK);
         Button itemIcon3 = new Button(buttonItem1Style3);
 
         Button.ButtonStyle buttonItem1Style4 = new Button.ButtonStyle();
-        TextureRegionDrawable buttonItem4 = new TextureRegionDrawable(Assets.instance.microwaveIconOff);
+        buttonItem4 = new TextureRegionDrawable(Assets.instance.microwaveIconOff);
         buttonItem1Style4.up = buttonItem4;
         buttonItem1Style4.over = buttonItem4.tint(Color.FIREBRICK);
         Button itemIcon4 = new Button(buttonItem1Style4);
 
         Button.ButtonStyle buttonItem1Style5 = new Button.ButtonStyle();
-        TextureRegionDrawable buttonItem5 = new TextureRegionDrawable(Assets.instance.ricecookerIconOff);
+        buttonItem5 = new TextureRegionDrawable(Assets.instance.ricecookerIconOff);
         buttonItem1Style5.up = buttonItem5;
         buttonItem1Style5.over = buttonItem5.tint(Color.FIREBRICK);
         Button itemIcon5 = new Button(buttonItem1Style5);
 
         Button.ButtonStyle buttonItem1Style6 = new Button.ButtonStyle();
-        TextureRegionDrawable buttonItem6 = new TextureRegionDrawable(Assets.instance.tvIconOff);
+        buttonItem6 = new TextureRegionDrawable(Assets.instance.tvIconOff);
         buttonItem1Style6.up = buttonItem6;
         buttonItem1Style6.over = buttonItem6.tint(Color.FIREBRICK);
         Button itemIcon6 = new Button(buttonItem1Style6);
 
         Button.ButtonStyle buttonItem1Style7 = new Button.ButtonStyle();
-        TextureRegionDrawable buttonItem7 = new TextureRegionDrawable(Assets.instance.waterpumpIconOff);
+        buttonItem7 = new TextureRegionDrawable(Assets.instance.waterpumpIconOff);
         buttonItem1Style7.up = buttonItem7;
         buttonItem1Style7.over = buttonItem7.tint(Color.FIREBRICK);
         Button itemIcon7 = new Button(buttonItem1Style7);
 
         Button.ButtonStyle buttonItem1Style8 = new Button.ButtonStyle();
-        TextureRegionDrawable buttonItem8 = new TextureRegionDrawable(Assets.instance.airIconOff);
+        buttonItem8 = new TextureRegionDrawable(Assets.instance.airIconOff);
         buttonItem1Style8.up = buttonItem8;
         buttonItem1Style8.over = buttonItem8.tint(Color.FIREBRICK);
         Button itemIcon8 = new Button(buttonItem1Style8);
@@ -659,20 +667,30 @@ public class GameScreen2 extends AbstractGameScreen {
         statusWindow.add(text3).colspan(4);
         statusWindow.row().padTop(10);
         statusWindow.add(text4).colspan(4);
-        statusWindow.row().padTop(20);
+        statusWindow.row().padTop(10);
         statusWindow.add(itemIcon1);
         statusWindow.add(itemIcon2);
         statusWindow.add(itemIcon3);
         statusWindow.add(itemIcon4);
-        statusWindow.row().padTop(20);
+        statusWindow.row().padTop(10);
+        statusWindow.add(textItem1);
+        statusWindow.add(textItem2);
+        statusWindow.add(textItem3);
+        statusWindow.add(textItem4);
+        statusWindow.row().padTop(10);
         statusWindow.add(itemIcon5);
         statusWindow.add(itemIcon6);
         statusWindow.add(itemIcon7);
         statusWindow.add(itemIcon8);
-        statusWindow.row().padTop(20);
+        statusWindow.row().padTop(10);
+        statusWindow.add(textItem5);
+        statusWindow.add(textItem6);
+        statusWindow.add(textItem7);
+        statusWindow.add(textItem8);
+        statusWindow.row().padTop(10);
         statusWindow.add(closeButton).colspan(4);
         statusWindow.pack();
-        
+
         closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -1032,7 +1050,10 @@ public class GameScreen2 extends AbstractGameScreen {
     }
 
     private void status() {
-        worldController.level.player.timeStop = true;
+        Player player = worldController.level.player;
+        Level2 level2 = (Level2) worldController.level;
+
+        player.timeStop = true;
         String textString1 = ("อัตราการผลิตพลังงานไฟฟ้า : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
         String textString2 = ("อัตราการใช้พลังงานไฟฟ้า : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
         if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
@@ -1047,6 +1068,75 @@ public class GameScreen2 extends AbstractGameScreen {
         text1.setText(textString1);
         text2.setText(textString2);
         text4.setText(textString4);
+
+        if(level2.computer.state == Item.ItemState.ONLOOP){
+            buttonItem1.setRegion(Assets.instance.comIconOn);
+            textItem1.setText(String.valueOf(level2.television.getEnergyBurn()));
+        }else {
+            buttonItem1.setRegion(Assets.instance.comIconOff);
+            textItem1.clear();
+        }
+
+        if(level2.refrigerator.state == Item.ItemState.ONLOOP){
+            buttonItem2.setRegion(Assets.instance.refrigeratorIconOn);
+            textItem2.setText(String.valueOf(level2.refrigerator.getEnergyBurn()));
+        }else {
+            buttonItem2.setRegion(Assets.instance.refrigeratorIconOff);
+            textItem2.clear();
+        }
+
+        if(level2.fan1.state == Item.ItemState.ONLOOP){
+            buttonItem3.setRegion(Assets.instance.fanIconOn);
+            if(level2.fan2.state == Item.ItemState.ONLOOP){
+                textItem3.setText(String.valueOf(level2.fan1.getEnergyBurn())+level2.fan2.getEnergyBurn());
+            }else {
+                textItem3.setText(String.valueOf(level2.fan1.getEnergyBurn()));
+            }
+        }else {
+            buttonItem3.setRegion(Assets.instance.fanIconOff);
+            textItem3.clear();
+        }
+
+        if(level2.microwave.state == Item.ItemState.ONLOOP){
+            buttonItem4.setRegion(Assets.instance.microwaveIconOn);
+            textItem4.setText(String.valueOf(level2.microwave.getEnergyBurn()));
+        }else {
+            buttonItem4.setRegion(Assets.instance.microwaveIconOff);
+            textItem4.clear();
+        }
+
+        if(level2.riceCooker.state == Item.ItemState.ONLOOP){
+            buttonItem5.setRegion(Assets.instance.ricecookerIconOn);
+            textItem5.setText(String.valueOf(level2.riceCooker.getEnergyBurn()));
+        }else {
+            buttonItem5.setRegion(Assets.instance.ricecookerIconOff);
+            textItem5.clear();
+        }
+
+        if(level2.television.state == Item.ItemState.ONLOOP){
+            buttonItem6.setRegion(Assets.instance.tvIconOn);
+            textItem6.setText(String.valueOf(level2.television.getEnergyBurn()));
+        }else {
+            buttonItem6.setRegion(Assets.instance.tvIconOff);
+            textItem6.clear();
+        }
+
+        if(level2.waterPump.state == Item.ItemState.ONLOOP){
+            buttonItem7.setRegion(Assets.instance.waterpumpIconOn);
+            textItem7.setText(String.valueOf(level2.waterPump.getEnergyBurn()));
+        }else {
+            buttonItem7.setRegion(Assets.instance.waterpumpIconOff);
+            textItem7.clear();
+        }
+
+        if(level2.airConditioner.state == Item.ItemState.ONLOOP){
+            buttonItem8.setRegion(Assets.instance.airIconOn);
+            textItem8.setText(String.valueOf(level2.airConditioner.getEnergyBurn()));
+        }else {
+            buttonItem8.setRegion(Assets.instance.airIconOff);
+            textItem8.clear();
+        }
+
         statusWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - statusWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - statusWindow.getHeight() / 2);
