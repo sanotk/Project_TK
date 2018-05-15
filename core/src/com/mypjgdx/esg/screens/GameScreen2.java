@@ -682,14 +682,6 @@ public class GameScreen2 extends AbstractGameScreen {
             citizenQuest = null;
             dialogShow = false;
             player.status_find = false;
-        } else  if (Gdx.input.isKeyJustPressed(Keys.Y)) {
-            if(citizenQuest != null){
-
-            }
-        } else if (Gdx.input.isKeyJustPressed(Keys.N)){
-            if(citizenQuest != null){
-
-            }
         }else {
             dialog.tryToChangePage();
         }
