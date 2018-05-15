@@ -36,6 +36,8 @@ import java.util.ArrayList;
 public class GameScreen2 extends AbstractGameScreen {
 
     private final Dialog dialog;
+    private TextButton buttonAgree;
+    private TextButton buttonRefuse;
     private WorldController worldController;
     private WorldRenderer worldRenderer;
 
@@ -153,13 +155,6 @@ public class GameScreen2 extends AbstractGameScreen {
 
         this.optionsWindow = optionsWindow;
 
-//        isComplete.add(questState.quest1yes);
-//        isComplete.add(questState.quest2yes);
-//        isComplete.add(questState.quest3no);
-//        isComplete.add(questState.quest4yes);
-//        isComplete.add(questState.quest5yes);
-//        isComplete.add(questState.quest6no);
-
         TextButton.TextButtonStyle buttonToolStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
         buttonToolStyle.up = toolUp;
@@ -181,6 +176,20 @@ public class GameScreen2 extends AbstractGameScreen {
         buttonStyle2.up = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_04"));
         buttonStyle2.down = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_03"));
         buttonStyle2.font = font;
+
+        buttonAgree = new TextButton("ตกลง", buttonStyle);
+        buttonAgree.setWidth(50);
+        buttonAgree.setHeight(25);
+        buttonAgree.setPosition(SCENE_WIDTH / 6 + 20, 120);
+
+        buttonAgree.setVisible(false);
+
+        buttonRefuse = new TextButton("ปฎิเสธ", buttonStyle2);
+        buttonRefuse.setWidth(50);
+        buttonRefuse.setHeight(25);
+        buttonRefuse.setPosition(SCENE_WIDTH / 4, 120);
+
+        buttonRefuse.setVisible(false);
 
         ruleWindow = createRuleWindow();
         ruleWindow.setPosition(
@@ -208,6 +217,8 @@ public class GameScreen2 extends AbstractGameScreen {
 
         stage.addActor(buttonOption);
         stage.addActor(buttonRule);
+        stage.addActor(buttonAgree);
+        stage.addActor(buttonRefuse);
 
         stage.addActor(optionsWindow);
         stage.addActor(ruleWindow);
@@ -231,6 +242,97 @@ public class GameScreen2 extends AbstractGameScreen {
                         Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
                 ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
                 worldController.level.player.timeStop = true;
+            }
+        });
+
+        buttonAgree.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                buttonAgree.setVisible(false);
+                buttonRefuse.setVisible(false);
+                if (citizenQuest == systemWindow.citizen1) {
+                    questState = QuestState.quest1yes;
+                    worldController.level.player.quest1 = true;
+                    worldController.level.player.quest_window_1 = true;
+                } else if (citizenQuest == systemWindow.citizen2) {
+                    questState = QuestState.quest2yes;
+                    worldController.level.player.quest_window_2 = true;
+                    worldController.level.player.quest2 = true;
+                } else if (citizenQuest == systemWindow.citizen3) {
+                    questState = QuestState.quest3yes;
+                    worldController.level.player.quest_window_3 = true;
+                    worldController.level.player.quest3 = true;
+                } else if (citizenQuest == systemWindow.citizen4) {
+                    questState = QuestState.quest4yes;
+                    worldController.level.player.quest_window_4 = true;
+                    worldController.level.player.quest4 = true;
+                } else if (citizenQuest == systemWindow.citizen5) {
+                    questState = QuestState.quest5yes;
+                    worldController.level.player.quest_window_5 = true;
+                    worldController.level.player.quest5 = true;
+                } else if (citizenQuest == systemWindow.citizen6){
+                    questState = QuestState.quest6yes;
+                    worldController.level.player.quest_window_6 = true;
+                    worldController.level.player.quest6 = true;
+                }
+                addRequest.add(questState);
+                checkGameComplete();
+                System.out.println(questState);
+                questState = null;
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
+                worldController.level.player.questScreen1 = false;
+                worldController.level.player.questScreen2 = false;
+                worldController.level.player.questScreen3 = false;
+                worldController.level.player.questScreen4 = false;
+                worldController.level.player.questScreen5 = false;
+                worldController.level.player.questScreen6 = false;
+                dialog.hide();
+                worldController.level.player.timeStop = false;
+                dialogShow = false;
+            }
+        });
+
+        buttonRefuse.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                buttonAgree.setVisible(false);
+                buttonRefuse.setVisible(false);
+                if (citizenQuest == systemWindow.citizen1) {
+                    worldController.level.player.quest_window_1 = true;
+                    questState = QuestState.quest1no;
+                } else if (citizenQuest == systemWindow.citizen2) {
+                    worldController.level.player.quest_window_2 = true;
+                    questState = QuestState.quest2no;
+                } else if (citizenQuest == systemWindow.citizen3) {
+                    worldController.level.player.quest_window_3 = true;
+                    questState = QuestState.quest3no;
+                } else if (citizenQuest == systemWindow.citizen4) {
+                    worldController.level.player.quest_window_4 = true;
+                    questState = QuestState.quest4no;
+                } else if (citizenQuest == systemWindow.citizen5) {
+                    worldController.level.player.quest_window_5 = true;
+                    questState = QuestState.quest5no;
+                } else if (citizenQuest == systemWindow.citizen6){
+                    worldController.level.player.quest_window_6 = true;
+                    questState = QuestState.quest6no;
+                }
+                questCount += 1;
+                addRequest.add(questState);
+                checkGameComplete();
+                System.out.println(questState);
+                questState = null;
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
+                worldController.level.player.questScreen1 = false;
+                worldController.level.player.questScreen2 = false;
+                worldController.level.player.questScreen3 = false;
+                worldController.level.player.questScreen4 = false;
+                worldController.level.player.questScreen5 = false;
+                worldController.level.player.questScreen6 = false;
+                dialog.hide();
+                worldController.level.player.timeStop = false;
+                dialogShow = false;
             }
         });
 
@@ -582,84 +684,11 @@ public class GameScreen2 extends AbstractGameScreen {
             player.status_find = false;
         } else  if (Gdx.input.isKeyJustPressed(Keys.Y)) {
             if(citizenQuest != null){
-                if (citizenQuest == systemWindow.citizen1) {
-                    questState = QuestState.quest1yes;
-                    worldController.level.player.quest1 = true;
-                    worldController.level.player.quest_window_1 = true;
-                } else if (citizenQuest == systemWindow.citizen2) {
-                    questState = QuestState.quest2yes;
-                    worldController.level.player.quest_window_2 = true;
-                    worldController.level.player.quest2 = true;
-                } else if (citizenQuest == systemWindow.citizen3) {
-                    questState = QuestState.quest3yes;
-                    worldController.level.player.quest_window_3 = true;
-                    worldController.level.player.quest3 = true;
-                } else if (citizenQuest == systemWindow.citizen4) {
-                    questState = QuestState.quest4yes;
-                    worldController.level.player.quest_window_4 = true;
-                    worldController.level.player.quest4 = true;
-                } else if (citizenQuest == systemWindow.citizen5) {
-                    questState = QuestState.quest5yes;
-                    worldController.level.player.quest_window_5 = true;
-                    worldController.level.player.quest5 = true;
-                } else if (citizenQuest == systemWindow.citizen6){
-                    questState = QuestState.quest6yes;
-                    worldController.level.player.quest_window_6 = true;
-                    worldController.level.player.quest6 = true;
-                }
-                addRequest.add(questState);
-                checkGameComplete();
-                System.out.println(questState);
-                questState = null;
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-                worldController.level.player.questScreen1 = false;
-                worldController.level.player.questScreen2 = false;
-                worldController.level.player.questScreen3 = false;
-                worldController.level.player.questScreen4 = false;
-                worldController.level.player.questScreen5 = false;
-                worldController.level.player.questScreen6 = false;
-                dialog.hide();
-                worldController.level.player.timeStop = false;
-                dialogShow = false;
+
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.N)){
             if(citizenQuest != null){
-                if (citizenQuest == systemWindow.citizen1) {
-                    worldController.level.player.quest_window_1 = true;
-                    questState = QuestState.quest1no;
-                } else if (citizenQuest == systemWindow.citizen2) {
-                    worldController.level.player.quest_window_2 = true;
-                    questState = QuestState.quest2no;
-                } else if (citizenQuest == systemWindow.citizen3) {
-                    worldController.level.player.quest_window_3 = true;
-                    questState = QuestState.quest3no;
-                } else if (citizenQuest == systemWindow.citizen4) {
-                    worldController.level.player.quest_window_4 = true;
-                    questState = QuestState.quest4no;
-                } else if (citizenQuest == systemWindow.citizen5) {
-                    worldController.level.player.quest_window_5 = true;
-                    questState = QuestState.quest5no;
-                } else if (citizenQuest == systemWindow.citizen6){
-                    worldController.level.player.quest_window_6 = true;
-                    questState = QuestState.quest6no;
-                }
-                questCount += 1;
-                addRequest.add(questState);
-                checkGameComplete();
-                System.out.println(questState);
-                questState = null;
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-                worldController.level.player.questScreen1 = false;
-                worldController.level.player.questScreen2 = false;
-                worldController.level.player.questScreen3 = false;
-                worldController.level.player.questScreen4 = false;
-                worldController.level.player.questScreen5 = false;
-                worldController.level.player.questScreen6 = false;
-                dialog.hide();
-                worldController.level.player.timeStop = false;
-                dialogShow = false;
+
             }
         }else {
             dialog.tryToChangePage();
@@ -717,6 +746,8 @@ public class GameScreen2 extends AbstractGameScreen {
                 String text =
                         "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและพลังงานจะเหลือเพียงพอใช้ในด่านถัดไป\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                 dialog.show();
+                buttonAgree.setVisible(true);
+                buttonRefuse.setVisible(true);
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
                 level2.gate.state = Item.ItemState.ON;
@@ -727,6 +758,8 @@ public class GameScreen2 extends AbstractGameScreen {
                 String text =
                         "\"อันตราย! พลังงานที่เครื่องไฟฟ้าใช้มากกว่าพลังงานที่ผลิต ปล่อยไว้พลังงานจะหมดลงแล้วจะตายกันหมด รีบปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                 dialog.show();
+                buttonAgree.setVisible(true);
+                buttonRefuse.setVisible(true);
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
                 dialogShow = true;
@@ -737,9 +770,10 @@ public class GameScreen2 extends AbstractGameScreen {
             player.status_find = false;
             String text =
                     "\"ขอเปิดเครื่องปรับอากาศ 1 ชั่วโมง เครื่องปรับอากาศใช้พลังงานไฟฟ้า \""
-                            + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า "  + level2.airConditioner.getEnergyBurn() + " วัตต์ )\" "
-                            + "\n\"( กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ )\"";
+                            + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า "  + level2.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
             dialog.show();
+            buttonAgree.setVisible(true);
+            buttonRefuse.setVisible(true);
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
@@ -748,9 +782,10 @@ public class GameScreen2 extends AbstractGameScreen {
             player.timeStop = true;
             player.status_find = false;
             String text =
-                    "\"ขอใช้ไมโครเวฟอุ่นอาหาร 3 นาที " + "\n\"( ไมโครเวฟใช้พลังงานไฟฟ้า "  + level2.computer.getEnergyBurn() + " วัตต์ )\" "
-                            + "\n\"( กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ )\"";;
+                    "\"ขอใช้ไมโครเวฟอุ่นอาหาร 3 นาที " + "\n\"( ไมโครเวฟใช้พลังงานไฟฟ้า "  + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
             dialog.show();
+            buttonAgree.setVisible(true);
+            buttonRefuse.setVisible(true);
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
@@ -759,9 +794,10 @@ public class GameScreen2 extends AbstractGameScreen {
             player.timeStop = true;
             player.status_find = false;
             String text =
-                    "\"ขอใช้งานคอมพิวเตอร์ 1 ชั่วโมง\"" + "\n\"( คอมพิวเตอร์ใช้พลังงานไฟฟ้า "  + level2.computer.getEnergyBurn() + " วัตต์ )\" "
-                            + "\n\"( กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ )\"";
+                    "\"ขอใช้งานคอมพิวเตอร์ 1 ชั่วโมง\"" + "\n\"( คอมพิวเตอร์ใช้พลังงานไฟฟ้า "  + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
             dialog.show();
+            buttonAgree.setVisible(true);
+            buttonRefuse.setVisible(true);
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
@@ -770,9 +806,10 @@ public class GameScreen2 extends AbstractGameScreen {
             player.timeStop = true;
             player.status_find = false;
             String text =
-                    "\"ขอใช้งานตู้เย็น\" \""+ "\n\"( ตู้เย็นใช้พลังงานไฟฟ้า "  + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" "
-                            + "\n\"( กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ )\"";
+                    "\"ขอใช้งานตู้เย็น\" \""+ "\n\"( ตู้เย็นใช้พลังงานไฟฟ้า "  + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
             dialog.show();
+            buttonAgree.setVisible(true);
+            buttonRefuse.setVisible(true);
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
@@ -781,9 +818,10 @@ public class GameScreen2 extends AbstractGameScreen {
             player.timeStop = true;
             player.status_find = false;
             String text =
-                    "\"ขอหุงข้าวใช้เวลา 30 นาที\" "+ "\n\"( หม้อหุงข้าวใช้พลังงานไฟฟ้า "  + level2.riceCooker.getEnergyBurn() + " วัตต์ )\" "
-                            + "\n\"( กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ )\"";;
+                    "\"ขอหุงข้าวใช้เวลา 30 นาที\" "+ "\n\"( หม้อหุงข้าวใช้พลังงานไฟฟ้า "  + level2.riceCooker.getEnergyBurn() + " วัตต์ )\" ";
             dialog.show();
+            buttonAgree.setVisible(true);
+            buttonRefuse.setVisible(true);
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
@@ -792,9 +830,10 @@ public class GameScreen2 extends AbstractGameScreen {
             player.timeStop = true;
             player.status_find = false;
             String text =
-                    "\"ขอดูโทรทัศน์ 1 ชั่วโมง\" " + "\n\"( โทรทัศน์ใช้พลังงานไฟฟ้า "  + level2.television.getEnergyBurn() + " วัตต์ )\" "
-                            + "\n\"( กดปุ่ม Y เพื่อตกลง กดปุ่ม N เพื่อปฎิเสธ )\"";
+                    "\"ขอดูโทรทัศน์ 1 ชั่วโมง\" " + "\n\"( โทรทัศน์ใช้พลังงานไฟฟ้า "  + level2.television.getEnergyBurn() + " วัตต์ )\" ";
             dialog.show();
+            buttonAgree.setVisible(true);
+            buttonRefuse.setVisible(true);
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
