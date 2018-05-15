@@ -569,49 +569,49 @@ public class GameScreen2 extends AbstractGameScreen {
         Button.ButtonStyle buttonItem1Style1 = new Button.ButtonStyle();
         TextureRegionDrawable buttonItem1 = new TextureRegionDrawable(Assets.instance.comIconOff);
         buttonItem1Style1.up = buttonItem1;
-        buttonItem1Style1.down = buttonItem1.tint(Color.LIGHT_GRAY);
+        buttonItem1Style1.over = buttonItem1.tint(Color.FIREBRICK);
         Button itemIcon1 = new Button(buttonItem1Style1);
 
         Button.ButtonStyle buttonItem1Style2 = new Button.ButtonStyle();
         TextureRegionDrawable buttonItem2 = new TextureRegionDrawable(Assets.instance.refrigeratorIconOff);
         buttonItem1Style2.up = buttonItem2;
-        buttonItem1Style2.down = buttonItem2.tint(Color.LIGHT_GRAY);
+        buttonItem1Style2.over = buttonItem2.tint(Color.FIREBRICK);
         Button itemIcon2 = new Button(buttonItem1Style2);
 
         Button.ButtonStyle buttonItem1Style3 = new Button.ButtonStyle();
         TextureRegionDrawable buttonItem3 = new TextureRegionDrawable(Assets.instance.fanIconOff);
         buttonItem1Style3.up = buttonItem3;
-        buttonItem1Style3.down = buttonItem3.tint(Color.LIGHT_GRAY);
+        buttonItem1Style3.over = buttonItem3.tint(Color.FIREBRICK);
         Button itemIcon3 = new Button(buttonItem1Style3);
 
         Button.ButtonStyle buttonItem1Style4 = new Button.ButtonStyle();
         TextureRegionDrawable buttonItem4 = new TextureRegionDrawable(Assets.instance.microwaveIconOff);
         buttonItem1Style4.up = buttonItem4;
-        buttonItem1Style4.down = buttonItem4.tint(Color.LIGHT_GRAY);
+        buttonItem1Style4.over = buttonItem4.tint(Color.FIREBRICK);
         Button itemIcon4 = new Button(buttonItem1Style4);
 
         Button.ButtonStyle buttonItem1Style5 = new Button.ButtonStyle();
         TextureRegionDrawable buttonItem5 = new TextureRegionDrawable(Assets.instance.ricecookerIconOff);
         buttonItem1Style5.up = buttonItem5;
-        buttonItem1Style5.down = buttonItem5.tint(Color.LIGHT_GRAY);
+        buttonItem1Style5.over = buttonItem5.tint(Color.FIREBRICK);
         Button itemIcon5 = new Button(buttonItem1Style5);
 
         Button.ButtonStyle buttonItem1Style6 = new Button.ButtonStyle();
         TextureRegionDrawable buttonItem6 = new TextureRegionDrawable(Assets.instance.tvIconOff);
         buttonItem1Style6.up = buttonItem6;
-        buttonItem1Style6.down = buttonItem6.tint(Color.LIGHT_GRAY);
+        buttonItem1Style6.over = buttonItem6.tint(Color.FIREBRICK);
         Button itemIcon6 = new Button(buttonItem1Style6);
 
         Button.ButtonStyle buttonItem1Style7 = new Button.ButtonStyle();
         TextureRegionDrawable buttonItem7 = new TextureRegionDrawable(Assets.instance.waterpumpIconOff);
         buttonItem1Style7.up = buttonItem7;
-        buttonItem1Style7.down = buttonItem7.tint(Color.LIGHT_GRAY);
+        buttonItem1Style7.over = buttonItem7.tint(Color.FIREBRICK);
         Button itemIcon7 = new Button(buttonItem1Style7);
 
         Button.ButtonStyle buttonItem1Style8 = new Button.ButtonStyle();
         TextureRegionDrawable buttonItem8 = new TextureRegionDrawable(Assets.instance.airIconOff);
         buttonItem1Style8.up = buttonItem8;
-        buttonItem1Style8.down = buttonItem8.tint(Color.LIGHT_GRAY);
+        buttonItem1Style8.over = buttonItem8.tint(Color.FIREBRICK);
         Button itemIcon8 = new Button(buttonItem1Style8);
 
         text1 = new Label("", skin);
@@ -652,14 +652,14 @@ public class GameScreen2 extends AbstractGameScreen {
         statusWindow.getTitleLabel().setAlignment(Align.center);
         statusWindow.row().padBottom(10).padTop(10);
         statusWindow.row().padTop(10);
-        statusWindow.add(text1);
+        statusWindow.add(text1).colspan(8);
         statusWindow.row().padTop(10);
-        statusWindow.add(text2);
+        statusWindow.add(text2).colspan(8);
         statusWindow.row().padTop(10);
-        statusWindow.add(text3);
+        statusWindow.add(text3).colspan(8);
         statusWindow.row().padTop(10);
-        statusWindow.add(text4);
-        statusWindow.row().padTop(10);
+        statusWindow.add(text4).colspan(8);
+        statusWindow.row().padTop(20);
         statusWindow.add(itemIcon1);
         statusWindow.add(textItem1);
         statusWindow.add(itemIcon2);
@@ -668,7 +668,7 @@ public class GameScreen2 extends AbstractGameScreen {
         statusWindow.add(textItem3);
         statusWindow.add(itemIcon4);
         statusWindow.add(textItem4);
-        statusWindow.row().padTop(10);
+        statusWindow.row().padTop(20);
         statusWindow.add(itemIcon5);
         statusWindow.add(textItem5);
         statusWindow.add(itemIcon6);
@@ -678,7 +678,7 @@ public class GameScreen2 extends AbstractGameScreen {
         statusWindow.add(itemIcon8);
         statusWindow.add(textItem8);
         statusWindow.row().padTop(10);
-        statusWindow.add(closeButton).colspan(3);
+        statusWindow.add(closeButton).colspan(8);
         statusWindow.pack();
 
         closeButton.addListener(new ClickListener() {
