@@ -71,6 +71,15 @@ public class GameScreen2 extends AbstractGameScreen {
     public systemWindow citizenQuest = null;
     private boolean dialogStage4fail;
     private TextureRegionDrawable iconRegion;
+    private Label textItem1;
+    private Label textItem2;
+    private Label textItem3;
+    private Label textItem4;
+    private Label textItem5;
+    private Label textItem6;
+    private Label textItem7;
+    private Label textItem8;
+
 
     public enum systemWindow {
         citizen1,
@@ -579,7 +588,7 @@ public class GameScreen2 extends AbstractGameScreen {
         TextureRegionDrawable buttonItem4 = new TextureRegionDrawable(Assets.instance.microwaveIconOff);
         buttonItem1Style4.up = buttonItem4;
         buttonItem1Style4.down = buttonItem4.tint(Color.LIGHT_GRAY);
-        Button itemIcon14 = new Button(buttonItem1Style4);
+        Button itemIcon4 = new Button(buttonItem1Style4);
 
         Button.ButtonStyle buttonItem1Style5 = new Button.ButtonStyle();
         TextureRegionDrawable buttonItem5 = new TextureRegionDrawable(Assets.instance.ricecookerIconOff);
@@ -591,7 +600,7 @@ public class GameScreen2 extends AbstractGameScreen {
         TextureRegionDrawable buttonItem6 = new TextureRegionDrawable(Assets.instance.tvIconOff);
         buttonItem1Style6.up = buttonItem6;
         buttonItem1Style6.down = buttonItem6.tint(Color.LIGHT_GRAY);
-        Button itemIcon16 = new Button(buttonItem1Style6);
+        Button itemIcon6 = new Button(buttonItem1Style6);
 
         Button.ButtonStyle buttonItem1Style7 = new Button.ButtonStyle();
         TextureRegionDrawable buttonItem7 = new TextureRegionDrawable(Assets.instance.waterpumpIconOff);
@@ -605,20 +614,34 @@ public class GameScreen2 extends AbstractGameScreen {
         buttonItem1Style8.down = buttonItem8.tint(Color.LIGHT_GRAY);
         Button itemIcon8 = new Button(buttonItem1Style8);
 
-
         text1 = new Label("", skin);
         text2 = new Label("", skin);
         text3 = new Label("", skin);
         text4 = new Label("", skin);
-        text5 = new Label("", skin);
-        text6 = new Label("", skin);
+
+        textItem1 = new Label("", skin);
+        textItem2 = new Label("", skin);
+        textItem3 = new Label("", skin);
+        textItem4 = new Label("", skin);
+        textItem5 = new Label("", skin);
+        textItem6 = new Label("", skin);
+        textItem7 = new Label("", skin);
+        textItem8 = new Label("", skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
         text3.setStyle(labelStyle);
         text4.setStyle(labelStyle);
-        text5.setStyle(labelStyle);
-        text6.setStyle(labelStyle);
+
+        textItem1.setStyle(labelStyle);
+        textItem2.setStyle(labelStyle);
+        textItem3.setStyle(labelStyle);
+        textItem4.setStyle(labelStyle);
+        textItem5.setStyle(labelStyle);
+        textItem6.setStyle(labelStyle);
+        textItem7.setStyle(labelStyle);
+        textItem8.setStyle(labelStyle);
+
 
         final Window statusWindow = new Window("ข้อมูลสถานะการใช้พลังงานไฟฟ้า", style);
         statusWindow.setModal(true);
@@ -637,9 +660,23 @@ public class GameScreen2 extends AbstractGameScreen {
         statusWindow.row().padTop(10);
         statusWindow.add(text4);
         statusWindow.row().padTop(10);
-        statusWindow.add(text5);
+        statusWindow.add(itemIcon1);
+        statusWindow.add(textItem1);
+        statusWindow.add(itemIcon2);
+        statusWindow.add(textItem2);
+        statusWindow.add(itemIcon3);
+        statusWindow.add(textItem3);
+        statusWindow.add(itemIcon4);
+        statusWindow.add(textItem4);
         statusWindow.row().padTop(10);
-        statusWindow.add(text6);
+        statusWindow.add(itemIcon5);
+        statusWindow.add(textItem5);
+        statusWindow.add(itemIcon6);
+        statusWindow.add(textItem6);
+        statusWindow.add(itemIcon7);
+        statusWindow.add(textItem7);
+        statusWindow.add(itemIcon8);
+        statusWindow.add(textItem8);
         statusWindow.row().padTop(10);
         statusWindow.add(closeButton).colspan(3);
         statusWindow.pack();
