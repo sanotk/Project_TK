@@ -682,6 +682,8 @@ public class GameScreen2 extends AbstractGameScreen {
             citizenQuest = null;
             dialogShow = false;
             player.status_find = false;
+            buttonAgree.setVisible(false);
+            buttonRefuse.setVisible(false);
         }else {
             dialog.tryToChangePage();
         }
