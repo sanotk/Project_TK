@@ -740,8 +740,6 @@ public class GameScreen2 extends AbstractGameScreen {
                 String text =
                         "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและพลังงานจะเหลือเพียงพอใช้ในด่านถัดไป\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                 dialog.show();
-                buttonAgree.setVisible(true);
-                buttonRefuse.setVisible(true);
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
                 level2.gate.state = Item.ItemState.ON;
@@ -752,8 +750,6 @@ public class GameScreen2 extends AbstractGameScreen {
                 String text =
                         "\"อันตราย! พลังงานที่เครื่องไฟฟ้าใช้มากกว่าพลังงานที่ผลิต ปล่อยไว้พลังงานจะหมดลงแล้วจะตายกันหมด รีบปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                 dialog.show();
-                buttonAgree.setVisible(true);
-                buttonRefuse.setVisible(true);
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
                 dialogShow = true;
