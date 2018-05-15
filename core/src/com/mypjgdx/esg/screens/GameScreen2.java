@@ -848,7 +848,13 @@ public class GameScreen2 extends AbstractGameScreen {
             dialog.hide();
             worldController.level.player.timeStop = false;
             if (stageThreeClear) {
-                game.setScreen(new GameScreen3(game, optionsWindow));
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        game.setScreen(new GameScreen3(game , optionsWindow));
+                    }
+                });
+
             }
             citizenQuest = null;
             dialogShow = false;
@@ -1046,7 +1052,17 @@ public class GameScreen2 extends AbstractGameScreen {
                 citizenQuest = systemWindow.citizen6;
             }
 
-            if ((level2.gate.state == Item.ItemState.ON) && (level2.gate.nearPlayer()) && player.status_find) {
+            if ((level2.gate.state == Item.ItemState.ON) && (level2.gate.nearPlayer())
+                    && player.status_find && stageTwoClear && !stageThreeClear) {
+                stageThreeClear = true;
+                player.timeStop = true;
+                player.timeClear = true;
+                String text =
+                        "\"ภารกิจสำเร็จ ยินดีต้อนรับสู่ด่านที่ 3\" \n\"(กรุณากด Enter เพื่อไปยังด่านถัดไป)\"";
+                dialog.show();
+                dialog.clearPages();
+                dialog.addWaitingPage(text);
+                dialogShow = true;
 
             }
         }
