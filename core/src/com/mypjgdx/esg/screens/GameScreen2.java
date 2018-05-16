@@ -951,6 +951,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 player.timeStop = true;
                 String text =
                         "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานไฟฟ้าภายในแบตเตอรี่ลดต่ำลงกว่า 1000 จูล ทุกคนจะขาดอากาศตาย รีบปิดเครื่องใช้ไฟฟ้าเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                level2.gate.state = Item.ItemState.OFF;
                 dialog.show();
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
@@ -1218,7 +1219,8 @@ public class GameScreen2 extends AbstractGameScreen {
         checkStageAndCount();
         checkObject();
 
-        if (!player.timeStop || !player.timeClear) {
+        if (!player.timeStop && !player.timeClear
+                && BatteryBar.instance.getBatteryStorage() < BatteryBar.BATTERY_MAX) {
             BatteryBar.instance.update(deltaTime);
         }
 
