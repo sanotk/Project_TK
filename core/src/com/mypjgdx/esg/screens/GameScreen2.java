@@ -901,7 +901,7 @@ public class GameScreen2 extends AbstractGameScreen {
                         "\"ภารกิจสำเร็จ ยินดีต้อนรับสู่ห้องที่ 2\" \n\"(กรุณากด Enter เพื่อไปยังด่านถัดไป)\"";
                 dialog.show();
                 buttonAgree.setVisible(true);
-                buttonRefuse.setVisible(false);
+                buttonRefuse.setVisible(true);
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
                 dialogShow = true;
