@@ -980,15 +980,19 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
-        if((stageTwoClear) && (player.status_find)){
+        if((player.status_find)){
             for (Item item : level3.items) {
                 if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
                     item.state = Item.ItemState.OFF;
                     EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
                     player.status_find = false;
                 } else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
-                    item.state = Item.ItemState.ONLOOP;
-                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
+                    if(item instanceof Gate || item instanceof Switch){
+
+                    }else{
+                        item.state = Item.ItemState.ONLOOP;
+                        EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
+                    }
                     player.status_find = false;
                 }
             }
@@ -1009,8 +1013,10 @@ public class GameScreen3 extends AbstractGameScreen {
         if(player.isSwitch && !itemStart){
             itemStart = true;
             for (Item item : level3.items){
-                if(item instanceof Computer || item instanceof Microwave || item instanceof Door || item instanceof Switch){
+                if(item instanceof Computer || item instanceof Microwave || item instanceof Gate){
                     item.state = Item.ItemState.OFF;
+                }else if(item instanceof Switch){
+                    item.state = Item.ItemState.ON;
                 }else{
                     item.state = Item.ItemState.ONLOOP;
                     EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
@@ -1147,8 +1153,7 @@ public class GameScreen3 extends AbstractGameScreen {
         checkStageAndCount();
         checkObject();
 
-        if (!player.timeStop && !player.timeClear
-                && BatteryBar.instance.getBatteryStorage() < BatteryBar.BATTERY_MAX) {
+        if (!player.timeStop && !player.timeClear) {
             BatteryBar.instance.update(deltaTime);
         }
 

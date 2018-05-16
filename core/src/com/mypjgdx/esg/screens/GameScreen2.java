@@ -1219,8 +1219,7 @@ public class GameScreen2 extends AbstractGameScreen {
         checkStageAndCount();
         checkObject();
 
-        if (!player.timeStop && !player.timeClear
-                && BatteryBar.instance.getBatteryStorage() < BatteryBar.BATTERY_MAX) {
+        if (!player.timeStop && !player.timeClear) {
             BatteryBar.instance.update(deltaTime);
         }
 
