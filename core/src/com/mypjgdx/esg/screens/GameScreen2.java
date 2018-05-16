@@ -1087,9 +1087,9 @@ public class GameScreen2 extends AbstractGameScreen {
         player.timeClear = true;
         String textString1 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
         String textString2 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
-        String textString3 = ("อัตราการผลิตพลังงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
-        String textString4 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
-        String textString5 = ("พลังงานที่ได้รับจากมอนสเตอร์ : " + String.valueOf((countEnemy * 1000) + " จูล"));
+        String textString3 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
+        String textString4 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
+        String textString5 = ("พลังงานไฟฟ้าที่ได้รับจากมอนสเตอร์ : " + String.valueOf((countEnemy * 1000) + " จูล"));
         textChart2.setText(textString1);
         textChart3.setText(textString2);
         textChart4.setText(textString3);
@@ -1209,7 +1209,7 @@ public class GameScreen2 extends AbstractGameScreen {
         checkStageAndCount();
         checkObject();
 
-        if (!player.timeStop) {
+        if (!player.timeStop || !player.timeClear) {
             BatteryBar.instance.update(deltaTime);
         }
 
