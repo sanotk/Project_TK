@@ -229,14 +229,14 @@ public class GameScreen extends AbstractGameScreen {
         buttonStyle2.down = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_03"));
         buttonStyle2.font = font;
 
-        buttonAgree = new TextButton("เข้าไปยังสถานที่หลบภัย", buttonStyle);
+        buttonAgree = new TextButton("ตกลง", buttonStyle);
         buttonAgree.setWidth(50);
         buttonAgree.setHeight(25);
         buttonAgree.setPosition(SCENE_WIDTH / 6 + 20, 120);
 
         buttonAgree.setVisible(false);
 
-        buttonRefuse = new TextButton("บันทึกและกลับไปหน้าเมนู", buttonStyle2);
+        buttonRefuse = new TextButton("ปฎิเสธ", buttonStyle2);
         buttonRefuse.setWidth(50);
         buttonRefuse.setHeight(25);
         buttonRefuse.setPosition(SCENE_WIDTH / 4, 120);
@@ -675,8 +675,8 @@ public class GameScreen extends AbstractGameScreen {
         buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonRuleStyle);
-        Button ruleIcon = new Button(buttonPauseStyle);
-        Button toolIcon = new Button(buttonToolStyle);
+//        Button ruleIcon = new Button(buttonPauseStyle);
+//        Button toolIcon = new Button(buttonToolStyle);
 
         Label text1 = new Label("กด c เพื่อฟัน", skin);
         Label text2 = new Label("กด x เพื่อยิงธนู (ยิงธนู 1 ดอกใช้พลังงานไฟฟ้า 200 จูล)", skin);
