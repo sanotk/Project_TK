@@ -812,6 +812,9 @@ public class GameScreen2 extends AbstractGameScreen {
                 @Override
                 public void run() {
                     game.setScreen(new MenuScreen(game));
+                    EnergyProducedBar.instance.energyProduced =0;
+                    EnergyUsedBar.instance.energyUse = 0;
+                    BatteryBar.instance.batteryStorage = 0;
                 }
             });
         }
@@ -822,6 +825,9 @@ public class GameScreen2 extends AbstractGameScreen {
                 @Override
                 public void run() {
                     game.setScreen(new GameOverScreen(game));
+                    EnergyProducedBar.instance.energyProduced =0;
+                    EnergyUsedBar.instance.energyUse = 0;
+                    BatteryBar.instance.batteryStorage = 0;
                 }
             });
         }
@@ -832,6 +838,9 @@ public class GameScreen2 extends AbstractGameScreen {
                 @Override
                 public void run() {
                     game.setScreen(new GameOverScreen(game));
+                    EnergyProducedBar.instance.energyProduced =0;
+                    EnergyUsedBar.instance.energyUse = 0;
+                    BatteryBar.instance.batteryStorage = 0;
                 }
             });
         }
@@ -842,6 +851,9 @@ public class GameScreen2 extends AbstractGameScreen {
                 @Override
                 public void run() {
                     game.setScreen(new GameOverScreen(game));
+                    EnergyProducedBar.instance.energyProduced =0;
+                    EnergyUsedBar.instance.energyUse = 0;
+                    BatteryBar.instance.batteryStorage = 0;
                 }
             });
         }
@@ -849,15 +861,6 @@ public class GameScreen2 extends AbstractGameScreen {
         if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
             dialog.hide();
             worldController.level.player.timeStop = false;
-            if (stageThreeClear) {
-                Gdx.app.postRunnable(new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setScreen(new GameScreen3(game , optionsWindow));
-                    }
-                });
-
-            }
             citizenQuest = null;
             dialogShow = false;
             player.status_find = false;

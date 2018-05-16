@@ -1266,6 +1266,9 @@ public class GameScreen extends AbstractGameScreen {
                 @Override
                 public void run() {
                     game.setScreen(new GameOverScreen(game));
+                    EnergyProducedBar.instance.energyProduced =0;
+                    EnergyUsedBar.instance.energyUse = 0;
+                    BatteryBar.instance.batteryStorage = 0;
                 }
             });
         }
@@ -1275,6 +1278,9 @@ public class GameScreen extends AbstractGameScreen {
                 @Override
                 public void run() {
                     game.setScreen(new GameOverScreen(game));
+                    EnergyProducedBar.instance.energyProduced =0;
+                    EnergyUsedBar.instance.energyUse = 0;
+                    BatteryBar.instance.batteryStorage = 0;
                 }
             });
         }
@@ -1284,6 +1290,9 @@ public class GameScreen extends AbstractGameScreen {
                 dialog.hide();
                 player.timeStop = false;
                 dialogShow = false;
+                player.status_find = false;
+                buttonAgree.setVisible(false);
+                buttonRefuse.setVisible(false);
             } else {
                 dialog.tryToChangePage();
             }
@@ -1351,6 +1360,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialogShow = true;
                 }
             } else if (!dialogDoor4 == true && stageFourClear) {
+                player.status_find = false;
                 dialogDoor4 = true;
                 player.timeStop = true;
                 String text =
@@ -1431,7 +1441,7 @@ public class GameScreen extends AbstractGameScreen {
             dialogCitizen = true;
             player.timeStop = true;
             String text =
-                    "\"เยี่ยม ระบบผลิตพลังงานไฟฟ้าด้วยแสงอาทิตย์ทำงานแล้ว รีบพาประชาชนไปยังประตูกันเถอะ\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว รีบพาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
