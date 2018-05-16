@@ -91,6 +91,7 @@ public class GameScreen3 extends AbstractGameScreen {
     private TextureRegionDrawable buttonItem8;
 
     private boolean dialogWarning;
+    private boolean itemStart;
 
     public enum systemWindow {
         citizen1,
@@ -791,12 +792,6 @@ public class GameScreen3 extends AbstractGameScreen {
             player.status_find = false;
         }
 
-        if (Gdx.input.isKeyJustPressed(Keys.NUM_4)) {
-            for (Citizen citizen : level3.citizens) {
-                citizen.quest = false;
-            }
-        }
-
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             MusicManager.instance.stop();
             Gdx.app.postRunnable(new Runnable() {
@@ -1052,6 +1047,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 break;
             }
         }
+
         if((stageTwoClear) && (player.status_find)){
             for (Item item : level3.items) {
                 if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
@@ -1083,6 +1079,11 @@ public class GameScreen3 extends AbstractGameScreen {
             level3.switchItem.resetAnimation();
             player.isSwitch = true;
             player.status_find = false;
+        }
+
+        if(player.isSwitch && !itemStart){
+            itemStart = true;
+
         }
     }
 

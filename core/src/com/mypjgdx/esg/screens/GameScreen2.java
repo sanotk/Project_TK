@@ -791,12 +791,6 @@ public class GameScreen2 extends AbstractGameScreen {
             player.status_find = false;
         }
 
-        if (Gdx.input.isKeyJustPressed(Keys.NUM_4)) {
-            for (Citizen citizen : level2.citizens) {
-                citizen.quest = false;
-            }
-        }
-
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             MusicManager.instance.stop();
             Gdx.app.postRunnable(new Runnable() {
