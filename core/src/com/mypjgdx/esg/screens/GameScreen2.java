@@ -302,7 +302,6 @@ public class GameScreen2 extends AbstractGameScreen {
                     worldController.level.player.quest6 = true;
                 }
                 addRequest.add(questState);
-                checkGameComplete();
                 System.out.println(questState);
                 questState = null;
                 worldController.level.player.status_find = false;
@@ -345,7 +344,6 @@ public class GameScreen2 extends AbstractGameScreen {
                 }
                 questCount += 1;
                 addRequest.add(questState);
-                checkGameComplete();
                 System.out.println(questState);
                 questState = null;
                 worldController.level.player.status_find = false;
@@ -776,18 +774,6 @@ public class GameScreen2 extends AbstractGameScreen {
         return ruleWindow;
     }
 
-    private void checkGameComplete() {
-        trueLink = 0;
-        if (addRequest.size() == 6) {
-            for (int i = 0; i < addRequest.size(); i++) {
-                for (int j = 0; j < isComplete.size(); j++)
-                    if (addRequest.get(i) == isComplete.get(j)) {
-                        trueLink += 1;
-                    }
-            }
-        }
-    }
-
     private void controlAndDebug() {
 
         Player player = worldController.level.player;
@@ -971,7 +957,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 }
             }
 
-            if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogWarning) {
+            if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogWarning) {
                 dialogWarning = true;
                 player.timeStop = true;
                 String text =
@@ -1058,12 +1044,12 @@ public class GameScreen2 extends AbstractGameScreen {
             }
 
             if ((level2.gate.state == Item.ItemState.ON) && (level2.gate.nearPlayer())
-                    && player.status_find && stageTwoClear && !stageThreeClear) {
+                    && player.status_find && stageThreeClear) {
                 stageThreeClear = true;
                 player.timeStop = true;
                 player.timeClear = true;
                 String text =
-                        "\"ภารกิจสำเร็จ ยินดีต้อนรับสู่ด่านที่ 3\" \n\"(กรุณากด Enter เพื่อไปยังด่านถัดไป)\"";
+                        "\"ภารกิจสำเร็จ ยินดีต้อนรับสู่ห้องที่ 2\" \n\"(กรุณากด Enter เพื่อไปยังด่านถัดไป)\"";
                 dialog.show();
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
