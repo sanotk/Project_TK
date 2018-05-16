@@ -1292,7 +1292,7 @@ public class GameScreen extends AbstractGameScreen {
         textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
 
         if (animation_status) {
-            EnergyProducedBar.instance.energyProduced = 2500;
+            EnergyProducedBar.instance.energyProduced = 2700;
             energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
         } else {
             energyLevel.setText(String.format(" %d", 0) + " วัตต์");
