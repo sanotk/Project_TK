@@ -922,7 +922,7 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if (questCount == 6 && !animation_status) {
-            if (BatteryBar.instance.getBatteryStorage()>=1000 && !dialogStage4) {
+            if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
                 dialogStage4 = true;
                 stageTwoClear = true;
                 stageThreeClear = true;
@@ -935,7 +935,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
                 dialogShow = true;
-            } else if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
+            } else if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
                 dialogStage4fail = true;
                 stageTwoClear = true;
                 player.timeStop = true;
