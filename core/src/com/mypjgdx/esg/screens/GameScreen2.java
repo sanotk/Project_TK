@@ -936,7 +936,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 player.timeStop = true;
                 level2.gate.state = Item.ItemState.ON;
                 String text =
-                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและพลังงานจะเหลือเพียงพอใช้ในห้องถัดไป\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและพลังงานจะเหลือเพียงพอใช้ในห้องถัดไป สามารถปิดหรือเปิดเครื่องใช้ไฟฟ้าเพิ่มได้\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                 dialog.show();
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
