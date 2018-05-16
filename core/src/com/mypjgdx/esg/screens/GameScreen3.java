@@ -622,14 +622,13 @@ public class GameScreen3 extends AbstractGameScreen {
 
     private Window createRuleWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("window_01"));
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
+        style.background = new TextureRegionDrawable(Assets.instance.window);
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
-        labelStyle.fontColor = Color.BLACK;
+        labelStyle.fontColor = Color.WHITE;
 
         Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
         TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
@@ -638,15 +637,42 @@ public class GameScreen3 extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonRuleStyle);
 
-        final Window ruleWindow = new Window("Rule", style);
+        Label text1 = new Label("กด c เพื่อฟัน", skin);
+        Label text2 = new Label("กด x เพื่อยิงธนู (ยิงธนู 1 ดอกใช้พลังงานไฟฟ้าจำนวน 200 จูล)", skin);
+        Label text3 = new Label("กด Z เพื่อวางกับดักสปริง เมื่อมอนสเตอร์เดินมาชนจะกระเด็นถอยหลัง (วางกับดัก 1 ครั้งใช้พลังงานไฟฟ้าจำนวน 1000 จูล)", skin);
+        Label text4 = new Label("กด W เพื่อฟันคลื่นดาบพลังสูง (ฟัน 1 ครั้งใช้พลังงานไฟฟ้าจำนวน 3000 จูล", skin);
+        Label text5 = new Label("กด A เพื่อติดต่อกับวัตถุ หรือประชาชน", skin);
+        Label text6 = new Label("กด S เพื่อดูผังการใช้พลังงานแบบละเอียด", skin);
+        Label text7 = new Label("", skin);
+
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
+        text4.setStyle(labelStyle);
+        text5.setStyle(labelStyle);
+        text6.setStyle(labelStyle);
+        text7.setStyle(labelStyle);
+
+        final Window ruleWindow = new Window("การควบคุม", style);
         ruleWindow.setModal(true);
-        ruleWindow.padTop(40);
+        ruleWindow.setSkin(skin);
+        ruleWindow.padTop(60);
         ruleWindow.padLeft(40);
         ruleWindow.padRight(40);
         ruleWindow.padBottom(20);
         ruleWindow.getTitleLabel().setAlignment(Align.center);
-        ruleWindow.row().padBottom(10).padTop(10);
+        ruleWindow.add(text1);
         ruleWindow.row().padTop(10);
+        ruleWindow.add(text2);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text3);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text4);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text5);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text6);
+        ruleWindow.row().padTop(20);
         ruleWindow.add(closeButton).colspan(3);
         ruleWindow.pack();
 
@@ -654,10 +680,11 @@ public class GameScreen3 extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ruleWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                worldController.level.player.timeStop = false;
+                if (!dialogShow) {
+                    worldController.level.player.timeStop = false;
+                }
             }
         });
-
 
         return ruleWindow;
     }
