@@ -31,7 +31,7 @@ public class Level1 extends Level {
         map = Assets.instance.map1;
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
-        player = new Player(mapLayer, 1500, 1000);
+        player = new Player(mapLayer, 100, 100);
 
         solarCell = new SolarCell(mapLayer, player);
         inverter = new Inverter(mapLayer, player);

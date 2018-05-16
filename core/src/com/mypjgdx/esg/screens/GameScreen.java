@@ -50,6 +50,9 @@ public class GameScreen extends AbstractGameScreen {
     public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
     public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
 
+    private TextButton buttonAgree;
+    private TextButton buttonRefuse;
+
     private Label textBullet;
     private Label textBeam;
     private Label textTrap;
@@ -172,7 +175,13 @@ public class GameScreen extends AbstractGameScreen {
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
 
-    public GameScreen(Game game, final Window optionsWindow) {
+    private TextureRegionDrawable pauseUp;
+    private TextureRegionDrawable toolUp;
+
+    private TextButton.TextButtonStyle buttonToolStyle;
+    private TextButton.TextButtonStyle buttonPauseStyle;
+
+    public GameScreen(final Game game, final Window optionsWindow) {
         super(game);
 
         stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT));
@@ -198,18 +207,18 @@ public class GameScreen extends AbstractGameScreen {
         isComplete.add(solarState.CtoI);
         isComplete.add(solarState.ItoD);
 
-        TextButton.TextButtonStyle buttonToolStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
+        buttonToolStyle = new TextButton.TextButtonStyle();
+        toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
         buttonToolStyle.up = toolUp;
         buttonToolStyle.down = toolUp.tint(Color.LIGHT_GRAY);
         buttonOption = new Button(buttonToolStyle);
         buttonOption.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 50);
 
-        TextButton.TextButtonStyle buttonRuleStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable ruleUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_pause"));
-        buttonRuleStyle.up = ruleUp;
-        buttonRuleStyle.down = ruleUp.tint(Color.LIGHT_GRAY);
-        buttonRule = new Button(buttonRuleStyle);
+        buttonPauseStyle = new TextButton.TextButtonStyle();
+        pauseUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_pause"));
+        buttonPauseStyle.up = pauseUp;
+        buttonPauseStyle.down = pauseUp.tint(Color.LIGHT_GRAY);
+        buttonRule = new Button(buttonPauseStyle);
         buttonRule.setPosition(SCENE_WIDTH - 100, SCENE_HEIGHT - 50);
 
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
@@ -219,6 +228,20 @@ public class GameScreen extends AbstractGameScreen {
         buttonStyle2.up = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_04"));
         buttonStyle2.down = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_03"));
         buttonStyle2.font = font;
+
+        buttonAgree = new TextButton("เข้าไปยังสถานที่หลบภัย", buttonStyle);
+        buttonAgree.setWidth(50);
+        buttonAgree.setHeight(25);
+        buttonAgree.setPosition(SCENE_WIDTH / 6 + 20, 120);
+
+        buttonAgree.setVisible(false);
+
+        buttonRefuse = new TextButton("บันทึกและกลับไปหน้าเมนู", buttonStyle2);
+        buttonRefuse.setWidth(50);
+        buttonRefuse.setHeight(25);
+        buttonRefuse.setPosition(SCENE_WIDTH / 4, 120);
+
+        buttonRefuse.setVisible(false);
 
         ruleWindow = createRuleWindow();
         ruleWindow.setPosition(
@@ -245,6 +268,8 @@ public class GameScreen extends AbstractGameScreen {
 
         stage.addActor(buttonOption);
         stage.addActor(buttonRule);
+        stage.addActor(buttonAgree);
+        stage.addActor(buttonRefuse);
 
         stage.addActor(optionsWindow);
         stage.addActor(ruleWindow);
@@ -271,6 +296,42 @@ public class GameScreen extends AbstractGameScreen {
                         Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
                 ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
                 worldController.level.player.timeStop = true;
+            }
+        });
+
+        buttonAgree.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                buttonAgree.setVisible(false);
+                buttonRefuse.setVisible(false);
+                dialog.hide();
+                worldController.level.player.timeStop = false;
+                dialogShow = false;
+                MusicManager.instance.stop();
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        game.setScreen(new GameScreen2(game,optionsWindow));
+                    }
+                });
+            }
+        });
+
+        buttonRefuse.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                buttonAgree.setVisible(false);
+                buttonRefuse.setVisible(false);
+                dialog.hide();
+                worldController.level.player.timeStop = false;
+                dialogShow = false;
+                MusicManager.instance.stop();
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        game.setScreen(new MenuScreen(game));
+                    }
+                });
             }
         });
 
@@ -614,6 +675,8 @@ public class GameScreen extends AbstractGameScreen {
         buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonRuleStyle);
+        Button ruleIcon = new Button(buttonPauseStyle);
+        Button toolIcon = new Button(buttonToolStyle);
 
         Label text1 = new Label("กด c เพื่อฟัน", skin);
         Label text2 = new Label("กด x เพื่อยิงธนู (ยิงธนู 1 ดอกใช้พลังงานไฟฟ้า 200 จูล)", skin);
@@ -622,6 +685,8 @@ public class GameScreen extends AbstractGameScreen {
         Label text5 = new Label("กด A เพื่อติดต่อกับวัตถุ หรือประชาชน", skin);
         Label text6 = new Label("กด S เพื่อดูผังการใช้พลังงานแบบละเอียด", skin);
         Label text7 = new Label("กด D เพื่ออ่านวิธีการทำงานของโซล่าเซลล์", skin);
+        Label text8 = new Label("เพื่อหยุดเกม และอ่านวิธีควบคุม", skin);
+        Label text9 = new Label("เพื่อเปิดเมนูปรับแต่ง", skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
@@ -630,6 +695,8 @@ public class GameScreen extends AbstractGameScreen {
         text5.setStyle(labelStyle);
         text6.setStyle(labelStyle);
         text7.setStyle(labelStyle);
+        text8.setStyle(labelStyle);
+        text9.setStyle(labelStyle);
 
         final Window ruleWindow = new Window("การควบคุม", style);
         ruleWindow.setModal(true);
@@ -639,19 +706,25 @@ public class GameScreen extends AbstractGameScreen {
         ruleWindow.padRight(40);
         ruleWindow.padBottom(20);
         ruleWindow.getTitleLabel().setAlignment(Align.center);
-        ruleWindow.add(text1);
+        ruleWindow.add(text1).colspan(2);
         ruleWindow.row().padTop(10);
-        ruleWindow.add(text2);
+        ruleWindow.add(text2).colspan(2);
         ruleWindow.row().padTop(10);
-        ruleWindow.add(text3);
+        ruleWindow.add(text3).colspan(2);
         ruleWindow.row().padTop(10);
-        ruleWindow.add(text4);
+        ruleWindow.add(text4).colspan(2);
         ruleWindow.row().padTop(10);
-        ruleWindow.add(text5);
+        ruleWindow.add(text5).colspan(2);
         ruleWindow.row().padTop(10);
-        ruleWindow.add(text6);
+        ruleWindow.add(text6).colspan(2);
         ruleWindow.row().padTop(10);
-        ruleWindow.add(text7);
+        ruleWindow.add(text7).colspan(2);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(ruleIcon).right();
+        ruleWindow.add(text8).left();
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(toolIcon).right();
+        ruleWindow.add(text9).left();
         ruleWindow.row().padTop(20);
         ruleWindow.add(closeButton).colspan(3);
         ruleWindow.pack();
@@ -1202,9 +1275,6 @@ public class GameScreen extends AbstractGameScreen {
             if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
                 dialog.hide();
                 player.timeStop = false;
-                if (stageFourClear) {
-                    game.setScreen(new GameScreen2(game, optionsWindow));
-                }
                 dialogShow = false;
             } else {
                 dialog.tryToChangePage();
@@ -1338,6 +1408,8 @@ public class GameScreen extends AbstractGameScreen {
                 String text =
                         "\"เยี่ยม ระบบผลิตพลังงานไฟฟ้าด้วยแสงอาทิตย์ทำงานแล้ว รีบพาประชาชนไปยังประตูกันเถอะ\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                 dialog.show();
+                buttonAgree.setVisible(true);
+                buttonRefuse.setVisible(true);
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
                 dialogShow = true;
