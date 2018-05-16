@@ -1537,7 +1537,7 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if (noItem == false) {
+        if (!noItem) {
             solarCellWindow.setVisible(false);
         }
 
