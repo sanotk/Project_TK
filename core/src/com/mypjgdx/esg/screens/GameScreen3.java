@@ -921,7 +921,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 player.timeStop = true;
                 level3.gate.state = Item.ItemState.ON;
                 String text =
-                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและพลังงานจะเหลือเพียงพอใช้ในห้องถัดไป สามารถปิดหรือเปิดเครื่องใช้ไฟฟ้าเพิ่มได้\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                        "\"ทำได้ดีมาก สถานที่หลบภัยกลับมาอยู่ในสภาพปกติเรียบร้อยแล้ว\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                 dialogDetail();
                 dialog.addWaitingPage(text);
             }
@@ -930,7 +930,7 @@ public class GameScreen3 extends AbstractGameScreen {
         if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogWarning) {
             dialogWarning = true;
             String text =
-                    "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานไฟฟ้าภายในแบตเตอรี่ลดต่ำลงกว่า 1000 จูล ทุกคนจะขาดอากาศตาย รีบปิดเครื่องใช้ไฟฟ้าเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานไฟฟ้าภายในแบตเตอรี่ลดต่ำลงกว่า 1000 จูล ทุกคนจะขาดอากาศหายใจ รีบปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นทั้งหมดเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
             dialogDetail();
             dialog.addWaitingPage(text);
         }
@@ -980,7 +980,7 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
-        if((player.status_find)){
+        if(player.status_find && player.isSwitch){
             for (Item item : level3.items) {
                 if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
                     item.state = Item.ItemState.OFF;
@@ -1015,13 +1015,13 @@ public class GameScreen3 extends AbstractGameScreen {
             for (Item item : level3.items){
                 if(item instanceof Computer || item instanceof Microwave || item instanceof Gate){
                     item.state = Item.ItemState.OFF;
+                    questCount += 1;
                 }else if(item instanceof Switch){
                     item.state = Item.ItemState.ON;
                 }else{
                     item.state = Item.ItemState.ONLOOP;
                     EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
                 }
-
             }
         }
     }

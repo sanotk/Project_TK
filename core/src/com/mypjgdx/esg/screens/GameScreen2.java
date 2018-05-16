@@ -1010,7 +1010,6 @@ public class GameScreen2 extends AbstractGameScreen {
             dialog.addWaitingPage(text);
             citizenQuest = systemWindow.citizen6;
         }
-
     }
 
     private void dialogCitizenDetail(){
