@@ -14,7 +14,15 @@ import com.mypjgdx.esg.game.objects.weapons.NormalSword;
 
 public class Level1 extends Level {
 
-    public Item solarCell;
+    public Item solarCell1;
+    public Item solarCell2;
+    public Item solarCell3;
+    public Item solarCell4;
+    public Item solarCell5;
+    public Item solarCell6;
+    public Item solarCell7;
+    public Item solarCell8;
+    public Item solarCell9;
     public Item inverter;
     public Item battery;
     public Item charge;
@@ -33,13 +41,29 @@ public class Level1 extends Level {
 
         player = new Player(mapLayer, 100, 100);
 
-        solarCell = new SolarCell(mapLayer, player);
+        solarCell1 = new SolarCell(mapLayer, player);
+        solarCell2 = new SolarCell(mapLayer, player ,1500f ,1150f);
+        solarCell3 = new SolarCell(mapLayer, player ,1500f ,1200f);
+        solarCell4 = new SolarCell(mapLayer, player ,1400f ,1100f);
+        solarCell5 = new SolarCell(mapLayer, player ,1400f ,1150f);
+        solarCell6 = new SolarCell(mapLayer, player ,1400f ,1200f);
+        solarCell7 = new SolarCell(mapLayer, player ,1300f ,1100f);
+        solarCell8 = new SolarCell(mapLayer, player ,1300f ,1150f);
+        solarCell9 = new SolarCell(mapLayer, player ,1300f ,1200f);
         inverter = new Inverter(mapLayer, player);
         battery = new Battery(mapLayer, player);
         charge = new Charge(mapLayer, player);
         door = new Door(mapLayer, player);
 
-        items.add(solarCell);
+        items.add(solarCell1);
+        items.add(solarCell2);
+        items.add(solarCell3);
+        items.add(solarCell4);
+        items.add(solarCell5);
+        items.add(solarCell6);
+        items.add(solarCell7);
+        items.add(solarCell8);
+        items.add(solarCell9);
         items.add(inverter);
         items.add(battery);
         items.add(charge);

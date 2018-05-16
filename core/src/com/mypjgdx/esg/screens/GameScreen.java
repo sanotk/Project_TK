@@ -1087,26 +1087,26 @@ public class GameScreen extends AbstractGameScreen {
         if (solarState == SolarState.StoC) {
             addedStoC = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
-                    level1.solarCell,
+                    level1.solarCell1,
                     level1.charge,
                     worldController.level.links, solarState);
 
         } else if (solarState == SolarState.StoB) {
             addedStoB = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
-                    level1.solarCell,
+                    level1.solarCell1,
                     level1.battery,
                     worldController.level.links, solarState);
         } else if (solarState == SolarState.StoI) {
             addedStoI = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
-                    level1.solarCell,
+                    level1.solarCell1,
                     level1.inverter,
                     worldController.level.links, solarState);
         } else if (solarState == SolarState.StoD) {
             addedStoD = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
-                    level1.solarCell,
+                    level1.solarCell1,
                     level1.door,
                     worldController.level.links, solarState);
         } else if (solarState == SolarState.CtoB) {
@@ -1464,7 +1464,7 @@ public class GameScreen extends AbstractGameScreen {
                 Gdx.graphics.getWidth() / 2 - solarCellWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - solarCellWindow.getHeight() / 2);
         if (!animation_status && player.status_find && dialogDoor3) {
-            if (level1.solarCell.nearPlayer()) {
+            if (level1.solarCell1.nearPlayer()) {
                 solarWindow = systemWindow.solarcell;
                 checkButton(solarWindow);
                 solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));

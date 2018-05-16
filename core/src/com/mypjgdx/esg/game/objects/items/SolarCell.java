@@ -21,6 +21,8 @@ public class SolarCell extends Item{
     public SolarCell(TiledMapTileLayer mapLayer, Player player, float P_X, float P_Y){
         super(Assets.instance.solarCellAltas, SCALE, SCALE , P_X , P_Y);
         init(mapLayer,  player );
+
+        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "solarcell2");
     }
 
     @Override
