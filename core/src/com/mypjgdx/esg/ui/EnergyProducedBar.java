@@ -7,7 +7,7 @@ public class EnergyProducedBar implements Json.Serializable {
 
     public static final EnergyProducedBar instance = new EnergyProducedBar();
 
-    public float energyProduced = 0;
+    public float energyProduced = 2700;
 
     private EnergyProducedBar() {
 
