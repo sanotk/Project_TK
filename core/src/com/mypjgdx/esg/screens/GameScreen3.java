@@ -22,13 +22,10 @@ import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level3;
-import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.items.Computer;
-import com.mypjgdx.esg.game.objects.items.Item;
-import com.mypjgdx.esg.game.objects.items.Microwave;
+import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.ui.Dialog;
 import com.mypjgdx.esg.utils.QuestState;
@@ -1086,7 +1083,7 @@ public class GameScreen3 extends AbstractGameScreen {
         if(player.isSwitch && !itemStart){
             itemStart = true;
             for (Item item : level3.items){
-                if(item instanceof Computer || item instanceof Microwave){
+                if(item instanceof Computer || item instanceof Microwave || item instanceof Door || item instanceof Switch){
                     item.state = Item.ItemState.OFF;
                 }else{
                     item.state = Item.ItemState.ONLOOP;
@@ -1233,26 +1230,6 @@ public class GameScreen3 extends AbstractGameScreen {
             status();
         } else {
             statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-        }
-
-        for (Citizen citizen : level3.citizens) {
-            if (citizen.itemOn) {
-                if (!citizen.getGoalItem().count) {
-                    citizen.getGoalItem().state = Item.ItemState.ONLOOP;
-                    EnergyUsedBar.instance.energyUse += citizen.getGoalItem().getEnergyBurn();
-                    citizen.getGoalItem().count = true;
-                    questCount += 1;
-                    System.out.print(questCount);
-                    System.out.print(addRequest.size());
-                } else if (citizen.getGoalItem().count && citizen.getGoalItem().state != Item.ItemState.OFF && !player.timeStop) {
-                    citizen.getGoalItem().timeCount -= deltaTime;
-                    if (citizen.getGoalItem().timeCount <= 0) {
-                        citizen.getGoalItem().state = Item.ItemState.OFF; // ทำงาน
-                        EnergyUsedBar.instance.energyUse -= citizen.getGoalItem().getEnergyBurn();
-                        citizen.itemOn = false;
-                    }
-                }
-            }
         }
 
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
