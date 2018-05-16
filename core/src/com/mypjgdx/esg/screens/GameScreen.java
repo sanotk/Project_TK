@@ -330,6 +330,9 @@ public class GameScreen extends AbstractGameScreen {
                     @Override
                     public void run() {
                         game.setScreen(new MenuScreen(game));
+                        EnergyProducedBar.instance.energyProduced =0;
+                        EnergyUsedBar.instance.energyUse = 0;
+                        BatteryBar.instance.batteryStorage = 0;
                     }
                 });
             }
@@ -1234,6 +1237,9 @@ public class GameScreen extends AbstractGameScreen {
                 @Override
                 public void run() {
                     game.setScreen(new MenuScreen(game));
+                    EnergyProducedBar.instance.energyProduced =0;
+                    EnergyUsedBar.instance.energyUse = 0;
+                    BatteryBar.instance.batteryStorage = 0;
                 }
             });
         }
