@@ -164,7 +164,7 @@ public class GameScreen2 extends AbstractGameScreen {
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
 
-    public GameScreen2(Game game, final Window optionsWindow) {
+    public GameScreen2(final Game game, final Window optionsWindow) {
         super(game);
 
         stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT));
@@ -276,42 +276,52 @@ public class GameScreen2 extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
-                if (citizenQuest == systemWindow.citizen1) {
-                    questState = QuestState.quest1yes;
-                    worldController.level.player.quest1 = true;
-                    worldController.level.player.quest_window_1 = true;
-                } else if (citizenQuest == systemWindow.citizen2) {
-                    questState = QuestState.quest2yes;
-                    worldController.level.player.quest_window_2 = true;
-                    worldController.level.player.quest2 = true;
-                } else if (citizenQuest == systemWindow.citizen3) {
-                    questState = QuestState.quest3yes;
-                    worldController.level.player.quest_window_3 = true;
-                    worldController.level.player.quest3 = true;
-                } else if (citizenQuest == systemWindow.citizen4) {
-                    questState = QuestState.quest4yes;
-                    worldController.level.player.quest_window_4 = true;
-                    worldController.level.player.quest4 = true;
-                } else if (citizenQuest == systemWindow.citizen5) {
-                    questState = QuestState.quest5yes;
-                    worldController.level.player.quest_window_5 = true;
-                    worldController.level.player.quest5 = true;
-                } else if (citizenQuest == systemWindow.citizen6) {
-                    questState = QuestState.quest6yes;
-                    worldController.level.player.quest_window_6 = true;
-                    worldController.level.player.quest6 = true;
+                if(stageFourClear){
+                    worldController.level.player.timeClear = false;
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            game.setScreen(new GameScreen3(game,optionsWindow));
+                        }
+                    });
+                }else{
+                    if (citizenQuest == systemWindow.citizen1) {
+                        questState = QuestState.quest1yes;
+                        worldController.level.player.quest1 = true;
+                        worldController.level.player.quest_window_1 = true;
+                    } else if (citizenQuest == systemWindow.citizen2) {
+                        questState = QuestState.quest2yes;
+                        worldController.level.player.quest_window_2 = true;
+                        worldController.level.player.quest2 = true;
+                    } else if (citizenQuest == systemWindow.citizen3) {
+                        questState = QuestState.quest3yes;
+                        worldController.level.player.quest_window_3 = true;
+                        worldController.level.player.quest3 = true;
+                    } else if (citizenQuest == systemWindow.citizen4) {
+                        questState = QuestState.quest4yes;
+                        worldController.level.player.quest_window_4 = true;
+                        worldController.level.player.quest4 = true;
+                    } else if (citizenQuest == systemWindow.citizen5) {
+                        questState = QuestState.quest5yes;
+                        worldController.level.player.quest_window_5 = true;
+                        worldController.level.player.quest5 = true;
+                    } else if (citizenQuest == systemWindow.citizen6) {
+                        questState = QuestState.quest6yes;
+                        worldController.level.player.quest_window_6 = true;
+                        worldController.level.player.quest6 = true;
+                    }
+                    addRequest.add(questState);
+                    System.out.println(questState);
+                    questState = null;
+                    worldController.level.player.questScreen1 = false;
+                    worldController.level.player.questScreen2 = false;
+                    worldController.level.player.questScreen3 = false;
+                    worldController.level.player.questScreen4 = false;
+                    worldController.level.player.questScreen5 = false;
+                    worldController.level.player.questScreen6 = false;
                 }
-                addRequest.add(questState);
-                System.out.println(questState);
-                questState = null;
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
-                worldController.level.player.questScreen1 = false;
-                worldController.level.player.questScreen2 = false;
-                worldController.level.player.questScreen3 = false;
-                worldController.level.player.questScreen4 = false;
-                worldController.level.player.questScreen5 = false;
-                worldController.level.player.questScreen6 = false;
                 dialog.hide();
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
