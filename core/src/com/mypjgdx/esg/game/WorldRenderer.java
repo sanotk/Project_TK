@@ -34,14 +34,14 @@ public class WorldRenderer implements Disposable {
         init();
     }
 
-    private void init () {
+    private void init() {
         camera = new OrthographicCamera(); //สร้างออปเจ็คกล้องเก็บไว้ในตัวแปร camera
         viewport = new ExtendViewport(SCENE_WIDTH, SCENE_HEIGHT, camera); //สร้างออปเจ็คการมองของกล้องเก็บไว้ในตัวแปร
 
         batch = new SpriteBatch();//สร้างออปเจ็คไว้วาดสิ่งต่างๆ
-        tiledRenderer = new OrthogonalTiledMapRenderer(null,batch);
+        tiledRenderer = new OrthogonalTiledMapRenderer(null, batch);
 
-        lightFbo = new FrameBuffer(Pixmap.Format.RGB888, (int)viewport.getMinWorldWidth(), (int)viewport.getMinWorldHeight(), false);
+        lightFbo = new FrameBuffer(Pixmap.Format.RGB888, (int) viewport.getMinWorldWidth(), (int) viewport.getMinWorldHeight(), false);
 
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setColor(1.0f, 0.0f, 0.0f, 1.0f);
@@ -50,7 +50,7 @@ public class WorldRenderer implements Disposable {
         //batch.setShader(shader);
     }
 
-    public void render () {
+    public void render() {
         renderWorld();
         renderGui();
     }
@@ -67,6 +67,7 @@ public class WorldRenderer implements Disposable {
         if(!worldController.level.player.isSwitch) {
             worldController.level.renderFbo(batch, camera, lightFbo);
         }
+
     }
 
     private void renderGui() {
@@ -88,7 +89,7 @@ public class WorldRenderer implements Disposable {
         shader.end();
 
         lightFbo.dispose();
-        lightFbo = new FrameBuffer(Pixmap.Format.RGB888, (int)viewport.getWorldWidth(), (int)viewport.getWorldHeight(), false);
+        lightFbo = new FrameBuffer(Pixmap.Format.RGB888, (int) viewport.getWorldWidth(), (int) viewport.getWorldHeight(), false);
     }
 
     @Override
@@ -98,7 +99,6 @@ public class WorldRenderer implements Disposable {
         shader.dispose();
         lightFbo.dispose();
     }
-
 
 
 }

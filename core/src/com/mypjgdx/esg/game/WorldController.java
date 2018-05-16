@@ -97,7 +97,6 @@ public class WorldController extends InputAdapter {
 //                file.delete();
 //                file.writeString(choice, true);         // True means append, false means overwrite.
 
-
                 Json json = new Json(JsonWriter.OutputType.json);
                 System.out.print(json.prettyPrint(level));
                 json.toJson(level, file);

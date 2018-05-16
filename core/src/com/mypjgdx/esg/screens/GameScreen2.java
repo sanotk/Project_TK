@@ -46,7 +46,7 @@ public class GameScreen2 extends AbstractGameScreen {
 
     private Stage stage;
     private Skin skin;
-    ;
+
     private String titleQuest;
 
     public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
