@@ -302,7 +302,6 @@ public class GameScreen3 extends AbstractGameScreen {
                     worldController.level.player.quest6 = true;
                 }
                 addRequest.add(questState);
-                checkGameComplete();
                 System.out.println(questState);
                 questState = null;
                 worldController.level.player.status_find = false;
@@ -345,7 +344,6 @@ public class GameScreen3 extends AbstractGameScreen {
                 }
                 questCount += 1;
                 addRequest.add(questState);
-                checkGameComplete();
                 System.out.println(questState);
                 questState = null;
                 worldController.level.player.status_find = false;
@@ -515,7 +513,7 @@ public class GameScreen3 extends AbstractGameScreen {
         textChart3.setStyle(labelStyle);
         textChart4.setStyle(labelStyle);
         textChart5.setStyle(labelStyle);
-        textChart6 = new Label("", skin);
+        textChart6.setStyle(labelStyle);
 
         final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
         chartWindow.setModal(true);
@@ -543,17 +541,16 @@ public class GameScreen3 extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 chartWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                dialogDoor4 = true;
                 stageFourClear = true;
-                if (!dialogShow) {
-                    worldController.level.player.timeStop = false;
-                }
+                worldController.level.player.timeStop = true;
                 String text =
-                        "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
+                        "\"ภารกิจสำเร็จ ยินดีต้อนรับสู่ห้องที่ 2\" \n\"(กรุณากด Enter เพื่อไปยังด่านถัดไป)\"";
                 dialog.show();
+                buttonAgree.setVisible(true);
+                buttonRefuse.setVisible(true);
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
-                System.out.print(text);
+                dialogShow = true;
             }
         });
 
@@ -776,18 +773,6 @@ public class GameScreen3 extends AbstractGameScreen {
         return ruleWindow;
     }
 
-    private void checkGameComplete() {
-        trueLink = 0;
-        if (addRequest.size() == 6) {
-            for (int i = 0; i < addRequest.size(); i++) {
-                for (int j = 0; j < isComplete.size(); j++)
-                    if (addRequest.get(i) == isComplete.get(j)) {
-                        trueLink += 1;
-                    }
-            }
-        }
-    }
-
     private void controlAndDebug() {
 
         Player player = worldController.level.player;
@@ -806,13 +791,19 @@ public class GameScreen3 extends AbstractGameScreen {
             player.status_find = false;
         }
 
+        if (Gdx.input.isKeyJustPressed(Keys.NUM_4)) {
+            for (Citizen citizen : level2.citizens) {
+                citizen.quest = false;
+            }
+        }
+
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             MusicManager.instance.stop();
             Gdx.app.postRunnable(new Runnable() {
                 @Override
                 public void run() {
                     game.setScreen(new MenuScreen(game));
-                    EnergyProducedBar.instance.energyProduced =0;
+                    EnergyProducedBar.instance.energyProduced = 0;
                     EnergyUsedBar.instance.energyUse = 0;
                     BatteryBar.instance.batteryStorage = 0;
                 }
@@ -825,7 +816,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 @Override
                 public void run() {
                     game.setScreen(new GameOverScreen(game));
-                    EnergyProducedBar.instance.energyProduced =0;
+                    EnergyProducedBar.instance.energyProduced = 0;
                     EnergyUsedBar.instance.energyUse = 0;
                     BatteryBar.instance.batteryStorage = 0;
                 }
@@ -838,7 +829,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 @Override
                 public void run() {
                     game.setScreen(new GameOverScreen(game));
-                    EnergyProducedBar.instance.energyProduced =0;
+                    EnergyProducedBar.instance.energyProduced = 0;
                     EnergyUsedBar.instance.energyUse = 0;
                     BatteryBar.instance.batteryStorage = 0;
                 }
@@ -851,7 +842,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 @Override
                 public void run() {
                     game.setScreen(new GameOverScreen(game));
-                    EnergyProducedBar.instance.energyProduced =0;
+                    EnergyProducedBar.instance.energyProduced = 0;
                     EnergyUsedBar.instance.energyUse = 0;
                     BatteryBar.instance.batteryStorage = 0;
                 }
@@ -866,6 +857,10 @@ public class GameScreen3 extends AbstractGameScreen {
             player.status_find = false;
             buttonAgree.setVisible(false);
             buttonRefuse.setVisible(false);
+            dialogDoor1 = false;
+            dialogDoor2 = false;
+            dialogDoor3 = false;
+            dialogDoor4 = false;
         } else {
             dialog.tryToChangePage();
         }
@@ -887,196 +882,146 @@ public class GameScreen3 extends AbstractGameScreen {
         Player player = worldController.level.player;
         Level2 level2 = (Level2) worldController.level;
 
-        if (!animation_status) {
-            if ((level2.gate.nearPlayer()) && (player.status_find)) {
-                if (!player.stageOneClear && !dialogDoor1) {
-                    dialogDoor1 = true;
-                    player.timeStop = true;
-                    String text =
-                            "\"พื้นที่แห่งนี้ยังอันตรายอยู่ โปรดกำจัดมอนสเตอร์ให้หมด แล้วประชาชนที่ซ่อนอยู่จะปรากฎตัวออกมา\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    dialog.show();
-                    dialog.clearPages();
-                    dialog.addWaitingPage(text);
-                    dialogShow = true;
-                } else if (player.stageOneClear && !stageTwoClear && !dialogDoor2) {
-                    dialogDoor2 = true;
-                    player.timeStop = true;
-                    String text =
-                            "\"ยังตอบรับคำขอของประชาชนไม่ครบทุกคน กรุณาไปตอบรับคำขอให้ครบก่อน\" \n\"เ (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    dialog.show();
-                    dialog.clearPages();
-                    dialog.addWaitingPage(text);
-                    dialogShow = true;
-                } else if (stageTwoClear && !stageThreeClear && !dialogDoor3) {
-                    dialogDoor3 = true;
-                    player.timeStop = true;
-                    String text =
-                            "\"กำลังไฟฟ้าที่ผลิตน้อยกว่ากำลังไฟฟ้าที่ใช้ กรุณาไปปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นก่อน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    dialog.show();
-                    dialog.clearPages();
-                    dialog.addWaitingPage(text);
-                    dialogShow = true;
-                }
-            }
-
-            if (!dialogEnemy) {
-                for (int i = 0; i < worldController.level.enemies.size(); i++) {
-                    Enemy enemy = worldController.level.enemies.get(i);
-                    if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
-                        dialogEnemy = true;
-                        player.timeStop = true;
-                        String text =
-                                "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                        dialog.show();
-                        dialog.clearPages();
-                        dialog.addWaitingPage(text);
-                        dialogShow = true;
-                    }
-                }
-            }
-
-            if (player.stageOneClear && !dialogCitizen) {
-                dialogCitizen = true;
+        if ((level2.gate.nearPlayer()) && (player.status_find)) {
+            if (!animation_status && stageTwoClear && !stageThreeClear && !dialogDoor3) {
+                dialogDoor3 = true;
                 player.timeStop = true;
                 String text =
-                        "\"กำจัดมอนสเตอร์หมดแล้ว ลองถามประชาชนดีกว่าว่าต้องการอะไรรึเปล่า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                        "\"พลังงานมีไม่เพียงพอใช้ในห้องถัดไป กรุณาปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเสียก่อน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                 dialog.show();
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
                 dialogShow = true;
-            }
-
-            if (questCount == 6 && !animation_status) {
-                if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
-                    dialogStage4 = true;
-                    stageTwoClear = true;
-                    animation_status = true;
-                    player.timeStop = true;
-                    String text =
-                            "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและพลังงานจะเหลือเพียงพอใช้ในด่านถัดไป\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    dialog.show();
-                    dialog.clearPages();
-                    dialog.addWaitingPage(text);
-                    level2.gate.state = Item.ItemState.ON;
-                    dialogShow = true;
-                } else if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
-                    dialogStage4fail = true;
-                    player.timeStop = true;
-                    String text =
-                            "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต ปล่อยไว้พลังงานจะหมดลงแล้วทุกคนจะขาดอากาศตายกันหมด รีบปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    dialog.show();
-                    dialog.clearPages();
-                    dialog.addWaitingPage(text);
-                    dialogShow = true;
-                }
-            }
-
-            if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogWarning) {
-                dialogWarning = true;
-                player.timeStop = true;
-                String text =
-                        "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                dialog.show();
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
-                dialogShow = true;
-            }
-
-            if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
-                player.timeStop = true;
-                player.status_find = false;
-                String text =
-                        "\"ขอเปิดเครื่องปรับอากาศ 1 ชั่วโมง เครื่องปรับอากาศใช้กำลังไฟฟ้า \""
-                                + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า " + level2.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
-                dialog.show();
-                buttonAgree.setVisible(true);
-                buttonRefuse.setVisible(true);
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
-                dialogShow = true;
-                citizenQuest = systemWindow.citizen1;
-            } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
-                player.timeStop = true;
-                player.status_find = false;
-                String text =
-                        "\"ขอใช้ไมโครเวฟอุ่นอาหาร 3 นาที " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
-                dialog.show();
-                buttonAgree.setVisible(true);
-                buttonRefuse.setVisible(true);
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
-                dialogShow = true;
-                citizenQuest = systemWindow.citizen2;
-            } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
-                player.timeStop = true;
-                player.status_find = false;
-                String text =
-                        "\"ขอใช้งานคอมพิวเตอร์ 1 ชั่วโมง\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
-                dialog.show();
-                buttonAgree.setVisible(true);
-                buttonRefuse.setVisible(true);
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
-                dialogShow = true;
-                citizenQuest = systemWindow.citizen3;
-            } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
-                player.timeStop = true;
-                player.status_find = false;
-                String text =
-                        "\"ขอใช้งานตู้เย็น\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
-                dialog.show();
-                buttonAgree.setVisible(true);
-                buttonRefuse.setVisible(true);
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
-                dialogShow = true;
-                citizenQuest = systemWindow.citizen4;
-            } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
-                player.timeStop = true;
-                player.status_find = false;
-                String text =
-                        "\"ขอหุงข้าวใช้เวลา 30 นาที\" " + "\n\"( หม้อหุงข้าวใช้กำลังไฟฟ้า " + level2.riceCooker.getEnergyBurn() + " วัตต์ )\" ";
-                dialog.show();
-                buttonAgree.setVisible(true);
-                buttonRefuse.setVisible(true);
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
-                dialogShow = true;
-                citizenQuest = systemWindow.citizen5;
-            } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
-                player.timeStop = true;
-                player.status_find = false;
-                String text =
-                        "\"ขอดูโทรทัศน์ 1 ชั่วโมง\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level2.television.getEnergyBurn() + " วัตต์ )\" ";
-                dialog.show();
-                buttonAgree.setVisible(true);
-                buttonRefuse.setVisible(true);
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
-                dialogShow = true;
-                citizenQuest = systemWindow.citizen6;
-            }
-
-            if ((level2.gate.state == Item.ItemState.ON) && (level2.gate.nearPlayer())
-                    && player.status_find && stageTwoClear && !stageThreeClear) {
-                stageThreeClear = true;
+            } else if (animation_status && stageThreeClear && !dialogDoor4) {
+                dialogDoor4 = true;
                 player.timeStop = true;
                 player.timeClear = true;
+                chartStatus();
+            }
+        }
+
+        if (!dialogEnemy) {
+            for (int i = 0; i < worldController.level.enemies.size(); i++) {
+                Enemy enemy = worldController.level.enemies.get(i);
+                if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
+                    dialogEnemy = true;
+                    player.timeStop = true;
+                    String text =
+                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    dialog.show();
+                    dialog.clearPages();
+                    dialog.addWaitingPage(text);
+                    dialogShow = true;
+                }
+            }
+        }
+
+        if (player.stageOneClear && !dialogCitizen) {
+            dialogCitizen = true;
+            player.timeStop = true;
+            String text =
+                    "\"กำจัดมอนสเตอร์หมดแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัยดีกว่า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+            dialogShow = true;
+        }
+
+        if (questCount == 6 && !animation_status) {
+            if (BatteryBar.instance.getBatteryStorage()>=1000 && !dialogStage4) {
+                dialogStage4 = true;
+                stageTwoClear = true;
+                stageThreeClear = true;
+                animation_status = true;
+                player.timeStop = true;
+                level2.gate.state = Item.ItemState.ON;
                 String text =
-                        "\"ภารกิจสำเร็จ ยินดีต้อนรับสู่ด่านที่ 3\" \n\"(กรุณากด Enter เพื่อไปยังด่านถัดไป)\"";
+                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและพลังงานจะเหลือเพียงพอใช้ในห้องถัดไป สามารถปิดหรือเปิดเครื่องใช้ไฟฟ้าเพิ่มได้\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                 dialog.show();
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
                 dialogShow = true;
-
+            } else if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
+                dialogStage4fail = true;
+                stageTwoClear = true;
+                player.timeStop = true;
+                String text =
+                        "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานไฟฟ้าภายในแบตเตอรี่ลดต่ำลงกว่า 1000 จูล ทุกคนจะขาดอากาศตาย รีบปิดเครื่องใช้ไฟฟ้าเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                dialog.show();
+                dialog.clearPages();
+                dialog.addWaitingPage(text);
+                dialogShow = true;
             }
         }
+
+        if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogWarning) {
+            dialogWarning = true;
+            player.timeStop = true;
+            String text =
+                    "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+            dialogShow = true;
+        }
+
+        if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
+            String text =
+                    "\"ขอเปิดเครื่องปรับอากาศ 1 ชั่วโมง เครื่องปรับอากาศใช้กำลังไฟฟ้า \""
+                            + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า " + level2.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
+            dialogCitizenDetail();
+            dialog.addWaitingPage(text);
+            citizenQuest = systemWindow.citizen1;
+        } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
+            String text =
+                    "\"ขอใช้ไมโครเวฟอุ่นอาหาร 3 นาที " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
+            dialogCitizenDetail();
+            dialog.addWaitingPage(text);
+            citizenQuest = systemWindow.citizen2;
+        } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
+            String text =
+                    "\"ขอใช้งานคอมพิวเตอร์ 1 ชั่วโมง\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
+            dialogCitizenDetail();
+            dialog.addWaitingPage(text);
+            citizenQuest = systemWindow.citizen3;
+        } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
+            String text =
+                    "\"ขอใช้งานตู้เย็น\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
+            dialogCitizenDetail();
+            dialog.addWaitingPage(text);
+            citizenQuest = systemWindow.citizen4;
+        } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
+            player.timeStop = true;
+            player.status_find = false;
+            String text =
+                    "\"ขอหุงข้าวใช้เวลา 30 นาที\" " + "\n\"( หม้อหุงข้าวใช้กำลังไฟฟ้า " + level2.riceCooker.getEnergyBurn() + " วัตต์ )\" ";
+            dialogCitizenDetail();
+            citizenQuest = systemWindow.citizen5;
+            dialog.addWaitingPage(text);
+        } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
+            String text =
+                    "\"ขอดูโทรทัศน์ 1 ชั่วโมง\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level2.television.getEnergyBurn() + " วัตต์ )\" ";
+            dialogCitizenDetail();
+            dialog.addWaitingPage(text);
+            citizenQuest = systemWindow.citizen6;
+        }
+
+    }
+
+    private void dialogCitizenDetail(){
+        Player player = worldController.level.player;
+        player.timeStop = true;
+        player.status_find = false;
+        dialog.show();
+        buttonAgree.setVisible(true);
+        buttonRefuse.setVisible(true);
+        dialog.clearPages();
+        dialogShow = true;
     }
 
     private void checkStageAndCount() {
 
         Player player = worldController.level.player;
-        Level2 level2 = (Level2) worldController.level;
 
         for (int i = 0; i < worldController.level.enemies.size(); i++) {
             Enemy enemy = worldController.level.enemies.get(i);
@@ -1090,7 +1035,6 @@ public class GameScreen3 extends AbstractGameScreen {
         if (countEnemy == worldController.level.enemies.size()) {
             player.stageOneClear = true;
         }
-
 
 
     }
@@ -1108,12 +1052,17 @@ public class GameScreen3 extends AbstractGameScreen {
                 break;
             }
         }
-
-        for (Item item : level2.items) {
-            if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
-                item.state = Item.ItemState.OFF;
-                EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
-                player.status_find = false;
+        if((stageTwoClear) && (player.status_find)){
+            for (Item item : level2.items) {
+                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
+                    item.state = Item.ItemState.OFF;
+                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
+                    player.status_find = false;
+                } else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
+                    item.state = Item.ItemState.ONLOOP;
+                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
+                    player.status_find = false;
+                }
             }
         }
 
@@ -1135,6 +1084,26 @@ public class GameScreen3 extends AbstractGameScreen {
             player.isSwitch = true;
             player.status_find = false;
         }
+    }
+
+    private void chartStatus() {
+        Player player = worldController.level.player;
+        player.timeStop = true;
+        player.timeClear = true;
+        String textString1 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
+        String textString2 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
+        String textString3 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
+        String textString4 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
+        String textString5 = ("พลังงานไฟฟ้าที่ได้รับจากมอนสเตอร์ : " + String.valueOf((countEnemy * 1000) + " จูล"));
+        textChart2.setText(textString1);
+        textChart3.setText(textString2);
+        textChart4.setText(textString3);
+        textChart5.setText(textString4);
+        textChart6.setText(textString5);
+        chartWindow.setPosition(
+                Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
+        chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
     private void status() {
@@ -1245,7 +1214,7 @@ public class GameScreen3 extends AbstractGameScreen {
         checkStageAndCount();
         checkObject();
 
-        if (!player.timeStop) {
+        if (!player.timeStop || !player.timeClear) {
             BatteryBar.instance.update(deltaTime);
         }
 
