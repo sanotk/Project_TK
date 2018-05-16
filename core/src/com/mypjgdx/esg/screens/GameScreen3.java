@@ -1061,14 +1061,7 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
-        boolean noCitizen = !player.questScreen1
-                && !player.questScreen2
-                && !player.questScreen3
-                && !player.questScreen4
-                && !player.questScreen5
-                && !player.questScreen6;
-
-        if (player.status_find && noCitizen && noItem) {
+        if (player.status_find && noItem) {
             player.status_find = false;
             player.status_windows_link = false;
         }
