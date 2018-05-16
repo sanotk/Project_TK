@@ -1293,6 +1293,10 @@ public class GameScreen extends AbstractGameScreen {
                 player.status_find = false;
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
+                dialogDoor1 = false;
+                dialogDoor2 = false;
+                dialogDoor3 = false;
+                dialogDoor4 = false;
             } else {
                 dialog.tryToChangePage();
             }
@@ -1359,12 +1363,11 @@ public class GameScreen extends AbstractGameScreen {
                     dialog.addWaitingPage(text);
                     dialogShow = true;
                 }
-            } else if (!dialogDoor4 == true && stageFourClear) {
-                player.status_find = false;
+            } else if (!dialogDoor4 && stageFourClear) {
                 dialogDoor4 = true;
                 player.timeStop = true;
                 String text =
-                        "\"ยินดีต้อนรับ\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                        "\"ยินดีต้อนรับสู่สถานที่หลบภัย\" \n\" (กดปุ่มตกลงเพื่อเข้าไปยังสถานที่หลบภัย หรือกดปุ่มปฎิเสธเพื่อบันทึกและออกไปหน้าเมนู)\"";
                 dialog.show();
                 buttonAgree.setVisible(true);
                 buttonRefuse.setVisible(true);
@@ -1438,7 +1441,6 @@ public class GameScreen extends AbstractGameScreen {
             stageThreeClear = true;
             level1.door.state = Item.ItemState.ON;
             animation_status = true;
-            dialogCitizen = true;
             player.timeStop = true;
             String text =
                     "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว รีบพาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
@@ -1492,7 +1494,7 @@ public class GameScreen extends AbstractGameScreen {
         solarCellWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - solarCellWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - solarCellWindow.getHeight() / 2);
-        if (!animation_status && player.status_find && dialogDoor3) {
+        if (!animation_status && player.status_find && stageTwoClear) {
             if (level1.solarCell1.nearPlayer()) {
                 solarWindow = systemWindow.solarcell;
                 checkButton(solarWindow);
@@ -1566,7 +1568,8 @@ public class GameScreen extends AbstractGameScreen {
         checkStageAndCount();
         checkWindow();
 
-        if (!worldController.level.player.timeStop && BatteryBar.instance.getBatteryStorage() < BatteryBar.BATTERY_MAX) {
+        if (!worldController.level.player.timeStop && !worldController.level.player.timeClear
+                && BatteryBar.instance.getBatteryStorage() < BatteryBar.BATTERY_MAX) {
             BatteryBar.instance.update(deltaTime);
         }
 
