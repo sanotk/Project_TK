@@ -502,7 +502,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void findItem() {
-        if (status_windows_link == true) {
+        if (status_find) {
             status_windows_link = false;
             status_find = false;
         } else {
