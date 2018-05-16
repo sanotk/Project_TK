@@ -974,78 +974,57 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
-            player.timeStop = true;
             String text =
                     "\"ขอเปิดเครื่องปรับอากาศ 1 ชั่วโมง เครื่องปรับอากาศใช้กำลังไฟฟ้า \""
                             + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า " + level2.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
-            dialog.show();
-            buttonAgree.setVisible(true);
-            buttonRefuse.setVisible(true);
-            dialog.clearPages();
+            dialogCitizenDetail();
             dialog.addWaitingPage(text);
-            dialogShow = true;
             citizenQuest = systemWindow.citizen1;
         } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
-            player.timeStop = true;
             String text =
                     "\"ขอใช้ไมโครเวฟอุ่นอาหาร 3 นาที " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
-            dialog.show();
-            buttonAgree.setVisible(true);
-            buttonRefuse.setVisible(true);
-            dialog.clearPages();
+            dialogCitizenDetail();
             dialog.addWaitingPage(text);
-            dialogShow = true;
             citizenQuest = systemWindow.citizen2;
         } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
-            player.timeStop = true;
-            player.status_find = false;
             String text =
                     "\"ขอใช้งานคอมพิวเตอร์ 1 ชั่วโมง\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
-            dialog.show();
-            buttonAgree.setVisible(true);
-            buttonRefuse.setVisible(true);
-            dialog.clearPages();
+            dialogCitizenDetail();
             dialog.addWaitingPage(text);
-            dialogShow = true;
             citizenQuest = systemWindow.citizen3;
         } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
-            player.timeStop = true;
-            player.status_find = false;
             String text =
                     "\"ขอใช้งานตู้เย็น\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
-            dialog.show();
-            buttonAgree.setVisible(true);
-            buttonRefuse.setVisible(true);
-            dialog.clearPages();
+            dialogCitizenDetail();
             dialog.addWaitingPage(text);
-            dialogShow = true;
             citizenQuest = systemWindow.citizen4;
         } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
             player.timeStop = true;
             player.status_find = false;
             String text =
                     "\"ขอหุงข้าวใช้เวลา 30 นาที\" " + "\n\"( หม้อหุงข้าวใช้กำลังไฟฟ้า " + level2.riceCooker.getEnergyBurn() + " วัตต์ )\" ";
-            dialog.show();
-            buttonAgree.setVisible(true);
-            buttonRefuse.setVisible(true);
-            dialog.clearPages();
-            dialog.addWaitingPage(text);
-            dialogShow = true;
+            dialogCitizenDetail();
             citizenQuest = systemWindow.citizen5;
+            dialog.addWaitingPage(text);
         } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
-            player.timeStop = true;
-            player.status_find = false;
             String text =
                     "\"ขอดูโทรทัศน์ 1 ชั่วโมง\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level2.television.getEnergyBurn() + " วัตต์ )\" ";
-            dialog.show();
-            buttonAgree.setVisible(true);
-            buttonRefuse.setVisible(true);
-            dialog.clearPages();
+            dialogCitizenDetail();
             dialog.addWaitingPage(text);
-            dialogShow = true;
             citizenQuest = systemWindow.citizen6;
         }
 
+    }
+
+    private void dialogCitizenDetail(){
+        Player player = worldController.level.player;
+        player.timeStop = true;
+        player.status_find = false;
+        dialog.show();
+        buttonAgree.setVisible(true);
+        buttonRefuse.setVisible(true);
+        dialog.clearPages();
+        dialogShow = true;
     }
 
     private void checkStageAndCount() {
