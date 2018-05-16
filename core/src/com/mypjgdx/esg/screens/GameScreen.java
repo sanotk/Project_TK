@@ -159,7 +159,7 @@ public class GameScreen extends AbstractGameScreen {
     private int citizenCount = 0;
 
     private String text =
-            "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้\" \n\"เอาล่ะ รีบเร่งมือกันเถอะ (กด Enter เพื่อเริ่มเกม)\"";
+            "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"เ(กด Enter เพื่อเริ่มเกม)\"";
 
     private boolean dialogEnemy;
     private boolean dialogCitizen;
@@ -1389,7 +1389,7 @@ public class GameScreen extends AbstractGameScreen {
                 dialogCitizen2 = true;
                 player.timeStop = true;
                 String text =
-                        "\"ค้นพบประชาชนในพื้นที่แถบนี้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                        "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                 dialog.show();
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
