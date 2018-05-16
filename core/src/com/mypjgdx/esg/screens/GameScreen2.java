@@ -71,6 +71,7 @@ public class GameScreen2 extends AbstractGameScreen {
     public systemWindow citizenQuest = null;
     private boolean dialogStage4fail;
     private TextureRegionDrawable iconRegion;
+
     private Label textItem1;
     private Label textItem2;
     private Label textItem3;
@@ -88,6 +89,7 @@ public class GameScreen2 extends AbstractGameScreen {
     private TextureRegionDrawable buttonItem6;
     private TextureRegionDrawable buttonItem7;
     private TextureRegionDrawable buttonItem8;
+
     private boolean dialogWarning;
 
     public enum systemWindow {
@@ -651,7 +653,7 @@ public class GameScreen2 extends AbstractGameScreen {
         textItem7.setStyle(labelStyle);
         textItem8.setStyle(labelStyle);
 
-        final Window statusWindow = new Window("ข้อมูลสถานะการใช้พลังงานไฟฟ้า", style);
+        final Window statusWindow = new Window("ข้อมูลการใช้พลังงานไฟฟ้า", style);
         statusWindow.setModal(true);
         statusWindow.padTop(60);
         statusWindow.padLeft(40);

@@ -58,6 +58,24 @@ public class GameScreen3 extends AbstractGameScreen {
     private Label energyLevel3;
     private Label textRule;
 
+    private Label textItem1;
+    private Label textItem2;
+    private Label textItem3;
+    private Label textItem4;
+    private Label textItem5;
+    private Label textItem6;
+    private Label textItem7;
+    private Label textItem8;
+
+    private TextureRegionDrawable buttonItem1;
+    private TextureRegionDrawable buttonItem2;
+    private TextureRegionDrawable buttonItem3;
+    private TextureRegionDrawable buttonItem4;
+    private TextureRegionDrawable buttonItem5;
+    private TextureRegionDrawable buttonItem6;
+    private TextureRegionDrawable buttonItem7;
+    private TextureRegionDrawable buttonItem8;
+
     public systemWindow citizenQuest = null;
     private boolean dialogSaveEnergy1;
     private boolean dialogSaveEnergy2;
@@ -87,6 +105,8 @@ public class GameScreen3 extends AbstractGameScreen {
     private Window ruleWindow;
     private Window chartWindow;
     private Window requestCitizenWindow;
+
+    private boolean dialogShow;
 
     private int trueLink = 0;
 
@@ -332,6 +352,153 @@ public class GameScreen3 extends AbstractGameScreen {
         stage.addActor(energyLevel2);
         stage.addActor(energyLevel3);
 
+    }
+
+    private Window createStatusWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new TextureRegionDrawable(Assets.instance.window);
+//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.WHITE;
+
+        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonChartStyle.up = buttonRegion;
+        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+        Button closeButton = new Button(buttonChartStyle);
+
+        Button.ButtonStyle buttonItem1Style1 = new Button.ButtonStyle();
+        buttonItem1 = new TextureRegionDrawable(Assets.instance.comIconOff);
+        buttonItem1Style1.up = buttonItem1;
+        buttonItem1Style1.over = buttonItem1.tint(Color.FIREBRICK);
+        Button itemIcon1 = new Button(buttonItem1Style1);
+
+        Button.ButtonStyle buttonItem1Style2 = new Button.ButtonStyle();
+        buttonItem2 = new TextureRegionDrawable(Assets.instance.refrigeratorIconOff);
+        buttonItem1Style2.up = buttonItem2;
+        buttonItem1Style2.over = buttonItem2.tint(Color.FIREBRICK);
+        Button itemIcon2 = new Button(buttonItem1Style2);
+
+        Button.ButtonStyle buttonItem1Style3 = new Button.ButtonStyle();
+        buttonItem3 = new TextureRegionDrawable(Assets.instance.fanIconOff);
+        buttonItem1Style3.up = buttonItem3;
+        buttonItem1Style3.over = buttonItem3.tint(Color.FIREBRICK);
+        Button itemIcon3 = new Button(buttonItem1Style3);
+
+        Button.ButtonStyle buttonItem1Style4 = new Button.ButtonStyle();
+        buttonItem4 = new TextureRegionDrawable(Assets.instance.microwaveIconOff);
+        buttonItem1Style4.up = buttonItem4;
+        buttonItem1Style4.over = buttonItem4.tint(Color.FIREBRICK);
+        Button itemIcon4 = new Button(buttonItem1Style4);
+
+        Button.ButtonStyle buttonItem1Style5 = new Button.ButtonStyle();
+        buttonItem5 = new TextureRegionDrawable(Assets.instance.ricecookerIconOff);
+        buttonItem1Style5.up = buttonItem5;
+        buttonItem1Style5.over = buttonItem5.tint(Color.FIREBRICK);
+        Button itemIcon5 = new Button(buttonItem1Style5);
+
+        Button.ButtonStyle buttonItem1Style6 = new Button.ButtonStyle();
+        buttonItem6 = new TextureRegionDrawable(Assets.instance.tvIconOff);
+        buttonItem1Style6.up = buttonItem6;
+        buttonItem1Style6.over = buttonItem6.tint(Color.FIREBRICK);
+        Button itemIcon6 = new Button(buttonItem1Style6);
+
+        Button.ButtonStyle buttonItem1Style7 = new Button.ButtonStyle();
+        buttonItem7 = new TextureRegionDrawable(Assets.instance.waterpumpIconOff);
+        buttonItem1Style7.up = buttonItem7;
+        buttonItem1Style7.over = buttonItem7.tint(Color.FIREBRICK);
+        Button itemIcon7 = new Button(buttonItem1Style7);
+
+        Button.ButtonStyle buttonItem1Style8 = new Button.ButtonStyle();
+        buttonItem8 = new TextureRegionDrawable(Assets.instance.airIconOff);
+        buttonItem1Style8.up = buttonItem8;
+        buttonItem1Style8.over = buttonItem8.tint(Color.FIREBRICK);
+        Button itemIcon8 = new Button(buttonItem1Style8);
+
+        text1 = new Label("", skin);
+        text2 = new Label("", skin);
+        text3 = new Label("", skin);
+        text4 = new Label("", skin);
+
+        textItem1 = new Label("", skin);
+        textItem2 = new Label("", skin);
+        textItem3 = new Label("", skin);
+        textItem4 = new Label("", skin);
+        textItem5 = new Label("", skin);
+        textItem6 = new Label("", skin);
+        textItem7 = new Label("", skin);
+        textItem8 = new Label("", skin);
+
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
+        text4.setStyle(labelStyle);
+
+        textItem1.setStyle(labelStyle);
+        textItem2.setStyle(labelStyle);
+        textItem3.setStyle(labelStyle);
+        textItem4.setStyle(labelStyle);
+        textItem5.setStyle(labelStyle);
+        textItem6.setStyle(labelStyle);
+        textItem7.setStyle(labelStyle);
+        textItem8.setStyle(labelStyle);
+
+        final Window statusWindow = new Window("ข้อมูลการใช้พลังงานไฟฟ้า", style);
+        statusWindow.setModal(true);
+        statusWindow.padTop(60);
+        statusWindow.padLeft(40);
+        statusWindow.padRight(40);
+        statusWindow.padBottom(20);
+        statusWindow.getTitleLabel().setAlignment(Align.center);
+        statusWindow.row().padBottom(10).padTop(10);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text1).colspan(4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text2).colspan(4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text3).colspan(4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text4).colspan(4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(itemIcon1);
+        statusWindow.add(itemIcon2);
+        statusWindow.add(itemIcon3);
+        statusWindow.add(itemIcon4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(textItem1);
+        statusWindow.add(textItem2);
+        statusWindow.add(textItem3);
+        statusWindow.add(textItem4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(itemIcon5);
+        statusWindow.add(itemIcon6);
+        statusWindow.add(itemIcon7);
+        statusWindow.add(itemIcon8);
+        statusWindow.row().padTop(10);
+        statusWindow.add(textItem5);
+        statusWindow.add(textItem6);
+        statusWindow.add(textItem7);
+        statusWindow.add(textItem8);
+        statusWindow.row().padTop(10);
+        statusWindow.add(closeButton).colspan(4);
+        statusWindow.pack();
+
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                worldController.level.player.statusEnergyWindow = false;
+                if (!dialogShow) {
+                    worldController.level.player.timeStop = false;
+                }
+            }
+        });
+
+        return statusWindow;
     }
 
     private Window createRequestWindow() {

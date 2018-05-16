@@ -388,7 +388,7 @@ public class GameScreen extends AbstractGameScreen {
         text8.setStyle(labelStyle);
         text9.setStyle(labelStyle);
 
-        final Window statusWindow = new Window("ข้อมูลสถานะการใช้พลังงานไฟฟ้า", style);
+        final Window statusWindow = new Window("ข้อมูลการใช้พลังงานไฟฟ้า", style);
         statusWindow.setModal(true);
         statusWindow.padTop(60);
         statusWindow.padLeft(40);
