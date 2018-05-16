@@ -26,7 +26,9 @@ import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.game.objects.items.Computer;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.items.Microwave;
 import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.ui.Dialog;
 import com.mypjgdx.esg.utils.QuestState;
@@ -1083,7 +1085,15 @@ public class GameScreen3 extends AbstractGameScreen {
 
         if(player.isSwitch && !itemStart){
             itemStart = true;
+            for (Item item : level3.items){
+                if(item instanceof Computer || item instanceof Microwave){
+                    item.state = Item.ItemState.OFF;
+                }else{
+                    item.state = Item.ItemState.ONLOOP;
+                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
+                }
 
+            }
         }
     }
 
