@@ -513,7 +513,7 @@ public class GameScreen2 extends AbstractGameScreen {
         textChart3.setStyle(labelStyle);
         textChart4.setStyle(labelStyle);
         textChart5.setStyle(labelStyle);
-        textChart6 = new Label("", skin);
+        textChart6.setStyle(labelStyle);
 
         final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
         chartWindow.setModal(true);
@@ -541,17 +541,16 @@ public class GameScreen2 extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 chartWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                dialogDoor4 = true;
                 stageFourClear = true;
-                if (!dialogShow) {
-                    worldController.level.player.timeStop = false;
-                }
+                worldController.level.player.timeStop = true;
                 String text =
-                        "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
+                        "\"ภารกิจสำเร็จ ยินดีต้อนรับสู่ห้องที่ 2\" \n\"(กรุณากด Enter เพื่อไปยังด่านถัดไป)\"";
                 dialog.show();
+                buttonAgree.setVisible(true);
+                buttonRefuse.setVisible(true);
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
-                System.out.print(text);
+                dialogShow = true;
             }
         });
 
@@ -897,14 +896,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialogDoor4 = true;
                 player.timeStop = true;
                 player.timeClear = true;
-                String text =
-                        "\"ภารกิจสำเร็จ ยินดีต้อนรับสู่ห้องที่ 2\" \n\"(กรุณากด Enter เพื่อไปยังด่านถัดไป)\"";
-                dialog.show();
-                buttonAgree.setVisible(true);
-                buttonRefuse.setVisible(true);
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
-                dialogShow = true;
+                chartStatus();
             }
         }
 
@@ -942,12 +934,12 @@ public class GameScreen2 extends AbstractGameScreen {
                 stageThreeClear = true;
                 animation_status = true;
                 player.timeStop = true;
+                level2.gate.state = Item.ItemState.ON;
                 String text =
                         "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและพลังงานจะเหลือเพียงพอใช้ในห้องถัดไป\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                 dialog.show();
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
-                level2.gate.state = Item.ItemState.ON;
                 dialogShow = true;
             } else if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
                 dialogStage4fail = true;
@@ -1087,6 +1079,26 @@ public class GameScreen2 extends AbstractGameScreen {
             player.isSwitch = true;
             player.status_find = false;
         }
+    }
+
+    private void chartStatus() {
+        Player player = worldController.level.player;
+        player.timeStop = true;
+        player.timeClear = true;
+        String textString1 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
+        String textString2 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
+        String textString3 = ("อัตราการผลิตพลังงาน : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
+        String textString4 = ("อัตราการใช้พลังงาน : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
+        String textString5 = ("พลังงานที่ได้รับจากมอนสเตอร์ : " + String.valueOf((countEnemy * 1000) + " จูล"));
+        textChart2.setText(textString1);
+        textChart3.setText(textString2);
+        textChart4.setText(textString3);
+        textChart5.setText(textString4);
+        textChart6.setText(textString5);
+        chartWindow.setPosition(
+                Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
+        chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
     private void status() {
