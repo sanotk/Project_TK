@@ -928,7 +928,7 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if (questCount == 6 && !animation_status) {
-            if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
+            if (BatteryBar.instance.getBatteryStorage()>=1000 && !dialogStage4) {
                 dialogStage4 = true;
                 stageTwoClear = true;
                 stageThreeClear = true;
