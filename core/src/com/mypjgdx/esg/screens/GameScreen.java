@@ -693,7 +693,7 @@ public class GameScreen extends AbstractGameScreen {
         Label text2 = new Label("กด x เพื่อยิงธนู (ยิงธนู 1 ดอกใช้พลังงานไฟฟ้า 200 จูล)", skin);
         Label text3 = new Label("กด Z เพื่อวางกับดักสปริง เมื่อมอนสเตอร์เดินมาชนจะกระเด็นถอยหลัง (วางกับดัก 1 ครั้งใช้พลังงานไฟฟ้า 1000 จูล)", skin);
         Label text4 = new Label("กด W เพื่อฟันคลื่นดาบพลังสูง (ฟัน 1 ครั้งใช้พลังงานไฟฟ้า 3000 จูล)", skin);
-        Label text5 = new Label("กด A เพื่อติดต่อกับวัตถุ หรือประชาชน", skin);
+        Label text5 = new Label("กด A เพื่อกระทำกับวัตถุ หรือคุยกับประชาชน", skin);
         Label text6 = new Label("กด S เพื่อดูผังการใช้พลังงานแบบละเอียด", skin);
         Label text7 = new Label("กด D เพื่ออ่านวิธีการทำงานของโซล่าเซลล์", skin);
         //  Label text8 = new Label("เพื่อหยุดเกม และอ่านวิธีควบคุม", skin);
