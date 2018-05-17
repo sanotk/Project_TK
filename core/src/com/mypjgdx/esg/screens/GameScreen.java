@@ -105,6 +105,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private Label textSun;
     private Label textTemperature;
+    private Label textLiking;
 
     public enum systemWindow {
         solarcell,
@@ -885,6 +886,19 @@ public class GameScreen extends AbstractGameScreen {
         energyLevel3.setFontScale(1, 1f);
         energyLevel3.setPosition(775, SCENE_HEIGHT - 42);
 
+        TextButton.TextButtonStyle buttonLikingStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable iconLiking = new TextureRegionDrawable(Assets.instance.iconLiking);
+        buttonLikingStyle.up = iconLiking;
+        buttonLikingStyle.over = iconLiking.tint(Color.LIME);
+        Button iconLikingButton = new Button(buttonLikingStyle);
+        iconLikingButton.setPosition(825, SCENE_HEIGHT - 50);
+
+        textLiking = new Label("", skin);
+        textLiking.setColor(0, 0, 0, 1);
+        textLiking.setStyle(labelStyle);
+        textLiking.setFontScale(1, 1f);
+        textLiking.setPosition(850, SCENE_HEIGHT - 42);
+
         stage.addActor(iconSunButton);
         stage.addActor(iconTemperatureButton);
         stage.addActor(iconCircleButton);
@@ -896,6 +910,7 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(iconEnergyPlusButton);
         stage.addActor(iconEnergyMinusButton);
         stage.addActor(iconBatteryButton);
+        stage.addActor(iconLikingButton);
 
         stage.addActor(textSun);
         stage.addActor(textTemperature);
@@ -906,6 +921,7 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(energyLevel);
         stage.addActor(energyLevel2);
         stage.addActor(energyLevel3);
+        stage.addActor(textLiking);
     }
 
     private void addLink(SolarState solarState) {
@@ -1351,6 +1367,7 @@ public class GameScreen extends AbstractGameScreen {
         textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
         textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
         textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
+        textLiking.setText(String.format(" %d", (int) LikingBar.instance.liking));
 
         if (animation_status) {
             EnergyProducedBar.instance.energyProduced = 2700;
