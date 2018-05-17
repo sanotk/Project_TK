@@ -765,26 +765,26 @@ public class GameScreen extends AbstractGameScreen {
         buttonSunStyle.up = iconSun;
         buttonSunStyle.over = iconSun.tint(Color.LIME);
         Button iconSunButton = new Button(buttonSunStyle);
-        iconSunButton.setPosition(50, SCENE_HEIGHT - 50);
+        iconSunButton.setPosition(75, SCENE_HEIGHT - 50);
 
         textSun = new Label("", skin);
         textSun.setColor(0, 0, 0, 1);
         textSun.setStyle(labelStyle);
         textSun.setFontScale(1f, 1f);
-        textSun.setPosition(75, SCENE_HEIGHT - 42);
+        textSun.setPosition(100, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonTemperatureStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconTemperature = new TextureRegionDrawable(Assets.instance.iconTemperature);
         buttonTemperatureStyle.up = iconTemperature;
         buttonTemperatureStyle.over = iconTemperature.tint(Color.LIME);
         Button iconTemperatureButton = new Button(buttonTemperatureStyle);
-        iconTemperatureButton.setPosition(175, SCENE_HEIGHT - 50);
+        iconTemperatureButton.setPosition(150, SCENE_HEIGHT - 50);
 
         textTemperature = new Label("", skin);
         textTemperature.setColor(0, 0, 0, 1);
         textTemperature.setStyle(labelStyle);
         textTemperature.setFontScale(1f, 1f);
-        textTemperature.setPosition(200, SCENE_HEIGHT - 42);
+        textTemperature.setPosition(175, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonBowStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconBow = new TextureRegionDrawable(Assets.instance.iconBow);
@@ -896,7 +896,6 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(energyLevel);
         stage.addActor(energyLevel2);
         stage.addActor(energyLevel3);
-
     }
 
     private void addLink(SolarState solarState) {
@@ -1336,8 +1335,8 @@ public class GameScreen extends AbstractGameScreen {
     }
 
     private void textIconDraw() {
-        textSun.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
-        textTemperature.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
+        textSun.setText(String.format(" %d", (int) SunBar.instance.sunTime));
+        textTemperature.setText(String.format(" %d", (int) TemperatureBar.instance.Temperature));
         textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
         textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
         textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));

@@ -43,9 +43,11 @@ public class GameScreen3 extends AbstractGameScreen {
     SpriteBatch batch;
     public Texture bg;
 
+    private Label textSun;
+    private Label textTemperature;
+
     private Stage stage;
     private Skin skin;
-    ;
     private String titleQuest;
 
     public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
@@ -374,6 +376,32 @@ public class GameScreen3 extends AbstractGameScreen {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
 
+        TextButton.TextButtonStyle buttonSunStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable iconSun = new TextureRegionDrawable(Assets.instance.iconSun);
+        buttonSunStyle.up = iconSun;
+        buttonSunStyle.over = iconSun.tint(Color.LIME);
+        Button iconSunButton = new Button(buttonSunStyle);
+        iconSunButton.setPosition(75, SCENE_HEIGHT - 50);
+
+        textSun = new Label("", skin);
+        textSun.setColor(0, 0, 0, 1);
+        textSun.setStyle(labelStyle);
+        textSun.setFontScale(1f, 1f);
+        textSun.setPosition(100, SCENE_HEIGHT - 42);
+
+        TextButton.TextButtonStyle buttonTemperatureStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable iconTemperature = new TextureRegionDrawable(Assets.instance.iconTemperature);
+        buttonTemperatureStyle.up = iconTemperature;
+        buttonTemperatureStyle.over = iconTemperature.tint(Color.LIME);
+        Button iconTemperatureButton = new Button(buttonTemperatureStyle);
+        iconTemperatureButton.setPosition(150, SCENE_HEIGHT - 50);
+
+        textTemperature = new Label("", skin);
+        textTemperature.setColor(0, 0, 0, 1);
+        textTemperature.setStyle(labelStyle);
+        textTemperature.setFontScale(1f, 1f);
+        textTemperature.setPosition(175, SCENE_HEIGHT - 42);
+
         TextButton.TextButtonStyle buttonBowStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconBow = new TextureRegionDrawable(Assets.instance.iconBow);
         buttonBowStyle.up = iconBow;
@@ -382,7 +410,7 @@ public class GameScreen3 extends AbstractGameScreen {
         iconBowButton.setPosition(225, SCENE_HEIGHT - 50);
 
         textBullet = new Label("", skin);
-        textBullet.setColor(0, 1, 1, 1);
+        textBullet.setColor(0, 0, 0, 1);
         textBullet.setStyle(labelStyle);
         textBullet.setFontScale(1f, 1f);
         textBullet.setPosition(250, SCENE_HEIGHT - 42);
@@ -395,7 +423,7 @@ public class GameScreen3 extends AbstractGameScreen {
         iconSwordButton.setPosition(300, SCENE_HEIGHT - 50);
 
         textBeam = new Label("", skin);
-        textBeam.setColor(0, 1, 1, 1);
+        textBeam.setColor(0, 0, 0, 1);
         textBeam.setStyle(labelStyle);
         textBeam.setFontScale(1.f, 1.f);
         textBeam.setPosition(325, SCENE_HEIGHT - 42);
@@ -408,7 +436,7 @@ public class GameScreen3 extends AbstractGameScreen {
         iconTrapButton.setPosition(375, SCENE_HEIGHT - 50);
 
         textTrap = new Label("", skin);
-        textTrap.setColor(0, 1, 1, 1);
+        textTrap.setColor(0, 0, 0, 1);
         textTrap.setStyle(labelStyle);
         textTrap.setFontScale(1f, 1f);
         textTrap.setPosition(400, SCENE_HEIGHT - 42);
@@ -421,7 +449,7 @@ public class GameScreen3 extends AbstractGameScreen {
         iconTimeButton.setPosition(450, SCENE_HEIGHT - 50);
 
         textTime = new Label("", skin);
-        textTime.setColor(0, 1, 1, 1);
+        textTime.setColor(0, 0, 0, 1);
         textTime.setStyle(labelStyle);
         textTime.setFontScale(1f, 1f);
         textTime.setPosition(475, SCENE_HEIGHT - 42);
@@ -434,7 +462,7 @@ public class GameScreen3 extends AbstractGameScreen {
         iconEnergyPlusButton.setPosition(550, SCENE_HEIGHT - 50);
 
         energyLevel = new Label("", skin);
-        energyLevel.setColor(0, 1, 1, 1);
+        energyLevel.setColor(0, 0, 0, 1);
         energyLevel.setStyle(labelStyle);
         energyLevel.setFontScale(1, 1f);
         energyLevel.setPosition(575, SCENE_HEIGHT - 42);
@@ -447,7 +475,7 @@ public class GameScreen3 extends AbstractGameScreen {
         iconEnergyMinusButton.setPosition(650, SCENE_HEIGHT - 50);
 
         energyLevel2 = new Label("", skin);
-        energyLevel2.setColor(0, 1, 1, 1);
+        energyLevel2.setColor(0, 0, 0, 1);
         energyLevel2.setStyle(labelStyle);
         energyLevel2.setFontScale(1, 1f);
         energyLevel2.setPosition(675, SCENE_HEIGHT - 42);
@@ -460,11 +488,13 @@ public class GameScreen3 extends AbstractGameScreen {
         iconBatteryButton.setPosition(750, SCENE_HEIGHT - 50);
 
         energyLevel3 = new Label("", skin);
-        energyLevel3.setColor(0, 1, 1, 1);
+        energyLevel3.setColor(0, 0, 0, 1);
         energyLevel3.setStyle(labelStyle);
         energyLevel3.setFontScale(1, 1f);
         energyLevel3.setPosition(775, SCENE_HEIGHT - 42);
 
+        stage.addActor(iconSunButton);
+        stage.addActor(iconTemperatureButton);
         stage.addActor(iconBowButton);
         stage.addActor(iconSwordButton);
         stage.addActor(iconTrapButton);
@@ -473,6 +503,8 @@ public class GameScreen3 extends AbstractGameScreen {
         stage.addActor(iconEnergyMinusButton);
         stage.addActor(iconBatteryButton);
 
+        stage.addActor(textSun);
+        stage.addActor(textTemperature);
         stage.addActor(textBullet);
         stage.addActor(textBeam);
         stage.addActor(textTrap);
@@ -480,7 +512,6 @@ public class GameScreen3 extends AbstractGameScreen {
         stage.addActor(energyLevel);
         stage.addActor(energyLevel2);
         stage.addActor(energyLevel3);
-
     }
 
     private Window createChartWindow() {
@@ -862,6 +893,8 @@ public class GameScreen3 extends AbstractGameScreen {
     }
 
     private void textIconDraw() {
+        textSun.setText(String.format(" %d", (int) SunBar.instance.sunTime));
+        textTemperature.setText(String.format(" %d", (int) TemperatureBar.instance.Temperature));
         textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
         textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
         textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
