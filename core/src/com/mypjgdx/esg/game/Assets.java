@@ -38,6 +38,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion iconSun;
     public TextureRegion iconTemperature;
 
+    public TextureRegion iconCircle;
+
     public TextureRegion buttonSolarcellAdd;
     public TextureRegion buttonChargeAdd;
     public TextureRegion buttonInverterAdd;
@@ -150,6 +152,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("icon_time.png",Texture.class);
         manager.load("icon_sun.png",Texture.class);
         manager.load("icon_temperature.png",Texture.class);
+        manager.load("circle.png",Texture.class);
 
         manager.load("solarcell_button_add.png",Texture.class);
         manager.load("charge_button_add.png",Texture.class);
@@ -284,6 +287,7 @@ public class Assets implements Disposable, AssetErrorListener {
         iconTime = new TextureRegion((Texture)manager.get("icon_time.png"));
         iconSun = new TextureRegion((Texture)manager.get("icon_sun.png"));
         iconTemperature = new TextureRegion((Texture)manager.get("icon_temperature.png"));
+        iconCircle = new TextureRegion((Texture)manager.get("circle.png"));
 
         manager.load("tv_icon_on.png", Texture.class);
         manager.load("air_icon_on.png", Texture.class);
