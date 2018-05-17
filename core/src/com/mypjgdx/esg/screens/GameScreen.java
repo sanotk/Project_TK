@@ -949,7 +949,7 @@ public class GameScreen extends AbstractGameScreen {
                 if (link.get(i) == solarState) {
                     System.out.print("ลบ" + link.get(i) + "แล้ว");
                     link.remove(solarState);
-                    checkDeledLink(solarState);
+                    checkDeleteLink(solarState);
                     removeGuiLink(solarState);
                 }
             }
@@ -1120,7 +1120,7 @@ public class GameScreen extends AbstractGameScreen {
         solarCellWindow.pack();
     }
 
-    private void checkDeledLink(SolarState solarState) {
+    private void checkDeleteLink(SolarState solarState) {
         if (solarState == SolarState.StoC) {
             addedStoC = false;
         } else if (solarState == SolarState.StoB) {
@@ -1478,6 +1478,7 @@ public class GameScreen extends AbstractGameScreen {
                     player.timeStop = true;
                     String text =
                             "\"โปรดตามเรามา เราจะพาท่านไปยังสถานที่ปลอดภัย\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    LikingBar.instance.liking += 1;
                     citizen.runPlayer = true;
                     citizenCount += 1;
                     dialog.show();
