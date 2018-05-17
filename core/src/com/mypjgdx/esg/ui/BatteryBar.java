@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.JsonValue;
 public class BatteryBar implements Json.Serializable {
 
     public static final BatteryBar instance = new BatteryBar();
-    public static final float BATTERY_MAX = 1000000;
+    public static final float BATTERY_MAX = 10000000;
 
     public float batteryStorage;
 
@@ -28,8 +28,8 @@ public class BatteryBar implements Json.Serializable {
     }
 
     public void update(float deltatime){
-        batteryStorage += EnergyProducedBar.instance.energyProduced *10 * deltatime;
-        batteryStorage -= EnergyUsedBar.instance.energyUse *10 * deltatime;
+        batteryStorage += EnergyProducedBar.instance.energyProduced *60 * deltatime;
+        batteryStorage -= EnergyUsedBar.instance.energyUse *60 * deltatime;
         if(batteryStorage>BATTERY_MAX){
             batteryStorage = BATTERY_MAX;
         }

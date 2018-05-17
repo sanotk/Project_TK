@@ -891,13 +891,13 @@ public class GameScreen extends AbstractGameScreen {
         buttonLikingStyle.up = iconLiking;
         buttonLikingStyle.over = iconLiking.tint(Color.LIME);
         Button iconLikingButton = new Button(buttonLikingStyle);
-        iconLikingButton.setPosition(825, SCENE_HEIGHT - 50);
+        iconLikingButton.setPosition(875, SCENE_HEIGHT - 50);
 
         textLiking = new Label("", skin);
         textLiking.setColor(0, 0, 0, 1);
         textLiking.setStyle(labelStyle);
         textLiking.setFontScale(1, 1f);
-        textLiking.setPosition(850, SCENE_HEIGHT - 42);
+        textLiking.setPosition(900, SCENE_HEIGHT - 42);
 
         stage.addActor(iconSunButton);
         stage.addActor(iconTemperatureButton);
@@ -1259,10 +1259,10 @@ public class GameScreen extends AbstractGameScreen {
         String textString1 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
         String textString2 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
         if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
-            String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced) - (EnergyUsedBar.instance.energyUse)))) + " วินาทีพลังงานจะหมดลง"));
+            String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced*60) - (EnergyUsedBar.instance.energyUse)))) + " วินาทีพลังงานจะหมดลง"));
             text3.setText(textString3);
         } else {
-            String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced) - (EnergyUsedBar.instance.energyUse)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
+            String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced*60) - (EnergyUsedBar.instance.energyUse)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
             text3.setText(textString3);
         }
 

@@ -50,6 +50,7 @@ public class GameScreen4 extends AbstractGameScreen {
 
     private Label textSun;
     private Label textTemperature;
+    private Label textLiking;
 
     public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
     public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
@@ -502,6 +503,19 @@ public class GameScreen4 extends AbstractGameScreen {
         energyLevel3.setFontScale(1, 1f);
         energyLevel3.setPosition(775, SCENE_HEIGHT - 42);
 
+        TextButton.TextButtonStyle buttonLikingStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable iconLiking = new TextureRegionDrawable(Assets.instance.iconLiking);
+        buttonLikingStyle.up = iconLiking;
+        buttonLikingStyle.over = iconLiking.tint(Color.LIME);
+        Button iconLikingButton = new Button(buttonLikingStyle);
+        iconLikingButton.setPosition(875, SCENE_HEIGHT - 50);
+
+        textLiking = new Label("", skin);
+        textLiking.setColor(0, 0, 0, 1);
+        textLiking.setStyle(labelStyle);
+        textLiking.setFontScale(1, 1f);
+        textLiking.setPosition(900, SCENE_HEIGHT - 42);
+
         stage.addActor(iconSunButton);
         stage.addActor(iconTemperatureButton);
         stage.addActor(iconCircleButton);
@@ -513,6 +527,7 @@ public class GameScreen4 extends AbstractGameScreen {
         stage.addActor(iconEnergyPlusButton);
         stage.addActor(iconEnergyMinusButton);
         stage.addActor(iconBatteryButton);
+        stage.addActor(iconLikingButton);
 
         stage.addActor(textSun);
         stage.addActor(textTemperature);
@@ -523,6 +538,7 @@ public class GameScreen4 extends AbstractGameScreen {
         stage.addActor(energyLevel);
         stage.addActor(energyLevel2);
         stage.addActor(energyLevel3);
+        stage.addActor(textLiking);
     }
 
     private Window createChartWindow() {
@@ -904,7 +920,7 @@ public class GameScreen4 extends AbstractGameScreen {
     }
 
     private void textIconDraw() {
-        textSun.setText(String.format(" %d", (int) SunBar.instance.sunTime));
+        textSun.setText(String.format(" %d", (int) SunBar.instance.sunTime)+ " นาฬิกา");
         textTemperature.setText(String.format(" %d", (int) TemperatureBar.instance.Temperature));
         textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
         textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
@@ -913,6 +929,7 @@ public class GameScreen4 extends AbstractGameScreen {
         energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
         energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
         energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
+        textLiking.setText(String.format(" %d", (int) LikingBar.instance.liking));
     }
 
     private void dialogDraw() {
@@ -1098,10 +1115,10 @@ public class GameScreen4 extends AbstractGameScreen {
         String textString1 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
         String textString2 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
         if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
-            String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced * 10) - (EnergyUsedBar.instance.energyUse * 10)))) + " วินาทีพลังงานจะหมดลง"));
+            String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced * 60) - (EnergyUsedBar.instance.energyUse * 60)))) + " วินาทีพลังงานจะหมดลง"));
             text3.setText(textString3);
         } else {
-            String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced * 10) - (EnergyUsedBar.instance.energyUse * 10)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
+            String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced * 60) - (EnergyUsedBar.instance.energyUse * 60)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
             text3.setText(textString3);
         }
 
