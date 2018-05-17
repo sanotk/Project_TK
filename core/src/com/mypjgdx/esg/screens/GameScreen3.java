@@ -362,11 +362,11 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         });
 
-        createbutton();
+        createButton();
         batch = new SpriteBatch();
     }
 
-    private void createbutton() {
+    private void createButton() {
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));

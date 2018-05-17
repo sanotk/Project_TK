@@ -363,11 +363,11 @@ public class GameScreen4 extends AbstractGameScreen {
             }
         });
 
-        createbutton();
+        createButton();
         batch = new SpriteBatch();
     }
 
-    private void createbutton() {
+    private void createButton() {
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
@@ -377,18 +377,19 @@ public class GameScreen4 extends AbstractGameScreen {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
 
+
         TextButton.TextButtonStyle buttonSunStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconSun = new TextureRegionDrawable(Assets.instance.iconSun);
         buttonSunStyle.up = iconSun;
         buttonSunStyle.over = iconSun.tint(Color.LIME);
         Button iconSunButton = new Button(buttonSunStyle);
-        iconSunButton.setPosition(75, SCENE_HEIGHT - 50);
+        iconSunButton.setPosition(50, SCENE_HEIGHT - 50);
 
         textSun = new Label("", skin);
         textSun.setColor(0, 0, 0, 1);
         textSun.setStyle(labelStyle);
         textSun.setFontScale(1f, 1f);
-        textSun.setPosition(100, SCENE_HEIGHT - 42);
+        textSun.setPosition(75, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonTemperatureStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconTemperature = new TextureRegionDrawable(Assets.instance.iconTemperature);
@@ -402,6 +403,13 @@ public class GameScreen4 extends AbstractGameScreen {
         textTemperature.setStyle(labelStyle);
         textTemperature.setFontScale(1f, 1f);
         textTemperature.setPosition(175, SCENE_HEIGHT - 42);
+
+        TextButton.TextButtonStyle buttonCircleStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable iconCircle = new TextureRegionDrawable(Assets.instance.iconCircle);
+        buttonCircleStyle.up = iconCircle;
+        buttonCircleStyle.over = iconCircle.tint(Color.LIME);
+        Button iconCircleButton = new Button(buttonCircleStyle);
+        iconCircleButton.setPosition(195, SCENE_HEIGHT - 40);
 
         TextButton.TextButtonStyle buttonBowStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconBow = new TextureRegionDrawable(Assets.instance.iconBow);
@@ -496,6 +504,8 @@ public class GameScreen4 extends AbstractGameScreen {
 
         stage.addActor(iconSunButton);
         stage.addActor(iconTemperatureButton);
+        stage.addActor(iconCircleButton);
+
         stage.addActor(iconBowButton);
         stage.addActor(iconSwordButton);
         stage.addActor(iconTrapButton);
