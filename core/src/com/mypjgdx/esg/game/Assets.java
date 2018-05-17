@@ -35,6 +35,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion iconEnergyMinus;
     public TextureRegion iconBattery;
     public TextureRegion iconTime;
+    public TextureRegion iconSun;
+    public TextureRegion iconTemperature;
 
     public TextureRegion buttonSolarcellAdd;
     public TextureRegion buttonChargeAdd;
@@ -146,6 +148,8 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("icon_energy_minus.png",Texture.class);
         manager.load("icon_battery.png",Texture.class);
         manager.load("icon_time.png",Texture.class);
+        manager.load("icon_sun.png",Texture.class);
+        manager.load("icon_temperature.png",Texture.class);
 
         manager.load("solarcell_button_add.png",Texture.class);
         manager.load("charge_button_add.png",Texture.class);
@@ -158,7 +162,6 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("battery_button_del.png",Texture.class);
         manager.load("inverter_button_del.png",Texture.class);
         manager.load("door_button_del.png",Texture.class);
-
 
         manager.load("sword_pack.atlas", TextureAtlas.class);
         manager.load("bow_pack.atlas", TextureAtlas.class);
@@ -279,6 +282,8 @@ public class Assets implements Disposable, AssetErrorListener {
         iconEnergyMinus = new TextureRegion((Texture)manager.get("icon_energy_minus.png"));
         iconBattery = new TextureRegion((Texture)manager.get("icon_battery.png"));
         iconTime = new TextureRegion((Texture)manager.get("icon_time.png"));
+        iconSun = new TextureRegion((Texture)manager.get("icon_sun.png"));
+        iconTemperature = new TextureRegion((Texture)manager.get("icon_temperature.png"));
 
         manager.load("tv_icon_on.png", Texture.class);
         manager.load("air_icon_on.png", Texture.class);

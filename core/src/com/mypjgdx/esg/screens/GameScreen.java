@@ -103,6 +103,9 @@ public class GameScreen extends AbstractGameScreen {
     private Label textChart5;
     private Label textChart6;
 
+    private Label textSun;
+    private Label textTemperature;
+
     public enum systemWindow {
         solarcell,
         chargecontroller,
@@ -757,6 +760,31 @@ public class GameScreen extends AbstractGameScreen {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
 
+        TextButton.TextButtonStyle buttonSunStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable iconSun = new TextureRegionDrawable(Assets.instance.iconSun);
+        buttonSunStyle.up = iconSun;
+        buttonSunStyle.over = iconSun.tint(Color.LIME);
+        Button iconSunButton = new Button(buttonSunStyle);
+        iconSunButton.setPosition(50, SCENE_HEIGHT - 50);
+
+        textSun = new Label("", skin);
+        textSun.setColor(0, 0, 0, 1);
+        textSun.setStyle(labelStyle);
+        textSun.setFontScale(1f, 1f);
+        textSun.setPosition(75, SCENE_HEIGHT - 42);
+
+        TextButton.TextButtonStyle buttonTemperatureStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable iconTemperature = new TextureRegionDrawable(Assets.instance.iconTemperature);
+        buttonTemperatureStyle.up = iconTemperature;
+        buttonTemperatureStyle.over = iconTemperature.tint(Color.LIME);
+        Button iconTemperatureButton = new Button(buttonTemperatureStyle);
+        iconTemperatureButton.setPosition(175, SCENE_HEIGHT - 50);
+
+        textTemperature = new Label("", skin);
+        textTemperature.setColor(0, 0, 0, 1);
+        textTemperature.setStyle(labelStyle);
+        textTemperature.setFontScale(1f, 1f);
+        textTemperature.setPosition(200, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonBowStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconBow = new TextureRegionDrawable(Assets.instance.iconBow);
@@ -849,6 +877,8 @@ public class GameScreen extends AbstractGameScreen {
         energyLevel3.setFontScale(1, 1f);
         energyLevel3.setPosition(775, SCENE_HEIGHT - 42);
 
+        stage.addActor(iconSunButton);
+        stage.addActor(iconTemperatureButton);
         stage.addActor(iconBowButton);
         stage.addActor(iconSwordButton);
         stage.addActor(iconTrapButton);
@@ -857,6 +887,8 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(iconEnergyMinusButton);
         stage.addActor(iconBatteryButton);
 
+        stage.addActor(textSun);
+        stage.addActor(textTemperature);
         stage.addActor(textBullet);
         stage.addActor(textBeam);
         stage.addActor(textTrap);
@@ -1304,6 +1336,8 @@ public class GameScreen extends AbstractGameScreen {
     }
 
     private void textIconDraw() {
+        textSun.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
+        textTemperature.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
         textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
         textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
         textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
