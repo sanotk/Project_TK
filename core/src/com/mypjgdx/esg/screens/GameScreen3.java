@@ -68,6 +68,7 @@ public class GameScreen3 extends AbstractGameScreen {
     private Label textChart4;
     private Label textChart5;
     private Label textChart6;
+    private Label textChart7;
 
     public systemWindow citizenQuest = null;
     private boolean dialogStage4fail;
@@ -565,6 +566,7 @@ public class GameScreen3 extends AbstractGameScreen {
         textChart4 = new Label("", skin);
         textChart5 = new Label("", skin);
         textChart6 = new Label("", skin);
+        textChart7 = new Label("", skin);
 
         textChart1.setStyle(labelStyle);
         textChart2.setStyle(labelStyle);
@@ -572,6 +574,7 @@ public class GameScreen3 extends AbstractGameScreen {
         textChart4.setStyle(labelStyle);
         textChart5.setStyle(labelStyle);
         textChart6.setStyle(labelStyle);
+        textChart7.setStyle(labelStyle);
 
         final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
         chartWindow.setModal(true);
@@ -592,6 +595,8 @@ public class GameScreen3 extends AbstractGameScreen {
         chartWindow.row().padTop(10);
         chartWindow.add(textChart6);
         chartWindow.row().padTop(10);
+        chartWindow.add(textChart7);
+        chartWindow.row().padTop(10);
         chartWindow.add(closeButton).colspan(3);
         chartWindow.pack();
 
@@ -602,13 +607,11 @@ public class GameScreen3 extends AbstractGameScreen {
                 stageFourClear = true;
                 worldController.level.player.timeStop = true;
                 String text =
-                        "\"ภารกิจสำเร็จ ยินดีต้อนรับสู่ห้องที่ 2\" \n\"(กรุณากด Enter เพื่อไปยังด่านถัดไป)\"";
+                        "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
                 dialog.show();
-                buttonAgree.setVisible(true);
-                buttonRefuse.setVisible(true);
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
-                dialogShow = true;
+                System.out.print(text);
             }
         });
 
@@ -1096,11 +1099,13 @@ public class GameScreen3 extends AbstractGameScreen {
         String textString3 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
         String textString4 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
         String textString5 = ("พลังงานไฟฟ้าที่ได้รับจากมอนสเตอร์ : " + String.valueOf((countEnemy * 1000) + " จูล"));
+        String textString6 = ("ความพอใจของประชาชน : " + String.valueOf((LikingBar.instance.liking)));
         textChart2.setText(textString1);
         textChart3.setText(textString2);
         textChart4.setText(textString3);
         textChart5.setText(textString4);
         textChart6.setText(textString5);
+        textChart7.setText(textString6);
         chartWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
