@@ -17,6 +17,8 @@ public class SwordHit extends Weapon {
 
     public float timeSinceCollision = 0;
 
+    private int damageCount = 0;
+
     public SwordHit(TiledMapTileLayer mapLayer, Player player) {
         super(Assets.instance.box, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
         init(mapLayer, player, enemy);
@@ -81,6 +83,10 @@ public class SwordHit extends Weapon {
                 break;
             default:
                 break;
+        }
+        this.damageCount += 1;
+        if(damageCount==2){
+            destroy();
         }
     }
 

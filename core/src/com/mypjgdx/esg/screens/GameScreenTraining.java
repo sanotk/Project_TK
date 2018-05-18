@@ -1088,9 +1088,8 @@ public class GameScreenTraining extends AbstractGameScreen {
                 Enemy enemy = worldController.level.enemies.get(i);
                 if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
                     dialogEnemy = true;
-                    player.timeStop = true;
                     String text =
-                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                            "\"เคลื่อนที่ด้วยปุ่มลูกศรทิศทาง กดฟันด้วย (C) ยิงธนูด้วย (X) วางกับดักด้วย (Z) และท่าพิเศษคลื่นดาบพลังงานสูดด้วย (W)\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
@@ -1103,46 +1102,7 @@ public class GameScreenTraining extends AbstractGameScreen {
             dialogCitizen = true;
             player.timeStop = true;
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัยดีกว่า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-            dialog.show();
-            dialog.clearPages();
-            dialog.addWaitingPage(text);
-            dialogShow = true;
-        }
-
-        if (questCount == 6 && !animation_status) {
-            if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
-                dialogStage4 = true;
-                stageTwoClear = true;
-                stageThreeClear = true;
-                animation_status = true;
-                player.timeStop = true;
-                level2.gate.state = Item.ItemState.ON;
-                String text =
-                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและพลังงานจะเหลือเพียงพอใช้ในห้องถัดไป สามารถปิดหรือเปิดเครื่องใช้ไฟฟ้าเพิ่มได้\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                dialog.show();
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
-                dialogShow = true;
-            } else if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
-                dialogStage4fail = true;
-                stageTwoClear = true;
-                player.timeStop = true;
-                String text =
-                        "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานไฟฟ้าภายในแบตเตอรี่ลดต่ำลงกว่า 1000 จูล ทุกคนจะขาดอากาศตาย รีบปิดเครื่องใช้ไฟฟ้าเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                level2.gate.state = Item.ItemState.OFF;
-                dialog.show();
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
-                dialogShow = true;
-            }
-        }
-
-        if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogWarning) {
-            dialogWarning = true;
-            player.timeStop = true;
-            String text =
-                    "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    "\"กำจัดมอนสเตอร์หมดแล้ว ลองพาตัวละครเดินไปยังคนตัวสีฟ้าและกดปุ่มพูดคุย (A)\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
@@ -1150,56 +1110,14 @@ public class GameScreenTraining extends AbstractGameScreen {
         }
 
         if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
-            String text =
-                    "\"ขอเปิดเครื่องปรับอากาศ 1 ชั่วโมง เครื่องปรับอากาศใช้กำลังไฟฟ้า \""
-                            + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า " + level2.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
-            dialogCitizenDetail();
-            dialog.addWaitingPage(text);
-            citizenQuest = systemWindow.citizen1;
-        } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
-            String text =
-                    "\"ขอใช้ไมโครเวฟอุ่นอาหาร 3 นาที " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
-            dialogCitizenDetail();
-            dialog.addWaitingPage(text);
-            citizenQuest = systemWindow.citizen2;
-        } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
-            String text =
-                    "\"ขอใช้งานคอมพิวเตอร์ 1 ชั่วโมง\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
-            dialogCitizenDetail();
-            dialog.addWaitingPage(text);
-            citizenQuest = systemWindow.citizen3;
-        } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
-            String text =
-                    "\"ขอใช้งานตู้เย็น\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
-            dialogCitizenDetail();
-            dialog.addWaitingPage(text);
-            citizenQuest = systemWindow.citizen4;
-        } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
+            String text = "\"พยายามเข้านะสหาย\"";
             player.timeStop = true;
             player.status_find = false;
-            String text =
-                    "\"ขอหุงข้าวใช้เวลา 30 นาที\" " + "\n\"( หม้อหุงข้าวใช้กำลังไฟฟ้า " + level2.riceCooker.getEnergyBurn() + " วัตต์ )\" ";
-            dialogCitizenDetail();
-            citizenQuest = systemWindow.citizen5;
+            dialog.show();
+            dialog.clearPages();
+            dialogShow = true;
             dialog.addWaitingPage(text);
-        } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
-            String text =
-                    "\"ขอดูโทรทัศน์ 1 ชั่วโมง\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level2.television.getEnergyBurn() + " วัตต์ )\" ";
-            dialogCitizenDetail();
-            dialog.addWaitingPage(text);
-            citizenQuest = systemWindow.citizen6;
         }
-    }
-
-    private void dialogCitizenDetail(){
-        Player player = worldController.level.player;
-        player.timeStop = true;
-        player.status_find = false;
-        dialog.show();
-        buttonAgree.setVisible(true);
-        buttonRefuse.setVisible(true);
-        dialog.clearPages();
-        dialogShow = true;
     }
 
     private void checkStageAndCount() {
@@ -1235,6 +1153,7 @@ public class GameScreenTraining extends AbstractGameScreen {
                 break;
             }
         }
+
         if((stageTwoClear) && (player.status_find)){
             for (Item item : level2.items) {
                 if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {

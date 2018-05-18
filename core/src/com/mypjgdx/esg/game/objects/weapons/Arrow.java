@@ -20,6 +20,8 @@ public class Arrow extends Weapon {
     private Vector2 positionToTarget;
 //    private Vector2 verticalDimension = new Vector2();
 
+    private int damageCount = 0;
+
     public Arrow(TiledMapTileLayer mapLayer, Player player) {
         super(Assets.instance.arrow, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
         init(mapLayer, player, enemy);
@@ -152,8 +154,10 @@ public class Arrow extends Weapon {
             default:
                 break;
         }
-        destroy();
-    }
+        this.damageCount += 1;
+        if(damageCount==3){
+            destroy();
+        }    }
 
     @Override
     public String getName() {
