@@ -12,6 +12,7 @@ import com.mypjgdx.esg.game.objects.characters.Citizen1;
 import com.mypjgdx.esg.game.objects.characters.Pepo;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.items.Lamp;
 import com.mypjgdx.esg.game.objects.items.Switch;
 import com.mypjgdx.esg.game.objects.items.Television;
 import com.mypjgdx.esg.game.objects.weapons.NormalBow;
@@ -45,10 +46,8 @@ public class LevelTraining extends Level {
 
     @Override
     public void renderFbo(SpriteBatch batch, OrthographicCamera camera, FrameBuffer lightFbo) {
-
         batch.begin();
-
-        batch.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_COLOR);
+        batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
         batch.draw(lightFbo.getColorBufferTexture(),
                 camera.position.x - camera.viewportWidth * camera.zoom / 2,
                 camera.position.y - camera.viewportHeight * camera.zoom / 2,
@@ -61,17 +60,34 @@ public class LevelTraining extends Level {
                 false, true);
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         batch.end();
-
     }
-
 
     @Override
     public void createFbo(SpriteBatch batch, FrameBuffer lightFbo) {
         lightFbo.begin();
 
-        Gdx.gl.glClearColor(0.4f, 0.4f, 0.4f, 1f);
+        Gdx.gl.glClearColor(0.05f, 0.05f, 0.05f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        batch.begin();
+        batch.setColor(1, 1, 1, 1);
+        batch.draw(Assets.instance.light,
+                player.getPositionX() + player.origin.x
+                        - Assets.instance.light.getWidth() / 2f,
+                player.getPositionY() + player.origin.y
+                        - Assets.instance.light.getHeight() / 2f);
+        if(player.isSwitch){
+            for (int i =0; i< items.size();i++){
+                if(items.get(i) instanceof Lamp){
+                    batch.draw(Assets.instance.light,
+                            items.get(i).p_x + items.get(0).origin.x
+                                    - Assets.instance.light.getWidth() / 2f,
+                            items.get(i).p_y + items.get(0).origin.y
+                                    - Assets.instance.light.getHeight() / 2f);
+                }
+            }
+        }
+        batch.end();
         FrameBuffer.unbind();
     }
 }
