@@ -124,6 +124,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     public boolean swordHit = true;
 
+    private PlayerStalkerPosition stalkerPosition;
+
     public Player(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         super(Assets.instance.playerAltas);
 
@@ -153,6 +155,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
 
         init(mapLayer, positionX, positionY);
+
+        stalkerPosition = new PlayerStalkerPosition(this);
     }
 
 
@@ -249,6 +253,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             timeCount--;
             Countdown = 0;
         }
+
+        stalkerPosition.update();
     }
 
     public void move(Direction direction) {
@@ -539,10 +545,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void debug(ShapeRenderer renderer) {
-        renderer.setColor(Color.RED);
-        renderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
-        renderer.setColor(Color.BLUE);
-        renderer.rect(walkingBounds.x, walkingBounds.y, walkingBounds.width, walkingBounds.height);
+        stalkerPosition.debug(renderer);
     }
 
     @Override
