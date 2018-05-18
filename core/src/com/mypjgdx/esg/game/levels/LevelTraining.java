@@ -24,14 +24,20 @@ public class LevelTraining extends Level {
     public Item gate;
 
     public LevelTraining() {
-        map = Assets.instance.map1;
+        map = Assets.instance.mapTraining;
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
         player = new Player(mapLayer, 100, 1000);
 
         switchItem = new Switch(mapLayer, player);
         television = new Television(mapLayer, player);
-        television = new Gate(mapLayer, player);
+        gate = new Gate(mapLayer, player);
+
+        items.add(switchItem);
+        items.add(television);
+        items.add(gate);
+
+        television.setEnergyBurn(100);
 
         enemies.add(new Pepo(mapLayer, player));
 

@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 public class GameScreenTraining extends AbstractGameScreen {
 
-    private final Dialog dialog;
+    private Dialog dialog;
     private TextButton buttonAgree;
     private TextButton buttonRefuse;
     private WorldController worldController;
@@ -234,15 +234,8 @@ public class GameScreenTraining extends AbstractGameScreen {
         ruleWindow.addAction(Actions.sequence(Actions.visible(false), Actions.fadeIn(0.2f)));
         ruleWindow.setVisible(false);
 
-        chartWindow.setVisible(false);
-
         statusWindow = createStatusWindow();
         statusWindow.setVisible(false);
-
-        missionWindow = createMissionWindow();
-        missionWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
 
         optionsWindow.setVisible(false);
 
@@ -254,6 +247,7 @@ public class GameScreenTraining extends AbstractGameScreen {
                 SCENE_WIDTH / 2 - dialogStory.getWidth() * 0.5f,
                 SCENE_HEIGHT / 4 - dialogStory.getHeight() * 0.5f);
 
+        dialogShow = true;
         dialog.clearPages();
         dialog.addWaitingPage(text);
 
@@ -266,9 +260,7 @@ public class GameScreenTraining extends AbstractGameScreen {
 
         stage.addActor(optionsWindow);
         stage.addActor(ruleWindow);
-        stage.addActor(chartWindow);
         stage.addActor(statusWindow);
-        stage.addActor(missionWindow);
 
         buttonOption.addListener(new ClickListener() {
             @Override
@@ -288,116 +280,6 @@ public class GameScreenTraining extends AbstractGameScreen {
                         Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
                 ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
                 worldController.level.player.timeStop = true;
-            }
-        });
-
-        buttonMission.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                missionWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - buttonMission.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - buttonMission.getHeight() / 2);
-                missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-                worldController.level.player.timeStop = true;
-            }
-        });
-
-        buttonAgree.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                buttonAgree.setVisible(false);
-                buttonRefuse.setVisible(false);
-                if(stageFourClear){
-                    worldController.level.player.timeClear = false;
-                    Gdx.app.postRunnable(new Runnable() {
-                        @Override
-                        public void run() {
-                            game.setScreen(new GameScreen3(game,optionsWindow));
-                        }
-                    });
-                }else{
-                    if (citizenQuest == systemWindow.citizen1) {
-                        questState = QuestState.quest1yes;
-                        worldController.level.player.quest1IsAccept = true;
-                        worldController.level.player.quest_window_1 = true;
-                    } else if (citizenQuest == systemWindow.citizen2) {
-                        questState = QuestState.quest2yes;
-                        worldController.level.player.quest_window_2 = true;
-                        worldController.level.player.quest2IsAccept = true;
-                    } else if (citizenQuest == systemWindow.citizen3) {
-                        questState = QuestState.quest3yes;
-                        worldController.level.player.quest_window_3 = true;
-                        worldController.level.player.quest3IsAccept = true;
-                    } else if (citizenQuest == systemWindow.citizen4) {
-                        questState = QuestState.quest4yes;
-                        worldController.level.player.quest_window_4 = true;
-                        worldController.level.player.quest4IsAccept = true;
-                    } else if (citizenQuest == systemWindow.citizen5) {
-                        questState = QuestState.quest5yes;
-                        worldController.level.player.quest_window_5 = true;
-                        worldController.level.player.quest5IsAccept = true;
-                    } else if (citizenQuest == systemWindow.citizen6) {
-                        questState = QuestState.quest6yes;
-                        worldController.level.player.quest_window_6 = true;
-                        worldController.level.player.quest6IsAccept = true;
-                    }
-                    addRequest.add(questState);
-                    System.out.println(questState);
-                    questState = null;
-                    worldController.level.player.questScreen1 = false;
-                    worldController.level.player.questScreen2 = false;
-                    worldController.level.player.questScreen3 = false;
-                    worldController.level.player.questScreen4 = false;
-                    worldController.level.player.questScreen5 = false;
-                    worldController.level.player.questScreen6 = false;
-                }
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-                dialog.hide();
-                worldController.level.player.timeStop = false;
-                dialogShow = false;
-            }
-        });
-
-        buttonRefuse.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                buttonAgree.setVisible(false);
-                buttonRefuse.setVisible(false);
-                if (citizenQuest == systemWindow.citizen1) {
-                    worldController.level.player.quest_window_1 = true;
-                    questState = QuestState.quest1no;
-                } else if (citizenQuest == systemWindow.citizen2) {
-                    worldController.level.player.quest_window_2 = true;
-                    questState = QuestState.quest2no;
-                } else if (citizenQuest == systemWindow.citizen3) {
-                    worldController.level.player.quest_window_3 = true;
-                    questState = QuestState.quest3no;
-                } else if (citizenQuest == systemWindow.citizen4) {
-                    worldController.level.player.quest_window_4 = true;
-                    questState = QuestState.quest4no;
-                } else if (citizenQuest == systemWindow.citizen5) {
-                    worldController.level.player.quest_window_5 = true;
-                    questState = QuestState.quest5no;
-                } else if (citizenQuest == systemWindow.citizen6) {
-                    worldController.level.player.quest_window_6 = true;
-                    questState = QuestState.quest6no;
-                }
-                questCount += 1;
-                addRequest.add(questState);
-                System.out.println(questState);
-                questState = null;
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-                worldController.level.player.questScreen1 = false;
-                worldController.level.player.questScreen2 = false;
-                worldController.level.player.questScreen3 = false;
-                worldController.level.player.questScreen4 = false;
-                worldController.level.player.questScreen5 = false;
-                worldController.level.player.questScreen6 = false;
-                dialog.hide();
-                worldController.level.player.timeStop = false;
-                dialogShow = false;
             }
         });
 
@@ -613,14 +495,7 @@ public class GameScreenTraining extends AbstractGameScreen {
         text3.setStyle(labelStyle);
         text4.setStyle(labelStyle);
 
-        textItem1.setStyle(labelStyle);
-        textItem2.setStyle(labelStyle);
-        textItem3.setStyle(labelStyle);
-        textItem4.setStyle(labelStyle);
-        textItem5.setStyle(labelStyle);
         textItem6.setStyle(labelStyle);
-        textItem7.setStyle(labelStyle);
-        textItem8.setStyle(labelStyle);
 
         final Window statusWindow = new Window("ข้อมูลการใช้พลังงานไฟฟ้า", style);
         statusWindow.setModal(true);
@@ -744,74 +619,6 @@ public class GameScreenTraining extends AbstractGameScreen {
         });
 
         return ruleWindow;
-    }
-
-    private Window createMissionWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.WHITE;
-
-        Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonRuleStyle.up = buttonRegion;
-        buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonRuleStyle);
-//        Button ruleIcon = new Button(buttonPauseStyle);
-//        Button toolIcon = new Button(buttonToolStyle);
-
-        Label text1 = new Label("ภารกิจแรก กำจัดมอนสเตอร์ในแผนที่ให้ครบทุกตัวซึ่งจะได้รับพลังงานเพื่อเริ่มต้นการทำงานของโซล่าเซลล์", skin);
-        Label text2 = new Label("ภารกิจที่สอง หลังจากเสร็จสิ้นภารกิจแรกประชาชนจะปรากฎตัวออกมา ให้ค้นหาประชาชนในแผนที่ให้ครบ", skin);
-        Label text3 = new Label("ภารกิจที่สาม หลังจากเสร็จสิ้นภารกิจที่สองให้พาประชาชนไปยังที่หลบภัย", skin);
-        Label text4 = new Label("ภารกิจสุดท้าย เชื่อมต่อระบบโซล่าเซลล์ให้ถูกต้อง", skin);
-
-        text1.setStyle(labelStyle);
-        text2.setStyle(labelStyle);
-        text3.setStyle(labelStyle);
-        text4.setStyle(labelStyle);
-
-        final Window missionWindow = new Window("ภารกิจที่ต้องทำให้สำเร็จ", style);
-        missionWindow.setModal(true);
-        missionWindow.setSkin(skin);
-        missionWindow.padTop(60);
-        missionWindow.padLeft(40);
-        missionWindow.padRight(40);
-        missionWindow.padBottom(20);
-        missionWindow.getTitleLabel().setAlignment(Align.center);
-        missionWindow.add(text1);
-        missionWindow.row().padTop(10);
-        missionWindow.add(text2);
-        missionWindow.row().padTop(10);
-        missionWindow.add(text3);
-        missionWindow.row().padTop(10);
-        missionWindow.add(text4);
-        //   ruleWindow.add(ruleIcon).right();
-        //  ruleWindow.add(text8).left();
-        //   ruleWindow.row().padTop(10);
-        //   ruleWindow.add(toolIcon).right();
-        //   ruleWindow.add(text9).left();
-        missionWindow.row().padTop(20);
-        missionWindow.add(closeButton).colspan(3);
-        missionWindow.pack();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                missionWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                if (!dialogStart) {
-                    ruleWindow.addAction(Actions.sequence(Actions.fadeIn(0.2f), Actions.visible(true)));
-                }else if(!dialogShow){
-                    worldController.level.player.timeStop = false;
-                }
-            }
-        });
-
-        return missionWindow;
     }
 
     private void controlAndDebug() {
