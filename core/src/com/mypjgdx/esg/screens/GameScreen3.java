@@ -125,6 +125,7 @@ public class GameScreen3 extends AbstractGameScreen {
     private Window optionsWindow;
 
     private Button buttonRule;
+    private Button buttonMission;
     private Window ruleWindow;
     private Window chartWindow;
 
@@ -197,7 +198,14 @@ public class GameScreen3 extends AbstractGameScreen {
         buttonRuleStyle.up = ruleUp;
         buttonRuleStyle.down = ruleUp.tint(Color.LIGHT_GRAY);
         buttonRule = new Button(buttonRuleStyle);
-        buttonRule.setPosition(SCENE_WIDTH - 100, SCENE_HEIGHT - 50);
+        buttonRule.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
+
+        TextButton.TextButtonStyle buttonMissionStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable missionUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_pause"));
+        buttonMissionStyle.up = missionUp;
+        buttonMissionStyle.down = missionUp.tint(Color.LIGHT_GRAY);
+        buttonMission = new Button(buttonMissionStyle);
+        buttonMission.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 150);
 
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
         buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
@@ -281,6 +289,17 @@ public class GameScreen3 extends AbstractGameScreen {
                         Gdx.graphics.getWidth() / 2 - ruleWindow.getWidth() / 2,
                         Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
                 ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                worldController.level.player.timeStop = true;
+            }
+        });
+
+        buttonMission.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                missionWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - buttonMission.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - buttonMission.getHeight() / 2);
+                missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
                 worldController.level.player.timeStop = true;
             }
         });
