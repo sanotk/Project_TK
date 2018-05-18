@@ -21,7 +21,6 @@ import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
-import com.mypjgdx.esg.game.levels.Level2;
 import com.mypjgdx.esg.game.levels.LevelTraining;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
@@ -131,8 +130,6 @@ public class GameScreenTraining extends AbstractGameScreen {
 
     private boolean animation_status = false;
 
-    private int trueLink = 0;
-
     private int countEnemy;
 
     public int enemyDeadCount = 0;
@@ -237,7 +234,6 @@ public class GameScreenTraining extends AbstractGameScreen {
         ruleWindow.addAction(Actions.sequence(Actions.visible(false), Actions.fadeIn(0.2f)));
         ruleWindow.setVisible(false);
 
-        chartWindow = createChartWindow();
         chartWindow.setVisible(false);
 
         statusWindow = createStatusWindow();
@@ -582,82 +578,6 @@ public class GameScreenTraining extends AbstractGameScreen {
         stage.addActor(textLiking);
     }
 
-    private Window createChartWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.WHITE;
-
-        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonChartStyle.up = buttonRegion;
-        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonChartStyle);
-
-        textChart1 = new Label("สถิติ", skin);
-        textChart2 = new Label("", skin);
-        textChart3 = new Label("", skin);
-        textChart4 = new Label("", skin);
-        textChart5 = new Label("", skin);
-        textChart6 = new Label("", skin);
-        textChart7 = new Label("", skin);
-
-        textChart1.setStyle(labelStyle);
-        textChart2.setStyle(labelStyle);
-        textChart3.setStyle(labelStyle);
-        textChart4.setStyle(labelStyle);
-        textChart5.setStyle(labelStyle);
-        textChart6.setStyle(labelStyle);
-        textChart7.setStyle(labelStyle);
-
-        final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
-        chartWindow.setModal(true);
-        chartWindow.padTop(50);
-        chartWindow.padLeft(40);
-        chartWindow.padRight(40);
-        chartWindow.padBottom(20);
-        chartWindow.getTitleLabel().setAlignment(Align.center);
-        chartWindow.add(textChart1);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart2);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart3);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart4);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart5);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart6);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart7);
-        chartWindow.row().padTop(10);
-        chartWindow.add(closeButton).colspan(3);
-        chartWindow.pack();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                chartWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                stageFourClear = true;
-                worldController.level.player.timeStop = true;
-                String text =
-                        "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
-                dialog.show();
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
-                System.out.print(text);
-            }
-        });
-
-        return chartWindow;
-    }
-
     private Window createStatusWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new TextureRegionDrawable(Assets.instance.window);
@@ -675,67 +595,18 @@ public class GameScreenTraining extends AbstractGameScreen {
         buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
         Button closeButton = new Button(buttonChartStyle);
 
-        Button.ButtonStyle buttonItem1Style1 = new Button.ButtonStyle();
-        buttonItem1 = new TextureRegionDrawable(Assets.instance.comIconOff);
-        buttonItem1Style1.up = buttonItem1;
-        buttonItem1Style1.over = buttonItem1.tint(Color.FIREBRICK);
-        Button itemIcon1 = new Button(buttonItem1Style1);
-
-        Button.ButtonStyle buttonItem1Style2 = new Button.ButtonStyle();
-        buttonItem2 = new TextureRegionDrawable(Assets.instance.refrigeratorIconOff);
-        buttonItem1Style2.up = buttonItem2;
-        buttonItem1Style2.over = buttonItem2.tint(Color.FIREBRICK);
-        Button itemIcon2 = new Button(buttonItem1Style2);
-
-        Button.ButtonStyle buttonItem1Style3 = new Button.ButtonStyle();
-        buttonItem3 = new TextureRegionDrawable(Assets.instance.fanIconOff);
-        buttonItem1Style3.up = buttonItem3;
-        buttonItem1Style3.over = buttonItem3.tint(Color.FIREBRICK);
-        Button itemIcon3 = new Button(buttonItem1Style3);
-
-        Button.ButtonStyle buttonItem1Style4 = new Button.ButtonStyle();
-        buttonItem4 = new TextureRegionDrawable(Assets.instance.microwaveIconOff);
-        buttonItem1Style4.up = buttonItem4;
-        buttonItem1Style4.over = buttonItem4.tint(Color.FIREBRICK);
-        Button itemIcon4 = new Button(buttonItem1Style4);
-
-        Button.ButtonStyle buttonItem1Style5 = new Button.ButtonStyle();
-        buttonItem5 = new TextureRegionDrawable(Assets.instance.ricecookerIconOff);
-        buttonItem1Style5.up = buttonItem5;
-        buttonItem1Style5.over = buttonItem5.tint(Color.FIREBRICK);
-        Button itemIcon5 = new Button(buttonItem1Style5);
-
         Button.ButtonStyle buttonItem1Style6 = new Button.ButtonStyle();
         buttonItem6 = new TextureRegionDrawable(Assets.instance.tvIconOff);
         buttonItem1Style6.up = buttonItem6;
         buttonItem1Style6.over = buttonItem6.tint(Color.FIREBRICK);
         Button itemIcon6 = new Button(buttonItem1Style6);
 
-        Button.ButtonStyle buttonItem1Style7 = new Button.ButtonStyle();
-        buttonItem7 = new TextureRegionDrawable(Assets.instance.waterpumpIconOff);
-        buttonItem1Style7.up = buttonItem7;
-        buttonItem1Style7.over = buttonItem7.tint(Color.FIREBRICK);
-        Button itemIcon7 = new Button(buttonItem1Style7);
-
-        Button.ButtonStyle buttonItem1Style8 = new Button.ButtonStyle();
-        buttonItem8 = new TextureRegionDrawable(Assets.instance.airIconOff);
-        buttonItem1Style8.up = buttonItem8;
-        buttonItem1Style8.over = buttonItem8.tint(Color.FIREBRICK);
-        Button itemIcon8 = new Button(buttonItem1Style8);
-
         text1 = new Label("", skin);
         text2 = new Label("", skin);
         text3 = new Label("", skin);
         text4 = new Label("", skin);
 
-        textItem1 = new Label("", skin);
-        textItem2 = new Label("", skin);
-        textItem3 = new Label("", skin);
-        textItem4 = new Label("", skin);
-        textItem5 = new Label("", skin);
         textItem6 = new Label("", skin);
-        textItem7 = new Label("", skin);
-        textItem8 = new Label("", skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
@@ -760,33 +631,17 @@ public class GameScreenTraining extends AbstractGameScreen {
         statusWindow.getTitleLabel().setAlignment(Align.center);
         statusWindow.row().padBottom(10).padTop(10);
         statusWindow.row().padTop(10);
-        statusWindow.add(text1).colspan(4);
+        statusWindow.add(text1);
         statusWindow.row().padTop(10);
-        statusWindow.add(text2).colspan(4);
+        statusWindow.add(text2);
         statusWindow.row().padTop(10);
-        statusWindow.add(text3).colspan(4);
+        statusWindow.add(text3);
         statusWindow.row().padTop(10);
-        statusWindow.add(text4).colspan(4);
+        statusWindow.add(text4);
         statusWindow.row().padTop(10);
-        statusWindow.add(itemIcon1);
-        statusWindow.add(itemIcon2);
-        statusWindow.add(itemIcon3);
-        statusWindow.add(itemIcon4);
-        statusWindow.row().padTop(10);
-        statusWindow.add(textItem1);
-        statusWindow.add(textItem2);
-        statusWindow.add(textItem3);
-        statusWindow.add(textItem4);
-        statusWindow.row().padTop(10);
-        statusWindow.add(itemIcon5);
         statusWindow.add(itemIcon6);
-        statusWindow.add(itemIcon7);
-        statusWindow.add(itemIcon8);
         statusWindow.row().padTop(10);
-        statusWindow.add(textItem5);
         statusWindow.add(textItem6);
-        statusWindow.add(textItem7);
-        statusWindow.add(textItem8);
         statusWindow.row().padTop(10);
         statusWindow.add(closeButton).colspan(4);
         statusWindow.pack();
@@ -962,8 +817,7 @@ public class GameScreenTraining extends AbstractGameScreen {
     private void controlAndDebug() {
 
         Player player = worldController.level.player;
-        Level2 level2 = (Level2) worldController.level;
-
+        LevelTraining levelTraining = (LevelTraining) worldController.level;
         if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
             for (Enemy enemy : worldController.level.enemies) {
                 enemy.getStateMachine().changeState(EnemyState.DIE);
@@ -971,8 +825,8 @@ public class GameScreenTraining extends AbstractGameScreen {
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
-            level2.switchItem.state = Item.ItemState.ON;
-            level2.switchItem.resetAnimation();
+            levelTraining.switchItem.state = Item.ItemState.ON;
+            levelTraining.switchItem.resetAnimation();
             player.isSwitch = true;
             player.status_find = false;
         }
@@ -1030,17 +884,19 @@ public class GameScreenTraining extends AbstractGameScreen {
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-            dialog.hide();
-            worldController.level.player.timeStop = false;
-            citizenQuest = null;
-            dialogShow = false;
-            player.status_find = false;
-            buttonAgree.setVisible(false);
-            buttonRefuse.setVisible(false);
-            dialogDoor1 = false;
-            dialogDoor2 = false;
-            dialogDoor3 = false;
-            dialogDoor4 = false;
+            if(dialogShow){
+                dialog.hide();
+                worldController.level.player.timeStop = false;
+                citizenQuest = null;
+                dialogShow = false;
+                player.status_find = false;
+                buttonAgree.setVisible(false);
+                buttonRefuse.setVisible(false);
+                dialogDoor1 = false;
+                dialogDoor2 = false;
+                dialogDoor3 = false;
+                dialogDoor4 = false;
+            }
         } else {
             dialog.tryToChangePage();
         }
@@ -1063,9 +919,9 @@ public class GameScreenTraining extends AbstractGameScreen {
     private void dialogDraw() {
 
         Player player = worldController.level.player;
-        Level2 level2 = (Level2) worldController.level;
+        LevelTraining levelTraining = (LevelTraining) worldController.level;
 
-        if ((level2.gate.nearPlayer()) && (player.status_find)) {
+        if ((levelTraining.gate.nearPlayer()) && (player.status_find)) {
             if (!animation_status && stageTwoClear && !stageThreeClear && !dialogDoor3) {
                 dialogDoor3 = true;
                 player.timeStop = true;
@@ -1079,7 +935,6 @@ public class GameScreenTraining extends AbstractGameScreen {
                 dialogDoor4 = true;
                 player.timeStop = true;
                 player.timeClear = true;
-                chartStatus();
             }
         }
 
@@ -1143,11 +998,11 @@ public class GameScreenTraining extends AbstractGameScreen {
     private void checkObject() {
 
         Player player = worldController.level.player;
-        Level2 level2 = (Level2) worldController.level;
+        LevelTraining levelTraining = (LevelTraining) worldController.level;
 
         boolean noItem = true;
 
-        for (Item item : level2.items) {
+        for (Item item : levelTraining.items) {
             if (item.nearPlayer()) {
                 noItem = false;
                 break;
@@ -1155,7 +1010,7 @@ public class GameScreenTraining extends AbstractGameScreen {
         }
 
         if((stageTwoClear) && (player.status_find)){
-            for (Item item : level2.items) {
+            for (Item item : levelTraining.items) {
                 if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
                     item.state = Item.ItemState.OFF;
                     EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
@@ -1175,34 +1030,12 @@ public class GameScreenTraining extends AbstractGameScreen {
             player.status_windows_link = false;
         }
 
-        if ((!player.isSwitch) && (player.status_find) && (level2.switchItem.nearPlayer())) {
-            level2.switchItem.state = Item.ItemState.ON;
-            level2.switchItem.resetAnimation();
+        if ((!player.isSwitch) && (player.status_find) && (levelTraining.switchItem.nearPlayer())) {
+            levelTraining.switchItem.state = Item.ItemState.ON;
+            levelTraining.switchItem.resetAnimation();
             player.isSwitch = true;
             player.status_find = false;
         }
-    }
-
-    private void chartStatus() {
-        Player player = worldController.level.player;
-        player.timeStop = true;
-        player.timeClear = true;
-        String textString1 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
-        String textString2 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
-        String textString3 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
-        String textString4 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
-        String textString5 = ("พลังงานไฟฟ้าที่ได้รับจากมอนสเตอร์ : " + String.valueOf((countEnemy * 1000) + " จูล"));
-        String textString6 = ("ความพอใจของประชาชน : " + String.valueOf((LikingBar.instance.liking)));
-        textChart2.setText(textString1);
-        textChart3.setText(textString2);
-        textChart4.setText(textString3);
-        textChart5.setText(textString4);
-        textChart6.setText(textString5);
-        textChart7.setText(textString6);
-        chartWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
-        chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
     private void status() {

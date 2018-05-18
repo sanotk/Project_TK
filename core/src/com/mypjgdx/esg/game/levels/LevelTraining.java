@@ -11,10 +11,7 @@ import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Citizen1;
 import com.mypjgdx.esg.game.objects.characters.Pepo;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.items.Item;
-import com.mypjgdx.esg.game.objects.items.Lamp;
-import com.mypjgdx.esg.game.objects.items.Switch;
-import com.mypjgdx.esg.game.objects.items.Television;
+import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.game.objects.weapons.NormalBow;
 import com.mypjgdx.esg.game.objects.weapons.NormalSword;
 
@@ -24,6 +21,7 @@ public class LevelTraining extends Level {
 
     public Item switchItem;
     public Item television;
+    public Item gate;
 
     public LevelTraining() {
         map = Assets.instance.map1;
@@ -33,6 +31,7 @@ public class LevelTraining extends Level {
 
         switchItem = new Switch(mapLayer, player);
         television = new Television(mapLayer, player);
+        television = new Gate(mapLayer, player);
 
         enemies.add(new Pepo(mapLayer, player));
 
