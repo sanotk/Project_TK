@@ -784,8 +784,8 @@ public class GameScreen extends AbstractGameScreen {
 //        Button ruleIcon = new Button(buttonPauseStyle);
 //        Button toolIcon = new Button(buttonToolStyle);
 
-        Label text1 = new Label("ภารกิจแรก กำจัดมอนสเตอร์ที่เกิดขึ้นในแผนที่ให้หมดทุกตัวซึ่งจะได้รับพลังงานเพื่อเริ่มการทำงานของโซล่าเซลล์", skin);
-        Label text2 = new Label("ภารกิจที่สอง หลังจากเสร็จภารกิจแรกประชาชนจะปรากฎตัวออกมา ให้ตามหาประชาชนให้ครบทุกคน", skin);
+        Label text1 = new Label("ภารกิจแรก กำจัดมอนสเตอร์ในแผนที่ให้ครบทุกตัวซึ่งจะได้รับพลังงานเพื่อเริ่มต้นการทำงานของโซล่าเซลล์", skin);
+        Label text2 = new Label("ภารกิจที่สอง หลังจากเสร็จสิ้นภารกิจแรกประชาชนจะปรากฎตัวออกมา ให้ค้นหาประชาชนในแผนที่ให้ครบ", skin);
         Label text3 = new Label("ภารกิจที่สาม หลังจากเสร็จสิ้นภารกิจที่สองให้พาประชาชนไปยังที่หลบภัย", skin);
         Label text4 = new Label("ภารกิจสุดท้าย เชื่อมต่อระบบโซล่าเซลล์ให้ถูกต้อง", skin);
 
@@ -822,7 +822,9 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 missionWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                if (!dialogShow) {
+                if (!dialogStart) {
+                    ruleWindow.addAction(Actions.sequence(Actions.fadeIn(0.2f), Actions.visible(true)));
+                }else if(!dialogShow){
                     worldController.level.player.timeStop = false;
                 }
             }
