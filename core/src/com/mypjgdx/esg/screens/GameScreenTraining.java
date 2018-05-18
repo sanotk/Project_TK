@@ -21,27 +21,25 @@ import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
-import com.mypjgdx.esg.game.levels.Level1;
+import com.mypjgdx.esg.game.levels.Level2;
 import com.mypjgdx.esg.game.levels.LevelTraining;
-import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.ui.Dialog;
-import com.mypjgdx.esg.utils.ItemLink;
-import com.mypjgdx.esg.utils.SolarState;
+import com.mypjgdx.esg.utils.QuestState;
 
 import java.util.ArrayList;
 
 public class GameScreenTraining extends AbstractGameScreen {
 
-    private Button buttonMission;
+    private final Dialog dialog;
+    private TextButton buttonAgree;
+    private TextButton buttonRefuse;
     private WorldController worldController;
     private WorldRenderer worldRenderer;
-
-    private ItemLink itemLink;
 
     SpriteBatch batch;
     public Texture bg;
@@ -49,11 +47,14 @@ public class GameScreenTraining extends AbstractGameScreen {
     private Stage stage;
     private Skin skin;
 
+    private String titleQuest;
+
+    private Label textSun;
+    private Label textTemperature;
+    private Label textLiking;
+
     public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
     public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
-
-    private TextButton buttonAgree;
-    private TextButton buttonRefuse;
 
     private Label textBullet;
     private Label textBeam;
@@ -62,41 +63,7 @@ public class GameScreenTraining extends AbstractGameScreen {
     private Label energyLevel;
     private Label energyLevel2;
     private Label energyLevel3;
-
-    private Label text1;
-    private Label text2;
-    private Label text3;
-    private Label text4;
-    private Label text5;
-    private Label text6;
-    private Label text7;
-    private Label text8;
-    private Label text9;
-
-    private String textSolarcell = "เชื่อมต่อไปยังแผงโซล่าเซลล์";
-    private String textCharge = "เชื่อมต่อไปยังชาร์จคอนโทรลเลอร์";
-    private String textBattery = "เชื่อมต่อไปยังแบตเตอรี";
-    private String textInverter = "เชื่อมต่อไปยังอินเวอร์เตอร์";
-    private String textDoor = "เชื่อมต่อไปยังประตูไฟฟ้า";
-
-    private String textSolarcell2 = "ยกเลิกการเชื่อมต่อไปยังแผงโซล่าเซลล์";
-    private String textCharge2 = "ยกเลิกการเชื่อมต่อไปยังชาร์จคอนโทรลเลอร์";
-    private String textBattery2 = "ยกเลิกการเชื่อมต่อไปยังแบตเตอรี";
-    private String textInverter2 = "ยกเลิกการเชื่อมต่อไปยังอินเวอร์เตอร์";
-    private String textDoor2 = "ยกเลิกการเชื่อมต่อไปยังประตูไฟฟ้า";
-
-    private boolean stageFourClear;
-    private boolean dialogCitizen2;
-
-    private Label labelSolarCell1;
-    private Label labelSolarCell2;
-    private Label labelSolarCell3;
-    private Label labelSolarCell4;
-
-    private Button solarCellButton1;
-    private Button solarCellButton2;
-    private Button solarCellButton3;
-    private Button solarCellButton4;
+    private Label textRule;
 
     private Label textChart1;
     private Label textChart2;
@@ -106,89 +73,106 @@ public class GameScreenTraining extends AbstractGameScreen {
     private Label textChart6;
     private Label textChart7;
 
-    private Label textSun;
-    private Label textTemperature;
-    private Label textLiking;
+    public systemWindow citizenQuest = null;
+    private boolean dialogStage4fail;
+    private TextureRegionDrawable iconRegion;
+
+    private Label textItem1;
+    private Label textItem2;
+    private Label textItem3;
+    private Label textItem4;
+    private Label textItem5;
+    private Label textItem6;
+    private Label textItem7;
+    private Label textItem8;
+
+    private TextureRegionDrawable buttonItem1;
+    private TextureRegionDrawable buttonItem2;
+    private TextureRegionDrawable buttonItem3;
+    private TextureRegionDrawable buttonItem4;
+    private TextureRegionDrawable buttonItem5;
+    private TextureRegionDrawable buttonItem6;
+    private TextureRegionDrawable buttonItem7;
+    private TextureRegionDrawable buttonItem8;
+
+    private boolean dialogWarning;
 
     public enum systemWindow {
-        solarcell,
-        chargecontroller,
-        battery,
-        inverter
+        citizen1,
+        citizen2,
+        citizen3,
+        citizen4,
+        citizen5,
+        citizen6
     }
 
-    private SolarState solarState;
-    private systemWindow solarWindow;
+    private boolean dialogShow;
 
-    private Window solarCellGuideWindow;
+    private Texture dialogStory;
 
-    private ArrayList<SolarState> link = new ArrayList<SolarState>();
-    private ArrayList<SolarState> isComplete = new ArrayList<SolarState>();
+    private String text =
+            "\"ทุกคนรออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าไม่มีอันตราย\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
 
-    private TextureRegionDrawable imageLink1;
-    private TextureRegionDrawable imageLink2;
-    private TextureRegionDrawable imageLink3;
-    private TextureRegionDrawable imageLink4;
+    public QuestState questState = null;
+
+    private ArrayList<QuestState> isComplete = new ArrayList<QuestState>();
+    private ArrayList<QuestState> addRequest = new ArrayList<QuestState>();
+
+    private TextButton buttonLink1;
+    private TextButton buttonLink2;
 
     private Button buttonOption;
     private BitmapFont font;
     private Window optionsWindow;
 
-    private Window solarCellWindow;
+    private Button buttonRule;
+    private Window ruleWindow;
+    private Window chartWindow;
 
     private boolean animation_status = false;
 
-    private Button buttonRule;
-
-    private Window ruleWindow;
-    private Window chartWindow;
-    private Window statusWindow;
-
-    private boolean addedStoC;
-    private boolean addedStoB;
-    private boolean addedStoI;
-    private boolean addedStoD;
-    private boolean addedCtoB;
-    private boolean addedCtoI;
-    private boolean addedCtoD;
-    private boolean addedBtoI;
-    private boolean addedBtoD;
-    private boolean addedItoD;
-
-    private boolean dialogStart;
+    private int trueLink = 0;
 
     private int countEnemy;
 
-    private int trueLink = 0;
+    public int enemyDeadCount = 0;
+    public boolean stringDraw;
 
-    private Dialog dialog;
-    private Texture dialogStory;
-    private int citizenCount = 0;
+    private Label text1;
+    private Label text2;
+    private Label text3;
+    private Label text4;
+    private Label text5;
+    private Label text6;
 
+    private Window statusWindow;
     private Window missionWindow;
 
-    private String text =
-            "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"เ(กด Enter เพื่อเริ่มเกม)\"";
+    private int questCount;
+    private float Countdown;
 
     private boolean dialogEnemy;
     private boolean dialogCitizen;
+    private boolean dialogStage1;
+    private boolean dialogStage2;
+    private boolean dialogStage3;
+    private boolean dialogStage4;
+
     private boolean dialogDoor1;
     private boolean dialogDoor2;
     private boolean dialogDoor3;
     private boolean dialogDoor4;
-    private boolean dialogShow;
 
     private boolean stageTwoClear;
     private boolean stageThreeClear;
+    private boolean stageFourClear;
+
+    private Button buttonMission;
+
+    private boolean dialogStart;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
-
-    private TextureRegionDrawable pauseUp;
-    private TextureRegionDrawable toolUp;
-
-    private TextButton.TextButtonStyle buttonToolStyle;
-    private TextButton.TextButtonStyle buttonPauseStyle;
 
     public GameScreenTraining(final Game game, final Window optionsWindow) {
         super(game);
@@ -201,33 +185,20 @@ public class GameScreenTraining extends AbstractGameScreen {
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
 
-        dialogStory = new Texture("dialogStory.png");
-        dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
-        dialog = new Dialog(font, dialogStory, 65f, 120f);
-        dialog.setPosition(
-                SCENE_WIDTH / 2 - dialogStory.getWidth() * 0.5f,
-                SCENE_HEIGHT / 4 - dialogStory.getHeight() * 0.5f);
-
         this.optionsWindow = optionsWindow;
 
-        isComplete.add(solarState.StoC);
-        isComplete.add(solarState.CtoB);
-        isComplete.add(solarState.CtoI);
-        isComplete.add(solarState.ItoD);
-
-        buttonToolStyle = new TextButton.TextButtonStyle();
-        toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
+        TextButton.TextButtonStyle buttonToolStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
         buttonToolStyle.up = toolUp;
         buttonToolStyle.down = toolUp.tint(Color.LIGHT_GRAY);
         buttonOption = new Button(buttonToolStyle);
         buttonOption.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 50);
 
-        buttonPauseStyle = new TextButton.TextButtonStyle();
-        pauseUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_pause"));
-        buttonPauseStyle.up = pauseUp;
-        buttonPauseStyle.down = pauseUp.tint(Color.LIGHT_GRAY);
-        buttonRule = new Button(buttonPauseStyle);
+        TextButton.TextButtonStyle buttonRuleStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable ruleUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_pause"));
+        buttonRuleStyle.up = ruleUp;
+        buttonRuleStyle.down = ruleUp.tint(Color.LIGHT_GRAY);
+        buttonRule = new Button(buttonRuleStyle);
         buttonRule.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
 
         TextButton.TextButtonStyle buttonMissionStyle = new TextButton.TextButtonStyle();
@@ -263,6 +234,7 @@ public class GameScreenTraining extends AbstractGameScreen {
         ruleWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - ruleWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
+        ruleWindow.addAction(Actions.sequence(Actions.visible(false), Actions.fadeIn(0.2f)));
         ruleWindow.setVisible(false);
 
         chartWindow = createChartWindow();
@@ -271,12 +243,6 @@ public class GameScreenTraining extends AbstractGameScreen {
         statusWindow = createStatusWindow();
         statusWindow.setVisible(false);
 
-        solarCellGuideWindow = createSolarCellGuideWindow();
-        solarCellGuideWindow.setVisible(false);
-
-        solarCellWindow = createSolarCellWindow();
-        solarCellWindow.setVisible(false);
-
         missionWindow = createMissionWindow();
         missionWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
@@ -284,7 +250,16 @@ public class GameScreenTraining extends AbstractGameScreen {
 
         optionsWindow.setVisible(false);
 
-        dialog.hide();
+        dialogStory = new Texture("dialogStory.png");
+        dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        dialog = new Dialog(font, dialogStory, 65f, 120f);
+        dialog.setPosition(
+                SCENE_WIDTH / 2 - dialogStory.getWidth() * 0.5f,
+                SCENE_HEIGHT / 4 - dialogStory.getHeight() * 0.5f);
+
+        dialog.clearPages();
+        dialog.addWaitingPage(text);
 
         stage.addActor(dialog);
 
@@ -292,14 +267,11 @@ public class GameScreenTraining extends AbstractGameScreen {
         stage.addActor(buttonRule);
         stage.addActor(buttonAgree);
         stage.addActor(buttonRefuse);
-        stage.addActor(buttonMission);
 
         stage.addActor(optionsWindow);
         stage.addActor(ruleWindow);
         stage.addActor(chartWindow);
         stage.addActor(statusWindow);
-        stage.addActor(solarCellGuideWindow);
-        stage.addActor(solarCellWindow);
         stage.addActor(missionWindow);
 
         buttonOption.addListener(new ClickListener() {
@@ -339,16 +311,55 @@ public class GameScreenTraining extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
+                if(stageFourClear){
+                    worldController.level.player.timeClear = false;
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            game.setScreen(new GameScreen3(game,optionsWindow));
+                        }
+                    });
+                }else{
+                    if (citizenQuest == systemWindow.citizen1) {
+                        questState = QuestState.quest1yes;
+                        worldController.level.player.quest1IsAccept = true;
+                        worldController.level.player.quest_window_1 = true;
+                    } else if (citizenQuest == systemWindow.citizen2) {
+                        questState = QuestState.quest2yes;
+                        worldController.level.player.quest_window_2 = true;
+                        worldController.level.player.quest2IsAccept = true;
+                    } else if (citizenQuest == systemWindow.citizen3) {
+                        questState = QuestState.quest3yes;
+                        worldController.level.player.quest_window_3 = true;
+                        worldController.level.player.quest3IsAccept = true;
+                    } else if (citizenQuest == systemWindow.citizen4) {
+                        questState = QuestState.quest4yes;
+                        worldController.level.player.quest_window_4 = true;
+                        worldController.level.player.quest4IsAccept = true;
+                    } else if (citizenQuest == systemWindow.citizen5) {
+                        questState = QuestState.quest5yes;
+                        worldController.level.player.quest_window_5 = true;
+                        worldController.level.player.quest5IsAccept = true;
+                    } else if (citizenQuest == systemWindow.citizen6) {
+                        questState = QuestState.quest6yes;
+                        worldController.level.player.quest_window_6 = true;
+                        worldController.level.player.quest6IsAccept = true;
+                    }
+                    addRequest.add(questState);
+                    System.out.println(questState);
+                    questState = null;
+                    worldController.level.player.questScreen1 = false;
+                    worldController.level.player.questScreen2 = false;
+                    worldController.level.player.questScreen3 = false;
+                    worldController.level.player.questScreen4 = false;
+                    worldController.level.player.questScreen5 = false;
+                    worldController.level.player.questScreen6 = false;
+                }
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
                 dialog.hide();
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
-                MusicManager.instance.stop();
-                Gdx.app.postRunnable(new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setScreen(new GameScreen2(game, optionsWindow));
-                    }
-                });
             }
         });
 
@@ -357,501 +368,45 @@ public class GameScreenTraining extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
+                if (citizenQuest == systemWindow.citizen1) {
+                    worldController.level.player.quest_window_1 = true;
+                    questState = QuestState.quest1no;
+                } else if (citizenQuest == systemWindow.citizen2) {
+                    worldController.level.player.quest_window_2 = true;
+                    questState = QuestState.quest2no;
+                } else if (citizenQuest == systemWindow.citizen3) {
+                    worldController.level.player.quest_window_3 = true;
+                    questState = QuestState.quest3no;
+                } else if (citizenQuest == systemWindow.citizen4) {
+                    worldController.level.player.quest_window_4 = true;
+                    questState = QuestState.quest4no;
+                } else if (citizenQuest == systemWindow.citizen5) {
+                    worldController.level.player.quest_window_5 = true;
+                    questState = QuestState.quest5no;
+                } else if (citizenQuest == systemWindow.citizen6) {
+                    worldController.level.player.quest_window_6 = true;
+                    questState = QuestState.quest6no;
+                }
+                questCount += 1;
+                addRequest.add(questState);
+                System.out.println(questState);
+                questState = null;
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
+                worldController.level.player.questScreen1 = false;
+                worldController.level.player.questScreen2 = false;
+                worldController.level.player.questScreen3 = false;
+                worldController.level.player.questScreen4 = false;
+                worldController.level.player.questScreen5 = false;
+                worldController.level.player.questScreen6 = false;
                 dialog.hide();
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
-                MusicManager.instance.stop();
-                Gdx.app.postRunnable(new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setScreen(new MenuScreen(game));
-                        EnergyProducedBar.instance.energyProduced =0;
-                        EnergyUsedBar.instance.energyUse = 0;
-                        BatteryBar.instance.batteryStorage = 0;
-                    }
-                });
             }
         });
 
         createButton();
         batch = new SpriteBatch();
-    }
-
-    private Window createChartWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.WHITE;
-
-        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonChartStyle.up = buttonRegion;
-        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonChartStyle);
-
-        textChart1 = new Label("สถิติ", skin);
-        textChart2 = new Label("", skin);
-        textChart3 = new Label("", skin);
-        textChart4 = new Label("", skin);
-        textChart5 = new Label("", skin);
-        textChart6 = new Label("", skin);
-        textChart7 = new Label("", skin);
-
-        textChart1.setStyle(labelStyle);
-        textChart2.setStyle(labelStyle);
-        textChart3.setStyle(labelStyle);
-        textChart4.setStyle(labelStyle);
-        textChart5.setStyle(labelStyle);
-        textChart6.setStyle(labelStyle);
-        textChart7.setStyle(labelStyle);
-
-        final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
-        chartWindow.setModal(true);
-        chartWindow.padTop(50);
-        chartWindow.padLeft(40);
-        chartWindow.padRight(40);
-        chartWindow.padBottom(20);
-        chartWindow.getTitleLabel().setAlignment(Align.center);
-        chartWindow.add(textChart1);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart2);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart3);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart4);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart5);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart6);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart7);
-        chartWindow.row().padTop(10);
-        chartWindow.add(closeButton).colspan(3);
-        chartWindow.pack();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                chartWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                stageFourClear = true;
-                worldController.level.player.timeStop = true;
-                String text =
-                        "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
-                dialog.show();
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
-                System.out.print(text);
-            }
-        });
-
-        return chartWindow;
-    }
-
-    private Window createStatusWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.WHITE;
-
-        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonChartStyle.up = buttonRegion;
-        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonChartStyle);
-        text1 = new Label("", skin);
-        text2 = new Label("", skin);
-        text3 = new Label("", skin);
-        text4 = new Label("", skin);
-        text5 = new Label("", skin);
-        text6 = new Label("", skin);
-        text7 = new Label("", skin);
-        text8 = new Label("", skin);
-        text9 = new Label("", skin);
-
-        text1.setStyle(labelStyle);
-        text2.setStyle(labelStyle);
-        text3.setStyle(labelStyle);
-        text4.setStyle(labelStyle);
-        text5.setStyle(labelStyle);
-        text6.setStyle(labelStyle);
-        text7.setStyle(labelStyle);
-        text8.setStyle(labelStyle);
-        text9.setStyle(labelStyle);
-
-        final Window statusWindow = new Window("ข้อมูลการใช้พลังงานไฟฟ้า", style);
-        statusWindow.setModal(true);
-        statusWindow.padTop(60);
-        statusWindow.padLeft(40);
-        statusWindow.padRight(40);
-        statusWindow.padBottom(20);
-        statusWindow.getTitleLabel().setAlignment(Align.center);
-        statusWindow.row().padBottom(10).padTop(10);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text1);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text2);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text3);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text4);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text5);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text6);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text7);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text8);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text9);
-        statusWindow.row().padTop(10);
-        statusWindow.add(closeButton).colspan(3);
-        statusWindow.pack();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                worldController.level.player.statusEnergyWindow = false;
-                worldController.level.player.timeStop = false;
-            }
-        });
-
-        return statusWindow;
-    }
-
-    private Window createSolarCellGuideWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.WHITE;
-
-        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonChartStyle.up = buttonRegion;
-        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonChartStyle);
-
-        Label text1 = new Label("การทำงานของระบบโซล่าเซลล์", skin);
-        Label text2 = new Label("ตัวแผงโซล่าเซลล์จะคอยดูดซับพลังงานแสงอาทิตย์เปลี่ยนเป็นพลังงานไฟฟ้า", skin);
-        Label text3 = new Label("โดยจะมีชาร์จคอนโทรลเลอร์ทำหน้าที่ควบคุมการชาร์จไฟจากแผงโซลาเซลล์ลงสู่แบตเตอรี่", skin);
-        Label text4 = new Label("ชาร์จคอนโทรลเลอร์ยังทำหน้าที่ควบคุมการจ่ายไฟออกจากแบตเตอรี่", skin);
-        Label text5 = new Label("ไฟฟ้าที่ผลิตได้จากแผงโซล่าเซลล์จะเป็นไฟฟ้ากระแสตรง", skin);
-        Label text6 = new Label("ดังนั้นอุปกรณ์ไฟฟ้าภายในบ้านซึ่งใช้ไฟฟ้ากระแสสลับ จึงต้องต่อผ่านเครื่องอินเวอร์เตอร์เพื่อเปลี่ยนเป็นไฟฟ้ากระแสสลับก่อน", skin);
-        Label text7 = new Label("และเนื่องจากอินเวอร์เตอร์ รวมทั้งชาร์จคอนโทรลเลอร์ต้องใช้ไฟฟ้าในการทำงาน จำเป็นต้องมีพลังงานภายในแบตเตอรี่ก่อนเล็กน้อย", skin);
-        Label text8 = new Label("", skin);
-        Label text9 = new Label("", skin);
-
-        text1.setStyle(labelStyle);
-        text2.setStyle(labelStyle);
-        text3.setStyle(labelStyle);
-        text4.setStyle(labelStyle);
-        text5.setStyle(labelStyle);
-        text6.setStyle(labelStyle);
-        text7.setStyle(labelStyle);
-        text8.setStyle(labelStyle);
-        text9.setStyle(labelStyle);
-
-        final Window solarCellGuideWindow = new Window("ข้อมูลระบบโซล่าเซลล์", style);
-        solarCellGuideWindow.setModal(true);
-        solarCellGuideWindow.padTop(60);
-        solarCellGuideWindow.padLeft(40);
-        solarCellGuideWindow.padRight(40);
-        solarCellGuideWindow.padBottom(20);
-        solarCellGuideWindow.getTitleLabel().setAlignment(Align.center);
-        solarCellGuideWindow.row().padBottom(10).padTop(10);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text1);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text2);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text3);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text4);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text5);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text6);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text7);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text8);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text9);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(closeButton).colspan(3);
-        solarCellGuideWindow.pack();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                solarCellGuideWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                worldController.level.player.solarCellGuideWindow = false;
-                worldController.level.player.timeStop = false;
-            }
-        });
-
-        return solarCellGuideWindow;
-    }
-
-    private Window createSolarCellWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.WHITE;
-
-        Button.ButtonStyle buttonSolarStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonSolarStyle.up = buttonRegion;
-        buttonSolarStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonSolarStyle);
-
-        Button.ButtonStyle buttonImageLink1 = new Button.ButtonStyle();
-        Button.ButtonStyle buttonImageLink2 = new Button.ButtonStyle();
-        Button.ButtonStyle buttonImageLink3 = new Button.ButtonStyle();
-        Button.ButtonStyle buttonImageLink4 = new Button.ButtonStyle();
-
-        imageLink1 = new TextureRegionDrawable((Assets.instance.buttonChargeAdd));
-        imageLink2 = new TextureRegionDrawable((Assets.instance.buttonBatteryAdd));
-        imageLink3 = new TextureRegionDrawable((Assets.instance.buttonInverterAdd));
-        imageLink4 = new TextureRegionDrawable((Assets.instance.buttonDoorAdd));
-
-        buttonImageLink1.up = imageLink1;
-        buttonImageLink1.down = imageLink1.tint(Color.LIGHT_GRAY);
-        buttonImageLink2.up = imageLink2;
-        buttonImageLink2.down = imageLink2.tint(Color.LIGHT_GRAY);
-        buttonImageLink3.up = imageLink3;
-        buttonImageLink3.down = imageLink3.tint(Color.LIGHT_GRAY);
-        buttonImageLink4.up = imageLink4;
-        buttonImageLink4.down = imageLink4.tint(Color.LIGHT_GRAY);
-
-        solarCellButton1 = new Button(imageLink1);
-        solarCellButton2 = new Button(imageLink2);
-        solarCellButton3 = new Button(imageLink3);
-        solarCellButton4 = new Button(imageLink4);
-
-        labelSolarCell1 = new Label(textCharge, skin);
-        labelSolarCell2 = new Label(textBattery, skin);
-        labelSolarCell3 = new Label(textInverter, skin);
-        labelSolarCell4 = new Label(textDoor, skin);
-
-        labelSolarCell1.setStyle(labelStyle);
-        labelSolarCell2.setStyle(labelStyle);
-        labelSolarCell3.setStyle(labelStyle);
-        labelSolarCell4.setStyle(labelStyle);
-
-        final Window solarcellWindow = new Window("ตัวเลือกการเชื่อมต่อ", style);
-        solarcellWindow.setSkin(skin);
-        solarcellWindow.setModal(true);
-        solarcellWindow.padTop(50);
-        solarcellWindow.padLeft(40);
-        solarcellWindow.padRight(40);
-        solarcellWindow.padBottom(20);
-        solarcellWindow.getTitleLabel().setAlignment(Align.center);
-        solarcellWindow.row().padBottom(10).padTop(10);
-        solarcellWindow.add(solarCellButton1);
-        solarcellWindow.add(solarCellButton2).padLeft(20);
-        solarcellWindow.row().padTop(10);
-        solarcellWindow.add(labelSolarCell1);
-        solarcellWindow.add(labelSolarCell2).padLeft(20);
-        solarcellWindow.row().padTop(10);
-        solarcellWindow.add(solarCellButton3);
-        solarcellWindow.add(solarCellButton4).padLeft(20);
-        solarcellWindow.row().padTop(10);
-        solarcellWindow.add(labelSolarCell3);
-        solarcellWindow.add(labelSolarCell4).padLeft(20);
-        solarcellWindow.row().padTop(10);
-        solarcellWindow.add(closeButton).colspan(2);
-        solarcellWindow.pack();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                solarcellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-            }
-        });
-
-        return solarcellWindow;
-    }
-
-    private Window createRuleWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.WHITE;
-
-        Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonRuleStyle.up = buttonRegion;
-        buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonRuleStyle);
-//        Button ruleIcon = new Button(buttonPauseStyle);
-//        Button toolIcon = new Button(buttonToolStyle);
-
-        Label text1 = new Label("กด c เพื่อฟัน", skin);
-        Label text2 = new Label("กด x เพื่อยิงธนู (ยิงธนู 1 ดอกใช้พลังงานไฟฟ้า 200 จูล)", skin);
-        Label text3 = new Label("กด Z เพื่อวางกับดักสปริง เมื่อมอนสเตอร์เดินมาชนจะกระเด็นถอยหลัง (วางกับดัก 1 ครั้งใช้พลังงานไฟฟ้า 1000 จูล)", skin);
-        Label text4 = new Label("กด W เพื่อฟันคลื่นดาบพลังสูง (ฟัน 1 ครั้งใช้พลังงานไฟฟ้า 3000 จูล)", skin);
-        Label text5 = new Label("กด A เพื่อกระทำกับวัตถุ หรือคุยกับประชาชน", skin);
-        Label text6 = new Label("กด S เพื่อดูผังการใช้พลังงานแบบละเอียด", skin);
-        Label text7 = new Label("กด D เพื่ออ่านวิธีการทำงานของโซล่าเซลล์", skin);
-        //  Label text8 = new Label("เพื่อหยุดเกม และอ่านวิธีควบคุม", skin);
-        // Label text9 = new Label("เพื่อเปิดเมนูปรับแต่ง", skin);
-        Label text8 = new Label("กดปุ่มลูกศรบนแป้นพิมพ์เพื่อเคลื่อนที่ตัวละคร", skin);
-
-        text1.setStyle(labelStyle);
-        text2.setStyle(labelStyle);
-        text3.setStyle(labelStyle);
-        text4.setStyle(labelStyle);
-        text5.setStyle(labelStyle);
-        text6.setStyle(labelStyle);
-        text7.setStyle(labelStyle);
-        //   text8.setStyle(labelStyle);
-        //   text9.setStyle(labelStyle);
-        text8.setStyle(labelStyle);
-
-        final Window ruleWindow = new Window("การควบคุม", style);
-        ruleWindow.setModal(true);
-        ruleWindow.setSkin(skin);
-        ruleWindow.padTop(60);
-        ruleWindow.padLeft(40);
-        ruleWindow.padRight(40);
-        ruleWindow.padBottom(20);
-        ruleWindow.getTitleLabel().setAlignment(Align.center);
-        ruleWindow.add(text1);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text2);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text3);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text4);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text5);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text6);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text7);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text8);
-        //   ruleWindow.add(ruleIcon).right();
-        //  ruleWindow.add(text8).left();
-        //   ruleWindow.row().padTop(10);
-        //   ruleWindow.add(toolIcon).right();
-        //   ruleWindow.add(text9).left();
-        ruleWindow.row().padTop(20);
-        ruleWindow.add(closeButton).colspan(3);
-        ruleWindow.pack();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                ruleWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                if (!dialogShow) {
-                    worldController.level.player.timeStop = false;
-                }
-            }
-        });
-
-        return ruleWindow;
-    }
-
-    private Window createMissionWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.WHITE;
-
-        Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonRuleStyle.up = buttonRegion;
-        buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonRuleStyle);
-//        Button ruleIcon = new Button(buttonPauseStyle);
-//        Button toolIcon = new Button(buttonToolStyle);
-
-        Label text1 = new Label("ภารกิจแรก กำจัดมอนสเตอร์ในแผนที่ให้ครบทุกตัวซึ่งจะได้รับพลังงานเพื่อเริ่มต้นการทำงานของโซล่าเซลล์", skin);
-        Label text2 = new Label("ภารกิจที่สอง หลังจากเสร็จสิ้นภารกิจแรกประชาชนจะปรากฎตัวออกมา ให้ค้นหาประชาชนในแผนที่ให้ครบ", skin);
-        Label text3 = new Label("ภารกิจที่สาม หลังจากเสร็จสิ้นภารกิจที่สองให้พาประชาชนไปยังที่หลบภัย", skin);
-        Label text4 = new Label("ภารกิจสุดท้าย เชื่อมต่อระบบโซล่าเซลล์ให้ถูกต้อง", skin);
-
-        text1.setStyle(labelStyle);
-        text2.setStyle(labelStyle);
-        text3.setStyle(labelStyle);
-        text4.setStyle(labelStyle);
-
-        final Window missionWindow = new Window("ภารกิจที่ต้องทำให้สำเร็จ", style);
-        missionWindow.setModal(true);
-        missionWindow.setSkin(skin);
-        missionWindow.padTop(60);
-        missionWindow.padLeft(40);
-        missionWindow.padRight(40);
-        missionWindow.padBottom(20);
-        missionWindow.getTitleLabel().setAlignment(Align.center);
-        missionWindow.add(text1);
-        missionWindow.row().padTop(10);
-        missionWindow.add(text2);
-        missionWindow.row().padTop(10);
-        missionWindow.add(text3);
-        missionWindow.row().padTop(10);
-        missionWindow.add(text4);
-        //   ruleWindow.add(ruleIcon).right();
-        //  ruleWindow.add(text8).left();
-        //   ruleWindow.row().padTop(10);
-        //   ruleWindow.add(toolIcon).right();
-        //   ruleWindow.add(text9).left();
-        missionWindow.row().padTop(20);
-        missionWindow.add(closeButton).colspan(3);
-        missionWindow.pack();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                missionWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                if (!dialogStart) {
-                    ruleWindow.addAction(Actions.sequence(Actions.fadeIn(0.2f), Actions.visible(true)));
-                }else if(!dialogShow){
-                    worldController.level.player.timeStop = false;
-                }
-            }
-        });
-
-        return missionWindow;
     }
 
     private void createButton() {
@@ -1027,311 +582,690 @@ public class GameScreenTraining extends AbstractGameScreen {
         stage.addActor(textLiking);
     }
 
-    private void addLink(SolarState solarState) {
-        if (link.size() != 0) {
-            for (int i = 0; i < link.size(); i++) {
-                if (link.get(i) == solarState) {
-                    System.out.print("มี" + link.get(i) + "แล้ว");
-                    return;
-                }
-            }
-        }
-        System.out.print("เพิ่ม" + solarState);
-        link.add(solarState);
-        addGuiLink(solarState);
-    }
+    private Window createChartWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new TextureRegionDrawable(Assets.instance.window);
+//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
 
-    private void deleteLink(SolarState solarState) {
-        if (link.size() != 0) {
-            for (int i = 0; i < link.size(); i++) {
-                if (link.get(i) == solarState) {
-                    System.out.print("ลบ" + link.get(i) + "แล้ว");
-                    link.remove(solarState);
-                    checkDeleteLink(solarState);
-                    removeGuiLink(solarState);
-                }
-            }
-        }
-    }
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.WHITE;
 
-    private void checkButton(final systemWindow solarWindow) {
-        if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
-            imageLink1.setRegion(Assets.instance.buttonChargeAdd);
-            labelSolarCell1.setText(textCharge);
-        } else if ((solarWindow == systemWindow.solarcell) && (addedStoC)) {
-            imageLink1.setRegion(Assets.instance.buttonChargeDel);
-            labelSolarCell1.setText(textCharge2);
-        } else if (((solarWindow == systemWindow.chargecontroller) && (!addedStoC))
-                || ((solarWindow == systemWindow.battery) && (!addedStoB))
-                || ((solarWindow == systemWindow.inverter) && (!addedStoI))) {
-            imageLink1.setRegion(Assets.instance.buttonSolarcellAdd);
-            labelSolarCell1.setText(textSolarcell);
-        } else {
-            imageLink1.setRegion(Assets.instance.buttonSolarcellDel);
-            labelSolarCell1.setText(textSolarcell2);
-        }
-        solarCellButton1.clearListeners();
-        solarCellButton1.addListener(new ClickListener() {
+        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonChartStyle.up = buttonRegion;
+        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+
+        Button closeButton = new Button(buttonChartStyle);
+
+        textChart1 = new Label("สถิติ", skin);
+        textChart2 = new Label("", skin);
+        textChart3 = new Label("", skin);
+        textChart4 = new Label("", skin);
+        textChart5 = new Label("", skin);
+        textChart6 = new Label("", skin);
+        textChart7 = new Label("", skin);
+
+        textChart1.setStyle(labelStyle);
+        textChart2.setStyle(labelStyle);
+        textChart3.setStyle(labelStyle);
+        textChart4.setStyle(labelStyle);
+        textChart5.setStyle(labelStyle);
+        textChart6.setStyle(labelStyle);
+        textChart7.setStyle(labelStyle);
+
+        final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
+        chartWindow.setModal(true);
+        chartWindow.padTop(50);
+        chartWindow.padLeft(40);
+        chartWindow.padRight(40);
+        chartWindow.padBottom(20);
+        chartWindow.getTitleLabel().setAlignment(Align.center);
+        chartWindow.add(textChart1);
+        chartWindow.row().padTop(10);
+        chartWindow.add(textChart2);
+        chartWindow.row().padTop(10);
+        chartWindow.add(textChart3);
+        chartWindow.row().padTop(10);
+        chartWindow.add(textChart4);
+        chartWindow.row().padTop(10);
+        chartWindow.add(textChart5);
+        chartWindow.row().padTop(10);
+        chartWindow.add(textChart6);
+        chartWindow.row().padTop(10);
+        chartWindow.add(textChart7);
+        chartWindow.row().padTop(10);
+        chartWindow.add(closeButton).colspan(3);
+        chartWindow.pack();
+
+        closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if ((solarWindow == systemWindow.solarcell) || (solarWindow == systemWindow.chargecontroller)) {
-                    solarState = solarState.StoC;
-                } else if (solarWindow == systemWindow.battery) {
-                    solarState = solarState.StoB;
-                } else {
-                    solarState = solarState.StoI;
-                }
-                if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
-                    addLink(solarState);
-                } else if ((solarWindow == systemWindow.solarcell) && (addedStoC)) {
-                    deleteLink(solarState);
-                } else if (((solarWindow == systemWindow.chargecontroller) && (!addedStoC))
-                        || ((solarWindow == systemWindow.battery) && (!addedStoB))
-                        || ((solarWindow == systemWindow.inverter) && (!addedStoI))) {
-                    addLink(solarState);
-                } else {
-                    deleteLink(solarState);
-                }
-                checkGameComplete();
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-                solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                chartWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                stageFourClear = true;
+                worldController.level.player.timeStop = true;
+                String text =
+                        "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
+                dialog.show();
+                dialog.clearPages();
+                dialog.addWaitingPage(text);
+                System.out.print(text);
             }
         });
 
-        if (((solarWindow == systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoB))) {
-            imageLink2.setRegion(Assets.instance.buttonBatteryAdd);
-            labelSolarCell2.setText(textBattery);
-        } else if (((solarWindow == systemWindow.solarcell) && (addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoB))) {
-            imageLink2.setRegion(Assets.instance.buttonBatteryDel);
-            labelSolarCell2.setText(textBattery2);
-        } else if (((solarWindow == systemWindow.battery) && (!addedCtoB)) || ((solarWindow == systemWindow.inverter) && (!addedCtoI))) {
-            imageLink2.setRegion(Assets.instance.buttonChargeAdd);
-            labelSolarCell2.setText(textCharge);
-        } else {
-            imageLink2.setRegion(Assets.instance.buttonChargeDel);
-            labelSolarCell2.setText(textCharge2);
-        }
-        solarCellButton2.clearListeners();
-        solarCellButton2.addListener(new ClickListener() {
+        return chartWindow;
+    }
+
+    private Window createStatusWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new TextureRegionDrawable(Assets.instance.window);
+//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.WHITE;
+
+        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonChartStyle.up = buttonRegion;
+        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+        Button closeButton = new Button(buttonChartStyle);
+
+        Button.ButtonStyle buttonItem1Style1 = new Button.ButtonStyle();
+        buttonItem1 = new TextureRegionDrawable(Assets.instance.comIconOff);
+        buttonItem1Style1.up = buttonItem1;
+        buttonItem1Style1.over = buttonItem1.tint(Color.FIREBRICK);
+        Button itemIcon1 = new Button(buttonItem1Style1);
+
+        Button.ButtonStyle buttonItem1Style2 = new Button.ButtonStyle();
+        buttonItem2 = new TextureRegionDrawable(Assets.instance.refrigeratorIconOff);
+        buttonItem1Style2.up = buttonItem2;
+        buttonItem1Style2.over = buttonItem2.tint(Color.FIREBRICK);
+        Button itemIcon2 = new Button(buttonItem1Style2);
+
+        Button.ButtonStyle buttonItem1Style3 = new Button.ButtonStyle();
+        buttonItem3 = new TextureRegionDrawable(Assets.instance.fanIconOff);
+        buttonItem1Style3.up = buttonItem3;
+        buttonItem1Style3.over = buttonItem3.tint(Color.FIREBRICK);
+        Button itemIcon3 = new Button(buttonItem1Style3);
+
+        Button.ButtonStyle buttonItem1Style4 = new Button.ButtonStyle();
+        buttonItem4 = new TextureRegionDrawable(Assets.instance.microwaveIconOff);
+        buttonItem1Style4.up = buttonItem4;
+        buttonItem1Style4.over = buttonItem4.tint(Color.FIREBRICK);
+        Button itemIcon4 = new Button(buttonItem1Style4);
+
+        Button.ButtonStyle buttonItem1Style5 = new Button.ButtonStyle();
+        buttonItem5 = new TextureRegionDrawable(Assets.instance.ricecookerIconOff);
+        buttonItem1Style5.up = buttonItem5;
+        buttonItem1Style5.over = buttonItem5.tint(Color.FIREBRICK);
+        Button itemIcon5 = new Button(buttonItem1Style5);
+
+        Button.ButtonStyle buttonItem1Style6 = new Button.ButtonStyle();
+        buttonItem6 = new TextureRegionDrawable(Assets.instance.tvIconOff);
+        buttonItem1Style6.up = buttonItem6;
+        buttonItem1Style6.over = buttonItem6.tint(Color.FIREBRICK);
+        Button itemIcon6 = new Button(buttonItem1Style6);
+
+        Button.ButtonStyle buttonItem1Style7 = new Button.ButtonStyle();
+        buttonItem7 = new TextureRegionDrawable(Assets.instance.waterpumpIconOff);
+        buttonItem1Style7.up = buttonItem7;
+        buttonItem1Style7.over = buttonItem7.tint(Color.FIREBRICK);
+        Button itemIcon7 = new Button(buttonItem1Style7);
+
+        Button.ButtonStyle buttonItem1Style8 = new Button.ButtonStyle();
+        buttonItem8 = new TextureRegionDrawable(Assets.instance.airIconOff);
+        buttonItem1Style8.up = buttonItem8;
+        buttonItem1Style8.over = buttonItem8.tint(Color.FIREBRICK);
+        Button itemIcon8 = new Button(buttonItem1Style8);
+
+        text1 = new Label("", skin);
+        text2 = new Label("", skin);
+        text3 = new Label("", skin);
+        text4 = new Label("", skin);
+
+        textItem1 = new Label("", skin);
+        textItem2 = new Label("", skin);
+        textItem3 = new Label("", skin);
+        textItem4 = new Label("", skin);
+        textItem5 = new Label("", skin);
+        textItem6 = new Label("", skin);
+        textItem7 = new Label("", skin);
+        textItem8 = new Label("", skin);
+
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
+        text4.setStyle(labelStyle);
+
+        textItem1.setStyle(labelStyle);
+        textItem2.setStyle(labelStyle);
+        textItem3.setStyle(labelStyle);
+        textItem4.setStyle(labelStyle);
+        textItem5.setStyle(labelStyle);
+        textItem6.setStyle(labelStyle);
+        textItem7.setStyle(labelStyle);
+        textItem8.setStyle(labelStyle);
+
+        final Window statusWindow = new Window("ข้อมูลการใช้พลังงานไฟฟ้า", style);
+        statusWindow.setModal(true);
+        statusWindow.padTop(60);
+        statusWindow.padLeft(40);
+        statusWindow.padRight(40);
+        statusWindow.padBottom(20);
+        statusWindow.getTitleLabel().setAlignment(Align.center);
+        statusWindow.row().padBottom(10).padTop(10);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text1).colspan(4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text2).colspan(4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text3).colspan(4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(text4).colspan(4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(itemIcon1);
+        statusWindow.add(itemIcon2);
+        statusWindow.add(itemIcon3);
+        statusWindow.add(itemIcon4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(textItem1);
+        statusWindow.add(textItem2);
+        statusWindow.add(textItem3);
+        statusWindow.add(textItem4);
+        statusWindow.row().padTop(10);
+        statusWindow.add(itemIcon5);
+        statusWindow.add(itemIcon6);
+        statusWindow.add(itemIcon7);
+        statusWindow.add(itemIcon8);
+        statusWindow.row().padTop(10);
+        statusWindow.add(textItem5);
+        statusWindow.add(textItem6);
+        statusWindow.add(textItem7);
+        statusWindow.add(textItem8);
+        statusWindow.row().padTop(10);
+        statusWindow.add(closeButton).colspan(4);
+        statusWindow.pack();
+
+        closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if ((solarWindow == systemWindow.solarcell)) {
-                    solarState = solarState.StoB;
-                } else if ((solarWindow == systemWindow.chargecontroller) || (solarWindow == systemWindow.battery)) {
-                    solarState = solarState.CtoB;
-                } else {
-                    solarState = solarState.CtoI;
+                statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                worldController.level.player.statusEnergyWindow = false;
+                if (!dialogShow) {
+                    worldController.level.player.timeStop = false;
                 }
-                if (((solarWindow == systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoB))) {
-                    addLink(solarState);
-                } else if (((solarWindow == systemWindow.solarcell) && (addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoB))) {
-                    deleteLink(solarState);
-                } else if (((solarWindow == systemWindow.battery) && (!addedCtoB)) || ((solarWindow == systemWindow.inverter) && (!addedCtoI))) {
-                    addLink(solarState);
-                } else {
-                    deleteLink(solarState);
-                }
-                checkGameComplete();
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-                solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
-        if (((solarWindow == systemWindow.solarcell) && (!addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoI))
-                || ((solarWindow == systemWindow.battery) && (!addedBtoI))) {
-            imageLink3.setRegion(Assets.instance.buttonInverterAdd);
-            labelSolarCell3.setText(textInverter);
-        } else if (((solarWindow == systemWindow.solarcell) && (addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoI))
-                || ((solarWindow == systemWindow.battery) && (addedBtoI))) {
-            imageLink3.setRegion(Assets.instance.buttonInverterDel);
-            labelSolarCell3.setText(textInverter2);
-        } else if ((solarWindow == systemWindow.inverter) && (!addedBtoI)) {
-            imageLink3.setRegion(Assets.instance.buttonBatteryAdd);
-            labelSolarCell3.setText(textBattery);
-        } else {
-            imageLink3.setRegion(Assets.instance.buttonBatteryDel);
-            labelSolarCell3.setText(textBattery2);
-        }
-        solarCellButton3.clearListeners();
-        solarCellButton3.addListener(new ClickListener() {
+
+        return statusWindow;
+    }
+
+    private Window createRuleWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new TextureRegionDrawable(Assets.instance.window);
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.WHITE;
+
+        Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonRuleStyle.up = buttonRegion;
+        buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+
+        Button closeButton = new Button(buttonRuleStyle);
+//        Button ruleIcon = new Button(buttonPauseStyle);
+//        Button toolIcon = new Button(buttonToolStyle);
+
+        Label text1 = new Label("กด c เพื่อฟัน", skin);
+        Label text2 = new Label("กด x เพื่อยิงธนู (ยิงธนู 1 ดอกใช้พลังงานไฟฟ้า 200 จูล)", skin);
+        Label text3 = new Label("กด Z เพื่อวางกับดักสปริง เมื่อมอนสเตอร์เดินมาชนจะกระเด็นถอยหลัง (วางกับดัก 1 ครั้งใช้พลังงานไฟฟ้า 1000 จูล)", skin);
+        Label text4 = new Label("กด W เพื่อฟันคลื่นดาบพลังสูง (ฟัน 1 ครั้งใช้พลังงานไฟฟ้า 3000 จูล)", skin);
+        Label text5 = new Label("กด A เพื่อกระทำกับวัตถุ หรือคุยกับประชาชน", skin);
+        Label text6 = new Label("กด S เพื่อดูผังการใช้พลังงานแบบละเอียด", skin);
+        Label text7 = new Label("กด D เพื่ออ่านวิธีการทำงานของโซล่าเซลล์", skin);
+        //  Label text8 = new Label("เพื่อหยุดเกม และอ่านวิธีควบคุม", skin);
+        // Label text9 = new Label("เพื่อเปิดเมนูปรับแต่ง", skin);
+        Label text8 = new Label("กดปุ่มลูกศรบนแป้นพิมพ์เพื่อเคลื่อนที่ตัวละคร", skin);
+
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
+        text4.setStyle(labelStyle);
+        text5.setStyle(labelStyle);
+        text6.setStyle(labelStyle);
+        text7.setStyle(labelStyle);
+        //   text8.setStyle(labelStyle);
+        //   text9.setStyle(labelStyle);
+        text8.setStyle(labelStyle);
+
+        final Window ruleWindow = new Window("การควบคุม", style);
+        ruleWindow.setModal(true);
+        ruleWindow.setSkin(skin);
+        ruleWindow.padTop(60);
+        ruleWindow.padLeft(40);
+        ruleWindow.padRight(40);
+        ruleWindow.padBottom(20);
+        ruleWindow.getTitleLabel().setAlignment(Align.center);
+        ruleWindow.add(text1);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text2);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text3);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text4);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text5);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text6);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text7);
+        ruleWindow.row().padTop(10);
+        ruleWindow.add(text8);
+        //   ruleWindow.add(ruleIcon).right();
+        //  ruleWindow.add(text8).left();
+        //   ruleWindow.row().padTop(10);
+        //   ruleWindow.add(toolIcon).right();
+        //   ruleWindow.add(text9).left();
+        ruleWindow.row().padTop(20);
+        ruleWindow.add(closeButton).colspan(3);
+        ruleWindow.pack();
+
+        closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if ((solarWindow == systemWindow.solarcell)) {
-                    solarState = solarState.StoI;
-                } else if ((solarWindow == systemWindow.chargecontroller)) {
-                    solarState = solarState.CtoI;
-                } else {
-                    solarState = solarState.BtoI;
+                ruleWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                if (!dialogShow) {
+                    worldController.level.player.timeStop = false;
                 }
-                if (((solarWindow == systemWindow.solarcell) && (!addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoI))
-                        || ((solarWindow == systemWindow.battery) && (!addedBtoI))) {
-                    addLink(solarState);
-                } else if (((solarWindow == systemWindow.solarcell) && (addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoI))
-                        || ((solarWindow == systemWindow.battery) && (addedBtoI))) {
-                    deleteLink(solarState);
-                } else if ((solarWindow == systemWindow.inverter) && (!addedBtoI)) {
-                    addLink(solarState);
-                } else {
-                    deleteLink(solarState);
-                }
-                checkGameComplete();
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-                solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
-        if (((solarWindow == systemWindow.solarcell) && (!addedStoD)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoD))
-                || ((solarWindow == systemWindow.battery) && (!addedBtoD)) || ((solarWindow == systemWindow.inverter) && (!addedItoD))) {
-            imageLink4.setRegion(Assets.instance.buttonDoorAdd);
-            labelSolarCell4.setText(textDoor);
-        } else {
-            imageLink4.setRegion(Assets.instance.buttonDoorDel);
-            labelSolarCell4.setText(textDoor2);
 
-        }
-        solarCellButton4.clearListeners();
-        solarCellButton4.addListener(new ClickListener() {
+        return ruleWindow;
+    }
+
+    private Window createMissionWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new TextureRegionDrawable(Assets.instance.window);
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.WHITE;
+
+        Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonRuleStyle.up = buttonRegion;
+        buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+
+        Button closeButton = new Button(buttonRuleStyle);
+//        Button ruleIcon = new Button(buttonPauseStyle);
+//        Button toolIcon = new Button(buttonToolStyle);
+
+        Label text1 = new Label("ภารกิจแรก กำจัดมอนสเตอร์ในแผนที่ให้ครบทุกตัวซึ่งจะได้รับพลังงานเพื่อเริ่มต้นการทำงานของโซล่าเซลล์", skin);
+        Label text2 = new Label("ภารกิจที่สอง หลังจากเสร็จสิ้นภารกิจแรกประชาชนจะปรากฎตัวออกมา ให้ค้นหาประชาชนในแผนที่ให้ครบ", skin);
+        Label text3 = new Label("ภารกิจที่สาม หลังจากเสร็จสิ้นภารกิจที่สองให้พาประชาชนไปยังที่หลบภัย", skin);
+        Label text4 = new Label("ภารกิจสุดท้าย เชื่อมต่อระบบโซล่าเซลล์ให้ถูกต้อง", skin);
+
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
+        text4.setStyle(labelStyle);
+
+        final Window missionWindow = new Window("ภารกิจที่ต้องทำให้สำเร็จ", style);
+        missionWindow.setModal(true);
+        missionWindow.setSkin(skin);
+        missionWindow.padTop(60);
+        missionWindow.padLeft(40);
+        missionWindow.padRight(40);
+        missionWindow.padBottom(20);
+        missionWindow.getTitleLabel().setAlignment(Align.center);
+        missionWindow.add(text1);
+        missionWindow.row().padTop(10);
+        missionWindow.add(text2);
+        missionWindow.row().padTop(10);
+        missionWindow.add(text3);
+        missionWindow.row().padTop(10);
+        missionWindow.add(text4);
+        //   ruleWindow.add(ruleIcon).right();
+        //  ruleWindow.add(text8).left();
+        //   ruleWindow.row().padTop(10);
+        //   ruleWindow.add(toolIcon).right();
+        //   ruleWindow.add(text9).left();
+        missionWindow.row().padTop(20);
+        missionWindow.add(closeButton).colspan(3);
+        missionWindow.pack();
+
+        closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if ((solarWindow == systemWindow.solarcell)) {
-                    solarState = solarState.StoD;
-                } else if ((solarWindow == systemWindow.chargecontroller)) {
-                    solarState = solarState.CtoD;
-                } else if (solarWindow == systemWindow.battery) {
-                    solarState = solarState.BtoD;
-                } else {
-                    solarState = solarState.ItoD;
+                missionWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                if (!dialogStart) {
+                    ruleWindow.addAction(Actions.sequence(Actions.fadeIn(0.2f), Actions.visible(true)));
+                }else if(!dialogShow){
+                    worldController.level.player.timeStop = false;
                 }
-                if (((solarWindow == systemWindow.solarcell) && (!addedStoD)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoD))
-                        || ((solarWindow == systemWindow.battery) && (!addedBtoD)) || ((solarWindow == systemWindow.inverter) && (!addedItoD))) {
-                    addLink(solarState);
-                } else {
-                    deleteLink(solarState);
-                }
-                checkGameComplete();
-                worldController.level.player.status_find = false;
-                worldController.level.player.status_windows_link = false;
-                solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
-        solarCellWindow.pack();
+
+        return missionWindow;
     }
 
-    private void checkDeleteLink(SolarState solarState) {
-        if (solarState == SolarState.StoC) {
-            addedStoC = false;
-        } else if (solarState == SolarState.StoB) {
-            addedStoB = false;
-        } else if (solarState == SolarState.StoI) {
-            addedStoI = false;
-        } else if (solarState == SolarState.StoD) {
-            addedStoD = false;
-        } else if (solarState == SolarState.CtoB) {
-            addedCtoB = false;
-        } else if (solarState == SolarState.CtoI) {
-            addedCtoI = false;
-        } else if (solarState == SolarState.CtoD) {
-            addedCtoD = false;
-        } else if (solarState == SolarState.BtoI) {
-            addedBtoI = false;
-        } else if (solarState == SolarState.BtoD) {
-            addedBtoD = false;
-        } else if (solarState == SolarState.ItoD) {
-            addedItoD = false;
-        }
-    }
+    private void controlAndDebug() {
 
-    private void addGuiLink(SolarState solarState) {
+        Player player = worldController.level.player;
+        Level2 level2 = (Level2) worldController.level;
 
-        Level1 level1 = (Level1) worldController.level;
-
-        if (solarState == SolarState.StoC) {
-            addedStoC = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    level1.solarCell1,
-                    level1.charge,
-                    worldController.level.links, solarState);
-
-        } else if (solarState == SolarState.StoB) {
-            addedStoB = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    level1.solarCell1,
-                    level1.battery,
-                    worldController.level.links, solarState);
-        } else if (solarState == SolarState.StoI) {
-            addedStoI = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    level1.solarCell1,
-                    level1.inverter,
-                    worldController.level.links, solarState);
-        } else if (solarState == SolarState.StoD) {
-            addedStoD = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    level1.solarCell1,
-                    level1.door,
-                    worldController.level.links, solarState);
-        } else if (solarState == SolarState.CtoB) {
-            addedCtoB = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    level1.charge,
-                    level1.battery,
-                    worldController.level.links, solarState);
-        } else if (solarState == SolarState.CtoI) {
-            addedCtoI = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    level1.charge,
-                    level1.inverter,
-                    worldController.level.links, solarState);
-        } else if (solarState == SolarState.CtoD) {
-            addedCtoD = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    level1.charge,
-                    level1.door,
-                    worldController.level.links, solarState);
-        } else if (solarState == SolarState.BtoI) {
-            addedBtoI = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    level1.battery,
-                    level1.inverter,
-                    worldController.level.links, solarState);
-        } else if (solarState == SolarState.BtoD) {
-            addedBtoD = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    level1.battery,
-                    level1.door,
-                    worldController.level.links, solarState);
-        } else if (solarState == SolarState.ItoD) {
-            addedItoD = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
-                    level1.inverter,
-                    level1.door,
-                    worldController.level.links, solarState);
-        }
-        //System.out.print("ขนาด" + itemLink.linkList.size() + "นะจ๊ะ");
-    }
-
-    private void removeGuiLink(SolarState solarState) {
-        for (int i = 0; i < itemLink.linkList.size(); i++) {
-            if (itemLink.linkList.get(i).solarState == solarState) {
-                System.out.print(itemLink.linkList.get(i).solarState);
-                itemLink.linkList.remove(i);
-                i--;
+        if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
+            for (Enemy enemy : worldController.level.enemies) {
+                enemy.getStateMachine().changeState(EnemyState.DIE);
             }
         }
+
+        if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
+            level2.switchItem.state = Item.ItemState.ON;
+            level2.switchItem.resetAnimation();
+            player.isSwitch = true;
+            player.status_find = false;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Keys.M)) {
+            MusicManager.instance.stop();
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new MenuScreen(game));
+                    EnergyProducedBar.instance.energyProduced = 0;
+                    EnergyUsedBar.instance.energyUse = 0;
+                    BatteryBar.instance.batteryStorage = 0;
+                }
+            });
+        }
+
+        if (!worldController.level.player.isAlive()) {
+            MusicManager.instance.stop();
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new GameOverScreen(game));
+                    EnergyProducedBar.instance.energyProduced = 0;
+                    EnergyUsedBar.instance.energyUse = 0;
+                    BatteryBar.instance.batteryStorage = 0;
+                }
+            });
+        }
+
+        if (worldController.level.player.timeCount <= 0) {
+            MusicManager.instance.stop();
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new GameOverScreen(game));
+                    EnergyProducedBar.instance.energyProduced = 0;
+                    EnergyUsedBar.instance.energyUse = 0;
+                    BatteryBar.instance.batteryStorage = 0;
+                }
+            });
+        }
+
+        if (player.isSwitch && BatteryBar.instance.getBatteryStorage() < 1000) {
+            MusicManager.instance.stop();
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new GameOverScreen(game));
+                    EnergyProducedBar.instance.energyProduced = 0;
+                    EnergyUsedBar.instance.energyUse = 0;
+                    BatteryBar.instance.batteryStorage = 0;
+                }
+            });
+        }
+
+        if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+            dialog.hide();
+            worldController.level.player.timeStop = false;
+            citizenQuest = null;
+            dialogShow = false;
+            player.status_find = false;
+            buttonAgree.setVisible(false);
+            buttonRefuse.setVisible(false);
+            dialogDoor1 = false;
+            dialogDoor2 = false;
+            dialogDoor3 = false;
+            dialogDoor4 = false;
+        } else {
+            dialog.tryToChangePage();
+        }
+
     }
 
-    private void checkGameComplete() {
-        trueLink = 0;
-        if ((link.size() != 0) && (link.size() <= 4)) {
-            for (int i = 0; i < link.size(); i++) {
-                for (int j = 0; j < isComplete.size(); j++) {
-                    if (link.get(i) == isComplete.get(j)) {
-                        trueLink += 1;
-                        System.out.println(trueLink);
-                    }
+    private void textIconDraw() {
+        textSun.setText(String.format(" %d", (int) SunBar.instance.sunTime) + " นาฬิกา");
+        textTemperature.setText(String.format(" %d", (int) TemperatureBar.instance.Temperature));
+        textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
+        textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
+        textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
+        textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
+        energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
+        energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
+        energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
+        textLiking.setText(String.format(" %d", (int) LikingBar.instance.liking));
+    }
+
+    private void dialogDraw() {
+
+        Player player = worldController.level.player;
+        Level2 level2 = (Level2) worldController.level;
+
+        if ((level2.gate.nearPlayer()) && (player.status_find)) {
+            if (!animation_status && stageTwoClear && !stageThreeClear && !dialogDoor3) {
+                dialogDoor3 = true;
+                player.timeStop = true;
+                String text =
+                        "\"พลังงานมีไม่เพียงพอใช้ในห้องถัดไป กรุณาปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเสียก่อน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                dialog.show();
+                dialog.clearPages();
+                dialog.addWaitingPage(text);
+                dialogShow = true;
+            } else if (animation_status && stageThreeClear && !dialogDoor4) {
+                dialogDoor4 = true;
+                player.timeStop = true;
+                player.timeClear = true;
+                chartStatus();
+            }
+        }
+
+        if (!dialogEnemy) {
+            for (int i = 0; i < worldController.level.enemies.size(); i++) {
+                Enemy enemy = worldController.level.enemies.get(i);
+                if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
+                    dialogEnemy = true;
+                    player.timeStop = true;
+                    String text =
+                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    dialog.show();
+                    dialog.clearPages();
+                    dialog.addWaitingPage(text);
+                    dialogShow = true;
                 }
             }
+        }
+
+        if (player.stageOneClear && !dialogCitizen) {
+            dialogCitizen = true;
+            player.timeStop = true;
+            String text =
+                    "\"กำจัดมอนสเตอร์หมดแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัยดีกว่า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+            dialogShow = true;
+        }
+
+        if (questCount == 6 && !animation_status) {
+            if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
+                dialogStage4 = true;
+                stageTwoClear = true;
+                stageThreeClear = true;
+                animation_status = true;
+                player.timeStop = true;
+                level2.gate.state = Item.ItemState.ON;
+                String text =
+                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและพลังงานจะเหลือเพียงพอใช้ในห้องถัดไป สามารถปิดหรือเปิดเครื่องใช้ไฟฟ้าเพิ่มได้\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                dialog.show();
+                dialog.clearPages();
+                dialog.addWaitingPage(text);
+                dialogShow = true;
+            } else if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
+                dialogStage4fail = true;
+                stageTwoClear = true;
+                player.timeStop = true;
+                String text =
+                        "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานไฟฟ้าภายในแบตเตอรี่ลดต่ำลงกว่า 1000 จูล ทุกคนจะขาดอากาศตาย รีบปิดเครื่องใช้ไฟฟ้าเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                level2.gate.state = Item.ItemState.OFF;
+                dialog.show();
+                dialog.clearPages();
+                dialog.addWaitingPage(text);
+                dialogShow = true;
+            }
+        }
+
+        if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogWarning) {
+            dialogWarning = true;
+            player.timeStop = true;
+            String text =
+                    "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+            dialog.show();
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+            dialogShow = true;
+        }
+
+        if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
+            String text =
+                    "\"ขอเปิดเครื่องปรับอากาศ 1 ชั่วโมง เครื่องปรับอากาศใช้กำลังไฟฟ้า \""
+                            + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า " + level2.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
+            dialogCitizenDetail();
+            dialog.addWaitingPage(text);
+            citizenQuest = systemWindow.citizen1;
+        } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
+            String text =
+                    "\"ขอใช้ไมโครเวฟอุ่นอาหาร 3 นาที " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
+            dialogCitizenDetail();
+            dialog.addWaitingPage(text);
+            citizenQuest = systemWindow.citizen2;
+        } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
+            String text =
+                    "\"ขอใช้งานคอมพิวเตอร์ 1 ชั่วโมง\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
+            dialogCitizenDetail();
+            dialog.addWaitingPage(text);
+            citizenQuest = systemWindow.citizen3;
+        } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
+            String text =
+                    "\"ขอใช้งานตู้เย็น\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
+            dialogCitizenDetail();
+            dialog.addWaitingPage(text);
+            citizenQuest = systemWindow.citizen4;
+        } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
+            player.timeStop = true;
+            player.status_find = false;
+            String text =
+                    "\"ขอหุงข้าวใช้เวลา 30 นาที\" " + "\n\"( หม้อหุงข้าวใช้กำลังไฟฟ้า " + level2.riceCooker.getEnergyBurn() + " วัตต์ )\" ";
+            dialogCitizenDetail();
+            citizenQuest = systemWindow.citizen5;
+            dialog.addWaitingPage(text);
+        } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
+            String text =
+                    "\"ขอดูโทรทัศน์ 1 ชั่วโมง\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level2.television.getEnergyBurn() + " วัตต์ )\" ";
+            dialogCitizenDetail();
+            dialog.addWaitingPage(text);
+            citizenQuest = systemWindow.citizen6;
+        }
+    }
+
+    private void dialogCitizenDetail(){
+        Player player = worldController.level.player;
+        player.timeStop = true;
+        player.status_find = false;
+        dialog.show();
+        buttonAgree.setVisible(true);
+        buttonRefuse.setVisible(true);
+        dialog.clearPages();
+        dialogShow = true;
+    }
+
+    private void checkStageAndCount() {
+
+        Player player = worldController.level.player;
+
+        for (int i = 0; i < worldController.level.enemies.size(); i++) {
+            Enemy enemy = worldController.level.enemies.get(i);
+            if (enemy.stateMachine.getCurrentState() == EnemyState.DIE && !enemy.count) {
+                BatteryBar.instance.addEnergy(1000);
+                enemy.count = true;
+                countEnemy += 1;
+            }
+        }
+
+        if (countEnemy == worldController.level.enemies.size()) {
+            player.stageOneClear = true;
+        }
+
+
+    }
+
+    private void checkObject() {
+
+        Player player = worldController.level.player;
+        Level2 level2 = (Level2) worldController.level;
+
+        boolean noItem = true;
+
+        for (Item item : level2.items) {
+            if (item.nearPlayer()) {
+                noItem = false;
+                break;
+            }
+        }
+        if((stageTwoClear) && (player.status_find)){
+            for (Item item : level2.items) {
+                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
+                    item.state = Item.ItemState.OFF;
+                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
+                    player.status_find = false;
+                } else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
+                    item.state = Item.ItemState.ONLOOP;
+                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
+                    player.status_find = false;
+                }
+            }
+        }
+
+        boolean noCitizen = !player.questScreen1
+                && !player.questScreen2
+                && !player.questScreen3
+                && !player.questScreen4
+                && !player.questScreen5
+                && !player.questScreen6;
+
+        if (player.status_find && noCitizen && noItem) {
+            player.status_find = false;
+            player.status_windows_link = false;
+        }
+
+        if ((!player.isSwitch) && (player.status_find) && (level2.switchItem.nearPlayer())) {
+            level2.switchItem.state = Item.ItemState.ON;
+            level2.switchItem.resetAnimation();
+            player.isSwitch = true;
+            player.status_find = false;
         }
     }
 
@@ -1358,9 +1292,10 @@ public class GameScreenTraining extends AbstractGameScreen {
     }
 
     private void status() {
+        Player player = worldController.level.player;
+        LevelTraining levelTraining = (LevelTraining) worldController.level;
 
-        worldController.level.player.timeStop = true;
-
+        player.timeStop = true;
         if(EnergyProducedBar.instance.energyProduced == 0){
             String textString1 = ("ยังไม่เริ่มการผลิตพลังงาน");
             text1.setText(textString1);
@@ -1380,277 +1315,36 @@ public class GameScreenTraining extends AbstractGameScreen {
             text4.setText(textString4);
         }
 
+        if (levelTraining.television.state == Item.ItemState.ONLOOP) {
+            buttonItem6.setRegion(Assets.instance.tvIconOn);
+            textItem6.setText(String.valueOf(levelTraining.television.getEnergyBurn()));
+        } else {
+            buttonItem6.setRegion(Assets.instance.tvIconOff);
+            textItem6.clear();
+        }
+
         statusWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - statusWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - statusWindow.getHeight() / 2);
         statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
-    private void solarCellGuide() {
-        worldController.level.player.timeStop = true;
-        solarCellGuideWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - solarCellGuideWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - solarCellGuideWindow.getHeight() / 2);
-        solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-    }
-
-    private void controlAndDebug() {
+    @Override
+    public void render(float deltaTime) {
+        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Player player = worldController.level.player;
 
-        if (Gdx.input.isKeyJustPressed(Keys.M)) {
-            MusicManager.instance.stop();
-            Gdx.app.postRunnable(new Runnable() {
-                @Override
-                public void run() {
-                    game.setScreen(new MenuScreen(game));
-                    EnergyProducedBar.instance.energyProduced =0;
-                    EnergyUsedBar.instance.energyUse = 0;
-                    BatteryBar.instance.batteryStorage = 0;
-                }
-            });
+        controlAndDebug();
+        textIconDraw();
+        dialogDraw();
+        checkStageAndCount();
+        checkObject();
+
+        if (!player.timeStop && !player.timeClear) {
+            BatteryBar.instance.update(deltaTime);
         }
-
-        if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
-            for (Enemy enemy : worldController.level.enemies) {
-                enemy.getStateMachine().changeState(EnemyState.DIE);
-            }
-        }
-
-        if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
-            for (int i = 0; i < worldController.level.citizens.size(); i++) {
-                Citizen citizen = worldController.level.citizens.get(i);
-                if (!citizen.runPlayer) {
-                    dialogCitizen = true;
-                    citizen.runPlayer = true;
-                    citizenCount += 1;
-                }
-            }
-        }
-
-        if (!worldController.level.player.isAlive()) {
-            Gdx.app.postRunnable(new Runnable() {
-                @Override
-                public void run() {
-                    game.setScreen(new GameOverScreen(game));
-                    EnergyProducedBar.instance.energyProduced =0;
-                    EnergyUsedBar.instance.energyUse = 0;
-                    BatteryBar.instance.batteryStorage = 0;
-                }
-            });
-        }
-
-        if (worldController.level.player.timeCount <= 0) {
-            Gdx.app.postRunnable(new Runnable() {
-                @Override
-                public void run() {
-                    game.setScreen(new GameOverScreen(game));
-                    EnergyProducedBar.instance.energyProduced =0;
-                    EnergyUsedBar.instance.energyUse = 0;
-                    BatteryBar.instance.batteryStorage = 0;
-                }
-            });
-        }
-
-        if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
-            if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-                if(dialogShow){
-                    dialog.hide();
-                    dialogShow = false;
-                    player.timeStop = false;
-                    player.status_find = false;
-                    buttonAgree.setVisible(false);
-                    buttonRefuse.setVisible(false);
-                    dialogDoor1 = false;
-                    dialogDoor2 = false;
-                    dialogDoor3 = false;
-                    dialogDoor4 = false;
-                }
-            } else {
-                dialog.tryToChangePage();
-            }
-        }
-    }
-
-    private void textIconDraw() {
-        textSun.setText(String.format(" %d", (int) SunBar.instance.sunTime) + " นาฬิกา");
-        textTemperature.setText(String.format(" %d", (int) TemperatureBar.instance.Temperature));
-        textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
-        textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
-        textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
-        textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
-        textLiking.setText(String.format(" %d", (int) LikingBar.instance.liking));
-
-        if (animation_status) {
-            EnergyProducedBar.instance.energyProduced = 2700;
-            energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
-        } else {
-            energyLevel.setText(String.format(" %d", 0) + " วัตต์");
-        }
-        energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
-        energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
-    }
-
-    private void dialogDraw() {
-
-        Player player = worldController.level.player;
-        Level1 level1 = (Level1) worldController.level;
-
-        if (player.timeCount == 299 && !dialogStart) {
-            player.timeStop = true;
-            dialog.clearPages();
-            dialog.addWaitingPage(text);
-            dialog.show();
-            dialogStart = true;
-            dialogShow = true;
-        }
-
-        if ((level1.door.nearPlayer()) && (player.status_find)) {
-            if (!animation_status) {
-                if (!player.stageOneClear && !dialogDoor1) {
-                    dialogDoor1 = true;
-                    player.timeStop = true;
-                    String text =
-                            "\"พื้นที่แห่งนี้ยังอันตรายอยู่ โปรดกำจัดมอนสเตอร์ให้หมด แล้วประชาชนที่ซ่อนอยู่จะปรากฎตัวออกมา\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    dialog.show();
-                    dialog.clearPages();
-                    dialog.addWaitingPage(text);
-                    dialogShow = true;
-                } else if (player.stageOneClear && !stageTwoClear && !dialogDoor2) {
-                    dialogDoor2 = true;
-                    player.timeStop = true;
-                    String text =
-                            "\"ยังตามหาประชาชนที่ซ่อนตัวอยู่ไม่ครบ กรุณาตามหาให้ครบก่อน\" \n\"เ (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    dialog.show();
-                    dialog.clearPages();
-                    dialog.addWaitingPage(text);
-                    dialogShow = true;
-                } else if (stageTwoClear && !stageThreeClear && !dialogDoor3) {
-                    dialogDoor3 = true;
-                    player.timeStop = true;
-                    String text =
-                            "\"เหมือนว่าพลังงานในสถานที่หลบภัยจะหมดลง กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงาน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    dialog.show();
-                    dialog.clearPages();
-                    dialog.addWaitingPage(text);
-                    dialogShow = true;
-                }
-            } else if (!dialogDoor4 && stageFourClear) {
-                dialogDoor4 = true;
-                player.timeStop = true;
-                String text =
-                        "\"ยินดีต้อนรับสู่สถานที่หลบภัย\" \n\" (กดปุ่มตกลงเพื่อเข้าไปยังสถานที่หลบภัย หรือกดปุ่มปฎิเสธเพื่อบันทึกและออกไปหน้าเมนู)\"";
-                dialog.show();
-                buttonAgree.setVisible(true);
-                buttonRefuse.setVisible(true);
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
-                dialogShow = true;
-            }
-        }
-        if (player.stageOneClear && !dialogCitizen) {
-            dialogCitizen = true;
-            player.timeStop = true;
-            String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัยพร้อมกัน\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-            dialog.show();
-            dialog.clearPages();
-            dialog.addWaitingPage(text);
-            dialogShow = true;
-        }
-
-        if (player.timeCount <= 298 && !dialogEnemy && dialogStart) {
-            for (int i = 0; i < worldController.level.enemies.size(); i++) {
-                Enemy enemy = worldController.level.enemies.get(i);
-                if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
-                    dialogEnemy = true;
-                    player.timeStop = true;
-                    String text =
-                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    dialog.show();
-                    dialog.clearPages();
-                    dialog.addWaitingPage(text);
-                    dialogShow = true;
-                }
-            }
-        }
-
-        if (player.stageOneClear && player.status_find) {
-            for (int i = 0; i < worldController.level.citizens.size(); i++) {
-                Citizen citizen = worldController.level.citizens.get(i);
-                if (citizen.overlapPlayer && !citizen.runPlayer) {
-                    dialogCitizen = true;
-                    player.timeStop = true;
-                    String text =
-                            "\"โปรดตามเรามา เราจะพาท่านไปยังสถานที่ปลอดภัย\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    LikingBar.instance.liking += 1;
-                    citizen.runPlayer = true;
-                    citizenCount += 1;
-                    dialog.show();
-                    dialog.clearPages();
-                    dialog.addWaitingPage(text);
-                    dialogShow = true;
-                }
-            }
-        }
-
-        if (citizenCount == worldController.level.citizens.size() && !dialogCitizen2) {
-            dialogCitizen2 = true;
-            stageTwoClear = true;
-            player.timeStop = true;
-            String text =
-                    "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-            dialog.show();
-            dialog.clearPages();
-            dialog.addWaitingPage(text);
-            dialogShow = true;
-        }
-
-        if ( trueLink == 4 && !animation_status) {
-            for (Item item : level1.items) {
-                item.state = Item.ItemState.ONLOOP;
-                item.resetAnimation();
-            }
-            stageThreeClear = true;
-            level1.door.state = Item.ItemState.ON;
-            animation_status = true;
-            player.timeStop = true;
-            String text =
-                    "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว รีบพาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-            dialog.show();
-            dialog.clearPages();
-            dialog.addWaitingPage(text);
-            dialogShow = true;
-        }
-
-    }
-
-    private void checkStageAndCount() {
-
-        Player player = worldController.level.player;
-        Level1 level1 = (Level1) worldController.level;
-        if (countEnemy == worldController.level.enemies.size() || worldController.level.enemies.size() == 0) {
-            player.stageOneClear = true;
-        }
-
-        if (player.stageOneClear && citizenCount == level1.citizens.size() && !stageTwoClear) {
-            stageTwoClear = true;
-        }
-
-        for (int i = 0; i < worldController.level.enemies.size(); i++) {
-            Enemy enemy = worldController.level.enemies.get(i);
-            if (enemy.stateMachine.getCurrentState() == EnemyState.DIE && !enemy.count) {
-                BatteryBar.instance.addEnergy(1000);
-                enemy.count = true;
-                countEnemy += 1;
-            }
-        }
-    }
-
-    private void checkWindow() {
-
-        Player player = worldController.level.player;
-        Level1 level1 = (Level1) worldController.level;
 
         if (player.statusEnergyWindow) {
             status();
@@ -1658,98 +1352,12 @@ public class GameScreenTraining extends AbstractGameScreen {
             statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
         }
 
-        if (player.solarCellGuideWindow) {
-            solarCellGuide();
-        } else {
-            solarCellGuideWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-        }
-
-        solarCellWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - solarCellWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - solarCellWindow.getHeight() / 2);
-        if (!animation_status && player.status_find && stageTwoClear) {
-            if (level1.solarCell1.nearPlayer()) {
-                solarWindow = systemWindow.solarcell;
-                checkButton(solarWindow);
-                solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            } else if (level1.charge.nearPlayer()) {
-                solarWindow = systemWindow.chargecontroller;
-                checkButton(solarWindow);
-                solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            } else if (level1.battery.nearPlayer()) {
-                solarWindow = systemWindow.battery;
-                checkButton(solarWindow);
-                solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            } else if (level1.inverter.nearPlayer()) {
-                solarWindow = systemWindow.inverter;
-                checkButton(solarWindow);
-                solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            } else {
-                player.status_find = false;
-                player.status_windows_link = false;
-                solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-            }
-        }
-
-        if (animation_status && stageThreeClear && !dialogDoor4 && level1.door.nearPlayer() && player.status_find) {
-            chartStatus();
-        }
-    }
-
-    private void checkObject() {
-
-        Player player = worldController.level.player;
-        Level1 level1 = (Level1) worldController.level;
-
-        boolean noItem = true;
-
-        for (Item item : level1.items) {
-            if (item.nearPlayer()) {
-                noItem = false;
-                break;
-            }
-        }
-
-        if (!noItem) {
-            solarCellWindow.setVisible(false);
-        }
-
-        boolean noCitizen = !player.questScreen1
-                && !player.questScreen2
-                && !player.questScreen3
-                && !player.questScreen4
-                && !player.questScreen5
-                && !player.questScreen6;
-
-        if (noItem && noCitizen) {
-            player.status_find = false;
-            player.status_windows_link = false;
-            solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-        }
-    }
-
-    @Override
-    public void render(float deltaTime) {
-
-        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        checkObject();
-        controlAndDebug();
-        textIconDraw();
-        dialogDraw();
-        checkStageAndCount();
-        checkWindow();
-
-        if (!worldController.level.player.timeStop && !worldController.level.player.timeClear) {
-            BatteryBar.instance.update(deltaTime);
-        }
-
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
         worldRenderer.render();
 
         stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
+        stage.draw(); //การทำงา
+
     }
 
     @Override
