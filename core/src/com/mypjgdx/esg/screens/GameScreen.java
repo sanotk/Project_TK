@@ -391,6 +391,7 @@ public class GameScreen extends AbstractGameScreen {
                     controlShow = false;
                     buttonControlWindow.setVisible(false);
                 } else {
+                    controlShow = true;
                     buttonControlWindow.setVisible(true);
                 }
             }
