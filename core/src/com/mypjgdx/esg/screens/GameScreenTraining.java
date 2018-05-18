@@ -22,6 +22,7 @@ import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level1;
+import com.mypjgdx.esg.game.levels.LevelTraining;
 import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
@@ -1759,7 +1760,7 @@ public class GameScreenTraining extends AbstractGameScreen {
 
     @Override
     public void show() {
-        worldController = new WorldController(new Level1());
+        worldController = new WorldController(new LevelTraining());
         worldRenderer = new WorldRenderer(worldController);
         Gdx.input.setInputProcessor(stage);
 
