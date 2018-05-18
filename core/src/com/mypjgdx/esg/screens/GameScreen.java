@@ -36,9 +36,15 @@ import java.util.ArrayList;
 
 public class GameScreen extends AbstractGameScreen {
 
+    private Button buttonControlWindow;
+    private Button buttonControl;
     private Button buttonMission;
+    private Button buttonGuide;
+    private Button buttonStatus;
     private WorldController worldController;
     private WorldRenderer worldRenderer;
+
+    private boolean controlShow;
 
     private ItemLink itemLink;
 
@@ -229,12 +235,42 @@ public class GameScreen extends AbstractGameScreen {
         buttonRule = new Button(buttonPauseStyle);
         buttonRule.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
 
+        TextButton.TextButtonStyle buttonControlStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable ControlUp = new TextureRegionDrawable(Assets.instance.iconControl);
+        buttonControlStyle.up = ControlUp;
+        buttonControlStyle.down = ControlUp.tint(Color.LIGHT_GRAY);
+        buttonControl = new Button(buttonControlStyle);
+        buttonControl.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 150);
+
         TextButton.TextButtonStyle buttonMissionStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable missionUp = new TextureRegionDrawable(Assets.instance.iconMission);
         buttonMissionStyle.up = missionUp;
         buttonMissionStyle.down = missionUp.tint(Color.LIGHT_GRAY);
         buttonMission = new Button(buttonMissionStyle);
-        buttonMission.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 150);
+        buttonMission.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 200);
+
+        TextButton.TextButtonStyle buttonGuideStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable GuideUp = new TextureRegionDrawable(Assets.instance.iconGuide);
+        buttonGuideStyle.up = GuideUp;
+        buttonGuideStyle.down = GuideUp.tint(Color.LIGHT_GRAY);
+        buttonGuide = new Button(buttonGuideStyle);
+        buttonGuide.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 250);
+
+        TextButton.TextButtonStyle buttonStatusStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable statusUp = new TextureRegionDrawable(Assets.instance.iconStatus);
+        buttonStatusStyle.up = statusUp;
+        buttonStatusStyle.down = statusUp.tint(Color.LIGHT_GRAY);
+        buttonStatus = new Button(buttonStatusStyle);
+        buttonStatus.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 300);
+
+        final TextButton.TextButtonStyle buttonControlWindowStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable controlWindowUp = new TextureRegionDrawable(Assets.instance.controlWindow);
+        buttonControlWindowStyle.up = controlWindowUp;
+        buttonControlWindowStyle.down = controlWindowUp.tint(Color.LIGHT_GRAY);
+        buttonControlWindow = new Button(buttonControlWindowStyle);
+        buttonControlWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH+40, SCENE_HEIGHT - 350);
+
+        buttonControlWindow.setVisible(false);
 
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
         buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
@@ -292,6 +328,10 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(buttonAgree);
         stage.addActor(buttonRefuse);
         stage.addActor(buttonMission);
+        stage.addActor(buttonControl);
+        stage.addActor(buttonStatus);
+        stage.addActor(buttonGuide);
+        stage.addActor(buttonControlWindow);
 
         stage.addActor(optionsWindow);
         stage.addActor(ruleWindow);
@@ -329,6 +369,40 @@ public class GameScreen extends AbstractGameScreen {
                         Gdx.graphics.getWidth() / 2 - buttonMission.getWidth() / 2,
                         Gdx.graphics.getHeight() / 2 - buttonMission.getHeight() / 2);
                 missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                worldController.level.player.timeStop = true;
+            }
+        });
+
+        buttonGuide.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                solarCellGuideWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - buttonGuide.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - buttonGuide.getHeight() / 2);
+                solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                worldController.level.player.timeStop = true;
+            }
+        });
+
+        buttonControl.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (controlShow){
+                    controlShow = false;
+                    buttonControlWindow.setVisible(false);
+                } else {
+                    buttonControlWindow.setVisible(true);
+                }
+            }
+        });
+
+        buttonStatus.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                statusWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - buttonStatus.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - buttonStatus.getHeight() / 2);
+                statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
                 worldController.level.player.timeStop = true;
             }
         });
@@ -1655,12 +1729,6 @@ public class GameScreen extends AbstractGameScreen {
             status();
         } else {
             statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-        }
-
-        if (player.solarCellGuideWindow) {
-            solarCellGuide();
-        } else {
-            solarCellGuideWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
         }
 
         solarCellWindow.setPosition(

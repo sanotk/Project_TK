@@ -302,17 +302,12 @@ public class Assets implements Disposable, AssetErrorListener {
         beam = new TextureRegion((Texture)manager.get("beam.png"));
         box = new TextureRegion((Texture)manager.get("box.png"));
 
-        manager.load("icon_a.png",Texture.class);
-        manager.load("icon_item.png",Texture.class);
-        manager.load("icon_human.png",Texture.class);
-        manager.load("icon_control.png",Texture.class);
-
         iconA = new TextureRegion((Texture)manager.get("icon_a.png"));
         iconItem = new TextureRegion((Texture)manager.get("icon_item.png"));
         iconHuman = new TextureRegion((Texture)manager.get("icon_human.png"));
         iconControl = new TextureRegion((Texture)manager.get("icon_control.png"));
-        iconStatus = new TextureRegion((Texture)manager.get("icon_control.png"));
-        iconGuide = new TextureRegion((Texture)manager.get("icon_status.png"));
+        iconStatus = new TextureRegion((Texture)manager.get("icon_status.png"));
+        iconGuide = new TextureRegion((Texture)manager.get("icon_guide.png"));
         controlWindow = new TextureRegion((Texture)manager.get("control_window.png"));
 
         iconBow = new TextureRegion((Texture)manager.get("icon_bow.png"));
