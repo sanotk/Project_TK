@@ -202,7 +202,7 @@ public class GameScreen4 extends AbstractGameScreen {
         buttonRule.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
 
         TextButton.TextButtonStyle buttonMissionStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable missionUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_pause"));
+        TextureRegionDrawable missionUp = new TextureRegionDrawable(Assets.instance.iconMission);
         buttonMissionStyle.up = missionUp;
         buttonMissionStyle.down = missionUp.tint(Color.LIGHT_GRAY);
         buttonMission = new Button(buttonMissionStyle);

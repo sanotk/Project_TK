@@ -39,6 +39,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion iconTemperature;
     public TextureRegion iconLiking;
 
+    public TextureRegion iconMission;
     public TextureRegion iconCircle;
 
     public TextureRegion buttonSolarcellAdd;
@@ -154,6 +155,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("icon_sun.png",Texture.class);
         manager.load("icon_temperature.png",Texture.class);
         manager.load("icon_liking.png",Texture.class);
+        manager.load("icon_mission.png",Texture.class);
         manager.load("circle.png",Texture.class);
 
         manager.load("solarcell_button_add.png",Texture.class);
@@ -291,15 +293,7 @@ public class Assets implements Disposable, AssetErrorListener {
         iconTemperature = new TextureRegion((Texture)manager.get("icon_temperature.png"));
         iconLiking = new TextureRegion((Texture)manager.get("icon_liking.png"));
         iconCircle = new TextureRegion((Texture)manager.get("circle.png"));
-
-        manager.load("tv_icon_on.png", Texture.class);
-        manager.load("air_icon_on.png", Texture.class);
-        manager.load("computer_icon_on.png", Texture.class);
-        manager.load("fan_icon_on.png", Texture.class);
-        manager.load("microwave_icon_on.png", Texture.class);
-        manager.load("refrigerator_icon_on.png", Texture.class);
-        manager.load("ricecooker_icon_on.png", Texture.class);
-        manager.load("waterpump_icon_on.png", Texture.class);
+        iconMission = new TextureRegion((Texture)manager.get("icon_mission.png"));
 
         airIconOff = new TextureRegion((Texture)manager.get("air_icon_off.png"));
         tvIconOff = new TextureRegion((Texture)manager.get("tv_icon_off.png"));
