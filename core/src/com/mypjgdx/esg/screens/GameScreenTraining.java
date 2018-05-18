@@ -753,16 +753,21 @@ public class GameScreenTraining extends AbstractGameScreen {
         Player player = worldController.level.player;
         LevelTraining levelTraining = (LevelTraining) worldController.level;
 
+        if (player.timeCount == 299 && !dialogStart) {
+            String text =
+                    "\"ขั้นแรกมาลองเคลื่อนที่ตัวละครไปยังจุดที่กำหนดที่มีแสงไฟ โดยตัวละครจะเคลื่อนที่ได้โดยการกดลูกศรตามทิศทาง\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+            dialogSet();
+            dialog.addWaitingPage(text);
+            dialogStart = true;
+        }
+
         if ((levelTraining.gate.nearPlayer()) && (player.status_find)) {
             if (!animation_status && stageTwoClear && !stageThreeClear && !dialogDoor3) {
                 dialogDoor3 = true;
-                player.timeStop = true;
                 String text =
                         "\"พลังงานมีไม่เพียงพอใช้ในห้องถัดไป กรุณาปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเสียก่อน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                dialog.show();
-                dialog.clearPages();
+                dialogSet();
                 dialog.addWaitingPage(text);
-                dialogShow = true;
             } else if (animation_status && stageThreeClear && !dialogDoor4) {
                 dialogDoor4 = true;
                 player.timeStop = true;
@@ -777,34 +782,34 @@ public class GameScreenTraining extends AbstractGameScreen {
                     dialogEnemy = true;
                     String text =
                             "\"เคลื่อนที่ด้วยปุ่มลูกศรทิศทาง กดฟันด้วย (C) ยิงธนูด้วย (X) วางกับดักด้วย (Z) และท่าพิเศษคลื่นดาบพลังงานสูดด้วย (W)\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    dialog.show();
-                    dialog.clearPages();
+                    dialogSet();
                     dialog.addWaitingPage(text);
-                    dialogShow = true;
                 }
             }
         }
 
         if (player.stageOneClear && !dialogCitizen) {
             dialogCitizen = true;
-            player.timeStop = true;
             String text =
                     "\"กำจัดมอนสเตอร์หมดแล้ว ลองพาตัวละครเดินไปยังคนตัวสีฟ้าและกดปุ่มพูดคุย (A)\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-            dialog.show();
-            dialog.clearPages();
+            dialogSet();
             dialog.addWaitingPage(text);
-            dialogShow = true;
         }
 
         if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
             String text = "\"พยายามเข้านะสหาย\"\n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
             player.timeStop = true;
-            player.status_find = false;
-            dialog.show();
-            dialog.clearPages();
-            dialogShow = true;
+            dialogSet();
             dialog.addWaitingPage(text);
         }
+    }
+
+    private void dialogSet(){
+        Player player = worldController.level.player;
+        dialog.clearPages();
+        dialog.show();
+        player.timeStop = true;
+        dialogShow = true;
     }
 
     private void checkStageAndCount() {
