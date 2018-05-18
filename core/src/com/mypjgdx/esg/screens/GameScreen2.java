@@ -146,6 +146,7 @@ public class GameScreen2 extends AbstractGameScreen {
     private Label text6;
 
     private Window statusWindow;
+    private Window missionWindow;
 
     private int questCount;
     private float Countdown;
@@ -165,6 +166,8 @@ public class GameScreen2 extends AbstractGameScreen {
     private boolean stageTwoClear;
     private boolean stageThreeClear;
     private boolean stageFourClear;
+
+    private boolean dialogStart;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
@@ -223,12 +226,18 @@ public class GameScreen2 extends AbstractGameScreen {
                 Gdx.graphics.getWidth() / 2 - ruleWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
         ruleWindow.addAction(Actions.sequence(Actions.visible(false), Actions.fadeIn(0.2f)));
+        ruleWindow.setVisible(false);
 
         chartWindow = createChartWindow();
         chartWindow.setVisible(false);
 
         statusWindow = createStatusWindow();
         statusWindow.setVisible(false);
+
+        missionWindow = createMissionWindow();
+        missionWindow.setPosition(
+                Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
 
         optionsWindow.setVisible(false);
 
@@ -254,6 +263,7 @@ public class GameScreen2 extends AbstractGameScreen {
         stage.addActor(ruleWindow);
         stage.addActor(chartWindow);
         stage.addActor(statusWindow);
+        stage.addActor(missionWindow);
 
         buttonOption.addListener(new ClickListener() {
             @Override
@@ -859,6 +869,74 @@ public class GameScreen2 extends AbstractGameScreen {
         });
 
         return ruleWindow;
+    }
+
+    private Window createMissionWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new TextureRegionDrawable(Assets.instance.window);
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.WHITE;
+
+        Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonRuleStyle.up = buttonRegion;
+        buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+
+        Button closeButton = new Button(buttonRuleStyle);
+//        Button ruleIcon = new Button(buttonPauseStyle);
+//        Button toolIcon = new Button(buttonToolStyle);
+
+        Label text1 = new Label("ภารกิจแรก กำจัดมอนสเตอร์ในแผนที่ให้ครบทุกตัวซึ่งจะได้รับพลังงานเพื่อเริ่มต้นการทำงานของโซล่าเซลล์", skin);
+        Label text2 = new Label("ภารกิจที่สอง หลังจากเสร็จสิ้นภารกิจแรกประชาชนจะปรากฎตัวออกมา ให้ค้นหาประชาชนในแผนที่ให้ครบ", skin);
+        Label text3 = new Label("ภารกิจที่สาม หลังจากเสร็จสิ้นภารกิจที่สองให้พาประชาชนไปยังที่หลบภัย", skin);
+        Label text4 = new Label("ภารกิจสุดท้าย เชื่อมต่อระบบโซล่าเซลล์ให้ถูกต้อง", skin);
+
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
+        text4.setStyle(labelStyle);
+
+        final Window missionWindow = new Window("ภารกิจที่ต้องทำให้สำเร็จ", style);
+        missionWindow.setModal(true);
+        missionWindow.setSkin(skin);
+        missionWindow.padTop(60);
+        missionWindow.padLeft(40);
+        missionWindow.padRight(40);
+        missionWindow.padBottom(20);
+        missionWindow.getTitleLabel().setAlignment(Align.center);
+        missionWindow.add(text1);
+        missionWindow.row().padTop(10);
+        missionWindow.add(text2);
+        missionWindow.row().padTop(10);
+        missionWindow.add(text3);
+        missionWindow.row().padTop(10);
+        missionWindow.add(text4);
+        //   ruleWindow.add(ruleIcon).right();
+        //  ruleWindow.add(text8).left();
+        //   ruleWindow.row().padTop(10);
+        //   ruleWindow.add(toolIcon).right();
+        //   ruleWindow.add(text9).left();
+        missionWindow.row().padTop(20);
+        missionWindow.add(closeButton).colspan(3);
+        missionWindow.pack();
+
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                missionWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                if (!dialogStart) {
+                    ruleWindow.addAction(Actions.sequence(Actions.fadeIn(0.2f), Actions.visible(true)));
+                }else if(!dialogShow){
+                    worldController.level.player.timeStop = false;
+                }
+            }
+        });
+
+        return missionWindow;
     }
 
     private void controlAndDebug() {
