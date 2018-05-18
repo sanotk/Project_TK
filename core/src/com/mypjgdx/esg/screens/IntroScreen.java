@@ -77,7 +77,6 @@ public class IntroScreen extends AbstractGameScreen {
 		    else
 		        dialog.tryToChangePage();
 		}
-
 		stage.act(deltaTime);
         stage.draw();
     }
