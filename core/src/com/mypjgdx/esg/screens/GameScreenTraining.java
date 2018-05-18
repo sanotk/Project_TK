@@ -110,7 +110,7 @@ public class GameScreenTraining extends AbstractGameScreen {
     private Texture dialogStory;
 
     private String text =
-            "\"ทุกคนรออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าไม่มีอันตราย\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
+            "\" ยินดีต้อนรับสู่โหมดฝึกสอนการเล่นของเกมประหยัดพลังงาน \" \n\"(กดตกลงเมื่อต้องการเล่นโหมดฝึกสอน หรือกดข้ามเพื่อเริ่มเล่นทันที)\"";
 
     public QuestState questState = null;
 
@@ -218,14 +218,10 @@ public class GameScreenTraining extends AbstractGameScreen {
         buttonAgree.setHeight(25);
         buttonAgree.setPosition(SCENE_WIDTH / 6 + 20, 120);
 
-        buttonAgree.setVisible(false);
-
-        buttonRefuse = new TextButton("ปฎิเสธ", buttonStyle2);
+        buttonRefuse = new TextButton("ข้าม", buttonStyle2);
         buttonRefuse.setWidth(50);
         buttonRefuse.setHeight(25);
         buttonRefuse.setPosition(SCENE_WIDTH / 4, 120);
-
-        buttonRefuse.setVisible(false);
 
         ruleWindow = createRuleWindow();
         ruleWindow.setPosition(
@@ -283,7 +279,7 @@ public class GameScreenTraining extends AbstractGameScreen {
             }
         });
 
-        buttonAgree.addListener(new ClickListener() {
+        buttonRefuse.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 buttonAgree.setVisible(false);
@@ -301,7 +297,7 @@ public class GameScreenTraining extends AbstractGameScreen {
             }
         });
 
-        buttonRefuse.addListener(new ClickListener() {
+        buttonAgree.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 buttonAgree.setVisible(false);
@@ -855,7 +851,6 @@ public class GameScreenTraining extends AbstractGameScreen {
                 EnergyUsedBar.instance.energyUse += levelTraining.television.getEnergyBurn();
                 player.status_find = false;
             }
-
         }
 
         boolean noCitizen = !player.questScreen1;
