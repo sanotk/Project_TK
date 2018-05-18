@@ -38,6 +38,10 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion iconSun;
     public TextureRegion iconTemperature;
     public TextureRegion iconLiking;
+    public TextureRegion iconA;
+    public TextureRegion iconItem;
+    public TextureRegion iconHuman;
+    public TextureRegion iconControl;
 
     public TextureRegion iconMission;
     public TextureRegion iconCircle;
@@ -158,6 +162,10 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("icon_temperature.png",Texture.class);
         manager.load("icon_liking.png",Texture.class);
         manager.load("icon_mission.png",Texture.class);
+        manager.load("icon_a.png",Texture.class);
+        manager.load("icon_item.png",Texture.class);
+        manager.load("icon_human.png",Texture.class);
+        manager.load("icon_control.png",Texture.class);
         manager.load("circle.png",Texture.class);
 
         manager.load("solarcell_button_add.png",Texture.class);
@@ -284,6 +292,16 @@ public class Assets implements Disposable, AssetErrorListener {
         trap = new TextureRegion((Texture)manager.get("trap.png"));
         beam = new TextureRegion((Texture)manager.get("beam.png"));
         box = new TextureRegion((Texture)manager.get("box.png"));
+
+        manager.load("icon_a.png",Texture.class);
+        manager.load("icon_item.png",Texture.class);
+        manager.load("icon_human.png",Texture.class);
+        manager.load("icon_control.png",Texture.class);
+
+        iconA = new TextureRegion((Texture)manager.get("icon_a.png"));
+        iconItem = new TextureRegion((Texture)manager.get("icon_item.png"));
+        iconHuman = new TextureRegion((Texture)manager.get("icon_human.png"));
+        iconControl = new TextureRegion((Texture)manager.get("icon_control.png"));
 
         iconBow = new TextureRegion((Texture)manager.get("icon_bow.png"));
         iconSword = new TextureRegion((Texture)manager.get("icon_sword.png"));
