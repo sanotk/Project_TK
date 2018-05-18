@@ -283,6 +283,35 @@ public class GameScreenTraining extends AbstractGameScreen {
             }
         });
 
+        buttonAgree.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                buttonAgree.setVisible(false);
+                buttonRefuse.setVisible(false);
+                dialog.hide();
+                worldController.level.player.timeStop = false;
+                dialogShow = false;
+                MusicManager.instance.stop();
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        game.setScreen(new GameScreen(game, optionsWindow));
+                    }
+                });
+            }
+        });
+
+        buttonRefuse.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                buttonAgree.setVisible(false);
+                buttonRefuse.setVisible(false);
+                dialog.hide();
+                worldController.level.player.timeStop = false;
+                dialogShow = false;
+            }
+        });
+
         createButton();
         batch = new SpriteBatch();
     }
@@ -691,7 +720,7 @@ public class GameScreenTraining extends AbstractGameScreen {
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-            if(dialogShow){
+            if (dialogShow) {
                 dialog.hide();
                 worldController.level.player.timeStop = false;
                 citizenQuest = null;
@@ -772,7 +801,7 @@ public class GameScreenTraining extends AbstractGameScreen {
         }
 
         if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
-            String text = "\"พยายามเข้านะสหาย\"";
+            String text = "\"พยายามเข้านะสหาย\"\n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
             player.timeStop = true;
             player.status_find = false;
             dialog.show();
@@ -816,18 +845,17 @@ public class GameScreenTraining extends AbstractGameScreen {
             }
         }
 
-        if((stageTwoClear) && (player.status_find)){
-            for (Item item : levelTraining.items) {
-                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
-                    item.state = Item.ItemState.OFF;
-                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
-                    player.status_find = false;
-                } else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
-                    item.state = Item.ItemState.ONLOOP;
-                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
-                    player.status_find = false;
-                }
+        if ((player.status_find)) {
+            if (levelTraining.television.nearPlayer() && levelTraining.television.state == Item.ItemState.ONLOOP) {
+                levelTraining.television.state = Item.ItemState.OFF;
+                EnergyUsedBar.instance.energyUse -= levelTraining.television.getEnergyBurn();
+                player.status_find = false;
+            } else if ((player.status_find) && levelTraining.television.nearPlayer() && levelTraining.television.state == Item.ItemState.OFF) {
+                levelTraining.television.state = Item.ItemState.ONLOOP;
+                EnergyUsedBar.instance.energyUse += levelTraining.television.getEnergyBurn();
+                player.status_find = false;
             }
+
         }
 
         boolean noCitizen = !player.questScreen1;
@@ -850,17 +878,17 @@ public class GameScreenTraining extends AbstractGameScreen {
         LevelTraining levelTraining = (LevelTraining) worldController.level;
 
         player.timeStop = true;
-        if(EnergyProducedBar.instance.energyProduced == 0){
+        if (EnergyProducedBar.instance.energyProduced == 0) {
             String textString1 = ("ยังไม่เริ่มการผลิตพลังงาน");
             text1.setText(textString1);
-        }else{
+        } else {
             String textString1 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
             String textString2 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
             if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
-                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced*60) - (EnergyUsedBar.instance.energyUse*60)))) + " วินาทีพลังงานจะหมดลง"));
+                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced * 60) - (EnergyUsedBar.instance.energyUse * 60)))) + " วินาทีพลังงานจะหมดลง"));
                 text3.setText(textString3);
             } else {
-                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced*60) - (EnergyUsedBar.instance.energyUse*60)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
+                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced * 60) - (EnergyUsedBar.instance.energyUse * 60)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
                 text3.setText(textString3);
             }
             String textString4 = ("กำลังไฟฟ้าผลิตที่ผลิตได้หลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
