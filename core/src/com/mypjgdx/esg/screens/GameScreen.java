@@ -163,6 +163,8 @@ public class GameScreen extends AbstractGameScreen {
     private Texture dialogStory;
     private int citizenCount = 0;
 
+    private Window missionWindow;
+
     private String text =
             "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"เ(กด Enter เพื่อเริ่มเกม)\"";
 
@@ -252,6 +254,7 @@ public class GameScreen extends AbstractGameScreen {
         ruleWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - ruleWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
+        ruleWindow.setVisible(false);
 
         chartWindow = createChartWindow();
         chartWindow.setVisible(false);
@@ -264,6 +267,11 @@ public class GameScreen extends AbstractGameScreen {
 
         solarCellWindow = createSolarCellWindow();
         solarCellWindow.setVisible(false);
+
+        missionWindow = createMissionWindow();
+        missionWindow.setPosition(
+                Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
 
         optionsWindow.setVisible(false);
 
@@ -282,6 +290,7 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(statusWindow);
         stage.addActor(solarCellGuideWindow);
         stage.addActor(solarCellWindow);
+        stage.addActor(missionWindow);
 
         buttonOption.addListener(new ClickListener() {
             @Override
@@ -775,71 +784,51 @@ public class GameScreen extends AbstractGameScreen {
 //        Button ruleIcon = new Button(buttonPauseStyle);
 //        Button toolIcon = new Button(buttonToolStyle);
 
-        Label text1 = new Label("กด c เพื่อฟัน", skin);
-        Label text2 = new Label("กด x เพื่อยิงธนู (ยิงธนู 1 ดอกใช้พลังงานไฟฟ้า 200 จูล)", skin);
-        Label text3 = new Label("กด Z เพื่อวางกับดักสปริง เมื่อมอนสเตอร์เดินมาชนจะกระเด็นถอยหลัง (วางกับดัก 1 ครั้งใช้พลังงานไฟฟ้า 1000 จูล)", skin);
-        Label text4 = new Label("กด W เพื่อฟันคลื่นดาบพลังสูง (ฟัน 1 ครั้งใช้พลังงานไฟฟ้า 3000 จูล)", skin);
-        Label text5 = new Label("กด A เพื่อกระทำกับวัตถุ หรือคุยกับประชาชน", skin);
-        Label text6 = new Label("กด S เพื่อดูผังการใช้พลังงานแบบละเอียด", skin);
-        Label text7 = new Label("กด D เพื่ออ่านวิธีการทำงานของโซล่าเซลล์", skin);
-        //  Label text8 = new Label("เพื่อหยุดเกม และอ่านวิธีควบคุม", skin);
-        // Label text9 = new Label("เพื่อเปิดเมนูปรับแต่ง", skin);
-        Label text8 = new Label("กดปุ่มลูกศรบนแป้นพิมพ์เพื่อเคลื่อนที่ตัวละคร", skin);
+        Label text1 = new Label("ภารกิจแรก กำจัดมอนสเตอร์ที่เกิดขึ้นในแผนที่ให้หมดทุกตัวซึ่งจะได้รับพลังงานเพื่อเริ่มการทำงานของโซล่าเซลล์", skin);
+        Label text2 = new Label("ภารกิจที่สอง หลังจากเสร็จภารกิจแรกประชาชนจะปรากฎตัวออกมา ให้ตามหาประชาชนให้ครบทุกคน", skin);
+        Label text3 = new Label("ภารกิจที่สาม หลังจากเสร็จสิ้นภารกิจที่สองให้พาประชาชนไปยังที่หลบภัย", skin);
+        Label text4 = new Label("ภารกิจสุดท้าย เชื่อมต่อระบบโซล่าเซลล์ให้ถูกต้อง", skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
         text3.setStyle(labelStyle);
         text4.setStyle(labelStyle);
-        text5.setStyle(labelStyle);
-        text6.setStyle(labelStyle);
-        text7.setStyle(labelStyle);
-        //   text8.setStyle(labelStyle);
-        //   text9.setStyle(labelStyle);
-        text8.setStyle(labelStyle);
 
-        final Window ruleWindow = new Window("การควบคุม", style);
-        ruleWindow.setModal(true);
-        ruleWindow.setSkin(skin);
-        ruleWindow.padTop(60);
-        ruleWindow.padLeft(40);
-        ruleWindow.padRight(40);
-        ruleWindow.padBottom(20);
-        ruleWindow.getTitleLabel().setAlignment(Align.center);
-        ruleWindow.add(text1);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text2);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text3);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text4);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text5);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text6);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text7);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text8);
+        final Window missionWindow = new Window("ภารกิจที่ต้องทำให้สำเร็จ", style);
+        missionWindow.setModal(true);
+        missionWindow.setSkin(skin);
+        missionWindow.padTop(60);
+        missionWindow.padLeft(40);
+        missionWindow.padRight(40);
+        missionWindow.padBottom(20);
+        missionWindow.getTitleLabel().setAlignment(Align.center);
+        missionWindow.add(text1);
+        missionWindow.row().padTop(10);
+        missionWindow.add(text2);
+        missionWindow.row().padTop(10);
+        missionWindow.add(text3);
+        missionWindow.row().padTop(10);
+        missionWindow.add(text4);
         //   ruleWindow.add(ruleIcon).right();
         //  ruleWindow.add(text8).left();
         //   ruleWindow.row().padTop(10);
         //   ruleWindow.add(toolIcon).right();
         //   ruleWindow.add(text9).left();
-        ruleWindow.row().padTop(20);
-        ruleWindow.add(closeButton).colspan(3);
-        ruleWindow.pack();
+        missionWindow.row().padTop(20);
+        missionWindow.add(closeButton).colspan(3);
+        missionWindow.pack();
 
         closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ruleWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                missionWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
                 if (!dialogShow) {
                     worldController.level.player.timeStop = false;
                 }
             }
         });
 
-        return ruleWindow;
+        return missionWindow;
     }
 
     private void createButton() {
@@ -1442,16 +1431,18 @@ public class GameScreen extends AbstractGameScreen {
 
         if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
             if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-                dialog.hide();
-                player.timeStop = false;
-                dialogShow = false;
-                player.status_find = false;
-                buttonAgree.setVisible(false);
-                buttonRefuse.setVisible(false);
-                dialogDoor1 = false;
-                dialogDoor2 = false;
-                dialogDoor3 = false;
-                dialogDoor4 = false;
+                if(dialogShow){
+                    dialog.hide();
+                    dialogShow = false;
+                    player.timeStop = false;
+                    player.status_find = false;
+                    buttonAgree.setVisible(false);
+                    buttonRefuse.setVisible(false);
+                    dialogDoor1 = false;
+                    dialogDoor2 = false;
+                    dialogDoor3 = false;
+                    dialogDoor4 = false;
+                }
             } else {
                 dialog.tryToChangePage();
             }
