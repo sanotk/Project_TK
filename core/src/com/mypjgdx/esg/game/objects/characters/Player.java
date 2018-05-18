@@ -112,12 +112,12 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean quest_window_5;
     public boolean quest_window_6;
 
-    public boolean quest1 = false;
-    public boolean quest2 = false;
-    public boolean quest3 = false;
-    public boolean quest4 = false;
-    public boolean quest5 = false;
-    public boolean quest6 = false;
+    public boolean quest1IsAccept = false;
+    public boolean quest2IsAccept = false;
+    public boolean quest3IsAccept = false;
+    public boolean quest4IsAccept = false;
+    public boolean quest5IsAccept = false;
+    public boolean quest6IsAccept = false;
 
     public boolean timeStop = true;
     public boolean timeClear;
@@ -202,32 +202,32 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             for (Citizen citizen : citizens) {
                 if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_1) )  {
                     questScreen1 = true;
-                    if (quest1 == true) {
+                    if (quest1IsAccept == true) {
                         citizen.quest = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_2)) {
                     questScreen2 = true;
-                    if (quest2 == true) {
+                    if (quest2IsAccept == true) {
                         citizen.quest = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_3)) {
                     questScreen3 = true;
-                    if (quest3 == true) {
+                    if (quest3IsAccept == true) {
                         citizen.quest = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_4)) {
                     questScreen4 = true;
-                    if (quest4 == true) {
+                    if (quest4IsAccept == true) {
                         citizen.quest = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_5)) {
                     questScreen5 = true;
-                    if (quest5 == true) {
+                    if (quest5IsAccept == true) {
                         citizen.quest = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_6)) {
                     questScreen6 = true;
-                    if (quest6 == true) {
+                    if (quest6IsAccept == true) {
                         citizen.quest = true;
                     }
                 }
@@ -571,12 +571,12 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         json.writeValue("quest_window_5", quest_window_5);
         json.writeValue("quest_window_6", quest_window_6);
 
-        json.writeValue("quest1", quest1);
-        json.writeValue("quest2", quest2);
-        json.writeValue("quest3", quest3);
-        json.writeValue("quest4", quest4);
-        json.writeValue("quest5", quest5);
-        json.writeValue("quest6", quest6);
+        json.writeValue("quest1IsAccept", quest1IsAccept);
+        json.writeValue("quest2IsAccept", quest2IsAccept);
+        json.writeValue("quest3IsAccept", quest3IsAccept);
+        json.writeValue("quest4IsAccept", quest4IsAccept);
+        json.writeValue("quest5IsAccept", quest5IsAccept);
+        json.writeValue("quest6IsAccept", quest6IsAccept);
 
         json.writeValue("dead", dead);
         json.writeValue("invulnerable", invulnerable);
@@ -610,12 +610,12 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         quest_window_4 = player.getBoolean("quest_window_4");
         quest_window_5 = player.getBoolean("quest_window_5");
         quest_window_6 = player.getBoolean("quest_window_6");
-        quest1 = player.getBoolean("quest1");
-        quest2 = player.getBoolean("quest2");
-        quest3 = player.getBoolean("quest3");
-        quest4 = player.getBoolean("quest4");
-        quest5 = player.getBoolean("quest5");
-        quest6 = player.getBoolean("quest6");
+        quest1IsAccept = player.getBoolean("quest1IsAccept");
+        quest2IsAccept = player.getBoolean("quest2IsAccept");
+        quest3IsAccept = player.getBoolean("quest3IsAccept");
+        quest4IsAccept = player.getBoolean("quest4IsAccept");
+        quest5IsAccept = player.getBoolean("quest5IsAccept");
+        quest6IsAccept = player.getBoolean("quest6IsAccept");
 
         invulnerable = player.getBoolean("invulnerable");
         knockback = player.getBoolean("knockback");

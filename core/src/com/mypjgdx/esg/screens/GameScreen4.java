@@ -283,28 +283,28 @@ public class GameScreen4 extends AbstractGameScreen {
                 buttonRefuse.setVisible(false);
                 if (citizenQuest == systemWindow.citizen1) {
                     questState = QuestState.quest1yes;
-                    worldController.level.player.quest1 = true;
+                    worldController.level.player.quest1IsAccept = true;
                     worldController.level.player.quest_window_1 = true;
                 } else if (citizenQuest == systemWindow.citizen2) {
                     questState = QuestState.quest2yes;
                     worldController.level.player.quest_window_2 = true;
-                    worldController.level.player.quest2 = true;
+                    worldController.level.player.quest2IsAccept = true;
                 } else if (citizenQuest == systemWindow.citizen3) {
                     questState = QuestState.quest3yes;
                     worldController.level.player.quest_window_3 = true;
-                    worldController.level.player.quest3 = true;
+                    worldController.level.player.quest3IsAccept = true;
                 } else if (citizenQuest == systemWindow.citizen4) {
                     questState = QuestState.quest4yes;
                     worldController.level.player.quest_window_4 = true;
-                    worldController.level.player.quest4 = true;
+                    worldController.level.player.quest4IsAccept = true;
                 } else if (citizenQuest == systemWindow.citizen5) {
                     questState = QuestState.quest5yes;
                     worldController.level.player.quest_window_5 = true;
-                    worldController.level.player.quest5 = true;
+                    worldController.level.player.quest5IsAccept = true;
                 } else if (citizenQuest == systemWindow.citizen6) {
                     questState = QuestState.quest6yes;
                     worldController.level.player.quest_window_6 = true;
-                    worldController.level.player.quest6 = true;
+                    worldController.level.player.quest6IsAccept = true;
                 }
                 addRequest.add(questState);
                 System.out.println(questState);
@@ -1134,23 +1134,24 @@ public class GameScreen4 extends AbstractGameScreen {
         Level3 level3 = (Level3) worldController.level;
 
         player.timeStop = true;
-        String textString1 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
-        String textString2 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
-        if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
-            String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced * 60) - (EnergyUsedBar.instance.energyUse * 60)))) + " วินาทีพลังงานจะหมดลง"));
-            text3.setText(textString3);
-        } else if(EnergyProducedBar.instance.energyProduced == 0){
-            String textString3 = ("ยังไม่เริ่มการผลิตพลังงาน");
-            text3.setText(textString3);
-        } else {
-            String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced * 60) - (EnergyUsedBar.instance.energyUse * 60)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
-            text3.setText(textString3);
+        if(EnergyProducedBar.instance.energyProduced == 0){
+            String textString1 = ("ยังไม่เริ่มการผลิตพลังงาน");
+            text1.setText(textString1);
+        }else{
+            String textString1 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
+            String textString2 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
+            if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
+                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced*60) - (EnergyUsedBar.instance.energyUse*60)))) + " วินาทีพลังงานจะหมดลง"));
+                text3.setText(textString3);
+            } else {
+                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced*60) - (EnergyUsedBar.instance.energyUse*60)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
+                text3.setText(textString3);
+            }
+            String textString4 = ("กำลังไฟฟ้าผลิตที่ผลิตได้หลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
+            text1.setText(textString1);
+            text2.setText(textString2);
+            text4.setText(textString4);
         }
-
-        String textString4 = ("กำลังไฟฟ้าผลิตที่ผลิตได้หลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
-        text1.setText(textString1);
-        text2.setText(textString2);
-        text4.setText(textString4);
 
         if (level3.computer.state == Item.ItemState.ONLOOP) {
             buttonItem1.setRegion(Assets.instance.comIconOn);

@@ -1349,23 +1349,25 @@ public class GameScreen extends AbstractGameScreen {
 
         worldController.level.player.timeStop = true;
 
-        String textString1 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
-        String textString2 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
-        if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
-            String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced*60) - (EnergyUsedBar.instance.energyUse)))) + " วินาทีพลังงานจะหมดลง"));
-            text3.setText(textString3);
-        } else if(EnergyProducedBar.instance.energyProduced == 0){
-            String textString3 = ("ยังไม่เริ่มการผลิตพลังงาน");
-            text3.setText(textString3);
-        } else {
-            String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced*60) - (EnergyUsedBar.instance.energyUse)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
-            text3.setText(textString3);
+        if(EnergyProducedBar.instance.energyProduced == 0){
+            String textString1 = ("ยังไม่เริ่มการผลิตพลังงาน");
+            text1.setText(textString1);
+        }else{
+            String textString1 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
+            String textString2 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
+            if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
+                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced*60) - (EnergyUsedBar.instance.energyUse*60)))) + " วินาทีพลังงานจะหมดลง"));
+                text3.setText(textString3);
+            } else {
+                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced*60) - (EnergyUsedBar.instance.energyUse*60)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
+                text3.setText(textString3);
+            }
+            String textString4 = ("กำลังไฟฟ้าผลิตที่ผลิตได้หลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
+            text1.setText(textString1);
+            text2.setText(textString2);
+            text4.setText(textString4);
         }
 
-        String textString4 = ("กำลังไฟฟ้าผลิตที่ผลิตได้หลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
-        text1.setText(textString1);
-        text2.setText(textString2);
-        text4.setText(textString4);
         statusWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - statusWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - statusWindow.getHeight() / 2);
