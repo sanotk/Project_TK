@@ -1800,26 +1800,26 @@ public class GameScreen extends AbstractGameScreen {
 
 
         Vector2 iconPos = new Vector2(player.getPositionX(),player.getPositionY());
-        worldRenderer.viewport.unproject(iconPos);
+        worldRenderer.viewport.project(iconPos);
         iconPos.y = Gdx.graphics.getHeight()-1 -iconPos.y;
         stage.screenToStageCoordinates(iconPos);
 
-        iconHuman.setPosition(iconPos.x,iconPos.y);
-        iconItem.setPosition(iconPos.x,iconPos.y);
+        iconHuman.setPosition(iconPos.x,iconPos.y+50);
+        iconItem.setPosition(iconPos.x,iconPos.y+50);
 
-        if (!noCitizen) {
-            iconHuman.setVisible(true);
-        }else if (noCitizen) {
-            iconHuman.setVisible(false);
+        for(Citizen citizen : level1.citizens){
+            if (player.bounds.overlaps(citizen.bounds)&&!citizen.quest) {
+                iconHuman.setVisible(true);
+            }
         }
 
-        if (!noItem) {
+        if(!noItem){
             iconItem.setVisible(true);
-        }else if (noItem){
-            iconItem.setVisible(false);
         }
 
         if (noItem && noCitizen) {
+            iconHuman.setVisible(false);
+            iconItem.setVisible(false);
             player.status_find = false;
             player.status_windows_link = false;
             solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));

@@ -206,32 +206,32 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             for (Citizen citizen : citizens) {
                 if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_1) )  {
                     questScreen1 = true;
-                    if (quest1IsAccept == true) {
+                    if (quest1IsAccept) {
                         citizen.quest = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_2)) {
                     questScreen2 = true;
-                    if (quest2IsAccept == true) {
+                    if (quest2IsAccept) {
                         citizen.quest = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_3)) {
                     questScreen3 = true;
-                    if (quest3IsAccept == true) {
+                    if (quest3IsAccept) {
                         citizen.quest = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_4)) {
                     questScreen4 = true;
-                    if (quest4IsAccept == true) {
+                    if (quest4IsAccept) {
                         citizen.quest = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_5)) {
                     questScreen5 = true;
-                    if (quest5IsAccept == true) {
+                    if (quest5IsAccept) {
                         citizen.quest = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_6)) {
                     questScreen6 = true;
-                    if (quest6IsAccept == true) {
+                    if (quest6IsAccept) {
                         citizen.quest = true;
                     }
                 }
