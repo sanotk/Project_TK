@@ -913,7 +913,7 @@ public class GameScreen extends AbstractGameScreen {
 
         labelStyle2 = new Label.LabelStyle();
         labelStyle2.font = font2;
-        labelStyle2.fontColor = Color.WHITE;
+        labelStyle2.fontColor = Color.BLACK;
 
         Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
         TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
@@ -930,9 +930,9 @@ public class GameScreen extends AbstractGameScreen {
         textMission4 = new Label("ยินดีด้วยคุณทำภารกิจสำเร็จทั้งหมด สามารถเข้าไปยังที่หลบภัยได้แล้ว", skin);
 
         textMission1.setStyle(labelStyle);
-        textMission2.setStyle(labelStyle);
-        textMission3.setStyle(labelStyle);
-        textMission4.setStyle(labelStyle);
+        textMission2.setStyle(labelStyle2);
+        textMission3.setStyle(labelStyle2);
+        textMission4.setStyle(labelStyle2);
 
         final Window missionWindow = new Window("รายชื่อภารกิจ", style);
         missionWindow.setModal(true);
@@ -942,6 +942,7 @@ public class GameScreen extends AbstractGameScreen {
         missionWindow.padRight(40);
         missionWindow.padBottom(20);
         missionWindow.getTitleLabel().setAlignment(Align.center);
+        missionWindow.row().padTop(10);
         missionWindow.add(textMission1);
         missionWindow.row().padTop(10);
         missionWindow.add(textMission2);
@@ -949,11 +950,6 @@ public class GameScreen extends AbstractGameScreen {
         missionWindow.add(textMission3);
         missionWindow.row().padTop(10);
         missionWindow.add(textMission4);
-        //   ruleWindow.add(ruleIcon).right();
-        //  ruleWindow.add(text8).left();
-        //   ruleWindow.row().padTop(10);
-        //   ruleWindow.add(toolIcon).right();
-        //   ruleWindow.add(text9).left();
         missionWindow.row().padTop(20);
         missionWindow.add(closeButton).colspan(3);
         missionWindow.pack();
