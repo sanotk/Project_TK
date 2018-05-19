@@ -393,11 +393,11 @@ public class GameScreen extends AbstractGameScreen {
         buttonGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                solarCellGuideWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - buttonGuide.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - buttonGuide.getHeight() / 2);
-                solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
                 worldController.level.player.timeStop = true;
+                solarCellGuideWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - solarCellGuideWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - solarCellGuideWindow.getHeight() / 2);
+                solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
 
@@ -414,14 +414,23 @@ public class GameScreen extends AbstractGameScreen {
             }
         });
 
+        buttonControlWindow.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (controlShow){
+                    controlShow = false;
+                    buttonControlWindow.setVisible(false);
+                } else {
+                    controlShow = true;
+                    buttonControlWindow.setVisible(true);
+                }
+            }
+        });
+
         buttonStatus.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                statusWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - buttonStatus.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - buttonStatus.getHeight() / 2);
-                statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-                worldController.level.player.timeStop = true;
+                status();
             }
         });
 
@@ -934,9 +943,7 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 missionWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                if (!dialogStart) {
-                    ruleWindow.addAction(Actions.sequence(Actions.fadeIn(0.2f), Actions.visible(true)));
-                }else if(!dialogShow){
+                if(!dialogShow){
                     worldController.level.player.timeStop = false;
                 }
             }
@@ -961,46 +968,46 @@ public class GameScreen extends AbstractGameScreen {
         buttonSunStyle.up = iconSun;
         buttonSunStyle.over = iconSun.tint(Color.LIME);
         Button iconSunButton = new Button(buttonSunStyle);
-        iconSunButton.setPosition(50, SCENE_HEIGHT - 50);
+        iconSunButton.setPosition(125, SCENE_HEIGHT - 50);
 
         textSun = new Label("", skin);
         textSun.setColor(0, 0, 0, 1);
         textSun.setStyle(labelStyle);
         textSun.setFontScale(1f, 1f);
-        textSun.setPosition(75, SCENE_HEIGHT - 42);
+        textSun.setPosition(150, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonTemperatureStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconTemperature = new TextureRegionDrawable(Assets.instance.iconTemperature);
         buttonTemperatureStyle.up = iconTemperature;
         buttonTemperatureStyle.over = iconTemperature.tint(Color.LIME);
         Button iconTemperatureButton = new Button(buttonTemperatureStyle);
-        iconTemperatureButton.setPosition(150, SCENE_HEIGHT - 50);
+        iconTemperatureButton.setPosition(225, SCENE_HEIGHT - 50);
 
         textTemperature = new Label("", skin);
         textTemperature.setColor(0, 0, 0, 1);
         textTemperature.setStyle(labelStyle);
         textTemperature.setFontScale(1f, 1f);
-        textTemperature.setPosition(175, SCENE_HEIGHT - 42);
+        textTemperature.setPosition(250, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonCircleStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconCircle = new TextureRegionDrawable(Assets.instance.iconCircle);
         buttonCircleStyle.up = iconCircle;
         buttonCircleStyle.over = iconCircle.tint(Color.LIME);
         Button iconCircleButton = new Button(buttonCircleStyle);
-        iconCircleButton.setPosition(195, SCENE_HEIGHT - 40);
+        iconCircleButton.setPosition(275, SCENE_HEIGHT - 40);
 
-        TextButton.TextButtonStyle buttonBowStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable iconBow = new TextureRegionDrawable(Assets.instance.iconBow);
-        buttonBowStyle.up = iconBow;
-        buttonBowStyle.over = iconBow.tint(Color.LIME);
-        Button iconBowButton = new Button(buttonBowStyle);
-        iconBowButton.setPosition(225, SCENE_HEIGHT - 50);
-
-        textBullet = new Label("", skin);
-        textBullet.setColor(0, 0, 0, 1);
-        textBullet.setStyle(labelStyle);
-        textBullet.setFontScale(1f, 1f);
-        textBullet.setPosition(250, SCENE_HEIGHT - 42);
+//        TextButton.TextButtonStyle buttonBowStyle = new TextButton.TextButtonStyle();
+//        TextureRegionDrawable iconBow = new TextureRegionDrawable(Assets.instance.iconBow);
+//        buttonBowStyle.up = iconBow;
+//        buttonBowStyle.over = iconBow.tint(Color.LIME);
+//        Button iconBowButton = new Button(buttonBowStyle);
+//        iconBowButton.setPosition(225, SCENE_HEIGHT - 50);
+//
+//        textBullet = new Label("", skin);
+//        textBullet.setColor(0, 0, 0, 1);
+//        textBullet.setStyle(labelStyle);
+//        textBullet.setFontScale(1f, 1f);
+//        textBullet.setPosition(250, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonSwordStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconSword = new TextureRegionDrawable(Assets.instance.iconSword);
@@ -1097,7 +1104,7 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(iconTemperatureButton);
         stage.addActor(iconCircleButton);
 
-        stage.addActor(iconBowButton);
+      //  stage.addActor(iconBowButton);
         stage.addActor(iconSwordButton);
         stage.addActor(iconTrapButton);
         stage.addActor(iconTimeButton);
@@ -1108,7 +1115,7 @@ public class GameScreen extends AbstractGameScreen {
 
         stage.addActor(textSun);
         stage.addActor(textTemperature);
-        stage.addActor(textBullet);
+    //    stage.addActor(textBullet);
         stage.addActor(textBeam);
         stage.addActor(textTrap);
         stage.addActor(textTime);
@@ -1477,14 +1484,6 @@ public class GameScreen extends AbstractGameScreen {
         statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
-    private void solarCellGuide() {
-        worldController.level.player.timeStop = true;
-        solarCellGuideWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - solarCellGuideWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - solarCellGuideWindow.getHeight() / 2);
-        solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-    }
-
     private void controlAndDebug() {
 
         Player player = worldController.level.player;
@@ -1566,7 +1565,7 @@ public class GameScreen extends AbstractGameScreen {
     private void textIconDraw() {
         textSun.setText(String.format(" %d", (int) SunBar.instance.sunTime) + " นาฬิกา");
         textTemperature.setText(String.format(" %d", (int) TemperatureBar.instance.Temperature));
-        textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
+        //textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
         textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
         textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
         textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
@@ -1744,12 +1743,6 @@ public class GameScreen extends AbstractGameScreen {
 
         Player player = worldController.level.player;
         Level1 level1 = (Level1) worldController.level;
-
-        if (player.statusEnergyWindow) {
-            status();
-        } else {
-            statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-        }
 
         solarCellWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - solarCellWindow.getWidth() / 2,
