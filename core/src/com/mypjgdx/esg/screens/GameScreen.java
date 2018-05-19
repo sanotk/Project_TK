@@ -920,14 +920,14 @@ public class GameScreen extends AbstractGameScreen {
         textMission1 = new Label("ตามหาประตูทางเข้าสถานที่หลบภัยให้พบ พร้อมทั้งกำจัดเหล่ามอนสเตอร์ทั้งหมด", skin);
         textMission2 = new Label("ตามหาประชาชนและพามายังสถานที่หลบภัย", skin);
         textMission3 = new Label("เชื่อมต่อระบบโซล่าเซลล์ให้ถูกต้อง", skin);
-        textMission4 = new Label("ภารกิจสำเร็จทั้งหมด สามารถเข้าไปยังที่หลบภัยได้แล้ว", skin);
+        textMission4 = new Label("ยินดีด้วยคุณทำภารกิจสำเร็จทั้งหมด สามารถเข้าไปยังที่หลบภัยได้แล้ว", skin);
 
         textMission1.setStyle(labelStyle);
         textMission2.setStyle(labelStyle);
         textMission3.setStyle(labelStyle);
         textMission4.setStyle(labelStyle);
 
-        final Window missionWindow = new Window("ภารกิจที่ต้องทำให้สำเร็จ", style);
+        final Window missionWindow = new Window("รายชื่อภารกิจ", style);
         missionWindow.setModal(true);
         missionWindow.setSkin(skin);
         missionWindow.padTop(60);
