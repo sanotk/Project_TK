@@ -37,6 +37,10 @@ import java.util.ArrayList;
 
 public class GameScreen extends AbstractGameScreen {
 
+    private TextButton.TextButtonStyle buttonPlayStyle;
+    private TextureRegionDrawable playUp;
+    private Button buttonPlay;
+    private Button buttonPause;
     private Button iconHuman;
     private Button iconItem;
     private Button buttonControlWindow;
@@ -50,6 +54,8 @@ public class GameScreen extends AbstractGameScreen {
     private boolean controlShow = true;
 
     private ItemLink itemLink;
+
+    private boolean pauseShow;
 
     SpriteBatch batch;
     public Texture bg;
@@ -250,8 +256,17 @@ public class GameScreen extends AbstractGameScreen {
         pauseUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_pause"));
         buttonPauseStyle.up = pauseUp;
         buttonPauseStyle.down = pauseUp.tint(Color.LIGHT_GRAY);
-        buttonRule = new Button(buttonPauseStyle);
-        buttonRule.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
+        buttonPause = new Button(buttonPauseStyle);
+        buttonPause.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
+
+        buttonPlayStyle = new TextButton.TextButtonStyle();
+        playUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_play"));
+        buttonPlayStyle.up = playUp;
+        buttonPlayStyle.down = playUp.tint(Color.LIGHT_GRAY);
+        buttonPlay = new Button(buttonPlayStyle);
+        buttonPlay.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
+
+        buttonPlay.setVisible(false);
 
         TextButton.TextButtonStyle buttonControlStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable ControlUp = new TextureRegionDrawable(Assets.instance.iconControl);
@@ -286,7 +301,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonControlWindowStyle.up = controlWindowUp;
         buttonControlWindowStyle.down = controlWindowUp.tint(Color.LIGHT_GRAY);
         buttonControlWindow = new Button(buttonControlWindowStyle);
-        buttonControlWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH+40, SCENE_HEIGHT - 350);
+        buttonControlWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH + 40, SCENE_HEIGHT - 350);
 
         TextButton.TextButtonStyle iconHumanStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable humanUp = new TextureRegionDrawable(Assets.instance.iconHuman);
@@ -325,12 +340,6 @@ public class GameScreen extends AbstractGameScreen {
 
         buttonRefuse.setVisible(false);
 
-        ruleWindow = createRuleWindow();
-        ruleWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - ruleWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
-        ruleWindow.setVisible(false);
-
         chartWindow = createChartWindow();
         chartWindow.setVisible(false);
 
@@ -356,7 +365,6 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(dialog);
 
         stage.addActor(buttonOption);
-        stage.addActor(buttonRule);
         stage.addActor(buttonAgree);
         stage.addActor(buttonRefuse);
         stage.addActor(buttonMission);
@@ -366,9 +374,10 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(buttonControlWindow);
         stage.addActor(iconHuman);
         stage.addActor(iconItem);
+        stage.addActor(buttonPlay);
+        stage.addActor(buttonPause);
 
         stage.addActor(optionsWindow);
-        stage.addActor(ruleWindow);
         stage.addActor(chartWindow);
         stage.addActor(statusWindow);
         stage.addActor(solarCellGuideWindow);
@@ -385,14 +394,21 @@ public class GameScreen extends AbstractGameScreen {
             }
         });
 
-        buttonRule.addListener(new ClickListener() {
+        buttonPause.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ruleWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - ruleWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
-                ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                buttonPause.setVisible(false);
+                buttonPlay.setVisible(true);
                 worldController.level.player.timeStop = true;
+            }
+        });
+
+        buttonPlay.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                buttonPlay.setVisible(false);
+                buttonPause.setVisible(true);
+                worldController.level.player.timeStop = false;
             }
         });
 
@@ -421,7 +437,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonControl.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (controlShow){
+                if (controlShow) {
                     controlShow = false;
                     buttonControlWindow.setVisible(false);
                 } else {
@@ -434,7 +450,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonControlWindow.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (controlShow){
+                if (controlShow) {
                     controlShow = false;
                     buttonControlWindow.setVisible(false);
                 } else {
@@ -482,7 +498,7 @@ public class GameScreen extends AbstractGameScreen {
                     @Override
                     public void run() {
                         game.setScreen(new MenuScreen(game));
-                        EnergyProducedBar.instance.energyProduced =0;
+                        EnergyProducedBar.instance.energyProduced = 0;
                         EnergyUsedBar.instance.energyUse = 0;
                         BatteryBar.instance.batteryStorage = 0;
                     }
@@ -817,83 +833,6 @@ public class GameScreen extends AbstractGameScreen {
         return solarcellWindow;
     }
 
-    private Window createRuleWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.WHITE;
-
-        Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonRuleStyle.up = buttonRegion;
-        buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonRuleStyle);
-//        Button ruleIcon = new Button(buttonPauseStyle);
-//        Button toolIcon = new Button(buttonToolStyle);
-
-        Label text1 = new Label("", skin);
-        Label text2 = new Label("", skin);
-        Label text3 = new Label("", skin);
-        Label text4 = new Label("", skin);
-        Label text5 = new Label("", skin);
-        Label text6 = new Label("", skin);
-        Label text7 = new Label("", skin);
-        Label text8 = new Label("", skin);
-
-        text1.setStyle(labelStyle);
-        text2.setStyle(labelStyle);
-        text3.setStyle(labelStyle);
-        text4.setStyle(labelStyle);
-        text5.setStyle(labelStyle);
-        text6.setStyle(labelStyle);
-        text7.setStyle(labelStyle);
-        text8.setStyle(labelStyle);
-
-        final Window ruleWindow = new Window("หยุดเกม", style);
-        ruleWindow.setModal(true);
-        ruleWindow.setSkin(skin);
-        ruleWindow.padTop(60);
-        ruleWindow.padLeft(40);
-        ruleWindow.padRight(40);
-        ruleWindow.padBottom(20);
-        ruleWindow.getTitleLabel().setAlignment(Align.center);
-        ruleWindow.add(text1);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text2);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text3);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text4);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text5);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text6);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text7);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text8);
-        ruleWindow.row().padTop(20);
-        ruleWindow.add(closeButton).colspan(3);
-        ruleWindow.pack();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                ruleWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                if (!dialogShow) {
-                    worldController.level.player.timeStop = false;
-                }
-            }
-        });
-
-        return ruleWindow;
-    }
-
     private Window createMissionWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new TextureRegionDrawable(Assets.instance.window);
@@ -949,7 +888,7 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 missionWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                if(!dialogShow){
+                if (!dialogShow) {
                     worldController.level.player.timeStop = false;
                 }
             }
@@ -1110,7 +1049,7 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(iconTemperatureButton);
         stage.addActor(iconCircleButton);
 
-      //  stage.addActor(iconBowButton);
+        //  stage.addActor(iconBowButton);
         stage.addActor(iconSwordButton);
         stage.addActor(iconTrapButton);
         stage.addActor(iconTimeButton);
@@ -1121,7 +1060,7 @@ public class GameScreen extends AbstractGameScreen {
 
         stage.addActor(textSun);
         stage.addActor(textTemperature);
-    //    stage.addActor(textBullet);
+        //    stage.addActor(textBullet);
         stage.addActor(textBeam);
         stage.addActor(textTrap);
         stage.addActor(textTime);
@@ -1465,17 +1404,17 @@ public class GameScreen extends AbstractGameScreen {
 
         worldController.level.player.timeStop = true;
 
-        if(EnergyProducedBar.instance.energyProduced == 0){
+        if (EnergyProducedBar.instance.energyProduced == 0) {
             String textString1 = ("ยังไม่เริ่มการผลิตพลังงาน");
             text1.setText(textString1);
-        }else{
+        } else {
             String textString1 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
             String textString2 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
             if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
-                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced*60) - (EnergyUsedBar.instance.energyUse*60)))) + " วินาทีพลังงานจะหมดลง"));
+                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced * 60) - (EnergyUsedBar.instance.energyUse * 60)))) + " วินาทีพลังงานจะหมดลง"));
                 text3.setText(textString3);
             } else {
-                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced*60) - (EnergyUsedBar.instance.energyUse*60)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
+                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced * 60) - (EnergyUsedBar.instance.energyUse * 60)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
                 text3.setText(textString3);
             }
             String textString4 = ("กำลังไฟฟ้าผลิตที่ผลิตได้หลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
@@ -1500,7 +1439,7 @@ public class GameScreen extends AbstractGameScreen {
                 @Override
                 public void run() {
                     game.setScreen(new MenuScreen(game));
-                    EnergyProducedBar.instance.energyProduced =0;
+                    EnergyProducedBar.instance.energyProduced = 0;
                     EnergyUsedBar.instance.energyUse = 0;
                     BatteryBar.instance.batteryStorage = 0;
                 }
@@ -1529,7 +1468,7 @@ public class GameScreen extends AbstractGameScreen {
                 @Override
                 public void run() {
                     game.setScreen(new GameOverScreen(game));
-                    EnergyProducedBar.instance.energyProduced =0;
+                    EnergyProducedBar.instance.energyProduced = 0;
                     EnergyUsedBar.instance.energyUse = 0;
                     BatteryBar.instance.batteryStorage = 0;
                 }
@@ -1541,7 +1480,7 @@ public class GameScreen extends AbstractGameScreen {
                 @Override
                 public void run() {
                     game.setScreen(new GameOverScreen(game));
-                    EnergyProducedBar.instance.energyProduced =0;
+                    EnergyProducedBar.instance.energyProduced = 0;
                     EnergyUsedBar.instance.energyUse = 0;
                     BatteryBar.instance.batteryStorage = 0;
                 }
@@ -1550,7 +1489,7 @@ public class GameScreen extends AbstractGameScreen {
 
         if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
             if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-                if(dialogShow){
+                if (dialogShow) {
                     dialog.hide();
                     dialogShow = false;
                     player.timeStop = false;
@@ -1681,7 +1620,7 @@ public class GameScreen extends AbstractGameScreen {
             for (int i = 0; i < worldController.level.citizens.size(); i++) {
                 Citizen citizen = worldController.level.citizens.get(i);
                 if (citizen.overlapPlayer && !citizen.runPlayer) {
-                    if(player.status_find){
+                    if (player.status_find) {
                         dialogCitizen = true;
                         player.timeStop = true;
                         String text =
@@ -1710,7 +1649,7 @@ public class GameScreen extends AbstractGameScreen {
             dialogShow = true;
         }
 
-        if ( trueLink == 4 && !animation_status) {
+        if (trueLink == 4 && !animation_status) {
             for (Item item : level1.items) {
                 item.state = Item.ItemState.ONLOOP;
                 item.resetAnimation();
@@ -1810,21 +1749,21 @@ public class GameScreen extends AbstractGameScreen {
                 && !player.questScreen6;
 
 
-        Vector2 iconPos = new Vector2(player.getPositionX(),player.getPositionY());
+        Vector2 iconPos = new Vector2(player.getPositionX(), player.getPositionY());
         worldRenderer.viewport.project(iconPos);
-        iconPos.y = Gdx.graphics.getHeight()-1 -iconPos.y;
+        iconPos.y = Gdx.graphics.getHeight() - 1 - iconPos.y;
         stage.screenToStageCoordinates(iconPos);
 
-        iconHuman.setPosition(iconPos.x,iconPos.y+50);
-        iconItem.setPosition(iconPos.x,iconPos.y+50);
+        iconHuman.setPosition(iconPos.x, iconPos.y + 50);
+        iconItem.setPosition(iconPos.x, iconPos.y + 50);
 
-        for(Citizen citizen : level1.citizens){
-            if (player.bounds.overlaps(citizen.bounds)&&!citizen.quest) {
+        for (Citizen citizen : level1.citizens) {
+            if (player.bounds.overlaps(citizen.bounds) && !citizen.quest) {
                 iconHuman.setVisible(true);
             }
         }
 
-        if(!noItem){
+        if (!noItem) {
             iconItem.setVisible(true);
         }
 
