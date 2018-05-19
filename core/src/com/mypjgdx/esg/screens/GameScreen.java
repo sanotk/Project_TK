@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 
 public class GameScreen extends AbstractGameScreen {
 
+    private Button iconEnergyLess;
     private TextButton.TextButtonStyle buttonPlayStyle;
     private TextureRegionDrawable playUp;
     private Button buttonPlay;
@@ -193,7 +195,7 @@ public class GameScreen extends AbstractGameScreen {
     private Window missionWindow;
 
     private String text =
-            "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"เ(กด Enter เพื่อเริ่มเกม)\"";
+            "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
 
     private boolean dialogEnemy;
     private boolean dialogCitizen;
@@ -315,8 +317,15 @@ public class GameScreen extends AbstractGameScreen {
         iconItemStyle.over = itemUp.tint(Color.LIGHT_GRAY);
         iconItem = new Button(iconItemStyle);
 
+        TextButton.TextButtonStyle iconEnergyLessStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable energyLessUp = new TextureRegionDrawable(Assets.instance.iconEnergyLess);
+        iconEnergyLessStyle.up = energyLessUp;
+        iconEnergyLessStyle.over = energyLessUp.tint(Color.LIGHT_GRAY);
+        iconEnergyLess = new Button(iconEnergyLessStyle);
+
         iconHuman.setVisible(false);
         iconItem.setVisible(false);
+        iconEnergyLess.setVisible(false);
 
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
         buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
@@ -376,6 +385,7 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(iconItem);
         stage.addActor(buttonPlay);
         stage.addActor(buttonPause);
+        stage.addActor(iconEnergyLess);
 
         stage.addActor(optionsWindow);
         stage.addActor(chartWindow);
@@ -1756,6 +1766,7 @@ public class GameScreen extends AbstractGameScreen {
 
         iconHuman.setPosition(iconPos.x, iconPos.y + 50);
         iconItem.setPosition(iconPos.x, iconPos.y + 50);
+        iconEnergyLess.setPosition(iconPos.x, iconPos.y + 50);
 
         for (Citizen citizen : level1.citizens) {
             if (player.bounds.overlaps(citizen.bounds) && !citizen.quest) {
@@ -1767,6 +1778,11 @@ public class GameScreen extends AbstractGameScreen {
             iconItem.setVisible(true);
         }
 
+        if(player.energyLess){
+            iconEnergyLess.setVisible(true);
+            delay();
+        }
+
         if (noItem && noCitizen) {
             iconHuman.setVisible(false);
             iconItem.setVisible(false);
@@ -1774,6 +1790,17 @@ public class GameScreen extends AbstractGameScreen {
             player.status_windows_link = false;
             solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
         }
+    }
+
+    public void delay(){
+        float delay = 0.5f; // seconds
+        Timer.schedule(new Timer.Task(){
+            @Override
+            public void run() {
+                iconEnergyLess.setVisible(false);
+                worldController.level.player.energyLess = false;
+            }
+        }, delay);
     }
 
     @Override

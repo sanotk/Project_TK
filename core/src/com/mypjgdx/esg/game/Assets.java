@@ -48,6 +48,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion iconStatus;
     public TextureRegion iconGuide;
     public TextureRegion iconMission;
+    public TextureRegion iconEnergyLess;
     public TextureRegion iconCircle;
 
     public TextureRegion buttonSolarcellAdd;
@@ -172,6 +173,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("icon_control.png",Texture.class);
         manager.load("icon_guide.png",Texture.class);
         manager.load("icon_status.png",Texture.class);
+        manager.load("icon_energy_less.png",Texture.class);
 
         manager.load("control_window.png",Texture.class);
 
@@ -309,6 +311,7 @@ public class Assets implements Disposable, AssetErrorListener {
         iconStatus = new TextureRegion((Texture)manager.get("icon_status.png"));
         iconGuide = new TextureRegion((Texture)manager.get("icon_guide.png"));
         controlWindow = new TextureRegion((Texture)manager.get("control_window.png"));
+        iconEnergyLess = new TextureRegion((Texture)manager.get("icon_energy_less.png"));
 
         iconBow = new TextureRegion((Texture)manager.get("icon_bow.png"));
         iconSword = new TextureRegion((Texture)manager.get("icon_sword.png"));

@@ -51,6 +51,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public Rectangle walkingBounds = new Rectangle();
     public boolean statusEnergyWindow;
     public boolean solarCellGuideWindow;
+    public boolean energyLess;
 
     public enum PlayerAnimation {
         ATK_LEFT,
@@ -404,6 +405,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 Assets.instance.bulletSound.play();
                 SoundManager.instance.play(SoundManager.Sounds.BULLET);
                 BatteryBar.instance.batteryStorage -= TrapBar.instance.energyTrap;
+                energyLess = false;
+            }else{
+                energyLess = true;
             }
         }
     }
@@ -434,7 +438,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 weapons.add(new SwordHit(mapLayer, this));
                 SoundManager.instance.play(SoundManager.Sounds.BEAM);
                 resetAnimation();
+                energyLess = false;
             }
+            energyLess = true;
         }
     }
 
