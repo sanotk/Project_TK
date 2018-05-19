@@ -635,6 +635,7 @@ public class GameScreen extends AbstractGameScreen {
 
         final Window statusWindow = new Window("ข้อมูลการใช้พลังงานไฟฟ้า", style);
         statusWindow.setModal(true);
+        statusWindow.center().top();
         statusWindow.padTop(60);
         statusWindow.padLeft(40);
         statusWindow.padRight(40);
@@ -715,6 +716,7 @@ public class GameScreen extends AbstractGameScreen {
 
         final Window solarCellGuideWindow = new Window("ข้อมูลระบบโซล่าเซลล์", style);
         solarCellGuideWindow.setModal(true);
+        solarCellGuideWindow.center().top();
         solarCellGuideWindow.padTop(60);
         solarCellGuideWindow.padLeft(40);
         solarCellGuideWindow.padRight(40);
@@ -876,7 +878,8 @@ public class GameScreen extends AbstractGameScreen {
 
         final Window missionWindow = new Window("รายชื่อภารกิจ", style);
         missionWindow.setModal(true);
-        missionWindow.setSkin(skin);
+        missionWindow.center().top();
+        //missionWindow.setSkin(skin);
         missionWindow.padTop(60);
         missionWindow.padLeft(40);
         missionWindow.padRight(40);
@@ -891,7 +894,7 @@ public class GameScreen extends AbstractGameScreen {
         missionWindow.row().padTop(10);
         missionWindow.add(textMission4);
         missionWindow.row().padTop(20);
-        missionWindow.add(closeButton).colspan(3);
+        missionWindow.add(closeButton).colspan(3).center().bottom();
         missionWindow.pack();
 
         closeButton.addListener(new ClickListener() {
@@ -950,19 +953,6 @@ public class GameScreen extends AbstractGameScreen {
         buttonCircleStyle.over = iconCircle.tint(Color.LIME);
         Button iconCircleButton = new Button(buttonCircleStyle);
         iconCircleButton.setPosition(275, SCENE_HEIGHT - 40);
-
-//        TextButton.TextButtonStyle buttonBowStyle = new TextButton.TextButtonStyle();
-//        TextureRegionDrawable iconBow = new TextureRegionDrawable(Assets.instance.iconBow);
-//        buttonBowStyle.up = iconBow;
-//        buttonBowStyle.over = iconBow.tint(Color.LIME);
-//        Button iconBowButton = new Button(buttonBowStyle);
-//        iconBowButton.setPosition(225, SCENE_HEIGHT - 50);
-//
-//        textBullet = new Label("", skin);
-//        textBullet.setColor(0, 0, 0, 1);
-//        textBullet.setStyle(labelStyle);
-//        textBullet.setFontScale(1f, 1f);
-//        textBullet.setPosition(250, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonSwordStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconSword = new TextureRegionDrawable(Assets.instance.iconSword);
@@ -1793,7 +1783,7 @@ public class GameScreen extends AbstractGameScreen {
     }
 
     public void delay(){
-        float delay = 0.5f; // seconds
+        float delay = 0.3f; // seconds
         Timer.schedule(new Timer.Task(){
             @Override
             public void run() {
