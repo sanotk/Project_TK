@@ -836,16 +836,14 @@ public class GameScreen extends AbstractGameScreen {
 //        Button ruleIcon = new Button(buttonPauseStyle);
 //        Button toolIcon = new Button(buttonToolStyle);
 
-        Label text1 = new Label("กด c เพื่อฟัน", skin);
-        Label text2 = new Label("กด x เพื่อยิงธนู (ยิงธนู 1 ดอกใช้พลังงานไฟฟ้า 200 จูล)", skin);
-        Label text3 = new Label("กด Z เพื่อวางกับดักสปริง เมื่อมอนสเตอร์เดินมาชนจะกระเด็นถอยหลัง (วางกับดัก 1 ครั้งใช้พลังงานไฟฟ้า 1000 จูล)", skin);
-        Label text4 = new Label("กด W เพื่อฟันคลื่นดาบพลังสูง (ฟัน 1 ครั้งใช้พลังงานไฟฟ้า 3000 จูล)", skin);
-        Label text5 = new Label("กด A เพื่อกระทำกับวัตถุ หรือคุยกับประชาชน", skin);
-        Label text6 = new Label("กด S เพื่อดูผังการใช้พลังงานแบบละเอียด", skin);
-        Label text7 = new Label("กด D เพื่ออ่านวิธีการทำงานของโซล่าเซลล์", skin);
-        //  Label text8 = new Label("เพื่อหยุดเกม และอ่านวิธีควบคุม", skin);
-        // Label text9 = new Label("เพื่อเปิดเมนูปรับแต่ง", skin);
-        Label text8 = new Label("กดปุ่มลูกศรบนแป้นพิมพ์เพื่อเคลื่อนที่ตัวละคร", skin);
+        Label text1 = new Label("", skin);
+        Label text2 = new Label("", skin);
+        Label text3 = new Label("", skin);
+        Label text4 = new Label("", skin);
+        Label text5 = new Label("", skin);
+        Label text6 = new Label("", skin);
+        Label text7 = new Label("", skin);
+        Label text8 = new Label("", skin);
 
         text1.setStyle(labelStyle);
         text2.setStyle(labelStyle);
@@ -854,11 +852,9 @@ public class GameScreen extends AbstractGameScreen {
         text5.setStyle(labelStyle);
         text6.setStyle(labelStyle);
         text7.setStyle(labelStyle);
-        //   text8.setStyle(labelStyle);
-        //   text9.setStyle(labelStyle);
         text8.setStyle(labelStyle);
 
-        final Window ruleWindow = new Window("การควบคุม", style);
+        final Window ruleWindow = new Window("หยุดเกม", style);
         ruleWindow.setModal(true);
         ruleWindow.setSkin(skin);
         ruleWindow.padTop(60);
@@ -881,11 +877,6 @@ public class GameScreen extends AbstractGameScreen {
         ruleWindow.add(text7);
         ruleWindow.row().padTop(10);
         ruleWindow.add(text8);
-        //   ruleWindow.add(ruleIcon).right();
-        //  ruleWindow.add(text8).left();
-        //   ruleWindow.row().padTop(10);
-        //   ruleWindow.add(toolIcon).right();
-        //   ruleWindow.add(text9).left();
         ruleWindow.row().padTop(20);
         ruleWindow.add(closeButton).colspan(3);
         ruleWindow.pack();
