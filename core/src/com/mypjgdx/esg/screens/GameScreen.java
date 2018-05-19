@@ -635,7 +635,6 @@ public class GameScreen extends AbstractGameScreen {
 
         final Window statusWindow = new Window("ข้อมูลการใช้พลังงานไฟฟ้า", style);
         statusWindow.setModal(true);
-        statusWindow.center().top();
         statusWindow.padTop(60);
         statusWindow.padLeft(40);
         statusWindow.padRight(40);
@@ -716,7 +715,6 @@ public class GameScreen extends AbstractGameScreen {
 
         final Window solarCellGuideWindow = new Window("ข้อมูลระบบโซล่าเซลล์", style);
         solarCellGuideWindow.setModal(true);
-        solarCellGuideWindow.center().top();
         solarCellGuideWindow.padTop(60);
         solarCellGuideWindow.padLeft(40);
         solarCellGuideWindow.padRight(40);
@@ -871,6 +869,10 @@ public class GameScreen extends AbstractGameScreen {
         textMission3 = new Label("เชื่อมต่อระบบโซล่าเซลล์ให้ถูกต้อง", skin);
         textMission4 = new Label("ยินดีด้วยคุณทำภารกิจสำเร็จทั้งหมด สามารถเข้าไปยังที่หลบภัยได้แล้ว", skin);
 
+        Label textMission5 = new Label("", skin);
+        Label textMission6 = new Label("ต", skin);
+        Label textMission7 = new Label("เ", skin);
+
         textMission1.setStyle(labelStyle);
         textMission2.setStyle(labelStyle2);
         textMission3.setStyle(labelStyle2);
@@ -878,7 +880,6 @@ public class GameScreen extends AbstractGameScreen {
 
         final Window missionWindow = new Window("รายชื่อภารกิจ", style);
         missionWindow.setModal(true);
-        missionWindow.center().top();
         //missionWindow.setSkin(skin);
         missionWindow.padTop(60);
         missionWindow.padLeft(40);
@@ -893,6 +894,12 @@ public class GameScreen extends AbstractGameScreen {
         missionWindow.add(textMission3);
         missionWindow.row().padTop(10);
         missionWindow.add(textMission4);
+        missionWindow.row().padTop(10);
+        missionWindow.add(textMission5);
+        missionWindow.row().padTop(10);
+        missionWindow.add(textMission6);
+        missionWindow.row().padTop(10);
+        missionWindow.add(textMission7);
         missionWindow.row().padTop(20);
         missionWindow.add(closeButton).colspan(3).center().bottom();
         missionWindow.pack();
