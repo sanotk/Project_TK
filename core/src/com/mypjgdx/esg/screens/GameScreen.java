@@ -1800,17 +1800,20 @@ public class GameScreen extends AbstractGameScreen {
         iconHuman.setPosition(player.getPositionX() ,player.getPositionY());
         iconItem.setPosition(player.getPositionX() ,player.getPositionY());
 
-        if (!noCitizen) {
-            iconHuman.setVisible(true);
-        }else {
-            iconHuman.setVisible(false);
-        }
+        iconHuman.setVisible(true);
+        iconItem.setVisible(true);
 
-        if (!noItem) {
-            iconItem.setVisible(true);
-        }else {
-            iconItem.setVisible(false);
-        }
+//        if (!noCitizen) {
+//            iconHuman.setVisible(true);
+//        }else {
+//            iconHuman.setVisible(false);
+//        }
+//
+//        if (!noItem) {
+//            iconItem.setVisible(true);
+//        }else {
+//            iconItem.setVisible(false);
+//        }
 
         if (noItem && noCitizen) {
             player.status_find = false;
