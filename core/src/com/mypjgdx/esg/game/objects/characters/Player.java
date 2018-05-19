@@ -119,7 +119,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean quest5IsAccept = false;
     public boolean quest6IsAccept = false;
 
-    public boolean timeStop = true;
+    public boolean timeStop = false;
     public boolean timeClear;
 
     public boolean swordHit = true;

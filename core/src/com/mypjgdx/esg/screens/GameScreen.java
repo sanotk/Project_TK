@@ -71,6 +71,11 @@ public class GameScreen extends AbstractGameScreen {
     private Label energyLevel2;
     private Label energyLevel3;
 
+    private Label textMission1;
+    private Label textMission2;
+    private Label textMission3;
+    private Label textMission4;
+
     private Label text1;
     private Label text2;
     private Label text3;
@@ -140,6 +145,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private Button buttonOption;
     private BitmapFont font;
+    private BitmapFont font2;
     private Window optionsWindow;
 
     private Window solarCellWindow;
@@ -208,6 +214,10 @@ public class GameScreen extends AbstractGameScreen {
         font = new BitmapFont(Gdx.files.internal("thai24.fnt"));
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
+
+        font2 = new BitmapFont(Gdx.files.internal("thai24.fnt"));
+        font2.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font2.setColor(Color.BLACK);
 
         dialogStory = new Texture("dialogStory.png");
         dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -332,6 +342,7 @@ public class GameScreen extends AbstractGameScreen {
         missionWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
+        missionWindow.setVisible(false);
 
         optionsWindow.setVisible(false);
 
@@ -906,15 +917,15 @@ public class GameScreen extends AbstractGameScreen {
 //        Button ruleIcon = new Button(buttonPauseStyle);
 //        Button toolIcon = new Button(buttonToolStyle);
 
-        Label text1 = new Label("ภารกิจแรก กำจัดมอนสเตอร์ในแผนที่ให้ครบทุกตัวซึ่งจะได้รับพลังงานเพื่อเริ่มต้นการทำงานของโซล่าเซลล์", skin);
-        Label text2 = new Label("ภารกิจที่สอง หลังจากเสร็จสิ้นภารกิจแรกประชาชนจะปรากฎตัวออกมา ให้ค้นหาประชาชนในแผนที่ให้ครบ", skin);
-        Label text3 = new Label("ภารกิจที่สาม หลังจากเสร็จสิ้นภารกิจที่สองให้พาประชาชนไปยังที่หลบภัย", skin);
-        Label text4 = new Label("ภารกิจสุดท้าย เชื่อมต่อระบบโซล่าเซลล์ให้ถูกต้อง", skin);
+        textMission1 = new Label("ตามหาประตูทางเข้าสถานที่หลบภัยให้พบ พร้อมทั้งกำจัดเหล่ามอนสเตอร์ทั้งหมด", skin);
+        textMission2 = new Label("ตามหาประชาชนและพามายังสถานที่หลบภัย", skin);
+        textMission3 = new Label("เชื่อมต่อระบบโซล่าเซลล์ให้ถูกต้อง", skin);
+        textMission4 = new Label("ภารกิจสำเร็จทั้งหมด สามารถเข้าไปยังที่หลบภัยได้แล้ว", skin);
 
-        text1.setStyle(labelStyle);
-        text2.setStyle(labelStyle);
-        text3.setStyle(labelStyle);
-        text4.setStyle(labelStyle);
+        textMission1.setStyle(labelStyle);
+        textMission2.setStyle(labelStyle);
+        textMission3.setStyle(labelStyle);
+        textMission4.setStyle(labelStyle);
 
         final Window missionWindow = new Window("ภารกิจที่ต้องทำให้สำเร็จ", style);
         missionWindow.setModal(true);
@@ -924,13 +935,13 @@ public class GameScreen extends AbstractGameScreen {
         missionWindow.padRight(40);
         missionWindow.padBottom(20);
         missionWindow.getTitleLabel().setAlignment(Align.center);
-        missionWindow.add(text1);
+        missionWindow.add(textMission1);
         missionWindow.row().padTop(10);
-        missionWindow.add(text2);
+        missionWindow.add(textMission2);
         missionWindow.row().padTop(10);
-        missionWindow.add(text3);
+        missionWindow.add(textMission3);
         missionWindow.row().padTop(10);
-        missionWindow.add(text4);
+        missionWindow.add(textMission4);
         //   ruleWindow.add(ruleIcon).right();
         //  ruleWindow.add(text8).left();
         //   ruleWindow.row().padTop(10);
@@ -1587,13 +1598,18 @@ public class GameScreen extends AbstractGameScreen {
         Player player = worldController.level.player;
         Level1 level1 = (Level1) worldController.level;
 
-        if (player.timeCount == 299 && !dialogStart) {
+        if (!dialogStart) {
             player.timeStop = true;
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialog.show();
             dialogStart = true;
             dialogShow = true;
+        }
+
+        if (player.timeCount <= 299 && dialogStart) {
+            missionWindow.setVisible(true);
+            player.timeStop = true;
         }
 
         if ((level1.door.nearPlayer()) && (player.status_find)) {
