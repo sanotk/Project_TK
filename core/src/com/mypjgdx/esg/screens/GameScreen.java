@@ -74,6 +74,8 @@ public class GameScreen extends AbstractGameScreen {
     private Label energyLevel2;
     private Label energyLevel3;
 
+    private boolean dialogMission;
+
     private Label textMission1;
     private Label textMission2;
     private Label textMission3;
@@ -921,8 +923,6 @@ public class GameScreen extends AbstractGameScreen {
         buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonRuleStyle);
-//        Button ruleIcon = new Button(buttonPauseStyle);
-//        Button toolIcon = new Button(buttonToolStyle);
 
         textMission1 = new Label("ตามหาประตูทางเข้าสถานที่หลบภัยให้พบ พร้อมทั้งกำจัดเหล่ามอนสเตอร์ทั้งหมด", skin);
         textMission2 = new Label("ตามหาประชาชนและพามายังสถานที่หลบภัย", skin);
@@ -1610,7 +1610,8 @@ public class GameScreen extends AbstractGameScreen {
             dialogShow = true;
         }
 
-        if (player.timeCount <= 299 && dialogStart) {
+        if (player.timeCount == 299 && !dialogMission) {
+            dialogMission = true;
             missionWindow.setVisible(true);
             player.timeStop = true;
         }
