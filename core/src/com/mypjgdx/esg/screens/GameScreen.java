@@ -36,6 +36,8 @@ import java.util.ArrayList;
 
 public class GameScreen extends AbstractGameScreen {
 
+    private Button iconHuman;
+    private Button iconItem;
     private Button buttonControlWindow;
     private Button buttonControl;
     private Button buttonMission;
@@ -44,7 +46,7 @@ public class GameScreen extends AbstractGameScreen {
     private WorldController worldController;
     private WorldRenderer worldRenderer;
 
-    private boolean controlShow;
+    private boolean controlShow = true;
 
     private ItemLink itemLink;
 
@@ -263,14 +265,27 @@ public class GameScreen extends AbstractGameScreen {
         buttonStatus = new Button(buttonStatusStyle);
         buttonStatus.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 300);
 
-        final TextButton.TextButtonStyle buttonControlWindowStyle = new TextButton.TextButtonStyle();
+        TextButton.TextButtonStyle buttonControlWindowStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable controlWindowUp = new TextureRegionDrawable(Assets.instance.controlWindow);
         buttonControlWindowStyle.up = controlWindowUp;
         buttonControlWindowStyle.down = controlWindowUp.tint(Color.LIGHT_GRAY);
         buttonControlWindow = new Button(buttonControlWindowStyle);
         buttonControlWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH+40, SCENE_HEIGHT - 350);
 
-        buttonControlWindow.setVisible(false);
+        TextButton.TextButtonStyle iconHumanStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable humanUp = new TextureRegionDrawable(Assets.instance.iconHuman);
+        iconHumanStyle.up = humanUp;
+        iconHumanStyle.over = humanUp.tint(Color.LIGHT_GRAY);
+        iconHuman = new Button(iconHumanStyle);
+
+        TextButton.TextButtonStyle iconItemStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable itemUp = new TextureRegionDrawable(Assets.instance.iconItem);
+        iconItemStyle.up = itemUp;
+        iconItemStyle.over = itemUp.tint(Color.LIGHT_GRAY);
+        iconItem = new Button(iconItemStyle);
+
+        iconHuman.setVisible(false);
+        iconItem.setVisible(false);
 
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
         buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
@@ -332,6 +347,8 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(buttonStatus);
         stage.addActor(buttonGuide);
         stage.addActor(buttonControlWindow);
+        stage.addActor(iconHuman);
+        stage.addActor(iconItem);
 
         stage.addActor(optionsWindow);
         stage.addActor(ruleWindow);
@@ -1649,21 +1666,23 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if (player.stageOneClear && player.status_find) {
+        if (player.stageOneClear) {
             for (int i = 0; i < worldController.level.citizens.size(); i++) {
                 Citizen citizen = worldController.level.citizens.get(i);
                 if (citizen.overlapPlayer && !citizen.runPlayer) {
-                    dialogCitizen = true;
-                    player.timeStop = true;
-                    String text =
-                            "\"โปรดตามเรามา เราจะพาท่านไปยังสถานที่ปลอดภัย\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    LikingBar.instance.liking += 1;
-                    citizen.runPlayer = true;
-                    citizenCount += 1;
-                    dialog.show();
-                    dialog.clearPages();
-                    dialog.addWaitingPage(text);
-                    dialogShow = true;
+                    if(player.status_find){
+                        dialogCitizen = true;
+                        player.timeStop = true;
+                        String text =
+                                "\"โปรดตามเรามา เราจะพาท่านไปยังสถานที่ปลอดภัย\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                        LikingBar.instance.liking += 1;
+                        citizen.runPlayer = true;
+                        citizenCount += 1;
+                        dialog.show();
+                        dialog.clearPages();
+                        dialog.addWaitingPage(text);
+                        dialogShow = true;
+                    }
                 }
             }
         }
@@ -1778,16 +1797,27 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if (!noItem) {
-            solarCellWindow.setVisible(false);
-        }
-
         boolean noCitizen = !player.questScreen1
                 && !player.questScreen2
                 && !player.questScreen3
                 && !player.questScreen4
                 && !player.questScreen5
                 && !player.questScreen6;
+
+        iconHuman.setPosition(player.getPositionX() ,player.getPositionY());
+        iconItem.setPosition(player.getPositionX() ,player.getPositionY());
+
+        if (!noCitizen) {
+            iconHuman.setVisible(true);
+        }else {
+            iconHuman.setVisible(false);
+        }
+
+        if (!noItem) {
+            iconItem.setVisible(true);
+        }else {
+            iconItem.setVisible(false);
+        }
 
         if (noItem && noCitizen) {
             player.status_find = false;
