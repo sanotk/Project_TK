@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -1797,23 +1798,26 @@ public class GameScreen extends AbstractGameScreen {
                 && !player.questScreen5
                 && !player.questScreen6;
 
-        iconHuman.setPosition(player.getPositionX() ,player.getPositionY());
-        iconItem.setPosition(player.getPositionX() ,player.getPositionY());
 
-        iconHuman.setVisible(true);
-        iconItem.setVisible(true);
+        Vector2 iconPos = new Vector2(player.getPositionX(),player.getPositionY());
+        worldRenderer.viewport.unproject(iconPos);
+        iconPos.y = Gdx.graphics.getHeight()-1 -iconPos.y;
+        stage.screenToStageCoordinates(iconPos);
 
-//        if (!noCitizen) {
-//            iconHuman.setVisible(true);
-//        }else {
-//            iconHuman.setVisible(false);
-//        }
-//
-//        if (!noItem) {
-//            iconItem.setVisible(true);
-//        }else {
-//            iconItem.setVisible(false);
-//        }
+        iconHuman.setPosition(iconPos.x,iconPos.y);
+        iconItem.setPosition(iconPos.x,iconPos.y);
+
+        if (!noCitizen) {
+            iconHuman.setVisible(true);
+        }else if (noCitizen) {
+            iconHuman.setVisible(false);
+        }
+
+        if (!noItem) {
+            iconItem.setVisible(true);
+        }else if (noItem){
+            iconItem.setVisible(false);
+        }
 
         if (noItem && noCitizen) {
             player.status_find = false;

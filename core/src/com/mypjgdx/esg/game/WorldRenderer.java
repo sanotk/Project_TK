@@ -19,7 +19,7 @@ public class WorldRenderer implements Disposable {
     private WorldController worldController; //ส่วนควบคุมเกม
 
     private OrthographicCamera camera;//สร้างตัวแปรกล้อง
-    private ExtendViewport viewport; //พื้นที่การมอง
+    public ExtendViewport viewport; //พื้นที่การมอง
 
     private SpriteBatch batch; //ตัวแปรการวาด
     private OrthogonalTiledMapRenderer tiledRenderer; // ตัววาด Tiled
