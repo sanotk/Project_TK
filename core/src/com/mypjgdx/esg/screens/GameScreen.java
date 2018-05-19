@@ -63,6 +63,9 @@ public class GameScreen extends AbstractGameScreen {
     private TextButton buttonAgree;
     private TextButton buttonRefuse;
 
+    private Label.LabelStyle labelStyle;
+    private Label.LabelStyle labelStyle2;
+
     private Label textBullet;
     private Label textBeam;
     private Label textTrap;
@@ -904,9 +907,13 @@ public class GameScreen extends AbstractGameScreen {
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
         labelStyle.fontColor = Color.WHITE;
+
+        labelStyle2 = new Label.LabelStyle();
+        labelStyle2.font = font2;
+        labelStyle2.fontColor = Color.WHITE;
 
         Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
         TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
