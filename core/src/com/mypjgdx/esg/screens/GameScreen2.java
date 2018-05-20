@@ -1272,25 +1272,19 @@ public class GameScreen2 extends AbstractGameScreen {
         Level2 level2 = (Level2) worldController.level;
 
         if (!dialogStart) {
-            player.timeStop = true;
-            dialog.clearPages();
+            dialogAll();
             dialog.addWaitingPage(text);
-            dialog.show();
             dialogStart = true;
-            dialogShow = true;
             delayMission();
         }
 
         if ((level2.gate.nearPlayer()) && (player.status_find)) {
             if (!animation_status && stageTwoClear && !stageThreeClear && !dialogDoor3) {
                 dialogDoor3 = true;
-                player.timeStop = true;
+                dialogAll();
                 String text =
                         "\"พลังงานมีไม่เพียงพอใช้ในห้องถัดไป กรุณาปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเสียก่อน\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
-                dialog.show();
-                dialog.clearPages();
                 dialog.addWaitingPage(text);
-                dialogShow = true;
                 delayMission();
             } else if (animation_status && stageThreeClear && !dialogDoor4) {
                 dialogDoor4 = true;
@@ -1305,27 +1299,21 @@ public class GameScreen2 extends AbstractGameScreen {
                 Enemy enemy = worldController.level.enemies.get(i);
                 if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
                     dialogEnemy = true;
-                    player.timeStop = true;
+                    dialogAll();
                     String text =
                             "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    dialog.show();
-                    dialog.clearPages();
                     dialog.addWaitingPage(text);
-                    dialogShow = true;
                 }
             }
         }
 
         if (player.stageOneClear && !dialogCitizen) {
             dialogCitizen = true;
-            player.timeStop = true;
+            dialogAll();
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัยดีกว่า\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
-            dialog.show();
-            dialog.clearPages();
-            dialogShow = true;
+                    "\"กำจัดมอนสเตอร์หมดแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัยดีกว่า\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
-            delayMission();
+            delayGuide();
         }
 
         if (questCount == 6 && !animation_status) {
@@ -1334,37 +1322,30 @@ public class GameScreen2 extends AbstractGameScreen {
                 stageTwoClear = true;
                 stageThreeClear = true;
                 animation_status = true;
-                player.timeStop = true;
+                dialogAll();
                 level2.gate.state = Item.ItemState.ON;
                 String text =
-                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและพลังงานจะเหลือเพียงพอใช้ในห้องถัดไป สามารถปิดหรือเปิดเครื่องใช้ไฟฟ้าเพิ่มได้\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                dialog.show();
-                dialog.clearPages();
+                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและพลังงานจะเหลือเพียงพอใช้ในห้องถัดไป สามารถปิดหรือเปิดเครื่องใช้ไฟฟ้าเพิ่มได้\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 dialog.addWaitingPage(text);
-                dialogShow = true;
+                delayStatus();
             } else if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
                 dialogStage4fail = true;
                 stageTwoClear = true;
-                player.timeStop = true;
+                dialogAll();
                 String text =
-                        "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานไฟฟ้าภายในแบตเตอรี่ลดต่ำลงกว่า 1000 จูล ทุกคนจะขาดอากาศตาย รีบปิดเครื่องใช้ไฟฟ้าเร็วเข้า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                        "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานไฟฟ้าภายในแบตเตอรี่ลดต่ำลงกว่า 1000 จูล ทุกคนจะขาดอากาศตาย รีบปิดเครื่องใช้ไฟฟ้าเร็วเข้า\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 level2.gate.state = Item.ItemState.OFF;
-                dialog.show();
-                dialog.clearPages();
                 dialog.addWaitingPage(text);
-                dialogShow = true;
+                delayStatus();
             }
         }
 
         if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogWarning) {
             dialogWarning = true;
-            player.timeStop = true;
+            dialogAll();
             String text =
                     "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-            dialog.show();
-            dialog.clearPages();
             dialog.addWaitingPage(text);
-            dialogShow = true;
         }
 
         if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
@@ -1407,6 +1388,13 @@ public class GameScreen2 extends AbstractGameScreen {
             dialog.addWaitingPage(text);
             citizenQuest = systemWindow.citizen6;
         }
+    }
+
+    private void dialogAll(){
+        dialog.show();
+        dialog.clearPages();
+        dialogShow =true;
+        worldController.level.player.timeStop = true;
     }
 
     private void delayMission(){
