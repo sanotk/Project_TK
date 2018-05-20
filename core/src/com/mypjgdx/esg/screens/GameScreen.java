@@ -139,6 +139,7 @@ public class GameScreen extends AbstractGameScreen {
     private Label textSun;
     private Label textTemperature;
     private Label textLiking;
+    private boolean stageTwoAfter;
 
     public enum systemWindow {
         solarcell,
@@ -250,293 +251,6 @@ public class GameScreen extends AbstractGameScreen {
         isComplete.add(solarState.CtoB);
         isComplete.add(solarState.CtoI);
         isComplete.add(solarState.ItoD);
-
-        buttonToolStyle = new TextButton.TextButtonStyle();
-        toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
-        buttonToolStyle.up = toolUp;
-        buttonToolStyle.down = toolUp.tint(Color.LIGHT_GRAY);
-        buttonOption = new Button(buttonToolStyle);
-        buttonOption.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 50);
-
-        buttonPauseStyle = new TextButton.TextButtonStyle();
-        pauseUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_pause"));
-        buttonPauseStyle.up = pauseUp;
-        buttonPauseStyle.down = pauseUp.tint(Color.LIGHT_GRAY);
-        buttonPause = new Button(buttonPauseStyle);
-        buttonPause.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
-
-        buttonPlayStyle = new TextButton.TextButtonStyle();
-        playUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_play"));
-        buttonPlayStyle.up = playUp;
-        buttonPlayStyle.down = playUp.tint(Color.LIGHT_GRAY);
-        buttonPlay = new Button(buttonPlayStyle);
-        buttonPlay.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
-
-        buttonPlay.setVisible(false);
-
-        TextButton.TextButtonStyle buttonControlStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable ControlUp = new TextureRegionDrawable(Assets.instance.iconControl);
-        buttonControlStyle.up = ControlUp;
-        buttonControlStyle.down = ControlUp.tint(Color.LIGHT_GRAY);
-        buttonControl = new Button(buttonControlStyle);
-        buttonControl.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 150);
-
-        iconControl = new Button(buttonControlStyle);
-        iconControl.setPosition(SCENE_WIDTH / 6 + 20, 145);
-
-        iconControl.setVisible(false);
-
-        TextButton.TextButtonStyle buttonMissionStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable missionUp = new TextureRegionDrawable(Assets.instance.iconMission);
-        buttonMissionStyle.up = missionUp;
-        buttonMissionStyle.down = missionUp.tint(Color.LIGHT_GRAY);
-        buttonMission = new Button(buttonMissionStyle);
-        buttonMission.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 200);
-
-        iconMission = new Button(buttonMissionStyle);
-        iconMission.setPosition(SCENE_WIDTH / 6 + 30, 145);
-
-        TextButton.TextButtonStyle buttonGuideStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable GuideUp = new TextureRegionDrawable(Assets.instance.iconGuide);
-        buttonGuideStyle.up = GuideUp;
-        buttonGuideStyle.down = GuideUp.tint(Color.LIGHT_GRAY);
-        buttonGuide = new Button(buttonGuideStyle);
-        buttonGuide.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 250);
-
-        iconGuide = new Button(buttonGuideStyle);
-        iconGuide.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 250);
-
-        TextButton.TextButtonStyle buttonStatusStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable statusUp = new TextureRegionDrawable(Assets.instance.iconStatus);
-        buttonStatusStyle.up = statusUp;
-        buttonStatusStyle.down = statusUp.tint(Color.LIGHT_GRAY);
-        buttonStatus = new Button(buttonStatusStyle);
-        buttonStatus.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 300);
-
-        iconStatus = new Button(buttonStatusStyle);
-        iconStatus.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 300);
-
-        TextButton.TextButtonStyle buttonControlWindowStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable controlWindowUp = new TextureRegionDrawable(Assets.instance.controlWindow);
-        buttonControlWindowStyle.up = controlWindowUp;
-        buttonControlWindowStyle.down = controlWindowUp.tint(Color.LIGHT_GRAY);
-        buttonControlWindow = new Button(buttonControlWindowStyle);
-        buttonControlWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH + 40, SCENE_HEIGHT - 350);
-
-        TextButton.TextButtonStyle iconHumanStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable humanUp = new TextureRegionDrawable(Assets.instance.iconHuman);
-        iconHumanStyle.up = humanUp;
-        iconHumanStyle.over = humanUp.tint(Color.LIGHT_GRAY);
-        iconHuman = new Button(iconHumanStyle);
-
-        TextButton.TextButtonStyle iconItemStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable itemUp = new TextureRegionDrawable(Assets.instance.iconItem);
-        iconItemStyle.up = itemUp;
-        iconItemStyle.over = itemUp.tint(Color.LIGHT_GRAY);
-        iconItem = new Button(iconItemStyle);
-
-        TextButton.TextButtonStyle iconEnergyLessStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable energyLessUp = new TextureRegionDrawable(Assets.instance.iconEnergyLess);
-        iconEnergyLessStyle.up = energyLessUp;
-        iconEnergyLessStyle.over = energyLessUp.tint(Color.LIGHT_GRAY);
-        iconEnergyLess = new Button(iconEnergyLessStyle);
-
-        iconHuman.setVisible(false);
-        iconItem.setVisible(false);
-        iconEnergyLess.setVisible(false);
-
-        buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
-        buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
-        buttonStyle.font = font;
-
-        buttonStyle2.up = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_04"));
-        buttonStyle2.down = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_03"));
-        buttonStyle2.font = font;
-
-        buttonAgree = new TextButton("ตกลง", buttonStyle);
-        buttonAgree.setWidth(50);
-        buttonAgree.setHeight(25);
-        buttonAgree.setPosition(SCENE_WIDTH / 6 + 20, 120);
-
-        buttonAgree.setVisible(false);
-
-        buttonRefuse = new TextButton("ปฎิเสธ", buttonStyle2);
-        buttonRefuse.setWidth(50);
-        buttonRefuse.setHeight(25);
-        buttonRefuse.setPosition(SCENE_WIDTH / 4, 120);
-
-        buttonRefuse.setVisible(false);
-
-        chartWindow = createChartWindow();
-        chartWindow.setVisible(false);
-
-        statusWindow = createStatusWindow();
-        statusWindow.setVisible(false);
-
-        solarCellGuideWindow = createSolarCellGuideWindow();
-        solarCellGuideWindow.setVisible(false);
-
-        solarCellWindow = createSolarCellWindow();
-        solarCellWindow.setVisible(false);
-
-        missionWindow = createMissionWindow();
-        missionWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
-        missionWindow.setVisible(false);
-
-        optionsWindow.setVisible(false);
-
-        dialog.hide();
-
-        stage.addActor(dialog);
-
-        stage.addActor(buttonOption);
-        stage.addActor(buttonAgree);
-        stage.addActor(buttonRefuse);
-        stage.addActor(buttonMission);
-        stage.addActor(buttonControl);
-        stage.addActor(buttonStatus);
-        stage.addActor(buttonGuide);
-        stage.addActor(buttonControlWindow);
-        stage.addActor(iconHuman);
-        stage.addActor(iconItem);
-        stage.addActor(buttonPlay);
-        stage.addActor(buttonPause);
-        stage.addActor(iconEnergyLess);
-        stage.addActor(iconGuide);
-        stage.addActor(iconControl);
-        stage.addActor(iconMission);
-        stage.addActor(iconStatus);
-
-        stage.addActor(optionsWindow);
-        stage.addActor(chartWindow);
-        stage.addActor(statusWindow);
-        stage.addActor(solarCellGuideWindow);
-        stage.addActor(solarCellWindow);
-        stage.addActor(missionWindow);
-
-        buttonOption.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                optionsWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - optionsWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - optionsWindow.getHeight() / 2);
-                optionsWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            }
-        });
-
-        buttonPause.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                buttonPause.setVisible(false);
-                buttonPlay.setVisible(true);
-                worldController.level.player.timeStop = true;
-            }
-        });
-
-        buttonPlay.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                buttonPlay.setVisible(false);
-                buttonPause.setVisible(true);
-                worldController.level.player.timeStop = false;
-            }
-        });
-
-        buttonMission.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                missionWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
-                missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-                worldController.level.player.timeStop = true;
-            }
-        });
-
-        buttonGuide.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                worldController.level.player.timeStop = true;
-                solarCellGuideWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - solarCellGuideWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - solarCellGuideWindow.getHeight() / 2);
-                solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            }
-        });
-
-        buttonControl.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (controlShow) {
-                    controlShow = false;
-                    buttonControlWindow.setVisible(false);
-                } else {
-                    controlShow = true;
-                    buttonControlWindow.setVisible(true);
-                }
-            }
-        });
-
-        buttonControlWindow.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (controlShow) {
-                    controlShow = false;
-                    buttonControlWindow.setVisible(false);
-                } else {
-                    controlShow = true;
-                    buttonControlWindow.setVisible(true);
-                }
-            }
-        });
-
-        buttonStatus.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                status();
-            }
-        });
-
-        buttonAgree.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                buttonAgree.setVisible(false);
-                buttonRefuse.setVisible(false);
-                dialog.hide();
-                worldController.level.player.timeStop = false;
-                dialogShow = false;
-                MusicManager.instance.stop();
-                Gdx.app.postRunnable(new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setScreen(new GameScreen2(game, optionsWindow));
-                    }
-                });
-            }
-        });
-
-        buttonRefuse.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                buttonAgree.setVisible(false);
-                buttonRefuse.setVisible(false);
-                dialog.hide();
-                worldController.level.player.timeStop = false;
-                dialogShow = false;
-                MusicManager.instance.stop();
-                Gdx.app.postRunnable(new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setScreen(new MenuScreen(game));
-                        EnergyProducedBar.instance.energyProduced = 0;
-                        EnergyUsedBar.instance.energyUse = 0;
-                        BatteryBar.instance.batteryStorage = 0;
-                    }
-                });
-            }
-        });
 
         createButton();
         batch = new SpriteBatch();
@@ -943,6 +657,338 @@ public class GameScreen extends AbstractGameScreen {
     }
 
     private void createButton() {
+
+        buttonToolStyle = new TextButton.TextButtonStyle();
+        toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
+        buttonToolStyle.up = toolUp;
+        buttonToolStyle.down = toolUp.tint(Color.LIGHT_GRAY);
+        buttonOption = new Button(buttonToolStyle);
+        buttonOption.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 50);
+
+        buttonPauseStyle = new TextButton.TextButtonStyle();
+        pauseUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_pause"));
+        buttonPauseStyle.up = pauseUp;
+        buttonPauseStyle.down = pauseUp.tint(Color.LIGHT_GRAY);
+        buttonPause = new Button(buttonPauseStyle);
+        buttonPause.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
+
+        buttonPlayStyle = new TextButton.TextButtonStyle();
+        playUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_play"));
+        buttonPlayStyle.up = playUp;
+        buttonPlayStyle.down = playUp.tint(Color.LIGHT_GRAY);
+        buttonPlay = new Button(buttonPlayStyle);
+        buttonPlay.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
+
+        buttonPlay.setVisible(false);
+
+        TextButton.TextButtonStyle buttonControlStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable ControlUp = new TextureRegionDrawable(Assets.instance.iconControl);
+        buttonControlStyle.up = ControlUp;
+        buttonControlStyle.down = ControlUp.tint(Color.LIGHT_GRAY);
+        buttonControl = new Button(buttonControlStyle);
+        buttonControl.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 150);
+
+        iconControl = new Button(buttonControlStyle);
+        iconControl.setPosition(SCENE_WIDTH / 6 + 30, 145);
+
+        iconControl.setVisible(false);
+
+        TextButton.TextButtonStyle buttonMissionStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable missionUp = new TextureRegionDrawable(Assets.instance.iconMission);
+        buttonMissionStyle.up = missionUp;
+        buttonMissionStyle.down = missionUp.tint(Color.LIGHT_GRAY);
+        buttonMission = new Button(buttonMissionStyle);
+        buttonMission.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 200);
+
+        iconMission = new Button(buttonMissionStyle);
+        iconMission.setPosition(SCENE_WIDTH / 6 + 30, 145);
+
+        TextButton.TextButtonStyle buttonGuideStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable GuideUp = new TextureRegionDrawable(Assets.instance.iconGuide);
+        buttonGuideStyle.up = GuideUp;
+        buttonGuideStyle.down = GuideUp.tint(Color.LIGHT_GRAY);
+        buttonGuide = new Button(buttonGuideStyle);
+        buttonGuide.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 250);
+
+        iconGuide = new Button(buttonGuideStyle);
+        iconGuide.setPosition(SCENE_WIDTH / 6 + 30, 145);
+        iconGuide.setVisible(false);
+
+        TextButton.TextButtonStyle buttonStatusStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable statusUp = new TextureRegionDrawable(Assets.instance.iconStatus);
+        buttonStatusStyle.up = statusUp;
+        buttonStatusStyle.down = statusUp.tint(Color.LIGHT_GRAY);
+        buttonStatus = new Button(buttonStatusStyle);
+        buttonStatus.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 300);
+
+        iconStatus = new Button(buttonStatusStyle);
+        iconStatus.setPosition(SCENE_WIDTH / 6 + 30, 145);
+        iconStatus.setVisible(false);
+
+        TextButton.TextButtonStyle buttonControlWindowStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable controlWindowUp = new TextureRegionDrawable(Assets.instance.controlWindow);
+        buttonControlWindowStyle.up = controlWindowUp;
+        buttonControlWindowStyle.down = controlWindowUp.tint(Color.LIGHT_GRAY);
+        buttonControlWindow = new Button(buttonControlWindowStyle);
+        buttonControlWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH + 40, SCENE_HEIGHT - 350);
+
+        TextButton.TextButtonStyle iconHumanStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable humanUp = new TextureRegionDrawable(Assets.instance.iconHuman);
+        iconHumanStyle.up = humanUp;
+        iconHumanStyle.over = humanUp.tint(Color.LIGHT_GRAY);
+        iconHuman = new Button(iconHumanStyle);
+
+        TextButton.TextButtonStyle iconItemStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable itemUp = new TextureRegionDrawable(Assets.instance.iconItem);
+        iconItemStyle.up = itemUp;
+        iconItemStyle.over = itemUp.tint(Color.LIGHT_GRAY);
+        iconItem = new Button(iconItemStyle);
+
+        TextButton.TextButtonStyle iconEnergyLessStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable energyLessUp = new TextureRegionDrawable(Assets.instance.iconEnergyLess);
+        iconEnergyLessStyle.up = energyLessUp;
+        iconEnergyLessStyle.over = energyLessUp.tint(Color.LIGHT_GRAY);
+        iconEnergyLess = new Button(iconEnergyLessStyle);
+
+        iconHuman.setVisible(false);
+        iconItem.setVisible(false);
+        iconEnergyLess.setVisible(false);
+
+        buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
+        buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
+        buttonStyle.font = font;
+
+        buttonStyle2.up = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_04"));
+        buttonStyle2.down = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_03"));
+        buttonStyle2.font = font;
+
+        buttonAgree = new TextButton("ตกลง", buttonStyle);
+        buttonAgree.setWidth(50);
+        buttonAgree.setHeight(25);
+        buttonAgree.setPosition(SCENE_WIDTH / 6 + 20, 120);
+
+        buttonAgree.setVisible(false);
+
+        buttonRefuse = new TextButton("ปฎิเสธ", buttonStyle2);
+        buttonRefuse.setWidth(50);
+        buttonRefuse.setHeight(25);
+        buttonRefuse.setPosition(SCENE_WIDTH / 4, 120);
+
+        buttonRefuse.setVisible(false);
+
+        chartWindow = createChartWindow();
+        chartWindow.setVisible(false);
+
+        statusWindow = createStatusWindow();
+        statusWindow.setVisible(false);
+
+        solarCellGuideWindow = createSolarCellGuideWindow();
+        solarCellGuideWindow.setVisible(false);
+
+        solarCellWindow = createSolarCellWindow();
+        solarCellWindow.setVisible(false);
+
+        missionWindow = createMissionWindow();
+        missionWindow.setPosition(
+                Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
+        missionWindow.setVisible(false);
+
+        optionsWindow.setVisible(false);
+
+        dialog.hide();
+
+        stage.addActor(dialog);
+
+        stage.addActor(buttonOption);
+        stage.addActor(buttonAgree);
+        stage.addActor(buttonRefuse);
+        stage.addActor(buttonMission);
+        stage.addActor(buttonControl);
+        stage.addActor(buttonStatus);
+        stage.addActor(buttonGuide);
+        stage.addActor(buttonControlWindow);
+        stage.addActor(iconHuman);
+        stage.addActor(iconItem);
+        stage.addActor(buttonPlay);
+        stage.addActor(buttonPause);
+        stage.addActor(iconEnergyLess);
+        stage.addActor(iconGuide);
+        stage.addActor(iconControl);
+        stage.addActor(iconMission);
+        stage.addActor(iconStatus);
+
+        stage.addActor(optionsWindow);
+        stage.addActor(chartWindow);
+        stage.addActor(statusWindow);
+        stage.addActor(solarCellGuideWindow);
+        stage.addActor(solarCellWindow);
+        stage.addActor(missionWindow);
+
+        buttonOption.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                optionsWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - optionsWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - optionsWindow.getHeight() / 2);
+                optionsWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            }
+        });
+
+        buttonPause.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                buttonPause.setVisible(false);
+                buttonPlay.setVisible(true);
+                worldController.level.player.timeStop = true;
+            }
+        });
+
+        buttonPlay.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                buttonPlay.setVisible(false);
+                buttonPause.setVisible(true);
+                worldController.level.player.timeStop = false;
+            }
+        });
+
+        buttonMission.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                missionWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
+                missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                worldController.level.player.timeStop = true;
+            }
+        });
+
+        iconMission.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                missionWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
+                missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                worldController.level.player.timeStop = true;
+            }
+        });
+
+        buttonGuide.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                worldController.level.player.timeStop = true;
+                solarCellGuideWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - solarCellGuideWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - solarCellGuideWindow.getHeight() / 2);
+                solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            }
+        });
+
+        iconGuide.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                worldController.level.player.timeStop = true;
+                solarCellGuideWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - solarCellGuideWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - solarCellGuideWindow.getHeight() / 2);
+                solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            }
+        });
+
+        buttonControl.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (controlShow) {
+                    controlShow = false;
+                    buttonControlWindow.setVisible(false);
+                } else {
+                    controlShow = true;
+                    buttonControlWindow.setVisible(true);
+                }
+            }
+        });
+
+        buttonControlWindow.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (controlShow) {
+                    controlShow = false;
+                    buttonControlWindow.setVisible(false);
+                } else {
+                    controlShow = true;
+                    buttonControlWindow.setVisible(true);
+                }
+            }
+        });
+
+        iconControl.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (controlShow) {
+                    controlShow = false;
+                    buttonControlWindow.setVisible(false);
+                } else {
+                    controlShow = true;
+                    buttonControlWindow.setVisible(true);
+                }
+            }
+        });
+
+        buttonStatus.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                status();
+            }
+        });
+
+        iconStatus.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                status();
+            }
+        });
+
+        buttonAgree.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                buttonAgree.setVisible(false);
+                buttonRefuse.setVisible(false);
+                dialog.hide();
+                worldController.level.player.timeStop = false;
+                dialogShow = false;
+                MusicManager.instance.stop();
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        game.setScreen(new GameScreen2(game, optionsWindow));
+                    }
+                });
+            }
+        });
+
+        buttonRefuse.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                buttonAgree.setVisible(false);
+                buttonRefuse.setVisible(false);
+                dialog.hide();
+                worldController.level.player.timeStop = false;
+                dialogShow = false;
+                MusicManager.instance.stop();
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        game.setScreen(new MenuScreen(game));
+                        EnergyProducedBar.instance.energyProduced = 0;
+                        EnergyUsedBar.instance.energyUse = 0;
+                        BatteryBar.instance.batteryStorage = 0;
+                    }
+                });
+            }
+        });
+
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
@@ -1582,35 +1628,39 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor1 = true;
                     player.timeStop = true;
                     String text =
-                            "\"อันตราย! โปรดกำจัดมอนสเตอร์ให้หมดก่อน แล้วประชาชนที่ซ่อนตัวอยู่จะปรากฏตัวออกมา\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                            "\"อันตราย! โปรดกำจัดมอนสเตอร์ให้หมดก่อน แล้วประชาชนที่ซ่อนตัวอยู่จะปรากฏตัวออกมา\" \n\"(กด     เพื่อตรวจสอบภารกิจ และกด Enter เพื่อเล่นตอ)\"";
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
                     dialogShow = true;
+                    iconMission.setVisible(true);
                 } else if (player.stageOneClear && !stageTwoClear && !dialogDoor2) {
                     dialogDoor2 = true;
                     player.timeStop = true;
                     String text =
-                            "\"ยังตามหาประชาชนที่ซ่อนตัวอยู่ไม่ครบ กรุณาตามหาให้ครบก่อน\" \n\"เ (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                            "\"ยังตามหาประชาชนที่ซ่อนตัวอยู่ไม่ครบ กรุณาตามหาให้ครบก่อน\" \n\"(กด     เพื่อตรวจสอบภารกิจ และกด Enter เพื่อเล่นตอ)\"";
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
                     dialogShow = true;
+                    iconMission.setVisible(true);
                 } else if (stageTwoClear && !stageThreeClear && !dialogDoor3) {
                     dialogDoor3 = true;
                     player.timeStop = true;
                     String text =
-                            "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงาน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                            "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงาน\" \n\"(กด     เพื่ออ่านการทำงานของโซล่าเซลล์ และกด Enter เพื่อเล่นตอ)\"";
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
                     dialogShow = true;
+                    stageTwoAfter = true;
+                    iconGuide.setVisible(true);
                 }
             } else if (!dialogDoor4 && stageFourClear) {
                 dialogDoor4 = true;
                 player.timeStop = true;
                 String text =
-                        "\"ยินดีต้อนรับสู่พื้นที่หลบภัย\" \n\" (กดปุ่มตกลงเพื่อเข้าไปยังสถานที่หลบภัย หรือกดปุ่มปฎิเสธเพื่อบันทึกและออกไปหน้าเมนู)\"";
+                        "\"ยินดีต้อนรับสู่พื้นที่หลบภัย\" \n\"(กดปุ่มตกลงเพื่อเข้าไปยังสถานที่หลบภัย หรือกดปุ่มปฎิเสธเพื่อบันทึกและออกไปหน้าเมนู)\"";
                 dialog.show();
                 buttonAgree.setVisible(true);
                 buttonRefuse.setVisible(true);
@@ -1639,7 +1689,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialogEnemy = true;
                     player.timeStop = true;
                     String text =
-                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
@@ -1657,7 +1707,7 @@ public class GameScreen extends AbstractGameScreen {
                         dialogCitizen = true;
                         player.timeStop = true;
                         String text =
-                                "\"โปรดตามเรามา เราจะพาท่านไปยังสถานที่ปลอดภัย\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                                "\"โปรดตามเรามา เราจะพาท่านไปยังสถานที่ปลอดภัย\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                         LikingBar.instance.liking += 1;
                         citizen.runPlayer = true;
                         citizenCount += 1;
@@ -1675,7 +1725,7 @@ public class GameScreen extends AbstractGameScreen {
             stageTwoClear = true;
             player.timeStop = true;
             String text =
-                    "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
@@ -1694,7 +1744,7 @@ public class GameScreen extends AbstractGameScreen {
             animation_status = true;
             player.timeStop = true;
             String text =
-                    "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว รีบพาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว รีบพาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\"(กด     เพื่อดูข้อมูลการผลิตพลังงาน และกด Enter เพื่อเล่นตอ)\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
@@ -1735,7 +1785,7 @@ public class GameScreen extends AbstractGameScreen {
         solarCellWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - solarCellWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - solarCellWindow.getHeight() / 2);
-        if (!animation_status && player.status_find && stageTwoClear) {
+        if (!animation_status && player.status_find && stageTwoAfter) {
             if (level1.solarCell1.nearPlayer()) {
                 solarWindow = systemWindow.solarcell;
                 checkButton(solarWindow);
