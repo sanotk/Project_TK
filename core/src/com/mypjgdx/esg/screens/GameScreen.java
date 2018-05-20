@@ -426,8 +426,8 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 missionWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - buttonMission.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - buttonMission.getHeight() / 2);
+                        Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
                 missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
                 worldController.level.player.timeStop = true;
             }
@@ -855,7 +855,7 @@ public class GameScreen extends AbstractGameScreen {
 
         labelStyle2 = new Label.LabelStyle();
         labelStyle2.font = font2;
-        labelStyle2.fontColor = Color.GRAY;
+        labelStyle2.fontColor = Color.LIME;
 
         Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
         TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
@@ -1559,7 +1559,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor1 = true;
                     player.timeStop = true;
                     String text =
-                            "\"พื้นที่แห่งนี้ยังอันตรายอยู่ โปรดกำจัดมอนสเตอร์ให้หมด แล้วประชาชนที่ซ่อนอยู่จะปรากฎตัวออกมา\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                            "\"อันตราย! โปรดกำจัดมอนสเตอร์ให้หมดก่อน แล้วประชาชนที่ซ่อนตัวอยู่จะปรากฏตัวออกมา\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
@@ -1577,7 +1577,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor3 = true;
                     player.timeStop = true;
                     String text =
-                            "\"เหมือนว่าพลังงานในสถานที่หลบภัยจะหมดลง กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงาน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                            "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงาน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
@@ -1587,7 +1587,7 @@ public class GameScreen extends AbstractGameScreen {
                 dialogDoor4 = true;
                 player.timeStop = true;
                 String text =
-                        "\"ยินดีต้อนรับสู่สถานที่หลบภัย\" \n\" (กดปุ่มตกลงเพื่อเข้าไปยังสถานที่หลบภัย หรือกดปุ่มปฎิเสธเพื่อบันทึกและออกไปหน้าเมนู)\"";
+                        "\"ยินดีต้อนรับสู่พื้นที่หลบภัย\" \n\" (กดปุ่มตกลงเพื่อเข้าไปยังสถานที่หลบภัย หรือกดปุ่มปฎิเสธเพื่อบันทึกและออกไปหน้าเมนู)\"";
                 dialog.show();
                 buttonAgree.setVisible(true);
                 buttonRefuse.setVisible(true);
@@ -1600,7 +1600,7 @@ public class GameScreen extends AbstractGameScreen {
             dialogCitizen = true;
             player.timeStop = true;
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัยพร้อมกัน\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัย\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
