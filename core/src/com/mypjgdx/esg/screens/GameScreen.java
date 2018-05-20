@@ -864,10 +864,10 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonRuleStyle);
 
-        textMission1 = new Label("ตามหาประตูทางเข้าสถานที่หลบภัยให้พบ พร้อมทั้งกำจัดเหล่ามอนสเตอร์ทั้งหมด", skin);
-        textMission2 = new Label("ตามหาประชาชนและพามายังสถานที่หลบภัย", skin);
-        textMission3 = new Label("เชื่อมต่อระบบโซล่าเซลล์ให้ถูกต้อง", skin);
-        textMission4 = new Label("ยินดีด้วยคุณทำภารกิจสำเร็จทั้งหมด สามารถเข้าไปยังที่หลบภัยได้แล้ว", skin);
+        textMission1 = new Label("ภารกิจแรก ตามหาประตูทางเข้าสถานที่หลบภัยให้พบ พร้อมทั้งกำจัดเหล่ามอนสเตอร์ทั้งหมด", skin);
+        textMission2 = new Label("ภารกิจที่สอง ตามหาประชาชนและพามายังสถานที่หลบภัย", skin);
+        textMission3 = new Label("เภารกิจที่สาม ชื่อมต่อระบบโซล่าเซลล์ให้ถูกต้อง", skin);
+        textMission4 = new Label("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว", skin);
 
         Label textMission5 = new Label("", skin);
         Label textMission6 = new Label("ต", skin);
