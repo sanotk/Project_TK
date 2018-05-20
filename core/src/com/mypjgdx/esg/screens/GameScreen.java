@@ -1630,6 +1630,7 @@ public class GameScreen extends AbstractGameScreen {
                 Citizen citizen = worldController.level.citizens.get(i);
                 if (citizen.overlapPlayer && !citizen.runPlayer) {
                     if (player.status_find) {
+                        citizen.quest =true;
                         dialogCitizen = true;
                         player.timeStop = true;
                         String text =
