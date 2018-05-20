@@ -855,7 +855,7 @@ public class GameScreen extends AbstractGameScreen {
 
         labelStyle2 = new Label.LabelStyle();
         labelStyle2.font = font2;
-        labelStyle2.fontColor = Color.BLACK;
+        labelStyle2.fontColor = Color.GRAY;
 
         Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
         TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
@@ -865,18 +865,18 @@ public class GameScreen extends AbstractGameScreen {
         Button closeButton = new Button(buttonRuleStyle);
 
         textMission1 = new Label("ภารกิจแรก ตามหาประตูทางเข้าสถานที่หลบภัยให้พบ พร้อมทั้งกำจัดเหล่ามอนสเตอร์ทั้งหมด", skin);
-        textMission2 = new Label("ภารกิจที่สอง ตามหาประชาชนและพามายังสถานที่หลบภัย", skin);
-        textMission3 = new Label("เภารกิจที่สาม ชื่อมต่อระบบโซล่าเซลล์ให้ถูกต้อง", skin);
-        textMission4 = new Label("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว", skin);
+        textMission2 = new Label("", skin);
+        textMission3 = new Label("", skin);
+        textMission4 = new Label("", skin);
 
         Label textMission5 = new Label("", skin);
         Label textMission6 = new Label("ต", skin);
         Label textMission7 = new Label("เ", skin);
 
         textMission1.setStyle(labelStyle);
-        textMission2.setStyle(labelStyle2);
-        textMission3.setStyle(labelStyle2);
-        textMission4.setStyle(labelStyle2);
+        textMission2.setStyle(labelStyle);
+        textMission3.setStyle(labelStyle);
+        textMission4.setStyle(labelStyle);
 
         final Window missionWindow = new Window("รายชื่อภารกิจ", style);
         missionWindow.setModal(true);
@@ -1605,6 +1605,8 @@ public class GameScreen extends AbstractGameScreen {
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
+            textMission1.setStyle(labelStyle2);
+            textMission2.setText("ภารกิจที่สอง ตามหาประชาชนและพามายังสถานที่หลบภัย");
         }
 
         if (player.timeCount <= 298 && !dialogEnemy && dialogStart) {
@@ -1654,6 +1656,8 @@ public class GameScreen extends AbstractGameScreen {
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
+            textMission2.setStyle(labelStyle2);
+            textMission3.setText("ภารกิจที่สาม เชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานให้กับสถานที่หลบภัย");
         }
 
         if (trueLink == 4 && !animation_status) {
@@ -1671,6 +1675,8 @@ public class GameScreen extends AbstractGameScreen {
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
+            textMission3.setStyle(labelStyle2);
+            textMission4.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว");
         }
 
     }
