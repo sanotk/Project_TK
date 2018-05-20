@@ -200,7 +200,7 @@ public class GameScreen extends AbstractGameScreen {
     private Window missionWindow;
 
     private String text =
-            "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"(กด     เพื่อตรวจสอบภารกิจ และกด Enter เพื่อเริ่มเกม)\"";
+            "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
 
     private boolean dialogEnemy;
     private boolean dialogCitizen;
@@ -1628,7 +1628,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor1 = true;
                     player.timeStop = true;
                     String text =
-                            "\"อันตราย! โปรดกำจัดมอนสเตอร์ให้หมดก่อน แล้วประชาชนที่ซ่อนตัวอยู่จะปรากฏตัวออกมา\" \n\"(กด     เพื่อตรวจสอบภารกิจ และกด Enter เพื่อเล่นตอ)\"";
+                            "\"อันตราย! โปรดกำจัดมอนสเตอร์ให้หมดก่อน แล้วประชาชนที่ซ่อนตัวอยู่จะปรากฏตัวออกมา\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
@@ -1638,7 +1638,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor2 = true;
                     player.timeStop = true;
                     String text =
-                            "\"ยังตามหาประชาชนที่ซ่อนตัวอยู่ไม่ครบ กรุณาตามหาให้ครบก่อน\" \n\"(กด     เพื่อตรวจสอบภารกิจ และกด Enter เพื่อเล่นตอ)\"";
+                            "\"ยังตามหาประชาชนที่ซ่อนตัวอยู่ไม่ครบ กรุณาตามหาให้ครบก่อน\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
@@ -1648,7 +1648,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor3 = true;
                     player.timeStop = true;
                     String text =
-                            "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงาน\" \n\"(กด     เพื่ออ่านการทำงานของโซล่าเซลล์ และกด Enter เพื่อเล่นตอ)\"";
+                            "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงาน\" \n\"(กด     เพื่ออ่านการทำงานของโซล่าเซลล์ หรือกด Enter เพื่อเล่นตอ)\"";
                     dialog.show();
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
