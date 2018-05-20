@@ -1651,6 +1651,13 @@ public class GameScreen2 extends AbstractGameScreen {
         checkStageAndCount();
         checkObject();
 
+        if(!dialogShow){
+            iconMission.setVisible(false);
+            iconStatus.setVisible(false);
+            iconGuide.setVisible(false);
+            iconControl.setVisible(false);
+        }
+
         if (!player.timeStop && !player.timeClear) {
             BatteryBar.instance.update(deltaTime);
         }
