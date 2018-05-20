@@ -236,7 +236,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     }
 
     private void findPathPlayer() {
-        
+
         float startX = walkingBounds.x + walkingBounds.width / 2;
         float startY = walkingBounds.y + walkingBounds.height / 2;
         float goalX = stalkingPositionX;

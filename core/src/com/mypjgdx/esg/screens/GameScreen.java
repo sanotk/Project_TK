@@ -292,11 +292,12 @@ public class GameScreen extends AbstractGameScreen {
 
         final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
         chartWindow.setModal(true);
-        chartWindow.padTop(50);
+        chartWindow.padTop(45);
         chartWindow.padLeft(40);
         chartWindow.padRight(40);
         chartWindow.padBottom(20);
         chartWindow.getTitleLabel().setAlignment(Align.center);
+        chartWindow.row().padTop(10);
         chartWindow.add(textChart1);
         chartWindow.row().padTop(10);
         chartWindow.add(textChart2);
@@ -371,7 +372,7 @@ public class GameScreen extends AbstractGameScreen {
 
         final Window statusWindow = new Window("ข้อมูลการใช้พลังงานไฟฟ้า", style);
         statusWindow.setModal(true);
-        statusWindow.padTop(60);
+        statusWindow.padTop(45);
         statusWindow.padLeft(40);
         statusWindow.padRight(40);
         statusWindow.padBottom(20);
@@ -454,12 +455,11 @@ public class GameScreen extends AbstractGameScreen {
 
         final Window solarCellGuideWindow = new Window("ข้อมูลระบบโซล่าเซลล์", style);
         solarCellGuideWindow.setModal(true);
-        solarCellGuideWindow.padTop(60);
+        solarCellGuideWindow.padTop(45);
         solarCellGuideWindow.padLeft(40);
         solarCellGuideWindow.padRight(40);
         solarCellGuideWindow.padBottom(20);
         solarCellGuideWindow.getTitleLabel().setAlignment(Align.center);
-        solarCellGuideWindow.row().padBottom(10).padTop(10);
         solarCellGuideWindow.row().padTop(10);
         solarCellGuideWindow.add(text1);
         solarCellGuideWindow.row().padTop(10);
@@ -549,7 +549,7 @@ public class GameScreen extends AbstractGameScreen {
         final Window solarcellWindow = new Window("ตัวเลือกการเชื่อมต่อ", style);
         solarcellWindow.setSkin(skin);
         solarcellWindow.setModal(true);
-        solarcellWindow.padTop(50);
+        solarcellWindow.padTop(45);
         solarcellWindow.padLeft(40);
         solarcellWindow.padRight(40);
         solarcellWindow.padBottom(20);
@@ -620,7 +620,7 @@ public class GameScreen extends AbstractGameScreen {
         final Window missionWindow = new Window("รายชื่อภารกิจ", style);
         missionWindow.setModal(true);
         //missionWindow.setSkin(skin);
-        missionWindow.padTop(60);
+        missionWindow.padTop(45);
         missionWindow.padLeft(40);
         missionWindow.padRight(40);
         missionWindow.padBottom(20);
@@ -1584,10 +1584,6 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor2 = false;
                     dialogDoor3 = false;
                     dialogDoor4 = false;
-                    iconGuide.setVisible(false);
-                    iconControl.setVisible(false);
-                    iconMission.setVisible(false);
-                    iconStatus.setVisible(false);
                 }
             } else {
                 dialog.tryToChangePage();
@@ -1932,6 +1928,13 @@ public class GameScreen extends AbstractGameScreen {
         dialogDraw();
         checkStageAndCount();
         checkWindow();
+
+        if(!dialogShow){
+            iconMission.setVisible(false);
+            iconStatus.setVisible(false);
+            iconGuide.setVisible(false);
+            iconControl.setVisible(false);
+        }
 
         if (!worldController.level.player.timeStop && !worldController.level.player.timeClear) {
             BatteryBar.instance.update(deltaTime);
