@@ -224,7 +224,7 @@ public class GameScreen extends AbstractGameScreen {
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         bg = new Texture("bg.png");
-        font = new BitmapFont(Gdx.files.internal("thai24.fnt"));
+        font = Assets.instance.newFont;
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
 
@@ -522,7 +522,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private Window createChartWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
+        style.background = new NinePatchDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
@@ -598,7 +598,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private Window createStatusWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
+        style.background = new NinePatchDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
@@ -663,6 +663,9 @@ public class GameScreen extends AbstractGameScreen {
         statusWindow.add(closeButton).colspan(3);
         statusWindow.pack();
 
+        statusWindow.setSize(500, 500);
+        statusWindow.debugAll();
+
         closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -677,7 +680,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private Window createSolarCellGuideWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
+        style.background = new NinePatchDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
@@ -757,7 +760,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private Window createSolarCellWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
+        style.background = new NinePatchDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
@@ -845,7 +848,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private Window createMissionWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
+        style.background = new NinePatchDrawable(Assets.instance.window);
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 

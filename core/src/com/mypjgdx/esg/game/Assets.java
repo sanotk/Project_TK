@@ -7,8 +7,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Disposable;
@@ -26,7 +29,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion trap;
     public TextureRegion enemyBall;
 
-    public TextureRegion window;
+    public NinePatch window;
 
     public TextureRegion iconBow;
     public TextureRegion iconSword;
@@ -130,6 +133,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public Sound beamSound;
     public Sound trapSound;
     public Sound enemyBallSound;
+
+    public BitmapFont newFont;
 
     private Assets() {}
 
@@ -264,7 +269,11 @@ public class Assets implements Disposable, AssetErrorListener {
         light = manager.get("light.png");
         white = manager.get("white.png");
 
-        window = new TextureRegion((Texture)manager.get("window.png"));
+
+//        TextureAtlas atlas = new TextureAtlas();
+//        atlas.addRegion("window", new TextureRegion((Texture)manager.get("window.9.png")));
+//        window = atlas.createPatch("window");
+        window = new NinePatch((Texture) manager.get("window.png"), 9, 9, 44, 8);
 
         buttonSolarcellAdd = new TextureRegion((Texture)manager.get("solarcell_button_add.png"));
         buttonChargeAdd = new TextureRegion((Texture)manager.get("charge_button_add.png"));
@@ -361,6 +370,27 @@ public class Assets implements Disposable, AssetErrorListener {
         uiBlue = manager.get("ui-blue.atlas");
         uiRed = manager.get("ui-red.atlas");
 
+        final String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                "abcdefghijklmnopqrstuvwxyz" +
+                "1234567890 " +
+                "!`?'.,;:()[]{}<>|/@\\^$-%+=#_&~*“”" +
+                "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯ" +
+                "ะอัาอิอีอึอือุอูอฺเแโใไๅๆก็ก่ก้ก๊ก๋ก์กํกำ" +
+                "๐๑๒๓๔๕๖๗๘๙" +
+                "฿๚๛๏";
+
+        FreeTypeFontGenerator generator1 = new FreeTypeFontGenerator(Gdx.files.internal("Superspace Bold ver 1.00.ttf"));
+        FreeTypeFontGenerator generator2 = new FreeTypeFontGenerator(Gdx.files.internal("TST cheer thai v.1.ttf"));
+        FreeTypeFontGenerator generator3 = new FreeTypeFontGenerator(Gdx.files.internal("TST cheer thai v.2.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 20;
+        parameter.characters = characters;
+        newFont = generator2.generateFont(parameter); // font size 12 pixels
+        newFont.getData().setLineHeight(25f);
+        generator1.dispose(); // don't forget to dispose to avoid memory leaks!
+        generator2.dispose();
+        generator3.dispose();
+
     }
 
     @SuppressWarnings("rawtypes")
@@ -372,6 +402,7 @@ public class Assets implements Disposable, AssetErrorListener {
     @Override
     public void dispose() {
         manager.dispose();
+        newFont.dispose();
     }
 
 }

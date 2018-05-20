@@ -572,7 +572,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
     private Window createChartWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
+        style.background = new NinePatchDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
@@ -648,7 +648,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
     private Window createStatusWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
+        style.background = new NinePatchDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
@@ -795,7 +795,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
     private Window createRuleWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
+        style.background = new NinePatchDrawable(Assets.instance.window);
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 
@@ -881,7 +881,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
     private Window createMissionWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
+        style.background = new NinePatchDrawable(Assets.instance.window);
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 

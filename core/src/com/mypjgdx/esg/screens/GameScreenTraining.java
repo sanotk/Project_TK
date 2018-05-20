@@ -487,7 +487,7 @@ public class GameScreenTraining extends AbstractGameScreen {
 
     private Window createStatusWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
+        style.background = new NinePatchDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
@@ -562,7 +562,7 @@ public class GameScreenTraining extends AbstractGameScreen {
 
     private Window createRuleWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new TextureRegionDrawable(Assets.instance.window);
+        style.background = new NinePatchDrawable(Assets.instance.window);
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 
