@@ -31,9 +31,9 @@ public class Citizen1 extends Citizen {
 		type = CitizenType.CITIZEN_1;
 	}
 
+    @Override
     public void setGoalPosition(float x,float y){
         positionGoalX = x;
         positionGoalY = y;
     }
-
 }

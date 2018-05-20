@@ -16,7 +16,7 @@ public class PlayerStalkerPosition {
             Color.PURPLE,
     };
 
-    private static final int POSITION_COUNT = 5;
+    private static final int POSITION_COUNT = 6;
 
     private Player player;
     private ArrayDeque<IntPosition> positions;
@@ -59,7 +59,7 @@ public class PlayerStalkerPosition {
         }
     }
 
-    private class IntPosition{
+    public class IntPosition{
         public final int x;
         public final int y;
 
@@ -87,5 +87,7 @@ public class PlayerStalkerPosition {
         }
     }
 
-
+    public ArrayDeque<IntPosition> getPositions() {
+        return positions;
+    }
 }

@@ -124,7 +124,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     public boolean swordHit = true;
 
-    private PlayerStalkerPosition stalkerPosition;
+    public PlayerStalkerPosition stalkerPosition;
 
     public Player(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         super(Assets.instance.playerAltas);

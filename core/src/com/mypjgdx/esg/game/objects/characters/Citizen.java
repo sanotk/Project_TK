@@ -31,6 +31,9 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     private static final float INITIAL_POSITION_X = 100;
     private static final float INITIAL_POSITION_Y = 1000;
 
+    private float stalkingPositionX;
+    private float stalkingPositionY;
+
     protected Player player;
 
     public enum CitizenAnimation {
@@ -243,29 +246,29 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
         float startX = walkingBounds.x + walkingBounds.width / 2;
         float startY = walkingBounds.y + walkingBounds.height / 2;
-        float goalX = player.walkingBounds.x + player.walkingBounds.width / 2;
-        float goalY = player.walkingBounds.y + player.walkingBounds.height / 2;
+        float goalX = stalkingPositionX;
+        float goalY = stalkingPositionY;
 
-        if(player.getViewDirection() == Direction.UP){
-            goalY -= range;
-        }else if(player.getViewDirection() == Direction.DOWN){
-            goalY += range;
-        }else if(player.getViewDirection() == Direction.LEFT){
-            goalX += range;
-        }else if(player.getViewDirection() == Direction.RIGHT){
-            goalX -= range;
-        }
+//        if(player.getViewDirection() == Direction.UP){
+//            goalY -= range;
+//        }else if(player.getViewDirection() == Direction.DOWN){
+//            goalY += range;
+//        }else if(player.getViewDirection() == Direction.LEFT){
+//            goalX += range;
+//        }else if(player.getViewDirection() == Direction.RIGHT){
+//            goalX -= range;
+//        }
 
-        if (goalX < 0){
-            goalX = 0;
-        }else if (goalX > mapLayer.getTileWidth()*mapLayer.getWidth()-mapLayer.getTileWidth()/2){
-            goalX = mapLayer.getTileWidth()*mapLayer.getWidth()-mapLayer.getTileWidth()/2;
-        }
-        if (goalY < 0){
-            goalY = 0;
-        }else if (goalY > mapLayer.getTileHeight()*mapLayer.getHeight()-mapLayer.getTileHeight()/2){
-            goalY = mapLayer.getTileHeight()*mapLayer.getHeight()-mapLayer.getTileHeight()/2;
-        }
+//        if (goalX < 0){
+//            goalX = 0;
+//        }else if (goalX > mapLayer.getTileWidth()*mapLayer.getWidth()-mapLayer.getTileWidth()/2){
+//            goalX = mapLayer.getTileWidth()*mapLayer.getWidth()-mapLayer.getTileWidth()/2;
+//        }
+//        if (goalY < 0){
+//            goalY = 0;
+//        }else if (goalY > mapLayer.getTileHeight()*mapLayer.getHeight()-mapLayer.getTileHeight()/2){
+//            goalY = mapLayer.getTileHeight()*mapLayer.getHeight()-mapLayer.getTileHeight()/2;
+//        }
 
         GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
         Heuristic<Node> heuristic = new Heuristic<Node>() {
@@ -477,5 +480,15 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
     public Item getGoalItem() {
         return goalItem;
+    }
+
+    public void setGoalPosition(float x,float y){
+        this.positionGoalX = x;
+        this.positionGoalY = y;
+    }
+
+    public void setStalkingPosition(float x,float y){
+        this.stalkingPositionX = x;
+        this.stalkingPositionY = y;
     }
 }

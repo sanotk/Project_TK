@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.game.objects.characters.PlayerStalkerPosition;
 import com.mypjgdx.esg.game.objects.etcs.Link;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Bow;
@@ -82,7 +83,7 @@ public abstract class Level implements Json.Serializable {
         player.showHp(shapeRenderer);
         for (Enemy e : enemies) e.showHp(shapeRenderer);
         //for (Item i: items) i.debug(shapeRenderer);
-        //player.debug(shapeRenderer);
+        player.debug(shapeRenderer);
         shapeRenderer.end();
 
 
@@ -116,8 +117,6 @@ public abstract class Level implements Json.Serializable {
         LevelDebugger.instance.enable(LevelDebugger.BOW);
         LevelDebugger.instance.enable(LevelDebugger.MAP_ALL);
         LevelDebugger.instance.debug(this, shapeRenderer);
-
-
     }
 
     public void renderFbo(SpriteBatch batch, OrthographicCamera camera, FrameBuffer lightFbo) {
@@ -136,6 +135,17 @@ public abstract class Level implements Json.Serializable {
         while (weaponIterator.hasNext()) {
             Weapon w = weaponIterator.next();
             if (w.isDestroyed()) weaponIterator.remove();
+        }
+
+        int p = 0;
+        boolean firstSkipped = false;
+        for (PlayerStalkerPosition.IntPosition position : player.stalkerPosition.getPositions()) {
+            if (!firstSkipped) {
+                firstSkipped = true;
+                continue;
+            }
+            citizens.get(p).setStalkingPosition(position.x,position.y);
+            p++;
         }
 
         while (etcIterator.hasNext()) {

@@ -702,6 +702,7 @@ public class GameScreen extends AbstractGameScreen {
 
         iconMission = new Button(buttonMissionStyle);
         iconMission.setPosition(SCENE_WIDTH / 6 + 30, 145);
+        iconMission.setVisible(false);
 
         TextButton.TextButtonStyle buttonGuideStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable GuideUp = new TextureRegionDrawable(Assets.instance.iconGuide);
@@ -1625,6 +1626,7 @@ public class GameScreen extends AbstractGameScreen {
             dialog.show();
             dialogStart = true;
             dialogShow = true;
+            delayMission();
         }
 
         if ((level1.door.nearPlayer()) && (player.status_find)) {
@@ -1638,7 +1640,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
                     dialogShow = true;
-                    iconMission.setVisible(true);
+                    delayMission();
                 } else if (player.stageOneClear && !stageTwoClear && !dialogDoor2) {
                     dialogDoor2 = true;
                     player.timeStop = true;
@@ -1648,7 +1650,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialog.clearPages();
                     dialog.addWaitingPage(text);
                     dialogShow = true;
-                    iconMission.setVisible(true);
+                    delayMission();
                 } else if (stageTwoClear && !stageThreeClear && !dialogDoor3) {
                     dialogDoor3 = true;
                     player.timeStop = true;
@@ -1659,7 +1661,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialog.addWaitingPage(text);
                     dialogShow = true;
                     stageTwoAfter = true;
-                    iconGuide.setVisible(true);
+                    delayGuide();
                     textMission2.setStyle(labelStyle2);
                     textMission3.setText("ภารกิจที่สาม เชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานให้กับสถานที่หลบภัย");
                 }
@@ -1687,7 +1689,7 @@ public class GameScreen extends AbstractGameScreen {
             dialogShow = true;
             textMission1.setStyle(labelStyle2);
             textMission2.setText("ภารกิจที่สอง ตามหาประชาชนและพามายังสถานที่หลบภัย");
-            iconMission.setVisible(true);
+            delayMission();
         }
 
         if (player.timeCount <= 298 && !dialogEnemy && dialogStart) {
@@ -1738,7 +1740,7 @@ public class GameScreen extends AbstractGameScreen {
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
-            iconMission.setVisible(true);
+            delayMission();
         }
 
         if (trueLink == 4 && !animation_status) {
@@ -1758,7 +1760,7 @@ public class GameScreen extends AbstractGameScreen {
             dialogShow = true;
             textMission3.setStyle(labelStyle2);
             textMission4.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว");
-            iconStatus.setVisible(true);
+            delayStatus();
         }
 
     }
@@ -1884,6 +1886,36 @@ public class GameScreen extends AbstractGameScreen {
             public void run() {
                 iconEnergyLess.setVisible(false);
                 worldController.level.player.energyLess = false;
+            }
+        }, delay);
+    }
+
+    public void delayMission(){
+        float delay = 2f; // seconds
+        Timer.schedule(new Timer.Task(){
+            @Override
+            public void run() {
+                iconMission.setVisible(true);
+            }
+        }, delay);
+    }
+
+    public void delayStatus(){
+        float delay = 1.5f; // seconds
+        Timer.schedule(new Timer.Task(){
+            @Override
+            public void run() {
+                iconStatus.setVisible(true);
+            }
+        }, delay);
+    }
+
+    public void delayGuide(){
+        float delay = 1.5f; // seconds
+        Timer.schedule(new Timer.Task(){
+            @Override
+            public void run() {
+                iconGuide.setVisible(true);
             }
         }, delay);
     }
