@@ -1532,6 +1532,10 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor2 = false;
                     dialogDoor3 = false;
                     dialogDoor4 = false;
+                    iconGuide.setVisible(false);
+                    iconControl.setVisible(false);
+                    iconMission.setVisible(false);
+                    iconStatus.setVisible(false);
                 }
             } else {
                 dialog.tryToChangePage();
@@ -1570,12 +1574,6 @@ public class GameScreen extends AbstractGameScreen {
             dialog.show();
             dialogStart = true;
             dialogShow = true;
-        }
-
-        if (player.timeCount == 299 && !dialogMission) {
-            dialogMission = true;
-            missionWindow.setVisible(true);
-            player.timeStop = true;
         }
 
         if ((level1.door.nearPlayer()) && (player.status_find)) {
