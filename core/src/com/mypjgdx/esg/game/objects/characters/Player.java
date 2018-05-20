@@ -19,7 +19,6 @@ import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.*;
 import com.mypjgdx.esg.game.objects.weapons.Weapon.WeaponType;
-import com.mypjgdx.esg.ui.ArrowBar;
 import com.mypjgdx.esg.ui.BatteryBar;
 import com.mypjgdx.esg.ui.SwordWaveBar;
 import com.mypjgdx.esg.ui.TrapBar;
@@ -441,22 +440,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 energyLess = false;
             }
             energyLess = true;
-        }
-    }
-
-    public void bowAttack(List<Weapon> weapons, List<Bow> bows) {
-        if (state != PlayerState.ATTACK) {
-            state = PlayerState.ATTACK;
-            for (Bow bow : bows) {
-                bow.resetAnimation();
-                bow.state = Bow.Bowstate.SHOT;
-                if (BatteryBar.instance.getBatteryStorage() >= ArrowBar.instance.energyArrow) {
-                    weapons.add(new Arrow(mapLayer, this));
-                    BatteryBar.instance.batteryStorage -= ArrowBar.instance.energyArrow;
-                }
-                SoundManager.instance.play(SoundManager.Sounds.BEAM);
-                resetAnimation();
-            }
         }
     }
 

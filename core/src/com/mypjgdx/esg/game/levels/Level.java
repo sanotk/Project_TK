@@ -82,7 +82,7 @@ public abstract class Level implements Json.Serializable {
         player.showHp(shapeRenderer);
         for (Enemy e : enemies) e.showHp(shapeRenderer);
         //for (Item i: items) i.debug(shapeRenderer);
-        player.debug(shapeRenderer);
+        //player.debug(shapeRenderer);
         shapeRenderer.end();
 
 

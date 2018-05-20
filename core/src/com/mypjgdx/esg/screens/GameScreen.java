@@ -856,6 +856,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonMission.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                missionWindow.pack();
                 missionWindow.setPosition(
                         Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
                         Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
@@ -867,6 +868,7 @@ public class GameScreen extends AbstractGameScreen {
         iconMission.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                missionWindow.pack();
                 missionWindow.setPosition(
                         Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
                         Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
@@ -878,6 +880,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                solarCellGuideWindow.pack();
                 worldController.level.player.timeStop = true;
                 solarCellGuideWindow.setPosition(
                         Gdx.graphics.getWidth() / 2 - solarCellGuideWindow.getWidth() / 2,
@@ -889,6 +892,7 @@ public class GameScreen extends AbstractGameScreen {
         iconGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                solarCellGuideWindow.pack();
                 worldController.level.player.timeStop = true;
                 solarCellGuideWindow.setPosition(
                         Gdx.graphics.getWidth() / 2 - solarCellGuideWindow.getWidth() / 2,
@@ -1472,6 +1476,7 @@ public class GameScreen extends AbstractGameScreen {
         textChart5.setText(textString4);
         textChart6.setText(textString5);
         textChart7.setText(textString6);
+        chartWindow.pack();
         chartWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
@@ -1500,7 +1505,7 @@ public class GameScreen extends AbstractGameScreen {
             text2.setText(textString2);
             text4.setText(textString4);
         }
-
+        statusWindow.pack();
         statusWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - statusWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - statusWindow.getHeight() / 2);
@@ -1673,13 +1678,14 @@ public class GameScreen extends AbstractGameScreen {
             dialogCitizen = true;
             player.timeStop = true;
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัย\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
             textMission1.setStyle(labelStyle2);
             textMission2.setText("ภารกิจที่สอง ตามหาประชาชนและพามายังสถานที่หลบภัย");
+            iconMission.setVisible(true);
         }
 
         if (player.timeCount <= 298 && !dialogEnemy && dialogStart) {
@@ -1725,13 +1731,14 @@ public class GameScreen extends AbstractGameScreen {
             stageTwoClear = true;
             player.timeStop = true;
             String text =
-                    "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
             textMission2.setStyle(labelStyle2);
             textMission3.setText("ภารกิจที่สาม เชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานให้กับสถานที่หลบภัย");
+            iconMission.setVisible(true);
         }
 
         if (trueLink == 4 && !animation_status) {
@@ -1744,13 +1751,14 @@ public class GameScreen extends AbstractGameScreen {
             animation_status = true;
             player.timeStop = true;
             String text =
-                    "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว รีบพาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\"(กด     เพื่อดูข้อมูลการผลิตพลังงาน และกด Enter เพื่อเล่นตอ)\"";
+                    "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว รีบพาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\"(กด     เพื่อดูข้อมูลการผลิตพลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.show();
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
             textMission3.setStyle(labelStyle2);
             textMission4.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว");
+            iconStatus.setVisible(true);
         }
 
     }
