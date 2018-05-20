@@ -16,7 +16,6 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.items.Item;
-import com.mypjgdx.esg.ui.Range;
 import com.mypjgdx.esg.utils.Direction;
 import com.mypjgdx.esg.utils.GameMap;
 import com.mypjgdx.esg.utils.Node;
@@ -237,38 +236,11 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     }
 
     private void findPathPlayer() {
-
-        if(!rangeAdd){
-            rangeAdd = true;
-            Range.instance.rangeToPlayer+=50;
-            range = Range.instance.rangeToPlayer;
-        }
-
+        
         float startX = walkingBounds.x + walkingBounds.width / 2;
         float startY = walkingBounds.y + walkingBounds.height / 2;
         float goalX = stalkingPositionX;
         float goalY = stalkingPositionY;
-
-//        if(player.getViewDirection() == Direction.UP){
-//            goalY -= range;
-//        }else if(player.getViewDirection() == Direction.DOWN){
-//            goalY += range;
-//        }else if(player.getViewDirection() == Direction.LEFT){
-//            goalX += range;
-//        }else if(player.getViewDirection() == Direction.RIGHT){
-//            goalX -= range;
-//        }
-
-//        if (goalX < 0){
-//            goalX = 0;
-//        }else if (goalX > mapLayer.getTileWidth()*mapLayer.getWidth()-mapLayer.getTileWidth()/2){
-//            goalX = mapLayer.getTileWidth()*mapLayer.getWidth()-mapLayer.getTileWidth()/2;
-//        }
-//        if (goalY < 0){
-//            goalY = 0;
-//        }else if (goalY > mapLayer.getTileHeight()*mapLayer.getHeight()-mapLayer.getTileHeight()/2){
-//            goalY = mapLayer.getTileHeight()*mapLayer.getHeight()-mapLayer.getTileHeight()/2;
-//        }
 
         GraphPath<Node> pathOutput = new DefaultGraphPath<Node>();
         Heuristic<Node> heuristic = new Heuristic<Node>() {
