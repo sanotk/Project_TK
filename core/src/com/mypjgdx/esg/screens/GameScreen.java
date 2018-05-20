@@ -163,7 +163,6 @@ public class GameScreen extends AbstractGameScreen {
 
     private Button buttonOption;
     private BitmapFont font;
-    private BitmapFont font2;
     private Window optionsWindow;
 
     private Window solarCellWindow;
@@ -232,10 +231,6 @@ public class GameScreen extends AbstractGameScreen {
         font = Assets.instance.newFont;
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
-
-        font2 = Assets.instance.newFont;
-        font2.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font2.setColor(Color.WHITE);
 
         dialogStory = new Texture("dialogStory.png");
         dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -593,7 +588,7 @@ public class GameScreen extends AbstractGameScreen {
         labelStyle.fontColor = Color.WHITE;
 
         labelStyle2 = new Label.LabelStyle();
-        labelStyle2.font = font2;
+        labelStyle2.font = font;
         labelStyle2.fontColor = Color.LIME;
 
         Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
@@ -1886,7 +1881,7 @@ public class GameScreen extends AbstractGameScreen {
         }, delay);
     }
 
-    public void delayMission(){
+    private void delayMission(){
         float delay = 2f; // seconds
         Timer.schedule(new Timer.Task(){
             @Override
@@ -1896,7 +1891,7 @@ public class GameScreen extends AbstractGameScreen {
         }, delay);
     }
 
-    public void delayStatus(){
+    private void delayStatus(){
         float delay = 1.5f; // seconds
         Timer.schedule(new Timer.Task(){
             @Override
@@ -1906,7 +1901,7 @@ public class GameScreen extends AbstractGameScreen {
         }, delay);
     }
 
-    public void delayGuide(){
+    private void delayGuide(){
         float delay = 1.5f; // seconds
         Timer.schedule(new Timer.Task(){
             @Override

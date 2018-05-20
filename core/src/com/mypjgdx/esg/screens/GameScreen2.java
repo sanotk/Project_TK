@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
@@ -127,12 +128,17 @@ public class GameScreen2 extends AbstractGameScreen {
         citizen6
     }
 
+    private Label textMission1;
+    private Label textMission2;
+    private Label textMission3;
+    private Label textMission4;
+
     private boolean dialogShow;
 
     private Texture dialogStory;
 
     private String text =
-            "\"ทุกคนรออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าไม่มีอันตราย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
+            "\"ทุกคนให้รออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าที่แห่งนี้ปลอดภัย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
 
     public QuestState questState = null;
 
@@ -208,7 +214,7 @@ public class GameScreen2 extends AbstractGameScreen {
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         bg = new Texture("bg.png");
-        font = new BitmapFont(Gdx.files.internal("thai24.fnt"));
+        font = Assets.instance.newFont;
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
 
@@ -223,9 +229,6 @@ public class GameScreen2 extends AbstractGameScreen {
         dialog.setPosition(
                 SCENE_WIDTH / 2 - dialogStory.getWidth() * 0.5f,
                 SCENE_HEIGHT / 4 - dialogStory.getHeight() * 0.5f);
-
-        dialog.clearPages();
-        dialog.addWaitingPage(text);
 
         stage.addActor(dialog);
 
@@ -1095,9 +1098,13 @@ public class GameScreen2 extends AbstractGameScreen {
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
         labelStyle.fontColor = Color.WHITE;
+
+        labelStyle2 = new Label.LabelStyle();
+        labelStyle2.font = font;
+        labelStyle2.fontColor = Color.LIME;
 
         Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
         TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
@@ -1105,40 +1112,52 @@ public class GameScreen2 extends AbstractGameScreen {
         buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonRuleStyle);
-        Label text1 = new Label("ภารกิจแรก กำจัดมอนสเตอร์ในแผนที่ให้ครบทุกตัวซึ่งจะได้รับพลังงานเพื่อเริ่มต้นการทำงานของโซล่าเซลล์", skin);
-        Label text2 = new Label("ภารกิจที่สอง หลังจากเสร็จสิ้นภารกิจแรกประชาชนจะปรากฎตัวออกมา ให้ค้นหาประชาชนในแผนที่ให้ครบ", skin);
-        Label text3 = new Label("ภารกิจที่สาม หลังจากเสร็จสิ้นภารกิจที่สองให้พาประชาชนไปยังที่หลบภัย", skin);
-        Label text4 = new Label("ภารกิจสุดท้าย เชื่อมต่อระบบโซล่าเซลล์ให้ถูกต้อง", skin);
 
-        text1.setStyle(labelStyle);
-        text2.setStyle(labelStyle);
-        text3.setStyle(labelStyle);
-        text4.setStyle(labelStyle);
+        textMission1 = new Label("ภารกิจแรก ตามหาคัตเอาท์และสับคันโยก พร้อมทั้งกำจัดเหล่ามอนสเตอร์ทั้งหมด", skin);
+        textMission2 = new Label("", skin);
+        textMission3 = new Label("", skin);
+        textMission4 = new Label("", skin);
 
-        final Window missionWindow = new Window("ภารกิจที่ต้องทำให้สำเร็จ", style);
+        Label textMission5 = new Label("", skin);
+        Label textMission6 = new Label("ต", skin);
+        Label textMission7 = new Label("เ", skin);
+
+        textMission1.setStyle(labelStyle);
+        textMission2.setStyle(labelStyle);
+        textMission3.setStyle(labelStyle);
+        textMission4.setStyle(labelStyle);
+
+        final Window missionWindow = new Window("รายชื่อภารกิจ", style);
         missionWindow.setModal(true);
-        missionWindow.setSkin(skin);
-        missionWindow.padTop(60);
+        //missionWindow.setSkin(skin);
+        missionWindow.padTop(45);
         missionWindow.padLeft(40);
         missionWindow.padRight(40);
         missionWindow.padBottom(20);
         missionWindow.getTitleLabel().setAlignment(Align.center);
-        missionWindow.add(text1);
         missionWindow.row().padTop(10);
-        missionWindow.add(text2);
+        missionWindow.add(textMission1);
         missionWindow.row().padTop(10);
-        missionWindow.add(text3);
+        missionWindow.add(textMission2);
         missionWindow.row().padTop(10);
-        missionWindow.add(text4);
+        missionWindow.add(textMission3);
+        missionWindow.row().padTop(10);
+        missionWindow.add(textMission4);
+        missionWindow.row().padTop(10);
+        missionWindow.add(textMission5);
+        missionWindow.row().padTop(10);
+        missionWindow.add(textMission6);
+        missionWindow.row().padTop(10);
+        missionWindow.add(textMission7);
         missionWindow.row().padTop(20);
-        missionWindow.add(closeButton).colspan(3);
+        missionWindow.add(closeButton).colspan(3).center().bottom();
         missionWindow.pack();
 
         closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 missionWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                if(!dialogShow){
+                if (!dialogShow) {
                     worldController.level.player.timeStop = false;
                 }
             }
@@ -1252,16 +1271,27 @@ public class GameScreen2 extends AbstractGameScreen {
         Player player = worldController.level.player;
         Level2 level2 = (Level2) worldController.level;
 
+        if (!dialogStart) {
+            player.timeStop = true;
+            dialog.clearPages();
+            dialog.addWaitingPage(text);
+            dialog.show();
+            dialogStart = true;
+            dialogShow = true;
+            delayMission();
+        }
+
         if ((level2.gate.nearPlayer()) && (player.status_find)) {
             if (!animation_status && stageTwoClear && !stageThreeClear && !dialogDoor3) {
                 dialogDoor3 = true;
                 player.timeStop = true;
                 String text =
-                        "\"พลังงานมีไม่เพียงพอใช้ในห้องถัดไป กรุณาปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเสียก่อน\" \n\" (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                        "\"พลังงานมีไม่เพียงพอใช้ในห้องถัดไป กรุณาปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเสียก่อน\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
                 dialog.show();
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
                 dialogShow = true;
+                delayMission();
             } else if (animation_status && stageThreeClear && !dialogDoor4) {
                 dialogDoor4 = true;
                 player.timeStop = true;
@@ -1290,11 +1320,12 @@ public class GameScreen2 extends AbstractGameScreen {
             dialogCitizen = true;
             player.timeStop = true;
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัยดีกว่า\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    "\"กำจัดมอนสเตอร์หมดแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัยดีกว่า\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.show();
             dialog.clearPages();
-            dialog.addWaitingPage(text);
             dialogShow = true;
+            dialog.addWaitingPage(text);
+            delayMission();
         }
 
         if (questCount == 6 && !animation_status) {
@@ -1376,6 +1407,36 @@ public class GameScreen2 extends AbstractGameScreen {
             dialog.addWaitingPage(text);
             citizenQuest = systemWindow.citizen6;
         }
+    }
+
+    private void delayMission(){
+        float delay = 1.5f; // seconds
+        Timer.schedule(new Timer.Task(){
+            @Override
+            public void run() {
+                iconMission.setVisible(true);
+            }
+        }, delay);
+    }
+
+    private void delayStatus(){
+        float delay = 1.5f; // seconds
+        Timer.schedule(new Timer.Task(){
+            @Override
+            public void run() {
+                iconStatus.setVisible(true);
+            }
+        }, delay);
+    }
+
+    private void delayGuide(){
+        float delay = 1.5f; // seconds
+        Timer.schedule(new Timer.Task(){
+            @Override
+            public void run() {
+                iconGuide.setVisible(true);
+            }
+        }, delay);
     }
 
     private void dialogCitizenDetail(){
@@ -1592,12 +1653,6 @@ public class GameScreen2 extends AbstractGameScreen {
 
         if (!player.timeStop && !player.timeClear) {
             BatteryBar.instance.update(deltaTime);
-        }
-
-        if (player.statusEnergyWindow) {
-            status();
-        } else {
-            statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
         }
 
         for (Citizen citizen : level2.citizens) {
