@@ -35,14 +35,33 @@ import java.util.ArrayList;
 
 public class GameScreen2 extends AbstractGameScreen {
 
-    private final Dialog dialog;
+    private Dialog dialog;
     private TextButton buttonAgree;
     private TextButton buttonRefuse;
     private WorldController worldController;
     private WorldRenderer worldRenderer;
 
+    private Button iconEnergyLess;
+    private TextButton.TextButtonStyle buttonPlayStyle;
+    private TextureRegionDrawable playUp;
+    private Button buttonPlay;
+    private Button buttonPause;
+    private Button iconHuman;
+    private Button iconItem;
+    private Button buttonControlWindow;
+    private Button buttonControl;
+    private Button iconControl;
+    private Button buttonMission;
+    private Button iconMission;
+    private Button buttonGuide;
+    private Button iconGuide;
+    private Button buttonStatus;
+    private Button iconStatus;
+
     SpriteBatch batch;
     public Texture bg;
+
+    private boolean controlShow = true;
 
     private Stage stage;
     private Skin skin;
@@ -55,6 +74,8 @@ public class GameScreen2 extends AbstractGameScreen {
 
     public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
     public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
+
+    private Window solarCellGuideWindow;
 
     private Label textBullet;
     private Label textBeam;
@@ -111,7 +132,7 @@ public class GameScreen2 extends AbstractGameScreen {
     private Texture dialogStory;
 
     private String text =
-            "\"ทุกคนรออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าไม่มีอันตราย\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
+            "\"ทุกคนรออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าไม่มีอันตราย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
 
     public QuestState questState = null;
 
@@ -125,8 +146,6 @@ public class GameScreen2 extends AbstractGameScreen {
     private BitmapFont font;
     private Window optionsWindow;
 
-    private Button buttonRule;
-    private Window ruleWindow;
     private Window chartWindow;
 
     private boolean animation_status = false;
@@ -167,12 +186,20 @@ public class GameScreen2 extends AbstractGameScreen {
     private boolean stageThreeClear;
     private boolean stageFourClear;
 
-    private Button buttonMission;
-
-    private boolean dialogStart;
+    private Label.LabelStyle labelStyle;
+    private Label.LabelStyle labelStyle2;
 
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
+
+    private TextureRegionDrawable pauseUp;
+    private TextureRegionDrawable toolUp;
+
+    private TextButton.TextButtonStyle buttonToolStyle;
+    private TextButton.TextButtonStyle buttonPauseStyle;
+
+    private boolean dialogStart;
+
 
     public GameScreen2(final Game game, final Window optionsWindow) {
         super(game);
@@ -187,26 +214,123 @@ public class GameScreen2 extends AbstractGameScreen {
 
         this.optionsWindow = optionsWindow;
 
-        TextButton.TextButtonStyle buttonToolStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
+        optionsWindow.setVisible(false);
+
+        dialogStory = new Texture("dialogStory.png");
+        dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        dialog = new Dialog(font, dialogStory, 65f, 120f);
+        dialog.setPosition(
+                SCENE_WIDTH / 2 - dialogStory.getWidth() * 0.5f,
+                SCENE_HEIGHT / 4 - dialogStory.getHeight() * 0.5f);
+
+        dialog.clearPages();
+        dialog.addWaitingPage(text);
+
+        stage.addActor(dialog);
+
+        createButton();
+        batch = new SpriteBatch();
+    }
+
+    private void createButton() {
+
+        buttonToolStyle = new TextButton.TextButtonStyle();
+        toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
         buttonToolStyle.up = toolUp;
         buttonToolStyle.down = toolUp.tint(Color.LIGHT_GRAY);
         buttonOption = new Button(buttonToolStyle);
         buttonOption.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 50);
 
-        TextButton.TextButtonStyle buttonRuleStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable ruleUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_pause"));
-        buttonRuleStyle.up = ruleUp;
-        buttonRuleStyle.down = ruleUp.tint(Color.LIGHT_GRAY);
-        buttonRule = new Button(buttonRuleStyle);
-        buttonRule.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
+        buttonPauseStyle = new TextButton.TextButtonStyle();
+        pauseUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_pause"));
+        buttonPauseStyle.up = pauseUp;
+        buttonPauseStyle.down = pauseUp.tint(Color.LIGHT_GRAY);
+        buttonPause = new Button(buttonPauseStyle);
+        buttonPause.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
+
+        buttonPlayStyle = new TextButton.TextButtonStyle();
+        playUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_play"));
+        buttonPlayStyle.up = playUp;
+        buttonPlayStyle.down = playUp.tint(Color.LIGHT_GRAY);
+        buttonPlay = new Button(buttonPlayStyle);
+        buttonPlay.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
+
+        buttonPlay.setVisible(false);
+
+        TextButton.TextButtonStyle buttonControlStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable ControlUp = new TextureRegionDrawable(Assets.instance.iconControl);
+        buttonControlStyle.up = ControlUp;
+        buttonControlStyle.down = ControlUp.tint(Color.LIGHT_GRAY);
+        buttonControl = new Button(buttonControlStyle);
+        buttonControl.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 150);
+
+        iconControl = new Button(buttonControlStyle);
+        iconControl.setPosition(SCENE_WIDTH / 6 + 30, 145);
+
+        iconControl.setVisible(false);
 
         TextButton.TextButtonStyle buttonMissionStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable missionUp = new TextureRegionDrawable(Assets.instance.iconMission);
         buttonMissionStyle.up = missionUp;
         buttonMissionStyle.down = missionUp.tint(Color.LIGHT_GRAY);
         buttonMission = new Button(buttonMissionStyle);
-        buttonMission.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 150);
+        buttonMission.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 200);
+
+        iconMission = new Button(buttonMissionStyle);
+        iconMission.setPosition(SCENE_WIDTH / 6 + 30, 145);
+        iconMission.setVisible(false);
+
+        TextButton.TextButtonStyle buttonGuideStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable GuideUp = new TextureRegionDrawable(Assets.instance.iconGuide);
+        buttonGuideStyle.up = GuideUp;
+        buttonGuideStyle.down = GuideUp.tint(Color.LIGHT_GRAY);
+        buttonGuide = new Button(buttonGuideStyle);
+        buttonGuide.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 250);
+
+        iconGuide = new Button(buttonGuideStyle);
+        iconGuide.setPosition(SCENE_WIDTH / 6 + 30, 145);
+        iconGuide.setVisible(false);
+
+        TextButton.TextButtonStyle buttonStatusStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable statusUp = new TextureRegionDrawable(Assets.instance.iconStatus);
+        buttonStatusStyle.up = statusUp;
+        buttonStatusStyle.down = statusUp.tint(Color.LIGHT_GRAY);
+        buttonStatus = new Button(buttonStatusStyle);
+        buttonStatus.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 300);
+
+        iconStatus = new Button(buttonStatusStyle);
+        iconStatus.setPosition(SCENE_WIDTH / 6 + 30, 145);
+        iconStatus.setVisible(false);
+
+        TextButton.TextButtonStyle buttonControlWindowStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable controlWindowUp = new TextureRegionDrawable(Assets.instance.controlWindow);
+        buttonControlWindowStyle.up = controlWindowUp;
+        buttonControlWindowStyle.down = controlWindowUp.tint(Color.LIGHT_GRAY);
+        buttonControlWindow = new Button(buttonControlWindowStyle);
+        buttonControlWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH + 40, SCENE_HEIGHT - 350);
+
+        TextButton.TextButtonStyle iconHumanStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable humanUp = new TextureRegionDrawable(Assets.instance.iconHuman);
+        iconHumanStyle.up = humanUp;
+        iconHumanStyle.over = humanUp.tint(Color.LIGHT_GRAY);
+        iconHuman = new Button(iconHumanStyle);
+
+        TextButton.TextButtonStyle iconItemStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable itemUp = new TextureRegionDrawable(Assets.instance.iconItem);
+        iconItemStyle.up = itemUp;
+        iconItemStyle.over = itemUp.tint(Color.LIGHT_GRAY);
+        iconItem = new Button(iconItemStyle);
+
+        TextButton.TextButtonStyle iconEnergyLessStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable energyLessUp = new TextureRegionDrawable(Assets.instance.iconEnergyLess);
+        iconEnergyLessStyle.up = energyLessUp;
+        iconEnergyLessStyle.over = energyLessUp.tint(Color.LIGHT_GRAY);
+        iconEnergyLess = new Button(iconEnergyLessStyle);
+
+        iconHuman.setVisible(false);
+        iconItem.setVisible(false);
+        iconEnergyLess.setVisible(false);
 
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
         buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
@@ -230,48 +354,49 @@ public class GameScreen2 extends AbstractGameScreen {
 
         buttonRefuse.setVisible(false);
 
-        ruleWindow = createRuleWindow();
-        ruleWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - ruleWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
-        ruleWindow.addAction(Actions.sequence(Actions.visible(false), Actions.fadeIn(0.2f)));
-        ruleWindow.setVisible(false);
-
         chartWindow = createChartWindow();
         chartWindow.setVisible(false);
 
         statusWindow = createStatusWindow();
         statusWindow.setVisible(false);
 
+        solarCellGuideWindow = createSolarCellGuideWindow();
+        solarCellGuideWindow.setVisible(false);
+
         missionWindow = createMissionWindow();
         missionWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
+        missionWindow.setVisible(false);
 
         optionsWindow.setVisible(false);
 
-        dialogStory = new Texture("dialogStory.png");
-        dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
-        dialog = new Dialog(font, dialogStory, 65f, 120f);
-        dialog.setPosition(
-                SCENE_WIDTH / 2 - dialogStory.getWidth() * 0.5f,
-                SCENE_HEIGHT / 4 - dialogStory.getHeight() * 0.5f);
-
-        dialog.clearPages();
-        dialog.addWaitingPage(text);
+        dialog.hide();
 
         stage.addActor(dialog);
 
         stage.addActor(buttonOption);
-        stage.addActor(buttonRule);
         stage.addActor(buttonAgree);
         stage.addActor(buttonRefuse);
+        stage.addActor(buttonMission);
+        stage.addActor(buttonControl);
+        stage.addActor(buttonStatus);
+        stage.addActor(buttonGuide);
+        stage.addActor(buttonControlWindow);
+        stage.addActor(iconHuman);
+        stage.addActor(iconItem);
+        stage.addActor(buttonPlay);
+        stage.addActor(buttonPause);
+        stage.addActor(iconEnergyLess);
+        stage.addActor(iconGuide);
+        stage.addActor(iconControl);
+        stage.addActor(iconMission);
+        stage.addActor(iconStatus);
 
         stage.addActor(optionsWindow);
-        stage.addActor(ruleWindow);
         stage.addActor(chartWindow);
         stage.addActor(statusWindow);
+        stage.addActor(solarCellGuideWindow);
         stage.addActor(missionWindow);
 
         buttonOption.addListener(new ClickListener() {
@@ -284,25 +409,122 @@ public class GameScreen2 extends AbstractGameScreen {
             }
         });
 
-        buttonRule.addListener(new ClickListener() {
+        buttonPause.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ruleWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - ruleWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - ruleWindow.getHeight() / 2);
-                ruleWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                buttonPause.setVisible(false);
+                buttonPlay.setVisible(true);
                 worldController.level.player.timeStop = true;
+            }
+        });
+
+        buttonPlay.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                buttonPlay.setVisible(false);
+                buttonPause.setVisible(true);
+                worldController.level.player.timeStop = false;
             }
         });
 
         buttonMission.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                missionWindow.pack();
                 missionWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - buttonMission.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - buttonMission.getHeight() / 2);
+                        Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
                 missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
                 worldController.level.player.timeStop = true;
+            }
+        });
+
+        iconMission.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                missionWindow.pack();
+                missionWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
+                missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                worldController.level.player.timeStop = true;
+            }
+        });
+
+        buttonGuide.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                solarCellGuideWindow.pack();
+                worldController.level.player.timeStop = true;
+                solarCellGuideWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - solarCellGuideWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - solarCellGuideWindow.getHeight() / 2);
+                solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            }
+        });
+
+        iconGuide.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                solarCellGuideWindow.pack();
+                worldController.level.player.timeStop = true;
+                solarCellGuideWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - solarCellGuideWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - solarCellGuideWindow.getHeight() / 2);
+                solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            }
+        });
+
+        buttonControl.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (controlShow) {
+                    controlShow = false;
+                    buttonControlWindow.setVisible(false);
+                } else {
+                    controlShow = true;
+                    buttonControlWindow.setVisible(true);
+                }
+            }
+        });
+
+        buttonControlWindow.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (controlShow) {
+                    controlShow = false;
+                    buttonControlWindow.setVisible(false);
+                } else {
+                    controlShow = true;
+                    buttonControlWindow.setVisible(true);
+                }
+            }
+        });
+
+        iconControl.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (controlShow) {
+                    controlShow = false;
+                    buttonControlWindow.setVisible(false);
+                } else {
+                    controlShow = true;
+                    buttonControlWindow.setVisible(true);
+                }
+            }
+        });
+
+        buttonStatus.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                status();
+            }
+        });
+
+        iconStatus.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                status();
             }
         });
 
@@ -405,11 +627,6 @@ public class GameScreen2 extends AbstractGameScreen {
             }
         });
 
-        createButton();
-        batch = new SpriteBatch();
-    }
-
-    private void createButton() {
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
@@ -425,46 +642,33 @@ public class GameScreen2 extends AbstractGameScreen {
         buttonSunStyle.up = iconSun;
         buttonSunStyle.over = iconSun.tint(Color.LIME);
         Button iconSunButton = new Button(buttonSunStyle);
-        iconSunButton.setPosition(50, SCENE_HEIGHT - 50);
+        iconSunButton.setPosition(125, SCENE_HEIGHT - 50);
 
         textSun = new Label("", skin);
         textSun.setColor(0, 0, 0, 1);
         textSun.setStyle(labelStyle);
         textSun.setFontScale(1f, 1f);
-        textSun.setPosition(75, SCENE_HEIGHT - 42);
+        textSun.setPosition(150, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonTemperatureStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconTemperature = new TextureRegionDrawable(Assets.instance.iconTemperature);
         buttonTemperatureStyle.up = iconTemperature;
         buttonTemperatureStyle.over = iconTemperature.tint(Color.LIME);
         Button iconTemperatureButton = new Button(buttonTemperatureStyle);
-        iconTemperatureButton.setPosition(150, SCENE_HEIGHT - 50);
+        iconTemperatureButton.setPosition(225, SCENE_HEIGHT - 50);
 
         textTemperature = new Label("", skin);
         textTemperature.setColor(0, 0, 0, 1);
         textTemperature.setStyle(labelStyle);
         textTemperature.setFontScale(1f, 1f);
-        textTemperature.setPosition(175, SCENE_HEIGHT - 42);
+        textTemperature.setPosition(250, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonCircleStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconCircle = new TextureRegionDrawable(Assets.instance.iconCircle);
         buttonCircleStyle.up = iconCircle;
         buttonCircleStyle.over = iconCircle.tint(Color.LIME);
         Button iconCircleButton = new Button(buttonCircleStyle);
-        iconCircleButton.setPosition(195, SCENE_HEIGHT - 40);
-
-        TextButton.TextButtonStyle buttonBowStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable iconBow = new TextureRegionDrawable(Assets.instance.iconBow);
-        buttonBowStyle.up = iconBow;
-        buttonBowStyle.over = iconBow.tint(Color.LIME);
-        Button iconBowButton = new Button(buttonBowStyle);
-        iconBowButton.setPosition(225, SCENE_HEIGHT - 50);
-
-        textBullet = new Label("", skin);
-        textBullet.setColor(0, 0, 0, 1);
-        textBullet.setStyle(labelStyle);
-        textBullet.setFontScale(1f, 1f);
-        textBullet.setPosition(250, SCENE_HEIGHT - 42);
+        iconCircleButton.setPosition(275, SCENE_HEIGHT - 40);
 
         TextButton.TextButtonStyle buttonSwordStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconSword = new TextureRegionDrawable(Assets.instance.iconSword);
@@ -561,7 +765,7 @@ public class GameScreen2 extends AbstractGameScreen {
         stage.addActor(iconTemperatureButton);
         stage.addActor(iconCircleButton);
 
-        stage.addActor(iconBowButton);
+        //  stage.addActor(iconBowButton);
         stage.addActor(iconSwordButton);
         stage.addActor(iconTrapButton);
         stage.addActor(iconTimeButton);
@@ -572,7 +776,7 @@ public class GameScreen2 extends AbstractGameScreen {
 
         stage.addActor(textSun);
         stage.addActor(textTemperature);
-        stage.addActor(textBullet);
+        //    stage.addActor(textBullet);
         stage.addActor(textBeam);
         stage.addActor(textTrap);
         stage.addActor(textTime);
@@ -581,6 +785,86 @@ public class GameScreen2 extends AbstractGameScreen {
         stage.addActor(energyLevel3);
         stage.addActor(textLiking);
     }
+
+    private Window createSolarCellGuideWindow() {
+        Window.WindowStyle style = new Window.WindowStyle();
+        style.background = new NinePatchDrawable(Assets.instance.window);
+//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
+        style.titleFont = font;
+        style.titleFontColor = Color.WHITE;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = Color.WHITE;
+
+        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
+        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
+        buttonChartStyle.up = buttonRegion;
+        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
+
+        Button closeButton = new Button(buttonChartStyle);
+
+        Label text1 = new Label("การทำงานของระบบโซล่าเซลล์", skin);
+        Label text2 = new Label("ตัวแผงโซล่าเซลล์จะคอยดูดซับพลังงานแสงอาทิตย์เปลี่ยนเป็นพลังงานไฟฟ้า", skin);
+        Label text3 = new Label("โดยจะมีชาร์จคอนโทรลเลอร์ทำหน้าที่ควบคุมการชาร์จไฟจากแผงโซลาเซลล์ลงสู่แบตเตอรี่", skin);
+        Label text4 = new Label("ชาร์จคอนโทรลเลอร์ยังทำหน้าที่ควบคุมการจ่ายไฟออกจากแบตเตอรี่", skin);
+        Label text5 = new Label("ไฟฟ้าที่ผลิตได้จากแผงโซล่าเซลล์จะเป็นไฟฟ้ากระแสตรง", skin);
+        Label text6 = new Label("ดังนั้นอุปกรณ์ไฟฟ้าภายในบ้านซึ่งใช้ไฟฟ้ากระแสสลับ จึงต้องต่อผ่านเครื่องอินเวอร์เตอร์เพื่อเปลี่ยนเป็นไฟฟ้ากระแสสลับก่อน", skin);
+        Label text7 = new Label("และเนื่องจากอินเวอร์เตอร์ รวมทั้งชาร์จคอนโทรลเลอร์ต้องใช้ไฟฟ้าในการทำงาน จำเป็นต้องมีพลังงานภายในแบตเตอรี่ก่อนเล็กน้อย", skin);
+        Label text8 = new Label("", skin);
+        Label text9 = new Label("", skin);
+
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
+        text4.setStyle(labelStyle);
+        text5.setStyle(labelStyle);
+        text6.setStyle(labelStyle);
+        text7.setStyle(labelStyle);
+        text8.setStyle(labelStyle);
+        text9.setStyle(labelStyle);
+
+        final Window solarCellGuideWindow = new Window("ข้อมูลระบบโซล่าเซลล์", style);
+        solarCellGuideWindow.setModal(true);
+        solarCellGuideWindow.padTop(45);
+        solarCellGuideWindow.padLeft(40);
+        solarCellGuideWindow.padRight(40);
+        solarCellGuideWindow.padBottom(20);
+        solarCellGuideWindow.getTitleLabel().setAlignment(Align.center);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text1);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text2);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text3);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text4);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text5);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text6);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text7);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text8);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(text9);
+        solarCellGuideWindow.row().padTop(10);
+        solarCellGuideWindow.add(closeButton).colspan(3);
+        solarCellGuideWindow.pack();
+
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                solarCellGuideWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                worldController.level.player.solarCellGuideWindow = false;
+                worldController.level.player.timeStop = false;
+            }
+        });
+
+        return solarCellGuideWindow;
+    }
+
 
     private Window createChartWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
@@ -805,92 +1089,6 @@ public class GameScreen2 extends AbstractGameScreen {
         return statusWindow;
     }
 
-    private Window createRuleWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new NinePatchDrawable(Assets.instance.window);
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.WHITE;
-
-        Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonRuleStyle.up = buttonRegion;
-        buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonRuleStyle);
-//        Button ruleIcon = new Button(buttonPauseStyle);
-//        Button toolIcon = new Button(buttonToolStyle);
-
-        Label text1 = new Label("กด c เพื่อฟัน", skin);
-        Label text2 = new Label("กด x เพื่อยิงธนู (ยิงธนู 1 ดอกใช้พลังงานไฟฟ้า 200 จูล)", skin);
-        Label text3 = new Label("กด Z เพื่อวางกับดักสปริง เมื่อมอนสเตอร์เดินมาชนจะกระเด็นถอยหลัง (วางกับดัก 1 ครั้งใช้พลังงานไฟฟ้า 1000 จูล)", skin);
-        Label text4 = new Label("กด W เพื่อฟันคลื่นดาบพลังสูง (ฟัน 1 ครั้งใช้พลังงานไฟฟ้า 3000 จูล)", skin);
-        Label text5 = new Label("กด A เพื่อกระทำกับวัตถุ หรือคุยกับประชาชน", skin);
-        Label text6 = new Label("กด S เพื่อดูผังการใช้พลังงานแบบละเอียด", skin);
-        Label text7 = new Label("กด D เพื่ออ่านวิธีการทำงานของโซล่าเซลล์", skin);
-        //  Label text8 = new Label("เพื่อหยุดเกม และอ่านวิธีควบคุม", skin);
-        // Label text9 = new Label("เพื่อเปิดเมนูปรับแต่ง", skin);
-        Label text8 = new Label("กดปุ่มลูกศรบนแป้นพิมพ์เพื่อเคลื่อนที่ตัวละคร", skin);
-
-        text1.setStyle(labelStyle);
-        text2.setStyle(labelStyle);
-        text3.setStyle(labelStyle);
-        text4.setStyle(labelStyle);
-        text5.setStyle(labelStyle);
-        text6.setStyle(labelStyle);
-        text7.setStyle(labelStyle);
-        //   text8.setStyle(labelStyle);
-        //   text9.setStyle(labelStyle);
-        text8.setStyle(labelStyle);
-
-        final Window ruleWindow = new Window("การควบคุม", style);
-        ruleWindow.setModal(true);
-        ruleWindow.setSkin(skin);
-        ruleWindow.padTop(60);
-        ruleWindow.padLeft(40);
-        ruleWindow.padRight(40);
-        ruleWindow.padBottom(20);
-        ruleWindow.getTitleLabel().setAlignment(Align.center);
-        ruleWindow.add(text1);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text2);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text3);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text4);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text5);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text6);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text7);
-        ruleWindow.row().padTop(10);
-        ruleWindow.add(text8);
-        //   ruleWindow.add(ruleIcon).right();
-        //  ruleWindow.add(text8).left();
-        //   ruleWindow.row().padTop(10);
-        //   ruleWindow.add(toolIcon).right();
-        //   ruleWindow.add(text9).left();
-        ruleWindow.row().padTop(20);
-        ruleWindow.add(closeButton).colspan(3);
-        ruleWindow.pack();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                ruleWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                if (!dialogShow) {
-                    worldController.level.player.timeStop = false;
-                }
-            }
-        });
-
-        return ruleWindow;
-    }
-
     private Window createMissionWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.window);
@@ -907,9 +1105,6 @@ public class GameScreen2 extends AbstractGameScreen {
         buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
 
         Button closeButton = new Button(buttonRuleStyle);
-//        Button ruleIcon = new Button(buttonPauseStyle);
-//        Button toolIcon = new Button(buttonToolStyle);
-
         Label text1 = new Label("ภารกิจแรก กำจัดมอนสเตอร์ในแผนที่ให้ครบทุกตัวซึ่งจะได้รับพลังงานเพื่อเริ่มต้นการทำงานของโซล่าเซลล์", skin);
         Label text2 = new Label("ภารกิจที่สอง หลังจากเสร็จสิ้นภารกิจแรกประชาชนจะปรากฎตัวออกมา ให้ค้นหาประชาชนในแผนที่ให้ครบ", skin);
         Label text3 = new Label("ภารกิจที่สาม หลังจากเสร็จสิ้นภารกิจที่สองให้พาประชาชนไปยังที่หลบภัย", skin);
@@ -935,11 +1130,6 @@ public class GameScreen2 extends AbstractGameScreen {
         missionWindow.add(text3);
         missionWindow.row().padTop(10);
         missionWindow.add(text4);
-        //   ruleWindow.add(ruleIcon).right();
-        //  ruleWindow.add(text8).left();
-        //   ruleWindow.row().padTop(10);
-        //   ruleWindow.add(toolIcon).right();
-        //   ruleWindow.add(text9).left();
         missionWindow.row().padTop(20);
         missionWindow.add(closeButton).colspan(3);
         missionWindow.pack();
@@ -948,9 +1138,7 @@ public class GameScreen2 extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 missionWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                if (!dialogStart) {
-                    ruleWindow.addAction(Actions.sequence(Actions.fadeIn(0.2f), Actions.visible(true)));
-                }else if(!dialogShow){
+                if(!dialogShow){
                     worldController.level.player.timeStop = false;
                 }
             }
@@ -1050,7 +1238,6 @@ public class GameScreen2 extends AbstractGameScreen {
     private void textIconDraw() {
         textSun.setText(String.format(" %d", (int) SunBar.instance.sunTime) + " นาฬิกา");
         textTemperature.setText(String.format(" %d", (int) TemperatureBar.instance.Temperature));
-        textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
         textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
         textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
         textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
