@@ -383,7 +383,7 @@ public class Assets implements Disposable, AssetErrorListener {
         FreeTypeFontGenerator generator2 = new FreeTypeFontGenerator(Gdx.files.internal("TST cheer thai v.1.ttf"));
         FreeTypeFontGenerator generator3 = new FreeTypeFontGenerator(Gdx.files.internal("TST cheer thai v.2.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 20;
+        parameter.size = 18;
         parameter.characters = characters;
         newFont = generator2.generateFont(parameter); // font size 12 pixels
         newFont.getData().setLineHeight(25f);

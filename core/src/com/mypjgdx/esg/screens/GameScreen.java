@@ -47,9 +47,13 @@ public class GameScreen extends AbstractGameScreen {
     private Button iconItem;
     private Button buttonControlWindow;
     private Button buttonControl;
+    private Button iconControl;
     private Button buttonMission;
+    private Button iconMission;
     private Button buttonGuide;
+    private Button iconGuide;
     private Button buttonStatus;
+    private Button iconStatus;
     private WorldController worldController;
     private WorldRenderer worldRenderer;
 
@@ -195,7 +199,7 @@ public class GameScreen extends AbstractGameScreen {
     private Window missionWindow;
 
     private String text =
-            "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
+            "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"(กด     เพื่อตรวจสอบภารกิจ และกด Enter เพื่อเริ่มเกม)\"";
 
     private boolean dialogEnemy;
     private boolean dialogCitizen;
@@ -228,9 +232,9 @@ public class GameScreen extends AbstractGameScreen {
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
 
-        font2 = new BitmapFont(Gdx.files.internal("thai24.fnt"));
+        font2 = Assets.instance.newFont;
         font2.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font2.setColor(Color.BLACK);
+        font2.setColor(Color.WHITE);
 
         dialogStory = new Texture("dialogStory.png");
         dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -277,12 +281,20 @@ public class GameScreen extends AbstractGameScreen {
         buttonControl = new Button(buttonControlStyle);
         buttonControl.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 150);
 
+        iconControl = new Button(buttonControlStyle);
+        iconControl.setPosition(SCENE_WIDTH / 6 + 20, 145);
+
+        iconControl.setVisible(false);
+
         TextButton.TextButtonStyle buttonMissionStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable missionUp = new TextureRegionDrawable(Assets.instance.iconMission);
         buttonMissionStyle.up = missionUp;
         buttonMissionStyle.down = missionUp.tint(Color.LIGHT_GRAY);
         buttonMission = new Button(buttonMissionStyle);
         buttonMission.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 200);
+
+        iconMission = new Button(buttonMissionStyle);
+        iconMission.setPosition(SCENE_WIDTH / 6 + 30, 145);
 
         TextButton.TextButtonStyle buttonGuideStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable GuideUp = new TextureRegionDrawable(Assets.instance.iconGuide);
@@ -291,12 +303,18 @@ public class GameScreen extends AbstractGameScreen {
         buttonGuide = new Button(buttonGuideStyle);
         buttonGuide.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 250);
 
+        iconGuide = new Button(buttonGuideStyle);
+        iconGuide.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 250);
+
         TextButton.TextButtonStyle buttonStatusStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable statusUp = new TextureRegionDrawable(Assets.instance.iconStatus);
         buttonStatusStyle.up = statusUp;
         buttonStatusStyle.down = statusUp.tint(Color.LIGHT_GRAY);
         buttonStatus = new Button(buttonStatusStyle);
         buttonStatus.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 300);
+
+        iconStatus = new Button(buttonStatusStyle);
+        iconStatus.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 300);
 
         TextButton.TextButtonStyle buttonControlWindowStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable controlWindowUp = new TextureRegionDrawable(Assets.instance.controlWindow);
@@ -386,6 +404,10 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(buttonPlay);
         stage.addActor(buttonPause);
         stage.addActor(iconEnergyLess);
+        stage.addActor(iconGuide);
+        stage.addActor(iconControl);
+        stage.addActor(iconMission);
+        stage.addActor(iconStatus);
 
         stage.addActor(optionsWindow);
         stage.addActor(chartWindow);
@@ -663,8 +685,8 @@ public class GameScreen extends AbstractGameScreen {
         statusWindow.add(closeButton).colspan(3);
         statusWindow.pack();
 
-        statusWindow.setSize(500, 500);
-        statusWindow.debugAll();
+//        statusWindow.setSize(500, 500);
+//        statusWindow.debugAll();
 
         closeButton.addListener(new ClickListener() {
             @Override
