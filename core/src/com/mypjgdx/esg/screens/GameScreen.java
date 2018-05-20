@@ -1926,7 +1926,7 @@ public class GameScreen extends AbstractGameScreen {
         stage.dispose();
         dialogStory.dispose();
         worldRenderer.dispose();
-        font.dispose();
+        //font.dispose();
         bg.dispose();
     }
 
