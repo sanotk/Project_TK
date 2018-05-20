@@ -1660,6 +1660,8 @@ public class GameScreen extends AbstractGameScreen {
                     dialogShow = true;
                     stageTwoAfter = true;
                     iconGuide.setVisible(true);
+                    textMission2.setStyle(labelStyle2);
+                    textMission3.setText("ภารกิจที่สาม เชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานให้กับสถานที่หลบภัย");
                 }
             } else if (!dialogDoor4 && stageFourClear) {
                 dialogDoor4 = true;
@@ -1736,8 +1738,6 @@ public class GameScreen extends AbstractGameScreen {
             dialog.clearPages();
             dialog.addWaitingPage(text);
             dialogShow = true;
-            textMission2.setStyle(labelStyle2);
-            textMission3.setText("ภารกิจที่สาม เชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานให้กับสถานที่หลบภัย");
             iconMission.setVisible(true);
         }
 
