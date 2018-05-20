@@ -76,7 +76,7 @@ public class GameScreen2 extends AbstractGameScreen {
     public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
     public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
 
-    private Window solarCellGuideWindow;
+    private Window guideWindow;
 
     private Label textBullet;
     private Label textBeam;
@@ -363,8 +363,8 @@ public class GameScreen2 extends AbstractGameScreen {
         statusWindow = createStatusWindow();
         statusWindow.setVisible(false);
 
-        solarCellGuideWindow = createSolarCellGuideWindow();
-        solarCellGuideWindow.setVisible(false);
+        guideWindow = createGuideWindow();
+        guideWindow.setVisible(false);
 
         missionWindow = createMissionWindow();
         missionWindow.setPosition(
@@ -399,7 +399,7 @@ public class GameScreen2 extends AbstractGameScreen {
         stage.addActor(optionsWindow);
         stage.addActor(chartWindow);
         stage.addActor(statusWindow);
-        stage.addActor(solarCellGuideWindow);
+        stage.addActor(guideWindow);
         stage.addActor(missionWindow);
 
         buttonOption.addListener(new ClickListener() {
@@ -457,24 +457,24 @@ public class GameScreen2 extends AbstractGameScreen {
         buttonGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                solarCellGuideWindow.pack();
+                guideWindow.pack();
                 worldController.level.player.timeStop = true;
-                solarCellGuideWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - solarCellGuideWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - solarCellGuideWindow.getHeight() / 2);
-                solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                guideWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - guideWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - guideWindow.getHeight() / 2);
+                guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
 
         iconGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                solarCellGuideWindow.pack();
+                guideWindow.pack();
                 worldController.level.player.timeStop = true;
-                solarCellGuideWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - solarCellGuideWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - solarCellGuideWindow.getHeight() / 2);
-                solarCellGuideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                guideWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - guideWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - guideWindow.getHeight() / 2);
+                guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
 
@@ -789,7 +789,7 @@ public class GameScreen2 extends AbstractGameScreen {
         stage.addActor(textLiking);
     }
 
-    private Window createSolarCellGuideWindow() {
+    private Window createGuideWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
@@ -827,47 +827,46 @@ public class GameScreen2 extends AbstractGameScreen {
         text8.setStyle(labelStyle);
         text9.setStyle(labelStyle);
 
-        final Window solarCellGuideWindow = new Window("ข้อมูลระบบโซล่าเซลล์", style);
-        solarCellGuideWindow.setModal(true);
-        solarCellGuideWindow.padTop(45);
-        solarCellGuideWindow.padLeft(40);
-        solarCellGuideWindow.padRight(40);
-        solarCellGuideWindow.padBottom(20);
-        solarCellGuideWindow.getTitleLabel().setAlignment(Align.center);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text1);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text2);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text3);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text4);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text5);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text6);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text7);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text8);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(text9);
-        solarCellGuideWindow.row().padTop(10);
-        solarCellGuideWindow.add(closeButton).colspan(3);
-        solarCellGuideWindow.pack();
+        final Window guideWindow = new Window("แนะนำ", style);
+        guideWindow.setModal(true);
+        guideWindow.padTop(45);
+        guideWindow.padLeft(40);
+        guideWindow.padRight(40);
+        guideWindow.padBottom(20);
+        guideWindow.getTitleLabel().setAlignment(Align.center);
+        guideWindow.row().padTop(10);
+        guideWindow.add(text1);
+        guideWindow.row().padTop(10);
+        guideWindow.add(text2);
+        guideWindow.row().padTop(10);
+        guideWindow.add(text3);
+        guideWindow.row().padTop(10);
+        guideWindow.add(text4);
+        guideWindow.row().padTop(10);
+        guideWindow.add(text5);
+        guideWindow.row().padTop(10);
+        guideWindow.add(text6);
+        guideWindow.row().padTop(10);
+        guideWindow.add(text7);
+        guideWindow.row().padTop(10);
+        guideWindow.add(text8);
+        guideWindow.row().padTop(10);
+        guideWindow.add(text9);
+        guideWindow.row().padTop(10);
+        guideWindow.add(closeButton).colspan(3);
+        guideWindow.pack();
 
         closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                solarCellGuideWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+                guideWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
                 worldController.level.player.solarCellGuideWindow = false;
                 worldController.level.player.timeStop = false;
             }
         });
 
-        return solarCellGuideWindow;
+        return guideWindow;
     }
-
 
     private Window createChartWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
