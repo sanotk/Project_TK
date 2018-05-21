@@ -1826,8 +1826,10 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if (!noItem && stageTwoAfter) {
-            iconItem.setVisible(true);
+        if (!noItem) {
+            if(stageTwoAfter || level1.door.nearPlayer()){
+                iconItem.setVisible(true);
+            }
         }
 
         if(player.energyLess){
