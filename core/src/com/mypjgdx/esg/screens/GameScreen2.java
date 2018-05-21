@@ -1304,8 +1304,9 @@ public class GameScreen2 extends AbstractGameScreen {
                     dialogEnemy = true;
                     dialogAll();
                     String text =
-                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว (กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                     dialog.addWaitingPage(text);
+                    iconMission.setVisible(false);
                 }
             }
         }
@@ -1495,6 +1496,21 @@ public class GameScreen2 extends AbstractGameScreen {
                 && !player.questScreen5
                 && !player.questScreen6;
 
+        for (Citizen citizen : level2.citizens) {
+            if (player.bounds.overlaps(citizen.bounds) && !citizen.quest) {
+                iconHuman.setVisible(true);
+            }
+        }
+
+        if (!noItem) {
+            iconItem.setVisible(true);
+        }
+
+        if(player.energyLess){
+            iconEnergyLess.setVisible(true);
+            delay();
+        }
+
         if (player.status_find && noCitizen && noItem) {
             player.status_find = false;
             player.status_windows_link = false;
@@ -1506,6 +1522,17 @@ public class GameScreen2 extends AbstractGameScreen {
             player.isSwitch = true;
             player.status_find = false;
         }
+    }
+
+    public void delay(){
+        float delay = 0.3f; // seconds
+        Timer.schedule(new Timer.Task(){
+            @Override
+            public void run() {
+                iconEnergyLess.setVisible(false);
+                worldController.level.player.energyLess = false;
+            }
+        }, delay);
     }
 
     private void chartStatus() {
