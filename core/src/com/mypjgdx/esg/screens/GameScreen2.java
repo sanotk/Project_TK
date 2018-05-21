@@ -1392,26 +1392,26 @@ public class GameScreen2 extends AbstractGameScreen {
 
         if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
             String text =
-                    "\"ขอเปิดเครื่องปรับอากาศ 1 ชั่วโมง เครื่องปรับอากาศใช้กำลังไฟฟ้า \""
+                    "\"ผมเป็นคนไม่ชอบความร้อน ขอเปิดแอร์ได้รึเปล่า\""
                             + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า " + level2.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
             dialogCitizenDetail();
             dialog.addWaitingPage(text);
             citizenQuest = systemWindow.citizen1;
         } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
             String text =
-                    "\"ขอใช้ไมโครเวฟอุ่นอาหาร 3 นาที " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
+                    "\"ผมหิวมาก อยากใช้ไมโครเวฟอุ่นอาหารแช่แข็ง " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
             dialogCitizenDetail();
             dialog.addWaitingPage(text);
             citizenQuest = systemWindow.citizen2;
         } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
             String text =
-                    "\"ขอใช้งานคอมพิวเตอร์ 1 ชั่วโมง\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
+                    "\"น่าเบื่อ ผมอยากใช้งานคอมพิวเตอร์\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
             dialogCitizenDetail();
             dialog.addWaitingPage(text);
             citizenQuest = systemWindow.citizen3;
         } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
             String text =
-                    "\"ขอใช้งานตู้เย็น\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
+                    "\"ผมคิดว่าจะนำเสบียงอาหารที่เหลือไปแช่ตู้เย็นจึงต้องการเสียบไฟ\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
             dialogCitizenDetail();
             dialog.addWaitingPage(text);
             citizenQuest = systemWindow.citizen4;
@@ -1419,13 +1419,13 @@ public class GameScreen2 extends AbstractGameScreen {
             player.timeStop = true;
             player.status_find = false;
             String text =
-                    "\"ขอหุงข้าวใช้เวลา 30 นาที\" " + "\n\"( หม้อหุงข้าวใช้กำลังไฟฟ้า " + level2.riceCooker.getEnergyBurn() + " วัตต์ )\" ";
+                    "\"พวกเราหลายคนน่าจะเริ่มหิวกันแล้ว ผมอยากหุงข้าวกินกันกับทุกคน\" " + "\n\"( หม้อหุงข้าวใช้กำลังไฟฟ้า " + level2.riceCooker.getEnergyBurn() + " วัตต์ )\" ";
             dialogCitizenDetail();
             citizenQuest = systemWindow.citizen5;
             dialog.addWaitingPage(text);
         } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
             String text =
-                    "\"ขอดูโทรทัศน์ 1 ชั่วโมง\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level2.television.getEnergyBurn() + " วัตต์ )\" ";
+                    "\"ผมขอเปิดโทรทัศน์ดูได้รึเปล่า\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level2.television.getEnergyBurn() + " วัตต์ )\" ";
             dialogCitizenDetail();
             dialog.addWaitingPage(text);
             citizenQuest = systemWindow.citizen6;
