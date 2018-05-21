@@ -42,6 +42,6 @@ public class Refrigerator extends Item{
 
     @Override
     public void setTimeCount() {
-        timeCount = 300;
+        timeCount = 9999;
     }
 }

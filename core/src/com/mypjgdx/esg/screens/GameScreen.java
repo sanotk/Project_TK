@@ -1897,6 +1897,8 @@ public class GameScreen extends AbstractGameScreen {
     @Override
     public void render(float deltaTime) {
 
+        Player player = worldController.level.player;
+
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -1906,6 +1908,15 @@ public class GameScreen extends AbstractGameScreen {
         dialogDraw();
         checkStageAndCount();
         checkWindow();
+
+        if(!player.timeStop && !player.timeClear){
+            SunBar.instance.timeCount += 1*deltaTime;
+        }
+
+        if(SunBar.instance.timeCount >= 60){
+            SunBar.instance.sunTime += 1;
+            SunBar.instance.timeCount = 0;
+        }
 
         if(!dialogShow){
             iconMission.setVisible(false);

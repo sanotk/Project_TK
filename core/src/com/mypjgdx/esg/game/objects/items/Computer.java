@@ -42,6 +42,6 @@ public class Computer extends Item{
 
     @Override
     public void setTimeCount() {
-        timeCount = 120;
+        timeCount = 9999;
     }
 }

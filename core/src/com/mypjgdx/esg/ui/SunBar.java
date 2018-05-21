@@ -7,6 +7,8 @@ public class SunBar implements Json.Serializable {
 
     public static final SunBar instance = new SunBar();
 
+    public final int MAX_COUNT_TIME = 60;
+    public float timeCount = 0;
     public float sunTime = 11;
 
     private SunBar() {

@@ -50,7 +50,7 @@ public class Fan extends Item{
 
     @Override
     public void setTimeCount() {
-        timeCount = 300;
+        timeCount = 9999;
     }
 
 }
