@@ -1521,7 +1521,9 @@ public class GameScreen2 extends AbstractGameScreen {
             delay();
         }
 
-        if (player.status_find && noCitizen && noItem) {
+        if (noItem && noCitizen) {
+            iconHuman.setVisible(false);
+            iconItem.setVisible(false);
             player.status_find = false;
             player.status_windows_link = false;
         }
