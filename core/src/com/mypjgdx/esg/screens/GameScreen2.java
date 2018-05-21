@@ -1411,7 +1411,7 @@ public class GameScreen2 extends AbstractGameScreen {
             citizenQuest = systemWindow.citizen3;
         } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
             String text =
-                    "\"ผมคิดว่าจะนำเสบียงอาหารที่เหลือไปแช่ตู้เย็นจึงต้องการเสียบไฟ\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
+                    "\"ผมคิดว่าจะนำเสบียงอาหารที่เหลือไปแช่ตู้เย็นจึงต้องการเสียบปลั๊ก\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
             dialogCitizenDetail();
             dialog.addWaitingPage(text);
             citizenQuest = systemWindow.citizen4;
