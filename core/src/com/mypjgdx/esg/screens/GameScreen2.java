@@ -939,7 +939,9 @@ public class GameScreen2 extends AbstractGameScreen {
                 stageFourClear = true;
                 worldController.level.player.timeStop = true;
                 String text =
-                        "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
+                        "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\"(กดปุ่มตกลงเพื่อเข้าไปยังห้องถัดไป หรือกดปุ่มปฎิเสธเพื่อบันทึกและออกไปหน้าเมนู)\"";
+                buttonAgree.setVisible(true);
+                buttonRefuse.setVisible(true);
                 dialog.show();
                 dialog.clearPages();
                 dialog.addWaitingPage(text);
@@ -1297,8 +1299,6 @@ public class GameScreen2 extends AbstractGameScreen {
                 delayMission();
             } else if (animation_status && stageThreeClear && !dialogDoor4) {
                 dialogDoor4 = true;
-                player.timeStop = true;
-                player.timeClear = true;
                 chartStatus();
             }
         }
@@ -1575,6 +1575,8 @@ public class GameScreen2 extends AbstractGameScreen {
         textChart5.setText(textString4);
         textChart6.setText(textString5);
         textChart7.setText(textString6);
+        buttonAgree.setVisible(true);
+        buttonRefuse.setVisible(true);
         chartWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
