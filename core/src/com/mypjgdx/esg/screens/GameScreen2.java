@@ -1231,6 +1231,20 @@ public class GameScreen2 extends AbstractGameScreen {
             });
         }
 
+        if (LikingBar.instance.liking < 0) {
+            MusicManager.instance.stop();
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    game.setScreen(new GameOverScreen(game));
+                    EnergyProducedBar.instance.energyProduced = 0;
+                    EnergyUsedBar.instance.energyUse = 0;
+                    BatteryBar.instance.batteryStorage = 0;
+                    LikingBar.instance.liking = 0;
+                }
+            });
+        }
+
         if (worldController.level.player.timeCount <= 0) {
             MusicManager.instance.stop();
             Gdx.app.postRunnable(new Runnable() {
@@ -1274,7 +1288,6 @@ public class GameScreen2 extends AbstractGameScreen {
         } else {
             dialog.tryToChangePage();
         }
-
     }
 
     private void textIconDraw() {
