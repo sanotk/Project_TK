@@ -1201,6 +1201,7 @@ public class GameScreen2 extends AbstractGameScreen {
             level2.switchItem.resetAnimation();
             player.isSwitch = true;
             player.status_find = false;
+            EnergyUsedBar.instance.energyUse += 300;
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
@@ -1570,6 +1571,7 @@ public class GameScreen2 extends AbstractGameScreen {
             level2.switchItem.resetAnimation();
             player.isSwitch = true;
             player.status_find = false;
+            EnergyUsedBar.instance.energyUse += 300;
         }
     }
 
