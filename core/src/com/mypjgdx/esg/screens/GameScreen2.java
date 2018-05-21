@@ -1519,7 +1519,7 @@ public class GameScreen2 extends AbstractGameScreen {
         iconEnergyLess.setPosition(iconPos.x, iconPos.y + 50);
 
         for (Citizen citizen : level2.citizens) {
-            if (player.bounds.overlaps(citizen.bounds) && !citizen.quest) {
+            if (player.bounds.overlaps(citizen.bounds) && !citizen.questIsAccept) {
                 iconHuman.setVisible(true);
             }
         }
