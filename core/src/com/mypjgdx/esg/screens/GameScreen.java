@@ -1490,10 +1490,12 @@ public class GameScreen extends AbstractGameScreen {
             String textString1 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
             String textString2 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
             if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
-                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced) - (EnergyUsedBar.instance.energyUse)))) + " วินาทีพลังงานจะหมดลง"));
+                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced
+                        * SunBar.instance.accelerateTime) - (EnergyUsedBar.instance.energyUse* SunBar.instance.accelerateTime)))) + " วินาทีพลังงานจะหมดลง"));
                 text3.setText(textString3);
             } else {
-                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced) - (EnergyUsedBar.instance.energyUse)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
+                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced
+                        * SunBar.instance.accelerateTime) - (EnergyUsedBar.instance.energyUse* SunBar.instance.accelerateTime)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
                 text3.setText(textString3);
             }
             String textString4 = ("กำลังไฟฟ้าที่ผลิตได้หลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
