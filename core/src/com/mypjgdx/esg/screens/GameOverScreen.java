@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -39,7 +40,9 @@ public class GameOverScreen extends AbstractGameScreen {
         int btn_w = 150;
         int btn_h = 50;
 
-        font = new BitmapFont();
+        font = Assets.instance.newFontBig;
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font.setColor(Color.WHITE);
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
@@ -47,8 +50,8 @@ public class GameOverScreen extends AbstractGameScreen {
 
 
         text_gameover = new Label("Game Over" ,labelStyle);
-        text_gameover.setColor(1, 1, 1, 0.75f);
-        text_gameover.setFontScale(2.1f,2.1f);
+        text_gameover.setColor(Color.RED);
+        text_gameover.setFontScale(1f,1f);
         text_gameover.setPosition(SCENE_WIDTH / 2 - btn_w / 2 , SCENE_HEIGHT - 175);
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();

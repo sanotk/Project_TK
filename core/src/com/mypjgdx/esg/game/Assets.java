@@ -135,6 +135,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public Sound enemyBallSound;
 
     public BitmapFont newFont;
+    public BitmapFont newFontBig;
 
     private Assets() {}
 
@@ -382,11 +383,16 @@ public class Assets implements Disposable, AssetErrorListener {
         FreeTypeFontGenerator generator1 = new FreeTypeFontGenerator(Gdx.files.internal("Superspace Bold ver 1.00.ttf"));
         FreeTypeFontGenerator generator2 = new FreeTypeFontGenerator(Gdx.files.internal("TST cheer thai v.1.ttf"));
         FreeTypeFontGenerator generator3 = new FreeTypeFontGenerator(Gdx.files.internal("TST cheer thai v.2.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 18;
-        parameter.characters = characters;
-        newFont = generator2.generateFont(parameter); // font size 12 pixels
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter1 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter1.size = 18;
+        parameter2.size = 45;
+        parameter1.characters = characters;
+        parameter2.characters = characters;
+        newFont = generator2.generateFont(parameter1); // font size 12 pixels
         newFont.getData().setLineHeight(25f);
+        newFontBig = generator2.generateFont(parameter2); // font size 12 pixels
+        newFontBig.getData().setLineHeight(25f);
         generator1.dispose(); // don't forget to dispose to avoid memory leaks!
         generator2.dispose();
         generator3.dispose();

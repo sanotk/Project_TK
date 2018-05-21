@@ -44,22 +44,23 @@ public class MenuScreen extends AbstractGameScreen {
         stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT)); //สร้างจุดโฟกัสของหน้าจอ
         Gdx.input.setInputProcessor(stage);
 
-        font = Assets.instance.newFont;
+        font = Assets.instance.newFontBig;
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
+
         skin = new Skin(Gdx.files.internal("uiskin.json")); //โหลดฟ้อน
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
         labelStyle.fontColor = Color.GREEN;
 
-        int btn_w = 200;
-        int btn_h = 50;
+        int btn_w = 220;
+        int btn_h = 60;
 
         text_mainmenu = new Label("เกมประหยัดพลังงาน", skin);
         text_mainmenu.setColor(1, 1, 1, 1);
-        text_mainmenu.setFontScale(2f, 2f);
-        text_mainmenu.setPosition(SCENE_WIDTH / 2-110, 450);
+        text_mainmenu.setFontScale(1f, 1f);
+        text_mainmenu.setPosition(SCENE_WIDTH / 3+43, 450);
 
         text_mainmenu.setStyle(labelStyle);
 
