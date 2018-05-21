@@ -15,6 +15,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Disposable;
+import com.github.skyousuke.gdxutils.font.ThaiFont;
+import com.github.skyousuke.gdxutils.font.ThaiFontLoader;
 
 public class Assets implements Disposable, AssetErrorListener {
     public static final String TAG = Assets.class.getName();
@@ -397,6 +399,10 @@ public class Assets implements Disposable, AssetErrorListener {
         generator2.dispose();
         generator3.dispose();
 
+        ThaiFontLoader.ThaiFontParameter thaiFontParameter = new ThaiFontLoader.ThaiFontParameter();
+        thaiFontParameter.verticalOffset = -3;
+        newFont = new ThaiFont(newFont, thaiFontParameter);
+        newFontBig = new ThaiFont(newFontBig, thaiFontParameter);
     }
 
     @SuppressWarnings("rawtypes")
