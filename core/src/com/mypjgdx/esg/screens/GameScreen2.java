@@ -1192,6 +1192,7 @@ public class GameScreen2 extends AbstractGameScreen {
                     EnergyProducedBar.instance.energyProduced = 0;
                     EnergyUsedBar.instance.energyUse = 0;
                     BatteryBar.instance.batteryStorage = 0;
+                    LikingBar.instance.liking = 0;
                 }
             });
         }
@@ -1205,6 +1206,7 @@ public class GameScreen2 extends AbstractGameScreen {
                     EnergyProducedBar.instance.energyProduced = 0;
                     EnergyUsedBar.instance.energyUse = 0;
                     BatteryBar.instance.batteryStorage = 0;
+                    LikingBar.instance.liking = 0;
                 }
             });
         }
@@ -1218,6 +1220,7 @@ public class GameScreen2 extends AbstractGameScreen {
                     EnergyProducedBar.instance.energyProduced = 0;
                     EnergyUsedBar.instance.energyUse = 0;
                     BatteryBar.instance.batteryStorage = 0;
+                    LikingBar.instance.liking = 0;
                 }
             });
         }
@@ -1231,6 +1234,7 @@ public class GameScreen2 extends AbstractGameScreen {
                     EnergyProducedBar.instance.energyProduced = 0;
                     EnergyUsedBar.instance.energyUse = 0;
                     BatteryBar.instance.batteryStorage = 0;
+                    LikingBar.instance.liking = 0;
                 }
             });
         }
@@ -1617,7 +1621,7 @@ public class GameScreen2 extends AbstractGameScreen {
             buttonItem8.setRegion(Assets.instance.airIconOff);
             textItem8.clear();
         }
-
+        statusWindow.pack();
         statusWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - statusWindow.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - statusWindow.getHeight() / 2);
@@ -1699,7 +1703,7 @@ public class GameScreen2 extends AbstractGameScreen {
         stage.dispose();
         dialogStory.dispose();
         worldRenderer.dispose();
-        font.dispose();
+        //font.dispose();
         bg.dispose();
     }
 

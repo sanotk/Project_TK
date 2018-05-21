@@ -1521,6 +1521,7 @@ public class GameScreen extends AbstractGameScreen {
                     EnergyProducedBar.instance.energyProduced = 0;
                     EnergyUsedBar.instance.energyUse = 0;
                     BatteryBar.instance.batteryStorage = 0;
+                    LikingBar.instance.liking = 0;
                 }
             });
         }
@@ -1550,6 +1551,7 @@ public class GameScreen extends AbstractGameScreen {
                     EnergyProducedBar.instance.energyProduced = 0;
                     EnergyUsedBar.instance.energyUse = 0;
                     BatteryBar.instance.batteryStorage = 0;
+                    LikingBar.instance.liking = 0;
                 }
             });
         }
@@ -1562,6 +1564,7 @@ public class GameScreen extends AbstractGameScreen {
                     EnergyProducedBar.instance.energyProduced = 0;
                     EnergyUsedBar.instance.energyUse = 0;
                     BatteryBar.instance.batteryStorage = 0;
+                    LikingBar.instance.liking = 0;
                 }
             });
         }
