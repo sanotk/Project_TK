@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -1495,6 +1496,15 @@ public class GameScreen2 extends AbstractGameScreen {
                 && !player.questScreen4
                 && !player.questScreen5
                 && !player.questScreen6;
+
+        Vector2 iconPos = new Vector2(player.getPositionX(), player.getPositionY());
+        worldRenderer.viewport.project(iconPos);
+        iconPos.y = Gdx.graphics.getHeight() - 1 - iconPos.y;
+        stage.screenToStageCoordinates(iconPos);
+
+        iconHuman.setPosition(iconPos.x, iconPos.y + 50);
+        iconItem.setPosition(iconPos.x, iconPos.y + 50);
+        iconEnergyLess.setPosition(iconPos.x, iconPos.y + 50);
 
         for (Citizen citizen : level2.citizens) {
             if (player.bounds.overlaps(citizen.bounds) && !citizen.quest) {

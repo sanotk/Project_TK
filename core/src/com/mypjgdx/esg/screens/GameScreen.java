@@ -1809,7 +1809,6 @@ public class GameScreen extends AbstractGameScreen {
                 && !player.questScreen5
                 && !player.questScreen6;
 
-
         Vector2 iconPos = new Vector2(player.getPositionX(), player.getPositionY());
         worldRenderer.viewport.project(iconPos);
         iconPos.y = Gdx.graphics.getHeight() - 1 - iconPos.y;
