@@ -1496,7 +1496,7 @@ public class GameScreen extends AbstractGameScreen {
                 String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced) - (EnergyUsedBar.instance.energyUse)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
                 text3.setText(textString3);
             }
-            String textString4 = ("กำลังไฟฟ้าผลิตที่ผลิตได้หลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
+            String textString4 = ("กำลังไฟฟ้าที่ผลิตได้หลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
             text1.setText(textString1);
             text2.setText(textString2);
             text4.setText(textString4);
@@ -1826,7 +1826,7 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if (!noItem) {
+        if (!noItem && stageTwoAfter) {
             iconItem.setVisible(true);
         }
 
