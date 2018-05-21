@@ -215,11 +215,15 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                     if (quest1IsAccept) {
                         citizen.quest = true;
                         citizen.questIsAccept = true;
+                    }else if(quest1Cancel){
+                        citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_2)) {
                     questScreen2 = true;
                     if (quest2IsAccept) {
                         citizen.quest = true;
+                        citizen.questIsAccept = true;
+                    }else if(quest6Cancel){
                         citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_3)) {
@@ -227,17 +231,23 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                     if (quest3IsAccept) {
                         citizen.quest = true;
                         citizen.questIsAccept = true;
+                    }else if(quest3Cancel){
+                        citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_4)) {
                     questScreen4 = true;
                     if (quest4IsAccept) {
                         citizen.quest = true;
                         citizen.questIsAccept = true;
+                    }else if(quest4Cancel){
+                        citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_5)) {
                     questScreen5 = true;
                     if (quest5IsAccept) {
                         citizen.quest = true;
+                        citizen.questIsAccept = true;
+                    }else if(quest5Cancel){
                         citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_6)) {
@@ -246,7 +256,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                         citizen.quest = true;
                         citizen.questIsAccept = true;
                     }else if(quest6Cancel){
-                        citizen.quest = true;
                         citizen.questIsAccept = true;
                     }
                 }

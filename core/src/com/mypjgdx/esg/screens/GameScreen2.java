@@ -647,7 +647,6 @@ public class GameScreen2 extends AbstractGameScreen {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
 
-
         TextButton.TextButtonStyle buttonSunStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconSun = new TextureRegionDrawable(Assets.instance.iconSun);
         buttonSunStyle.up = iconSun;
@@ -800,7 +799,6 @@ public class GameScreen2 extends AbstractGameScreen {
     private Window createGuideWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.window);
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 
