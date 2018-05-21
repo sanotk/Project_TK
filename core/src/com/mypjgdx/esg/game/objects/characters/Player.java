@@ -51,6 +51,12 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean statusEnergyWindow;
     public boolean solarCellGuideWindow;
     public boolean energyLess;
+    public boolean quest1Cancel;
+    public boolean quest2Cancel;
+    public boolean quest3Cancel;
+    public boolean quest4Cancel;
+    public boolean quest5Cancel;
+    public boolean quest6Cancel;
 
     public enum PlayerAnimation {
         ATK_LEFT,
@@ -208,31 +214,40 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                     questScreen1 = true;
                     if (quest1IsAccept) {
                         citizen.quest = true;
+                        citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_2)) {
                     questScreen2 = true;
                     if (quest2IsAccept) {
                         citizen.quest = true;
+                        citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_3)) {
                     questScreen3 = true;
                     if (quest3IsAccept) {
                         citizen.quest = true;
+                        citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_4)) {
                     questScreen4 = true;
                     if (quest4IsAccept) {
                         citizen.quest = true;
+                        citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_5)) {
                     questScreen5 = true;
                     if (quest5IsAccept) {
                         citizen.quest = true;
+                        citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_6)) {
                     questScreen6 = true;
                     if (quest6IsAccept) {
                         citizen.quest = true;
+                        citizen.questIsAccept = true;
+                    }else if(quest6Cancel){
+                        citizen.quest = true;
+                        citizen.questIsAccept = true;
                     }
                 }
 

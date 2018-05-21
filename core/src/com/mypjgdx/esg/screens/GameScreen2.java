@@ -597,21 +597,27 @@ public class GameScreen2 extends AbstractGameScreen {
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
                 if (citizenQuest == systemWindow.citizen1) {
+                    worldController.level.player.quest1Cancel = true;
                     worldController.level.player.quest_window_1 = true;
                     questState = QuestState.quest1no;
                 } else if (citizenQuest == systemWindow.citizen2) {
+                    worldController.level.player.quest2Cancel = true;
                     worldController.level.player.quest_window_2 = true;
                     questState = QuestState.quest2no;
                 } else if (citizenQuest == systemWindow.citizen3) {
+                    worldController.level.player.quest3Cancel = true;
                     worldController.level.player.quest_window_3 = true;
                     questState = QuestState.quest3no;
                 } else if (citizenQuest == systemWindow.citizen4) {
+                    worldController.level.player.quest4Cancel = true;
                     worldController.level.player.quest_window_4 = true;
                     questState = QuestState.quest4no;
                 } else if (citizenQuest == systemWindow.citizen5) {
+                    worldController.level.player.quest5Cancel = true;
                     worldController.level.player.quest_window_5 = true;
                     questState = QuestState.quest5no;
                 } else if (citizenQuest == systemWindow.citizen6) {
+                    worldController.level.player.quest6Cancel = true;
                     worldController.level.player.quest_window_6 = true;
                     questState = QuestState.quest6no;
                 }
@@ -1483,6 +1489,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 break;
             }
         }
+
         if((stageTwoClear) && (player.status_find)){
             for (Item item : level2.items) {
                 if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
@@ -1519,7 +1526,7 @@ public class GameScreen2 extends AbstractGameScreen {
             }
         }
 
-        if (!noItem) {
+        if (!noItem && stageThreeClear) {
             iconItem.setVisible(true);
         }
 
@@ -1724,7 +1731,6 @@ public class GameScreen2 extends AbstractGameScreen {
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw(); //การทำงา
-
     }
 
     @Override

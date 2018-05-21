@@ -29,6 +29,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
     private static final float INITIAL_POSITION_X = 100;
     private static final float INITIAL_POSITION_Y = 1000;
+    public boolean questIsAccept;
 
     private float stalkingPositionX;
     private float stalkingPositionY;
