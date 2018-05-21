@@ -219,6 +219,8 @@ public class GameScreen2 extends AbstractGameScreen {
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
 
+
+
         this.optionsWindow = optionsWindow;
 
         optionsWindow.setVisible(false);
@@ -630,7 +632,6 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialogShow = false;
             }
         });
-
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
@@ -1318,6 +1319,8 @@ public class GameScreen2 extends AbstractGameScreen {
             String text =
                     "\"กำจัดมอนสเตอร์หมดแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัยดีกว่า\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
+            textMission1.setStyle(labelStyle2);
+            textMission2.setText("ภารกิจที่สอง สอบถามประชาชนที่เข้ามาอาศัยในที่หลบภัย");
             delayGuide();
         }
 
@@ -1330,8 +1333,10 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialogAll();
                 level2.gate.state = Item.ItemState.ON;
                 String text =
-                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและพลังงานจะเหลือเพียงพอใช้ในห้องถัดไป สามารถปิดหรือเปิดเครื่องใช้ไฟฟ้าเพิ่มได้\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 dialog.addWaitingPage(text);
+                textMission2.setStyle(labelStyle2);
+                textMission3.setText("ภารกิจที่สาม เปิดเครื่องใช้ไฟฟ้าที่จำเป็นเพิ่ม และปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นลง");
                 delayStatus();
             } else if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
                 dialogStage4fail = true;
@@ -1341,6 +1346,8 @@ public class GameScreen2 extends AbstractGameScreen {
                         "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานไฟฟ้าภายในแบตเตอรี่ลดต่ำลงกว่า 1000 จูล ทุกคนจะขาดอากาศตาย รีบปิดเครื่องใช้ไฟฟ้าเร็วเข้า\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 level2.gate.state = Item.ItemState.OFF;
                 dialog.addWaitingPage(text);
+                textMission2.setStyle(labelStyle2);
+                textMission3.setText("ภารกิจที่สาม เปิดเครื่องใช้ไฟฟ้าที่จำเป็นเพิ่ม และปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นลง");
                 delayStatus();
             }
         }

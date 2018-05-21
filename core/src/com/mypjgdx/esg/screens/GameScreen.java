@@ -1536,9 +1536,11 @@ public class GameScreen extends AbstractGameScreen {
             for (int i = 0; i < worldController.level.citizens.size(); i++) {
                 Citizen citizen = worldController.level.citizens.get(i);
                 if (!citizen.runPlayer) {
+                    citizen.quest = true;
                     dialogCitizen = true;
                     citizen.runPlayer = true;
                     citizenCount += 1;
+                    LikingBar.instance.liking +=1;
                 }
             }
         }
