@@ -219,7 +219,7 @@ public class GameScreen2 extends AbstractGameScreen {
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
 
-
+        TemperatureBar.instance.Temperature = 25;
 
         this.optionsWindow = optionsWindow;
 
@@ -1588,10 +1588,10 @@ public class GameScreen2 extends AbstractGameScreen {
             String textString1 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
             String textString2 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
             if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
-                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced*60) - (EnergyUsedBar.instance.energyUse*60)))) + " วินาทีพลังงานจะหมดลง"));
+                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced) - (EnergyUsedBar.instance.energyUse)))) + " วินาทีพลังงานจะหมดลง"));
                 text3.setText(textString3);
             } else {
-                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced*60) - (EnergyUsedBar.instance.energyUse*60)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
+                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced) - (EnergyUsedBar.instance.energyUse)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
                 text3.setText(textString3);
             }
             String textString4 = ("กำลังไฟฟ้าผลิตที่ผลิตได้หลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
