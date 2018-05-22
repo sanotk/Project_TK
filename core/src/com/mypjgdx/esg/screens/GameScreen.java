@@ -734,7 +734,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonControlWindowStyle.up = controlWindowUp;
         buttonControlWindowStyle.down = controlWindowUp.tint(Color.LIGHT_GRAY);
         buttonControlWindow = new Button(buttonControlWindowStyle);
-        buttonControlWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH + 40, SCENE_HEIGHT - 350);
+        buttonControlWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH + 40, SCENE_HEIGHT - 360);
 
         TextButton.TextButtonStyle iconHumanStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable humanUp = new TextureRegionDrawable(Assets.instance.iconHuman);
