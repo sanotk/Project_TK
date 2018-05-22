@@ -1186,13 +1186,13 @@ public class GameScreen extends AbstractGameScreen {
     private void checkButton(final systemWindow solarWindow) {
         Level1 level1 = (Level1) worldController.level;
         if (level1.solarCell1.nearPlayer() || level1.solarCell4.nearPlayer() || level1.solarCell7.nearPlayer()){
-            solarCellWindow.getTitleLabel().setText("ตัวเลือกการเชื่อมต่อของโซล่าเซลล์");
+            solarCellWindow.getTitleLabel().setText("ตัวเลือกการเชื่อมต่อของแผงโซล่าเซลล์");
         } else if (level1.charge.nearPlayer()){
-            solarCellWindow.getTitleLabel().setText("ตัวเลือกการเชื่อมต่อของชาร์จคอนโทรลเลอร์");
+            solarCellWindow.getTitleLabel().setText("ตัวเลือกการเชื่อมต่อของตัวควบคุมการชาร์จ");
         } else if (level1.battery.nearPlayer()){
             solarCellWindow.getTitleLabel().setText("ตัวเลือกการเชื่อมต่อของแบตเตอรี่");
         } else if (level1.inverter.nearPlayer()) {
-            solarCellWindow.getTitleLabel().setText("ตัวเลือกการเชื่อมต่อของอินเวอร์เตอร์");
+            solarCellWindow.getTitleLabel().setText("ตัวเลือกการเชื่อมต่อของเครื่องแปลงกระแสไฟ");
         }
         if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
             imageLink1.setRegion(Assets.instance.buttonChargeAdd);
