@@ -107,16 +107,16 @@ public class GameScreen extends AbstractGameScreen {
     private Label text9;
 
     private String textSolarcell = "เชื่อมต่อไปยังแผงโซล่าเซลล์";
-    private String textCharge = "เชื่อมต่อไปยังชาร์จคอนโทรลเลอร์";
+    private String textCharge = "เชื่อมต่อไปยังตัวควบคุมการชาร์จ";
     private String textBattery = "เชื่อมต่อไปยังแบตเตอรี";
-    private String textInverter = "เชื่อมต่อไปยังอินเวอร์เตอร์";
-    private String textDoor = "เชื่อมต่อไปยังประตูไฟฟ้า";
+    private String textInverter = "เชื่อมต่อไปยังเครื่องแปลงกระแสไฟ";
+    private String textDoor = "เชื่อมต่อไปยังสถานที่หลบภัย";
 
     private String textSolarcell2 = "ยกเลิกการเชื่อมต่อไปยังแผงโซล่าเซลล์";
-    private String textCharge2 = "ยกเลิกการเชื่อมต่อไปยังชาร์จคอนโทรลเลอร์";
+    private String textCharge2 = "ยกเลิกการเชื่อมต่อไปยังตัวควบคุมการชาร์จ";
     private String textBattery2 = "ยกเลิกการเชื่อมต่อไปยังแบตเตอรี";
-    private String textInverter2 = "ยกเลิกการเชื่อมต่อไปยังอินเวอร์เตอร์";
-    private String textDoor2 = "ยกเลิกการเชื่อมต่อไปยังประตูไฟฟ้า";
+    private String textInverter2 = "ยกเลิกการเชื่อมต่อไปยังเครื่องแปลงกระแสไฟ";
+    private String textDoor2 = "ยกเลิกการเชื่อมต่อไปยังสถานที่หลบภัย";
 
     private boolean stageFourClear;
     private boolean dialogCitizen2;
@@ -143,6 +143,7 @@ public class GameScreen extends AbstractGameScreen {
     private Label textTemperature;
     private Label textLiking;
     private boolean stageTwoAfter;
+    private Label textMission8;
 
     public enum systemWindow {
         solarcell,
@@ -608,10 +609,7 @@ public class GameScreen extends AbstractGameScreen {
         textMission5 = new Label("", skin);
         textMission6 = new Label("", skin);
         textMission7 = new Label("", skin);
-
-        textMission5 = new Label("", skin);
-        textMission6 = new Label("", skin);
-        textMission7 = new Label("", skin);
+        textMission8 = new Label("", skin);
 
         textMission1.setStyle(labelStyle);
         textMission2.setStyle(labelStyle);
@@ -620,6 +618,7 @@ public class GameScreen extends AbstractGameScreen {
         textMission5.setStyle(labelStyle);
         textMission6.setStyle(labelStyle);
         textMission7.setStyle(labelStyle);
+        textMission8.setStyle(labelStyle);
 
         final Window missionWindow = new Window("รายชื่อภารกิจ", style);
         missionWindow.setModal(true);
@@ -1392,7 +1391,7 @@ public class GameScreen extends AbstractGameScreen {
                     level1.solarCell1,
                     level1.charge,
                     worldController.level.links, solarState);
-
+            textMission3.setStyle(labelStyle2);
         } else if (solarState == SolarState.StoB) {
             addedStoB = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
@@ -1417,12 +1416,14 @@ public class GameScreen extends AbstractGameScreen {
                     level1.charge,
                     level1.battery,
                     worldController.level.links, solarState);
+            textMission4.setStyle(labelStyle2);
         } else if (solarState == SolarState.CtoI) {
             addedCtoI = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
                     level1.charge,
                     level1.inverter,
                     worldController.level.links, solarState);
+            textMission5.setStyle(labelStyle2);
         } else if (solarState == SolarState.CtoD) {
             addedCtoD = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
@@ -1447,6 +1448,7 @@ public class GameScreen extends AbstractGameScreen {
                     level1.inverter,
                     level1.door,
                     worldController.level.links, solarState);
+            textMission6.setStyle(labelStyle2);
         }
         //System.out.print("ขนาด" + itemLink.linkList.size() + "นะจ๊ะ");
     }
@@ -1663,12 +1665,16 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor3 = true;
                     dialogAll();
                     String text =
-                            "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงาน\" \n\"(กด     เพื่ออ่านการทำงานของโซล่าเซลล์ หรือกด Enter เพื่อเล่นตอ)\"";
+                            "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานเข้าสู่สถานที่หลบภัย\" \n\"(กด     เพื่ออ่านการทำงานของโซล่าเซลล์ หรือกด Enter เพื่อเล่นตอ)\"";
                     dialog.addWaitingPage(text);
                     stageTwoAfter = true;
                     delayGuide();
                     textMission2.setStyle(labelStyle2);
                     textMission3.setText("ภารกิจที่สาม เชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานให้กับสถานที่หลบภัย");
+                    textMission4.setText("ภารกิจที่สาม - หนึ่ง เชื่อมต่อโซล่าเซลล์กับตัวควบคุมการชาร์จ");
+                    textMission5.setText("ภารกิจที่สาม - สอง เชื่อมต่อตัวควบคุมการชาร์จกับแบตเตอรี่");
+                    textMission6.setText("ภารกิจที่สาม - สาม เชื่อมต่อตัวควบคุมการชาร์จกับเครื่องแปลงกระแสไฟ");
+                    textMission7.setText("ภารกิจที่สาม - สี่ เชื่อมต่อเครื่องแปลงกระแสไฟกับสถานที่หลบภัย");
                 }
             } else if (!dialogDoor4 && stageFourClear) {
                 dialogDoor4 = true;
@@ -1746,7 +1752,11 @@ public class GameScreen extends AbstractGameScreen {
                     "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว รีบพาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
             textMission3.setStyle(labelStyle2);
-            textMission4.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว");
+            textMission4.setStyle(labelStyle2);
+            textMission5.setStyle(labelStyle2);
+            textMission6.setStyle(labelStyle2);
+            textMission7.setStyle(labelStyle2);
+            textMission8.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว");
             delayStatus();
         }
 
