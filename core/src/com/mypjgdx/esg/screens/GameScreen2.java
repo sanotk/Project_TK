@@ -1366,7 +1366,7 @@ public class GameScreen2 extends AbstractGameScreen {
                         "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 dialog.addWaitingPage(text);
                 textMission2.setStyle(labelStyle2);
-                textMission3.setText("ภารกิจที่สาม เปิดเครื่องใช้ไฟฟ้าที่จำเป็นเพิ่ม และปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นลง");
+                textMission3.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังห้องถัดไปได้แล้ว");
                 delayStatus();
             } else if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
                 dialogStage4fail = true;
@@ -1377,7 +1377,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 level2.gate.state = Item.ItemState.OFF;
                 dialog.addWaitingPage(text);
                 textMission2.setStyle(labelStyle2);
-                textMission3.setText("ภารกิจที่สาม เปิดเครื่องใช้ไฟฟ้าที่จำเป็นเพิ่ม และปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นลง");
+                //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
                 delayStatus();
             }
         }
