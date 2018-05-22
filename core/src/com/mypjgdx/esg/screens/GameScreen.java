@@ -1391,7 +1391,7 @@ public class GameScreen extends AbstractGameScreen {
                     level1.solarCell1,
                     level1.charge,
                     worldController.level.links, solarState);
-            textMission3.setStyle(labelStyle2);
+            textMission4.setStyle(labelStyle2);
         } else if (solarState == SolarState.StoB) {
             addedStoB = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
@@ -1416,14 +1416,14 @@ public class GameScreen extends AbstractGameScreen {
                     level1.charge,
                     level1.battery,
                     worldController.level.links, solarState);
-            textMission4.setStyle(labelStyle2);
+            textMission5.setStyle(labelStyle2);
         } else if (solarState == SolarState.CtoI) {
             addedCtoI = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
                     level1.charge,
                     level1.inverter,
                     worldController.level.links, solarState);
-            textMission5.setStyle(labelStyle2);
+            textMission6.setStyle(labelStyle2);
         } else if (solarState == SolarState.CtoD) {
             addedCtoD = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
@@ -1448,7 +1448,7 @@ public class GameScreen extends AbstractGameScreen {
                     level1.inverter,
                     level1.door,
                     worldController.level.links, solarState);
-            textMission6.setStyle(labelStyle2);
+            textMission7.setStyle(labelStyle2);
         }
         //System.out.print("ขนาด" + itemLink.linkList.size() + "นะจ๊ะ");
     }
