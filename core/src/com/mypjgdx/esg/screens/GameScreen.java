@@ -92,6 +92,9 @@ public class GameScreen extends AbstractGameScreen {
     private Label textMission2;
     private Label textMission3;
     private Label textMission4;
+    private Label textMission5;
+    private Label textMission6;
+    private Label textMission7;
 
     private Label text1;
     private Label text2;
@@ -602,15 +605,21 @@ public class GameScreen extends AbstractGameScreen {
         textMission2 = new Label("", skin);
         textMission3 = new Label("", skin);
         textMission4 = new Label("", skin);
+        textMission5 = new Label("", skin);
+        textMission6 = new Label("", skin);
+        textMission7 = new Label("", skin);
 
-        Label textMission5 = new Label("", skin);
-        Label textMission6 = new Label("ต", skin);
-        Label textMission7 = new Label("เ", skin);
+        textMission5 = new Label("", skin);
+        textMission6 = new Label("", skin);
+        textMission7 = new Label("", skin);
 
         textMission1.setStyle(labelStyle);
         textMission2.setStyle(labelStyle);
         textMission3.setStyle(labelStyle);
         textMission4.setStyle(labelStyle);
+        textMission5.setStyle(labelStyle);
+        textMission6.setStyle(labelStyle);
+        textMission7.setStyle(labelStyle);
 
         final Window missionWindow = new Window("รายชื่อภารกิจ", style);
         missionWindow.setModal(true);
