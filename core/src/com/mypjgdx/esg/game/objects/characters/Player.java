@@ -457,13 +457,16 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                 if (BatteryBar.instance.getBatteryStorage() >= SwordWaveBar.instance.energySwordWave) {
                     weapons.add(new SwordWave(mapLayer, this));
                     BatteryBar.instance.batteryStorage -= SwordWaveBar.instance.energySwordWave;
+                    energyLess = false;
+                }else{
+                    energyLess = true;
                 }
                 weapons.add(new SwordHit(mapLayer, this));
                 SoundManager.instance.play(SoundManager.Sounds.BEAM);
                 resetAnimation();
-                energyLess = false;
+
             }
-            energyLess = true;
+
         }
     }
 
