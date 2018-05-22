@@ -335,11 +335,11 @@ public class GameScreen extends AbstractGameScreen {
         buttonControlWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH + 40, SCENE_HEIGHT - 360);
 
         TextButton.TextButtonStyle buttonGuideWindowStyle = new TextButton.TextButtonStyle();
-        TextureRegionDrawable guidelWindowUp = new TextureRegionDrawable(Assets.instance.controlWindow);
+        TextureRegionDrawable guidelWindowUp = new TextureRegionDrawable(Assets.instance.guide1Window);
         buttonGuideWindowStyle.up = guidelWindowUp;
         buttonGuideWindowStyle.down = guidelWindowUp.tint(Color.LIGHT_GRAY);
         buttonGuideWindow = new Button(buttonGuideWindowStyle);
-        buttonGuideWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH + 40, SCENE_HEIGHT - 360);
+        buttonGuideWindow.setPosition(SCENE_WIDTH/4, SCENE_HEIGHT/4-10);
 
         buttonGuideWindow.setVisible(false);
 
@@ -509,6 +509,25 @@ public class GameScreen extends AbstractGameScreen {
         });
 
         iconGuide.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (guideShow) {
+                    guideShow = false;
+                    buttonGuideWindow.setVisible(false);
+                } else {
+                    guideShow = true;
+                    buttonGuideWindow.setVisible(true);
+                }
+//                guideWindow.pack();
+//                worldController.level.player.timeStop = true;
+//                guideWindow.setPosition(
+//                        Gdx.graphics.getWidth() / 2 - guideWindow.getWidth() / 2,
+//                        Gdx.graphics.getHeight() / 2 - guideWindow.getHeight() / 2);
+//                guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            }
+        });
+
+        buttonGuideWindow.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (guideShow) {
@@ -1165,6 +1184,8 @@ public class GameScreen extends AbstractGameScreen {
         missionWindow.add(textMission6);
         missionWindow.row().padTop(10);
         missionWindow.add(textMission7);
+        missionWindow.row().padTop(10);
+        missionWindow.add(textMission8);
         missionWindow.row().padTop(20);
         missionWindow.add(closeButton).colspan(3).center().bottom();
         missionWindow.pack();
