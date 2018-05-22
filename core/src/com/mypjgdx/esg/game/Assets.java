@@ -139,6 +139,11 @@ public class Assets implements Disposable, AssetErrorListener {
     public BitmapFont newFont;
     public BitmapFont newFontBig;
 
+    public TextureRegion guide1Window;
+    public TextureRegion guide2Window;
+    public TextureRegion guide3Window;
+    public TextureRegion guide4Window;
+
     private Assets() {}
 
     public void init() {
@@ -184,6 +189,10 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("icon_energy_less.png",Texture.class);
 
         manager.load("control_window.png",Texture.class);
+        manager.load("guide1_window.png",Texture.class);
+        manager.load("guide2_window.png",Texture.class);
+        manager.load("guide3_window.png",Texture.class);
+        manager.load("guide4_window.png",Texture.class);
 
         manager.load("circle.png",Texture.class);
 
@@ -322,8 +331,14 @@ public class Assets implements Disposable, AssetErrorListener {
         iconControl = new TextureRegion((Texture)manager.get("icon_control.png"));
         iconStatus = new TextureRegion((Texture)manager.get("icon_status.png"));
         iconGuide = new TextureRegion((Texture)manager.get("icon_guide.png"));
-        controlWindow = new TextureRegion((Texture)manager.get("control_window.png"));
         iconEnergyLess = new TextureRegion((Texture)manager.get("icon_energy_less.png"));
+
+        controlWindow = new TextureRegion((Texture)manager.get("control_window.png"));
+        guide1Window = new TextureRegion((Texture)manager.get("guide1_window.png"));
+        guide2Window = new TextureRegion((Texture)manager.get("guide2_window.png"));
+        guide3Window = new TextureRegion((Texture)manager.get("guide3_window.png"));
+        guide4Window = new TextureRegion((Texture)manager.get("guide4_window.png"));
+
 
         iconBow = new TextureRegion((Texture)manager.get("icon_bow.png"));
         iconSword = new TextureRegion((Texture)manager.get("icon_sword.png"));

@@ -1602,8 +1602,6 @@ public class GameScreen2 extends AbstractGameScreen {
         textChart5.setText(textString4);
         textChart6.setText(textString5);
         textChart7.setText(textString6);
-        buttonAgree.setVisible(true);
-        buttonRefuse.setVisible(true);
         chartWindow.pack();
         chartWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
