@@ -145,6 +145,7 @@ public class GameScreen extends AbstractGameScreen {
     private boolean stageTwoAfter;
     private Label textMission8;
     private Button buttonGuideWindow;
+    private boolean guideShow;
 
     public enum systemWindow {
         solarcell,
@@ -491,24 +492,38 @@ public class GameScreen extends AbstractGameScreen {
         buttonGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                guideWindow.pack();
-                worldController.level.player.timeStop = true;
-                guideWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - guideWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - guideWindow.getHeight() / 2);
-                guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                if (guideShow) {
+                    guideShow = false;
+                    buttonGuideWindow.setVisible(false);
+                } else {
+                    guideShow = true;
+                    buttonGuideWindow.setVisible(true);
+                }
+//                guideWindow.pack();
+//                worldController.level.player.timeStop = true;
+//                guideWindow.setPosition(
+//                        Gdx.graphics.getWidth() / 2 - guideWindow.getWidth() / 2,
+//                        Gdx.graphics.getHeight() / 2 - guideWindow.getHeight() / 2);
+//                guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
 
         iconGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                guideWindow.pack();
-                worldController.level.player.timeStop = true;
-                guideWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - guideWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - guideWindow.getHeight() / 2);
-                guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                if (guideShow) {
+                    guideShow = false;
+                    buttonGuideWindow.setVisible(false);
+                } else {
+                    guideShow = true;
+                    buttonGuideWindow.setVisible(true);
+                }
+//                guideWindow.pack();
+//                worldController.level.player.timeStop = true;
+//                guideWindow.setPosition(
+//                        Gdx.graphics.getWidth() / 2 - guideWindow.getWidth() / 2,
+//                        Gdx.graphics.getHeight() / 2 - guideWindow.getHeight() / 2);
+//                guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
 
