@@ -140,6 +140,7 @@ public class GameScreen extends AbstractGameScreen {
     private boolean missionStart;
     private boolean guideStart;
     private boolean statusStart;
+    private Label textMission9;
 
     public enum systemWindow {
         solarcell,
@@ -1153,6 +1154,7 @@ public class GameScreen extends AbstractGameScreen {
         textMission6 = new Label("", skin);
         textMission7 = new Label("", skin);
         textMission8 = new Label("", skin);
+        textMission9 = new Label("", skin);
 
         textMission1.setStyle(labelStyle);
         textMission2.setStyle(labelStyle);
@@ -1162,6 +1164,7 @@ public class GameScreen extends AbstractGameScreen {
         textMission6.setStyle(labelStyle);
         textMission7.setStyle(labelStyle);
         textMission8.setStyle(labelStyle);
+        textMission9.setStyle(labelStyle);
 
         final Window missionWindow = new Window("รายชื่อภารกิจ", style);
         missionWindow.setModal(true);
@@ -1187,6 +1190,8 @@ public class GameScreen extends AbstractGameScreen {
         missionWindow.add(textMission7);
         missionWindow.row().padTop(10);
         missionWindow.add(textMission8);
+        missionWindow.row().padTop(10);
+        missionWindow.add(textMission9);
         missionWindow.row().padTop(20);
         missionWindow.add(closeButton).colspan(3).center().bottom();
         missionWindow.pack();
@@ -1719,12 +1724,12 @@ public class GameScreen extends AbstractGameScreen {
                     stageTwoAfter = true;
                     timeEvent = player.timeCount-1;
                     delayGuide();
-                    textMission2.setStyle(labelStyle2);
-                    textMission3.setText("ภารกิจที่สาม เชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานให้กับสถานที่หลบภัย");
-                    textMission4.setText("ภารกิจที่สาม - หนึ่ง เชื่อมต่อโซล่าเซลล์กับตัวควบคุมการชาร์จ");
-                    textMission5.setText("ภารกิจที่สาม - สอง เชื่อมต่อตัวควบคุมการชาร์จกับแบตเตอรี่");
-                    textMission6.setText("ภารกิจที่สาม - สาม เชื่อมต่อตัวควบคุมการชาร์จกับเครื่องแปลงกระแสไฟ");
-                    textMission7.setText("ภารกิจที่สาม - สี่ เชื่อมต่อเครื่องแปลงกระแสไฟกับสถานที่หลบภัย");
+                    textMission3.setStyle(labelStyle2);
+                    textMission4.setText("ภารกิจที่สี่ เชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานให้กับสถานที่หลบภัย");
+                    textMission5.setText("ภารกิจที่สี่ - หนึ่ง เชื่อมต่อโซล่าเซลล์กับตัวควบคุมการชาร์จ");
+                    textMission6.setText("ภารกิจที่สี่ - สอง เชื่อมต่อตัวควบคุมการชาร์จกับแบตเตอรี่");
+                    textMission7.setText("ภารกิจที่สี่ - สาม เชื่อมต่อตัวควบคุมการชาร์จกับเครื่องแปลงกระแสไฟ");
+                    textMission8.setText("ภารกิจที่สี่ - สี่ เชื่อมต่อเครื่องแปลงกระแสไฟกับสถานที่หลบภัย");
                 }
             } else if (!dialogDoor4 && stageFourClear) {
                 dialogDoor4 = true;
@@ -1745,7 +1750,7 @@ public class GameScreen extends AbstractGameScreen {
                     "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
             textMission1.setStyle(labelStyle2);
-            textMission2.setText("ภารกิจที่สอง ตามหาประชาชนและพามายังสถานที่หลบภัย");
+            textMission2.setText("ภารกิจที่สอง ตามหาประชาชนให้ครบ");
             delayMission();
         }
 
@@ -1789,6 +1794,8 @@ public class GameScreen extends AbstractGameScreen {
             missionStart = false;
             String text =
                     "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
+            textMission2.setStyle(labelStyle2);
+            textMission3.setText("ภารกิจที่สาม พาประชาชนมายังทางเข้าสถานที่หลบภัย");
             dialog.addWaitingPage(text);
             delayMission();
         }
@@ -1806,12 +1813,12 @@ public class GameScreen extends AbstractGameScreen {
             String text =
                     "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว รีบพาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
-            textMission3.setStyle(labelStyle2);
             textMission4.setStyle(labelStyle2);
             textMission5.setStyle(labelStyle2);
             textMission6.setStyle(labelStyle2);
             textMission7.setStyle(labelStyle2);
-            textMission8.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว");
+            textMission8.setStyle(labelStyle2);
+            textMission9.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว");
             delayStatus();
         }
 
