@@ -1451,20 +1451,20 @@ public class GameScreen2 extends AbstractGameScreen {
                 citizenQuest = systemWindow.citizen6;
             }
         }
-        if (player.timeCount <= timeEvent-1 && !missionStart){
+        if (player.timeCount <= timeEvent && !missionStart){
             missionStart = true;
             missionWindow.setVisible(true);
             player.timeStop = true;
         }
 
-        if (player.timeCount <= timeEvent-1 && !guideStart && player.stageOneClear){
+        if (player.timeCount <= timeEvent && !guideStart && player.stageOneClear){
             guideStart = true;
             guideWindow.setVisible(true);
             player.timeStop = true;
             System.out.print("ทำงาน");
         }
 
-        if (player.timeCount <= timeEvent-1 && !statusStart && stageThreeClear){
+        if (player.timeCount <= timeEvent && !statusStart && stageThreeClear){
             statusStart = true;
             status();
             player.timeStop = true;

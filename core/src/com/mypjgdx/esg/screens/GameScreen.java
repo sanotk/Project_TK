@@ -1749,24 +1749,6 @@ public class GameScreen extends AbstractGameScreen {
             delayMission();
         }
 
-        if (player.timeCount <= timeEvent && !missionStart){
-            missionStart = true;
-            missionWindow.setVisible(true);
-            player.timeStop = true;
-        }
-
-        if (player.timeCount <= timeEvent && !guideStart && stageTwoAfter){
-            guideStart = true;
-            buttonGuideWindow.setVisible(true);
-            player.timeStop = true;
-        }
-
-        if (player.timeCount <= timeEvent && !statusStart && stageThreeClear){
-            statusStart = true;
-            status();
-            player.timeStop = true;
-        }
-
         if (player.timeCount <= 298 && !dialogEnemy && dialogStart) {
             for (int i = 0; i < worldController.level.enemies.size(); i++) {
                 Enemy enemy = worldController.level.enemies.get(i);
@@ -1803,8 +1785,8 @@ public class GameScreen extends AbstractGameScreen {
             dialogCitizen2 = true;
             stageTwoClear = true;
             dialogAll();
-            timeEvent = player.timeCount;
-            missionStart =false;
+            timeEvent = player.timeCount-1;
+            missionStart = false;
             String text =
                     "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
@@ -1817,7 +1799,7 @@ public class GameScreen extends AbstractGameScreen {
                 item.resetAnimation();
             }
             stageThreeClear = true;
-            timeEvent = player.timeCount;
+            timeEvent = player.timeCount-1;
             level1.door.state = Item.ItemState.ON;
             animation_status = true;
             dialogAll();
@@ -1833,6 +1815,24 @@ public class GameScreen extends AbstractGameScreen {
             delayStatus();
         }
 
+        if (player.timeCount <= timeEvent && !missionStart){
+            missionStart = true;
+            missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            System.out.print("หยุด");
+            player.timeStop = true;
+        }
+
+        if (player.timeCount <= timeEvent && !guideStart && stageTwoAfter){
+            guideStart = true;
+            buttonGuideWindow.setVisible(true);
+            player.timeStop = true;
+        }
+
+        if (player.timeCount <= timeEvent && !statusStart && stageThreeClear){
+            statusStart = true;
+            status();
+            player.timeStop = true;
+        }
     }
 
     private void checkStageAndCount() {
