@@ -56,16 +56,10 @@ public class GameScreen extends AbstractGameScreen {
     private Button iconStatus;
     private WorldController worldController;
     private WorldRenderer worldRenderer;
-
     private boolean controlShow = true;
-
     private ItemLink itemLink;
-
-    private boolean pauseShow;
-
     SpriteBatch batch;
     public Texture bg;
-
     private Stage stage;
     private Skin skin;
 
@@ -77,16 +71,12 @@ public class GameScreen extends AbstractGameScreen {
 
     private Label.LabelStyle labelStyle;
     private Label.LabelStyle labelStyle2;
-
-    private Label textBullet;
     private Label textBeam;
     private Label textTrap;
     private Label textTime;
     private Label energyLevel;
     private Label energyLevel2;
     private Label energyLevel3;
-
-    private boolean dialogMission;
 
     private Label textMission1;
     private Label textMission2;
@@ -147,6 +137,8 @@ public class GameScreen extends AbstractGameScreen {
     private Button buttonGuideWindow;
     private boolean guideShow;
     private boolean missionStart;
+    private boolean guideStart;
+    private boolean statusStart;
 
     public enum systemWindow {
         solarcell,
@@ -495,6 +487,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                guideShow =true;
                 if (guideShow) {
                     guideShow = false;
                     buttonGuideWindow.setVisible(false);
@@ -514,6 +507,7 @@ public class GameScreen extends AbstractGameScreen {
         iconGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                guideShow =true;
                 if (guideShow) {
                     guideShow = false;
                     buttonGuideWindow.setVisible(false);
@@ -533,6 +527,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonGuideWindow.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                guideShow =true;
                 if (guideShow) {
                     guideShow = false;
                     buttonGuideWindow.setVisible(false);
@@ -591,6 +586,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonStatus.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                statusStart = true;
                 status();
             }
         });
@@ -598,6 +594,7 @@ public class GameScreen extends AbstractGameScreen {
         iconStatus.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                statusStart = true;
                 status();
             }
         });
@@ -1750,6 +1747,18 @@ public class GameScreen extends AbstractGameScreen {
         if (player.timeCount <= 299 && !missionStart){
             missionStart = true;
             missionWindow.setVisible(true);
+            player.timeStop = true;
+        }
+
+        if (player.timeCount <= 299 && !guideStart && stageTwoAfter){
+            guideStart = true;
+            guideWindow.setVisible(true);
+            player.timeStop = true;
+        }
+
+        if (player.timeCount <= 299 && !statusStart && stageThreeClear){
+            statusStart = true;
+            statusWindow.setVisible(true);
             player.timeStop = true;
         }
 
