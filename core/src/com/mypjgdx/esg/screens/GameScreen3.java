@@ -1322,7 +1322,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 dialogDoor3 = true;
                 dialogAll();
                 String text =
-                        "\"พลังงานมีไม่เพียงพอใช้ในห้องถัดไป กรุณาปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเสียก่อน\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
+                        "\"พลังงานไม่เพียงพอ รีบปิดเครื่องใช้ไฟฟ้าก่อนพลังงานจะหมดลง\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
                 dialog.addWaitingPage(text);
                 delayMission();
             } else if (animation_status && stageThreeClear && !dialogDoor4) {
@@ -1349,10 +1349,12 @@ public class GameScreen3 extends AbstractGameScreen {
             dialogCitizen = true;
             dialogAll();
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัยดีกว่า\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
+                    "\"กำจัดมอนสเตอร์หมดแล้ว\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
-            textMission1.setStyle(labelStyle2);
-            textMission2.setText("ภารกิจที่สอง สอบถามประชาชนที่เข้ามาอาศัยในที่หลบภัย");
+            if(player.isSwitch){
+                textMission1.setStyle(labelStyle2);
+                textMission2.setText("ภารกิจที่สอง รีบปิดเครื่องใช้ไฟฟ้าที่ไม่ใช้งานเร็วเข้า");
+            }
             delayGuide();
         }
 

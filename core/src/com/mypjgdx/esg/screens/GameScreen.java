@@ -146,6 +146,7 @@ public class GameScreen extends AbstractGameScreen {
     private Label textMission8;
     private Button buttonGuideWindow;
     private boolean guideShow;
+    private boolean missionStart;
 
     public enum systemWindow {
         solarcell,
@@ -468,6 +469,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonMission.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                missionStart = true;
                 missionWindow.pack();
                 missionWindow.setPosition(
                         Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
@@ -480,6 +482,7 @@ public class GameScreen extends AbstractGameScreen {
         iconMission.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                missionStart = true;
                 missionWindow.pack();
                 missionWindow.setPosition(
                         Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
@@ -1742,6 +1745,12 @@ public class GameScreen extends AbstractGameScreen {
             textMission1.setStyle(labelStyle2);
             textMission2.setText("ภารกิจที่สอง ตามหาประชาชนและพามายังสถานที่หลบภัย");
             delayMission();
+        }
+
+        if (player.timeCount <= 299 && !missionStart){
+            missionStart = true;
+            missionWindow.setVisible(true);
+            player.timeStop = true;
         }
 
         if (player.timeCount <= 298 && !dialogEnemy && dialogStart) {
