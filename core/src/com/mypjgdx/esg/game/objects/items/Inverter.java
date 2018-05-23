@@ -7,7 +7,7 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 
 public class Inverter extends Item{
 
-    private static final float SCALE = 1f;
+    private static final float SCALE = 1.2f;
     public static final float P_X = 1700f;
     public static final float P_Y = 1250f;
 

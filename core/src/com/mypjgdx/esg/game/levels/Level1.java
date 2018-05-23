@@ -42,14 +42,14 @@ public class Level1 extends Level {
         player = new Player(mapLayer, 100, 100);
 
         solarCell1 = new SolarCell(mapLayer, player);
-        solarCell2 = new SolarCell(mapLayer, player ,1500f ,1150f);
-        solarCell3 = new SolarCell(mapLayer, player ,1500f ,1200f);
-        solarCell4 = new SolarCell(mapLayer, player ,1400f ,1100f);
-        solarCell5 = new SolarCell(mapLayer, player ,1400f ,1150f);
-        solarCell6 = new SolarCell(mapLayer, player ,1400f ,1200f);
-        solarCell7 = new SolarCell(mapLayer, player ,1300f ,1100f);
-        solarCell8 = new SolarCell(mapLayer, player ,1300f ,1150f);
-        solarCell9 = new SolarCell(mapLayer, player ,1300f ,1200f);
+        solarCell2 = new SolarCell(mapLayer, player ,1500f ,1145f);
+        solarCell3 = new SolarCell(mapLayer, player ,1500f ,1195f);
+        solarCell4 = new SolarCell(mapLayer, player ,1400f ,1095f);
+        solarCell5 = new SolarCell(mapLayer, player ,1400f ,1145f);
+        solarCell6 = new SolarCell(mapLayer, player ,1400f ,1195f);
+        solarCell7 = new SolarCell(mapLayer, player ,1300f ,1095f);
+        solarCell8 = new SolarCell(mapLayer, player ,1300f ,1145f);
+        solarCell9 = new SolarCell(mapLayer, player ,1300f ,1195f);
         inverter = new Inverter(mapLayer, player);
         battery = new Battery(mapLayer, player);
         charge = new Charge(mapLayer, player);

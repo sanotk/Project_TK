@@ -7,7 +7,7 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 
 public class Battery extends Item{
 
-    private static final float SCALE = 1f;
+    private static final float SCALE = 1.3f;
     public static final float P_X = 1700f;
     public static final float P_Y = 950f;
 

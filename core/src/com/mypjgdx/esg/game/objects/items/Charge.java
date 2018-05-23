@@ -7,7 +7,7 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 
 public class Charge extends Item{
 
-    private static final float SCALE = 1f;
+    private static final float SCALE = 1.2f;
     public static final float P_X = 1700f;
     public static final float P_Y = 1100f;
 
