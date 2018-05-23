@@ -220,6 +220,7 @@ public class GameScreen2 extends AbstractGameScreen {
         font.setColor(Color.WHITE);
 
         EnergyProducedBar.instance.energyProduced = 2700;
+        LikingBar.instance.liking = 6;
         TemperatureBar.instance.Temperature = 25;
 
         this.optionsWindow = optionsWindow;
@@ -1194,6 +1195,7 @@ public class GameScreen2 extends AbstractGameScreen {
         if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
             for (Enemy enemy : worldController.level.enemies) {
                 enemy.getStateMachine().changeState(EnemyState.DIE);
+                countEnemy+=1;
             }
         }
 
