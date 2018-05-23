@@ -58,6 +58,7 @@ public class GameScreen extends AbstractGameScreen {
     private WorldRenderer worldRenderer;
     private boolean controlShow = true;
     private ItemLink itemLink;
+    private int timeEvent = 0;
     SpriteBatch batch;
     public Texture bg;
     private Stage stage;
@@ -1690,6 +1691,7 @@ public class GameScreen extends AbstractGameScreen {
             dialog.addWaitingPage(text);
             dialogStart = true;
             delayMission();
+            timeEvent = player.timeCount;
         }
 
         if ((level1.door.nearPlayer()) && (player.status_find)) {
@@ -1715,6 +1717,7 @@ public class GameScreen extends AbstractGameScreen {
                             "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานเข้าสู่สถานที่หลบภัย\" \n\"(กด     เพื่ออ่านการทำงานของโซล่าเซลล์ หรือกด Enter เพื่อเล่นตอ)\"";
                     dialog.addWaitingPage(text);
                     stageTwoAfter = true;
+                    timeEvent = player.timeCount;
                     delayGuide();
                     textMission2.setStyle(labelStyle2);
                     textMission3.setText("ภารกิจที่สาม เชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานให้กับสถานที่หลบภัย");
@@ -1736,6 +1739,8 @@ public class GameScreen extends AbstractGameScreen {
         if (player.stageOneClear && !dialogCitizen) {
             dialogCitizen = true;
             dialogAll();
+            timeEvent = player.timeCount;
+            missionStart = false;
             String text =
                     "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
@@ -1744,21 +1749,21 @@ public class GameScreen extends AbstractGameScreen {
             delayMission();
         }
 
-        if (player.timeCount <= 299 && !missionStart){
+        if (player.timeCount <= timeEvent-1 && !missionStart){
             missionStart = true;
             missionWindow.setVisible(true);
             player.timeStop = true;
         }
 
-        if (player.timeCount <= 299 && !guideStart && stageTwoAfter){
+        if (player.timeCount <= timeEvent-1 && !guideStart && stageTwoAfter){
             guideStart = true;
-            guideWindow.setVisible(true);
+            buttonGuideWindow.setVisible(true);
             player.timeStop = true;
         }
 
-        if (player.timeCount <= 299 && !statusStart && stageThreeClear){
+        if (player.timeCount <= timeEvent-1 && !statusStart && stageThreeClear){
             statusStart = true;
-            statusWindow.setVisible(true);
+            status();
             player.timeStop = true;
         }
 
@@ -1798,6 +1803,8 @@ public class GameScreen extends AbstractGameScreen {
             dialogCitizen2 = true;
             stageTwoClear = true;
             dialogAll();
+            timeEvent = player.timeCount;
+            missionStart =false;
             String text =
                     "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
@@ -1810,6 +1817,7 @@ public class GameScreen extends AbstractGameScreen {
                 item.resetAnimation();
             }
             stageThreeClear = true;
+            timeEvent = player.timeCount;
             level1.door.state = Item.ItemState.ON;
             animation_status = true;
             dialogAll();
