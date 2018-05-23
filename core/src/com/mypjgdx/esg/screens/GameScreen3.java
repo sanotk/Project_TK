@@ -139,7 +139,7 @@ public class GameScreen3 extends AbstractGameScreen {
     private Texture dialogStory;
 
     private String text =
-            "\"ทุกคนให้รออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าที่แห่งนี้ปลอดภัย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
+            "\"ดูเหมือนว่าจะมีประชาชนเข้ามาอาศัยเพิ่ม และห้องเดียวคงไม่เพียงพอ มาสำรวจห้องใหม่กันดีกว่า\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
 
     public QuestState questState = null;
 
@@ -219,6 +219,8 @@ public class GameScreen3 extends AbstractGameScreen {
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
 
+        EnergyProducedBar.instance.energyProduced = 2700;
+        LikingBar.instance.liking = 6;
         TemperatureBar.instance.Temperature = 25;
 
         this.optionsWindow = optionsWindow;
@@ -1366,18 +1368,18 @@ public class GameScreen3 extends AbstractGameScreen {
                         "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 dialog.addWaitingPage(text);
                 textMission2.setStyle(labelStyle2);
-                textMission3.setText("ภารกิจที่สาม เปิดเครื่องใช้ไฟฟ้าที่จำเป็นเพิ่ม และปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นลง");
+                textMission3.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังห้องถัดไปได้แล้ว");
                 delayStatus();
             } else if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
                 dialogStage4fail = true;
                 stageTwoClear = true;
                 dialogAll();
                 String text =
-                        "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานไฟฟ้าภายในแบตเตอรี่ลดต่ำลงกว่า 1000 จูล ทุกคนจะขาดอากาศตาย รีบปิดเครื่องใช้ไฟฟ้าเร็วเข้า\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+                        "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานหมดเครื่องระบายอากาศจะหยุดทำงาน\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 level2.gate.state = Item.ItemState.OFF;
                 dialog.addWaitingPage(text);
                 textMission2.setStyle(labelStyle2);
-                textMission3.setText("ภารกิจที่สาม เปิดเครื่องใช้ไฟฟ้าที่จำเป็นเพิ่ม และปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นลง");
+                //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
                 delayStatus();
             }
         }
@@ -1390,45 +1392,46 @@ public class GameScreen3 extends AbstractGameScreen {
             dialog.addWaitingPage(text);
         }
 
-        if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
-            String text =
-                    "\"ผมเป็นคนไม่ชอบความร้อน ขอเปิดแอร์ได้รึเปล่า\""
-                            + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า " + level2.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
-            dialogCitizenDetail();
-            dialog.addWaitingPage(text);
-            citizenQuest = systemWindow.citizen1;
-        } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
-            String text =
-                    "\"ผมหิวมาก อยากใช้ไมโครเวฟอุ่นอาหารแช่แข็ง " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
-            dialogCitizenDetail();
-            dialog.addWaitingPage(text);
-            citizenQuest = systemWindow.citizen2;
-        } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
-            String text =
-                    "\"น่าเบื่อ ผมอยากใช้งานคอมพิวเตอร์\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
-            dialogCitizenDetail();
-            dialog.addWaitingPage(text);
-            citizenQuest = systemWindow.citizen3;
-        } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
-            String text =
-                    "\"ผมคิดว่าจะนำเสบียงอาหารที่เหลือไปแช่ตู้เย็นจึงต้องการเสียบปลั๊ก\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
-            dialogCitizenDetail();
-            dialog.addWaitingPage(text);
-            citizenQuest = systemWindow.citizen4;
-        } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
-            player.timeStop = true;
-            player.status_find = false;
-            String text =
-                    "\"พวกเราหลายคนน่าจะเริ่มหิวกันแล้ว ผมอยากหุงข้าวกินกันกับทุกคน\" " + "\n\"( หม้อหุงข้าวใช้กำลังไฟฟ้า " + level2.riceCooker.getEnergyBurn() + " วัตต์ )\" ";
-            dialogCitizenDetail();
-            citizenQuest = systemWindow.citizen5;
-            dialog.addWaitingPage(text);
-        } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
-            String text =
-                    "\"ผมขอเปิดโทรทัศน์ดูได้รึเปล่า\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level2.television.getEnergyBurn() + " วัตต์ )\" ";
-            dialogCitizenDetail();
-            dialog.addWaitingPage(text);
-            citizenQuest = systemWindow.citizen6;
+        if(player.isSwitch){
+            if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
+                String text =
+                        "\"รู้สึกว่าอากาศห้องนี้ค่อนข้างหนาวเย็น\"";
+                dialogCitizenDetail();
+                dialog.addWaitingPage(text);
+                citizenQuest = systemWindow.citizen1;
+            } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
+                String text =
+                        "\"เหมือนว่าน้ำจะไม่ไหล\" ";
+                dialogCitizenDetail();
+                dialog.addWaitingPage(text);
+                citizenQuest = systemWindow.citizen2;
+            } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
+                String text =
+                        "\"ไม่มีอะไรเป็นพิเศษ\" ";
+                dialogCitizenDetail();
+                dialog.addWaitingPage(text);
+                citizenQuest = systemWindow.citizen3;
+            } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
+                String text =
+                        "\"ค่อนข้างหิว\" \"";
+                dialogCitizenDetail();
+                dialog.addWaitingPage(text);
+                citizenQuest = systemWindow.citizen4;
+            } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
+                player.timeStop = true;
+                player.status_find = false;
+                String text =
+                        "\"พวกเราหลายคนน่าจะเริ่มหิวกันแล้ว ผมอยากหุงข้าวกินกันกับทุกคน\" ";
+                dialogCitizenDetail();
+                citizenQuest = systemWindow.citizen5;
+                dialog.addWaitingPage(text);
+            } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
+                String text =
+                        "\"ผมขอเปิดโทรทัศน์ดูได้รึเปล่า\" ";
+                dialogCitizenDetail();
+                dialog.addWaitingPage(text);
+                citizenQuest = systemWindow.citizen6;
+            }
         }
     }
 
@@ -1474,8 +1477,6 @@ public class GameScreen3 extends AbstractGameScreen {
         player.timeStop = true;
         player.status_find = false;
         dialog.show();
-        buttonAgree.setVisible(true);
-        buttonRefuse.setVisible(true);
         dialog.clearPages();
         dialogShow = true;
     }
@@ -1514,19 +1515,19 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
-        if((stageTwoClear) && (player.status_find)){
-            for (Item item : level2.items) {
-                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
-                    item.state = Item.ItemState.OFF;
-                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
-                    player.status_find = false;
-                } else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
-                    item.state = Item.ItemState.ONLOOP;
-                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
-                    player.status_find = false;
-                }
-            }
-        }
+//        if((stageTwoClear) && (player.status_find)){
+//            for (Item item : level2.items) {
+//                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
+//                    item.state = Item.ItemState.OFF;
+//                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
+//                    player.status_find = false;
+//                } else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
+//                    item.state = Item.ItemState.ONLOOP;
+//                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
+//                    player.status_find = false;
+//                }
+//            }
+//        }
 
         boolean noCitizen = !player.questScreen1
                 && !player.questScreen2
@@ -1545,7 +1546,7 @@ public class GameScreen3 extends AbstractGameScreen {
         iconEnergyLess.setPosition(iconPos.x, iconPos.y + 50);
 
         for (Citizen citizen : level2.citizens) {
-            if (player.bounds.overlaps(citizen.bounds) && !citizen.questIsAccept) {
+            if (player.bounds.overlaps(citizen.bounds) && !citizen.questIsAccept && player.isSwitch) {
                 iconHuman.setVisible(true);
             }
         }
@@ -1602,8 +1603,6 @@ public class GameScreen3 extends AbstractGameScreen {
         textChart5.setText(textString4);
         textChart6.setText(textString5);
         textChart7.setText(textString6);
-        buttonAgree.setVisible(true);
-        buttonRefuse.setVisible(true);
         chartWindow.pack();
         chartWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
