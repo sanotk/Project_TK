@@ -443,6 +443,7 @@ public class GameScreen2 extends AbstractGameScreen {
         buttonMission.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                missionStart = true;
                 missionWindow.pack();
                 missionWindow.setPosition(
                         Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
@@ -455,6 +456,7 @@ public class GameScreen2 extends AbstractGameScreen {
         iconMission.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                missionStart = true;
                 missionWindow.pack();
                 missionWindow.setPosition(
                         Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
@@ -467,6 +469,7 @@ public class GameScreen2 extends AbstractGameScreen {
         buttonGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                guideStart = true;
                 guideWindow.pack();
                 worldController.level.player.timeStop = true;
                 guideWindow.setPosition(
@@ -479,6 +482,7 @@ public class GameScreen2 extends AbstractGameScreen {
         iconGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                guideStart = true;
                 guideWindow.pack();
                 worldController.level.player.timeStop = true;
                 guideWindow.setPosition(
@@ -530,6 +534,7 @@ public class GameScreen2 extends AbstractGameScreen {
         buttonStatus.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                statusStart = true;
                 status();
             }
         });
@@ -537,6 +542,7 @@ public class GameScreen2 extends AbstractGameScreen {
         iconStatus.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                statusStart = true;
                 status();
             }
         });
