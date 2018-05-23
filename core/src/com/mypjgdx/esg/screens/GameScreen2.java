@@ -219,6 +219,7 @@ public class GameScreen2 extends AbstractGameScreen {
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
 
+        EnergyProducedBar.instance.energyProduced = 2700;
         TemperatureBar.instance.Temperature = 25;
 
         this.optionsWindow = optionsWindow;
