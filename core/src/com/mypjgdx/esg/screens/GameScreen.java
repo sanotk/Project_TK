@@ -1803,8 +1803,6 @@ public class GameScreen extends AbstractGameScreen {
             dialogCitizen2 = true;
             stageTwoClear = true;
             dialogAll();
-            timeEvent = player.timeCount;
-            missionStart =false;
             String text =
                     "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
