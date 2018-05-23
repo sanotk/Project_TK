@@ -1326,6 +1326,7 @@ public class GameScreen2 extends AbstractGameScreen {
             dialog.addWaitingPage(text);
             dialogStart = true;
             delayMission();
+            timeEvent = player.timeCount-1;
         }
 
         if (player.timeCount <= timeEvent-1 && !missionStart){
@@ -1380,6 +1381,7 @@ public class GameScreen2 extends AbstractGameScreen {
             String text =
                     "\"กำจัดมอนสเตอร์หมดแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัยดีกว่า\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
+            timeEvent = player.timeCount-1;
             textMission1.setStyle(labelStyle2);
             textMission2.setText("ภารกิจที่สอง สอบถามประชาชนที่เข้ามาอาศัยในที่หลบภัย");
             delayGuide();
@@ -1393,6 +1395,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 animation_status = true;
                 dialogAll();
                 level2.gate.state = Item.ItemState.ON;
+                timeEvent = player.timeCount-1;
                 String text =
                         "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 dialog.addWaitingPage(text);
