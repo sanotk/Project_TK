@@ -1691,7 +1691,7 @@ public class GameScreen extends AbstractGameScreen {
             dialog.addWaitingPage(text);
             dialogStart = true;
             delayMission();
-            timeEvent = player.timeCount;
+            timeEvent = player.timeCount-1;
         }
 
         if ((level1.door.nearPlayer()) && (player.status_find)) {
@@ -1717,7 +1717,7 @@ public class GameScreen extends AbstractGameScreen {
                             "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานเข้าสู่สถานที่หลบภัย\" \n\"(กด     เพื่ออ่านการทำงานของโซล่าเซลล์ หรือกด Enter เพื่อเล่นตอ)\"";
                     dialog.addWaitingPage(text);
                     stageTwoAfter = true;
-                    timeEvent = player.timeCount;
+                    timeEvent = player.timeCount-1;
                     delayGuide();
                     textMission2.setStyle(labelStyle2);
                     textMission3.setText("ภารกิจที่สาม เชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานให้กับสถานที่หลบภัย");
@@ -1739,7 +1739,7 @@ public class GameScreen extends AbstractGameScreen {
         if (player.stageOneClear && !dialogCitizen) {
             dialogCitizen = true;
             dialogAll();
-            timeEvent = player.timeCount;
+            timeEvent = player.timeCount-1;
             missionStart = false;
             String text =
                     "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
@@ -1749,19 +1749,19 @@ public class GameScreen extends AbstractGameScreen {
             delayMission();
         }
 
-        if (player.timeCount <= timeEvent-1 && !missionStart){
+        if (player.timeCount <= timeEvent && !missionStart){
             missionStart = true;
             missionWindow.setVisible(true);
             player.timeStop = true;
         }
 
-        if (player.timeCount <= timeEvent-1 && !guideStart && stageTwoAfter){
+        if (player.timeCount <= timeEvent && !guideStart && stageTwoAfter){
             guideStart = true;
             buttonGuideWindow.setVisible(true);
             player.timeStop = true;
         }
 
-        if (player.timeCount <= timeEvent-1 && !statusStart && stageThreeClear){
+        if (player.timeCount <= timeEvent && !statusStart && stageThreeClear){
             statusStart = true;
             status();
             player.timeStop = true;

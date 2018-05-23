@@ -1329,23 +1329,6 @@ public class GameScreen2 extends AbstractGameScreen {
             timeEvent = player.timeCount-1;
         }
 
-        if (player.timeCount <= timeEvent-1 && !missionStart){
-            missionStart = true;
-            missionWindow.setVisible(true);
-            player.timeStop = true;
-        }
-
-        if (player.timeCount <= timeEvent-1 && !guideStart && player.stageOneClear){
-            guideStart = true;
-            guideWindow.setVisible(true);
-            player.timeStop = true;
-        }
-
-        if (player.timeCount <= timeEvent-1 && !statusStart && stageThreeClear){
-            statusStart = true;
-            status();
-            player.timeStop = true;
-        }
 
         if ((level2.gate.nearPlayer()) && (player.status_find)) {
             if (!animation_status && stageTwoClear && !stageThreeClear && !dialogDoor3) {
@@ -1382,10 +1365,12 @@ public class GameScreen2 extends AbstractGameScreen {
                     "\"กำจัดมอนสเตอร์หมดแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัยดีกว่า\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
             timeEvent = player.timeCount-1;
+            System.out.print(player.timeCount);
             textMission1.setStyle(labelStyle2);
             textMission2.setText("ภารกิจที่สอง สอบถามประชาชนที่เข้ามาอาศัยในที่หลบภัย");
             delayGuide();
         }
+
 
         if (questCount == 6 && !animation_status) {
             if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
@@ -1465,6 +1450,24 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen6;
             }
+        }
+        if (player.timeCount <= timeEvent-1 && !missionStart){
+            missionStart = true;
+            missionWindow.setVisible(true);
+            player.timeStop = true;
+        }
+
+        if (player.timeCount <= timeEvent-1 && !guideStart && player.stageOneClear){
+            guideStart = true;
+            guideWindow.setVisible(true);
+            player.timeStop = true;
+            System.out.print("ทำงาน");
+        }
+
+        if (player.timeCount <= timeEvent-1 && !statusStart && stageThreeClear){
+            statusStart = true;
+            status();
+            player.timeStop = true;
         }
     }
 
