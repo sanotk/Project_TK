@@ -1375,7 +1375,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 stageTwoClear = true;
                 dialogAll();
                 String text =
-                        "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต กรุณาปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นลง\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+                        "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานหมดเครื่องระบายอากาศจะหยุดทำงาน\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 level2.gate.state = Item.ItemState.OFF;
                 dialog.addWaitingPage(text);
                 textMission2.setStyle(labelStyle2);
