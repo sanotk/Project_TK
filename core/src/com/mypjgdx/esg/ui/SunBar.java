@@ -6,8 +6,8 @@ import com.badlogic.gdx.utils.JsonValue;
 public class SunBar implements Json.Serializable {
 
     public static final SunBar instance = new SunBar();
-    
-    public float accelerateTime = 1;
+
+    public float accelerateTime = 60;
     public float timeCount = 0;
     public float sunTime = 11;
 
