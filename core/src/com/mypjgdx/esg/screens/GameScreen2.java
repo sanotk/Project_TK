@@ -1365,6 +1365,7 @@ public class GameScreen2 extends AbstractGameScreen {
                     "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
             timeEvent = player.timeCount-1;
+            missionStart =false;
             System.out.print(player.timeCount);
             textMission1.setStyle(labelStyle2);
             textMission2.setText("ภารกิจที่สอง สอบถามประชาชนที่เข้ามาอาศัยในที่หลบภัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)");
@@ -1451,18 +1452,20 @@ public class GameScreen2 extends AbstractGameScreen {
                 citizenQuest = systemWindow.citizen6;
             }
         }
+
         if (player.timeCount <= timeEvent && !missionStart){
             missionStart = true;
+            missionWindow.pack();
             missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             player.timeStop = true;
         }
 
-        if (player.timeCount <= timeEvent && !guideStart && player.stageOneClear){
-            guideStart = true;
-            guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            player.timeStop = true;
-            System.out.print("ทำงาน");
-        }
+//        if (player.timeCount <= timeEvent && !guideStart && player.stageOneClear){
+//            guideStart = true;
+//            guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+//            player.timeStop = true;
+//            System.out.print("ทำงาน");
+//        }
 
         if (player.timeCount <= timeEvent && !statusStart && stageThreeClear){
             statusStart = true;
