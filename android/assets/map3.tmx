@@ -300,6 +300,9 @@
  <tileset firstgid="119" name="shadow" tilewidth="50" tileheight="50" tilecount="1" columns="1">
   <image source="shadow.png" width="50" height="50"/>
  </tileset>
+ <tileset firstgid="120" name="shadowex" tilewidth="50" tileheight="50" tilecount="1" columns="1">
+  <image source="shadowex.png" width="50" height="50"/>
+ </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
    eJzF08kKwjAUheFUxAGHOqA41K6juJCShSDBlUvf/3U8gotLSOIlQ7v4KLShP81NayFE3YIdjDOoSGMLS5gwaOa6E5RG4wrqZ+ahPc8U8bA0CibNXPeyNPqJG/OIBleuhkzU8O3Vu4VGqr2KafSYqojGHRqGMqJB/2/l4Wo84WawzUMS9DzSe66GOSffzKXjHcWfRui5kpZrl43vPM6G0P/D1bgEfkeMLhp72MAwoQUcSGMFowzWpDGFQQZH0sjtA1fvIUY=
@@ -317,7 +320,7 @@
  </layer>
  <layer name="shadow" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJztjkEOwCAIBPcp+0u/76UHQhSpdmubOMnGqMAAHL4KO5npv+vIRoXSoZzdcrzpU86muSsd1vVnB5BzcBBbN0sxid5W4DWLnSh50kGX0ji90/cQ8U6jv2xPxrG6V1R/2E8FvuQSRw==
+   eJztVEEKwCAM61P6y+75u0wosdVUHF4MhE6nSRWiyEUVD0lxdaaBMJLi6kwjghaY+c+AvWbfWV+7sarNnCPyWPWroKJfOYfXVjfeDQ142gNzGWW1jdu9ofbMw2CPJXMjLSaT9vVqMMfkmM25St+755/Y6aHS3z9W9MT17Lub/ZNgr9dndUZk+xqtvziPF7vDMkE=
   </data>
  </layer>
 </map>

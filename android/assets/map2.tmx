@@ -225,6 +225,12 @@
  <tileset firstgid="119" name="shadow" tilewidth="50" tileheight="50" tilecount="1" columns="1">
   <image source="shadow.png" width="50" height="50"/>
  </tileset>
+ <tileset firstgid="120" name="shadowex" tilewidth="50" tileheight="50" tilecount="1" columns="1">
+  <image source="shadowex.png" width="50" height="50"/>
+ </tileset>
+ <tileset firstgid="121" name="shadowex" tilewidth="50" tileheight="50" tilecount="1" columns="1">
+  <image source="shadowex.png" width="50" height="50"/>
+ </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
    eJy9k7kOwjAMhkNVcQhEOQTiKJ0ZGLMxg8r5KvD+E0ZyJWM5ISEJwyenf9t8co5KKVX9gQXQS0BJHHNgDPQjsgEK5tgBGtkSpMyUa8JecORAS5hLypqcv3s/P5GD4Gi+uWK9AGccH8mcEichG1ocvki9xXTY1jCW44G1xnr74sg8KEkfvC+bw+fsF2xOXk0O7cGvjlx99n1HpH3gDte1ypV87/iYOmy49BFKaB8hDtf/Q9bKZz8yHNM7w7PQPrjflMU4V3Q+KYuxH66OJTADOo6sHLIRZo1jAnQTMCWOAdBOwJo4UvMClYEq/Q==
@@ -242,7 +248,7 @@
  </layer>
  <layer name="shadow" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFwxWUk6AOGWMTK8ehfhTgBooMqGGlOLDOGdQAPS3RMm3R02xi7MKW79DZxJo1kIBYfwx2MOqPUTCUAAC9DRWl
+   eJztk1EKACEIRL1Kp6zjL/sRmMyIfmwt4YOBkFG0TKTIMpRQnPmjdV66EoozP6uBcjyfjXXiLzhN1rtqZ9vZxkhognbXA+0nE8r9iuwc02P/nT1Ha50kOsffyczBfMy/k1veo/B5AFbILAo=
   </data>
  </layer>
 </map>
