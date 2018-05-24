@@ -1344,7 +1344,7 @@ public class GameScreen2 extends AbstractGameScreen {
             }
         }
 
-        if (!dialogEnemy) {
+        if (!dialogEnemy && player.timeCount <= 298) {
             for (int i = 0; i < worldController.level.enemies.size(); i++) {
                 Enemy enemy = worldController.level.enemies.get(i);
                 if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
@@ -1358,16 +1358,16 @@ public class GameScreen2 extends AbstractGameScreen {
             }
         }
 
-        if (player.stageOneClear && !dialogCitizen) {
+        if (player.stageOneClear && !dialogCitizen && player.isSwitch) {
             dialogCitizen = true;
             dialogAll();
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัยดีกว่า\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
+                    "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
             timeEvent = player.timeCount-1;
             System.out.print(player.timeCount);
             textMission1.setStyle(labelStyle2);
-            textMission2.setText("ภารกิจที่สอง สอบถามประชาชนที่เข้ามาอาศัยในที่หลบภัย");
+            textMission2.setText("ภารกิจที่สอง สอบถามประชาชนที่เข้ามาอาศัยในที่หลบภัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)");
             delayGuide();
         }
 
@@ -1457,7 +1457,7 @@ public class GameScreen2 extends AbstractGameScreen {
             player.timeStop = true;
         }
 
-        if (player.timeCount <= timeEvent && !guideStart && player.stageOneClear){
+        if (player.timeCount <= timeEvent && !guideStart && player.stageOneClear && player.isSwitch){
             guideStart = true;
             guideWindow.setVisible(true);
             player.timeStop = true;

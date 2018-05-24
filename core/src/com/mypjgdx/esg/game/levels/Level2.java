@@ -57,16 +57,16 @@ public class Level2 extends Level {
         fan2 = new Fan(mapLayer, player, 750, 850);
         refrigerator = new Refrigerator(mapLayer, player);
         riceCooker = new RiceCooker(mapLayer, player);
-        gate = new Gate(mapLayer,player);
-        lamp1 = new Lamp(mapLayer,player,100f,1150f);
-        lamp2 = new Lamp(mapLayer,player,400f,1150f);
-        lamp3 = new Lamp(mapLayer,player,700f,1150f);
-        lamp4 = new Lamp(mapLayer,player,1000f,1150f);
-        lamp5 = new Lamp(mapLayer,player,1300f,1150f);
-        lamp6 = new Lamp(mapLayer,player,100f,750f);
-        lamp7 = new Lamp(mapLayer,player,400f,750f);
-        lamp8 = new Lamp(mapLayer,player,900f,200f);
-        lamp9 = new Lamp(mapLayer,player,1200f,200f);
+        gate = new Gate(mapLayer, player);
+        lamp1 = new Lamp(mapLayer, player, 100f, 1150f);
+        lamp2 = new Lamp(mapLayer, player, 400f, 1150f);
+        lamp3 = new Lamp(mapLayer, player, 700f, 1150f);
+        lamp4 = new Lamp(mapLayer, player, 1000f, 1150f);
+        lamp5 = new Lamp(mapLayer, player, 1300f, 1150f);
+        lamp6 = new Lamp(mapLayer, player, 100f, 750f);
+        lamp7 = new Lamp(mapLayer, player, 400f, 750f);
+        lamp8 = new Lamp(mapLayer, player, 900f, 200f);
+        lamp9 = new Lamp(mapLayer, player, 1200f, 200f);
 
         items.add(switchItem);
         items.add(television);
@@ -175,17 +175,11 @@ public class Level2 extends Level {
                         - Assets.instance.light.getWidth() / 2f,
                 player.getPositionY() + player.origin.y
                         - Assets.instance.light.getHeight() / 2f);
-        if(player.isSwitch){
-            for (int i =0; i< items.size();i++){
-                if(items.get(i) instanceof Lamp){
-                    batch.draw(Assets.instance.light,
-                            items.get(i).p_x + items.get(0).origin.x
-                            - Assets.instance.light.getWidth() / 2f,
-                            items.get(i).p_y + items.get(0).origin.y
-                                    - Assets.instance.light.getHeight() / 2f);
-                }
-            }
-        }
+        batch.draw(Assets.instance.light,
+                switchItem.p_x + switchItem.origin.x
+                        - Assets.instance.light.getWidth() / 2f,
+                switchItem.p_y + switchItem.origin.y
+                        - Assets.instance.light.getHeight() / 2f);
         batch.end();
         FrameBuffer.unbind();
     }
