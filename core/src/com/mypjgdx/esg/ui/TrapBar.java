@@ -7,7 +7,8 @@ public class TrapBar implements Json.Serializable {
 
     public static final TrapBar instance = new TrapBar();
 
-    public float energyTrap = 1000;
+    public float energyTrap = 100;
+    public float totalUse = 0;
 
     private TrapBar() {
 

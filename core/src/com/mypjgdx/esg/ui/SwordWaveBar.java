@@ -7,7 +7,7 @@ public class SwordWaveBar implements Json.Serializable {
 
     public static final SwordWaveBar instance = new SwordWaveBar();
 
-    public float energySwordWave = 3000;
+    public float energySwordWave = 9999;
 
     private SwordWaveBar() {
 

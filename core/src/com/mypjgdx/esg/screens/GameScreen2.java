@@ -1453,13 +1453,13 @@ public class GameScreen2 extends AbstractGameScreen {
         }
         if (player.timeCount <= timeEvent && !missionStart){
             missionStart = true;
-            missionWindow.setVisible(true);
+            missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             player.timeStop = true;
         }
 
-        if (player.timeCount <= timeEvent && !guideStart && player.stageOneClear && player.isSwitch){
+        if (player.timeCount <= timeEvent && !guideStart && player.stageOneClear){
             guideStart = true;
-            guideWindow.setVisible(true);
+            guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             player.timeStop = true;
             System.out.print("ทำงาน");
         }
@@ -1532,7 +1532,7 @@ public class GameScreen2 extends AbstractGameScreen {
             }
         }
 
-        if (countEnemy == worldController.level.enemies.size()) {
+        if (countEnemy == worldController.level.enemies.size() && player.isSwitch) {
             player.stageOneClear = true;
         }
 

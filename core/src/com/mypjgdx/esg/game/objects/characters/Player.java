@@ -19,9 +19,7 @@ import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.*;
 import com.mypjgdx.esg.game.objects.weapons.Weapon.WeaponType;
-import com.mypjgdx.esg.ui.BatteryBar;
-import com.mypjgdx.esg.ui.SwordWaveBar;
-import com.mypjgdx.esg.ui.TrapBar;
+import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.utils.Direction;
 
 import java.util.List;
@@ -423,11 +421,13 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         if (state != PlayerState.ATTACK && item == null) {
             state = PlayerState.ATTACK;
             resetAnimation();
-            if (BatteryBar.instance.getBatteryStorage() >= TrapBar.instance.energyTrap) {
+            if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse  >
+                    TrapBar.instance.energyTrap * TrapBar.instance.totalUse) {
                 weapons.add(new Trap(mapLayer, this));
                 Assets.instance.bulletSound.play();
                 SoundManager.instance.play(SoundManager.Sounds.BULLET);
-                BatteryBar.instance.batteryStorage -= TrapBar.instance.energyTrap;
+                TrapBar.instance.totalUse += 1;
+                EnergyUsedBar.instance.energyUse += TrapBar.instance.energyTrap * TrapBar.instance.totalUse;
                 energyLess = false;
             }else{
                 energyLess = true;

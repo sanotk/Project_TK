@@ -58,8 +58,6 @@ public enum CitizenState implements State<Citizen> {
                 entity.path = null;
                 entity.getStateMachine().changeState(WANDER);
             }
-            if (entity.quest)
-                entity.getStateMachine().changeState(RUN_TO_ITEM);
         }
 
         @Override

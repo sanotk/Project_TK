@@ -658,59 +658,59 @@ public class GameScreen extends AbstractGameScreen {
         buttonSunStyle.up = iconSun;
         buttonSunStyle.over = iconSun.tint(Color.LIME);
         Button iconSunButton = new Button(buttonSunStyle);
-        iconSunButton.setPosition(125, SCENE_HEIGHT - 50);
+        iconSunButton.setPosition(100, SCENE_HEIGHT - 50);
 
         textSun = new Label("", skin);
         textSun.setColor(0, 0, 0, 1);
         textSun.setStyle(labelStyle);
         textSun.setFontScale(1f, 1f);
-        textSun.setPosition(150, SCENE_HEIGHT - 42);
+        textSun.setPosition(125, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonTemperatureStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconTemperature = new TextureRegionDrawable(Assets.instance.iconTemperature);
         buttonTemperatureStyle.up = iconTemperature;
         buttonTemperatureStyle.over = iconTemperature.tint(Color.LIME);
         Button iconTemperatureButton = new Button(buttonTemperatureStyle);
-        iconTemperatureButton.setPosition(225, SCENE_HEIGHT - 50);
+        iconTemperatureButton.setPosition(200, SCENE_HEIGHT - 50);
 
         textTemperature = new Label("", skin);
         textTemperature.setColor(0, 0, 0, 1);
         textTemperature.setStyle(labelStyle);
         textTemperature.setFontScale(1f, 1f);
-        textTemperature.setPosition(250, SCENE_HEIGHT - 42);
+        textTemperature.setPosition(225, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonCircleStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconCircle = new TextureRegionDrawable(Assets.instance.iconCircle);
         buttonCircleStyle.up = iconCircle;
         buttonCircleStyle.over = iconCircle.tint(Color.LIME);
         Button iconCircleButton = new Button(buttonCircleStyle);
-        iconCircleButton.setPosition(275, SCENE_HEIGHT - 40);
+        iconCircleButton.setPosition(250, SCENE_HEIGHT - 40);
 
         TextButton.TextButtonStyle buttonSwordStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconSword = new TextureRegionDrawable(Assets.instance.iconSword);
         buttonSwordStyle.up = iconSword;
         buttonSwordStyle.over = iconSword.tint(Color.LIME);
         Button iconSwordButton = new Button(buttonSwordStyle);
-        iconSwordButton.setPosition(300, SCENE_HEIGHT - 50);
+        iconSwordButton.setPosition(265, SCENE_HEIGHT - 50);
 
         textBeam = new Label("", skin);
         textBeam.setColor(0, 0, 0, 1);
         textBeam.setStyle(labelStyle);
         textBeam.setFontScale(1.f, 1.f);
-        textBeam.setPosition(325, SCENE_HEIGHT - 42);
+        textBeam.setPosition(285, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonTrapStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconTrap = new TextureRegionDrawable(Assets.instance.iconTrap);
         buttonTrapStyle.up = iconTrap;
         buttonTrapStyle.over = iconTrap.tint(Color.LIME);
         Button iconTrapButton = new Button(buttonTrapStyle);
-        iconTrapButton.setPosition(375, SCENE_HEIGHT - 50);
+        iconTrapButton.setPosition(350, SCENE_HEIGHT - 50);
 
         textTrap = new Label("", skin);
         textTrap.setColor(0, 0, 0, 1);
         textTrap.setStyle(labelStyle);
         textTrap.setFontScale(1f, 1f);
-        textTrap.setPosition(400, SCENE_HEIGHT - 42);
+        textTrap.setPosition(375, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonTimeStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconTime = new TextureRegionDrawable(Assets.instance.iconTime);
@@ -1624,7 +1624,6 @@ public class GameScreen extends AbstractGameScreen {
             for (int i = 0; i < worldController.level.citizens.size(); i++) {
                 Citizen citizen = worldController.level.citizens.get(i);
                 if (!citizen.runPlayer) {
-                    citizen.quest = true;
                     dialogCitizen = true;
                     citizen.runPlayer = true;
                     citizenCount += 1;
@@ -1683,8 +1682,8 @@ public class GameScreen extends AbstractGameScreen {
         textSun.setText(String.format(" %d", (int) SunBar.instance.sunTime) + " นาฬิกา");
         textTemperature.setText(String.format(" %d", (int) TemperatureBar.instance.Temperature));
         //textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
-        textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
-        textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
+        textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave) + " จูล");
+        textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap) + " วัตต์");
         textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
         textLiking.setText(String.format(" %d", (int) LikingBar.instance.liking));
 
@@ -1785,7 +1784,7 @@ public class GameScreen extends AbstractGameScreen {
                 Citizen citizen = worldController.level.citizens.get(i);
                 if (citizen.overlapPlayer && !citizen.runPlayer) {
                     if (player.status_find) {
-                        citizen.quest =true;
+                        citizen.runPlayer =true;
                         dialogCitizen = true;
                         dialogAll();
                         String text =
@@ -1948,7 +1947,7 @@ public class GameScreen extends AbstractGameScreen {
         iconEnergyLess.setPosition(iconPos.x, iconPos.y + 50);
 
         for (Citizen citizen : level1.citizens) {
-            if (player.bounds.overlaps(citizen.bounds) && !citizen.quest) {
+            if (player.bounds.overlaps(citizen.bounds) && !citizen.runPlayer) {
                 iconHuman.setVisible(true);
             }
         }
