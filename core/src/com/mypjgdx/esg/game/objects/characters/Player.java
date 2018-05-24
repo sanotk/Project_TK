@@ -92,6 +92,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private boolean invulnerable;
     private boolean knockback;
 
+    private boolean acceptTrap;
+
     private long lastInvulnerableTime;
     private long invulnerableTime;
     private float movingSpeed;
@@ -421,14 +423,15 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         if (state != PlayerState.ATTACK && item == null) {
             state = PlayerState.ATTACK;
             resetAnimation();
-            if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse  >
-                    TrapBar.instance.energyTrap * TrapBar.instance.totalUse) {
-                weapons.add(new Trap(mapLayer, this));
-                Assets.instance.bulletSound.play();
-                SoundManager.instance.play(SoundManager.Sounds.BULLET);
-                TrapBar.instance.totalUse += 1;
-                EnergyUsedBar.instance.energyUse += TrapBar.instance.energyTrap * TrapBar.instance.totalUse;
-                energyLess = false;
+            if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse  >=
+                    TrapBar.instance.energyTrap) {
+                if(acceptTrap){
+                    weapons.add(new Trap(mapLayer, this));
+                    Assets.instance.bulletSound.play();
+                    SoundManager.instance.play(SoundManager.Sounds.BULLET);
+                    EnergyUsedBar.instance.energyUse += TrapBar.instance.energyTrap;
+                    energyLess = false;
+                }
             }else{
                 energyLess = true;
             }

@@ -158,6 +158,19 @@ public class Level2 extends Level {
                 lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
                 false, true);
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        if(player.isSwitch){
+            batch.draw(lightFbo.getColorBufferTexture(),
+                    camera.position.x - camera.viewportWidth * camera.zoom / 2,
+                    camera.position.y - camera.viewportHeight * camera.zoom / 2,
+                    0, 0,
+                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
+                    1 * camera.zoom, 1 * camera.zoom,
+                    0,
+                    0, 0,
+                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
+                    false, true);
+            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        }
         batch.end();
     }
 

@@ -29,6 +29,8 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.weapons.Trap;
+import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.ui.Dialog;
 import com.mypjgdx.esg.utils.QuestState;
@@ -1767,6 +1769,13 @@ public class GameScreen2 extends AbstractGameScreen {
 
         if(!player.timeStop && !player.timeClear){
             SunBar.instance.timeCount += 1*deltaTime;
+        }
+        for (Weapon weapon : worldController.level.weapons){
+            if(weapon instanceof Trap){
+                if(weapon.isDestroyed()){
+                    EnergyUsedBar.instance.energyUse -= TrapBar.instance.energyTrap;
+                }
+            }
         }
 
         if(SunBar.instance.timeCount >= 60){

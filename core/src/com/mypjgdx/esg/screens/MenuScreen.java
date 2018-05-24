@@ -153,7 +153,7 @@ public class MenuScreen extends AbstractGameScreen {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
-        style.titleFont = font;
+        style.titleFont = font2;
         style.titleFontColor = Color.WHITE;
 
         Button.ButtonStyle buttonCrossStyle = new Button.ButtonStyle();
@@ -164,7 +164,7 @@ public class MenuScreen extends AbstractGameScreen {
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
         buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
-        buttonStyle.font = font;
+        buttonStyle.font = font2;
 
         Button closeButton = new Button(buttonCrossStyle);
         TextButton stage1Button = new TextButton("ด่านที่ 1", buttonStyle);
