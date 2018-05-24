@@ -489,13 +489,14 @@ public class GameScreen extends AbstractGameScreen {
         buttonGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                guideShow =true;
                 if (guideShow) {
                     guideShow = false;
                     buttonGuideWindow.setVisible(false);
+                    worldController.level.player.timeStop =false;
                 } else {
                     guideShow = true;
                     buttonGuideWindow.setVisible(true);
+                    worldController.level.player.timeStop =true;
                 }
 //                guideWindow.pack();
 //                worldController.level.player.timeStop = true;
@@ -509,13 +510,14 @@ public class GameScreen extends AbstractGameScreen {
         iconGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                guideShow =true;
                 if (guideShow) {
                     guideShow = false;
                     buttonGuideWindow.setVisible(false);
+                    worldController.level.player.timeStop =false;
                 } else {
                     guideShow = true;
                     buttonGuideWindow.setVisible(true);
+                    worldController.level.player.timeStop =true;
                 }
 //                guideWindow.pack();
 //                worldController.level.player.timeStop = true;
@@ -529,13 +531,14 @@ public class GameScreen extends AbstractGameScreen {
         buttonGuideWindow.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                guideShow =true;
                 if (guideShow) {
                     guideShow = false;
                     buttonGuideWindow.setVisible(false);
+                    worldController.level.player.timeStop =false;
                 } else {
                     guideShow = true;
                     buttonGuideWindow.setVisible(true);
+                    worldController.level.player.timeStop =true;
                 }
 //                guideWindow.pack();
 //                worldController.level.player.timeStop = true;
@@ -1146,7 +1149,7 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonRuleStyle);
 
-        textMission1 = new Label("ภารกิจแรก ตามหาประตูทางเข้าสถานที่หลบภัยให้พบ พร้อมทั้งกำจัดเหล่ามอนสเตอร์ทั้งหมด", skin);
+        textMission1 = new Label("ภารกิจแรก สำรวจพื้นที่พร้อมทั้งกำจัดเหล่ามอนสเตอร์ทั้งหมด", skin);
         textMission2 = new Label("", skin);
         textMission3 = new Label("", skin);
         textMission4 = new Label("", skin);
@@ -1747,10 +1750,10 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount-1;
             missionStart = false;
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
+                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัย (ทำได้เดินไปติดกับประชาชนและกดคุย)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
             textMission1.setStyle(labelStyle2);
-            textMission2.setText("ภารกิจที่สอง ตามหาประชาชนให้ครบ");
+            textMission2.setText("ภารกิจที่สอง ตามหาประชาชนให้ที่ออกมาจากที่ซ่อนตัวให้ครบ (ทำได้โดยเดินไปติดกับประชาชนและกดคุย)");
             delayMission();
         }
 
@@ -1795,7 +1798,7 @@ public class GameScreen extends AbstractGameScreen {
             String text =
                     "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             textMission2.setStyle(labelStyle2);
-            textMission3.setText("ภารกิจที่สาม พาประชาชนมายังทางเข้าสถานที่หลบภัย");
+            textMission3.setText("ภารกิจที่สาม พาประชาชนทั้งหมดมายังทางเข้าสถานที่หลบภัย");
             dialog.addWaitingPage(text);
             delayMission();
         }
@@ -1831,6 +1834,7 @@ public class GameScreen extends AbstractGameScreen {
 
         if (player.timeCount <= timeEvent && !guideStart && stageTwoAfter){
             guideStart = true;
+            guideShow = true;
             buttonGuideWindow.setVisible(true);
             player.timeStop = true;
         }
