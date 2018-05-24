@@ -55,6 +55,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean quest4Cancel;
     public boolean quest5Cancel;
     public boolean quest6Cancel;
+    public boolean requestTrap;
 
     public enum PlayerAnimation {
         ATK_LEFT,
@@ -92,7 +93,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private boolean invulnerable;
     private boolean knockback;
 
-    private boolean acceptTrap;
+    public boolean acceptTrap;
 
     private long lastInvulnerableTime;
     private long invulnerableTime;
@@ -425,17 +426,23 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             resetAnimation();
             if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse  >=
                     TrapBar.instance.energyTrap) {
+                    requestTrap = true;
                 if(acceptTrap){
-                    weapons.add(new Trap(mapLayer, this));
-                    Assets.instance.bulletSound.play();
-                    SoundManager.instance.play(SoundManager.Sounds.BULLET);
-                    EnergyUsedBar.instance.energyUse += TrapBar.instance.energyTrap;
-                    energyLess = false;
+                    addTrap(weapons);
                 }
             }else{
                 energyLess = true;
             }
         }
+    }
+
+    public void addTrap(List<Weapon> weapons){
+        weapons.add(new Trap(mapLayer, this));
+        Assets.instance.bulletSound.play();
+        SoundManager.instance.play(SoundManager.Sounds.BULLET);
+        EnergyUsedBar.instance.energyUse += TrapBar.instance.energyTrap;
+        energyLess = false;
+        acceptTrap = false;
     }
 
     public void swordAttack(List<Weapon> weapons, List<Sword> swords) {

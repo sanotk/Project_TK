@@ -141,6 +141,7 @@ public class GameScreen extends AbstractGameScreen {
     private boolean guideShow;
     private boolean missionStart;
     private boolean guideStart;
+    private boolean trapShow;
     private boolean statusStart;
     private Label textMission9;
 
@@ -245,10 +246,10 @@ public class GameScreen extends AbstractGameScreen {
 
         this.optionsWindow = optionsWindow;
 
-        isComplete.add(solarState.StoC);
-        isComplete.add(solarState.CtoB);
-        isComplete.add(solarState.CtoI);
-        isComplete.add(solarState.ItoD);
+        isComplete.add(SolarState.StoC);
+        isComplete.add(SolarState.CtoB);
+        isComplete.add(SolarState.CtoI);
+        isComplete.add(SolarState.ItoD);
 
         createButton();
         batch = new SpriteBatch();
@@ -609,39 +610,50 @@ public class GameScreen extends AbstractGameScreen {
         buttonAgree.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if(trapShow){
+                    worldController.level.player.acceptTrap = true;
+                    worldController.level.player.requestTrap = false;
+                }else{
+                    MusicManager.instance.stop();
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            game.setScreen(new GameScreen2(game, optionsWindow));
+                        }
+                    });
+                }
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
                 dialog.hide();
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
-                MusicManager.instance.stop();
-                Gdx.app.postRunnable(new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setScreen(new GameScreen2(game, optionsWindow));
-                    }
-                });
             }
         });
 
         buttonRefuse.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if(trapShow){
+                    worldController.level.player.acceptTrap = false;
+                    worldController.level.player.requestTrap = false;
+                }else {
+                    MusicManager.instance.stop();
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            game.setScreen(new MenuScreen(game));
+                            EnergyProducedBar.instance.energyProduced = 0;
+                            EnergyUsedBar.instance.energyUse = 0;
+                            BatteryBar.instance.batteryStorage = 0;
+                        }
+                    });
+                }
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
                 dialog.hide();
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
-                MusicManager.instance.stop();
-                Gdx.app.postRunnable(new Runnable() {
-                    @Override
-                    public void run() {
-                        game.setScreen(new MenuScreen(game));
-                        EnergyProducedBar.instance.energyProduced = 0;
-                        EnergyUsedBar.instance.energyUse = 0;
-                        BatteryBar.instance.batteryStorage = 0;
-                    }
-                });
+
             }
         });
 
@@ -802,6 +814,7 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(energyLevel2);
         stage.addActor(energyLevel3);
         stage.addActor(textLiking);
+
     }
 
     private Window createChartWindow() {
@@ -1216,9 +1229,9 @@ public class GameScreen extends AbstractGameScreen {
 
     private void addLink(SolarState solarState) {
         if (link.size() != 0) {
-            for (int i = 0; i < link.size(); i++) {
-                if (link.get(i) == solarState) {
-                    System.out.print("มี" + link.get(i) + "แล้ว");
+            for (SolarState aLink : link) {
+                if (aLink == solarState) {
+                    System.out.print("มี" + aLink + "แล้ว");
                     return;
                 }
             }
@@ -1355,11 +1368,11 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if ((solarWindow == systemWindow.solarcell)) {
-                    solarState = solarState.StoI;
+                    solarState = SolarState.StoI;
                 } else if ((solarWindow == systemWindow.chargecontroller)) {
-                    solarState = solarState.CtoI;
+                    solarState = SolarState.CtoI;
                 } else {
-                    solarState = solarState.BtoI;
+                    solarState = SolarState.BtoI;
                 }
                 if (((solarWindow == systemWindow.solarcell) && (!addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoI))
                         || ((solarWindow == systemWindow.battery) && (!addedBtoI))) {
@@ -1533,9 +1546,9 @@ public class GameScreen extends AbstractGameScreen {
     private void checkGameComplete() {
         trueLink = 0;
         if ((link.size() != 0) && (link.size() <= 4)) {
-            for (int i = 0; i < link.size(); i++) {
-                for (int j = 0; j < isComplete.size(); j++) {
-                    if (link.get(i) == isComplete.get(j)) {
+            for (SolarState aLink : link) {
+                for (SolarState anIsComplete : isComplete) {
+                    if (aLink == anIsComplete) {
                         trueLink += 1;
                         System.out.println(trueLink);
                     }
@@ -1710,6 +1723,17 @@ public class GameScreen extends AbstractGameScreen {
             dialogStart = true;
             delayMission();
             timeEvent = player.timeCount-1;
+        }
+
+        if(player.requestTrap){
+            player.requestTrap = false;
+            trapShow = true;
+            dialogAll();
+            String text =
+                    "\"คุณต้องการวางกับดักหรือไม่ กับดัก 1 อันใช้กำลังไฟฟ้า 100 วัตต์ เมื่อกับดักถูกทำลายถึงจะได้กำลังไฟฟ้าที่ใช้อยู่คืน\" \n\"(กดปุ่มตกลงเพื่อวางกับดัก หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการวางกับดัก)\"";
+            buttonAgree.setVisible(true);
+            buttonRefuse.setVisible(true);
+            dialog.addWaitingPage(text);
         }
 
         if ((level1.door.nearPlayer()) && (player.status_find)) {
@@ -2063,6 +2087,10 @@ public class GameScreen extends AbstractGameScreen {
             iconStatus.setVisible(false);
             iconGuide.setVisible(false);
             iconControl.setVisible(false);
+        }
+
+        if(player.requestTrap){
+
         }
 
         if (!worldController.level.player.timeStop && !worldController.level.player.timeClear) {
