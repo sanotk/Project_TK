@@ -1738,7 +1738,7 @@ public class GameScreen extends AbstractGameScreen {
                     missionStart = false;
                     delayMission();
                     textMission3.setStyle(labelStyle2);
-                    textMission4.setText("ภารกิจที่สี่ เชื่อมต่อระบบโซล่าเซลล์ (ทำได้โดยคุยกับไอเท็มแล้วเลือกการเชื่อมต่อ)");
+                    textMission4.setText("ภารกิจที่สี่ เชื่อมต่อระบบโซล่าเซลล์ (ทำได้โดยกดปุ่มคุยกับไอเท็มแล้วเลือกการเชื่อมต่อ)");
                     textMission5.setText("ภารกิจที่สี่ - หนึ่ง เชื่อมต่อโซล่าเซลล์กับตัวควบคุมการชาร์จ");
                     textMission6.setText("ภารกิจที่สี่ - สอง เชื่อมต่อตัวควบคุมการชาร์จกับแบตเตอรี่");
                     textMission7.setText("ภารกิจที่สี่ - สาม เชื่อมต่อตัวควบคุมการชาร์จกับเครื่องแปลงกระแสไฟ");
