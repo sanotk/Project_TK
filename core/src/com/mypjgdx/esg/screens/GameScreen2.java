@@ -1311,7 +1311,7 @@ public class GameScreen2 extends AbstractGameScreen {
             dialogDoor2 = false;
             dialogDoor3 = false;
             dialogDoor4 = false;
-            trapShow =false;
+            trapShow = false;
         } else {
             dialog.tryToChangePage();
         }
