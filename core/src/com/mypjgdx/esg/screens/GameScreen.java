@@ -1963,6 +1963,10 @@ public class GameScreen extends AbstractGameScreen {
             delay();
         }
 
+        if(stageThreeClear && !level1.door.nearPlayer()){
+            iconItem.setVisible(false);
+        }
+
         if (noItem && noCitizen) {
             iconHuman.setVisible(false);
             iconItem.setVisible(false);
