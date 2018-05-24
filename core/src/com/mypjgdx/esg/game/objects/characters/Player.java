@@ -129,6 +129,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean timeStop = false;
     public boolean timeClear;
 
+    public List<Weapon> weapons;
+
     public boolean swordHit = true;
 
     public PlayerStalkerPosition stalkerPosition;
@@ -192,6 +194,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public void update(float deltaTime, List<Weapon> weapons, List<Citizen> citizens) {
         super.update(deltaTime);
         statusUpdate();
+        if (acceptTrap){
+            addTrap();
+        }
         if (item != null) // ถ้ามีไอเทม
             item.setPosition(
                     getPositionX() + origin.x - item.origin.x,
@@ -424,19 +429,17 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         if (state != PlayerState.ATTACK && item == null) {
             state = PlayerState.ATTACK;
             resetAnimation();
+            this.weapons = weapons;
             if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse  >=
                     TrapBar.instance.energyTrap) {
                     requestTrap = true;
-                if(acceptTrap){
-                    addTrap(weapons);
-                }
             }else{
                 energyLess = true;
             }
         }
     }
 
-    public void addTrap(List<Weapon> weapons){
+    public void addTrap(){
         weapons.add(new Trap(mapLayer, this));
         Assets.instance.bulletSound.play();
         SoundManager.instance.play(SoundManager.Sounds.BULLET);
