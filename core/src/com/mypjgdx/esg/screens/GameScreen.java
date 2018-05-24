@@ -627,6 +627,7 @@ public class GameScreen extends AbstractGameScreen {
                 dialog.hide();
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
+                trapShow = false;
             }
         });
 
@@ -653,7 +654,7 @@ public class GameScreen extends AbstractGameScreen {
                 dialog.hide();
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
-
+                trapShow = false;
             }
         });
 
@@ -1686,6 +1687,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor2 = false;
                     dialogDoor3 = false;
                     dialogDoor4 = false;
+                    trapShow =false;
                 }
             } else {
                 dialog.tryToChangePage();
@@ -2087,10 +2089,6 @@ public class GameScreen extends AbstractGameScreen {
             iconStatus.setVisible(false);
             iconGuide.setVisible(false);
             iconControl.setVisible(false);
-        }
-
-        if(player.requestTrap){
-
         }
 
         if (!worldController.level.player.timeStop && !worldController.level.player.timeClear) {

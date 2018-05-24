@@ -126,6 +126,7 @@ public class GameScreen2 extends AbstractGameScreen {
 
     private boolean dialogWarning;
     private int timeEvent;
+    private boolean trapShow;
 
     public enum systemWindow {
         citizen1,
@@ -554,7 +555,11 @@ public class GameScreen2 extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
-                if(stageFourClear){
+                if(trapShow){
+                    worldController.level.player.acceptTrap = true;
+                    worldController.level.player.requestTrap = false;
+                    trapShow = false;
+                }else if(stageFourClear){
                     worldController.level.player.timeClear = false;
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
@@ -617,7 +622,11 @@ public class GameScreen2 extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
-                if (citizenQuest == systemWindow.citizen1) {
+                if(trapShow){
+                    worldController.level.player.acceptTrap = false;
+                    worldController.level.player.requestTrap = false;
+                    trapShow = false;
+                }else if (citizenQuest == systemWindow.citizen1) {
                     worldController.level.player.quest1Cancel = true;
                     worldController.level.player.quest_window_1 = true;
                     LikingBar.instance.liking -= 1;
@@ -1331,6 +1340,16 @@ public class GameScreen2 extends AbstractGameScreen {
             timeEvent = player.timeCount-1;
         }
 
+        if(player.requestTrap){
+            player.requestTrap = false;
+            trapShow = true;
+            dialogAll();
+            String text =
+                    "\"คุณต้องการวางกับดักหรือไม่ กับดัก 1 อันใช้กำลังไฟฟ้า 100 วัตต์ เมื่อกับดักถูกทำลายถึงจะได้กำลังไฟฟ้าที่ใช้อยู่คืน\" \n\"(กดปุ่มตกลงเพื่อวางกับดัก หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการวางกับดัก)\"";
+            buttonAgree.setVisible(true);
+            buttonRefuse.setVisible(true);
+            dialog.addWaitingPage(text);
+        }
 
         if ((level2.gate.nearPlayer()) && (player.status_find)) {
             if (!animation_status && stageTwoClear && !stageThreeClear && !dialogDoor3) {
