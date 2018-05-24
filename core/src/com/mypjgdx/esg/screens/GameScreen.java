@@ -1831,7 +1831,7 @@ public class GameScreen extends AbstractGameScreen {
             textMission6.setStyle(labelStyle2);
             textMission7.setStyle(labelStyle2);
             textMission8.setStyle(labelStyle2);
-            textMission9.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว");
+            textMission9.setText("ภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว (กดคุยกับประตูเพื่อเข้าไปยังที่หลบภัย)");
             delayStatus();
         }
 
