@@ -558,7 +558,6 @@ public class GameScreen2 extends AbstractGameScreen {
                 if(trapShow){
                     worldController.level.player.acceptTrap = true;
                     worldController.level.player.requestTrap = false;
-                    trapShow = false;
                 }else if(stageFourClear){
                     worldController.level.player.timeClear = false;
                     Gdx.app.postRunnable(new Runnable() {
@@ -614,6 +613,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialog.hide();
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
+                trapShow = false;
             }
         });
 
@@ -672,6 +672,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialog.hide();
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
+                trapShow = false;
             }
         });
 
@@ -1310,6 +1311,7 @@ public class GameScreen2 extends AbstractGameScreen {
             dialogDoor2 = false;
             dialogDoor3 = false;
             dialogDoor4 = false;
+            trapShow =false;
         } else {
             dialog.tryToChangePage();
         }
