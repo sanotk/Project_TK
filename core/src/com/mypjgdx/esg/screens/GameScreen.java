@@ -1447,7 +1447,7 @@ public class GameScreen extends AbstractGameScreen {
                     level1.solarCell1,
                     level1.charge,
                     worldController.level.links, solarState);
-            textMission4.setStyle(labelStyle2);
+            textMission5.setStyle(labelStyle2);
         } else if (solarState == SolarState.StoB) {
             addedStoB = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
@@ -1472,14 +1472,14 @@ public class GameScreen extends AbstractGameScreen {
                     level1.charge,
                     level1.battery,
                     worldController.level.links, solarState);
-            textMission5.setStyle(labelStyle2);
+            textMission6.setStyle(labelStyle2);
         } else if (solarState == SolarState.CtoI) {
             addedCtoI = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
                     level1.charge,
                     level1.inverter,
                     worldController.level.links, solarState);
-            textMission6.setStyle(labelStyle2);
+            textMission7.setStyle(labelStyle2);
         } else if (solarState == SolarState.CtoD) {
             addedCtoD = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
@@ -1504,7 +1504,7 @@ public class GameScreen extends AbstractGameScreen {
                     level1.inverter,
                     level1.door,
                     worldController.level.links, solarState);
-            textMission7.setStyle(labelStyle2);
+            textMission8.setStyle(labelStyle2);
         }
         //System.out.print("ขนาด" + itemLink.linkList.size() + "นะจ๊ะ");
     }
@@ -1513,6 +1513,15 @@ public class GameScreen extends AbstractGameScreen {
         for (int i = 0; i < itemLink.linkList.size(); i++) {
             if (itemLink.linkList.get(i).solarState == solarState) {
                 System.out.print(itemLink.linkList.get(i).solarState);
+                if(solarState == SolarState.StoC){
+                    textMission5.setStyle(labelStyle);
+                }else if(solarState == SolarState.CtoB){
+                    textMission6.setStyle(labelStyle);
+                }else if(solarState == SolarState.CtoI){
+                    textMission7.setStyle(labelStyle);
+                }else if(solarState == SolarState.ItoD){
+                    textMission8.setStyle(labelStyle);
+                }
                 itemLink.linkList.remove(i);
                 i--;
             }
@@ -1722,11 +1731,12 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor3 = true;
                     dialogAll();
                     String text =
-                            "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานเข้าสู่สถานที่หลบภัย\" \n\"(กด     เพื่ออ่านการทำงานของโซล่าเซลล์ หรือกด Enter เพื่อเล่นตอ)\"";
+                            "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานเข้าสู่สถานที่หลบภัย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
                     dialog.addWaitingPage(text);
                     stageTwoAfter = true;
                     timeEvent = player.timeCount-1;
-                    delayGuide();
+                    missionStart = false;
+                    delayMission();
                     textMission3.setStyle(labelStyle2);
                     textMission4.setText("ภารกิจที่สี่ เชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานให้กับสถานที่หลบภัย");
                     textMission5.setText("ภารกิจที่สี่ - หนึ่ง เชื่อมต่อโซล่าเซลล์กับตัวควบคุมการชาร์จ");
@@ -1753,7 +1763,7 @@ public class GameScreen extends AbstractGameScreen {
                     "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัย (ทำได้เดินไปติดกับประชาชนและกดคุย)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
             textMission1.setStyle(labelStyle2);
-            textMission2.setText("ภารกิจที่สอง ตามหาประชาชนให้ที่ออกมาจากที่ซ่อนตัวให้ครบ (ทำได้โดยเดินไปติดกับประชาชนและกดคุย)");
+            textMission2.setText("ภารกิจที่สอง ตามหาประชาชนในพื้นที่แถบนี้ให้ครบ (ทำได้โดยเดินไปติดกับประชาชนและกดคุย)");
             delayMission();
         }
 
@@ -1809,10 +1819,10 @@ public class GameScreen extends AbstractGameScreen {
                 item.resetAnimation();
             }
             stageThreeClear = true;
-            timeEvent = player.timeCount-1;
             level1.door.state = Item.ItemState.ON;
             animation_status = true;
             dialogAll();
+            timeEvent = player.timeCount-1;
             String text =
                     "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว รีบพาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
@@ -1827,19 +1837,21 @@ public class GameScreen extends AbstractGameScreen {
 
         if (player.timeCount <= timeEvent && !missionStart){
             missionStart = true;
+            missionWindow.pack();
             missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             System.out.print("หยุด");
             player.timeStop = true;
         }
 
-        if (player.timeCount <= timeEvent && !guideStart && stageTwoAfter){
-            guideStart = true;
-            guideShow = true;
-            buttonGuideWindow.setVisible(true);
-            player.timeStop = true;
-        }
+//        if (player.timeCount <= timeEvent && !guideStart && stageTwoAfter){
+//            guideStart = true;
+//            guideShow = true;
+//            buttonGuideWindow.setVisible(true);
+//            player.timeStop = true;
+//        }
 
         if (player.timeCount <= timeEvent && !statusStart && stageThreeClear){
+            System.out.print("status");
             statusStart = true;
             status();
             player.timeStop = true;

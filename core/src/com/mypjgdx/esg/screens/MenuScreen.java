@@ -34,6 +34,7 @@ public class MenuScreen extends AbstractGameScreen {
     private TextButton buttonOption;
     private TextButton buttonExit;
     private BitmapFont font;
+    private BitmapFont font2;
 
     private Window optionsWindow;
     private Window loadWindow;
@@ -47,6 +48,10 @@ public class MenuScreen extends AbstractGameScreen {
         font = Assets.instance.newFontBig;
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
+
+        font2 = Assets.instance.newFont;
+        font2.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font2.setColor(Color.WHITE);
 
         skin = new Skin(Gdx.files.internal("uiskin.json")); //โหลดฟ้อน
 
@@ -234,11 +239,11 @@ public class MenuScreen extends AbstractGameScreen {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
-        style.titleFont = font;
+        style.titleFont = font2;
         style.titleFontColor = Color.WHITE;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
+        labelStyle.font = font2;
         labelStyle.fontColor = Color.WHITE;
 
         Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
