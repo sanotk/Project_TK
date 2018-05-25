@@ -305,7 +305,7 @@
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJzF08kKwjAQgOEo4oJiXVBcas9VPIj0IEjwpLi/ir7/ySlECMNMO7ZNPXxUbOrfOCRQSgUlmICWA77VGIM+aAto4boF8FBjDSIBbdaGBHvdnmhUkKeBv9fM74fm/ts4Eo0aWst9jhsncANX4h2+ukyDW58F15DsI0koaEjeTyfcexS0D61ke8q7j6yNqpCfo7EDWwEvRyNS9HnF55hrHMAGSZo5nrWNa2jiOW7mF+L5s7m+zHP3lP8prUGdKfvqCWbhqhHPY4lkPR9cY/XDPIrwr8YUjECjQD0wsxoD0HRgaDU6oO7A3Gq49gHnUS00
+   eJzF08kKwjAQgOEo4oJiXVBcas9VPIj0IEjwpLjhq+j7n5xChDDM2LFp6uGjohN/Y0iklIpKMAEtD0KrMQZ90BbQwrkFCFBjDRIBbWZjgj23JxoV5GHg9zXz/bH5/GUciUYNzXKv08YJ3MCV+A0fXabBzefBNST7cG1I1uoS9qGVbE+u+8jbqAqFDo0d2AoEDo1E0fcV32OucQAb5NuZ47O2cQ1NrOPO/EKsP5vn06y7Z/xPWQ08i5+B4Cx8NdLzWCJ57wfXWP1wHkX4V2MKRqBRoB6YWY0BaHowtBodUPdgbjV8ewP+YCzB
   </data>
  </layer>
  <layer name="map2" width="25" height="25">

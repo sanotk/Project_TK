@@ -21,6 +21,8 @@ public abstract class Item extends AnimatedObject<ItemAnimation> implements Json
     public float timeCount;
 
     public TiledCollisionCheck playerCheck;
+    public boolean questAccept;
+    public String name;
 
     public enum ItemAnimation {
         ON,

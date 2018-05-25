@@ -10,6 +10,7 @@ public class Fan extends Item{
     public static final float SCALE = 1f;
     public static final float P_X = 950f;
     public static final float P_Y = 850f;
+    public String name = "พัดลม";
 
 	public Fan(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.fanAltas, SCALE, SCALE , P_X , P_Y);

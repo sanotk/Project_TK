@@ -10,6 +10,7 @@ public class AirConditioner extends Item{
     public static final float SCALE = 1f;
     public static final float P_X = 300f;
     public static final float P_Y = 700f;
+    public String name = "เครื่องปรับอากาศ";
 
 	public AirConditioner(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.airAltas, SCALE, SCALE , P_X , P_Y);

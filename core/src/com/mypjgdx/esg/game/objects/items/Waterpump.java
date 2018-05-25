@@ -10,6 +10,7 @@ public class Waterpump extends Item{
     public static final float SCALE = 0.5f;
     public static final float P_X = 200f;
     public static final float P_Y = 1000f;
+    public String name = "เครื่องสูบน้ำ";
 
 	public Waterpump(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.waterpumpAltas, SCALE, SCALE , P_X , P_Y);

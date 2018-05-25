@@ -10,6 +10,7 @@ public class Television extends Item{
     public static final float SCALE = 1f;
     public static final float P_X = 850;
     public static final float P_Y = 900;
+    public String name = "โทรทัศน์";
 
 	public Television(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.tvAltas, SCALE, SCALE , P_X , P_Y);

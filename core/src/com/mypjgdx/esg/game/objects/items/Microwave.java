@@ -10,6 +10,7 @@ public class Microwave extends Item{
     public static final float SCALE = 1f;
     public static final float P_X = 300f;
     public static final float P_Y = 1050f;
+    public String name = "ไมโครเวฟ";
 
 	public Microwave(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.microwaveAltas, SCALE, SCALE , P_X , P_Y);
