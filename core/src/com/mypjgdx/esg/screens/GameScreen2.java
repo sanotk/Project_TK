@@ -1894,6 +1894,7 @@ public class GameScreen2 extends AbstractGameScreen {
     public void show() {
         worldController = new WorldController(new Level2());
         worldRenderer = new WorldRenderer(worldController);
+        worldController.worldRenderer = worldRenderer;
         Gdx.input.setInputProcessor(stage);
 
         MusicManager.instance.stop();

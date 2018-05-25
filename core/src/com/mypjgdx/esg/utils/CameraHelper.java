@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
 
 public class CameraHelper {
@@ -72,18 +73,18 @@ public class CameraHelper {
         return hasTarget() && this.target.equals(target);
     }
 
-    public void update (float deltaTime) {  // อัพมุมกล้องให้ติดตามเป้าหมาย
+    public void update (Viewport viewport) {  // อัพมุมกล้องให้ติดตามเป้าหมาย
         if (!hasTarget()) return;
 
         position.x = target.getPositionX() + target.origin.x;
         position.y = target.getPositionY() + target.origin.y;
 
-        float leftEdge =  map.getTileWidth() * 1;
-        float rightEdge = (map.getWidth() - 1) *  map.getTileWidth();
-        float lowerEdge =  map.getTileHeight() * 1;
-        float upperEdge = (map.getHeight() - 1) * map.getTileHeight();
-        float halfCameraWidth = zoom * 1024/2;
-        float halfCameraHeight = zoom * 576/2;
+        float leftEdge =  map.getTileWidth() * 1 + viewport.getLeftGutterWidth();
+        float rightEdge = (map.getWidth() - 1) *  map.getTileWidth() - viewport.getRightGutterWidth();
+        float lowerEdge =  map.getTileHeight() * 1 + viewport.getScreenY() + viewport.getBottomGutterHeight();
+        float upperEdge = (map.getHeight() - 1) * map.getTileHeight() - viewport.getBottomGutterHeight();
+        float halfCameraWidth = zoom * viewport.getWorldWidth()/2;
+        float halfCameraHeight = zoom * viewport.getWorldHeight()/2;
 
         if (position.y + halfCameraHeight > upperEdge)
             position.y = upperEdge - halfCameraHeight;

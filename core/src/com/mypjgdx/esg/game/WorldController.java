@@ -26,6 +26,7 @@ public class WorldController extends InputAdapter {
 
     public CameraHelper cameraHelper;
     public Level level;
+    public WorldRenderer worldRenderer;
 
     public WorldController(Level level) {
         init(level);
@@ -42,7 +43,7 @@ public class WorldController extends InputAdapter {
     public void update(float deltaTime) {
         handleInput(deltaTime);
         level.update(deltaTime);
-        cameraHelper.update(deltaTime);
+        cameraHelper.update(worldRenderer.viewport);
     }
 
     private void handleInput(float deltaTime) {
