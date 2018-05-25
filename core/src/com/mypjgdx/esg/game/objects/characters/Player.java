@@ -475,7 +475,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             this.weapons = weapons;
             this.swords = swords;
             if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse >=
-                    SwordWaveBar.instance.energySwordWave) {
+                    SwordWaveBar.instance.energySwordWave/2) {
                 requestSwordWave = true;
             } else {
                 energyLess = true;

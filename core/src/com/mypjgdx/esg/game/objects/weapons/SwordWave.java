@@ -73,7 +73,11 @@ public class SwordWave extends Weapon {
 
     @Override
     public void update(float deltaTime) {
-        super.update(deltaTime);
+        //super.update(deltaTime);
+        updateMotionX(deltaTime);
+        updateMotionY(deltaTime);
+        setPositionX(position.x + velocity.x * deltaTime);
+        setPositionY(position.y + velocity.y * deltaTime);
         if(target != null){
             float x = target.getPosition().x + positionToTarget.x;
             float y = target.getPosition().y + positionToTarget.y;
@@ -117,7 +121,7 @@ public class SwordWave extends Weapon {
     }
 
     private void delay(){
-        float delay = 5f; // seconds
+        float delay = 10f; // seconds
         Timer.schedule(new Timer.Task(){
             @Override
             public void run() {
