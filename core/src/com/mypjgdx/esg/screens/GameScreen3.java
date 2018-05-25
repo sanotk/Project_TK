@@ -23,7 +23,6 @@ import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
-import com.mypjgdx.esg.game.levels.Level2;
 import com.mypjgdx.esg.game.levels.Level3;
 import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
@@ -1223,7 +1222,7 @@ public class GameScreen3 extends AbstractGameScreen {
     private void controlAndDebug() {
 
         Player player = worldController.level.player;
-        Level2 level2 = (Level2) worldController.level;
+        Level3 level3 = (Level3) worldController.level;
 
         if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
             for (Enemy enemy : worldController.level.enemies) {
@@ -1232,8 +1231,8 @@ public class GameScreen3 extends AbstractGameScreen {
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
-            level2.switchItem.state = Item.ItemState.ON;
-            level2.switchItem.resetAnimation();
+            level3.switchItem.state = Item.ItemState.ON;
+            level3.switchItem.resetAnimation();
             player.isSwitch = true;
             player.status_find = false;
             EnergyUsedBar.instance.energyUse += 300;
@@ -1343,7 +1342,7 @@ public class GameScreen3 extends AbstractGameScreen {
     private void dialogDraw() {
 
         Player player = worldController.level.player;
-        Level2 level2 = (Level2) worldController.level;
+        Level3 level3 = (Level3) worldController.level;
 
         if (!dialogStart) {
             dialogAll();
@@ -1375,7 +1374,7 @@ public class GameScreen3 extends AbstractGameScreen {
             dialog.addWaitingPage(text);
         }
 
-        if ((level2.gate.nearPlayer()) && (player.status_find)) {
+        if ((level3.gate.nearPlayer()) && (player.status_find)) {
             if (!animation_status && stageTwoClear && !stageThreeClear && !dialogDoor3) {
                 dialogDoor3 = true;
                 dialogAll();
@@ -1425,7 +1424,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 stageThreeClear = true;
                 animation_status = true;
                 dialogAll();
-                level2.gate.state = Item.ItemState.ON;
+                level3.gate.state = Item.ItemState.ON;
                 timeEvent = player.timeCount-1;
                 String text =
                         "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
@@ -1439,7 +1438,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 dialogAll();
                 String text =
                         "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานหมดเครื่องระบายอากาศจะหยุดทำงาน\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
-                level2.gate.state = Item.ItemState.OFF;
+                level3.gate.state = Item.ItemState.OFF;
                 dialog.addWaitingPage(text);
                 textMission2.setStyle(labelStyle2);
                 //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
@@ -1459,25 +1458,25 @@ public class GameScreen3 extends AbstractGameScreen {
             if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
                 String text =
                         "\"ผมเป็นคนไม่ชอบความร้อน ขอเปิดแอร์ได้รึเปล่า\""
-                                + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า " + level2.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
+                                + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า " + level3.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen1;
             } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
                 String text =
-                        "\"ผมหิวมาก อยากใช้ไมโครเวฟอุ่นอาหารแช่แข็ง " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
+                        "\"ผมหิวมาก อยากใช้ไมโครเวฟอุ่นอาหารแช่แข็ง " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level3.computer.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen2;
             } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
                 String text =
-                        "\"น่าเบื่อ ผมอยากใช้งานคอมพิวเตอร์\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
+                        "\"น่าเบื่อ ผมอยากใช้งานคอมพิวเตอร์\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level3.computer.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen3;
             } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
                 String text =
-                        "\"ผมคิดว่าจะนำเสบียงอาหารที่เหลือไปแช่ตู้เย็นจึงต้องการเสียบปลั๊ก\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
+                        "\"ผมคิดว่าจะนำเสบียงอาหารที่เหลือไปแช่ตู้เย็นจึงต้องการเสียบปลั๊ก\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level3.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen4;
@@ -1485,13 +1484,13 @@ public class GameScreen3 extends AbstractGameScreen {
                 player.timeStop = true;
                 player.status_find = false;
                 String text =
-                        "\"พวกเราหลายคนน่าจะเริ่มหิวกันแล้ว ผมอยากหุงข้าวกินกันกับทุกคน\" " + "\n\"( หม้อหุงข้าวใช้กำลังไฟฟ้า " + level2.riceCooker.getEnergyBurn() + " วัตต์ )\" ";
+                        "\"พวกเราหลายคนน่าจะเริ่มหิวกันแล้ว ผมอยากหุงข้าวกินกันกับทุกคน\" " + "\n\"( หม้อหุงข้าวใช้กำลังไฟฟ้า " + level3.riceCooker.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 citizenQuest = systemWindow.citizen5;
                 dialog.addWaitingPage(text);
             } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
                 String text =
-                        "\"ผมขอเปิดโทรทัศน์ดูได้รึเปล่า\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level2.television.getEnergyBurn() + " วัตต์ )\" ";
+                        "\"ผมขอเปิดโทรทัศน์ดูได้รึเปล่า\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level3.television.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen6;
@@ -1590,30 +1589,30 @@ public class GameScreen3 extends AbstractGameScreen {
     private void checkObject() {
 
         Player player = worldController.level.player;
-        Level2 level2 = (Level2) worldController.level;
+        Level3 level3 = (Level3) worldController.level;
 
         boolean noItem = true;
 
-        for (Item item : level2.items) {
+        for (Item item : level3.items) {
             if (item.nearPlayer()) {
                 noItem = false;
                 break;
             }
         }
 
-//        if((stageTwoClear) && (player.status_find)){
-//            for (Item item : level2.items) {
-//                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
-//                    item.state = Item.ItemState.OFF;
-//                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
-//                    player.status_find = false;
-//                } else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
-//                    item.state = Item.ItemState.ONLOOP;
-//                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
-//                    player.status_find = false;
-//                }
-//            }
-//        }
+        if((player.status_find)){
+            for (Item item : level3.items) {
+                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
+                    item.state = Item.ItemState.OFF;
+                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
+                    player.status_find = false;
+                } else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
+                    item.state = Item.ItemState.ONLOOP;
+                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
+                    player.status_find = false;
+                }
+            }
+        }
 
         boolean noCitizen = !player.questScreen1
                 && !player.questScreen2
@@ -1631,7 +1630,7 @@ public class GameScreen3 extends AbstractGameScreen {
         iconItem.setPosition(iconPos.x, iconPos.y + 50);
         iconEnergyLess.setPosition(iconPos.x, iconPos.y + 50);
 
-        for (Citizen citizen : level2.citizens) {
+        for (Citizen citizen : level3.citizens) {
             if (player.bounds.overlaps(citizen.bounds) && !citizen.questIsAccept && player.isSwitch) {
                 iconHuman.setVisible(true);
             }
@@ -1653,9 +1652,9 @@ public class GameScreen3 extends AbstractGameScreen {
             player.status_windows_link = false;
         }
 
-        if ((!player.isSwitch) && (player.status_find) && (level2.switchItem.nearPlayer())) {
-            level2.switchItem.state = Item.ItemState.ON;
-            level2.switchItem.resetAnimation();
+        if ((!player.isSwitch) && (player.status_find) && (level3.switchItem.nearPlayer())) {
+            level3.switchItem.state = Item.ItemState.ON;
+            level3.switchItem.resetAnimation();
             player.isSwitch = true;
             player.status_find = false;
             EnergyUsedBar.instance.energyUse += 300;
@@ -1698,7 +1697,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
     private void status() {
         Player player = worldController.level.player;
-        Level2 level2 = (Level2) worldController.level;
+        Level3 level3 = (Level3) worldController.level;
 
         player.timeStop = true;
         if(EnergyProducedBar.instance.energyProduced == 0){
@@ -1722,69 +1721,69 @@ public class GameScreen3 extends AbstractGameScreen {
             text4.setText(textString4);
         }
 
-        if (level2.computer.state == Item.ItemState.ONLOOP) {
+        if (level3.computer.state == Item.ItemState.ONLOOP) {
             buttonItem1.setRegion(Assets.instance.comIconOn);
-            textItem1.setText(String.valueOf(level2.television.getEnergyBurn()));
+            textItem1.setText(String.valueOf(level3.television.getEnergyBurn()));
         } else {
             buttonItem1.setRegion(Assets.instance.comIconOff);
             textItem1.clear();
         }
 
-        if (level2.refrigerator.state == Item.ItemState.ONLOOP) {
+        if (level3.refrigerator.state == Item.ItemState.ONLOOP) {
             buttonItem2.setRegion(Assets.instance.refrigeratorIconOn);
-            textItem2.setText(String.valueOf(level2.refrigerator.getEnergyBurn()));
+            textItem2.setText(String.valueOf(level3.refrigerator.getEnergyBurn()));
         } else {
             buttonItem2.setRegion(Assets.instance.refrigeratorIconOff);
             textItem2.clear();
         }
 
-        if (level2.fan1.state == Item.ItemState.ONLOOP) {
+        if (level3.fan1.state == Item.ItemState.ONLOOP) {
             buttonItem3.setRegion(Assets.instance.fanIconOn);
-            if (level2.fan2.state == Item.ItemState.ONLOOP) {
-                textItem3.setText(String.valueOf(level2.fan1.getEnergyBurn()) + level2.fan2.getEnergyBurn());
+            if (level3.fan2.state == Item.ItemState.ONLOOP) {
+                textItem3.setText(String.valueOf(level3.fan1.getEnergyBurn()) + level3.fan2.getEnergyBurn());
             } else {
-                textItem3.setText(String.valueOf(level2.fan1.getEnergyBurn()));
+                textItem3.setText(String.valueOf(level3.fan1.getEnergyBurn()));
             }
         } else {
             buttonItem3.setRegion(Assets.instance.fanIconOff);
             textItem3.clear();
         }
 
-        if (level2.microwave.state == Item.ItemState.ONLOOP) {
+        if (level3.microwave.state == Item.ItemState.ONLOOP) {
             buttonItem4.setRegion(Assets.instance.microwaveIconOn);
-            textItem4.setText(String.valueOf(level2.microwave.getEnergyBurn()));
+            textItem4.setText(String.valueOf(level3.microwave.getEnergyBurn()));
         } else {
             buttonItem4.setRegion(Assets.instance.microwaveIconOff);
             textItem4.clear();
         }
 
-        if (level2.riceCooker.state == Item.ItemState.ONLOOP) {
+        if (level3.riceCooker.state == Item.ItemState.ONLOOP) {
             buttonItem5.setRegion(Assets.instance.ricecookerIconOn);
-            textItem5.setText(String.valueOf(level2.riceCooker.getEnergyBurn()));
+            textItem5.setText(String.valueOf(level3.riceCooker.getEnergyBurn()));
         } else {
             buttonItem5.setRegion(Assets.instance.ricecookerIconOff);
             textItem5.clear();
         }
 
-        if (level2.television.state == Item.ItemState.ONLOOP) {
+        if (level3.television.state == Item.ItemState.ONLOOP) {
             buttonItem6.setRegion(Assets.instance.tvIconOn);
-            textItem6.setText(String.valueOf(level2.television.getEnergyBurn()));
+            textItem6.setText(String.valueOf(level3.television.getEnergyBurn()));
         } else {
             buttonItem6.setRegion(Assets.instance.tvIconOff);
             textItem6.clear();
         }
 
-        if (level2.waterPump.state == Item.ItemState.ONLOOP) {
+        if (level3.waterPump.state == Item.ItemState.ONLOOP) {
             buttonItem7.setRegion(Assets.instance.waterpumpIconOn);
-            textItem7.setText(String.valueOf(level2.waterPump.getEnergyBurn()));
+            textItem7.setText(String.valueOf(level3.waterPump.getEnergyBurn()));
         } else {
             buttonItem7.setRegion(Assets.instance.waterpumpIconOff);
             textItem7.clear();
         }
 
-        if (level2.airConditioner.state == Item.ItemState.ONLOOP) {
+        if (level3.airConditioner.state == Item.ItemState.ONLOOP) {
             buttonItem8.setRegion(Assets.instance.airIconOn);
-            textItem8.setText(String.valueOf(level2.airConditioner.getEnergyBurn()));
+            textItem8.setText(String.valueOf(level3.airConditioner.getEnergyBurn()));
         } else {
             buttonItem8.setRegion(Assets.instance.airIconOff);
             textItem8.clear();
@@ -1803,7 +1802,7 @@ public class GameScreen3 extends AbstractGameScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Player player = worldController.level.player;
-        Level2 level2 = (Level2) worldController.level;
+        Level3 level3 = (Level3) worldController.level;
 
         controlAndDebug();
         textIconDraw();
@@ -1844,7 +1843,7 @@ public class GameScreen3 extends AbstractGameScreen {
             BatteryBar.instance.update(deltaTime);
         }
 
-        for (Citizen citizen : level2.citizens) {
+        for (Citizen citizen : level3.citizens) {
             if (citizen.itemOn) {
                 if (!citizen.getGoalItem().count) {
                     citizen.getGoalItem().state = Item.ItemState.ONLOOP;

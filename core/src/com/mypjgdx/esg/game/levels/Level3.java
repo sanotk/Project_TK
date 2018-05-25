@@ -37,18 +37,17 @@ public class Level3 extends Level {
         map = Assets.instance.map3;
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
-        player = new Player(mapLayer, 100, 1000);
+        player = new Player(mapLayer, 100, 100);
 
         switchItem = new Switch(mapLayer, player);
-        television = new Television(mapLayer, player);
-        microwave = new Microwave(mapLayer, player);
-        waterPump = new Waterpump(mapLayer, player);
-        airConditioner = new AirConditioner(mapLayer, player);
-        computer = new Computer(mapLayer, player);
-        fan1 = new Fan(mapLayer, player);
-        fan2 = new Fan(mapLayer, player, 750, 850);
-        refrigerator = new Refrigerator(mapLayer, player);
-        riceCooker = new RiceCooker(mapLayer, player);
+        television = new Television(mapLayer, player,450f,550f);
+        microwave = new Microwave(mapLayer, player,700f,1050f);
+        waterPump = new Waterpump(mapLayer, player,650f,500f);
+        airConditioner = new AirConditioner(mapLayer, player,300f,1100f);
+        computer = new Computer(mapLayer, player,200f,550f);
+        fan1 = new Fan(mapLayer, player,550f,550f);
+        refrigerator = new Refrigerator(mapLayer, player,650f,1000f);
+        riceCooker = new RiceCooker(mapLayer, player,750,1050f);
         gate = new Gate(mapLayer,player);
 
         items.add(switchItem);
@@ -58,7 +57,6 @@ public class Level3 extends Level {
         items.add(airConditioner);
         items.add(computer);
         items.add(fan1);
-        items.add(fan2);
         items.add(refrigerator);
         items.add(riceCooker);
         items.add(gate);
@@ -104,7 +102,6 @@ public class Level3 extends Level {
         airConditioner.setEnergyBurn(1450);
         computer.setEnergyBurn(500);
         fan1.setEnergyBurn(60);
-        fan2.setEnergyBurn(60);
         refrigerator.setEnergyBurn(150);
         riceCooker.setEnergyBurn(800);
     }
