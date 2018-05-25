@@ -584,7 +584,6 @@ public class GameScreen3 extends AbstractGameScreen {
                     dialogSwordWave = true;
                 }else if(dialogItem){
                     item.questAccept = true;
-                    item.quest = true;
                 }else if(stageFourClear){
                     worldController.level.player.timeClear = false;
                     Gdx.app.postRunnable(new Runnable() {
@@ -642,6 +641,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 dialogShow = false;
                 trapShow = false;
                 swordShow = false;
+                dialogItem = false;
             }
         });
 
@@ -705,6 +705,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 trapShow = false;
                 swordShow = false;
                 item.quest = false;
+                dialogItem = false;
             }
         });
 
@@ -1345,6 +1346,7 @@ public class GameScreen3 extends AbstractGameScreen {
             dialogDoor4 = false;
             trapShow = false;
             swordShow = false;
+            dialogItem = false;
             item.quest = false;
         } else {
             dialog.tryToChangePage();

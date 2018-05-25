@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.*;
+import com.mypjgdx.esg.game.objects.items.Gate;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.items.PollutionController;
 import com.mypjgdx.esg.game.objects.items.Switch;
@@ -18,6 +19,7 @@ public class Level4 extends Level {
 
     public Item switchItem;
     public Item pollutionControll;
+    public Item gate;
 
     public Level4() {
         map = Assets.instance.map4;
@@ -27,8 +29,11 @@ public class Level4 extends Level {
 
         switchItem = new Switch(mapLayer, player);
         pollutionControll = new PollutionController(mapLayer,player);
+        gate = new Gate(mapLayer,player);
+
         items.add(switchItem);
         items.add(pollutionControll);
+        items.add(gate);
 
         pollutionControll.setEnergyBurn(10000);
 
@@ -55,7 +60,6 @@ public class Level4 extends Level {
         citizens.add(citizen6);
 
         bows.add(new NormalBow(mapLayer, player));
-
         swords.add(new NormalSword(mapLayer, player));
     }
 
