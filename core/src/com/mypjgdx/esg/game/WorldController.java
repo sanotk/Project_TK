@@ -93,12 +93,10 @@ public class WorldController extends InputAdapter {
                 FileHandle file = Gdx.files.absolute("C:\\Data\\save.txt"); // TODO
 //                file.delete();
 //                file.writeString(choice, true);         // True means append, false means overwrite.
-
                 Json json = new Json(JsonWriter.OutputType.json);
                 System.out.print(json.prettyPrint(level));
                 json.toJson(level, file);
             }
-            ;
             if (Gdx.input.isKeyJustPressed(Keys.L)) {
                 FileHandle file = Gdx.files.absolute("C:\\Data\\save.txt");
 
