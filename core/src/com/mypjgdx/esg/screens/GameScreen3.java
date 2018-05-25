@@ -585,7 +585,7 @@ public class GameScreen3 extends AbstractGameScreen {
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {
-                            game.setScreen(new GameScreen3(game,optionsWindow));
+                            game.setScreen(new GameScreen4(game,optionsWindow));
                         }
                     });
                 }else{
@@ -1626,7 +1626,8 @@ public class GameScreen3 extends AbstractGameScreen {
                     item.state = Item.ItemState.OFF;
                     EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
                     player.status_find = false;
-                } 
+                    questCount +=1;
+                }
 //                else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
 //                    if(!level3.gate.nearPlayer()&&!level3.switchItem.nearPlayer()){
 //                        item.state = Item.ItemState.ONLOOP;
@@ -1762,11 +1763,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
         if (level3.fan1.state == Item.ItemState.ONLOOP) {
             buttonItem3.setRegion(Assets.instance.fanIconOn);
-            if (level3.fan2.state == Item.ItemState.ONLOOP) {
-                textItem3.setText(String.valueOf(level3.fan1.getEnergyBurn()) + level3.fan2.getEnergyBurn());
-            } else {
-                textItem3.setText(String.valueOf(level3.fan1.getEnergyBurn()));
-            }
+            textItem3.setText(String.valueOf(level3.fan1.getEnergyBurn()));
         } else {
             buttonItem3.setRegion(Assets.instance.fanIconOff);
             textItem3.clear();
