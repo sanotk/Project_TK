@@ -1626,13 +1626,14 @@ public class GameScreen3 extends AbstractGameScreen {
                     item.state = Item.ItemState.OFF;
                     EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
                     player.status_find = false;
-                } else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
-                    if(!level3.gate.nearPlayer()&&!level3.switchItem.nearPlayer()){
-                        item.state = Item.ItemState.ONLOOP;
-                        EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
-                        player.status_find = false;
-                    }
-                }
+                } 
+//                else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
+//                    if(!level3.gate.nearPlayer()&&!level3.switchItem.nearPlayer()){
+//                        item.state = Item.ItemState.ONLOOP;
+//                        EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
+//                        player.status_find = false;
+//                    }
+//                }
             }
         }
 
