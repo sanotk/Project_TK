@@ -1661,7 +1661,7 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if (!noItem && stageThreeClear) {
-            //iconItem.setVisible(true);
+            iconItem.setVisible(true);
         }
 
         if(player.energyLess){

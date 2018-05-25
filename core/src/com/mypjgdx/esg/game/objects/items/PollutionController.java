@@ -42,6 +42,11 @@ public class PollutionController extends Item{
 
     @Override
     public void setTimeCount() {
-        timeCount = 300;
+        timeCount = 9999;
+    }
+
+    @Override
+    public void setName() {
+        name ="เครื่องปรับสภาพอากาศ";
     }
 }
