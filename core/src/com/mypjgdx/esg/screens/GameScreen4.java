@@ -1717,13 +1717,12 @@ public class GameScreen4 extends AbstractGameScreen {
             text2.setText(textString2);
             text4.setText(textString4);
         }
-
-
+        
         if (level4.pollutionControll.state == Item.ItemState.ONLOOP) {
-            buttonItem8.setRegion(Assets.instance.airIconOn);
+            buttonItem8.setRegion(Assets.instance.pollutionIconOn);
             textItem8.setText(String.valueOf(level4.pollutionControll.getEnergyBurn()));
         } else {
-            buttonItem8.setRegion(Assets.instance.airIconOff);
+            buttonItem8.setRegion(Assets.instance.pollutionIconOff);
             textItem8.clear();
         }
 
@@ -1740,7 +1739,6 @@ public class GameScreen4 extends AbstractGameScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Player player = worldController.level.player;
-        Level4 level4 = (Level4) worldController.level;
 
         controlAndDebug();
         textIconDraw();
