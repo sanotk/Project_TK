@@ -607,7 +607,6 @@ public class GameScreen2 extends AbstractGameScreen {
                     worldController.level.player.questScreen4 = false;
                     worldController.level.player.questScreen5 = false;
                     worldController.level.player.questScreen6 = false;
-                    trapShow =false;
                 }
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
@@ -626,7 +625,6 @@ public class GameScreen2 extends AbstractGameScreen {
                 if(trapShow){
                     worldController.level.player.acceptTrap = false;
                     worldController.level.player.requestTrap = false;
-                    trapShow = false;
                 }else if (citizenQuest == systemWindow.citizen1) {
                     worldController.level.player.quest1Cancel = true;
                     worldController.level.player.quest_window_1 = true;
