@@ -1840,8 +1840,10 @@ public class GameScreen3 extends AbstractGameScreen {
         if(player.isSwitch && !startItem){
             startItem = true;
             for(Item item : level3.items){
-                if(item instanceof Gate && item instanceof Computer && item instanceof Switch){
-
+                if(item instanceof Gate || item instanceof Computer){
+                    item.state = Item.ItemState.OFF;
+                }else if(item instanceof Switch){
+                    item.state = Item.ItemState.ON;
                 }else{
                     item.state = Item.ItemState.ONLOOP;
                     EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
