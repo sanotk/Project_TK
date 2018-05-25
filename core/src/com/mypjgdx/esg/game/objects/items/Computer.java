@@ -10,7 +10,6 @@ public class Computer extends Item{
     public static final float SCALE = 1f;
     public static final float P_X = 850f;
     public static final float P_Y = 1050f;
-    public String name = "คอมพิวเตอร์";
 
 	public Computer(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.comAltas, SCALE, SCALE , P_X , P_Y);
@@ -51,5 +50,10 @@ public class Computer extends Item{
     @Override
     public void setTimeCount() {
         timeCount = 9999;
+    }
+
+    @Override
+    public void setName() {
+        name ="คอมพิวเตอร์";
     }
 }

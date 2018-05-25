@@ -23,6 +23,7 @@ public abstract class Item extends AnimatedObject<ItemAnimation> implements Json
     public TiledCollisionCheck playerCheck;
     public boolean questAccept;
     public String name;
+    public boolean quest;
 
     public enum ItemAnimation {
         ON,
@@ -57,6 +58,7 @@ public abstract class Item extends AnimatedObject<ItemAnimation> implements Json
         setCurrentAnimation(ItemAnimation.OFF);
         setPosition(mapLayer, player);
         setTimeCount();
+        setName();
     }
 
     @Override
@@ -119,6 +121,10 @@ public abstract class Item extends AnimatedObject<ItemAnimation> implements Json
     public void setTimeCount(){
         timeCount = 0;
     }
+
+    public void setName(){
+        name = "";
+    };
 
     @Override
     public void write(Json json) {

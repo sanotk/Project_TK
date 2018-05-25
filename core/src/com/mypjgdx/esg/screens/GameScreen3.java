@@ -135,6 +135,8 @@ public class GameScreen3 extends AbstractGameScreen {
     private boolean dialogSwordWave;
     private Button buttonGuideWindow;
     private boolean startItem;
+    private boolean dialogItem;
+    private Item item;
 
     public enum systemWindow {
         citizen1,
@@ -222,7 +224,7 @@ public class GameScreen3 extends AbstractGameScreen {
     private TextButton.TextButtonStyle buttonPauseStyle;
 
     private boolean dialogStart;
-
+    private boolean itemStart;
 
     public GameScreen3(final Game game, final Window optionsWindow) {
         super(game);
@@ -580,6 +582,9 @@ public class GameScreen3 extends AbstractGameScreen {
                     worldController.level.player.acceptSwordWave = true;
                     worldController.level.player.requestSwordWave = false;
                     dialogSwordWave = true;
+                }else if(dialogItem){
+                    item.questAccept = true;
+                    item.quest = true;
                 }else if(stageFourClear){
                     worldController.level.player.timeClear = false;
                     Gdx.app.postRunnable(new Runnable() {
@@ -699,6 +704,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 dialogShow = false;
                 trapShow = false;
                 swordShow = false;
+                item.quest = false;
             }
         });
 
@@ -1339,6 +1345,7 @@ public class GameScreen3 extends AbstractGameScreen {
             dialogDoor4 = false;
             trapShow = false;
             swordShow = false;
+            item.quest = false;
         } else {
             dialog.tryToChangePage();
         }
@@ -1577,19 +1584,26 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
+        for(Item item : level3.items){
+            if(item.questAccept && !item.quest){
+                item.quest = true;
+                item.state = Item.ItemState.OFF;
+                EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
+                questCount +=1;
+            }
+        }
+
         if((player.status_find)){
             for (Item item : level3.items) {
-                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP && !item.questAccept) {
+                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP && !item.questAccept && !item.quest) {
+                    dialogItem = true;
                     String text =
                             "\"ต้องการปิด\"" + item.name + "\"หรือไม่\""
-                                    + "\n\"( " + item.name + "\"ใช้กำลังไฟฟ้า\"" + level3.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
+                                    + "\n\"( " + item.name + "\"ใช้กำลังไฟฟ้า\"" + item.getEnergyBurn() + " วัตต์ )\" ";
                     dialogCitizenDetail();
                     dialog.addWaitingPage(text);
-                    citizenQuest = systemWindow.citizen1;
-                    item.state = Item.ItemState.OFF;
-                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
                     player.status_find = false;
-                    questCount +=1;
+                    this.item = item;
                 }
 //                else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
 //                    if(!level3.gate.nearPlayer()&&!level3.switchItem.nearPlayer()){
@@ -1793,6 +1807,11 @@ public class GameScreen3 extends AbstractGameScreen {
         checkStageAndCount();
         checkObject();
 
+        if(!itemStart){
+            itemStart = true;
+            item = level3.switchItem;
+        }
+
         if(player.isSwitch && !startItem){
             startItem = true;
             for(Item item : level3.items){
@@ -1806,7 +1825,6 @@ public class GameScreen3 extends AbstractGameScreen {
                 }
             }
         }
-        
 
         if(!player.timeStop && !player.timeClear){
             SunBar.instance.timeCount += 1*deltaTime;

@@ -10,7 +10,6 @@ public class RiceCooker extends Item{
     public static final float SCALE = 1f;
     public static final float P_X = 350f;
     public static final float P_Y = 1050f;
-    public String name = "หม้อหุงข้าว";
 
 	public RiceCooker(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.ricecookerAltas, SCALE, SCALE , P_X , P_Y);
@@ -51,5 +50,10 @@ public class RiceCooker extends Item{
     @Override
     public void setTimeCount() {
         timeCount = 9999;
+    }
+
+    @Override
+    public void setName() {
+        name ="หม้อหุงข้าว";
     }
 }

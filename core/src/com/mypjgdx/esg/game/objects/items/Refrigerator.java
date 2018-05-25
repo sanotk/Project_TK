@@ -10,7 +10,6 @@ public class Refrigerator extends Item{
     public static final float SCALE = 1f;
     public static final float P_X = 450f;
     public static final float P_Y = 1000f;
-    public String name = "ตู้เย็น";
 
 	public Refrigerator(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.refrigeratorAltas, SCALE, SCALE , P_X , P_Y);
@@ -51,5 +50,10 @@ public class Refrigerator extends Item{
     @Override
     public void setTimeCount() {
         timeCount = 9999;
+    }
+
+    @Override
+    public void setName() {
+        name ="ตู้เย็น";
     }
 }
