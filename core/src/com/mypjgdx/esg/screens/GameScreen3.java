@@ -18,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
@@ -129,6 +128,9 @@ public class GameScreen3 extends AbstractGameScreen {
     private int timeEvent;
     private boolean trapShow;
     private boolean swordShow;
+    private boolean dialogTrap;
+    private boolean dialogSwordWave;
+    private Button buttonGuideWindow;
 
     public enum systemWindow {
         citizen1,
@@ -221,7 +223,7 @@ public class GameScreen3 extends AbstractGameScreen {
     public GameScreen3(final Game game, final Window optionsWindow) {
         super(game);
 
-        stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT));
+        stage = new Stage();
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         bg = new Texture("bg.png");
@@ -326,7 +328,16 @@ public class GameScreen3 extends AbstractGameScreen {
         buttonControlWindowStyle.up = controlWindowUp;
         buttonControlWindowStyle.down = controlWindowUp.tint(Color.LIGHT_GRAY);
         buttonControlWindow = new Button(buttonControlWindowStyle);
-        buttonControlWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH + 40, SCENE_HEIGHT - 350);
+        buttonControlWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH + 40, SCENE_HEIGHT - 360);
+
+        TextButton.TextButtonStyle buttonGuideWindowStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable guidelWindowUp = new TextureRegionDrawable(Assets.instance.guide1Window);
+        buttonGuideWindowStyle.up = guidelWindowUp;
+        buttonGuideWindowStyle.down = guidelWindowUp.tint(Color.LIGHT_GRAY);
+        buttonGuideWindow = new Button(buttonGuideWindowStyle);
+        buttonGuideWindow.setPosition(SCENE_WIDTH/4, SCENE_HEIGHT/4-10);
+
+        buttonGuideWindow.setVisible(false);
 
         TextButton.TextButtonStyle iconHumanStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable humanUp = new TextureRegionDrawable(Assets.instance.iconHuman);
@@ -560,9 +571,11 @@ public class GameScreen3 extends AbstractGameScreen {
                 if(trapShow){
                     worldController.level.player.acceptTrap = true;
                     worldController.level.player.requestTrap = false;
+                    dialogTrap = true;
                 }else if(swordShow){
                     worldController.level.player.acceptSwordWave = true;
                     worldController.level.player.requestSwordWave = false;
+                    dialogSwordWave = true;
                 }else if(stageFourClear){
                     worldController.level.player.timeClear = false;
                     Gdx.app.postRunnable(new Runnable() {
@@ -1352,7 +1365,7 @@ public class GameScreen3 extends AbstractGameScreen {
             timeEvent = player.timeCount-1;
         }
 
-        if(player.requestTrap){
+        if(player.requestTrap && !dialogTrap){
             player.requestTrap = false;
             trapShow = true;
             dialogAll();
@@ -1361,9 +1374,13 @@ public class GameScreen3 extends AbstractGameScreen {
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.addWaitingPage(text);
+        }else if(player.requestTrap && dialogTrap){
+            player.requestTrap =false;
+            player.acceptTrap = true;
+            trapShow = false;
         }
 
-        if(player.requestSwordWave){
+        if(player.requestSwordWave && !dialogSwordWave){
             player.requestSwordWave = false;
             swordShow = true;
             dialogAll();
@@ -1372,6 +1389,10 @@ public class GameScreen3 extends AbstractGameScreen {
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.addWaitingPage(text);
+        }else if(player.requestSwordWave && dialogSwordWave){
+            player.requestSwordWave =false;
+            player.acceptSwordWave = true;
+            swordShow = false;
         }
 
         if ((level3.gate.nearPlayer()) && (player.status_find)) {

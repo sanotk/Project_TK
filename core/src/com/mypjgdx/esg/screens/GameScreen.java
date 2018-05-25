@@ -18,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
@@ -232,7 +231,7 @@ public class GameScreen extends AbstractGameScreen {
     public GameScreen(final Game game, final Window optionsWindow) {
         super(game);
 
-        stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT));
+        stage = new Stage();
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         bg = new Texture("bg.png");

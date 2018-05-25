@@ -18,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mypjgdx.esg.MusicManager;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
@@ -131,6 +130,7 @@ public class GameScreen2 extends AbstractGameScreen {
     private boolean swordShow;
     private boolean dialogTrap;
     private boolean dialogSwordWave;
+    private Button buttonGuideWindow;
 
     public enum systemWindow {
         citizen1,
@@ -223,7 +223,7 @@ public class GameScreen2 extends AbstractGameScreen {
     public GameScreen2(final Game game, final Window optionsWindow) {
         super(game);
 
-        stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT));
+        stage = new Stage();
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         bg = new Texture("bg.png");
@@ -328,7 +328,16 @@ public class GameScreen2 extends AbstractGameScreen {
         buttonControlWindowStyle.up = controlWindowUp;
         buttonControlWindowStyle.down = controlWindowUp.tint(Color.LIGHT_GRAY);
         buttonControlWindow = new Button(buttonControlWindowStyle);
-        buttonControlWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH + 40, SCENE_HEIGHT - 350);
+        buttonControlWindow.setPosition(SCENE_WIDTH - SCENE_WIDTH + 40, SCENE_HEIGHT - 360);
+
+        TextButton.TextButtonStyle buttonGuideWindowStyle = new TextButton.TextButtonStyle();
+        TextureRegionDrawable guidelWindowUp = new TextureRegionDrawable(Assets.instance.guide1Window);
+        buttonGuideWindowStyle.up = guidelWindowUp;
+        buttonGuideWindowStyle.down = guidelWindowUp.tint(Color.LIGHT_GRAY);
+        buttonGuideWindow = new Button(buttonGuideWindowStyle);
+        buttonGuideWindow.setPosition(SCENE_WIDTH/4, SCENE_HEIGHT/4-10);
+
+        buttonGuideWindow.setVisible(false);
 
         TextButton.TextButtonStyle iconHumanStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable humanUp = new TextureRegionDrawable(Assets.instance.iconHuman);
