@@ -1390,16 +1390,16 @@ public class GameScreen4 extends AbstractGameScreen {
     }
 
     private void textIconDraw() {
-        textSun.setText(String.format(" %d", (int) SunBar.instance.sunTime)+ " นาฬิกา");
+        textSun.setText(String.format(" %d", (int) SunBar.instance.sunTime) + " นาฬิกา");
         textTemperature.setText(String.format(" %d", (int) TemperatureBar.instance.Temperature));
-        textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
-        textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave));
-        textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap));
+        //textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
+        textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave) + " วัตต์");
+        textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap) + " วัตต์");
         textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
+        textLiking.setText(String.format(" %d", (int) LikingBar.instance.liking));
         energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
         energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
         energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
-        textLiking.setText(String.format(" %d", (int) LikingBar.instance.liking));
     }
 
     private void dialogDraw() {
