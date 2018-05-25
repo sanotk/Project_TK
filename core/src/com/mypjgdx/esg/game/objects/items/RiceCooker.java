@@ -49,6 +49,6 @@ public class RiceCooker extends Item{
 
     @Override
     public void setTimeCount() {
-        timeCount = 60;
+        timeCount = 9999;
     }
 }
