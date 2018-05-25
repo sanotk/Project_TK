@@ -56,6 +56,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public boolean quest5Cancel;
     public boolean quest6Cancel;
     public boolean requestTrap;
+    public boolean requestSwordWave;
 
     public enum PlayerAnimation {
         ATK_LEFT,
@@ -84,6 +85,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         STAND, ATTACK
     }
 
+    private List<Sword> swords;
+
     private Item item;
 
     private PlayerState state;
@@ -94,6 +97,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private boolean knockback;
 
     public boolean acceptTrap;
+    public boolean acceptSwordWave;
 
     private long lastInvulnerableTime;
     private long invulnerableTime;
@@ -103,7 +107,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     private Direction viewDirection;
 
     public boolean status_citizen = false;
-
 
     public boolean questScreen1 = false;
     public boolean questScreen2 = false;
@@ -196,6 +199,9 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         statusUpdate();
         if (acceptTrap){
             addTrap();
+        }
+        if (acceptSwordWave){
+            addSwordWave();
         }
         if (item != null) // ถ้ามีไอเทม
             item.setPosition(
@@ -427,8 +433,6 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     public void trapAttack(List<Weapon> weapons) {
         if (state != PlayerState.ATTACK && item == null) {
-            state = PlayerState.ATTACK;
-            resetAnimation();
             this.weapons = weapons;
             if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse  >=
                     TrapBar.instance.energyTrap) {
@@ -440,6 +444,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void addTrap(){
+        state = PlayerState.ATTACK;
+        resetAnimation();
         weapons.add(new Trap(mapLayer, this));
         Assets.instance.bulletSound.play();
         SoundManager.instance.play(SoundManager.Sounds.BULLET);
@@ -463,22 +469,32 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     public void swordWaveAttack(List<Weapon> weapons, List<Sword> swords) {
         if (state != PlayerState.ATTACK) {
-            state = PlayerState.ATTACK;
-            for (Sword sword : swords) {
-                sword.resetAnimation();
-                sword.state = Sword.SwordState.HIT;
-                if (BatteryBar.instance.getBatteryStorage() >= SwordWaveBar.instance.energySwordWave) {
-                    weapons.add(new SwordWave(mapLayer, this));
-                    BatteryBar.instance.batteryStorage -= SwordWaveBar.instance.energySwordWave;
-                    energyLess = false;
-                }else{
-                    energyLess = true;
-                }
-                weapons.add(new SwordHit(mapLayer, this));
-                SoundManager.instance.play(SoundManager.Sounds.BEAM);
-                resetAnimation();
-
+            this.weapons = weapons;
+            this.swords = swords;
+            if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse  >=
+                    SwordWaveBar.instance.energySwordWave) {
+                requestSwordWave = true;
+            }else{
+                energyLess = true;
             }
+        }
+    }
+
+    private void addSwordWave(){
+        state = PlayerState.ATTACK;
+        for (Sword sword : swords) {
+            sword.resetAnimation();
+            sword.state = Sword.SwordState.HIT;
+            if (BatteryBar.instance.getBatteryStorage() >= SwordWaveBar.instance.energySwordWave) {
+                weapons.add(new SwordWave(mapLayer, this));
+                BatteryBar.instance.batteryStorage -= SwordWaveBar.instance.energySwordWave;
+                energyLess = false;
+            }else{
+                energyLess = true;
+            }
+            weapons.add(new SwordHit(mapLayer, this));
+            SoundManager.instance.play(SoundManager.Sounds.BEAM);
+            resetAnimation();
 
         }
     }

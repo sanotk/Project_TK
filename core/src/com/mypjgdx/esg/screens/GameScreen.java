@@ -142,6 +142,7 @@ public class GameScreen extends AbstractGameScreen {
     private boolean missionStart;
     private boolean guideStart;
     private boolean trapShow;
+    private boolean swordShow;
     private boolean statusStart;
     private Label textMission9;
 
@@ -613,6 +614,9 @@ public class GameScreen extends AbstractGameScreen {
                 if(trapShow){
                     worldController.level.player.acceptTrap = true;
                     worldController.level.player.requestTrap = false;
+                }else if(swordShow){
+                    worldController.level.player.acceptSwordWave = true;
+                    worldController.level.player.requestSwordWave = false;
                 }else{
                     MusicManager.instance.stop();
                     Gdx.app.postRunnable(new Runnable() {
@@ -628,6 +632,7 @@ public class GameScreen extends AbstractGameScreen {
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
                 trapShow = false;
+                swordShow =false;
             }
         });
 
@@ -637,6 +642,9 @@ public class GameScreen extends AbstractGameScreen {
                 if(trapShow){
                     worldController.level.player.acceptTrap = false;
                     worldController.level.player.requestTrap = false;
+                }else if(swordShow){
+                    worldController.level.player.acceptSwordWave = true;
+                    worldController.level.player.requestSwordWave = false;
                 }else {
                     MusicManager.instance.stop();
                     Gdx.app.postRunnable(new Runnable() {
@@ -655,6 +663,7 @@ public class GameScreen extends AbstractGameScreen {
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
                 trapShow = false;
+                swordShow =false;
             }
         });
 
@@ -1688,6 +1697,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor3 = false;
                     dialogDoor4 = false;
                     trapShow =false;
+                    swordShow =false;
                 }
             } else {
                 dialog.tryToChangePage();
@@ -1733,6 +1743,17 @@ public class GameScreen extends AbstractGameScreen {
             dialogAll();
             String text =
                     "\"คุณต้องการวางกับดักหรือไม่ กับดัก 1 อันใช้กำลังไฟฟ้า 100 วัตต์ เมื่อกับดักถูกทำลายถึงจะได้กำลังไฟฟ้าที่ใช้อยู่คืน\" \n\"(กดปุ่มตกลงเพื่อวางกับดัก หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการวางกับดัก)\"";
+            buttonAgree.setVisible(true);
+            buttonRefuse.setVisible(true);
+            dialog.addWaitingPage(text);
+        }
+
+        if(player.requestSwordWave){
+            player.requestSwordWave = false;
+            swordShow = true;
+            dialogAll();
+            String text =
+                    "\"คุณต้องการใช้ท่าคลื่นดาบหรือไม่ คลื่นดาบ 1 ครั้ง จะใช้กำลังไฟฟ้า 1000 วัตต์ เป็นเวลา 5 วินาที\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.addWaitingPage(text);
