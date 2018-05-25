@@ -29,6 +29,7 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.weapons.SwordWave;
 import com.mypjgdx.esg.game.objects.weapons.Trap;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.ui.*;
@@ -2098,7 +2099,14 @@ public class GameScreen extends AbstractGameScreen {
                     EnergyUsedBar.instance.energyUse -= TrapBar.instance.energyTrap;
                 }
             }
+            if(weapon instanceof SwordWave){
+                if(weapon.isDestroyed()){
+                    EnergyUsedBar.instance.energyUse -= SwordWaveBar.instance.energySwordWave;
+                }
+            }
         }
+
+
 
         if(SunBar.instance.timeCount >= 60){
             SunBar.instance.sunTime += 1;

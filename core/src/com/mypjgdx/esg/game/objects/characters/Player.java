@@ -19,7 +19,10 @@ import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.*;
 import com.mypjgdx.esg.game.objects.weapons.Weapon.WeaponType;
-import com.mypjgdx.esg.ui.*;
+import com.mypjgdx.esg.ui.EnergyProducedBar;
+import com.mypjgdx.esg.ui.EnergyUsedBar;
+import com.mypjgdx.esg.ui.SwordWaveBar;
+import com.mypjgdx.esg.ui.TrapBar;
 import com.mypjgdx.esg.utils.Direction;
 
 import java.util.List;
@@ -197,10 +200,10 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public void update(float deltaTime, List<Weapon> weapons, List<Citizen> citizens) {
         super.update(deltaTime);
         statusUpdate();
-        if (acceptTrap){
+        if (acceptTrap) {
             addTrap();
         }
-        if (acceptSwordWave){
+        if (acceptSwordWave) {
             addSwordWave();
         }
         if (item != null) // ถ้ามีไอเทม
@@ -222,12 +225,12 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             questScreen6 = false;
 
             for (Citizen citizen : citizens) {
-                if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_1) )  {
+                if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_1)) {
                     questScreen1 = true;
                     if (quest1IsAccept) {
                         citizen.quest = true;
                         citizen.questIsAccept = true;
-                    }else if(quest1Cancel){
+                    } else if (quest1Cancel) {
                         citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_2)) {
@@ -235,7 +238,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                     if (quest2IsAccept) {
                         citizen.quest = true;
                         citizen.questIsAccept = true;
-                    }else if(quest6Cancel){
+                    } else if (quest6Cancel) {
                         citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_3)) {
@@ -243,7 +246,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                     if (quest3IsAccept) {
                         citizen.quest = true;
                         citizen.questIsAccept = true;
-                    }else if(quest3Cancel){
+                    } else if (quest3Cancel) {
                         citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_4)) {
@@ -251,7 +254,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                     if (quest4IsAccept) {
                         citizen.quest = true;
                         citizen.questIsAccept = true;
-                    }else if(quest4Cancel){
+                    } else if (quest4Cancel) {
                         citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_5)) {
@@ -259,7 +262,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                     if (quest5IsAccept) {
                         citizen.quest = true;
                         citizen.questIsAccept = true;
-                    }else if(quest5Cancel){
+                    } else if (quest5Cancel) {
                         citizen.questIsAccept = true;
                     }
                 } else if (bounds.overlaps(citizen.bounds) && (citizen.type == Citizen.CitizenType.CITIZEN_6)) {
@@ -267,7 +270,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
                     if (quest6IsAccept) {
                         citizen.quest = true;
                         citizen.questIsAccept = true;
-                    }else if(quest6Cancel){
+                    } else if (quest6Cancel) {
                         citizen.questIsAccept = true;
                     }
                 }
@@ -434,16 +437,16 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public void trapAttack(List<Weapon> weapons) {
         if (state != PlayerState.ATTACK && item == null) {
             this.weapons = weapons;
-            if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse  >=
+            if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse >=
                     TrapBar.instance.energyTrap) {
-                    requestTrap = true;
-            }else{
+                requestTrap = true;
+            } else {
                 energyLess = true;
             }
         }
     }
 
-    public void addTrap(){
+    public void addTrap() {
         state = PlayerState.ATTACK;
         resetAnimation();
         weapons.add(new Trap(mapLayer, this));
@@ -471,31 +474,27 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         if (state != PlayerState.ATTACK) {
             this.weapons = weapons;
             this.swords = swords;
-            if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse  >=
+            if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse >=
                     SwordWaveBar.instance.energySwordWave) {
                 requestSwordWave = true;
-            }else{
+            } else {
                 energyLess = true;
             }
         }
     }
 
-    private void addSwordWave(){
+    private void addSwordWave() {
         state = PlayerState.ATTACK;
         for (Sword sword : swords) {
             sword.resetAnimation();
             sword.state = Sword.SwordState.HIT;
-            if (BatteryBar.instance.getBatteryStorage() >= SwordWaveBar.instance.energySwordWave) {
-                weapons.add(new SwordWave(mapLayer, this));
-                BatteryBar.instance.batteryStorage -= SwordWaveBar.instance.energySwordWave;
-                energyLess = false;
-            }else{
-                energyLess = true;
-            }
+            weapons.add(new SwordWave(mapLayer, this));
+            EnergyUsedBar.instance.energyUse += SwordWaveBar.instance.energySwordWave;
+            energyLess = false;
             weapons.add(new SwordHit(mapLayer, this));
             SoundManager.instance.play(SoundManager.Sounds.BEAM);
             resetAnimation();
-
+            acceptSwordWave = false;
         }
     }
 
@@ -675,11 +674,11 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     }
 
-    public int getIntitalHealth(){
+    public int getIntitalHealth() {
         return INTITAL_HEALTH;
     }
 
-    public int getIntitalTime(){
+    public int getIntitalTime() {
         return INTITAL_TIME;
     }
 

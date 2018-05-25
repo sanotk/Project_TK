@@ -2,6 +2,7 @@ package com.mypjgdx.esg.game.objects.weapons;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Timer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
 import com.mypjgdx.esg.game.objects.characters.Player;
@@ -67,6 +68,7 @@ public class SwordWave extends Weapon {
             default:
                 break;
         }
+        delay();
     }
 
     @Override
@@ -91,10 +93,6 @@ public class SwordWave extends Weapon {
             }
             setPosition(x, y);
         }
-
-
-
-
     }
 
     @Override
@@ -118,14 +116,14 @@ public class SwordWave extends Weapon {
         }
     }
 
-    @Override
-    protected void responseCollisionX(float oldPositionX) {
-        destroy();
-    }
-
-    @Override
-    protected void responseCollisionY(float oldPositionY) {
-        destroy();
+    private void delay(){
+        float delay = 5f; // seconds
+        Timer.schedule(new Timer.Task(){
+            @Override
+            public void run() {
+                destroy();
+            }
+        }, delay);
     }
 
     @Override
