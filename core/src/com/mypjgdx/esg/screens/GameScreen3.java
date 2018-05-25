@@ -27,7 +27,10 @@ import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.game.objects.items.Computer;
+import com.mypjgdx.esg.game.objects.items.Gate;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.items.Switch;
 import com.mypjgdx.esg.game.objects.weapons.SwordWave;
 import com.mypjgdx.esg.game.objects.weapons.Trap;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
@@ -131,6 +134,7 @@ public class GameScreen3 extends AbstractGameScreen {
     private boolean dialogTrap;
     private boolean dialogSwordWave;
     private Button buttonGuideWindow;
+    private boolean startItem;
 
     public enum systemWindow {
         citizen1,
@@ -151,7 +155,7 @@ public class GameScreen3 extends AbstractGameScreen {
     private Texture dialogStory;
 
     private String text =
-            "\"ทุกคนให้รออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าที่แห่งนี้ปลอดภัย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
+            "\"ต้องเตรียมห้องเพื่อให้คนเข้ามาอาศัยเพิ่ม ทุกคนรออยู่ที่นี่ก่อนจนกว่าจะไม่มีอันตราย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
 
     public QuestState questState = null;
 
@@ -232,8 +236,8 @@ public class GameScreen3 extends AbstractGameScreen {
         font.setColor(Color.WHITE);
 
         EnergyProducedBar.instance.energyProduced = 2700;
-        LikingBar.instance.liking = 6;
-        TemperatureBar.instance.Temperature = 25;
+        LikingBar.instance.liking = 10;
+        TemperatureBar.instance.Temperature = 15;
 
         this.optionsWindow = optionsWindow;
 
@@ -1832,6 +1836,19 @@ public class GameScreen3 extends AbstractGameScreen {
         dialogDraw();
         checkStageAndCount();
         checkObject();
+
+        if(player.isSwitch && !startItem){
+            startItem = true;
+            for(Item item : level3.items){
+                if(item instanceof Gate && item instanceof Computer && item instanceof Switch){
+
+                }else{
+                    item.state = Item.ItemState.ONLOOP;
+                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
+                }
+            }
+        }
+        
 
         if(!player.timeStop && !player.timeClear){
             SunBar.instance.timeCount += 1*deltaTime;
