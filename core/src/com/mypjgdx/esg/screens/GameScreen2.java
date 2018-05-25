@@ -385,8 +385,8 @@ public class GameScreen2 extends AbstractGameScreen {
 
         missionWindow = createMissionWindow();
         missionWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
+                stage.getWidth() / 2 - missionWindow.getWidth() / 2,
+                stage.getHeight() / 2 - missionWindow.getHeight() / 2);
         missionWindow.setVisible(false);
 
         optionsWindow.setVisible(false);
@@ -423,8 +423,8 @@ public class GameScreen2 extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 optionsWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - optionsWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - optionsWindow.getHeight() / 2);
+                        stage.getWidth() / 2 - optionsWindow.getWidth() / 2,
+                        stage.getHeight() / 2 - optionsWindow.getHeight() / 2);
                 optionsWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
@@ -453,8 +453,8 @@ public class GameScreen2 extends AbstractGameScreen {
                 missionStart = true;
                 missionWindow.pack();
                 missionWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
+                        stage.getWidth() / 2 - missionWindow.getWidth() / 2,
+                        stage.getHeight() / 2 - missionWindow.getHeight() / 2);
                 missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
                 worldController.level.player.timeStop = true;
             }
@@ -466,8 +466,8 @@ public class GameScreen2 extends AbstractGameScreen {
                 missionStart = true;
                 missionWindow.pack();
                 missionWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - missionWindow.getHeight() / 2);
+                        stage.getWidth() / 2 - missionWindow.getWidth() / 2,
+                        stage.getHeight() / 2 - missionWindow.getHeight() / 2);
                 missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
                 worldController.level.player.timeStop = true;
             }
@@ -480,8 +480,8 @@ public class GameScreen2 extends AbstractGameScreen {
                 guideWindow.pack();
                 worldController.level.player.timeStop = true;
                 guideWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - guideWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - guideWindow.getHeight() / 2);
+                        stage.getWidth() / 2 - guideWindow.getWidth() / 2,
+                        stage.getHeight() / 2 - guideWindow.getHeight() / 2);
                 guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
@@ -493,8 +493,8 @@ public class GameScreen2 extends AbstractGameScreen {
                 guideWindow.pack();
                 worldController.level.player.timeStop = true;
                 guideWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - guideWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - guideWindow.getHeight() / 2);
+                        stage.getWidth() / 2 - guideWindow.getWidth() / 2,
+                        stage.getHeight() / 2 - guideWindow.getHeight() / 2);
                 guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
@@ -1704,8 +1704,8 @@ public class GameScreen2 extends AbstractGameScreen {
         textChart7.setText(textString6);
         chartWindow.pack();
         chartWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - chartWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - chartWindow.getHeight() / 2);
+                stage.getWidth() / 2 - chartWindow.getWidth() / 2,
+                stage.getHeight() / 2 - chartWindow.getHeight() / 2);
         chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
@@ -1805,8 +1805,8 @@ public class GameScreen2 extends AbstractGameScreen {
 
         statusWindow.pack();
         statusWindow.setPosition(
-                Gdx.graphics.getWidth() / 2 - statusWindow.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - statusWindow.getHeight() / 2);
+                stage.getWidth() / 2 - statusWindow.getWidth() / 2,
+                stage.getHeight() / 2 - statusWindow.getHeight() / 2);
         statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
