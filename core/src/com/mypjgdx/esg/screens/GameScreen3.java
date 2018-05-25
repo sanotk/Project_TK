@@ -1487,6 +1487,48 @@ public class GameScreen3 extends AbstractGameScreen {
             dialog.addWaitingPage(text);
         }
 
+        if(player.isSwitch){
+            if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
+                String text =
+                        "\"หิวข้าวขัง\"";
+                dialogAll();
+                dialog.addWaitingPage(text);
+                citizenQuest = systemWindow.citizen1;
+            } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
+                String text =
+                        "\"หิวข้าวขัง\"";
+                dialogAll();
+                dialog.addWaitingPage(text);
+                citizenQuest = systemWindow.citizen2;
+            } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
+                String text =
+                        "\"หิวข้าวขัง\"";
+                dialogAll();
+                dialog.addWaitingPage(text);
+                citizenQuest = systemWindow.citizen3;
+            } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
+                String text =
+                        "\"หิวข้าวขัง\"";
+                dialogAll();
+                dialog.addWaitingPage(text);
+                citizenQuest = systemWindow.citizen4;
+            } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
+                player.timeStop = true;
+                player.status_find = false;
+                String text =
+                        "\"หิวข้าวขัง\"";
+                dialogAll();
+                citizenQuest = systemWindow.citizen5;
+                dialog.addWaitingPage(text);
+            } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
+                String text =
+                        "\"หิวข้าวขัง\"";
+                dialogAll();
+                dialog.addWaitingPage(text);
+                citizenQuest = systemWindow.citizen6;
+            }
+        }
+
 
         if (player.timeCount <= timeEvent && !missionStart){
             missionStart = true;
