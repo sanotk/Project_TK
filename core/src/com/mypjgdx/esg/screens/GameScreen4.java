@@ -1634,7 +1634,7 @@ public class GameScreen4 extends AbstractGameScreen {
             EnergyUsedBar.instance.energyUse += 300;
         }
 
-        if((player.status_find)&&stageTwoClear){
+        if(player.status_find && player.stageOneClear){
             for (Item item : level4.items) {
                 if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP && !item.questAccept && !item.quest) {
                     dialogItem = true;
