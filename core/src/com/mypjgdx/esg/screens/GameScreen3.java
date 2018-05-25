@@ -1556,6 +1556,7 @@ public class GameScreen3 extends AbstractGameScreen {
         dialog.clearPages();
         dialogShow =true;
         worldController.level.player.timeStop = true;
+        worldController.level.player.status_find = false;
     }
 
     private void delayMission(){
