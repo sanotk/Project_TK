@@ -1600,19 +1600,20 @@ public class GameScreen2 extends AbstractGameScreen {
             }
         }
 
-//        if((stageTwoClear) && (player.status_find)){
-//            for (Item item : level2.items) {
-//                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
-//                    item.state = Item.ItemState.OFF;
-//                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
-//                    player.status_find = false;
-//                } else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
+        if((stageTwoClear) && (player.status_find)){
+            for (Item item : level2.items) {
+                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
+                    item.state = Item.ItemState.OFF;
+                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
+                    player.status_find = false;
+                }
+//                 else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
 //                    item.state = Item.ItemState.ONLOOP;
 //                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
 //                    player.status_find = false;
 //                }
-//            }
-//        }
+            }
+        }
 
         boolean noCitizen = !player.questScreen1
                 && !player.questScreen2
