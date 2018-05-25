@@ -20,6 +20,15 @@ public class Citizen2 extends Citizen {
         init(mapLayer);
     }
 
+    public Citizen2(TiledMapTileLayer mapLayer, Player player,float P_X, float P_Y) {
+        super(Assets.instance.citizenAltas, SCALE, SCALE,mapLayer,P_X,P_Y);
+
+        this.player = player;
+        this.movingSpeed = MAX_SPEED;
+        setGoalPosition(INITIAL_GOAL_X,INITIAL_GOAL_Y);
+        init(mapLayer);
+    }
+
     @Override
     public String getName() {
         // TODO Auto-generated method stub

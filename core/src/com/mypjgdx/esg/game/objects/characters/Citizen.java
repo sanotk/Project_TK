@@ -107,6 +107,21 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         stateMachine = new DefaultStateMachine<Citizen, CitizenState>(this);
     }
 
+    public Citizen(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer , float INITIAL_POSITION_X , float INITIAL_POSITION_Y) {
+        super(atlas);
+
+        addLoopAnimation(CitizenAnimation.WALK_UP, FRAME_DURATION, 15, 3);
+        addLoopAnimation(CitizenAnimation.WALK_DOWN, FRAME_DURATION, 15, 3);
+        addLoopAnimation(CitizenAnimation.WALK_LEFT, FRAME_DURATION, 9, 3);
+        addLoopAnimation(CitizenAnimation.WALK_RIGHT, FRAME_DURATION, 12, 3);
+
+        friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
+
+        scale.set(scaleX, scaleY);
+
+        stateMachine = new DefaultStateMachine<Citizen, CitizenState>(this);
+    }
+
     public void init(TiledMapTileLayer mapLayer) {
         collisionCheck = new TiledCollisionCheck(walkingBounds, mapLayer);
         gameMap = new GameMap(mapLayer);

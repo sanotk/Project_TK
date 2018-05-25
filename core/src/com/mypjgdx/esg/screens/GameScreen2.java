@@ -1380,7 +1380,7 @@ public class GameScreen2 extends AbstractGameScreen {
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.addWaitingPage(text);
-        }else if(player.requestTrap && dialogSwordWave){
+        }else if(player.requestSwordWave && dialogSwordWave){
             player.requestSwordWave =false;
             player.acceptSwordWave = true;
             swordShow = false;
