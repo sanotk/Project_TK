@@ -1571,8 +1571,6 @@ public class GameScreen4 extends AbstractGameScreen {
         if (countEnemy == worldController.level.enemies.size() && player.isSwitch) {
             player.stageOneClear = true;
         }
-
-
     }
 
     private void checkObject() {
@@ -1717,7 +1715,7 @@ public class GameScreen4 extends AbstractGameScreen {
             text2.setText(textString2);
             text4.setText(textString4);
         }
-        
+
         if (level4.pollutionControll.state == Item.ItemState.ONLOOP) {
             buttonItem8.setRegion(Assets.instance.pollutionIconOn);
             textItem8.setText(String.valueOf(level4.pollutionControll.getEnergyBurn()));
