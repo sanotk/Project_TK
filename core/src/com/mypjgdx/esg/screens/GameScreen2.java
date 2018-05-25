@@ -29,6 +29,7 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.weapons.SwordWave;
 import com.mypjgdx.esg.game.objects.weapons.Trap;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.ui.*;
@@ -127,6 +128,7 @@ public class GameScreen2 extends AbstractGameScreen {
     private boolean dialogWarning;
     private int timeEvent;
     private boolean trapShow;
+    private boolean swordShow;
 
     public enum systemWindow {
         citizen1,
@@ -558,6 +560,9 @@ public class GameScreen2 extends AbstractGameScreen {
                 if(trapShow){
                     worldController.level.player.acceptTrap = true;
                     worldController.level.player.requestTrap = false;
+                }else if(swordShow){
+                    worldController.level.player.acceptSwordWave = true;
+                    worldController.level.player.requestSwordWave = false;
                 }else if(stageFourClear){
                     worldController.level.player.timeClear = false;
                     Gdx.app.postRunnable(new Runnable() {
@@ -614,6 +619,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
                 trapShow = false;
+                swordShow = false;
             }
         });
 
@@ -625,6 +631,9 @@ public class GameScreen2 extends AbstractGameScreen {
                 if(trapShow){
                     worldController.level.player.acceptTrap = false;
                     worldController.level.player.requestTrap = false;
+                }else if(swordShow){
+                    worldController.level.player.acceptSwordWave = false;
+                    worldController.level.player.requestSwordWave = false;
                 }else if (citizenQuest == systemWindow.citizen1) {
                     worldController.level.player.quest1Cancel = true;
                     worldController.level.player.quest_window_1 = true;
@@ -672,6 +681,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
                 trapShow = false;
+                swordShow = false;
             }
         });
 
@@ -1311,6 +1321,7 @@ public class GameScreen2 extends AbstractGameScreen {
             dialogDoor3 = false;
             dialogDoor4 = false;
             trapShow = false;
+            swordShow = false;
         } else {
             dialog.tryToChangePage();
         }
@@ -1347,6 +1358,17 @@ public class GameScreen2 extends AbstractGameScreen {
             dialogAll();
             String text =
                     "\"คุณต้องการวางกับดักหรือไม่ กับดัก 1 อันใช้กำลังไฟฟ้า 100 วัตต์ เมื่อกับดักถูกทำลายถึงจะได้กำลังไฟฟ้าที่ใช้อยู่คืน\" \n\"(กดปุ่มตกลงเพื่อวางกับดัก หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการวางกับดัก)\"";
+            buttonAgree.setVisible(true);
+            buttonRefuse.setVisible(true);
+            dialog.addWaitingPage(text);
+        }
+
+        if(player.requestSwordWave){
+            player.requestSwordWave = false;
+            swordShow = true;
+            dialogAll();
+            String text =
+                    "\"คุณต้องการใช้ท่าคลื่นดาบหรือไม่ คลื่นดาบ 1 ครั้ง จะใช้กำลังไฟฟ้า 1000 วัตต์ เป็นเวลา 10 วินาที\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.addWaitingPage(text);
@@ -1796,6 +1818,11 @@ public class GameScreen2 extends AbstractGameScreen {
             if(weapon instanceof Trap){
                 if(weapon.isDestroyed()){
                     EnergyUsedBar.instance.energyUse -= TrapBar.instance.energyTrap;
+                }
+            }
+            if(weapon instanceof SwordWave){
+                if(weapon.isDestroyed()){
+                    EnergyUsedBar.instance.energyUse -= SwordWaveBar.instance.energySwordWave;
                 }
             }
         }

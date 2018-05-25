@@ -644,7 +644,7 @@ public class GameScreen extends AbstractGameScreen {
                     worldController.level.player.acceptTrap = false;
                     worldController.level.player.requestTrap = false;
                 }else if(swordShow){
-                    worldController.level.player.acceptSwordWave = true;
+                    worldController.level.player.acceptSwordWave = false;
                     worldController.level.player.requestSwordWave = false;
                 }else {
                     MusicManager.instance.stop();
