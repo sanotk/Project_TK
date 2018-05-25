@@ -193,6 +193,8 @@ public class GameScreen extends AbstractGameScreen {
     private boolean addedItoD;
 
     private boolean dialogStart;
+    private boolean dialogTrap;
+    private boolean dialogSwordWave;
 
     private int countEnemy;
 
@@ -615,9 +617,11 @@ public class GameScreen extends AbstractGameScreen {
                 if(trapShow){
                     worldController.level.player.acceptTrap = true;
                     worldController.level.player.requestTrap = false;
+                    dialogTrap = true;
                 }else if(swordShow){
                     worldController.level.player.acceptSwordWave = true;
                     worldController.level.player.requestSwordWave = false;
+                    dialogSwordWave = true;
                 }else{
                     MusicManager.instance.stop();
                     Gdx.app.postRunnable(new Runnable() {
@@ -1738,7 +1742,7 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount-1;
         }
 
-        if(player.requestTrap){
+        if(player.requestTrap && !dialogTrap){
             player.requestTrap = false;
             trapShow = true;
             dialogAll();
@@ -1747,9 +1751,13 @@ public class GameScreen extends AbstractGameScreen {
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.addWaitingPage(text);
+        }else if(player.requestTrap && dialogTrap){
+            player.requestTrap =false;
+            player.acceptTrap = true;
+            trapShow = false;
         }
 
-        if(player.requestSwordWave){
+        if(player.requestSwordWave && !dialogSwordWave){
             player.requestSwordWave = false;
             swordShow = true;
             dialogAll();
@@ -1758,6 +1766,10 @@ public class GameScreen extends AbstractGameScreen {
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.addWaitingPage(text);
+        }else if(player.requestTrap && dialogSwordWave){
+            player.requestSwordWave =false;
+            player.acceptSwordWave = true;
+            swordShow = false;
         }
 
         if ((level1.door.nearPlayer()) && (player.status_find)) {

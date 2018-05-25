@@ -129,6 +129,8 @@ public class GameScreen2 extends AbstractGameScreen {
     private int timeEvent;
     private boolean trapShow;
     private boolean swordShow;
+    private boolean dialogTrap;
+    private boolean dialogSwordWave;
 
     public enum systemWindow {
         citizen1,
@@ -560,9 +562,11 @@ public class GameScreen2 extends AbstractGameScreen {
                 if(trapShow){
                     worldController.level.player.acceptTrap = true;
                     worldController.level.player.requestTrap = false;
+                    dialogTrap = true;
                 }else if(swordShow){
                     worldController.level.player.acceptSwordWave = true;
                     worldController.level.player.requestSwordWave = false;
+                    dialogSwordWave = true;
                 }else if(stageFourClear){
                     worldController.level.player.timeClear = false;
                     Gdx.app.postRunnable(new Runnable() {
@@ -1352,7 +1356,7 @@ public class GameScreen2 extends AbstractGameScreen {
             timeEvent = player.timeCount-1;
         }
 
-        if(player.requestTrap){
+        if(player.requestTrap && !dialogTrap){
             player.requestTrap = false;
             trapShow = true;
             dialogAll();
@@ -1361,9 +1365,13 @@ public class GameScreen2 extends AbstractGameScreen {
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.addWaitingPage(text);
+        }else if(player.requestTrap && dialogTrap){
+            player.requestTrap =false;
+            player.acceptTrap = true;
+            trapShow = false;
         }
 
-        if(player.requestSwordWave){
+        if(player.requestSwordWave && !dialogSwordWave){
             player.requestSwordWave = false;
             swordShow = true;
             dialogAll();
@@ -1372,6 +1380,10 @@ public class GameScreen2 extends AbstractGameScreen {
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.addWaitingPage(text);
+        }else if(player.requestTrap && dialogSwordWave){
+            player.requestSwordWave =false;
+            player.acceptSwordWave = true;
+            swordShow = false;
         }
 
         if ((level2.gate.nearPlayer()) && (player.status_find)) {

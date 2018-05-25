@@ -437,8 +437,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     public void trapAttack(List<Weapon> weapons) {
         if (state != PlayerState.ATTACK && item == null) {
             this.weapons = weapons;
-            if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse >=
-                   1) {
+            if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse >= EnergyProducedBar.instance.energyProduced*2) {
                 requestTrap = true;
             } else {
                 energyLess = true;
@@ -474,8 +473,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         if (state != PlayerState.ATTACK) {
             this.weapons = weapons;
             this.swords = swords;
-            if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse >=
-                    1) {
+            if (EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse >= EnergyProducedBar.instance.energyProduced*2) {
                 requestSwordWave = true;
             } else {
                 energyLess = true;
