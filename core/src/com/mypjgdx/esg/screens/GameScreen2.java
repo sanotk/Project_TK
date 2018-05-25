@@ -348,12 +348,12 @@ public class GameScreen2 extends AbstractGameScreen {
         iconItem.setVisible(false);
         iconEnergyLess.setVisible(false);
 
-        buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
-        buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
+        buttonStyle.up = new TextureRegionDrawable(Assets.instance.buttonGreen1);
+        buttonStyle.down = new TextureRegionDrawable(Assets.instance.buttonGreen2);
         buttonStyle.font = font;
 
-        buttonStyle2.up = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_04"));
-        buttonStyle2.down = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_03"));
+        buttonStyle2.up = new TextureRegionDrawable(Assets.instance.buttonRed1);
+        buttonStyle2.down = new TextureRegionDrawable(Assets.instance.buttonRed2);
         buttonStyle2.font = font;
 
         buttonAgree = new TextButton("ตกลง", buttonStyle);
@@ -607,6 +607,7 @@ public class GameScreen2 extends AbstractGameScreen {
                     worldController.level.player.questScreen4 = false;
                     worldController.level.player.questScreen5 = false;
                     worldController.level.player.questScreen6 = false;
+                    trapShow =false;
                 }
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
@@ -1616,7 +1617,7 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if (!noItem && stageThreeClear) {
-            iconItem.setVisible(true);
+            //iconItem.setVisible(true);
         }
 
         if(player.energyLess){
@@ -1767,6 +1768,7 @@ public class GameScreen2 extends AbstractGameScreen {
             buttonItem8.setRegion(Assets.instance.airIconOff);
             textItem8.clear();
         }
+
         statusWindow.pack();
         statusWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - statusWindow.getWidth() / 2,
@@ -1791,6 +1793,7 @@ public class GameScreen2 extends AbstractGameScreen {
         if(!player.timeStop && !player.timeClear){
             SunBar.instance.timeCount += 1*deltaTime;
         }
+
         for (Weapon weapon : worldController.level.weapons){
             if(weapon instanceof Trap){
                 if(weapon.isDestroyed()){

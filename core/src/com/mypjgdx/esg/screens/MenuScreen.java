@@ -70,8 +70,8 @@ public class MenuScreen extends AbstractGameScreen {
         text_mainmenu.setStyle(labelStyle);
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
-        buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
-        buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
+        buttonStyle.up = new TextureRegionDrawable(Assets.instance.buttonBlue1);
+        buttonStyle.down = new TextureRegionDrawable(Assets.instance.buttonBlue2);
         buttonStyle.font = font;
 
         buttonStart = new TextButton("เริ่มเกม", buttonStyle);

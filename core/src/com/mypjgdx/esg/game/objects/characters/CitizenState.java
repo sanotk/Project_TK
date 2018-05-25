@@ -54,7 +54,7 @@ public enum CitizenState implements State<Citizen> {
         @Override
         public void update(Citizen entity) {
             entity.runToGoal();
-            if(entity.toGoal || entity.runPlayer){
+            if(entity.toGoal || entity.runPlayer || entity.quest){
                 entity.path = null;
                 entity.getStateMachine().changeState(WANDER);
             }

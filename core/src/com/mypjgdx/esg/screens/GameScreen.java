@@ -363,12 +363,12 @@ public class GameScreen extends AbstractGameScreen {
         iconItem.setVisible(false);
         iconEnergyLess.setVisible(false);
 
-        buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
-        buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
+        buttonStyle.up = new TextureRegionDrawable(Assets.instance.buttonGreen1);
+        buttonStyle.down = new TextureRegionDrawable(Assets.instance.buttonGreen2);
         buttonStyle.font = font;
 
-        buttonStyle2.up = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_04"));
-        buttonStyle2.down = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_03"));
+        buttonStyle2.up = new TextureRegionDrawable(Assets.instance.buttonRed1);
+        buttonStyle2.down = new TextureRegionDrawable(Assets.instance.buttonRed2);
         buttonStyle2.font = font;
 
         buttonAgree = new TextButton("ตกลง", buttonStyle);

@@ -136,6 +136,13 @@ public class Assets implements Disposable, AssetErrorListener {
     public Sound trapSound;
     public Sound enemyBallSound;
 
+    public TextureRegion buttonBlue1;
+    public TextureRegion buttonBlue2;
+    public TextureRegion buttonGreen1;
+    public TextureRegion buttonGreen2;
+    public TextureRegion buttonRed1;
+    public TextureRegion buttonRed2;
+
     public BitmapFont newFont;
     public BitmapFont newFontBig;
 
@@ -193,6 +200,13 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("guide2_window.png",Texture.class);
         manager.load("guide3_window.png",Texture.class);
         manager.load("guide4_window.png",Texture.class);
+
+        manager.load("button_blue_1.png",Texture.class);
+        manager.load("button_blue_2.png",Texture.class);
+        manager.load("button_red_1.png",Texture.class);
+        manager.load("button_red_2.png",Texture.class);
+        manager.load("button_green_1.png",Texture.class);
+        manager.load("button_green_2.png",Texture.class);
 
         manager.load("circle.png",Texture.class);
 
@@ -320,6 +334,14 @@ public class Assets implements Disposable, AssetErrorListener {
         waterpumpAltas = manager.get("waterpump_pack.atlas");
         pollutionAtlas = manager.get("pollutioncontrol_pack.atlas");
         gateAtlas = manager.get("gate_pack.atlas");
+
+        buttonBlue1 = new TextureRegion((Texture)manager.get("button_blue_1.png"));
+        buttonBlue2 = new TextureRegion((Texture)manager.get("button_blue_2.png"));
+        buttonRed1 = new TextureRegion((Texture)manager.get("button_red_1.png"));
+        buttonRed2 = new TextureRegion((Texture)manager.get("button_red_2.png"));
+        buttonGreen1 = new TextureRegion((Texture)manager.get("button_green_1.png"));
+        buttonGreen2 = new TextureRegion((Texture)manager.get("button_green_2.png"));
+
 
         trap = new TextureRegion((Texture)manager.get("trap.png"));
         beam = new TextureRegion((Texture)manager.get("beam.png"));
