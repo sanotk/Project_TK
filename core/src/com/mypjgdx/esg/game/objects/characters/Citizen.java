@@ -27,8 +27,8 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
     private static final float INITIAL_FRICTION = 600f;
 
-    private static final float INITIAL_POSITION_X = 100;
-    private static final float INITIAL_POSITION_Y = 1000;
+    private float INITIAL_POSITION_X = 100;
+    private float INITIAL_POSITION_Y = 1000;
     public boolean questIsAccept;
 
     private float stalkingPositionX;
@@ -114,6 +114,9 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         addLoopAnimation(CitizenAnimation.WALK_DOWN, FRAME_DURATION, 15, 3);
         addLoopAnimation(CitizenAnimation.WALK_LEFT, FRAME_DURATION, 9, 3);
         addLoopAnimation(CitizenAnimation.WALK_RIGHT, FRAME_DURATION, 12, 3);
+
+        this.INITIAL_POSITION_X = INITIAL_POSITION_X;
+        this.INITIAL_POSITION_Y = INITIAL_POSITION_Y;
 
         friction.set(INITIAL_FRICTION, INITIAL_FRICTION);
 
