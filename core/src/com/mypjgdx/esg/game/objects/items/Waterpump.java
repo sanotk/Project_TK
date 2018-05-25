@@ -18,6 +18,13 @@ public class Waterpump extends Item{
         playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "pump");
 	}
 
+    public Waterpump(TiledMapTileLayer mapLayer, Player player, float P_X, float P_Y){
+        super(Assets.instance.waterpumpAltas, SCALE, SCALE , P_X , P_Y);
+        init(mapLayer,  player );
+
+        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "pump");
+    }
+
     @Override
     public String getName() {
         // TODO Auto-generated method stub

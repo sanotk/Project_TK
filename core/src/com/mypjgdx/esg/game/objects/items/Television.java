@@ -18,6 +18,13 @@ public class Television extends Item{
         playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "tv");
 	}
 
+    public Television(TiledMapTileLayer mapLayer, Player player, float P_X, float P_Y){
+        super(Assets.instance.tvAltas, SCALE, SCALE , P_X , P_Y);
+        init(mapLayer,  player );
+
+        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "tv");
+    }
+
     @Override
     public String getName() {
         // TODO Auto-generated method stub

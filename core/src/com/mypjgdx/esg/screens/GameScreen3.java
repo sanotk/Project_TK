@@ -24,11 +24,15 @@ import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
 import com.mypjgdx.esg.game.levels.Level2;
+import com.mypjgdx.esg.game.levels.Level3;
 import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.weapons.SwordWave;
+import com.mypjgdx.esg.game.objects.weapons.Trap;
+import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.ui.Dialog;
 import com.mypjgdx.esg.utils.QuestState;
@@ -59,6 +63,10 @@ public class GameScreen3 extends AbstractGameScreen {
     private Button iconGuide;
     private Button buttonStatus;
     private Button iconStatus;
+
+    private boolean missionStart;
+    private boolean guideStart;
+    private boolean statusStart;
 
     SpriteBatch batch;
     public Texture bg;
@@ -119,6 +127,9 @@ public class GameScreen3 extends AbstractGameScreen {
     private TextureRegionDrawable buttonItem8;
 
     private boolean dialogWarning;
+    private int timeEvent;
+    private boolean trapShow;
+    private boolean swordShow;
 
     public enum systemWindow {
         citizen1,
@@ -139,7 +150,7 @@ public class GameScreen3 extends AbstractGameScreen {
     private Texture dialogStory;
 
     private String text =
-            "\"ดูเหมือนว่าจะมีประชาชนเข้ามาอาศัยเพิ่ม และห้องเดียวคงไม่เพียงพอ มาสำรวจห้องใหม่กันดีกว่า\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
+            "\"ทุกคนให้รออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าที่แห่งนี้ปลอดภัย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
 
     public QuestState questState = null;
 
@@ -340,12 +351,12 @@ public class GameScreen3 extends AbstractGameScreen {
         iconItem.setVisible(false);
         iconEnergyLess.setVisible(false);
 
-        buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
-        buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
+        buttonStyle.up = new TextureRegionDrawable(Assets.instance.buttonGreen1);
+        buttonStyle.down = new TextureRegionDrawable(Assets.instance.buttonGreen2);
         buttonStyle.font = font;
 
-        buttonStyle2.up = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_04"));
-        buttonStyle2.down = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_03"));
+        buttonStyle2.up = new TextureRegionDrawable(Assets.instance.buttonRed1);
+        buttonStyle2.down = new TextureRegionDrawable(Assets.instance.buttonRed2);
         buttonStyle2.font = font;
 
         buttonAgree = new TextButton("ตกลง", buttonStyle);
@@ -438,6 +449,7 @@ public class GameScreen3 extends AbstractGameScreen {
         buttonMission.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                missionStart = true;
                 missionWindow.pack();
                 missionWindow.setPosition(
                         Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
@@ -450,6 +462,7 @@ public class GameScreen3 extends AbstractGameScreen {
         iconMission.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                missionStart = true;
                 missionWindow.pack();
                 missionWindow.setPosition(
                         Gdx.graphics.getWidth() / 2 - missionWindow.getWidth() / 2,
@@ -462,6 +475,7 @@ public class GameScreen3 extends AbstractGameScreen {
         buttonGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                guideStart = true;
                 guideWindow.pack();
                 worldController.level.player.timeStop = true;
                 guideWindow.setPosition(
@@ -474,6 +488,7 @@ public class GameScreen3 extends AbstractGameScreen {
         iconGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                guideStart = true;
                 guideWindow.pack();
                 worldController.level.player.timeStop = true;
                 guideWindow.setPosition(
@@ -525,6 +540,7 @@ public class GameScreen3 extends AbstractGameScreen {
         buttonStatus.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                statusStart = true;
                 status();
             }
         });
@@ -532,6 +548,7 @@ public class GameScreen3 extends AbstractGameScreen {
         iconStatus.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                statusStart = true;
                 status();
             }
         });
@@ -541,7 +558,13 @@ public class GameScreen3 extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
-                if(stageFourClear){
+                if(trapShow){
+                    worldController.level.player.acceptTrap = true;
+                    worldController.level.player.requestTrap = false;
+                }else if(swordShow){
+                    worldController.level.player.acceptSwordWave = true;
+                    worldController.level.player.requestSwordWave = false;
+                }else if(stageFourClear){
                     worldController.level.player.timeClear = false;
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
@@ -596,6 +619,8 @@ public class GameScreen3 extends AbstractGameScreen {
                 dialog.hide();
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
+                trapShow = false;
+                swordShow = false;
             }
         });
 
@@ -604,7 +629,13 @@ public class GameScreen3 extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
-                if (citizenQuest == systemWindow.citizen1) {
+                if(trapShow){
+                    worldController.level.player.acceptTrap = false;
+                    worldController.level.player.requestTrap = false;
+                }else if(swordShow){
+                    worldController.level.player.acceptSwordWave = false;
+                    worldController.level.player.requestSwordWave = false;
+                }else if (citizenQuest == systemWindow.citizen1) {
                     worldController.level.player.quest1Cancel = true;
                     worldController.level.player.quest_window_1 = true;
                     LikingBar.instance.liking -= 1;
@@ -650,6 +681,8 @@ public class GameScreen3 extends AbstractGameScreen {
                 dialog.hide();
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
+                trapShow = false;
+                swordShow = false;
             }
         });
 
@@ -1288,6 +1321,8 @@ public class GameScreen3 extends AbstractGameScreen {
             dialogDoor2 = false;
             dialogDoor3 = false;
             dialogDoor4 = false;
+            trapShow = false;
+            swordShow = false;
         } else {
             dialog.tryToChangePage();
         }
@@ -1315,6 +1350,29 @@ public class GameScreen3 extends AbstractGameScreen {
             dialog.addWaitingPage(text);
             dialogStart = true;
             delayMission();
+            timeEvent = player.timeCount-1;
+        }
+
+        if(player.requestTrap){
+            player.requestTrap = false;
+            trapShow = true;
+            dialogAll();
+            String text =
+                    "\"คุณต้องการวางกับดักหรือไม่ กับดัก 1 อันใช้กำลังไฟฟ้า 100 วัตต์ เมื่อกับดักถูกทำลายถึงจะได้กำลังไฟฟ้าที่ใช้อยู่คืน\" \n\"(กดปุ่มตกลงเพื่อวางกับดัก หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการวางกับดัก)\"";
+            buttonAgree.setVisible(true);
+            buttonRefuse.setVisible(true);
+            dialog.addWaitingPage(text);
+        }
+
+        if(player.requestSwordWave){
+            player.requestSwordWave = false;
+            swordShow = true;
+            dialogAll();
+            String text =
+                    "\"คุณต้องการใช้ท่าคลื่นดาบหรือไม่ คลื่นดาบ 1 ครั้ง จะใช้กำลังไฟฟ้า 1000 วัตต์ เป็นเวลา 10 วินาที\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
+            buttonAgree.setVisible(true);
+            buttonRefuse.setVisible(true);
+            dialog.addWaitingPage(text);
         }
 
         if ((level2.gate.nearPlayer()) && (player.status_find)) {
@@ -1322,7 +1380,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 dialogDoor3 = true;
                 dialogAll();
                 String text =
-                        "\"พลังงานไม่เพียงพอ รีบปิดเครื่องใช้ไฟฟ้าก่อนพลังงานจะหมดลง\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
+                        "\"พลังงานมีไม่เพียงพอใช้ในห้องถัดไป กรุณาปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเสียก่อน\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
                 dialog.addWaitingPage(text);
                 delayMission();
             } else if (animation_status && stageThreeClear && !dialogDoor4) {
@@ -1331,7 +1389,7 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
-        if (!dialogEnemy) {
+        if (!dialogEnemy && player.timeCount <= 298) {
             for (int i = 0; i < worldController.level.enemies.size(); i++) {
                 Enemy enemy = worldController.level.enemies.get(i);
                 if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
@@ -1345,18 +1403,20 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
-        if (player.stageOneClear && !dialogCitizen) {
+        if (player.stageOneClear && !dialogCitizen && player.isSwitch) {
             dialogCitizen = true;
             dialogAll();
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
+                    "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
-            if(player.isSwitch){
-                textMission1.setStyle(labelStyle2);
-                textMission2.setText("ภารกิจที่สอง รีบปิดเครื่องใช้ไฟฟ้าที่ไม่ใช้งานเร็วเข้า");
-            }
+            timeEvent = player.timeCount-1;
+            missionStart =false;
+            System.out.print(player.timeCount);
+            textMission1.setStyle(labelStyle2);
+            textMission2.setText("ภารกิจที่สอง สอบถามประชาชนที่เข้ามาอาศัยในที่หลบภัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)");
             delayGuide();
         }
+
 
         if (questCount == 6 && !animation_status) {
             if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
@@ -1366,6 +1426,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 animation_status = true;
                 dialogAll();
                 level2.gate.state = Item.ItemState.ON;
+                timeEvent = player.timeCount-1;
                 String text =
                         "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 dialog.addWaitingPage(text);
@@ -1397,25 +1458,26 @@ public class GameScreen3 extends AbstractGameScreen {
         if(player.isSwitch){
             if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
                 String text =
-                        "\"รู้สึกว่าอากาศห้องนี้ค่อนข้างหนาวเย็น\"";
+                        "\"ผมเป็นคนไม่ชอบความร้อน ขอเปิดแอร์ได้รึเปล่า\""
+                                + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า " + level2.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen1;
             } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
                 String text =
-                        "\"เหมือนว่าน้ำจะไม่ไหล\" ";
+                        "\"ผมหิวมาก อยากใช้ไมโครเวฟอุ่นอาหารแช่แข็ง " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen2;
             } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
                 String text =
-                        "\"ไม่มีอะไรเป็นพิเศษ\" ";
+                        "\"น่าเบื่อ ผมอยากใช้งานคอมพิวเตอร์\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen3;
             } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
                 String text =
-                        "\"ค่อนข้างหิว\" \"";
+                        "\"ผมคิดว่าจะนำเสบียงอาหารที่เหลือไปแช่ตู้เย็นจึงต้องการเสียบปลั๊ก\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen4;
@@ -1423,17 +1485,37 @@ public class GameScreen3 extends AbstractGameScreen {
                 player.timeStop = true;
                 player.status_find = false;
                 String text =
-                        "\"พวกเราหลายคนน่าจะเริ่มหิวกันแล้ว ผมอยากหุงข้าวกินกันกับทุกคน\" ";
+                        "\"พวกเราหลายคนน่าจะเริ่มหิวกันแล้ว ผมอยากหุงข้าวกินกันกับทุกคน\" " + "\n\"( หม้อหุงข้าวใช้กำลังไฟฟ้า " + level2.riceCooker.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 citizenQuest = systemWindow.citizen5;
                 dialog.addWaitingPage(text);
             } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
                 String text =
-                        "\"ผมขอเปิดโทรทัศน์ดูได้รึเปล่า\" ";
+                        "\"ผมขอเปิดโทรทัศน์ดูได้รึเปล่า\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level2.television.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen6;
             }
+        }
+
+        if (player.timeCount <= timeEvent && !missionStart){
+            missionStart = true;
+            missionWindow.pack();
+            missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            player.timeStop = true;
+        }
+
+//        if (player.timeCount <= timeEvent && !guideStart && player.stageOneClear){
+//            guideStart = true;
+//            guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+//            player.timeStop = true;
+//            System.out.print("ทำงาน");
+//        }
+
+        if (player.timeCount <= timeEvent && !statusStart && stageThreeClear){
+            statusStart = true;
+            status();
+            player.timeStop = true;
         }
     }
 
@@ -1479,6 +1561,8 @@ public class GameScreen3 extends AbstractGameScreen {
         player.timeStop = true;
         player.status_find = false;
         dialog.show();
+        buttonAgree.setVisible(true);
+        buttonRefuse.setVisible(true);
         dialog.clearPages();
         dialogShow = true;
     }
@@ -1496,9 +1580,11 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
-        if (countEnemy == worldController.level.enemies.size()) {
+        if (countEnemy == worldController.level.enemies.size() && player.isSwitch) {
             player.stageOneClear = true;
         }
+
+
     }
 
     private void checkObject() {
@@ -1515,19 +1601,19 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
-        if((stageTwoClear) && (player.status_find) && (player.isSwitch)){
-            for (Item item : level2.items) {
-                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
-                    item.state = Item.ItemState.OFF;
-                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
-                    player.status_find = false;
-                } else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
-                    item.state = Item.ItemState.ONLOOP;
-                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
-                    player.status_find = false;
-                }
-            }
-        }
+//        if((stageTwoClear) && (player.status_find)){
+//            for (Item item : level2.items) {
+//                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
+//                    item.state = Item.ItemState.OFF;
+//                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
+//                    player.status_find = false;
+//                } else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
+//                    item.state = Item.ItemState.ONLOOP;
+//                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
+//                    player.status_find = false;
+//                }
+//            }
+//        }
 
         boolean noCitizen = !player.questScreen1
                 && !player.questScreen2
@@ -1552,7 +1638,7 @@ public class GameScreen3 extends AbstractGameScreen {
         }
 
         if (!noItem && stageThreeClear) {
-            iconItem.setVisible(true);
+            //iconItem.setVisible(true);
         }
 
         if(player.energyLess){
@@ -1703,6 +1789,7 @@ public class GameScreen3 extends AbstractGameScreen {
             buttonItem8.setRegion(Assets.instance.airIconOff);
             textItem8.clear();
         }
+
         statusWindow.pack();
         statusWindow.setPosition(
                 Gdx.graphics.getWidth() / 2 - statusWindow.getWidth() / 2,
@@ -1726,6 +1813,19 @@ public class GameScreen3 extends AbstractGameScreen {
 
         if(!player.timeStop && !player.timeClear){
             SunBar.instance.timeCount += 1*deltaTime;
+        }
+
+        for (Weapon weapon : worldController.level.weapons){
+            if(weapon instanceof Trap){
+                if(weapon.isDestroyed()){
+                    EnergyUsedBar.instance.energyUse -= TrapBar.instance.energyTrap;
+                }
+            }
+            if(weapon instanceof SwordWave){
+                if(weapon.isDestroyed()){
+                    EnergyUsedBar.instance.energyUse -= SwordWaveBar.instance.energySwordWave;
+                }
+            }
         }
 
         if(SunBar.instance.timeCount >= 60){
@@ -1779,7 +1879,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
     @Override
     public void show() {
-        worldController = new WorldController(new Level2());
+        worldController = new WorldController(new Level3());
         worldRenderer = new WorldRenderer(worldController);
         Gdx.input.setInputProcessor(stage);
 

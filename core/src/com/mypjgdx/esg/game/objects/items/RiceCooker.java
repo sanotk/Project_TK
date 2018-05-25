@@ -18,6 +18,13 @@ public class RiceCooker extends Item{
         playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "cooker");
 	}
 
+    public RiceCooker(TiledMapTileLayer mapLayer, Player player, float P_X, float P_Y){
+        super(Assets.instance.ricecookerAltas, SCALE, SCALE , P_X , P_Y);
+        init(mapLayer,  player );
+
+        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "cooker");
+    }
+
     @Override
     public String getName() {
         // TODO Auto-generated method stub

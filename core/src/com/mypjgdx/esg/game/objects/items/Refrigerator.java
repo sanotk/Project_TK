@@ -18,6 +18,13 @@ public class Refrigerator extends Item{
         playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "refrigerator");
 	}
 
+    public Refrigerator(TiledMapTileLayer mapLayer, Player player, float P_X, float P_Y){
+        super(Assets.instance.refrigeratorAltas, SCALE, SCALE , P_X , P_Y);
+        init(mapLayer,  player );
+        timeCount = 300;
+        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "refrigerator");
+    }
+
     @Override
     public String getName() {
         // TODO Auto-generated method stub

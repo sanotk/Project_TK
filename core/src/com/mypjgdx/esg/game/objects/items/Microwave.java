@@ -18,6 +18,13 @@ public class Microwave extends Item{
         playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "microwave");
 	}
 
+    public Microwave(TiledMapTileLayer mapLayer, Player player, float P_X, float P_Y){
+        super(Assets.instance.microwaveAltas, SCALE, SCALE , P_X , P_Y);
+        init(mapLayer,  player );
+
+        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "microwave");
+    }
+
     @Override
     public String getName() {
         // TODO Auto-generated method stub

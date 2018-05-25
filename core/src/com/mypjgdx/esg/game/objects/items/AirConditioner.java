@@ -17,6 +17,12 @@ public class AirConditioner extends Item{
         playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "air");
 	}
 
+    public AirConditioner(TiledMapTileLayer mapLayer, Player player , float P_X, float P_Y){
+        super(Assets.instance.airAltas, SCALE, SCALE , P_X , P_Y);
+        init(mapLayer,  player );
+        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "air");
+    }
+
     @Override
     public String getName() {
         // TODO Auto-generated method stub
