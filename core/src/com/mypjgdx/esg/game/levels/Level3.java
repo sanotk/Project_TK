@@ -37,7 +37,7 @@ public class Level3 extends Level {
         map = Assets.instance.map3;
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
-        player = new Player(mapLayer, 100, 100);
+        player = new Player(mapLayer, 100, 200);
 
         switchItem = new Switch(mapLayer, player);
         television = new Television(mapLayer, player,450f,550f);
@@ -45,7 +45,7 @@ public class Level3 extends Level {
         waterPump = new Waterpump(mapLayer, player,650f,500f);
         airConditioner = new AirConditioner(mapLayer, player,300f,1100f);
         computer = new Computer(mapLayer, player,200f,550f);
-        fan1 = new Fan(mapLayer, player,550f,550f);
+        fan1 = new Fan(mapLayer, player,550f,500f);
         refrigerator = new Refrigerator(mapLayer, player,650f,1000f);
         riceCooker = new RiceCooker(mapLayer, player,750,1050f);
         gate = new Gate(mapLayer,player);
@@ -61,7 +61,6 @@ public class Level3 extends Level {
         items.add(riceCooker);
         items.add(gate);
 
-
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));
@@ -71,12 +70,12 @@ public class Level3 extends Level {
         enemies.add(new PepoKnight(mapLayer, player));
         enemies.add(new PepoKnight(mapLayer, player));
 
-        citizen1 = new Citizen1(mapLayer, player);
-        citizen2 = new Citizen2(mapLayer, player);
-        citizen3 = new Citizen3(mapLayer, player);
-        citizen4 = new Citizen4(mapLayer, player);
-        citizen5 = new Citizen5(mapLayer, player);
-        citizen6 = new Citizen6(mapLayer, player);
+        citizen1 = new Citizen1(mapLayer, player,100f,200f);
+        citizen2 = new Citizen2(mapLayer, player,100f,200f);
+        citizen3 = new Citizen3(mapLayer, player,100f,200f);
+        citizen4 = new Citizen4(mapLayer, player,100f,200f);
+        citizen5 = new Citizen5(mapLayer, player,100f,200f);
+        citizen6 = new Citizen6(mapLayer, player,100f,200f);
 
         citizens.add(citizen1);
         citizens.add(citizen2);
@@ -95,6 +94,9 @@ public class Level3 extends Level {
         citizen4.setGoalItem(refrigerator);
         citizen5.setGoalItem(riceCooker);
         citizen6.setGoalItem(television);
+
+        citizen3.setGoalPosition(700f,500f);
+        citizen4.setGoalPosition(700f,300f);
 
         television.setEnergyBurn(100);
         microwave.setEnergyBurn(800);
