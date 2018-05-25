@@ -582,6 +582,7 @@ public class GameScreen4 extends AbstractGameScreen {
                     item.questAccept = true;
                     item.quest = true;
                     EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
+                    item.state = Item.ItemState.ONLOOP;
                 }else if(stageFourClear){
                     worldController.level.player.timeClear = false;
                     Gdx.app.postRunnable(new Runnable() {
@@ -1610,7 +1611,7 @@ public class GameScreen4 extends AbstractGameScreen {
             }
         }
 
-        if (!noItem && stageThreeClear) {
+        if (!noItem && player.stageOneClear) {
             iconItem.setVisible(true);
         }
 
@@ -1636,7 +1637,7 @@ public class GameScreen4 extends AbstractGameScreen {
 
         if(player.status_find && player.stageOneClear){
             for (Item item : level4.items) {
-                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP && !item.questAccept && !item.quest) {
+                if (item.nearPlayer() && item.state == Item.ItemState.OFF && !item.questAccept && !item.quest) {
                     dialogItem = true;
                     String text =
                             "\"มีพลังงานเพียงพอแล้ว ต้องการเปิด\"" + item.name + "\"หรือไม่\""
