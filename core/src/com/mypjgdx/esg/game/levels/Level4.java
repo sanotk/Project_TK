@@ -20,6 +20,7 @@ public class Level4 extends Level {
     public Item switchItem;
     public Item pollutionControll;
     public Item gate;
+    public Item hydroPower;
 
     public Level4() {
         map = Assets.instance.map4;
@@ -30,10 +31,12 @@ public class Level4 extends Level {
         switchItem = new Switch(mapLayer, player);
         pollutionControll = new PollutionController(mapLayer,player);
         gate = new Gate(mapLayer,player);
+        hydroPower = new Gate(mapLayer,player);
 
         items.add(switchItem);
         items.add(pollutionControll);
         items.add(gate);
+        items.add(hydroPower);
 
         pollutionControll.setEnergyBurn(10000);
 
