@@ -1448,7 +1448,6 @@ public class GameScreen4 extends AbstractGameScreen {
             delayGuide();
         }
 
-
         if (questCount == 6 && !animation_status) {
             if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
                 dialogStage4 = true;
@@ -1802,6 +1801,12 @@ public class GameScreen4 extends AbstractGameScreen {
                 if(weapon.isDestroyed()){
                     EnergyUsedBar.instance.energyUse -= SwordWaveBar.instance.energySwordWave;
                 }
+            }
+        }
+
+        for (Enemy enemy : worldController.level.enemies){
+            if(player.bounds.overlaps(enemy.bounds)&&enemy.stateMachine.getCurrentState()==EnemyState.DIE){
+                
             }
         }
 
