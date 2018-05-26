@@ -1805,8 +1805,9 @@ public class GameScreen4 extends AbstractGameScreen {
         }
 
         for (Enemy enemy : worldController.level.enemies){
-            if(player.bounds.overlaps(enemy.bounds)&&enemy.stateMachine.getCurrentState()==EnemyState.DIE){
-                
+            if(player.bounds.overlaps(enemy.bounds) && enemy.stateMachine.getCurrentState() == EnemyState.DIE
+                    && !enemy.link){
+                enemy.link = true;
             }
         }
 

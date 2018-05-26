@@ -34,6 +34,7 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
 
     private static final float INITIAL_FRICTION = 600f;
     private static final float INITIAL_FINDING_RANGE = 400f;
+    public boolean link;
 
     protected Player player;
 
