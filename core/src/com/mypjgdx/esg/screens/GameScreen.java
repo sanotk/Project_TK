@@ -228,6 +228,8 @@ public class GameScreen extends AbstractGameScreen {
     private TextButton.TextButtonStyle buttonToolStyle;
     private TextButton.TextButtonStyle buttonPauseStyle;
 
+    private PlayerTouchPad touchPad;
+
     public GameScreen(final Game game, final Window optionsWindow) {
         super(game);
 
@@ -238,6 +240,10 @@ public class GameScreen extends AbstractGameScreen {
         font = Assets.instance.newFont;
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
+
+        touchPad = new PlayerTouchPad();
+        stage.addActor(touchPad);
+        touchPad.setPosition(20, 20);
 
         dialogStory = new Texture("dialogStory.png");
         dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -2153,6 +2159,7 @@ public class GameScreen extends AbstractGameScreen {
         worldController = new WorldController(new Level1());
         worldRenderer = new WorldRenderer(worldController);
         worldController.worldRenderer = worldRenderer;
+        worldController.touchPad = touchPad;
         Gdx.input.setInputProcessor(stage);
 
         MusicManager.instance.stop();

@@ -16,6 +16,7 @@ import com.mypjgdx.esg.game.objects.etcs.Link;
 import com.mypjgdx.esg.ui.BatteryBar;
 import com.mypjgdx.esg.ui.EnergyProducedBar;
 import com.mypjgdx.esg.ui.EnergyUsedBar;
+import com.mypjgdx.esg.ui.PlayerTouchPad;
 import com.mypjgdx.esg.utils.CameraHelper;
 import com.mypjgdx.esg.utils.Direction;
 
@@ -27,6 +28,7 @@ public class WorldController extends InputAdapter {
     public CameraHelper cameraHelper;
     public Level level;
     public WorldRenderer worldRenderer;
+    public PlayerTouchPad touchPad;
 
     public WorldController(Level level) {
         init(level);
@@ -48,7 +50,7 @@ public class WorldController extends InputAdapter {
 
     private void handleInput(float deltaTime) {
         handleCameraInput(deltaTime);
-        handleplayerInput();
+        handlePlayerInput();
     }
 
     private void handleCameraInput(float deltaTime) {
@@ -62,22 +64,37 @@ public class WorldController extends InputAdapter {
         if (Gdx.input.isKeyPressed(Keys.X)) cameraHelper.addZoom(-CAMERA_ZOOM_SPEED * deltaTime); // กด x
     }
 
-    private void handleplayerInput() { // ควบคุม player
+    private void handlePlayerInput() { // ควบคุม player
         if (!cameraHelper.hasTarget()) return; // มุมกล้องติดตาม player อยู่ถึงจะควมคุม player ได้
         if (level.player.timeStop) return;
 
         final int screenWidth = Gdx.graphics.getWidth();
         final int screenHeight = Gdx.graphics.getHeight();
-        final float SCREEN_MOVE_EGDE = 0.4f;
+        final float SCREEN_MOVE_EDGE = 0.4f;
+
+        final float MIN_KNOB_PERCENT_TO_MOVE = 0.30f;
+        if (touchPad.getKnobPercentY() > MIN_KNOB_PERCENT_TO_MOVE) {
+            level.player.move(Direction.UP);
+        }
+        else if (touchPad.getKnobPercentY() < -MIN_KNOB_PERCENT_TO_MOVE) {
+            level.player.move(Direction.DOWN);
+        }
+        if (touchPad.getKnobPercentX() > MIN_KNOB_PERCENT_TO_MOVE) {
+            level.player.move(Direction.RIGHT);
+        }
+        else if (touchPad.getKnobPercentX() < -MIN_KNOB_PERCENT_TO_MOVE) {
+            level.player.move(Direction.LEFT);
+        }
+
 
         if (Gdx.app.getType() == ApplicationType.Android && Gdx.input.isTouched()) {
             float x = Gdx.input.getX();
             float filppedY = screenHeight - Gdx.input.getY();
-            if (x > screenWidth * (1.0f - SCREEN_MOVE_EGDE)) level.player.move(Direction.RIGHT);
-            else if (x < screenWidth * SCREEN_MOVE_EGDE) level.player.move(Direction.LEFT);
+            if (x > screenWidth * (1.0f - SCREEN_MOVE_EDGE)) level.player.move(Direction.RIGHT);
+            else if (x < screenWidth * SCREEN_MOVE_EDGE) level.player.move(Direction.LEFT);
 
-            if (filppedY > screenHeight * (1.0f - SCREEN_MOVE_EGDE)) level.player.move(Direction.UP);
-            else if (filppedY < screenHeight * SCREEN_MOVE_EGDE) level.player.move(Direction.DOWN);
+            if (filppedY > screenHeight * (1.0f - SCREEN_MOVE_EDGE)) level.player.move(Direction.UP);
+            else if (filppedY < screenHeight * SCREEN_MOVE_EDGE) level.player.move(Direction.DOWN);
         } else {
             if (Gdx.input.isKeyPressed(Keys.UP)) level.player.move(Direction.UP);
             if (Gdx.input.isKeyPressed(Keys.DOWN)) level.player.move(Direction.DOWN);

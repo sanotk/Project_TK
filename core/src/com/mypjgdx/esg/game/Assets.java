@@ -23,6 +23,10 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public static final Assets instance = new Assets();
     public AssetManager manager;
+
+    public Texture touchPadBackground;
+    public Texture touchPadKnob;
+
     public TextureRegion bullet;
     public TextureRegion arrow;
     public TextureRegion wave;
@@ -277,7 +281,10 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("white.png", Texture.class);
 
         manager.load("ui-blue.atlas", TextureAtlas.class);
-        manager.load("ui-red.atlas", TextureAtlas.class);manager.load("ui-red.atlas", TextureAtlas.class);
+        manager.load("ui-red.atlas", TextureAtlas.class);
+
+        manager.load("touchpad_knob.png", Texture.class);
+        manager.load("touchpad_bg.png", Texture.class);
 
         manager.finishLoading();
 
@@ -294,6 +301,12 @@ public class Assets implements Disposable, AssetErrorListener {
 
         light = manager.get("light.png");
         white = manager.get("white.png");
+
+        touchPadKnob = manager.get("touchpad_knob.png");
+        touchPadKnob.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        touchPadBackground = manager.get("touchpad_bg.png");
+        touchPadBackground.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
 
 //        TextureAtlas atlas = new TextureAtlas();
