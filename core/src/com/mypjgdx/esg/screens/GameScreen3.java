@@ -226,6 +226,8 @@ public class GameScreen3 extends AbstractGameScreen {
     private boolean dialogStart;
     private boolean itemStart;
 
+    private PlayerTouchPad touchPad;
+
     public GameScreen3(final Game game, final Window optionsWindow) {
         super(game);
 
@@ -240,6 +242,10 @@ public class GameScreen3 extends AbstractGameScreen {
         EnergyProducedBar.instance.energyProduced = 2700;
         LikingBar.instance.liking = 10;
         TemperatureBar.instance.Temperature = 15;
+
+        touchPad = new PlayerTouchPad();
+        stage.addActor(touchPad);
+        touchPad.setPosition(20, 20);
 
         this.optionsWindow = optionsWindow;
 
@@ -1941,6 +1947,7 @@ public class GameScreen3 extends AbstractGameScreen {
     public void show() {
         worldController = new WorldController(new Level3());
         worldRenderer = new WorldRenderer(worldController);
+        worldController.touchPad = touchPad;
         worldController.worldRenderer = worldRenderer;
         Gdx.input.setInputProcessor(stage);
 
