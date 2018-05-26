@@ -158,12 +158,12 @@
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt1FELgjAUhuEVZklm2jS01AL//3/0uxmMsbmz2JaCF8/dwRfPgY2MsTGCFjKCI3FO6KXGEyq4ejTAXWmc4OZRrWkkcFhg2rNp/hOhUfypMVkaXwOfDVe/7Gpv7I01Njo4E4lv2OZKeCn/8YALgWjY5rhmV9S3XTRCvO1buXnjcHcK9ebUe7viUiOHNIC31AhtBvB/GqY=
+   eJzt1MsKgzAQheEoXrG13rGt2oLv/46eTSAEk4wlSRFcfLvBH2cgC2Ns8WCEnCAkznGT0BighsKiGR5SI4a7Rd1OI4JAQ7Vn1fzHQ6P8U2M1NL4KvzRWga5potuVj4YtV+NqPCEl4t8wzVXwkv6jgYyAN0xz7c6uqG87b7h4289y8/7A3Snkm1PvfVQrNG6QOPAWGq5tA8Ebcg==
   </data>
  </layer>
  <layer name="map2" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFQxEw4sC4AB8d7CAHUMMOlkFgxygYBaNgFIyCUUBvAABgawAv
+   eJxjYBgFQxEw4sC4AB8d7CAHUMMOFjraQatwQAb0sGMUjIJRMApGwdAHAIafADU=
   </data>
  </layer>
  <layer name="water" width="25" height="25">

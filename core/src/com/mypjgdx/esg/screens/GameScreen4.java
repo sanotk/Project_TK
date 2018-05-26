@@ -221,6 +221,7 @@ public class GameScreen4 extends AbstractGameScreen {
 
     private boolean dialogStart;
 
+    private PlayerTouchPad touchPad;
 
     public GameScreen4(final Game game, final Window optionsWindow) {
         super(game);
@@ -232,6 +233,10 @@ public class GameScreen4 extends AbstractGameScreen {
         font = Assets.instance.newFont;
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
+
+        touchPad = new PlayerTouchPad();
+        stage.addActor(touchPad);
+        touchPad.setPosition(20, 20);
 
         EnergyProducedBar.instance.energyProduced = 2700;
         LikingBar.instance.liking = 6;
@@ -1847,7 +1852,7 @@ public class GameScreen4 extends AbstractGameScreen {
         worldRenderer = new WorldRenderer(worldController);
         worldController.worldRenderer = worldRenderer;
         Gdx.input.setInputProcessor(stage);
-
+        worldController.touchPad = touchPad;
         MusicManager.instance.stop();
         MusicManager.instance.play(MusicManager.Musics.MUSIC_2, true);
     }

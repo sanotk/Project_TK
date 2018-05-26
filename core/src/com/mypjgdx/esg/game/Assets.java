@@ -333,7 +333,7 @@ public class Assets implements Disposable, AssetErrorListener {
         enemyBall = new TextureRegion((Texture)manager.get("enemy_ball.png"));
         link = new TextureRegion((Texture)manager.get("link.png"));
         solarCellAltas = manager.get("solarcell_pack.atlas");
-        hydroPowerAltas = manager.get("hydro_pack.atlas");
+        hydroPowerAltas = manager.get("hydro_power_pack.atlas");
         ccAltas = manager.get("cc_pack.atlas");
         batAltas = manager.get("battery_pack.atlas");
         inverAltas = manager.get("inverter_pack.atlas");
