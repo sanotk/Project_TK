@@ -152,18 +152,23 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="35">
+   <properties>
+    <property name="hydroPower" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="40" name="water_pack" tilewidth="50" tileheight="50" spacing="2" margin="2" tilecount="78" columns="39">
   <image source="water_pack.png" width="2048" height="128"/>
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt1MsKgzAQheEoXrG13rGt2oLv/46eTSAEk4wlSRFcfLvBH2cgC2Ns8WCEnCAkznGT0BighsKiGR5SI4a7Rd1OI4JAQ7Vn1fzHQ6P8U2M1NL4KvzRWga5potuVj4YtV+NqPCEl4t8wzVXwkv6jgYyAN0xz7c6uqG87b7h4289y8/7A3Snkm1PvfVQrNG6QOPAWGq5tA8Ebcg==
+   eJzt1F8LgjAUh+EVpUVm1iryb4J9/8/Y72ZwGG47xjYVunjuDr54DqwTQnQRvODIsGXOKQ1pPOEKJ49auGiNPZw9uo80drCxMO3ZNP+O0MhnagyORm/wS2MgbE0X265iND5EqIYv/8ayGyWkTOobrrkCKu0/bnBgUA3XnBzZFfdtV40Qb/tabv6YcHcO/ebce08lSSODJICaNEL7AmLnG9s=
   </data>
  </layer>
  <layer name="map2" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFQxEw4sC4AB8d7CAHUMMOFjraQatwQAb0sGMUjIJRMApGwdAHAIafADU=
+   eJxjYBgFQxEw4sC4AB8d7CAHUMMOFjraQatwQAbDxY5RMApGwSgYBbQFAJf3ADg=
   </data>
  </layer>
  <layer name="water" width="25" height="25">

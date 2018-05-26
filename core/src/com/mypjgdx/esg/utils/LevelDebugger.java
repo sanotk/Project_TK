@@ -48,6 +48,7 @@ public class LevelDebugger {
     public static final int MAP_FAN2 = 26;
     public static final int MAP_POLLUTION_CONTROL = 27;
     public static final int MAP_GATE = 28;
+    public static final int MAP_HYDRO_POWER = 29;
 
     public static final int MAP_ALL = 100;
 
@@ -73,8 +74,8 @@ public class LevelDebugger {
         MICROWAVE("microwave",Color.valueOf("#ff00bf")),
         SWITCH("switch", Color.CYAN),
         POLLUTION_CONTROLER("pollutioncontrol", Color.BLUE),
-        GATE("gate", Color.LIME);
-
+        GATE("gate", Color.LIME),
+        HYDROPOWER("hydroPower", Color.LIME);
 
         public final String propertyName;
         public final Color color;
@@ -167,6 +168,9 @@ public class LevelDebugger {
         if (settings.contains(MAP_BLOCKED)) {
             drawMapTileOverlay(TiledDrawingData.BLOCKED);
         }
+        if (settings.contains(MAP_HYDRO_POWER)) {
+            drawMapTileOverlay(TiledDrawingData.HYDROPOWER);
+        }
         if (settings.contains(MAP_SOLAR_CELL)) {
             drawMapTileOverlay(TiledDrawingData.SOLAR_CELL);
         }
@@ -235,7 +239,7 @@ public class LevelDebugger {
 
     public void enable(int setting) {
         if (setting == MAP_ALL) {
-            for (int i = MAP_GRID; i <= MAP_GATE; i++) {
+            for (int i = MAP_GRID; i <= MAP_HYDRO_POWER; i++) {
                 settings.add(i);
             }
         } else {
@@ -245,7 +249,7 @@ public class LevelDebugger {
 
     public void disable(int setting) {
         if (setting == MAP_ALL) {
-            for (int i = MAP_GRID; i <= MAP_GATE; i++) {
+            for (int i = MAP_GRID; i <= MAP_HYDRO_POWER; i++) {
                 settings.add(i);
             }
         } else {
