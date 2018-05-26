@@ -147,15 +147,28 @@
     <property name="pollutioncontrol" value=""/>
    </properties>
   </tile>
+  <tile id="34">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="40" name="water_pack" tilewidth="50" tileheight="50" spacing="2" margin="2" tilecount="78" columns="39">
+  <image source="water_pack.png" width="2048" height="128"/>
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt1FEPgiAUhmF0qTXNVKqZFfn/f2XfDRtjEIcNmDkunrsz3sHZEIwxkcAMJ4KSOCe9lMYdRmgDesNFa1RwDuhqaByg+MH2zrb5T4JGv9HGahGy4Ss3cmMvjQc0RPIM19wAi3aPCY4EsuGa44a3ov7tshHjb/+Xnd889k6h75y6b19caXRQR/BUGrF9AUqMGmg=
+   eJzt1FELgjAUhuEVZklm2jS01AL//3/0uxmMsbmz2JaCF8/dwRfPgY2MsTGCFjKCI3FO6KXGEyq4ejTAXWmc4OZRrWkkcFhg2rNp/hOhUfypMVkaXwOfDVe/7Gpv7I01Njo4E4lv2OZKeCn/8YALgWjY5rhmV9S3XTRCvO1buXnjcHcK9ebUe7viUiOHNIC31AhtBvB/GqY=
   </data>
  </layer>
  <layer name="map2" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFQxEw4sC4AB8d7CAHDBc7RsEoGAWjYBSMAnoDACn7ACc=
+   eJxjYBgFQxEw4sC4AB8d7CAHUMMOlkFgxygYBaNgFIyCUUBvAABgawAv
+  </data>
+ </layer>
+ <layer name="water" width="25" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzt0tsKgkAURuF5HDuZHQyLfIeI6KRWE/X+r9Da0IBEXgizQWF++G5dDFtjwsL6uxxD5cYIN4yVOyckyo0FCixRIkWl1Jpji6fS92URdphhgLtSJ8P564E3pp578pZXreOssIbFxkPngismDaQX4+ih9Tv3Js31tbE3/+/fRO4k/6Ft2XH3P7QU1s19AHJ9GNY=
   </data>
  </layer>
 </map>
