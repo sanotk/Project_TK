@@ -33,6 +33,7 @@ import com.mypjgdx.esg.game.objects.weapons.Trap;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.ui.Dialog;
+import com.mypjgdx.esg.utils.ItemLink;
 import com.mypjgdx.esg.utils.QuestState;
 
 import java.util.ArrayList;
@@ -133,6 +134,7 @@ public class GameScreen4 extends AbstractGameScreen {
     private Button buttonGuideWindow;
     private boolean dialogItem;
     private Item item;
+    private boolean dialogHydroPower;
 
     public enum systemWindow {
         citizen1,
@@ -222,6 +224,8 @@ public class GameScreen4 extends AbstractGameScreen {
     private boolean dialogStart;
 
     private PlayerTouchPad touchPad;
+
+    private ItemLink itemLink;
 
     public GameScreen4(final Game game, final Window optionsWindow) {
         super(game);
@@ -1678,6 +1682,16 @@ public class GameScreen4 extends AbstractGameScreen {
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen6;
             }
+        }
+        
+        if(player.status_find && player.stageOneClear && dialogHydroPower){
+            dialogHydroPower = true;
+            String text =
+                    "\"ต้องการเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศหรือไม่\""
+                            + "\n\"( " + item.name + "\"ใช้กำลังไฟฟ้า\"" + item.getEnergyBurn() + " วัตต์ )\" ";
+            dialogCitizenDetail();
+            dialog.addWaitingPage(text);
+            player.status_find = false;
         }
 
 
