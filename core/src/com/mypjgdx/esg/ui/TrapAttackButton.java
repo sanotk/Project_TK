@@ -11,7 +11,7 @@ public class TrapAttackButton extends AndroidButton {
     private static final ButtonStyle style;
     static {
         style = new ButtonStyle();
-        style.up = new TextureRegionDrawable(new TextureRegion(Assets.instance.swordAttackButtonBackground));
+        style.up = new TextureRegionDrawable(new TextureRegion(Assets.instance.trapAttackButtonBackground));
         style.up.setMinWidth(SIZE);
         style.up.setMinHeight(SIZE);
     }
