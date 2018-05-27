@@ -1684,11 +1684,10 @@ public class GameScreen4 extends AbstractGameScreen {
             }
         }
         
-        if(player.status_find && player.stageOneClear && dialogHydroPower){
+        if(player.status_find && player.stageOneClear && !dialogHydroPower){
             dialogHydroPower = true;
             String text =
-                    "\"ต้องการเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศหรือไม่\""
-                            + "\n\"( " + item.name + "\"ใช้กำลังไฟฟ้า\"" + item.getEnergyBurn() + " วัตต์ )\" ";
+                    "\"ต้องการเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศหรือไม่\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
             dialogCitizenDetail();
             dialog.addWaitingPage(text);
             player.status_find = false;
