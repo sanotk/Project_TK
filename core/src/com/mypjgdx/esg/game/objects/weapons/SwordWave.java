@@ -18,6 +18,7 @@ public class SwordWave extends Weapon {
     private Damageable target;
     private boolean damaged;
     private Vector2 positionToTarget;
+    private int damageCount;
 
     public SwordWave(TiledMapTileLayer mapLayer, Player player) {
         super(Assets.instance.wave, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
@@ -117,6 +118,10 @@ public class SwordWave extends Weapon {
                 break;
             default:
                 break;
+        }
+        this.damageCount += 1;
+        if(damageCount==10){
+            destroy();
         }
     }
 
