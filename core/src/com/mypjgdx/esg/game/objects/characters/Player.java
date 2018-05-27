@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.SoundManager;
+import com.mypjgdx.esg.utils.SoundManager;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
 import com.mypjgdx.esg.game.objects.items.Item;

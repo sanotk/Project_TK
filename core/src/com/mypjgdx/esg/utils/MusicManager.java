@@ -1,4 +1,4 @@
-package com.mypjgdx.esg;
+package com.mypjgdx.esg.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -19,8 +19,6 @@ public class MusicManager {
     private IntMap<Music> musics;
     private Music currentMusic;
 
-    private float volume = 0.5f;
-
     private MusicManager() {
         musics = new IntMap<Music>();
         musics.put(Musics.MUSIC_1, Assets.instance.music);
@@ -31,7 +29,7 @@ public class MusicManager {
         currentMusic = musics.get(id);
         currentMusic.setLooping(looping);
         currentMusic.play();
-        updateVolume();
+        currentMusic.setVolume(SettingManager.instance.musicVolume);
         Gdx.app.log("music play", "" + currentMusic.hashCode());
     }
 
@@ -42,12 +40,9 @@ public class MusicManager {
         }
     }
 
-    private void updateVolume() {
-        currentMusic.setVolume(volume);
-    }
-
     public void setVolume(float volume) {
-        this.volume = MathUtils.clamp(volume, 0, 1);
-        updateVolume();
+        SettingManager.instance.musicVolume = MathUtils.clamp(volume, 0, 1);
+        currentMusic.setVolume(SettingManager.instance.musicVolume);
+        SettingManager.instance.save();
     }
 }
