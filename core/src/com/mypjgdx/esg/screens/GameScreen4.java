@@ -69,7 +69,7 @@ public class GameScreen4 extends AbstractGameScreen {
     private boolean statusStart;
 
     SpriteBatch batch;
-    public Texture bg;
+    private Texture bg;
 
     private boolean controlShow = true;
 
@@ -82,8 +82,8 @@ public class GameScreen4 extends AbstractGameScreen {
     private Label textTemperature;
     private Label textLiking;
 
-    public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
-    public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
+    private static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
+    private static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
 
     private Window guideWindow;
 
@@ -104,7 +104,7 @@ public class GameScreen4 extends AbstractGameScreen {
     private Label textChart6;
     private Label textChart7;
 
-    public systemWindow citizenQuest = null;
+    private systemWindow citizenQuest = null;
     private boolean dialogStage4fail;
     private TextureRegionDrawable iconRegion;
 

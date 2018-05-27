@@ -103,26 +103,25 @@ public class SwordWave extends Weapon {
     @Override
     public void attack(Damageable damageable) {
         float knockbackSpeed = 100f;
-        switch (direction) {
-            case DOWN:
-                damageable.takeDamage(1, knockbackSpeed, 270);
-                break;
-            case LEFT:
-                damageable.takeDamage(1, knockbackSpeed, 180);
-                break;
-            case RIGHT:
-                damageable.takeDamage(1, knockbackSpeed, 0);
-                break;
-            case UP:
-                damageable.takeDamage(1, knockbackSpeed, 90);
-                break;
-            default:
-                break;
+        if(damageCount<15){
+            switch (direction) {
+                case DOWN:
+                    damageable.takeDamage(1, knockbackSpeed, 270);
+                    break;
+                case LEFT:
+                    damageable.takeDamage(1, knockbackSpeed, 180);
+                    break;
+                case RIGHT:
+                    damageable.takeDamage(1, knockbackSpeed, 0);
+                    break;
+                case UP:
+                    damageable.takeDamage(1, knockbackSpeed, 90);
+                    break;
+                default:
+                    break;
+            }
         }
         this.damageCount += 1;
-        if(damageCount==10){
-            destroy();
-        }
     }
 
     private void delay(){
