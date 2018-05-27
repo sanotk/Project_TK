@@ -1430,6 +1430,7 @@ public class GameScreen2 extends AbstractGameScreen {
         }
 
         if (player.stageOneClear && !dialogCitizen && player.isSwitch) {
+            level2.enemies.clear();
             dialogCitizen = true;
             dialogAll();
             String text =

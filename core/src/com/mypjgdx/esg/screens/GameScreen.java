@@ -1821,6 +1821,7 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
         if (player.stageOneClear && !dialogCitizen) {
+            level1.enemies.clear();
             dialogCitizen = true;
             dialogAll();
             timeEvent = player.timeCount-1;

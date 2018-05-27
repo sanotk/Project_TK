@@ -1444,6 +1444,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
         if (player.stageOneClear && !dialogCitizen && player.isSwitch) {
             dialogCitizen = true;
+            level3.enemies.clear();
             dialogAll();
             String text =
                     "\"แย่แล้ว เครื่องใช้ไฟฟ้าจำนวนมากถูกเปิดทิ้งไว้ ต้องรีบปิดก่อนพลังงานจะหมดลง\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";

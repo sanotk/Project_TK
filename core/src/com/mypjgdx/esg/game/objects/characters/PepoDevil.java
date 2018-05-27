@@ -5,7 +5,7 @@ import com.mypjgdx.esg.game.Assets;
 
 public class PepoDevil extends Enemy{
 
-	public static final int MAX_HEALTH = 15;
+	public static final int MAX_HEALTH = 100;
 	public static final int MAX_SPEED = 80;
 	public static final float SCALE = 1f;
 

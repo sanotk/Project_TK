@@ -1450,6 +1450,7 @@ public class GameScreen4 extends AbstractGameScreen {
 
         if (player.stageOneClear && !dialogCitizen && player.isSwitch) {
             dialogCitizen = true;
+            level4.enemies.clear();
             dialogAll();
             String text =
                     "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
