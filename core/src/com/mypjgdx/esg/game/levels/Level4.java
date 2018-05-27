@@ -23,7 +23,7 @@ public class Level4 extends Level {
         map = Assets.instance.map4;
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
-        player = new Player(mapLayer, 100, 1000);
+        player = new Player(mapLayer, 600, 200);
 
         switchItem = new Switch(mapLayer, player);
         pollutionControll = new PollutionController(mapLayer,player);
