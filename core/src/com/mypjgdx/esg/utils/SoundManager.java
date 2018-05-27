@@ -1,12 +1,12 @@
-package com.mypjgdx.esg.game;
+package com.mypjgdx.esg.utils;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.IntMap;
+import com.mypjgdx.esg.game.Assets;
 
 public class SoundManager {
     public static final SoundManager instance = new SoundManager();
-    private float volume = 0.5f;
 
     public static class Sounds {
         public static final int BULLET = 0;
@@ -26,10 +26,11 @@ public class SoundManager {
     }
 
     public void play(int id) {
-        sounds.get(id).play(volume);
+        sounds.get(id).play(SettingManager.instance.soundVolume);
     }
 
     public void setVolume(float volume) {
-        this.volume = MathUtils.clamp(volume, 0, 1);
+        SettingManager.instance.soundVolume = MathUtils.clamp(volume, 0, 1);
+        SettingManager.instance.save();
     }
 }

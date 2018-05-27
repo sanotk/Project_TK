@@ -17,9 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.mypjgdx.esg.MusicManager;
+import com.mypjgdx.esg.utils.MusicManager;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.SoundManager;
+import com.mypjgdx.esg.utils.SoundManager;
 
 public class MenuScreen extends AbstractGameScreen {
 
