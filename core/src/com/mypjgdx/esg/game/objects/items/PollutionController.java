@@ -9,7 +9,7 @@ public class PollutionController extends Item{
 
     public static final float SCALE = 1f;
     public static final float P_X = 500f;
-    public static final float P_Y = 900f;
+    public static final float P_Y = 800f;
 
 	public PollutionController(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.pollutionAtlas, SCALE, SCALE , P_X , P_Y);
