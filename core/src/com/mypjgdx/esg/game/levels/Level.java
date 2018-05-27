@@ -11,7 +11,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
-import com.mypjgdx.esg.game.objects.Water;
 import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
@@ -178,7 +177,6 @@ public abstract class Level implements Json.Serializable {
         for (Bow b : bows) b.update(deltaTime);
 
         for (AbstractGameObject o : objects) o.update(deltaTime);
-        Water.flow(deltaTime);
     }
 
     @Override

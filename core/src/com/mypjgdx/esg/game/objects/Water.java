@@ -6,17 +6,26 @@ import com.mypjgdx.esg.game.Assets;
 
 public class Water extends AbstractGameObject {
 
-    private static final float FLOW_SPEED = 0.35f;
+    private float flowSpeed = 0.35f;
+    private float scrollY;
+    private TextureRegion region;
 
-    private static float scrollY;
-    private static TextureRegion region = new TextureRegion(Assets.instance.waterTexture);
-
-    static {
-        region.setRegionY(50);
+    public Water() {
+        region = new TextureRegion(Assets.instance.waterTexture, 0, 50, 50, 50);
     }
 
-    public static void flow(float deltaTime) {
-        final float deltaY = -FLOW_SPEED * deltaTime;
+    public void setFlowSpeed(float flowSpeed) {
+        this.flowSpeed = flowSpeed;
+    }
+
+    public void resetFlow() {
+        scrollY = 0;
+        region.setRegion(0, 50, 50, 50);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        final float deltaY = -flowSpeed * deltaTime;
         scrollY += deltaY;
         region.scroll(0, deltaY);
         if (scrollY <= 0.5f) {
