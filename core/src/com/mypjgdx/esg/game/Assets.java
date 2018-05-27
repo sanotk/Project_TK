@@ -25,6 +25,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public AssetManager manager;
 
     public Texture swordAttackButtonBackground;
+    public Texture swordWaveAttackButtonBackground;
+    public Texture trapAttackButtonBackground;
 
     public Texture touchPadBackground;
     public Texture touchPadKnob;

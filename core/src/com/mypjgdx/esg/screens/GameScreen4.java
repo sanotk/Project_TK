@@ -227,6 +227,8 @@ public class GameScreen4 extends AbstractGameScreen {
 
     private PlayerTouchPad touchPad;
     private SwordAttackButton swordAttackButton;
+    private SwordWaveAttackButton swordWaveAttackButton;
+    private TrapAttackButton trapAttackButton;
 
     private ItemLink itemLink;
 
@@ -248,6 +250,14 @@ public class GameScreen4 extends AbstractGameScreen {
         swordAttackButton = new SwordAttackButton();
         stage.addActor(swordAttackButton);
         swordAttackButton.setPosition(stage.getWidth() - swordAttackButton.getWidth() - 20, 20);
+
+        swordWaveAttackButton = new SwordWaveAttackButton();
+        stage.addActor(swordWaveAttackButton);
+        swordWaveAttackButton.setPosition(stage.getWidth() - swordWaveAttackButton.getWidth() - 140, 40);
+
+        trapAttackButton = new TrapAttackButton();
+        stage.addActor(trapAttackButton);
+        trapAttackButton.setPosition(stage.getWidth() - trapAttackButton.getWidth() - 60, 135);
 
         EnergyProducedBar.instance.energyProduced = 2700;
         LikingBar.instance.liking = 6;
@@ -1887,6 +1897,8 @@ public class GameScreen4 extends AbstractGameScreen {
         Gdx.input.setInputProcessor(stage);
         worldController.touchPad = touchPad;
         worldController.swordAttackButton = swordAttackButton;
+        worldController.swordWaveAttackButton = swordWaveAttackButton;
+        worldController.trapAttackButton = trapAttackButton;
         MusicManager.instance.stop();
         MusicManager.instance.play(MusicManager.Musics.MUSIC_2, true);
     }

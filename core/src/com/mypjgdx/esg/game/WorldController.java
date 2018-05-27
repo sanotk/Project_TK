@@ -27,6 +27,8 @@ public class WorldController extends InputAdapter {
     public WorldRenderer worldRenderer;
     public PlayerTouchPad touchPad;
     public SwordAttackButton swordAttackButton;
+    public SwordWaveAttackButton swordWaveAttackButton;
+    public TrapAttackButton trapAttackButton;
 
     public WorldController(Level level) {
         init(level);
@@ -86,6 +88,12 @@ public class WorldController extends InputAdapter {
 
         if (swordAttackButton.isPressed()) {
             level.player.swordAttack(level.weapons, level.swords);
+        }
+        if (swordWaveAttackButton.isPressed()) {
+            level.player.swordWaveAttack(level.weapons, level.swords);
+        }
+        if (trapAttackButton.isPressed()) {
+            level.player.trapAttack(level.weapons);
         }
 //        if (swordAttackButton.isJustPressed()) {
 //            level.player.swordAttack(level.weapons, level.swords);

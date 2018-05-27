@@ -230,6 +230,8 @@ public class GameScreen extends AbstractGameScreen {
 
     private PlayerTouchPad touchPad;
     private SwordAttackButton swordAttackButton;
+    private SwordWaveAttackButton swordWaveAttackButton;
+    private TrapAttackButton trapAttackButton;
 
     public GameScreen(final Game game, final Window optionsWindow) {
         super(game);
@@ -249,6 +251,14 @@ public class GameScreen extends AbstractGameScreen {
         swordAttackButton = new SwordAttackButton();
         stage.addActor(swordAttackButton);
         swordAttackButton.setPosition(stage.getWidth() - swordAttackButton.getWidth() - 20, 20);
+
+        swordWaveAttackButton = new SwordWaveAttackButton();
+        stage.addActor(swordWaveAttackButton);
+        swordWaveAttackButton.setPosition(stage.getWidth() - swordWaveAttackButton.getWidth() - 140, 40);
+
+        trapAttackButton = new TrapAttackButton();
+        stage.addActor(trapAttackButton);
+        trapAttackButton.setPosition(stage.getWidth() - trapAttackButton.getWidth() - 60, 135);
 
         dialogStory = new Texture("dialogStory.png");
         dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -2167,6 +2177,8 @@ public class GameScreen extends AbstractGameScreen {
         worldController.worldRenderer = worldRenderer;
         worldController.touchPad = touchPad;
         worldController.swordAttackButton = swordAttackButton;
+        worldController.swordWaveAttackButton = swordWaveAttackButton;
+        worldController.trapAttackButton = trapAttackButton;
         Gdx.input.setInputProcessor(stage);
 
         MusicManager.instance.stop();

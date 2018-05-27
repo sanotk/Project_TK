@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mypjgdx.esg.game.Assets;
 
-public class SwordAttackButton extends AndroidButton {
+public class SwordWaveAttackButton extends AndroidButton {
 
     private static final float SIZE = 100f;
 
@@ -16,7 +16,7 @@ public class SwordAttackButton extends AndroidButton {
         style.up.setMinHeight(SIZE);
     }
 
-    public SwordAttackButton() {
+    public SwordWaveAttackButton() {
         super(style);
     }
 
