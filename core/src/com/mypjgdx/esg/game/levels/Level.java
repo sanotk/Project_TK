@@ -10,6 +10,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.mypjgdx.esg.game.objects.AbstractGameObject;
+import com.mypjgdx.esg.game.objects.Water;
 import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
@@ -39,6 +41,8 @@ public abstract class Level implements Json.Serializable {
     public List<Link> links;
     public TiledMapTileLayer mapLayer;
 
+    public List<AbstractGameObject> objects;
+
     public boolean hasSolarCell;
 
 
@@ -51,6 +55,8 @@ public abstract class Level implements Json.Serializable {
         items = new ArrayList<Item>();
         enemies = new ArrayList<Enemy>();
         citizens = new ArrayList<Citizen>();
+
+        objects = new ArrayList<AbstractGameObject>();
 
         init();
     }
@@ -68,6 +74,7 @@ public abstract class Level implements Json.Serializable {
 
         for (Weapon w : weapons) w.render(batch);
         for (Link e : links) e.render(batch);
+        for (AbstractGameObject o : objects) o.render(batch);
         for (Item i : items) i.render(batch);
         for (Enemy e : enemies) e.render(batch);
         if (player.stageOneClear) {
@@ -169,6 +176,9 @@ public abstract class Level implements Json.Serializable {
         for (Weapon w : weapons) w.update(deltaTime);
         for (Sword s : swords) s.update(deltaTime);
         for (Bow b : bows) b.update(deltaTime);
+
+        for (AbstractGameObject o : objects) o.update(deltaTime);
+        Water.flow(deltaTime);
     }
 
     @Override

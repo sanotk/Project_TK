@@ -159,6 +159,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion guide2Window;
     public TextureRegion guide3Window;
     public TextureRegion guide4Window;
+    public Texture waterTexture;
 
     private Assets() {}
 
@@ -297,8 +298,11 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("touchpad_bg.png", Texture.class);
 
         manager.load("attack_button.png", Texture.class);
+        manager.load("water.png", Texture.class);
 
         manager.finishLoading();
+
+        waterTexture = manager.get("water.png");
 
         map1 = manager.get("map1.tmx");
         map2 = manager.get("map2.tmx");

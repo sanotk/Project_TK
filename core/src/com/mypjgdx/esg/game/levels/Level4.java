@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.game.objects.Water;
 import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.game.objects.weapons.NormalBow;
@@ -61,6 +62,9 @@ public class Level4 extends Level {
 
         bows.add(new NormalBow(mapLayer, player));
         swords.add(new NormalSword(mapLayer, player));
+
+        addWater(100, 450, 3, 12);
+        addWater(100, 200, 3, 2);
     }
 
     @Override
@@ -103,5 +107,15 @@ public class Level4 extends Level {
         batch.end();
 
         FrameBuffer.unbind();
+    }
+
+    private void addWater(float startX, float startY, int tileCountX, int tileCountY) {
+        for (int i = 0; i < tileCountX; i++) {
+            for (int j = 0; j < tileCountY; j++) {
+                Water water = new Water();
+                water.setPosition(startX + i * 50,startY + j * 50);
+                objects.add(water);
+            }
+        }
     }
 }
