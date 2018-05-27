@@ -229,6 +229,7 @@ public class GameScreen extends AbstractGameScreen {
     private TextButton.TextButtonStyle buttonPauseStyle;
 
     private PlayerTouchPad touchPad;
+    private SwordAttackButton swordAttackButton;
 
     public GameScreen(final Game game, final Window optionsWindow) {
         super(game);
@@ -244,6 +245,10 @@ public class GameScreen extends AbstractGameScreen {
         touchPad = new PlayerTouchPad();
         stage.addActor(touchPad);
         touchPad.setPosition(20, 20);
+
+        swordAttackButton = new SwordAttackButton();
+        stage.addActor(swordAttackButton);
+        swordAttackButton.setPosition(stage.getWidth() - swordAttackButton.getWidth() - 20, 20);
 
         dialogStory = new Texture("dialogStory.png");
         dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -2161,6 +2166,7 @@ public class GameScreen extends AbstractGameScreen {
         worldRenderer = new WorldRenderer(worldController);
         worldController.worldRenderer = worldRenderer;
         worldController.touchPad = touchPad;
+        worldController.swordAttackButton = swordAttackButton;
         Gdx.input.setInputProcessor(stage);
 
         MusicManager.instance.stop();

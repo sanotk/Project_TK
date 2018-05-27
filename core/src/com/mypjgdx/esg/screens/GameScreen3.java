@@ -227,6 +227,7 @@ public class GameScreen3 extends AbstractGameScreen {
     private boolean itemStart;
 
     private PlayerTouchPad touchPad;
+    private SwordAttackButton swordAttackButton;
 
     public GameScreen3(final Game game, final Window optionsWindow) {
         super(game);
@@ -246,6 +247,10 @@ public class GameScreen3 extends AbstractGameScreen {
         touchPad = new PlayerTouchPad();
         stage.addActor(touchPad);
         touchPad.setPosition(20, 20);
+
+        swordAttackButton = new SwordAttackButton();
+        stage.addActor(swordAttackButton);
+        swordAttackButton.setPosition(stage.getWidth() - swordAttackButton.getWidth() - 20, 20);
 
         this.optionsWindow = optionsWindow;
 
@@ -1950,6 +1955,7 @@ public class GameScreen3 extends AbstractGameScreen {
         worldRenderer = new WorldRenderer(worldController);
         worldController.touchPad = touchPad;
         worldController.worldRenderer = worldRenderer;
+        worldController.swordAttackButton = swordAttackButton;
         Gdx.input.setInputProcessor(stage);
 
         MusicManager.instance.stop();

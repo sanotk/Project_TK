@@ -24,6 +24,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final Assets instance = new Assets();
     public AssetManager manager;
 
+    public Texture swordAttackButtonBackground;
+
     public Texture touchPadBackground;
     public Texture touchPadKnob;
 
@@ -288,6 +290,8 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("touchpad_knob.png", Texture.class);
         manager.load("touchpad_bg.png", Texture.class);
 
+        manager.load("attack_button.png", Texture.class);
+
         manager.finishLoading();
 
         map1 = manager.get("map1.tmx");
@@ -304,12 +308,10 @@ public class Assets implements Disposable, AssetErrorListener {
         light = manager.get("light.png");
         white = manager.get("white.png");
 
-        touchPadKnob = manager.get("touchpad_knob.png");
-        touchPadKnob.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        touchPadKnob = getFilteredTexture("touchpad_knob.png");
+        touchPadBackground = getFilteredTexture("touchpad_bg.png");
 
-        touchPadBackground = manager.get("touchpad_bg.png");
-        touchPadBackground.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
+        swordAttackButtonBackground = getFilteredTexture("attack_button.png");
 
 //        TextureAtlas atlas = new TextureAtlas();
 //        atlas.addRegion("window", new TextureRegion((Texture)manager.get("window.9.png")));
@@ -468,6 +470,12 @@ public class Assets implements Disposable, AssetErrorListener {
     public void dispose() {
         manager.dispose();
         newFont.dispose();
+        newFontBig.dispose();
     }
 
+    private Texture getFilteredTexture(String fileName){
+        final Texture filteredTexture = manager.get(fileName);
+        filteredTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        return filteredTexture;
+    }
 }

@@ -13,10 +13,7 @@ import com.mypjgdx.esg.game.levels.Level;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemySpawner;
 import com.mypjgdx.esg.game.objects.etcs.Link;
-import com.mypjgdx.esg.ui.BatteryBar;
-import com.mypjgdx.esg.ui.EnergyProducedBar;
-import com.mypjgdx.esg.ui.EnergyUsedBar;
-import com.mypjgdx.esg.ui.PlayerTouchPad;
+import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.utils.CameraHelper;
 import com.mypjgdx.esg.utils.Direction;
 
@@ -29,6 +26,7 @@ public class WorldController extends InputAdapter {
     public Level level;
     public WorldRenderer worldRenderer;
     public PlayerTouchPad touchPad;
+    public SwordAttackButton swordAttackButton;
 
     public WorldController(Level level) {
         init(level);
@@ -85,6 +83,13 @@ public class WorldController extends InputAdapter {
         else if (touchPad.getKnobPercentX() < -MIN_KNOB_PERCENT_TO_MOVE) {
             level.player.move(Direction.LEFT);
         }
+
+        if (swordAttackButton.isPressed()) {
+            level.player.swordAttack(level.weapons, level.swords);
+        }
+//        if (swordAttackButton.isJustPressed()) {
+//            level.player.swordAttack(level.weapons, level.swords);
+//        }
 
 
         if (Gdx.app.getType() == ApplicationType.Android && Gdx.input.isTouched()) {

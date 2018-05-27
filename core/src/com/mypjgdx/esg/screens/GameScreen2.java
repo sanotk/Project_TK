@@ -220,6 +220,7 @@ public class GameScreen2 extends AbstractGameScreen {
     private boolean dialogStart;
 
     private PlayerTouchPad touchPad;
+    private SwordAttackButton swordAttackButton;
 
     public GameScreen2(final Game game, final Window optionsWindow) {
         super(game);
@@ -235,6 +236,10 @@ public class GameScreen2 extends AbstractGameScreen {
         touchPad = new PlayerTouchPad();
         stage.addActor(touchPad);
         touchPad.setPosition(20, 20);
+
+        swordAttackButton = new SwordAttackButton();
+        stage.addActor(swordAttackButton);
+        swordAttackButton.setPosition(stage.getWidth() - swordAttackButton.getWidth() - 20, 20);
 
         EnergyProducedBar.instance.energyProduced = 2700;
         LikingBar.instance.liking = 6;
@@ -1912,6 +1917,7 @@ public class GameScreen2 extends AbstractGameScreen {
         worldRenderer = new WorldRenderer(worldController);
         worldController.worldRenderer = worldRenderer;
         worldController.touchPad = touchPad;
+        worldController.swordAttackButton = swordAttackButton;
         Gdx.input.setInputProcessor(stage);
 
         MusicManager.instance.stop();
