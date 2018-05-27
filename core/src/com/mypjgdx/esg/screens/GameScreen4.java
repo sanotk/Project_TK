@@ -35,6 +35,7 @@ import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.ui.Dialog;
 import com.mypjgdx.esg.utils.ItemLink;
 import com.mypjgdx.esg.utils.QuestState;
+import com.mypjgdx.esg.utils.SolarState;
 
 import java.util.ArrayList;
 
@@ -135,6 +136,7 @@ public class GameScreen4 extends AbstractGameScreen {
     private boolean dialogItem;
     private Item item;
     private boolean dialogHydroPower;
+    private SolarState solarState;
 
     public enum systemWindow {
         citizen1,
@@ -346,7 +348,7 @@ public class GameScreen4 extends AbstractGameScreen {
         buttonGuideWindowStyle.up = guidelWindowUp;
         buttonGuideWindowStyle.down = guidelWindowUp.tint(Color.LIGHT_GRAY);
         buttonGuideWindow = new Button(buttonGuideWindowStyle);
-        buttonGuideWindow.setPosition(SCENE_WIDTH/4, SCENE_HEIGHT/4-10);
+        buttonGuideWindow.setPosition(SCENE_WIDTH / 4, SCENE_HEIGHT / 4 - 10);
 
         buttonGuideWindow.setVisible(false);
 
@@ -579,28 +581,30 @@ public class GameScreen4 extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
-                if(trapShow){
+                if (trapShow) {
                     worldController.level.player.acceptTrap = true;
                     worldController.level.player.requestTrap = false;
                     dialogTrap = true;
-                }else if(swordShow){
+                } else if (swordShow) {
                     worldController.level.player.acceptSwordWave = true;
                     worldController.level.player.requestSwordWave = false;
                     dialogSwordWave = true;
-                }else if(dialogItem){
+                } else if (dialogItem) {
                     item.questAccept = true;
                     item.quest = true;
                     EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
                     item.state = Item.ItemState.ONLOOP;
-                }else if(stageFourClear){
+                } else if (dialogHydroPower) {
+                    addGuiLink();
+                } else if (stageFourClear) {
                     worldController.level.player.timeClear = false;
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {
-                            game.setScreen(new GameScreen3(game,optionsWindow));
+                            game.setScreen(new GameScreen3(game, optionsWindow));
                         }
                     });
-                }else{
+                } else {
                     if (citizenQuest == systemWindow.citizen1) {
                         questState = QuestState.quest1yes;
                         LikingBar.instance.liking += 0;
@@ -658,13 +662,13 @@ public class GameScreen4 extends AbstractGameScreen {
             public void clicked(InputEvent event, float x, float y) {
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
-                if(trapShow){
+                if (trapShow) {
                     worldController.level.player.acceptTrap = false;
                     worldController.level.player.requestTrap = false;
-                }else if(swordShow){
+                } else if (swordShow) {
                     worldController.level.player.acceptSwordWave = false;
                     worldController.level.player.requestSwordWave = false;
-                }else if (citizenQuest == systemWindow.citizen1) {
+                } else if (citizenQuest == systemWindow.citizen1) {
                     worldController.level.player.quest1Cancel = true;
                     worldController.level.player.quest_window_1 = true;
                     LikingBar.instance.liking -= 1;
@@ -1382,10 +1386,10 @@ public class GameScreen4 extends AbstractGameScreen {
             dialog.addWaitingPage(text);
             dialogStart = true;
             delayMission();
-            timeEvent = player.timeCount-1;
+            timeEvent = player.timeCount - 1;
         }
 
-        if(player.requestTrap && !dialogTrap){
+        if (player.requestTrap && !dialogTrap) {
             player.requestTrap = false;
             trapShow = true;
             dialogAll();
@@ -1394,13 +1398,13 @@ public class GameScreen4 extends AbstractGameScreen {
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.addWaitingPage(text);
-        }else if(player.requestTrap && dialogTrap){
-            player.requestTrap =false;
+        } else if (player.requestTrap && dialogTrap) {
+            player.requestTrap = false;
             player.acceptTrap = true;
             trapShow = false;
         }
 
-        if(player.requestSwordWave && !dialogSwordWave){
+        if (player.requestSwordWave && !dialogSwordWave) {
             player.requestSwordWave = false;
             swordShow = true;
             dialogAll();
@@ -1409,8 +1413,8 @@ public class GameScreen4 extends AbstractGameScreen {
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.addWaitingPage(text);
-        }else if(player.requestSwordWave && dialogSwordWave){
-            player.requestSwordWave =false;
+        } else if (player.requestSwordWave && dialogSwordWave) {
+            player.requestSwordWave = false;
             player.acceptSwordWave = true;
             swordShow = false;
         }
@@ -1449,8 +1453,8 @@ public class GameScreen4 extends AbstractGameScreen {
             String text =
                     "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
-            timeEvent = player.timeCount-1;
-            missionStart =false;
+            timeEvent = player.timeCount - 1;
+            missionStart = false;
             System.out.print(player.timeCount);
             textMission1.setStyle(labelStyle2);
             textMission2.setText("ภารกิจที่สอง สอบถามประชาชนที่เข้ามาอาศัยในที่หลบภัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)");
@@ -1465,7 +1469,7 @@ public class GameScreen4 extends AbstractGameScreen {
                 animation_status = true;
                 dialogAll();
                 level4.gate.state = Item.ItemState.ON;
-                timeEvent = player.timeCount-1;
+                timeEvent = player.timeCount - 1;
                 String text =
                         "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 dialog.addWaitingPage(text);
@@ -1494,7 +1498,7 @@ public class GameScreen4 extends AbstractGameScreen {
             dialog.addWaitingPage(text);
         }
 
-        if (player.timeCount <= timeEvent && !missionStart){
+        if (player.timeCount <= timeEvent && !missionStart) {
             missionStart = true;
             missionWindow.pack();
             missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
@@ -1508,24 +1512,35 @@ public class GameScreen4 extends AbstractGameScreen {
 //            System.out.print("ทำงาน");
 //        }
 
-        if (player.timeCount <= timeEvent && !statusStart && stageThreeClear){
+        if (player.timeCount <= timeEvent && !statusStart && stageThreeClear) {
             statusStart = true;
             status();
             player.timeStop = true;
         }
     }
 
-    private void dialogAll(){
+    private void addGuiLink() {
+
+        Level4 level4 = (Level4) worldController.level;
+
+        itemLink = new ItemLink(worldController.level.mapLayer,
+                level4.hydroPower,
+                level4.pollutionControll,
+                worldController.level.links);
+        textMission2.setStyle(labelStyle2);
+    }
+
+    private void dialogAll() {
         dialog.show();
         dialog.clearPages();
-        dialogShow =true;
+        dialogShow = true;
         worldController.level.player.timeStop = true;
         worldController.level.player.status_find = false;
     }
 
-    private void delayMission(){
+    private void delayMission() {
         float delay = 1.5f; // seconds
-        Timer.schedule(new Timer.Task(){
+        Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 iconMission.setVisible(true);
@@ -1533,9 +1548,9 @@ public class GameScreen4 extends AbstractGameScreen {
         }, delay);
     }
 
-    private void delayStatus(){
+    private void delayStatus() {
         float delay = 1.5f; // seconds
-        Timer.schedule(new Timer.Task(){
+        Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 iconStatus.setVisible(true);
@@ -1543,9 +1558,9 @@ public class GameScreen4 extends AbstractGameScreen {
         }, delay);
     }
 
-    private void delayGuide(){
+    private void delayGuide() {
         float delay = 1.5f; // seconds
-        Timer.schedule(new Timer.Task(){
+        Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 iconGuide.setVisible(true);
@@ -1553,7 +1568,7 @@ public class GameScreen4 extends AbstractGameScreen {
         }, delay);
     }
 
-    private void dialogCitizenDetail(){
+    private void dialogCitizenDetail() {
         Player player = worldController.level.player;
         player.timeStop = true;
         player.status_find = false;
@@ -1622,7 +1637,7 @@ public class GameScreen4 extends AbstractGameScreen {
             iconItem.setVisible(true);
         }
 
-        if(player.energyLess){
+        if (player.energyLess) {
             iconEnergyLess.setVisible(true);
             delay();
         }
@@ -1642,7 +1657,7 @@ public class GameScreen4 extends AbstractGameScreen {
             EnergyUsedBar.instance.energyUse += 300;
         }
 
-        if(player.isSwitch){
+        if (player.isSwitch) {
             if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
                 String text =
                         "\"หิวข้าวขัง\"";
@@ -1683,8 +1698,8 @@ public class GameScreen4 extends AbstractGameScreen {
                 citizenQuest = systemWindow.citizen6;
             }
         }
-        
-        if(player.status_find && player.stageOneClear && !dialogHydroPower){
+
+        if (player.status_find && player.stageOneClear && !dialogHydroPower) {
             dialogHydroPower = true;
             String text =
                     "\"ต้องการเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศหรือไม่\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
@@ -1694,7 +1709,7 @@ public class GameScreen4 extends AbstractGameScreen {
         }
 
 
-        if(player.status_find && player.stageOneClear){
+        if (player.status_find && player.stageOneClear) {
             for (Item item : level4.items) {
                 if (item.nearPlayer() && item.state == Item.ItemState.OFF && !item.questAccept && !item.quest) {
                     dialogItem = true;
@@ -1717,9 +1732,9 @@ public class GameScreen4 extends AbstractGameScreen {
         }
     }
 
-    public void delay(){
+    public void delay() {
         float delay = 0.3f; // seconds
-        Timer.schedule(new Timer.Task(){
+        Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 iconEnergyLess.setVisible(false);
@@ -1756,10 +1771,10 @@ public class GameScreen4 extends AbstractGameScreen {
         Level4 level4 = (Level4) worldController.level;
 
         player.timeStop = true;
-        if(EnergyProducedBar.instance.energyProduced == 0){
+        if (EnergyProducedBar.instance.energyProduced == 0) {
             String textString1 = ("ยังไม่เริ่มการผลิตพลังงาน");
             text1.setText(textString1);
-        }else{
+        } else {
             String textString1 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
             String textString2 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
             if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
@@ -1768,7 +1783,7 @@ public class GameScreen4 extends AbstractGameScreen {
                 text3.setText(textString3);
             } else {
                 String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced *
-                        SunBar.instance.accelerateTime) - (EnergyUsedBar.instance.energyUse* SunBar.instance.accelerateTime)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
+                        SunBar.instance.accelerateTime) - (EnergyUsedBar.instance.energyUse * SunBar.instance.accelerateTime)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
                 text3.setText(textString3);
             }
             String textString4 = ("กำลังไฟฟ้าที่ผลิตได้หลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
@@ -1805,36 +1820,36 @@ public class GameScreen4 extends AbstractGameScreen {
         checkStageAndCount();
         checkObject();
 
-        if(!player.timeStop && !player.timeClear){
-            SunBar.instance.timeCount += 1*deltaTime;
+        if (!player.timeStop && !player.timeClear) {
+            SunBar.instance.timeCount += 1 * deltaTime;
         }
 
-        for (Weapon weapon : worldController.level.weapons){
-            if(weapon instanceof Trap){
-                if(weapon.isDestroyed()){
+        for (Weapon weapon : worldController.level.weapons) {
+            if (weapon instanceof Trap) {
+                if (weapon.isDestroyed()) {
                     EnergyUsedBar.instance.energyUse -= TrapBar.instance.energyTrap;
                 }
             }
-            if(weapon instanceof SwordWave){
-                if(weapon.isDestroyed()){
+            if (weapon instanceof SwordWave) {
+                if (weapon.isDestroyed()) {
                     EnergyUsedBar.instance.energyUse -= SwordWaveBar.instance.energySwordWave;
                 }
             }
         }
 
-        for (Enemy enemy : worldController.level.enemies){
-            if(player.bounds.overlaps(enemy.bounds) && enemy.stateMachine.getCurrentState() == EnemyState.DIE
-                    && !enemy.link){
+        for (Enemy enemy : worldController.level.enemies) {
+            if (player.bounds.overlaps(enemy.bounds) && enemy.stateMachine.getCurrentState() == EnemyState.DIE
+                    && !enemy.link) {
                 enemy.link = true;
             }
         }
 
-        if(SunBar.instance.timeCount >= 60){
+        if (SunBar.instance.timeCount >= 60) {
             SunBar.instance.sunTime += 1;
             SunBar.instance.timeCount = 0;
         }
 
-        if(!dialogShow){
+        if (!dialogShow) {
             iconMission.setVisible(false);
             iconStatus.setVisible(false);
             iconGuide.setVisible(false);
