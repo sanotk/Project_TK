@@ -163,12 +163,12 @@
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt1FELgjAUhuElWYla2Uw0ywT9/7/R72ZwGM4dxU0KL567gy+eA2uEEI0HJUQMAXNOeZNGARnEK/rATWuEkK4oH2kc4TDBtGfT/NdD47pRo/PY6AhXuzI1WoMljZ6Y2p3Nkpvvjf9qVHBmUt+wzd3hpf3HAy4MqmGbkyO74r7tquHibf+Vmz9n3J1Dvzn33nNJ0kjg5EBNGq4N2P8dNw==
+   eJzt1G0LgjAUhuEVlEmp+YpZvkD+/9/oIzgYY8Pj2AZaH65vx924A+sYY50HNYQEZ+Ic9xEaFaRwt6iFRGpcILKoUDTEuzsp6O5ZNTvrPTTiH2l8F74bg4ZpY1zovqcw2ce/cazGCwIifsba3BMa6T8yuBHwxtpcrrgr6tvOGy7e9r3svNywdwp559R9b5ULjQdcHXhLO3BpAr+yISo=
   </data>
  </layer>
  <layer name="map2" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFQxEw4sC4AB8d7CAHUMMOFjragUs/NcNqIO0YBaNgFIyCUTB0AADi9wBE
+   eJxjYBgFgxGwADEjFGMDjDgwLsBHBzuwgeFoBzb9w8UOagBC8TFqx/CzYxSMglEwMAAASzUAgQ==
   </data>
  </layer>
 </map>
