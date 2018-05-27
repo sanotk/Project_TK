@@ -717,6 +717,7 @@ public class GameScreen4 extends AbstractGameScreen {
                 trapShow = false;
                 swordShow = false;
                 dialogItem = false;
+                dialogHydroPower = false;
             }
         });
 
@@ -1520,10 +1521,8 @@ public class GameScreen4 extends AbstractGameScreen {
     }
 
     private void addGuiLink() {
-
         Level4 level4 = (Level4) worldController.level;
-
-        itemLink = new ItemLink(worldController.level.mapLayer,
+        itemLink = new ItemLink(level4.mapLayer,
                 level4.hydroPower,
                 level4.pollutionControll,
                 worldController.level.links);
