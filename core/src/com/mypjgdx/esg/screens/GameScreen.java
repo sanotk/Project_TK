@@ -18,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
-import com.mypjgdx.esg.utils.MusicManager;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.WorldRenderer;
@@ -34,6 +33,7 @@ import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.ui.Dialog;
 import com.mypjgdx.esg.utils.ItemLink;
+import com.mypjgdx.esg.utils.MusicManager;
 import com.mypjgdx.esg.utils.SolarState;
 
 import java.util.ArrayList;
@@ -707,46 +707,46 @@ public class GameScreen extends AbstractGameScreen {
         buttonSunStyle.up = iconSun;
         buttonSunStyle.over = iconSun.tint(Color.LIME);
         Button iconSunButton = new Button(buttonSunStyle);
-        iconSunButton.setPosition(100, SCENE_HEIGHT - 50);
+        iconSunButton.setPosition(80, SCENE_HEIGHT - 50);
 
         textSun = new Label("", skin);
         textSun.setColor(0, 0, 0, 1);
         textSun.setStyle(labelStyle);
         textSun.setFontScale(1f, 1f);
-        textSun.setPosition(125, SCENE_HEIGHT - 42);
+        textSun.setPosition(105, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonTemperatureStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconTemperature = new TextureRegionDrawable(Assets.instance.iconTemperature);
         buttonTemperatureStyle.up = iconTemperature;
         buttonTemperatureStyle.over = iconTemperature.tint(Color.LIME);
         Button iconTemperatureButton = new Button(buttonTemperatureStyle);
-        iconTemperatureButton.setPosition(200, SCENE_HEIGHT - 50);
+        iconTemperatureButton.setPosition(180, SCENE_HEIGHT - 50);
 
         textTemperature = new Label("", skin);
         textTemperature.setColor(0, 0, 0, 1);
         textTemperature.setStyle(labelStyle);
         textTemperature.setFontScale(1f, 1f);
-        textTemperature.setPosition(225, SCENE_HEIGHT - 42);
+        textTemperature.setPosition(205, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonCircleStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconCircle = new TextureRegionDrawable(Assets.instance.iconCircle);
         buttonCircleStyle.up = iconCircle;
         buttonCircleStyle.over = iconCircle.tint(Color.LIME);
         Button iconCircleButton = new Button(buttonCircleStyle);
-        iconCircleButton.setPosition(250, SCENE_HEIGHT - 40);
+        iconCircleButton.setPosition(230, SCENE_HEIGHT - 40);
 
         TextButton.TextButtonStyle buttonSwordStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconSword = new TextureRegionDrawable(Assets.instance.iconSword);
         buttonSwordStyle.up = iconSword;
         buttonSwordStyle.over = iconSword.tint(Color.LIME);
         Button iconSwordButton = new Button(buttonSwordStyle);
-        iconSwordButton.setPosition(265, SCENE_HEIGHT - 50);
+        iconSwordButton.setPosition(245, SCENE_HEIGHT - 50);
 
         textBeam = new Label("", skin);
         textBeam.setColor(0, 0, 0, 1);
         textBeam.setStyle(labelStyle);
         textBeam.setFontScale(1.f, 1.f);
-        textBeam.setPosition(285, SCENE_HEIGHT - 42);
+        textBeam.setPosition(265, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonTrapStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconTrap = new TextureRegionDrawable(Assets.instance.iconTrap);
