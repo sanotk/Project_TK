@@ -1339,14 +1339,14 @@ public class GameScreen extends AbstractGameScreen {
                     level1.charge,
                     level1.battery,
                     worldController.level.links, solarState);
-            missionWindow.setCompleted(false, 5);
+            missionWindow.setCompleted(true, 5);
         } else if (solarState == SolarState.CtoI) {
             addedCtoI = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
                     level1.charge,
                     level1.inverter,
                     worldController.level.links, solarState);
-            missionWindow.setCompleted(false, 6);
+            missionWindow.setCompleted(true, 6);
         } else if (solarState == SolarState.CtoD) {
             addedCtoD = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
