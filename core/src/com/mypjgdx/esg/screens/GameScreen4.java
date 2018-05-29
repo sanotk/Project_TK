@@ -633,64 +633,147 @@ public class GameScreen4 extends AbstractGameScreen {
         buttonAgree.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(trapShow){
+                buttonAgree.setVisible(false);
+                buttonRefuse.setVisible(false);
+                if (trapShow) {
                     worldController.level.player.acceptTrap = true;
                     worldController.level.player.requestTrap = false;
                     dialogTrap = true;
-                }else if(swordShow){
+                } else if (swordShow) {
                     worldController.level.player.acceptSwordWave = true;
                     worldController.level.player.requestSwordWave = false;
                     dialogSwordWave = true;
-                }else{
-                    MusicManager.instance.stop();
+                } else if (dialogItem) {
+                    item.questAccept = true;
+                    item.quest = true;
+                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
+                    item.state = Item.ItemState.ONLOOP;
+                } else if (dialogHydroPower) {
+                    addGuiLink();
+                } else if (stageFourClear) {
+                    worldController.level.player.timeClear = false;
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {
-                            game.setScreen(new GameScreen2(game, optionsWindow));
+                            game.setScreen(new GameScreen3(game, optionsWindow));
                         }
                     });
+                } else {
+                    if (citizenQuest == systemWindow.citizen1) {
+                        questState = QuestState.quest1yes;
+                        LikingBar.instance.liking += 0;
+                        worldController.level.player.quest1IsAccept = true;
+                        worldController.level.player.quest_window_1 = true;
+                    } else if (citizenQuest == systemWindow.citizen2) {
+                        questState = QuestState.quest2yes;
+                        LikingBar.instance.liking += 2;
+                        worldController.level.player.quest_window_2 = true;
+                        worldController.level.player.quest2IsAccept = true;
+                    } else if (citizenQuest == systemWindow.citizen3) {
+                        questState = QuestState.quest3yes;
+                        LikingBar.instance.liking += 1;
+                        worldController.level.player.quest_window_3 = true;
+                        worldController.level.player.quest3IsAccept = true;
+                    } else if (citizenQuest == systemWindow.citizen4) {
+                        questState = QuestState.quest4yes;
+                        LikingBar.instance.liking += 2;
+                        worldController.level.player.quest_window_4 = true;
+                        worldController.level.player.quest4IsAccept = true;
+                    } else if (citizenQuest == systemWindow.citizen5) {
+                        questState = QuestState.quest5yes;
+                        LikingBar.instance.liking += 2;
+                        worldController.level.player.quest_window_5 = true;
+                        worldController.level.player.quest5IsAccept = true;
+                    } else if (citizenQuest == systemWindow.citizen6) {
+                        questState = QuestState.quest6yes;
+                        LikingBar.instance.liking += 1;
+                        worldController.level.player.quest_window_6 = true;
+                        worldController.level.player.quest6IsAccept = true;
+                    }
+                    addRequest.add(questState);
+                    System.out.println(questState);
+                    questState = null;
+                    worldController.level.player.questScreen1 = false;
+                    worldController.level.player.questScreen2 = false;
+                    worldController.level.player.questScreen3 = false;
+                    worldController.level.player.questScreen4 = false;
+                    worldController.level.player.questScreen5 = false;
+                    worldController.level.player.questScreen6 = false;
                 }
-                buttonAgree.setVisible(false);
-                buttonRefuse.setVisible(false);
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
                 dialog.hide();
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
                 trapShow = false;
-                swordShow =false;
+                swordShow = false;
+                dialogItem = false;
             }
         });
 
         buttonRefuse.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(trapShow){
-                    worldController.level.player.acceptTrap = false;
-                    worldController.level.player.requestTrap = false;
-                }else if(swordShow){
-                    worldController.level.player.acceptSwordWave = false;
-                    worldController.level.player.requestSwordWave = false;
-                }else {
-                    MusicManager.instance.stop();
-                    Gdx.app.postRunnable(new Runnable() {
-                        @Override
-                        public void run() {
-                            game.setScreen(new MenuScreen(game));
-                            EnergyProducedBar.instance.energyProduced = 0;
-                            EnergyUsedBar.instance.energyUse = 0;
-                            BatteryBar.instance.batteryStorage = 0;
-                        }
-                    });
-                }
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
+                if (trapShow) {
+                    worldController.level.player.acceptTrap = false;
+                    worldController.level.player.requestTrap = false;
+                } else if (swordShow) {
+                    worldController.level.player.acceptSwordWave = false;
+                    worldController.level.player.requestSwordWave = false;
+                } else if (citizenQuest == systemWindow.citizen1) {
+                    worldController.level.player.quest1Cancel = true;
+                    worldController.level.player.quest_window_1 = true;
+                    LikingBar.instance.liking -= 1;
+                    questState = QuestState.quest1no;
+                } else if (citizenQuest == systemWindow.citizen2) {
+                    worldController.level.player.quest2Cancel = true;
+                    worldController.level.player.quest_window_2 = true;
+                    LikingBar.instance.liking -= 2;
+                    questState = QuestState.quest2no;
+                } else if (citizenQuest == systemWindow.citizen3) {
+                    worldController.level.player.quest3Cancel = true;
+                    worldController.level.player.quest_window_3 = true;
+                    LikingBar.instance.liking -= 1;
+                    questState = QuestState.quest3no;
+                } else if (citizenQuest == systemWindow.citizen4) {
+                    worldController.level.player.quest4Cancel = true;
+                    worldController.level.player.quest_window_4 = true;
+                    LikingBar.instance.liking -= 2;
+                    questState = QuestState.quest4no;
+                } else if (citizenQuest == systemWindow.citizen5) {
+                    worldController.level.player.quest5Cancel = true;
+                    worldController.level.player.quest_window_5 = true;
+                    questState = QuestState.quest5no;
+                    LikingBar.instance.liking -= 2;
+                } else if (citizenQuest == systemWindow.citizen6) {
+                    worldController.level.player.quest6Cancel = true;
+                    worldController.level.player.quest_window_6 = true;
+                    questState = QuestState.quest6no;
+                    LikingBar.instance.liking -= 1;
+                }
+                questCount += 1;
+                addRequest.add(questState);
+                System.out.println(questState);
+                questState = null;
+                worldController.level.player.status_find = false;
+                worldController.level.player.status_windows_link = false;
+                worldController.level.player.questScreen1 = false;
+                worldController.level.player.questScreen2 = false;
+                worldController.level.player.questScreen3 = false;
+                worldController.level.player.questScreen4 = false;
+                worldController.level.player.questScreen5 = false;
+                worldController.level.player.questScreen6 = false;
                 dialog.hide();
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
                 trapShow = false;
-                swordShow =false;
+                swordShow = false;
+                dialogItem = false;
+                dialogHydroPower = false;
             }
         });
-
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
@@ -699,7 +782,6 @@ public class GameScreen4 extends AbstractGameScreen {
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
-
 
         TextButton.TextButtonStyle buttonSunStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconSun = new TextureRegionDrawable(Assets.instance.iconSun);
