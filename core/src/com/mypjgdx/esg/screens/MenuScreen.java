@@ -108,7 +108,6 @@ public class MenuScreen extends AbstractGameScreen {
         loadWindow.setVisible(false);
 
         LoadTestButton loadTestButton = new LoadTestButton();
-        final GameScreen gameScreen = new GameScreen(game, optionsWindow);
 
         stage.addActor(text_mainmenu);
         stage.addActor(buttonStart);
@@ -122,7 +121,7 @@ public class MenuScreen extends AbstractGameScreen {
         buttonStart.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(gameScreen);
+                game.setScreen(new GameScreen(game, optionsWindow));
             }
         });
 

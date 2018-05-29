@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -43,6 +42,9 @@ import java.util.ArrayList;
 
 public class GameScreen extends AbstractGameScreen {
 
+    private static final int SCENE_WIDTH = 1024;
+    private static final int SCENE_HEIGHT = 576;
+
     private Button iconEnergyLess;
     private TextButton.TextButtonStyle buttonPlayStyle;
     private TextureRegionDrawable playUp;
@@ -64,13 +66,9 @@ public class GameScreen extends AbstractGameScreen {
     private boolean controlShow = true;
     private ItemLink itemLink;
     private int timeEvent = 0;
-    SpriteBatch batch;
-    public Texture bg;
+
     private Stage stage;
     private Skin skin;
-
-    public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
-    public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
 
     private TextButton buttonAgree;
     private TextButton buttonRefuse;
@@ -169,7 +167,6 @@ public class GameScreen extends AbstractGameScreen {
     private TextureRegionDrawable imageLink3;
     private TextureRegionDrawable imageLink4;
 
-    private Button buttonOption;
     private BitmapFont font;
     private Window optionsWindow;
 
@@ -177,9 +174,6 @@ public class GameScreen extends AbstractGameScreen {
 
     private boolean animation_status = false;
 
-    private Button buttonRule;
-
-    private Window ruleWindow;
     private Window chartWindow;
     private Window statusWindow;
 
@@ -243,7 +237,6 @@ public class GameScreen extends AbstractGameScreen {
         stage = new Stage();
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
-        bg = new Texture("bg.png");
         font = Assets.instance.newFont;
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);
@@ -284,17 +277,9 @@ public class GameScreen extends AbstractGameScreen {
         isComplete.add(SolarState.ItoD);
 
         createButton();
-        batch = new SpriteBatch();
     }
 
     private void createButton() {
-
-        buttonToolStyle = new TextButton.TextButtonStyle();
-        toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
-        buttonToolStyle.up = toolUp;
-        buttonToolStyle.down = toolUp.tint(Color.LIGHT_GRAY);
-        buttonOption = new Button(buttonToolStyle);
-        buttonOption.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 50);
 
         buttonPauseStyle = new TextButton.TextButtonStyle();
         pauseUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_pause"));
@@ -441,7 +426,7 @@ public class GameScreen extends AbstractGameScreen {
 
         stage.addActor(dialog);
 
-        stage.addActor(buttonOption);
+        stage.addActor(new OptionButton(optionsWindow,SCENE_WIDTH - 50, SCENE_HEIGHT - 50));
         stage.addActor(buttonAgree);
         stage.addActor(buttonRefuse);
         stage.addActor(buttonMission);
@@ -466,16 +451,6 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(guideWindow);
         stage.addActor(solarCellWindow);
         stage.addActor(missionWindow);
-
-        buttonOption.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                optionsWindow.setPosition(
-                        stage.getWidth() / 2 - optionsWindow.getWidth() / 2,
-                        stage.getHeight() / 2 - optionsWindow.getHeight() / 2);
-                optionsWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            }
-        });
 
         buttonPause.addListener(new ClickListener() {
             @Override
@@ -2195,11 +2170,9 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void hide() {
-        batch.dispose();
         stage.dispose();
         dialogStory.dispose();
         worldRenderer.dispose();
-        bg.dispose();
     }
 
     @Override
@@ -2214,9 +2187,6 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void write(Json json) {
-//        json.writeValue("iconEnergyLess", iconEnergyLess);
-//        json.writeValue("buttonPlayStyle", buttonPlayStyle);
-//        json.writeValue("playUp", playUp);
 //        json.writeValue("buttonPlay", buttonPlay);
 //        json.writeValue("buttonPause", buttonPause);
 //        json.writeValue("iconHuman", iconHuman);
@@ -2368,9 +2338,6 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void read(Json json, JsonValue jsonData) {
-//        iconEnergyLess = jsonData.get("iconEnergyLess");
-//        buttonPlayStyle = jsonData.get("buttonPlayStyle");
-//        playUp = jsonData.get("playUp");
 //        buttonPlay = jsonData.get("buttonPlay");
 //        buttonPause = jsonData.get("buttonPause");
 //        iconHuman = jsonData.get("iconHuman");
