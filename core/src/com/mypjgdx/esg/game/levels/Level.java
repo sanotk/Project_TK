@@ -11,10 +11,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
-import com.mypjgdx.esg.game.objects.characters.Citizen;
-import com.mypjgdx.esg.game.objects.characters.Enemy;
-import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.characters.PlayerStalkerPosition;
+import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.etcs.Link;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Bow;
@@ -186,17 +183,75 @@ public abstract class Level implements Json.Serializable {
         json.writeValue("enemies", enemies);
         json.writeValue("citizens", citizens);
         json.writeValue("items", items);
+
         json.writeValue("EnergyProducedBar", EnergyProducedBar.instance);
         json.writeValue("EnergyUsedBar", EnergyUsedBar.instance);
         json.writeValue("BatteryBar", BatteryBar.instance);
         json.writeValue("ArrowBar", ArrowBar.instance);
         json.writeValue("SwordWaveBar", SwordWaveBar.instance);
         json.writeValue("TrapBar", TrapBar.instance);
+
         json.writeValue("name", name);
     }
 
     @Override
     public void read(Json json, JsonValue jsonData) {
-//        System.out.println(jsonData.get("player"));
+        player.read(null, jsonData);
+        readLinks(jsonData);
+        readEnemies(jsonData);
+        readCitizens(jsonData);
+        readItems(jsonData);
+
+        EnergyProducedBar.instance.read(null, jsonData);
+        EnergyUsedBar.instance.read(null, jsonData);
+        BatteryBar.instance.read(null, jsonData);
+        ArrowBar.instance.read(null, jsonData);
+        SwordWaveBar.instance.read(null, jsonData);
+        TrapBar.instance.read(null, jsonData);
+    }
+
+    private void readEnemies(JsonValue saveData) {
+        JsonValue enemiesJson = saveData.get("enemies");
+        if (enemiesJson.isArray()) {
+            enemies.clear();
+            for (int i = 0; i < enemiesJson.size; i++) {
+                Enemy enemy = EnemySpawner.valueOf(enemiesJson.get(i).getString("type")).spawn();
+                enemy.setPlayer(player);
+                enemy.init(mapLayer);
+                enemy.read(null, enemiesJson.get(i));
+                enemies.add(enemy);
+            }
+        }
+    }
+
+    private void readLinks(JsonValue saveData) {
+        JsonValue linksJson = saveData.get("links");
+        if (linksJson.isArray()) {
+            links.clear();
+            for (int i = 0; i < linksJson.size; i++) {
+                Link link = new Link();
+                link.read(null, linksJson.get(i));
+                link.init(mapLayer);
+                links.add(link);
+            }
+        }
+    }
+
+    private void readCitizens(JsonValue saveData) {
+        JsonValue citizensJson = saveData.get("citizens");
+        if (citizensJson.isArray()) {
+            for (int i = 0; i < citizensJson.size; i++) {
+                citizens.get(i).read(null, citizensJson.get(i));
+            }
+        }
+    }
+
+    private void readItems(JsonValue saveData) {
+        JsonValue itemsJson = saveData.get("items");
+        if (itemsJson.isArray()) {
+            for (int i = 0; i < itemsJson.size; i++) {
+                items.get(i).read(null, itemsJson.get(i));
+            }
+        }
     }
 }

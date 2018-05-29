@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
@@ -1327,11 +1328,11 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if ((solarWindow == systemWindow.solarcell) || (solarWindow == systemWindow.chargecontroller)) {
-                    solarState = solarState.StoC;
+                    solarState = SolarState.StoC;
                 } else if (solarWindow == systemWindow.battery) {
-                    solarState = solarState.StoB;
+                    solarState = SolarState.StoB;
                 } else {
-                    solarState = solarState.StoI;
+                    solarState = SolarState.StoI;
                 }
                 if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
                     addLink(solarState);
@@ -1369,11 +1370,11 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if ((solarWindow == systemWindow.solarcell)) {
-                    solarState = solarState.StoB;
+                    solarState = SolarState.StoB;
                 } else if ((solarWindow == systemWindow.chargecontroller) || (solarWindow == systemWindow.battery)) {
-                    solarState = solarState.CtoB;
+                    solarState = SolarState.CtoB;
                 } else {
-                    solarState = solarState.CtoI;
+                    solarState = SolarState.CtoI;
                 }
                 if (((solarWindow == systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoB))) {
                     addLink(solarState);
@@ -1447,13 +1448,13 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if ((solarWindow == systemWindow.solarcell)) {
-                    solarState = solarState.StoD;
+                    solarState = SolarState.StoD;
                 } else if ((solarWindow == systemWindow.chargecontroller)) {
-                    solarState = solarState.CtoD;
+                    solarState = SolarState.CtoD;
                 } else if (solarWindow == systemWindow.battery) {
-                    solarState = solarState.BtoD;
+                    solarState = SolarState.BtoD;
                 } else {
-                    solarState = solarState.ItoD;
+                    solarState = SolarState.ItoD;
                 }
                 if (((solarWindow == systemWindow.solarcell) && (!addedStoD)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoD))
                         || ((solarWindow == systemWindow.battery) && (!addedBtoD)) || ((solarWindow == systemWindow.inverter) && (!addedItoD))) {
@@ -2146,8 +2147,6 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-
-
         if(SunBar.instance.timeCount >= 60){
             SunBar.instance.sunTime += 1;
             SunBar.instance.timeCount = 0;
@@ -2201,113 +2200,16 @@ public class GameScreen extends AbstractGameScreen {
         stage.dispose();
         dialogStory.dispose();
         worldRenderer.dispose();
-        //font.dispose();
         bg.dispose();
     }
 
     @Override
-    public void pause() {
+    public void write(Json json) {
     }
 
     @Override
-    public void write(Json json) {
-//        json.writeValue("player", player);
-//        json.writeValue("links", links);
-//        json.writeValue("enemies", enemies);
-//        json.writeValue("citizens", citizens);
-//        json.writeValue("items", items);
-//        json.writeValue("EnergyProducedBar", EnergyProducedBar.instance);
-//        json.writeValue("EnergyUsedBar", EnergyUsedBar.instance);
-//        json.writeValue("BatteryBar", BatteryBar.instance);
-//        json.writeValue("ArrowBar", ArrowBar.instance);
-//        json.writeValue("SwordWaveBar", SwordWaveBar.instance);
-//        json.writeValue("TrapBar", TrapBar.instance);
-//        json.writeValue("name", name);
-
-
-        private boolean controlShow = true;
-        private int timeEvent = 0;
-
-        private boolean stageFourClear;
-        private boolean dialogCitizen2;
-
-        private Button solarCellButton1;
-        private Button solarCellButton2;
-        private Button solarCellButton3;
-        private Button solarCellButton4;
-
-        private Label textChart1;
-        private Label textChart2;
-        private Label textChart3;
-        private Label textChart4;
-        private Label textChart5;
-        private Label textChart6;
-        private Label textChart7;
-
-        private Label textSun;
-        private Label textTemperature;
-        private Label textLiking;
-        private boolean stageTwoAfter;
-        private Label textMission8;
-        private Button buttonGuideWindow;
-        private boolean guideShow;
-        private boolean missionStart;
-        private boolean guideStart;
-        private boolean trapShow;
-        private boolean swordShow;
-        private boolean statusStart;
-        private Label textMission9;
-
-        private SolarState solarState;
-        private systemWindow solarWindow;
-
-        private ArrayList<SolarState> link = new ArrayList<SolarState>();
-
-//        private TextureRegionDrawable imageLink1;
-//        private TextureRegionDrawable imageLink2;
-//        private TextureRegionDrawable imageLink3;
-//        private TextureRegionDrawable imageLink4;
-
-        private Button buttonOption;
-
-        private boolean animation_status = false;
-
-        private boolean addedStoC;
-        private boolean addedStoB;
-        private boolean addedStoI;
-        private boolean addedStoD;
-        private boolean addedCtoB;
-        private boolean addedCtoI;
-        private boolean addedCtoD;
-        private boolean addedBtoI;
-        private boolean addedBtoD;
-        private boolean addedItoD;
-
-        private boolean dialogStart;
-        private boolean dialogTrap;
-        private boolean dialogSwordWave;
-
-        private int countEnemy;
-
-        private int trueLink = 0;
-
-        private int citizenCount = 0;
-
-        private String text =
-                "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
-
-        private boolean dialogEnemy;
-        private boolean dialogCitizen;
-        private boolean dialogDoor1;
-        private boolean dialogDoor2;
-        private boolean dialogDoor3;
-        private boolean dialogDoor4;
-        private boolean dialogShow;
-
-        private boolean stageTwoClear;
-        private boolean stageThreeClear;
+    public void read(Json json, JsonValue jsonData) {
     }
-
 
     @Override
     public WorldController getWorldController() {
