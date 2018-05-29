@@ -78,14 +78,6 @@ public class GameScreen extends AbstractGameScreen {
     private Label energyLevel2;
     private Label energyLevel3;
 
-    private Label textMission1;
-    private Label textMission2;
-    private Label textMission3;
-    private Label textMission4;
-    private Label textMission5;
-    private Label textMission6;
-    private Label textMission7;
-
     private Label text1;
     private Label text2;
     private Label text3;
@@ -133,7 +125,6 @@ public class GameScreen extends AbstractGameScreen {
     private Label textTemperature;
     private Label textLiking;
     private boolean stageTwoAfter;
-    private Label textMission8;
     private Button buttonGuideWindow;
     private boolean guideShow;
     private boolean missionStart;
@@ -141,7 +132,6 @@ public class GameScreen extends AbstractGameScreen {
     private boolean trapShow;
     private boolean swordShow;
     private boolean statusStart;
-    private Label textMission9;
 
     public enum systemWindow {
         solarcell,
@@ -195,7 +185,7 @@ public class GameScreen extends AbstractGameScreen {
     private Dialog dialog;
     private int citizenCount = 0;
 
-    private Window missionWindow;
+    private MissionWindow missionWindow;
 
     private String text =
             "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
@@ -389,11 +379,9 @@ public class GameScreen extends AbstractGameScreen {
         solarCellWindow = createSolarCellWindow();
         solarCellWindow.setVisible(false);
 
-        missionWindow = createMissionWindow();
-        missionWindow.setPosition(
-                stage.getWidth() / 2 - missionWindow.getWidth() / 2,
-                stage.getHeight() / 2 - missionWindow.getHeight() / 2);
+        missionWindow = new MissionWindow(worldController);
         missionWindow.setVisible(false);
+        missionWindow.setText("ภารกิจแรก สำรวจพื้นที่พร้อมทั้งกำจัดเหล่ามอนสเตอร์ทั้งหมด", 0);
 
         optionsWindow.setVisible(false);
 
@@ -430,10 +418,6 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 missionStart = true;
-                missionWindow.pack();
-                missionWindow.setPosition(
-                        stage.getWidth() / 2 - missionWindow.getWidth() / 2,
-                        stage.getHeight() / 2 - missionWindow.getHeight() / 2);
                 missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
                 worldController.level.player.timeStop = true;
             }
@@ -443,10 +427,6 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 missionStart = true;
-                missionWindow.pack();
-                missionWindow.setPosition(
-                        stage.getWidth() / 2 - missionWindow.getWidth() / 2,
-                        stage.getHeight() / 2 - missionWindow.getHeight() / 2);
                 missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
                 worldController.level.player.timeStop = true;
             }
@@ -1099,90 +1079,6 @@ public class GameScreen extends AbstractGameScreen {
         return solarcellWindow;
     }
 
-    private Window createMissionWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new NinePatchDrawable(Assets.instance.window);
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.WHITE;
-
-        labelStyle2 = new Label.LabelStyle();
-        labelStyle2.font = font;
-        labelStyle2.fontColor = Color.LIME;
-
-        Button.ButtonStyle buttonRuleStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonRuleStyle.up = buttonRegion;
-        buttonRuleStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonRuleStyle);
-
-        textMission1 = new Label("ภารกิจแรก สำรวจพื้นที่พร้อมทั้งกำจัดเหล่ามอนสเตอร์ทั้งหมด", skin);
-        textMission2 = new Label("", skin);
-        textMission3 = new Label("", skin);
-        textMission4 = new Label("", skin);
-        textMission5 = new Label("", skin);
-        textMission6 = new Label("", skin);
-        textMission7 = new Label("", skin);
-        textMission8 = new Label("", skin);
-        textMission9 = new Label("", skin);
-
-        textMission1.setStyle(labelStyle);
-        textMission2.setStyle(labelStyle);
-        textMission3.setStyle(labelStyle);
-        textMission4.setStyle(labelStyle);
-        textMission5.setStyle(labelStyle);
-        textMission6.setStyle(labelStyle);
-        textMission7.setStyle(labelStyle);
-        textMission8.setStyle(labelStyle);
-        textMission9.setStyle(labelStyle);
-
-        final Window missionWindow = new Window("รายชื่อภารกิจ", style);
-        missionWindow.setModal(true);
-        //missionWindow.setSkin(skin);
-        missionWindow.padTop(45);
-        missionWindow.padLeft(40);
-        missionWindow.padRight(40);
-        missionWindow.padBottom(20);
-        missionWindow.getTitleLabel().setAlignment(Align.center);
-        missionWindow.row().padTop(10);
-        missionWindow.add(textMission1);
-        missionWindow.row().padTop(10);
-        missionWindow.add(textMission2);
-        missionWindow.row().padTop(10);
-        missionWindow.add(textMission3);
-        missionWindow.row().padTop(10);
-        missionWindow.add(textMission4);
-        missionWindow.row().padTop(10);
-        missionWindow.add(textMission5);
-        missionWindow.row().padTop(10);
-        missionWindow.add(textMission6);
-        missionWindow.row().padTop(10);
-        missionWindow.add(textMission7);
-        missionWindow.row().padTop(10);
-        missionWindow.add(textMission8);
-        missionWindow.row().padTop(10);
-        missionWindow.add(textMission9);
-        missionWindow.row().padTop(20);
-        missionWindow.add(closeButton).colspan(3).center().bottom();
-        missionWindow.pack();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                missionWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                if (!dialogShow) {
-                    worldController.level.player.timeStop = false;
-                }
-            }
-        });
-
-        return missionWindow;
-    }
-
     private void addLink(SolarState solarState) {
         if (link.size() != 0) {
             for (SolarState aLink : link) {
@@ -1418,7 +1314,7 @@ public class GameScreen extends AbstractGameScreen {
                     level1.solarCell1,
                     level1.charge,
                     worldController.level.links, solarState);
-            textMission5.setStyle(labelStyle2);
+            missionWindow.setCompleted(true, 4);
         } else if (solarState == SolarState.StoB) {
             addedStoB = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
@@ -1443,14 +1339,14 @@ public class GameScreen extends AbstractGameScreen {
                     level1.charge,
                     level1.battery,
                     worldController.level.links, solarState);
-            textMission6.setStyle(labelStyle2);
+            missionWindow.setCompleted(false, 5);
         } else if (solarState == SolarState.CtoI) {
             addedCtoI = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
                     level1.charge,
                     level1.inverter,
                     worldController.level.links, solarState);
-            textMission7.setStyle(labelStyle2);
+            missionWindow.setCompleted(false, 6);
         } else if (solarState == SolarState.CtoD) {
             addedCtoD = true;
             itemLink = new ItemLink(worldController.level.mapLayer,
@@ -1475,9 +1371,8 @@ public class GameScreen extends AbstractGameScreen {
                     level1.inverter,
                     level1.door,
                     worldController.level.links, solarState);
-            textMission8.setStyle(labelStyle2);
+            missionWindow.setCompleted(true, 7);
         }
-        //System.out.print("ขนาด" + itemLink.linkList.size() + "นะจ๊ะ");
     }
 
     private void removeGuiLink(SolarState solarState) {
@@ -1485,13 +1380,13 @@ public class GameScreen extends AbstractGameScreen {
             if (itemLink.linkList.get(i).solarState == solarState) {
                 System.out.print(itemLink.linkList.get(i).solarState);
                 if (solarState == SolarState.StoC) {
-                    textMission5.setStyle(labelStyle);
+                    missionWindow.setCompleted(false, 4);
                 } else if (solarState == SolarState.CtoB) {
-                    textMission6.setStyle(labelStyle);
+                    missionWindow.setCompleted(false, 5);
                 } else if (solarState == SolarState.CtoI) {
-                    textMission7.setStyle(labelStyle);
+                    missionWindow.setCompleted(false, 6);
                 } else if (solarState == SolarState.ItoD) {
-                    textMission8.setStyle(labelStyle);
+                    missionWindow.setCompleted(false, 7);
                 }
                 itemLink.linkList.remove(i);
                 i--;
@@ -1739,12 +1634,12 @@ public class GameScreen extends AbstractGameScreen {
                     timeEvent = player.timeCount - 1;
                     missionStart = false;
                     delayMission();
-                    textMission3.setStyle(labelStyle2);
-                    textMission4.setText("ภารกิจที่สี่ เชื่อมต่อระบบโซล่าเซลล์ (ทำได้โดยกดปุ่มคุยกับไอเท็มแล้วเลือกการเชื่อมต่อ)");
-                    textMission5.setText("ภารกิจที่สี่ - หนึ่ง เชื่อมต่อโซล่าเซลล์กับตัวควบคุมการชาร์จ");
-                    textMission6.setText("ภารกิจที่สี่ - สอง เชื่อมต่อตัวควบคุมการชาร์จกับแบตเตอรี่");
-                    textMission7.setText("ภารกิจที่สี่ - สาม เชื่อมต่อตัวควบคุมการชาร์จกับเครื่องแปลงกระแสไฟ");
-                    textMission8.setText("ภารกิจที่สี่ - สี่ เชื่อมต่อเครื่องแปลงกระแสไฟกับสถานที่หลบภัย");
+                    missionWindow.setCompleted(true, 2);
+                    missionWindow.setText("ภารกิจที่สี่ เชื่อมต่อระบบโซล่าเซลล์ (ทำได้โดยกดปุ่มคุยกับไอเท็มแล้วเลือกการเชื่อมต่อ)", 3);
+                    missionWindow.setText("ภารกิจที่สี่ - หนึ่ง เชื่อมต่อโซล่าเซลล์กับตัวควบคุมการชาร์จ", 4);
+                    missionWindow.setText("ภารกิจที่สี่ - สอง เชื่อมต่อตัวควบคุมการชาร์จกับแบตเตอรี่", 5);
+                    missionWindow.setText("ภารกิจที่สี่ - สาม เชื่อมต่อตัวควบคุมการชาร์จกับเครื่องแปลงกระแสไฟ", 6);
+                    missionWindow.setText("ภารกิจที่สี่ - สี่ เชื่อมต่อเครื่องแปลงกระแสไฟกับสถานที่หลบภัย", 7);
                 }
             } else if (!dialogDoor4 && stageFourClear) {
                 dialogDoor4 = true;
@@ -1765,8 +1660,8 @@ public class GameScreen extends AbstractGameScreen {
             String text =
                     "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัย (ทำได้เดินไปติดกับประชาชนและกดคุย)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
-            textMission1.setStyle(labelStyle2);
-            textMission2.setText("ภารกิจที่สอง ตามหาประชาชนในพื้นที่แถบนี้ให้ครบ (ทำได้โดยเดินไปติดกับประชาชนและกดคุย)");
+            missionWindow.setCompleted(true, 0);
+            missionWindow.setText("ภารกิจที่สอง ตามหาประชาชนในพื้นที่แถบนี้ให้ครบ (ทำได้โดยเดินไปติดกับประชาชนและกดคุย)", 1);
             delayMission();
         }
 
@@ -1810,8 +1705,9 @@ public class GameScreen extends AbstractGameScreen {
             missionStart = false;
             String text =
                     "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
-            textMission2.setStyle(labelStyle2);
-            textMission3.setText("ภารกิจที่สาม พาประชาชนทั้งหมดมายังทางเข้าสถานที่หลบภัย");
+
+            missionWindow.setCompleted(true, 1);
+            missionWindow.setText("ภารกิจที่สาม พาประชาชนทั้งหมดมายังทางเข้าสถานที่หลบภัย", 2);
             dialog.addWaitingPage(text);
             delayMission();
         }
@@ -1829,29 +1725,22 @@ public class GameScreen extends AbstractGameScreen {
             String text =
                     "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว รีบพาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
-            textMission4.setStyle(labelStyle2);
-            textMission5.setStyle(labelStyle2);
-            textMission6.setStyle(labelStyle2);
-            textMission7.setStyle(labelStyle2);
-            textMission8.setStyle(labelStyle2);
-            textMission9.setText("ภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว (กดคุยกับประตูเพื่อเข้าไปยังที่หลบภัย)");
+
+            missionWindow.setCompleted(true, 3);
+            missionWindow.setCompleted(true, 4);
+            missionWindow.setCompleted(true, 5);
+            missionWindow.setCompleted(true, 6);
+            missionWindow.setCompleted(true, 7);
+            missionWindow.setText("ภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว (กดคุยกับประตูเพื่อเข้าไปยังที่หลบภัย)", 8);
             delayStatus();
         }
 
         if (player.timeCount <= timeEvent && !missionStart) {
             missionStart = true;
-            missionWindow.pack();
             missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             System.out.print("หยุด");
             player.timeStop = true;
         }
-
-//        if (player.timeCount <= timeEvent && !guideStart && stageTwoAfter){
-//            guideStart = true;
-//            guideShow = true;
-//            buttonGuideWindow.setVisible(true);
-//            player.timeStop = true;
-//        }
 
         if (player.timeCount <= timeEvent && !statusStart && stageThreeClear) {
             System.out.print("status");
