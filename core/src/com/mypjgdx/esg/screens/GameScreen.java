@@ -369,7 +369,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonGuideWindowStyle.up = guidelWindowUp;
         buttonGuideWindowStyle.down = guidelWindowUp.tint(Color.LIGHT_GRAY);
         buttonGuideWindow = new Button(buttonGuideWindowStyle);
-        buttonGuideWindow.setPosition(SCENE_WIDTH/4, SCENE_HEIGHT/4-10);
+        buttonGuideWindow.setPosition(SCENE_WIDTH / 4, SCENE_HEIGHT / 4 - 10);
 
         buttonGuideWindow.setVisible(false);
 
@@ -527,11 +527,11 @@ public class GameScreen extends AbstractGameScreen {
                 if (guideShow) {
                     guideShow = false;
                     buttonGuideWindow.setVisible(false);
-                    worldController.level.player.timeStop =false;
+                    worldController.level.player.timeStop = false;
                 } else {
                     guideShow = true;
                     buttonGuideWindow.setVisible(true);
-                    worldController.level.player.timeStop =true;
+                    worldController.level.player.timeStop = true;
                 }
 //                guideWindow.pack();
 //                worldController.level.player.timeStop = true;
@@ -548,11 +548,11 @@ public class GameScreen extends AbstractGameScreen {
                 if (guideShow) {
                     guideShow = false;
                     buttonGuideWindow.setVisible(false);
-                    worldController.level.player.timeStop =false;
+                    worldController.level.player.timeStop = false;
                 } else {
                     guideShow = true;
                     buttonGuideWindow.setVisible(true);
-                    worldController.level.player.timeStop =true;
+                    worldController.level.player.timeStop = true;
                 }
 //                guideWindow.pack();
 //                worldController.level.player.timeStop = true;
@@ -569,11 +569,11 @@ public class GameScreen extends AbstractGameScreen {
                 if (guideShow) {
                     guideShow = false;
                     buttonGuideWindow.setVisible(false);
-                    worldController.level.player.timeStop =false;
+                    worldController.level.player.timeStop = false;
                 } else {
                     guideShow = true;
                     buttonGuideWindow.setVisible(true);
-                    worldController.level.player.timeStop =true;
+                    worldController.level.player.timeStop = true;
                 }
 //                guideWindow.pack();
 //                worldController.level.player.timeStop = true;
@@ -642,15 +642,15 @@ public class GameScreen extends AbstractGameScreen {
         buttonAgree.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(trapShow){
+                if (trapShow) {
                     worldController.level.player.acceptTrap = true;
                     worldController.level.player.requestTrap = false;
                     dialogTrap = true;
-                }else if(swordShow){
+                } else if (swordShow) {
                     worldController.level.player.acceptSwordWave = true;
                     worldController.level.player.requestSwordWave = false;
                     dialogSwordWave = true;
-                }else{
+                } else {
                     MusicManager.instance.stop();
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
@@ -665,20 +665,20 @@ public class GameScreen extends AbstractGameScreen {
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
                 trapShow = false;
-                swordShow =false;
+                swordShow = false;
             }
         });
 
         buttonRefuse.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(trapShow){
+                if (trapShow) {
                     worldController.level.player.acceptTrap = false;
                     worldController.level.player.requestTrap = false;
-                }else if(swordShow){
+                } else if (swordShow) {
                     worldController.level.player.acceptSwordWave = false;
                     worldController.level.player.requestSwordWave = false;
-                }else {
+                } else {
                     MusicManager.instance.stop();
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
@@ -696,7 +696,7 @@ public class GameScreen extends AbstractGameScreen {
                 worldController.level.player.timeStop = false;
                 dialogShow = false;
                 trapShow = false;
-                swordShow =false;
+                swordShow = false;
             }
         });
 
@@ -1299,11 +1299,11 @@ public class GameScreen extends AbstractGameScreen {
 
     private void checkButton(final systemWindow solarWindow) {
         Level1 level1 = (Level1) worldController.level;
-        if (level1.solarCell1.nearPlayer() || level1.solarCell4.nearPlayer() || level1.solarCell7.nearPlayer()){
+        if (level1.solarCell1.nearPlayer() || level1.solarCell4.nearPlayer() || level1.solarCell7.nearPlayer()) {
             solarCellWindow.getTitleLabel().setText("ตัวเลือกการเชื่อมต่อของแผงโซล่าเซลล์");
-        } else if (level1.charge.nearPlayer()){
+        } else if (level1.charge.nearPlayer()) {
             solarCellWindow.getTitleLabel().setText("ตัวเลือกการเชื่อมต่อของตัวควบคุมการชาร์จ");
-        } else if (level1.battery.nearPlayer()){
+        } else if (level1.battery.nearPlayer()) {
             solarCellWindow.getTitleLabel().setText("ตัวเลือกการเชื่อมต่อของแบตเตอรี่");
         } else if (level1.inverter.nearPlayer()) {
             solarCellWindow.getTitleLabel().setText("ตัวเลือกการเชื่อมต่อของเครื่องแปลงกระแสไฟ");
@@ -1571,13 +1571,13 @@ public class GameScreen extends AbstractGameScreen {
         for (int i = 0; i < itemLink.linkList.size(); i++) {
             if (itemLink.linkList.get(i).solarState == solarState) {
                 System.out.print(itemLink.linkList.get(i).solarState);
-                if(solarState == SolarState.StoC){
+                if (solarState == SolarState.StoC) {
                     textMission5.setStyle(labelStyle);
-                }else if(solarState == SolarState.CtoB){
+                } else if (solarState == SolarState.CtoB) {
                     textMission6.setStyle(labelStyle);
-                }else if(solarState == SolarState.CtoI){
+                } else if (solarState == SolarState.CtoI) {
                     textMission7.setStyle(labelStyle);
-                }else if(solarState == SolarState.ItoD){
+                } else if (solarState == SolarState.ItoD) {
                     textMission8.setStyle(labelStyle);
                 }
                 itemLink.linkList.remove(i);
@@ -1635,11 +1635,11 @@ public class GameScreen extends AbstractGameScreen {
             String textString2 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
             if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
                 String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced
-                        * SunBar.instance.accelerateTime) - (EnergyUsedBar.instance.energyUse* SunBar.instance.accelerateTime)))) + " วินาทีพลังงานจะหมดลง"));
+                        * SunBar.instance.accelerateTime) - (EnergyUsedBar.instance.energyUse * SunBar.instance.accelerateTime)))) + " วินาทีพลังงานจะหมดลง"));
                 text3.setText(textString3);
             } else {
                 String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced
-                        * SunBar.instance.accelerateTime) - (EnergyUsedBar.instance.energyUse* SunBar.instance.accelerateTime)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
+                        * SunBar.instance.accelerateTime) - (EnergyUsedBar.instance.energyUse * SunBar.instance.accelerateTime)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
                 text3.setText(textString3);
             }
             String textString4 = ("กำลังไฟฟ้าที่ผลิตได้หลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
@@ -1685,7 +1685,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialogCitizen = true;
                     citizen.runPlayer = true;
                     citizenCount += 1;
-                    LikingBar.instance.liking +=1;
+                    LikingBar.instance.liking += 1;
                 }
             }
         }
@@ -1729,8 +1729,8 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor2 = false;
                     dialogDoor3 = false;
                     dialogDoor4 = false;
-                    trapShow =false;
-                    swordShow =false;
+                    trapShow = false;
+                    swordShow = false;
                 }
             } else {
                 dialog.tryToChangePage();
@@ -1767,10 +1767,10 @@ public class GameScreen extends AbstractGameScreen {
             dialog.addWaitingPage(text);
             dialogStart = true;
             delayMission();
-            timeEvent = player.timeCount-1;
+            timeEvent = player.timeCount - 1;
         }
 
-        if(player.requestTrap && !dialogTrap){
+        if (player.requestTrap && !dialogTrap) {
             player.requestTrap = false;
             trapShow = true;
             dialogAll();
@@ -1779,13 +1779,13 @@ public class GameScreen extends AbstractGameScreen {
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.addWaitingPage(text);
-        }else if(player.requestTrap && dialogTrap){
-            player.requestTrap =false;
+        } else if (player.requestTrap && dialogTrap) {
+            player.requestTrap = false;
             player.acceptTrap = true;
             trapShow = false;
         }
 
-        if(player.requestSwordWave && !dialogSwordWave){
+        if (player.requestSwordWave && !dialogSwordWave) {
             player.requestSwordWave = false;
             swordShow = true;
             dialogAll();
@@ -1794,8 +1794,8 @@ public class GameScreen extends AbstractGameScreen {
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.addWaitingPage(text);
-        }else if(player.requestSwordWave && dialogSwordWave){
-            player.requestSwordWave =false;
+        } else if (player.requestSwordWave && dialogSwordWave) {
+            player.requestSwordWave = false;
             player.acceptSwordWave = true;
             swordShow = false;
         }
@@ -1823,7 +1823,7 @@ public class GameScreen extends AbstractGameScreen {
                             "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานเข้าสู่สถานที่หลบภัย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
                     dialog.addWaitingPage(text);
                     stageTwoAfter = true;
-                    timeEvent = player.timeCount-1;
+                    timeEvent = player.timeCount - 1;
                     missionStart = false;
                     delayMission();
                     textMission3.setStyle(labelStyle2);
@@ -1847,7 +1847,7 @@ public class GameScreen extends AbstractGameScreen {
             level1.enemies.clear();
             dialogCitizen = true;
             dialogAll();
-            timeEvent = player.timeCount-1;
+            timeEvent = player.timeCount - 1;
             missionStart = false;
             String text =
                     "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัย (ทำได้เดินไปติดกับประชาชนและกดคุย)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
@@ -1875,7 +1875,7 @@ public class GameScreen extends AbstractGameScreen {
                 Citizen citizen = worldController.level.citizens.get(i);
                 if (citizen.overlapPlayer && !citizen.runPlayer) {
                     if (player.status_find) {
-                        citizen.runPlayer =true;
+                        citizen.runPlayer = true;
                         dialogCitizen = true;
                         dialogAll();
                         String text =
@@ -1893,7 +1893,7 @@ public class GameScreen extends AbstractGameScreen {
             dialogCitizen2 = true;
             stageTwoClear = true;
             dialogAll();
-            timeEvent = player.timeCount-1;
+            timeEvent = player.timeCount - 1;
             missionStart = false;
             String text =
                     "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
@@ -1912,7 +1912,7 @@ public class GameScreen extends AbstractGameScreen {
             level1.door.state = Item.ItemState.ON;
             animation_status = true;
             dialogAll();
-            timeEvent = player.timeCount-1;
+            timeEvent = player.timeCount - 1;
             String text =
                     "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว รีบพาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
@@ -1925,7 +1925,7 @@ public class GameScreen extends AbstractGameScreen {
             delayStatus();
         }
 
-        if (player.timeCount <= timeEvent && !missionStart){
+        if (player.timeCount <= timeEvent && !missionStart) {
             missionStart = true;
             missionWindow.pack();
             missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
@@ -1940,7 +1940,7 @@ public class GameScreen extends AbstractGameScreen {
 //            player.timeStop = true;
 //        }
 
-        if (player.timeCount <= timeEvent && !statusStart && stageThreeClear){
+        if (player.timeCount <= timeEvent && !statusStart && stageThreeClear) {
             System.out.print("status");
             statusStart = true;
             status();
@@ -1971,7 +1971,6 @@ public class GameScreen extends AbstractGameScreen {
     }
 
     private void checkWindow() {
-
         Player player = worldController.level.player;
         Level1 level1 = (Level1) worldController.level;
 
@@ -2044,17 +2043,17 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         if (!noItem) {
-            if(stageTwoAfter || level1.door.nearPlayer()){
+            if (stageTwoAfter || level1.door.nearPlayer()) {
                 iconItem.setVisible(true);
             }
         }
 
-        if(player.energyLess){
+        if (player.energyLess) {
             iconEnergyLess.setVisible(true);
             delay();
         }
 
-        if(stageThreeClear && !level1.door.nearPlayer()){
+        if (stageThreeClear && !level1.door.nearPlayer()) {
             iconItem.setVisible(false);
         }
 
@@ -2067,16 +2066,16 @@ public class GameScreen extends AbstractGameScreen {
         }
     }
 
-    private void dialogAll(){
+    private void dialogAll() {
         dialog.show();
         dialog.clearPages();
-        dialogShow =true;
+        dialogShow = true;
         worldController.level.player.timeStop = true;
     }
 
-    public void delay(){
+    public void delay() {
         float delay = 0.3f; // seconds
-        Timer.schedule(new Timer.Task(){
+        Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 iconEnergyLess.setVisible(false);
@@ -2085,9 +2084,9 @@ public class GameScreen extends AbstractGameScreen {
         }, delay);
     }
 
-    private void delayMission(){
+    private void delayMission() {
         float delay = 2f; // seconds
-        Timer.schedule(new Timer.Task(){
+        Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 iconMission.setVisible(true);
@@ -2095,9 +2094,9 @@ public class GameScreen extends AbstractGameScreen {
         }, delay);
     }
 
-    private void delayStatus(){
+    private void delayStatus() {
         float delay = 1.5f; // seconds
-        Timer.schedule(new Timer.Task(){
+        Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 iconStatus.setVisible(true);
@@ -2105,9 +2104,9 @@ public class GameScreen extends AbstractGameScreen {
         }, delay);
     }
 
-    private void delayGuide(){
+    private void delayGuide() {
         float delay = 1.5f; // seconds
-        Timer.schedule(new Timer.Task(){
+        Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 iconGuide.setVisible(true);
@@ -2130,29 +2129,29 @@ public class GameScreen extends AbstractGameScreen {
         checkStageAndCount();
         checkWindow();
 
-        if(!player.timeStop && !player.timeClear){
-            SunBar.instance.timeCount += 1*deltaTime;
+        if (!player.timeStop && !player.timeClear) {
+            SunBar.instance.timeCount += 1 * deltaTime;
         }
 
-        for (Weapon weapon : worldController.level.weapons){
-            if(weapon instanceof Trap){
-                if(weapon.isDestroyed()){
+        for (Weapon weapon : worldController.level.weapons) {
+            if (weapon instanceof Trap) {
+                if (weapon.isDestroyed()) {
                     EnergyUsedBar.instance.energyUse -= TrapBar.instance.energyTrap;
                 }
             }
-            if(weapon instanceof SwordWave){
-                if(weapon.isDestroyed()){
+            if (weapon instanceof SwordWave) {
+                if (weapon.isDestroyed()) {
                     EnergyUsedBar.instance.energyUse -= SwordWaveBar.instance.energySwordWave;
                 }
             }
         }
 
-        if(SunBar.instance.timeCount >= 60){
+        if (SunBar.instance.timeCount >= 60) {
             SunBar.instance.sunTime += 1;
             SunBar.instance.timeCount = 0;
         }
 
-        if(!dialogShow){
+        if (!dialogShow) {
             iconMission.setVisible(false);
             iconStatus.setVisible(false);
             iconGuide.setVisible(false);
@@ -2204,14 +2203,6 @@ public class GameScreen extends AbstractGameScreen {
     }
 
     @Override
-    public void write(Json json) {
-    }
-
-    @Override
-    public void read(Json json, JsonValue jsonData) {
-    }
-
-    @Override
     public WorldController getWorldController() {
         return worldController;
     }
@@ -2219,5 +2210,313 @@ public class GameScreen extends AbstractGameScreen {
     @Override
     public Window getOptionWindow() {
         return optionsWindow;
+    }
+
+    @Override
+    public void write(Json json) {
+//        json.writeValue("iconEnergyLess", iconEnergyLess);
+//        json.writeValue("buttonPlayStyle", buttonPlayStyle);
+//        json.writeValue("playUp", playUp);
+//        json.writeValue("buttonPlay", buttonPlay);
+//        json.writeValue("buttonPause", buttonPause);
+//        json.writeValue("iconHuman", iconHuman);
+//        json.writeValue("iconItem", iconItem);
+//        json.writeValue("buttonControlWindow", buttonControlWindow);
+//        json.writeValue("buttonControl", buttonControl);
+//        json.writeValue("iconControl", iconControl);
+//        json.writeValue("buttonMission", buttonMission);
+//        json.writeValue("iconMission", iconMission);
+//        json.writeValue("buttonGuide", buttonGuide);
+//        json.writeValue("iconGuide", iconGuide);
+//        json.writeValue("buttonStatus", buttonStatus);
+//        json.writeValue("iconStatus", iconStatus);
+//        json.writeValue("worldController", worldController);
+//        json.writeValue("worldRenderer", worldRenderer);
+        json.writeValue("controlShow", controlShow);
+//        json.writeValue("itemLink", itemLink);
+        json.writeValue("timeEvent", timeEvent);
+//        json.writeValue("batch", batch);
+//        json.writeValue("bg", bg);
+//        json.writeValue("stage", stage);
+//        json.writeValue("skin", skin);
+//        json.writeValue("buttonAgree", buttonAgree);
+//        json.writeValue("buttonRefuse", buttonRefuse);
+//        json.writeValue("labelStyle", labelStyle);
+//        json.writeValue("labelStyle2", labelStyle2);
+//        json.writeValue("textBeam", textBeam);
+//        json.writeValue("textTrap", textTrap);
+//        json.writeValue("textTime", textTime);
+//        json.writeValue("energyLevel", energyLevel);
+//        json.writeValue("energyLevel2", energyLevel2);
+//        json.writeValue("energyLevel3", energyLevel3);
+//        json.writeValue("textMission1", textMission1);
+//        json.writeValue("textMission2", textMission2);
+//        json.writeValue("textMission3", textMission3);
+//        json.writeValue("textMission4", textMission4);
+//        json.writeValue("textMission5", textMission5);
+//        json.writeValue("textMission6", textMission6);
+//        json.writeValue("textMission7", textMission7);
+//        json.writeValue("text1", text1);
+//        json.writeValue("text2", text2);
+//        json.writeValue("text3", text3);
+//        json.writeValue("text4", text4);
+//        json.writeValue("text5", text5);
+//        json.writeValue("text6", text6);
+//        json.writeValue("text7", text7);
+//        json.writeValue("text8", text8);
+//        json.writeValue("text9", text9);
+        json.writeValue("textSolarcell", textSolarcell);
+        json.writeValue("textCharge", textCharge);
+        json.writeValue("textBattery", textBattery);
+        json.writeValue("textInverter", textInverter);
+        json.writeValue("textDoor", textDoor);
+        json.writeValue("textSolarcell2", textSolarcell2);
+        json.writeValue("textCharge2", textCharge2);
+        json.writeValue("textBattery2", textBattery2);
+        json.writeValue("textInverter2", textInverter2);
+        json.writeValue("textDoor2", textDoor2);
+        json.writeValue("stageFourClear", stageFourClear);
+        json.writeValue("dialogCitizen2", dialogCitizen2);
+//        json.writeValue("labelSolarCell1", labelSolarCell1);
+//        json.writeValue("labelSolarCell2", labelSolarCell2);
+//        json.writeValue("labelSolarCell3", labelSolarCell3);
+//        json.writeValue("labelSolarCell4", labelSolarCell4);
+//        json.writeValue("solarCellButton1", solarCellButton1);
+//        json.writeValue("solarCellButton2", solarCellButton2);
+//        json.writeValue("solarCellButton3", solarCellButton3);
+//        json.writeValue("solarCellButton4", solarCellButton4);
+//        json.writeValue("textChart1", textChart1);
+//        json.writeValue("textChart2", textChart2);
+//        json.writeValue("textChart3", textChart3);
+//        json.writeValue("textChart4", textChart4);
+//        json.writeValue("textChart5", textChart5);
+//        json.writeValue("textChart6", textChart6);
+//        json.writeValue("textChart7", textChart7);
+//        json.writeValue("textSun", textSun);
+//        json.writeValue("textTemperature", textTemperature);
+//        json.writeValue("textLiking", textLiking);
+        json.writeValue("stageTwoAfter", stageTwoAfter);
+//        json.writeValue("textMission8", textMission8);
+//        json.writeValue("buttonGuideWindow", buttonGuideWindow);
+        json.writeValue("guideShow", guideShow);
+        json.writeValue("missionStart", missionStart);
+        json.writeValue("guideStart", guideStart);
+        json.writeValue("trapShow", trapShow);
+        json.writeValue("swordShow", swordShow);
+        json.writeValue("statusStart", statusStart);
+//        json.writeValue("textMission9", textMission9);
+//        json.writeValue("solarState", solarState);
+//        json.writeValue("solarWindow", solarWindow);
+//        json.writeValue("guideWindow", guideWindow);
+//        json.writeValue("link", link);
+//        json.writeValue("isComplete", isComplete);
+//        json.writeValue("imageLink1", imageLink1);
+//        json.writeValue("imageLink2", imageLink2);
+//        json.writeValue("imageLink3", imageLink3);
+//        json.writeValue("imageLink4", imageLink4);
+//        json.writeValue("buttonOption", buttonOption);
+//        json.writeValue("font", font);
+//        json.writeValue("optionsWindow", optionsWindow);
+//        json.writeValue("solarCellWindow", solarCellWindow);
+        json.writeValue("animation_status", animation_status);
+//        json.writeValue("buttonRule", buttonRule);
+//        json.writeValue("ruleWindow", ruleWindow);
+//        json.writeValue("chartWindow", chartWindow);
+//        json.writeValue("statusWindow", statusWindow);
+        json.writeValue("addedStoC", addedStoC);
+        json.writeValue("addedStoB", addedStoB);
+        json.writeValue("addedStoI", addedStoI);
+        json.writeValue("addedStoD", addedStoD);
+        json.writeValue("addedCtoB", addedCtoB);
+        json.writeValue("addedCtoI", addedCtoI);
+        json.writeValue("addedCtoD", addedCtoD);
+        json.writeValue("addedBtoI", addedBtoI);
+        json.writeValue("addedBtoD", addedBtoD);
+        json.writeValue("addedItoD", addedItoD);
+        json.writeValue("dialogStart", dialogStart);
+        json.writeValue("dialogTrap", dialogTrap);
+        json.writeValue("dialogSwordWave", dialogSwordWave);
+        json.writeValue("countEnemy", countEnemy);
+        json.writeValue("trueLink", trueLink);
+//        json.writeValue("dialog", dialog);
+//        json.writeValue("dialogStory", dialogStory);
+        json.writeValue("citizenCount", citizenCount);
+//        json.writeValue("missionWindow", missionWindow);
+        json.writeValue("text", text);
+        json.writeValue("dialogEnemy", dialogEnemy);
+        json.writeValue("dialogCitizen", dialogCitizen);
+        json.writeValue("dialogDoor1", dialogDoor1);
+        json.writeValue("dialogDoor2", dialogDoor2);
+        json.writeValue("dialogDoor3", dialogDoor3);
+        json.writeValue("dialogDoor4", dialogDoor4);
+        json.writeValue("dialogShow", dialogShow);
+        json.writeValue("stageTwoClear", stageTwoClear);
+        json.writeValue("stageThreeClear", stageThreeClear);
+//        json.writeValue("buttonStyle", buttonStyle);
+//        json.writeValue("buttonStyle2", buttonStyle2);
+//        json.writeValue("pauseUp", pauseUp);
+//        json.writeValue("toolUp", toolUp);
+//        json.writeValue("buttonToolStyle", buttonToolStyle);
+//        json.writeValue("buttonPauseStyle", buttonPauseStyle);
+//        json.writeValue("touchPad", touchPad);
+//        json.writeValue("swordAttackButton", swordAttackButton);
+//        json.writeValue("swordWaveAttackButton", swordWaveAttackButton);
+//        json.writeValue("trapAttackButton", trapAttackButton);
+//        json.writeValue("talkButton", talkButton);
+//        json.writeValue("game", game);
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+//        iconEnergyLess = jsonData.get("iconEnergyLess");
+//        buttonPlayStyle = jsonData.get("buttonPlayStyle");
+//        playUp = jsonData.get("playUp");
+//        buttonPlay = jsonData.get("buttonPlay");
+//        buttonPause = jsonData.get("buttonPause");
+//        iconHuman = jsonData.get("iconHuman");
+//        iconItem = jsonData.get("iconItem");
+//        buttonControlWindow = jsonData.get("buttonControlWindow");
+//        buttonControl = jsonData.get("buttonControl");
+//        iconControl = jsonData.get("iconControl");
+//        buttonMission = jsonData.get("buttonMission");
+//        iconMission = jsonData.get("iconMission");
+//        buttonGuide = jsonData.get("buttonGuide");
+//        iconGuide = jsonData.get("iconGuide");
+//        buttonStatus = jsonData.get("buttonStatus");
+//        iconStatus = jsonData.get("iconStatus");
+//        worldController = jsonData.get("worldController");
+//        worldRenderer = jsonData.get("worldRenderer");
+        controlShow = jsonData.getBoolean("controlShow");
+//        itemLink = jsonData.get("itemLink");
+        timeEvent = jsonData.getInt("timeEvent");
+//        batch = jsonData.get("batch");
+//        bg = jsonData.get("bg");
+//        stage = jsonData.get("stage");
+//        skin = jsonData.get("skin");
+//        buttonAgree = jsonData.get("buttonAgree");
+//        buttonRefuse = jsonData.get("buttonRefuse");
+//        labelStyle = jsonData.get("labelStyle");
+//        labelStyle2 = jsonData.get("labelStyle2");
+//        textBeam = jsonData.get("textBeam");
+//        textTrap = jsonData.get("textTrap");
+//        textTime = jsonData.get("textTime");
+//        energyLevel = jsonData.get("energyLevel");
+//        energyLevel2 = jsonData.get("energyLevel2");
+//        energyLevel3 = jsonData.get("energyLevel3");
+//        textMission1 = jsonData.get("textMission1");
+//        textMission2 = jsonData.get("textMission2");
+//        textMission3 = jsonData.get("textMission3");
+//        textMission4 = jsonData.get("textMission4");
+//        textMission5 = jsonData.get("textMission5");
+//        textMission6 = jsonData.get("textMission6");
+//        textMission7 = jsonData.get("textMission7");
+//        text1 = jsonData.get("text1");
+//        text2 = jsonData.get("text2");
+//        text3 = jsonData.get("text3");
+//        text4 = jsonData.get("text4");
+//        text5 = jsonData.get("text5");
+//        text6 = jsonData.get("text6");
+//        text7 = jsonData.get("text7");
+//        text8 = jsonData.get("text8");
+//        text9 = jsonData.get("text9");
+        textSolarcell = jsonData.getString("textSolarcell");
+        textCharge = jsonData.getString("textCharge");
+        textBattery = jsonData.getString("textBattery");
+        textInverter = jsonData.getString("textInverter");
+        textDoor = jsonData.getString("textDoor");
+        textSolarcell2 = jsonData.getString("textSolarcell2");
+        textCharge2 = jsonData.getString("textCharge2");
+        textBattery2 = jsonData.getString("textBattery2");
+        textInverter2 = jsonData.getString("textInverter2");
+        textDoor2 = jsonData.getString("textDoor2");
+        stageFourClear = jsonData.getBoolean("stageFourClear");
+        dialogCitizen2 = jsonData.getBoolean("dialogCitizen2");
+//        labelSolarCell1 = jsonData.get("labelSolarCell1");
+//        labelSolarCell2 = jsonData.get("labelSolarCell2");
+//        labelSolarCell3 = jsonData.get("labelSolarCell3");
+//        labelSolarCell4 = jsonData.get("labelSolarCell4");
+//        solarCellButton1 = jsonData.get("solarCellButton1");
+//        solarCellButton2 = jsonData.get("solarCellButton2");
+//        solarCellButton3 = jsonData.get("solarCellButton3");
+//        solarCellButton4 = jsonData.get("solarCellButton4");
+//        textChart1 = jsonData.get("textChart1");
+//        textChart2 = jsonData.get("textChart2");
+//        textChart3 = jsonData.get("textChart3");
+//        textChart4 = jsonData.get("textChart4");
+//        textChart5 = jsonData.get("textChart5");
+//        textChart6 = jsonData.get("textChart6");
+//        textChart7 = jsonData.get("textChart7");
+//        textSun = jsonData.get("textSun");
+//        textTemperature = jsonData.get("textTemperature");
+//        textLiking = jsonData.get("textLiking");
+        stageTwoAfter = jsonData.getBoolean("stageTwoAfter");
+//        textMission8 = jsonData.get("textMission8");
+//        buttonGuideWindow = jsonData.get("buttonGuideWindow");
+        guideShow = jsonData.getBoolean("guideShow");
+        missionStart = jsonData.getBoolean("missionStart");
+        guideStart = jsonData.getBoolean("guideStart");
+        trapShow = jsonData.getBoolean("trapShow");
+        swordShow = jsonData.getBoolean("swordShow");
+        statusStart = jsonData.getBoolean("statusStart");
+//        textMission9 = jsonData.get("textMission9");
+//        solarState = jsonData.get("solarState");
+//        solarWindow = jsonData.get("solarWindow");
+//        guideWindow = jsonData.get("guideWindow");
+//        link = jsonData.get("link");
+//        isComplete = jsonData.get("isComplete");
+//        imageLink1 = jsonData.get("imageLink1");
+//        imageLink2 = jsonData.get("imageLink2");
+//        imageLink3 = jsonData.get("imageLink3");
+//        imageLink4 = jsonData.get("imageLink4");
+//        buttonOption = jsonData.get("buttonOption");
+//        font = jsonData.get("font");
+//        optionsWindow = jsonData.get("optionsWindow");
+//        solarCellWindow = jsonData.get("solarCellWindow");
+        animation_status = jsonData.getBoolean("animation_status");
+//        buttonRule = jsonData.get("buttonRule");
+//        ruleWindow = jsonData.get("ruleWindow");
+//        chartWindow = jsonData.get("chartWindow");
+//        statusWindow = jsonData.get("statusWindow");
+        addedStoC = jsonData.getBoolean("addedStoC");
+        addedStoB = jsonData.getBoolean("addedStoB");
+        addedStoI = jsonData.getBoolean("addedStoI");
+        addedStoD = jsonData.getBoolean("addedStoD");
+        addedCtoB = jsonData.getBoolean("addedCtoB");
+        addedCtoI = jsonData.getBoolean("addedCtoI");
+        addedCtoD = jsonData.getBoolean("addedCtoD");
+        addedBtoI = jsonData.getBoolean("addedBtoI");
+        addedBtoD = jsonData.getBoolean("addedBtoD");
+        addedItoD = jsonData.getBoolean("addedItoD");
+        dialogStart = jsonData.getBoolean("dialogStart");
+        dialogTrap = jsonData.getBoolean("dialogTrap");
+        dialogSwordWave = jsonData.getBoolean("dialogSwordWave");
+        countEnemy = jsonData.getInt("countEnemy");
+        trueLink = jsonData.getInt("trueLink");
+//        dialog = jsonData.get("dialog");
+//        dialogStory = jsonData.get("dialogStory");
+        citizenCount = jsonData.getInt("citizenCount");
+//        missionWindow = jsonData.get("missionWindow");
+        text = jsonData.getString("text");
+        dialogEnemy = jsonData.getBoolean("dialogEnemy");
+        dialogCitizen = jsonData.getBoolean("dialogCitizen");
+        dialogDoor1 = jsonData.getBoolean("dialogDoor1");
+        dialogDoor2 = jsonData.getBoolean("dialogDoor2");
+        dialogDoor3 = jsonData.getBoolean("dialogDoor3");
+        dialogDoor4 = jsonData.getBoolean("dialogDoor4");
+        dialogShow = jsonData.getBoolean("dialogShow");
+        stageTwoClear = jsonData.getBoolean("stageTwoClear");
+        stageThreeClear = jsonData.getBoolean("stageThreeClear");
+//        buttonStyle = jsonData.get("buttonStyle");
+//        buttonStyle2 = jsonData.get("buttonStyle2");
+//        pauseUp = jsonData.get("pauseUp");
+//        toolUp = jsonData.get("toolUp");
+//        buttonToolStyle = jsonData.get("buttonToolStyle");
+//        buttonPauseStyle = jsonData.get("buttonPauseStyle");
+//        touchPad = jsonData.get("touchPad");
+//        swordAttackButton = jsonData.get("swordAttackButton");
+//        swordWaveAttackButton = jsonData.get("swordWaveAttackButton");
+//        trapAttackButton = jsonData.get("trapAttackButton");
+//        talkButton = jsonData.get("talkButton");
+//        game = jsonData.get("game");
     }
 }

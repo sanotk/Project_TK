@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.mypjgdx.esg.screens.*;
 
-public class GameSaveManager {
+public class GameSaveManager implements Json.Serializable {
 
     public static final GameSaveManager instance = new GameSaveManager();
 
@@ -20,18 +20,25 @@ public class GameSaveManager {
     public void save() {
         FileHandle file = Gdx.files.absolute("C:\\Data\\save.txt");
         Json json = new Json(JsonWriter.OutputType.json);
-        System.out.print(json.prettyPrint(gameScreen.getWorldController().level));
-        json.toJson(gameScreen.getWorldController().level, file);
+        json.toJson(this, file);
+        System.out.print(json.prettyPrint(this));
     }
 
     public void load() {
         FileHandle file = Gdx.files.absolute("C:\\Data\\save.txt");
-        JsonReader reader = new JsonReader();
-        final JsonValue saveData = reader.parse(file);
+        read(null, new JsonReader().parse(file));
+    }
 
-        String levelName = saveData.get("name").asString();
+    @Override
+    public void write(Json json) {
+        json.writeValue("level", gameScreen.getWorldController().level);
+        json.writeValue("gameScreen", gameScreen);
+    }
+
+    @Override
+    public void read(Json json, final JsonValue jsonData) {
+        String levelName = jsonData.get("level").get("name").asString();
         final AbstractGameScreen newGameScreen;
-
         if (levelName.equals("Level1")) {
             newGameScreen = new GameScreen(gameScreen.game, gameScreen.getOptionWindow());
         } else if (levelName.equals("Level2")) {
@@ -48,10 +55,9 @@ public class GameSaveManager {
             @Override
             public void run() {
                 gameScreen.game.setScreen(newGameScreen);
-                newGameScreen.getWorldController().level.read(null, saveData);
-                newGameScreen.read(null, saveData);
+                newGameScreen.getWorldController().level.read(null, jsonData.get("level"));
+                newGameScreen.read(null, jsonData.get("gameScreen"));
             }
         });
     }
-
 }

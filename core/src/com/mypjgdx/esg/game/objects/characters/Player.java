@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.utils.SoundManager;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
 import com.mypjgdx.esg.game.objects.items.Item;
@@ -24,6 +23,7 @@ import com.mypjgdx.esg.ui.EnergyUsedBar;
 import com.mypjgdx.esg.ui.SwordWaveBar;
 import com.mypjgdx.esg.ui.TrapBar;
 import com.mypjgdx.esg.utils.Direction;
+import com.mypjgdx.esg.utils.SoundManager;
 
 import java.util.List;
 
@@ -562,19 +562,11 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
     }
 
     public void statusEnergy() {
-        if (statusEnergyWindow == true) {
-            statusEnergyWindow = false;
-        } else {
-            statusEnergyWindow = true;
-        }
+        statusEnergyWindow = statusEnergyWindow != true;
     }
 
     public void solarCellGuide() {
-        if (solarCellGuideWindow == true) {
-            solarCellGuideWindow = false;
-        } else {
-            solarCellGuideWindow = true;
-        }
+        solarCellGuideWindow = solarCellGuideWindow != true;
     }
 
     @Override
@@ -641,8 +633,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         JsonValue player = jsonData.get("player");
         JsonValue positionJson = player.get("position");
 
+        health = player.getInt("hp");
         setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
-
         timeCount = player.getInt("timeCount");
 
         questScreen1 = player.getBoolean("questScreen1");
