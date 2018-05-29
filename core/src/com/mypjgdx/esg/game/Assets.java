@@ -162,6 +162,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion guide4Window;
     public Texture waterTexture;
 
+    public Texture dialogTexture;
+
     private Assets() {}
 
     public void init() {
@@ -302,7 +304,12 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("attack_button.png", Texture.class);
         manager.load("water.png", Texture.class);
 
+        manager.load("dialogStory.png", Texture.class);
+
         manager.finishLoading();
+
+        dialogTexture = manager.get("dialogStory.png");
+        dialogTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         waterTexture = manager.get("water.png");
 
@@ -328,9 +335,6 @@ public class Assets implements Disposable, AssetErrorListener {
         trapAttackButtonBackground = getFilteredTexture("trap_attack_button.png");
         talkButtonBackground = getFilteredTexture("talk_button.png");
 
-//        TextureAtlas atlas = new TextureAtlas();
-//        atlas.addRegion("window", new TextureRegion((Texture)manager.get("window.9.png")));
-//        window = atlas.createPatch("window");
         window = new NinePatch((Texture) manager.get("window.png"), 9, 9, 44, 8);
 
         buttonSolarcellAdd = new TextureRegion((Texture)manager.get("solarcell_button_add.png"));

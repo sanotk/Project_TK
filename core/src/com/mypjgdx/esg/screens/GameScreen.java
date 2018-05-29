@@ -46,10 +46,6 @@ public class GameScreen extends AbstractGameScreen {
     private static final int SCENE_HEIGHT = 576;
 
     private Button iconEnergyLess;
-    private TextButton.TextButtonStyle buttonPlayStyle;
-    private TextureRegionDrawable playUp;
-    private Button buttonPlay;
-    private Button buttonPause;
     private Button iconHuman;
     private Button iconItem;
     private Button buttonControlWindow;
@@ -197,7 +193,6 @@ public class GameScreen extends AbstractGameScreen {
     private int trueLink = 0;
 
     private Dialog dialog;
-    private Texture dialogStory;
     private int citizenCount = 0;
 
     private Window missionWindow;
@@ -261,13 +256,11 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(talkButton);
         talkButton.setPosition(stage.getWidth() - talkButton.getWidth() - 60, 400);
 
-        dialogStory = new Texture("dialogStory.png");
-        dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        dialog = new Dialog(font, dialogStory, 65f, 120f);
+        dialog = new Dialog(font, Assets.instance.dialogTexture, 65f, 120f);
         dialog.setPosition(
-                SCENE_WIDTH / 2 - dialogStory.getWidth() * 0.5f,
-                SCENE_HEIGHT / 4 - dialogStory.getHeight() * 0.5f);
+                SCENE_WIDTH / 2 - Assets.instance.dialogTexture.getWidth() * 0.5f,
+                SCENE_HEIGHT / 4 - Assets.instance.dialogTexture.getHeight() * 0.5f);
 
         this.optionsWindow = optionsWindow;
 
@@ -275,27 +268,9 @@ public class GameScreen extends AbstractGameScreen {
         isComplete.add(SolarState.CtoB);
         isComplete.add(SolarState.CtoI);
         isComplete.add(SolarState.ItoD);
-
-        createButton();
     }
 
     private void createButton() {
-
-        buttonPauseStyle = new TextButton.TextButtonStyle();
-        pauseUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_pause"));
-        buttonPauseStyle.up = pauseUp;
-        buttonPauseStyle.down = pauseUp.tint(Color.LIGHT_GRAY);
-        buttonPause = new Button(buttonPauseStyle);
-        buttonPause.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
-
-        buttonPlayStyle = new TextButton.TextButtonStyle();
-        playUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_play"));
-        buttonPlayStyle.up = playUp;
-        buttonPlayStyle.down = playUp.tint(Color.LIGHT_GRAY);
-        buttonPlay = new Button(buttonPlayStyle);
-        buttonPlay.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 100);
-
-        buttonPlay.setVisible(false);
 
         TextButton.TextButtonStyle buttonControlStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable ControlUp = new TextureRegionDrawable(Assets.instance.iconControl);
@@ -436,8 +411,7 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(buttonControlWindow);
         stage.addActor(iconHuman);
         stage.addActor(iconItem);
-        stage.addActor(buttonPlay);
-        stage.addActor(buttonPause);
+        stage.addActor(new PlayPauseButton(worldController, SCENE_WIDTH - 50, SCENE_HEIGHT - 100));
         stage.addActor(iconEnergyLess);
         stage.addActor(iconGuide);
         stage.addActor(iconControl);
@@ -451,24 +425,6 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(guideWindow);
         stage.addActor(solarCellWindow);
         stage.addActor(missionWindow);
-
-        buttonPause.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                buttonPause.setVisible(false);
-                buttonPlay.setVisible(true);
-                worldController.level.player.timeStop = true;
-            }
-        });
-
-        buttonPlay.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                buttonPlay.setVisible(false);
-                buttonPause.setVisible(true);
-                worldController.level.player.timeStop = false;
-            }
-        });
 
         buttonMission.addListener(new ClickListener() {
             @Override
@@ -508,12 +464,6 @@ public class GameScreen extends AbstractGameScreen {
                     buttonGuideWindow.setVisible(true);
                     worldController.level.player.timeStop = true;
                 }
-//                guideWindow.pack();
-//                worldController.level.player.timeStop = true;
-//                guideWindow.setPosition(
-//                        Gdx.graphics.getWidth() / 2 - guideWindow.getWidth() / 2,
-//                        Gdx.graphics.getHeight() / 2 - guideWindow.getHeight() / 2);
-//                guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
 
@@ -529,12 +479,6 @@ public class GameScreen extends AbstractGameScreen {
                     buttonGuideWindow.setVisible(true);
                     worldController.level.player.timeStop = true;
                 }
-//                guideWindow.pack();
-//                worldController.level.player.timeStop = true;
-//                guideWindow.setPosition(
-//                        Gdx.graphics.getWidth() / 2 - guideWindow.getWidth() / 2,
-//                        Gdx.graphics.getHeight() / 2 - guideWindow.getHeight() / 2);
-//                guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
 
@@ -550,12 +494,6 @@ public class GameScreen extends AbstractGameScreen {
                     buttonGuideWindow.setVisible(true);
                     worldController.level.player.timeStop = true;
                 }
-//                guideWindow.pack();
-//                worldController.level.player.timeStop = true;
-//                guideWindow.setPosition(
-//                        Gdx.graphics.getWidth() / 2 - guideWindow.getWidth() / 2,
-//                        Gdx.graphics.getHeight() / 2 - guideWindow.getHeight() / 2);
-//                guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
 
@@ -2166,12 +2104,13 @@ public class GameScreen extends AbstractGameScreen {
 
         MusicManager.instance.stop();
         MusicManager.instance.play(MusicManager.Musics.MUSIC_2, true);
+
+        createButton();
     }
 
     @Override
     public void hide() {
         stage.dispose();
-        dialogStory.dispose();
         worldRenderer.dispose();
     }
 
