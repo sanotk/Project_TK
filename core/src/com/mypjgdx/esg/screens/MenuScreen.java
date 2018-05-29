@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.ui.LoadTestButton;
+import com.mypjgdx.esg.utils.GameSaveManager;
 import com.mypjgdx.esg.utils.MusicManager;
 import com.mypjgdx.esg.utils.SoundManager;
 
@@ -107,6 +108,7 @@ public class MenuScreen extends AbstractGameScreen {
         loadWindow.setVisible(false);
 
         LoadTestButton loadTestButton = new LoadTestButton();
+        final GameScreen gameScreen = new GameScreen(game, optionsWindow);
 
         stage.addActor(text_mainmenu);
         stage.addActor(buttonStart);
@@ -120,7 +122,7 @@ public class MenuScreen extends AbstractGameScreen {
         buttonStart.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game, optionsWindow));
+                game.setScreen(gameScreen);
             }
         });
 
@@ -151,6 +153,7 @@ public class MenuScreen extends AbstractGameScreen {
             }
         });
 
+        GameSaveManager.instance.gameScreen = this;
     }
 
     private Window createLoadWindow() {
@@ -345,5 +348,10 @@ public class MenuScreen extends AbstractGameScreen {
     public void dispose() {
         stage.dispose();
         skin.dispose();
+    }
+
+    @Override
+    public Window getOptionWindow() {
+        return optionsWindow;
     }
 }

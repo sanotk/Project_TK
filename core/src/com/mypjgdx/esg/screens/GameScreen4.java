@@ -32,10 +32,7 @@ import com.mypjgdx.esg.game.objects.weapons.Trap;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.ui.Dialog;
-import com.mypjgdx.esg.utils.ItemLink;
-import com.mypjgdx.esg.utils.MusicManager;
-import com.mypjgdx.esg.utils.QuestState;
-import com.mypjgdx.esg.utils.SolarState;
+import com.mypjgdx.esg.utils.*;
 
 import java.util.ArrayList;
 
@@ -230,6 +227,7 @@ public class GameScreen4 extends AbstractGameScreen {
     private SwordAttackButton swordAttackButton;
     private SwordWaveAttackButton swordWaveAttackButton;
     private TrapAttackButton trapAttackButton;
+    private TalkButton talkButton;
 
     private ItemLink itemLink;
 
@@ -260,6 +258,10 @@ public class GameScreen4 extends AbstractGameScreen {
         stage.addActor(trapAttackButton);
         trapAttackButton.setPosition(stage.getWidth() - trapAttackButton.getWidth() - 60, 135);
 
+        talkButton = new TalkButton();
+        stage.addActor(talkButton);
+        talkButton.setPosition(stage.getWidth() - talkButton.getWidth() - 60, 400);
+
         EnergyProducedBar.instance.energyProduced = 2700;
         LikingBar.instance.liking = 6;
         TemperatureBar.instance.Temperature = 25;
@@ -280,6 +282,8 @@ public class GameScreen4 extends AbstractGameScreen {
 
         createButton();
         batch = new SpriteBatch();
+
+        GameSaveManager.instance.gameScreen = this;
     }
 
     private void createButton() {
@@ -1939,6 +1943,7 @@ public class GameScreen4 extends AbstractGameScreen {
         worldController.swordAttackButton = swordAttackButton;
         worldController.swordWaveAttackButton = swordWaveAttackButton;
         worldController.trapAttackButton = trapAttackButton;
+        worldController.talkButton = talkButton;
         MusicManager.instance.stop();
         MusicManager.instance.play(MusicManager.Musics.MUSIC_2, true);
     }
@@ -1957,4 +1962,13 @@ public class GameScreen4 extends AbstractGameScreen {
     public void pause() {
     }
 
+    @Override
+    public WorldController getWorldController() {
+        return worldController;
+    }
+
+    @Override
+    public Window getOptionWindow() {
+        return optionsWindow;
+    }
 }

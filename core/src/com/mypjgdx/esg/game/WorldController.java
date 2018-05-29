@@ -4,18 +4,11 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.JsonWriter;
-import com.mypjgdx.esg.game.levels.*;
-import com.mypjgdx.esg.game.objects.characters.Enemy;
-import com.mypjgdx.esg.game.objects.characters.EnemySpawner;
-import com.mypjgdx.esg.game.objects.etcs.Link;
+import com.mypjgdx.esg.game.levels.Level;
 import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.utils.CameraHelper;
 import com.mypjgdx.esg.utils.Direction;
+import com.mypjgdx.esg.utils.GameSaveManager;
 
 public class WorldController extends InputAdapter {
 
@@ -119,99 +112,14 @@ public class WorldController extends InputAdapter {
             if (Gdx.input.isKeyJustPressed(Keys.X)) level.player.swordWaveAttack(level.weapons, level.swords);
             if (Gdx.input.isKeyJustPressed(Keys.A)) level.player.findItem();
             if (Gdx.input.isKeyJustPressed(Keys.B)) {
-//                Json json = new Json();
-//                String choice = json.toJson(level);
-//                String energyProduced = json.toJson(EnergyProducedBar.instance.energyProduced);
-                FileHandle file = Gdx.files.absolute("C:\\Data\\save.txt"); // TODO
-//                file.delete();
-//                file.writeString(choice, true);         // True means append, false means overwrite.
-                Json json = new Json(JsonWriter.OutputType.json);
-                System.out.print(json.prettyPrint(level));
-                json.toJson(level, file);
+                GameSaveManager.instance.save();
             }
             if (Gdx.input.isKeyJustPressed(Keys.L)) {
-                load();
+                GameSaveManager.instance.load();
             }
         }
     }
 
-    public void load() {
-        FileHandle file = Gdx.files.absolute("C:\\Data\\save.txt");
-
-        JsonReader reader = new JsonReader();
-        JsonValue saveData = reader.parse(file);
-
-        String levelName = saveData.get("name").asString();
-
-        if (levelName.equals("Level1")) {
-            init(new Level1());
-        } else if (levelName.equals("Level2")) {
-            init(new Level2());
-        } else if (levelName.equals("Level3")) {
-            init(new Level3());
-        } else if (levelName.equals("Level4")) {
-            init(new Level4());
-        }
-
-        loadPlayer(saveData);
-        EnergyProducedBar.instance.read(null, saveData);
-        EnergyUsedBar.instance.read(null, saveData);
-        BatteryBar.instance.read(null, saveData);
-        loadCitizens(saveData);
-        loadItems(saveData);
-        loadLinks(saveData);
-        loadEnemies(saveData);
-    }
-
-    private void loadEnemies(JsonValue saveData) {
-        JsonValue enemies = saveData.get("enemies");
-        if (enemies.isArray()) {
-            level.enemies.clear();
-            for (int i = 0; i < enemies.size; i++) {
-                Enemy enemy = EnemySpawner.valueOf(enemies.get(i).getString("type")).spawn();
-                enemy.setPlayer(level.player);
-                enemy.init(level.mapLayer);
-                enemy.read(null, enemies.get(i));
-                level.enemies.add(enemy);
-            }
-        }
-    }
-
-    private void loadLinks(JsonValue saveData) {
-        JsonValue links = saveData.get("links");
-        if (links.isArray()) {
-            level.links.clear();
-            for (int i = 0; i < links.size; i++) {
-                Link link = new Link();
-                link.read(null, links.get(i));
-                link.init(level.mapLayer);
-                level.links.add(link);
-            }
-        }
-    }
-
-    private void loadCitizens(JsonValue saveData) {
-        JsonValue citizens = saveData.get("citizens");
-        if (citizens.isArray()) {
-            for (int i = 0; i < citizens.size; i++) {
-                level.citizens.get(i).read(null, citizens.get(i));
-            }
-        }
-    }
-
-
-    private void loadItems(JsonValue saveData) {
-        JsonValue items = saveData.get("items");
-        if (items.isArray()) {
-            for (int i = 0; i < items.size; i++) {
-                level.items.get(i).read(null, items.get(i));
-            }
-        }
-    }
-
-    private void loadPlayer(JsonValue saveData) {
-        level.player.read(null, saveData);
-    }
 
     @Override
     public boolean keyDown(int keycode) {
@@ -220,25 +128,7 @@ public class WorldController extends InputAdapter {
                 if (!cameraHelper.hasTarget()) cameraHelper.setTarget(level.player);
                 else cameraHelper.setTarget(null);
                 break;
-            case Keys.NUMPAD_1:
-                level.init();
-                init(level);
-                break;
-            case Keys.NUMPAD_2:
-                level.init();
-                init(level);
-                break;
-            case Keys.NUMPAD_3:
-                level.init();
-                init(level);
-                break;
-            case Keys.NUMPAD_4:
-                level.init();
-                init(level);
-                break;
         }
-
-
         return true;
     }
 

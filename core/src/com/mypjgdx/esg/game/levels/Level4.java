@@ -65,7 +65,7 @@ public class Level4 extends Level {
         swords.add(new NormalSword(mapLayer, player));
 
         addWater(100, 450, 3, 12, 0.35f);
-        addWater(100, 200, 3, 2, 0.1f);
+        addWater(100, 200, 3, 2, 1f);
     }
 
     @Override

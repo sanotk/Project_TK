@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.WorldController;
+import com.mypjgdx.esg.utils.GameSaveManager;
 
 public class LoadTestButton extends TextButton {
 
@@ -17,20 +17,14 @@ public class LoadTestButton extends TextButton {
         style.font = Assets.instance.newFont;
     }
 
-    private WorldController worldController;
-
     public LoadTestButton() {
         super("Load", style);
 
         addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                worldController.load();
+                GameSaveManager.instance.load();
             }
         });
-    }
-
-    public void setWorldController(WorldController worldController) {
-        this.worldController = worldController;
     }
 }
