@@ -18,13 +18,6 @@ public class HydroPower extends Item{
         playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "hydroPower");
 	}
 
-    public HydroPower(TiledMapTileLayer mapLayer, Player player, float P_X, float P_Y){
-        super(Assets.instance.hydroPowerAltas, SCALE, SCALE , P_X , P_Y);
-        init(mapLayer,  player );
-
-        playerCheck = new TiledCollisionCheck(player.bounds, mapLayer, "hydroPower");
-    }
-
     @Override
     public String getName() {
         // TODO Auto-generated method stub
