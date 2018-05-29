@@ -232,6 +232,7 @@ public class GameScreen extends AbstractGameScreen {
     private SwordAttackButton swordAttackButton;
     private SwordWaveAttackButton swordWaveAttackButton;
     private TrapAttackButton trapAttackButton;
+    private TalkButton talkButton;
 
     public GameScreen(final Game game, final Window optionsWindow) {
         super(game);
@@ -1969,7 +1970,7 @@ public class GameScreen extends AbstractGameScreen {
 
         solarCellWindow.setPosition(
                 stage.getWidth() / 2 - solarCellWindow.getWidth() / 2,
-                stage.getHeight() / 2 - solarCellWindow.getHeight() / 2);f
+                stage.getHeight() / 2 - solarCellWindow.getHeight() / 2);
         if (!animation_status && player.status_find && stageTwoAfter) {
             if (level1.solarCell1.nearPlayer()) {
                 solarWindow = systemWindow.solarcell;
@@ -2179,6 +2180,7 @@ public class GameScreen extends AbstractGameScreen {
         worldController.swordAttackButton = swordAttackButton;
         worldController.swordWaveAttackButton = swordWaveAttackButton;
         worldController.trapAttackButton = trapAttackButton;
+        worldController.talkButton = talkButton;
         Gdx.input.setInputProcessor(stage);
 
         MusicManager.instance.stop();

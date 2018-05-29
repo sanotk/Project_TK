@@ -375,7 +375,6 @@ public class Assets implements Disposable, AssetErrorListener {
         buttonGreen1 = new TextureRegion((Texture)manager.get("button_green_1.png"));
         buttonGreen2 = new TextureRegion((Texture)manager.get("button_green_2.png"));
 
-
         trap = new TextureRegion((Texture)manager.get("trap.png"));
         beam = new TextureRegion((Texture)manager.get("beam.png"));
         box = new TextureRegion((Texture)manager.get("box.png"));

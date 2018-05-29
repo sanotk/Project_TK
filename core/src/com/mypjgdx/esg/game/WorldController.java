@@ -29,6 +29,7 @@ public class WorldController extends InputAdapter {
     public SwordAttackButton swordAttackButton;
     public SwordWaveAttackButton swordWaveAttackButton;
     public TrapAttackButton trapAttackButton;
+    public TalkButton talkButton;
 
     public WorldController(Level level) {
         init(level);
@@ -94,6 +95,10 @@ public class WorldController extends InputAdapter {
         }
         if (trapAttackButton.isPressed()) {
             level.player.trapAttack(level.weapons);
+        }
+
+        if (talkButton.isPressed()) {
+            level.player.findItem();
         }
 
         if (Gdx.app.getType() == ApplicationType.Android && Gdx.input.isTouched()) {
