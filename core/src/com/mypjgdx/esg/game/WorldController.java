@@ -95,10 +95,6 @@ public class WorldController extends InputAdapter {
         if (trapAttackButton.isPressed()) {
             level.player.trapAttack(level.weapons);
         }
-//        if (swordAttackButton.isJustPressed()) {
-//            level.player.swordAttack(level.weapons, level.swords);
-//        }
-
 
         if (Gdx.app.getType() == ApplicationType.Android && Gdx.input.isTouched()) {
             float x = Gdx.input.getX();
