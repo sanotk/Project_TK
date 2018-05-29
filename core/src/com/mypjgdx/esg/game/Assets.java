@@ -27,6 +27,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public Texture swordAttackButtonBackground;
     public Texture swordWaveAttackButtonBackground;
     public Texture trapAttackButtonBackground;
+    public Texture talkButtonBackground;
 
     public Texture touchPadBackground;
     public Texture touchPadKnob;
@@ -189,6 +190,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("sword_attack_button.png",Texture.class);
         manager.load("sword_wave_button.png",Texture.class);
         manager.load("trap_attack_button.png",Texture.class);
+        manager.load("talk_button.png",Texture.class);
 
         manager.load("icon_sword.png",Texture.class);
         manager.load("icon_bow.png",Texture.class);
@@ -324,6 +326,7 @@ public class Assets implements Disposable, AssetErrorListener {
         swordAttackButtonBackground = getFilteredTexture("sword_attack_button.png");
         swordWaveAttackButtonBackground = getFilteredTexture("sword_wave_button.png");
         trapAttackButtonBackground = getFilteredTexture("trap_attack_button.png");
+        talkButtonBackground = getFilteredTexture("talk_button.png");
 
 //        TextureAtlas atlas = new TextureAtlas();
 //        atlas.addRegion("window", new TextureRegion((Texture)manager.get("window.9.png")));

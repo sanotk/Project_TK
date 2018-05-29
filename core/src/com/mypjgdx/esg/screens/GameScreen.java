@@ -1969,7 +1969,7 @@ public class GameScreen extends AbstractGameScreen {
 
         solarCellWindow.setPosition(
                 stage.getWidth() / 2 - solarCellWindow.getWidth() / 2,
-                stage.getHeight() / 2 - solarCellWindow.getHeight() / 2);
+                stage.getHeight() / 2 - solarCellWindow.getHeight() / 2);f
         if (!animation_status && player.status_find && stageTwoAfter) {
             if (level1.solarCell1.nearPlayer()) {
                 solarWindow = systemWindow.solarcell;
