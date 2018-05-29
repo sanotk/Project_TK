@@ -11,15 +11,14 @@ import com.mypjgdx.esg.game.Assets;
 
 public class OptionButton extends Button {
 
-    private static final ButtonStyle style = new ButtonStyle();
-    static {
-        TextureRegionDrawable toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
-        style.up = toolUp;
-        style.down = toolUp.tint(Color.LIGHT_GRAY);
-    }
-
     public OptionButton(final Window optionWindow, float x, float y) {
-        super(style);
+        super(new ButtonStyle());
+
+        TextureRegionDrawable toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
+        getStyle().up = toolUp;
+        getStyle().down = toolUp.tint(Color.LIGHT_GRAY);
+        pack();
+
         setPosition(x, y);
         addListener(new ClickListener() {
             @Override
@@ -31,5 +30,4 @@ public class OptionButton extends Button {
             }
         });
     }
-
 }
