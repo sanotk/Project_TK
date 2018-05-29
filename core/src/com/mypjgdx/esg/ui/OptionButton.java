@@ -11,9 +11,8 @@ import com.mypjgdx.esg.game.Assets;
 
 public class OptionButton extends Button {
 
-    private static final ButtonStyle style;
+    private static final ButtonStyle style = new ButtonStyle();
     static {
-        style = new ButtonStyle();
         TextureRegionDrawable toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
         style.up = toolUp;
         style.down = toolUp.tint(Color.LIGHT_GRAY);
