@@ -21,6 +21,8 @@ public class Level4 extends Level {
     public Item hydroPower;
 
     public Level4() {
+        name = "Level4";
+
         map = Assets.instance.map4;
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 

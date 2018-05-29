@@ -34,6 +34,8 @@ public class Level3 extends Level {
 
 
     public Level3() {
+        name = "Level3";
+
         map = Assets.instance.map3;
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 

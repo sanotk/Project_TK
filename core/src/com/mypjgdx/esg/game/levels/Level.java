@@ -43,6 +43,7 @@ public abstract class Level implements Json.Serializable {
 
     public boolean hasSolarCell;
 
+    protected String name;
 
     public Level() {
         weapons = new ArrayList<Weapon>();
@@ -191,6 +192,7 @@ public abstract class Level implements Json.Serializable {
         json.writeValue("ArrowBar", ArrowBar.instance);
         json.writeValue("SwordWaveBar", SwordWaveBar.instance);
         json.writeValue("TrapBar", TrapBar.instance);
+        json.writeValue("name", name);
     }
 
     @Override

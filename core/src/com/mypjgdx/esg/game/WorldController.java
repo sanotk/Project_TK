@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
-import com.mypjgdx.esg.game.levels.Level;
+import com.mypjgdx.esg.game.levels.*;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.EnemySpawner;
 import com.mypjgdx.esg.game.objects.etcs.Link;
@@ -129,25 +129,40 @@ public class WorldController extends InputAdapter {
                 json.toJson(level, file);
             }
             if (Gdx.input.isKeyJustPressed(Keys.L)) {
-                FileHandle file = Gdx.files.absolute("C:\\Data\\save.txt");
-
-                Json json = new Json(JsonWriter.OutputType.json);
-
-                JsonReader reader = new JsonReader();
-                JsonValue saveData = reader.parse(file);
-                loadPlayer(saveData);
-                EnergyProducedBar.instance.read(null, saveData);
-                EnergyUsedBar.instance.read(null, saveData);
-                BatteryBar.instance.read(null, saveData);
-                loadCitizens(saveData);
-                loadItems(saveData);
-                loadLinks(saveData);
-                loadEnemys(saveData);
+                load();
             }
         }
     }
 
-    private void loadEnemys(JsonValue saveData) {
+    public void load() {
+        FileHandle file = Gdx.files.absolute("C:\\Data\\save.txt");
+
+        JsonReader reader = new JsonReader();
+        JsonValue saveData = reader.parse(file);
+
+        String levelName = saveData.get("name").asString();
+
+        if (levelName.equals("Level1")) {
+            init(new Level1());
+        } else if (levelName.equals("Level2")) {
+            init(new Level2());
+        } else if (levelName.equals("Level3")) {
+            init(new Level3());
+        } else if (levelName.equals("Level4")) {
+            init(new Level4());
+        }
+
+        loadPlayer(saveData);
+        EnergyProducedBar.instance.read(null, saveData);
+        EnergyUsedBar.instance.read(null, saveData);
+        BatteryBar.instance.read(null, saveData);
+        loadCitizens(saveData);
+        loadItems(saveData);
+        loadLinks(saveData);
+        loadEnemies(saveData);
+    }
+
+    private void loadEnemies(JsonValue saveData) {
         JsonValue enemies = saveData.get("enemies");
         if (enemies.isArray()) {
             level.enemies.clear();

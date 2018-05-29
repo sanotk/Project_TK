@@ -17,8 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.mypjgdx.esg.utils.MusicManager;
 import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.ui.LoadTestButton;
+import com.mypjgdx.esg.utils.MusicManager;
 import com.mypjgdx.esg.utils.SoundManager;
 
 public class MenuScreen extends AbstractGameScreen {
@@ -105,6 +106,8 @@ public class MenuScreen extends AbstractGameScreen {
         loadWindow = createLoadWindow();
         loadWindow.setVisible(false);
 
+        LoadTestButton loadTestButton = new LoadTestButton();
+
         stage.addActor(text_mainmenu);
         stage.addActor(buttonStart);
         stage.addActor(buttonLoad);
@@ -112,6 +115,7 @@ public class MenuScreen extends AbstractGameScreen {
         stage.addActor(buttonExit);
         stage.addActor(optionsWindow);
         stage.addActor(loadWindow);
+        stage.addActor(loadTestButton);
 
         buttonStart.addListener(new ClickListener() {
             @Override

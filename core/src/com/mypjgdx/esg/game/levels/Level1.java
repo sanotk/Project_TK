@@ -36,6 +36,8 @@ public class Level1 extends Level {
     public Citizen citizen6;
 
     public Level1() {
+        name = "Level1";
+
         map = Assets.instance.map1;
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 

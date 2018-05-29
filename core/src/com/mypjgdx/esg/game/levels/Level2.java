@@ -42,6 +42,8 @@ public class Level2 extends Level {
     public Item lamp9;
 
     public Level2() {
+        name = "Level2";
+
         map = Assets.instance.map2;
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
