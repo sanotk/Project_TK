@@ -163,7 +163,7 @@
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt1NkKgzAQheEo1CpdXbHV2kJ9/2f0CApDSMgQTMDl4rsb82MG0gkhOg9qSBhC5tysJY0KUrgs6AMPqXGC24IKRYPeXaCgu2fV7OjroXHfSeM/8d34adg2+onuew6bfRyNbTVecGagZ5hmn/CW/iOD2IA2TLO54q44bzttuHjb17Lzkrl3LnnnnH3byEnjCpEDjbQDlwZ4NiER
+   eJzt1MsKg0AMheGxoFbU2nrDW20Xff9n9LgQwhCZKDOCxcW3i/6YgKNSajxAA5HATTi3GEijhhfEFr0h0xo+pBaVTIPuzmOs7ZmbnX0OaDyuhrXGj3nmu8JmY6s9u7oa/9VoIRSg7zDNPqHTviOHuwFtmGYLZleSfzttuPi3n+XmlfDuUvrNJffeoyCNBAIHeu0GLk0lYSCJ
   </data>
  </layer>
  <layer name="map2" width="25" height="25">

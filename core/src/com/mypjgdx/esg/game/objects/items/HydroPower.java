@@ -8,8 +8,8 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 public class HydroPower extends Item{
 
     public static final float SCALE = 1f;
-    public static final float P_X = 195f;
-    public static final float P_Y = 710f;
+    public static final float P_X = 120f;
+    public static final float P_Y = 700f;
 
 	public HydroPower(TiledMapTileLayer mapLayer, Player player){
         super(Assets.instance.hydroPowerAltas, SCALE, SCALE , P_X , P_Y);
