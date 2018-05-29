@@ -131,6 +131,7 @@ public class GameScreen2 extends AbstractGameScreen {
     private boolean dialogTrap;
     private boolean dialogSwordWave;
     private Button buttonGuideWindow;
+    private boolean guideShow;
 
     public enum systemWindow {
         citizen1,
@@ -412,9 +413,6 @@ public class GameScreen2 extends AbstractGameScreen {
         guideWindow = createGuideWindow();
         guideWindow.setVisible(false);
 
-        solarCellWindow = createSolarCellWindow();
-        solarCellWindow.setVisible(false);
-
         missionWindow = createMissionWindow();
         missionWindow.setPosition(
                 stage.getWidth() / 2 - missionWindow.getWidth() / 2,
@@ -450,7 +448,6 @@ public class GameScreen2 extends AbstractGameScreen {
         stage.addActor(chartWindow);
         stage.addActor(statusWindow);
         stage.addActor(guideWindow);
-        stage.addActor(solarCellWindow);
         stage.addActor(missionWindow);
 
         buttonOption.addListener(new ClickListener() {
