@@ -2224,84 +2224,12 @@ public class GameScreen extends AbstractGameScreen {
 //        json.writeValue("TrapBar", TrapBar.instance);
 //        json.writeValue("name", name);
 
-        private Button iconEnergyLess;
-        private TextButton.TextButtonStyle buttonPlayStyle;
-        private TextureRegionDrawable playUp;
-        private Button buttonPlay;
-        private Button buttonPause;
-        private Button iconHuman;
-        private Button iconItem;
-        private Button buttonControlWindow;
-        private Button buttonControl;
-        private Button iconControl;
-        private Button buttonMission;
-        private Button iconMission;
-        private Button buttonGuide;
-        private Button iconGuide;
-        private Button buttonStatus;
-        private Button iconStatus;
-        private WorldController worldController;
-        private WorldRenderer worldRenderer;
+
         private boolean controlShow = true;
-        private ItemLink itemLink;
         private int timeEvent = 0;
-        SpriteBatch batch;
-        public Texture bg;
-        private Stage stage;
-        private Skin skin;
-
-        public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
-        public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
-
-        private TextButton buttonAgree;
-        private TextButton buttonRefuse;
-
-        private Label.LabelStyle labelStyle;
-        private Label.LabelStyle labelStyle2;
-        private Label textBeam;
-        private Label textTrap;
-        private Label textTime;
-        private Label energyLevel;
-        private Label energyLevel2;
-        private Label energyLevel3;
-
-        private Label textMission1;
-        private Label textMission2;
-        private Label textMission3;
-        private Label textMission4;
-        private Label textMission5;
-        private Label textMission6;
-        private Label textMission7;
-
-        private Label text1;
-        private Label text2;
-        private Label text3;
-        private Label text4;
-        private Label text5;
-        private Label text6;
-        private Label text7;
-        private Label text8;
-        private Label text9;
-
-        private String textSolarcell = "เชื่อมต่อไปยังแผงโซล่าเซลล์";
-        private String textCharge = "เชื่อมต่อไปยังตัวควบคุมการชาร์จ";
-        private String textBattery = "เชื่อมต่อไปยังแบตเตอรี";
-        private String textInverter = "เชื่อมต่อไปยังเครื่องแปลงกระแสไฟ";
-        private String textDoor = "เชื่อมต่อไปยังสถานที่หลบภัย";
-
-        private String textSolarcell2 = "ยกเลิกการเชื่อมต่อไปยังแผงโซล่าเซลล์";
-        private String textCharge2 = "ยกเลิกการเชื่อมต่อไปยังตัวควบคุมการชาร์จ";
-        private String textBattery2 = "ยกเลิกการเชื่อมต่อไปยังแบตเตอรี";
-        private String textInverter2 = "ยกเลิกการเชื่อมต่อไปยังเครื่องแปลงกระแสไฟ";
-        private String textDoor2 = "ยกเลิกการเชื่อมต่อไปยังสถานที่หลบภัย";
 
         private boolean stageFourClear;
         private boolean dialogCitizen2;
-
-        private Label labelSolarCell1;
-        private Label labelSolarCell2;
-        private Label labelSolarCell3;
-        private Label labelSolarCell4;
 
         private Button solarCellButton1;
         private Button solarCellButton2;
@@ -2330,39 +2258,19 @@ public class GameScreen extends AbstractGameScreen {
         private boolean statusStart;
         private Label textMission9;
 
-        public enum systemWindow {
-            solarcell,
-            chargecontroller,
-            battery,
-            inverter
-        }
-
         private SolarState solarState;
         private systemWindow solarWindow;
 
-        private Window guideWindow;
-
         private ArrayList<SolarState> link = new ArrayList<SolarState>();
-        private ArrayList<SolarState> isComplete = new ArrayList<SolarState>();
 
-        private TextureRegionDrawable imageLink1;
-        private TextureRegionDrawable imageLink2;
-        private TextureRegionDrawable imageLink3;
-        private TextureRegionDrawable imageLink4;
+//        private TextureRegionDrawable imageLink1;
+//        private TextureRegionDrawable imageLink2;
+//        private TextureRegionDrawable imageLink3;
+//        private TextureRegionDrawable imageLink4;
 
         private Button buttonOption;
-        private BitmapFont font;
-        private Window optionsWindow;
-
-        private Window solarCellWindow;
 
         private boolean animation_status = false;
-
-        private Button buttonRule;
-
-        private Window ruleWindow;
-        private Window chartWindow;
-        private Window statusWindow;
 
         private boolean addedStoC;
         private boolean addedStoB;
@@ -2383,11 +2291,7 @@ public class GameScreen extends AbstractGameScreen {
 
         private int trueLink = 0;
 
-        private Dialog dialog;
-        private Texture dialogStory;
         private int citizenCount = 0;
-
-        private Window missionWindow;
 
         private String text =
                 "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
@@ -2402,21 +2306,6 @@ public class GameScreen extends AbstractGameScreen {
 
         private boolean stageTwoClear;
         private boolean stageThreeClear;
-
-        private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
-        private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
-
-        private TextureRegionDrawable pauseUp;
-        private TextureRegionDrawable toolUp;
-
-        private TextButton.TextButtonStyle buttonToolStyle;
-        private TextButton.TextButtonStyle buttonPauseStyle;
-
-        private PlayerTouchPad touchPad;
-        private SwordAttackButton swordAttackButton;
-        private SwordWaveAttackButton swordWaveAttackButton;
-        private TrapAttackButton trapAttackButton;
-        private TalkButton talkButton;
     }
 
 
