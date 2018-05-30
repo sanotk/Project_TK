@@ -449,6 +449,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         json.writeValue("movingSpeed", movingSpeed);
         json.writeValue("stateMachine", stateMachine.getCurrentState());
         json.writeValue("running", running);
+        json.writeValue("runPlayer", runPlayer);
 //        json.writeValue("goalItem", goalItem); // TODO
         json.writeValue("itemOn", itemOn);
     }
@@ -464,6 +465,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         movingSpeed = jsonData.getInt("movingSpeed");
         stateMachine.changeState(CitizenState.valueOf(jsonData.getString("stateMachine")));
         running = jsonData.getBoolean("running");
+        runPlayer = jsonData.getBoolean("runPlayer");
         itemOn = jsonData.getBoolean("itemOn");
 
         path = null;

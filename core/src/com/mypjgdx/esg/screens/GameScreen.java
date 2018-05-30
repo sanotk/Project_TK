@@ -1437,7 +1437,6 @@ public class GameScreen extends AbstractGameScreen {
                 Citizen citizen = worldController.level.citizens.get(i);
                 if (citizen.overlapPlayer && !citizen.runPlayer) {
                     if (player.status_find) {
-                        citizen.runPlayer = true;
                         dialogCitizen = true;
                         dialogAll();
                         String text =
