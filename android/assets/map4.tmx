@@ -161,6 +161,9 @@
  <tileset firstgid="40" name="water_pack" tilewidth="50" tileheight="50" spacing="2" margin="2" tilecount="78" columns="39">
   <image source="water_pack.png" width="2048" height="128"/>
  </tileset>
+ <tileset firstgid="118" name="shadow" tilewidth="50" tileheight="50" tilecount="1" columns="1">
+  <image source="shadow.png" width="50" height="50"/>
+ </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
    eJzt1MsKg0AMheGxoFbU2nrDW20Xff9n9LgQwhCZKDOCxcW3i/6YgKNSajxAA5HATTi3GEijhhfEFr0h0xo+pBaVTIPuzmOs7ZmbnX0OaDyuhrXGj3nmu8JmY6s9u7oa/9VoIRSg7zDNPqHTviOHuwFtmGYLZleSfzttuPi3n+XmlfDuUvrNJffeoyCNBAIHeu0GLk0lYSCJ
@@ -169,6 +172,11 @@
  <layer name="map2" width="25" height="25">
   <data encoding="base64" compression="zlib">
    eJxjYBgFgxGwADEjFGMDjDgwLsBHBzuwgeFoBzb9w8UOagBC8TFqx/CzYxQQD2iZ9+hpxygYHAAAV9EAhw==
+  </data>
+ </layer>
+ <layer name="shadow" width="25" height="25">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUDHagCMRlODApgFx9o2AUjIJRMAoGHwAAnS8ESA==
   </data>
  </layer>
 </map>
