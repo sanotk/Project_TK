@@ -12,15 +12,16 @@ import com.badlogic.gdx.utils.Align;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 
-public class MissionWindow extends Window {
+public class StatusWindow extends Window {
 
     private Label[] labels = new Label[8];
 
-    public MissionWindow(final WorldController worldController) {
-        super("รายชื่อภารกิจ", new WindowStyle(Assets.instance.newFont, Color.WHITE, new NinePatchDrawable(Assets.instance.window)));
+    public StatusWindow(final WorldController worldController) {
+        super("ข้อมูลการใช้พลังงานไฟฟ้า", new WindowStyle(Assets.instance.newFont, Color.WHITE, new NinePatchDrawable(Assets.instance.window)));
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = Assets.instance.newFont;
+        labelStyle.fontColor = Color.WHITE;
 
         for (int i = 0; i < labels.length; i++) {
             labels[i] = new Label("", labelStyle);
@@ -41,34 +42,13 @@ public class MissionWindow extends Window {
         padRight(40);
         padBottom(20);
         getTitleLabel().setAlignment(Align.center);
+        row().padBottom(10).padTop(10);
         for (Label label : labels) {
             row().padTop(10);
             add(label);
         }
-        row().padTop(20);
-        add(closeButton).colspan(3).center().bottom();
-        pack();
-    }
-
-    @Override
-    public void setVisible(boolean visible) {
-        super.setVisible(visible);
-        if (visible) {
-            setPosition(
-                    getStage().getWidth() / 2 - getWidth() / 2,
-                    getStage().getHeight() / 2 - getHeight() / 2);
-        }
-    }
-
-    public void setCompleted(boolean completed, int index) {
-        if (completed)
-            labels[index].setColor(Color.LIME);
-        else
-            labels[index].setColor(Color.WHITE);
-    }
-
-    public void setText(String text, int index) {
-        labels[index].setText(text);
+        row().padTop(10);
+        add(closeButton).colspan(3);
         pack();
     }
 }

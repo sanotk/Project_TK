@@ -204,12 +204,6 @@ public class GameScreen extends AbstractGameScreen {
     private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
     private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
 
-    private TextureRegionDrawable pauseUp;
-    private TextureRegionDrawable toolUp;
-
-    private TextButton.TextButtonStyle buttonToolStyle;
-    private TextButton.TextButtonStyle buttonPauseStyle;
-
     private PlayerTouchPad touchPad;
     private SwordAttackButton swordAttackButton;
     private SwordWaveAttackButton swordWaveAttackButton;
