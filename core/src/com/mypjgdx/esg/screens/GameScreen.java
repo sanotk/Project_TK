@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -50,6 +51,34 @@ public class GameScreen extends AbstractGameScreen {
         INVERTER
     }
 
+    private enum SolarLinkImage {
+        SOLAR_ADD(Assets.instance.buttonSolarcellAdd),
+        SOLAR_DELETE(Assets.instance.buttonSolarcellDel),
+        BATTERY_ADD(Assets.instance.buttonBatteryAdd),
+        BATTERY_DELETE(Assets.instance.buttonBatteryDel),
+        CHARGE_ADD(Assets.instance.buttonChargeAdd),
+        CHARGE_DELETE(Assets.instance.buttonChargeDel),
+        INVERTER_ADD(Assets.instance.buttonInverterAdd),
+        INVERTER_DELETE(Assets.instance.buttonInverterDel),
+        DOOR_ADD(Assets.instance.buttonDoorAdd),
+        DOOR_DELETE(Assets.instance.buttonDoorDel);
+
+        static final SolarLinkImage[] values = SolarLinkImage.values();
+        private TextureRegion region;
+
+        SolarLinkImage(TextureRegion region) {
+            this.region = region;
+        }
+
+        public static SolarLinkImage valueOf(TextureRegion region) {
+            for (SolarLinkImage solarLinkImage : values) {
+                if (solarLinkImage.region == region)
+                    return solarLinkImage;
+            }
+            return null;
+        }
+    }
+
     /* กลุ่มที่ไม่จำเป็นต้อง save */
 
     private WorldController worldController;
@@ -58,6 +87,7 @@ public class GameScreen extends AbstractGameScreen {
     private Stage stage;
     private Skin skin;
 
+    //TODO: อาจะเกิดบัคก็เป็นได้
     private ItemLink itemLink;
 
     private Label textBeam;
@@ -106,21 +136,20 @@ public class GameScreen extends AbstractGameScreen {
     private StatusWindow statusWindow;
     private ChartWindow chartWindow;
 
+    private Window solarCellWindow;
+    private ArrayList<SolarState> isComplete = new ArrayList<SolarState>();
+
     /* กลุ่มที่ต้อง save ไว้ก่อนเพื่อความชัวร์ */
 
     private MissionWindow missionWindow;
 
     private SolarState solarState;
-
     private ArrayList<SolarState> link = new ArrayList<SolarState>();
-    private ArrayList<SolarState> isComplete = new ArrayList<SolarState>();
 
     private TextureRegionDrawable imageLink1;
     private TextureRegionDrawable imageLink2;
     private TextureRegionDrawable imageLink3;
     private TextureRegionDrawable imageLink4;
-
-    private Window solarCellWindow;
 
     private boolean animation_status = false;
 
@@ -781,7 +810,6 @@ public class GameScreen extends AbstractGameScreen {
     private Window createSolarCellWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.window);
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = Assets.instance.newFont;
         style.titleFontColor = Color.WHITE;
 
@@ -796,24 +824,10 @@ public class GameScreen extends AbstractGameScreen {
 
         Button closeButton = new Button(buttonSolarStyle);
 
-        Button.ButtonStyle buttonImageLink1 = new Button.ButtonStyle();
-        Button.ButtonStyle buttonImageLink2 = new Button.ButtonStyle();
-        Button.ButtonStyle buttonImageLink3 = new Button.ButtonStyle();
-        Button.ButtonStyle buttonImageLink4 = new Button.ButtonStyle();
-
         imageLink1 = new TextureRegionDrawable((Assets.instance.buttonChargeAdd));
         imageLink2 = new TextureRegionDrawable((Assets.instance.buttonBatteryAdd));
         imageLink3 = new TextureRegionDrawable((Assets.instance.buttonInverterAdd));
         imageLink4 = new TextureRegionDrawable((Assets.instance.buttonDoorAdd));
-
-        buttonImageLink1.up = imageLink1;
-        buttonImageLink1.down = imageLink1.tint(Color.LIGHT_GRAY);
-        buttonImageLink2.up = imageLink2;
-        buttonImageLink2.down = imageLink2.tint(Color.LIGHT_GRAY);
-        buttonImageLink3.up = imageLink3;
-        buttonImageLink3.down = imageLink3.tint(Color.LIGHT_GRAY);
-        buttonImageLink4.up = imageLink4;
-        buttonImageLink4.down = imageLink4.tint(Color.LIGHT_GRAY);
 
         solarCellButton1 = new Button(imageLink1);
         solarCellButton2 = new Button(imageLink2);
@@ -1750,14 +1764,12 @@ public class GameScreen extends AbstractGameScreen {
     @Override
     public void write(Json json) {
         json.writeValue("missionWindow", missionWindow);
-//        json.writeValue("solarState", solarState);
-//        json.writeValue("link", link);
-//        json.writeValue("isComplete", isComplete);
-//        json.writeValue("imageLink1", imageLink1);
-//        json.writeValue("imageLink2", imageLink2);
-//        json.writeValue("imageLink3", imageLink3);
-//        json.writeValue("imageLink4", imageLink4);
-//        json.writeValue("solarCellWindow", solarCellWindow);
+        json.writeValue("solarState", solarState);
+        json.writeValue("link", link);
+        json.writeValue("imageLink1", SolarLinkImage.valueOf(imageLink1.getRegion()));
+        json.writeValue("imageLink2", SolarLinkImage.valueOf(imageLink2.getRegion()));
+        json.writeValue("imageLink3", SolarLinkImage.valueOf(imageLink3.getRegion()));
+        json.writeValue("imageLink4", SolarLinkImage.valueOf(imageLink4.getRegion()));
         json.writeValue("animation_status", animation_status);
         json.writeValue("addedStoC", addedStoC);
         json.writeValue("addedStoB", addedStoB);
@@ -1799,14 +1811,13 @@ public class GameScreen extends AbstractGameScreen {
     @Override
     public void read(Json json, JsonValue jsonData) {
         missionWindow.read(null, jsonData.get("missionWindow"));
-//        solarState = jsonData.get("solarState");
-//        link = jsonData.get("link");
-//        isComplete = jsonData.get("isComplete");
-//        imageLink1 = jsonData.get("imageLink1");
-//        imageLink2 = jsonData.get("imageLink2");
-//        imageLink3 = jsonData.get("imageLink3");
-//        imageLink4 = jsonData.get("imageLink4");
-//        solarCellWindow = jsonData.get("solarCellWindow");
+        final String solarStateName = jsonData.getString("solarState");
+        solarState = (solarStateName == null ? null : SolarState.valueOf(solarStateName));
+        readLink(jsonData);
+        imageLink1.setRegion(SolarLinkImage.valueOf(jsonData.getString("imageLink1")).region);
+        imageLink2.setRegion(SolarLinkImage.valueOf(jsonData.getString("imageLink2")).region);
+        imageLink3.setRegion(SolarLinkImage.valueOf(jsonData.getString("imageLink3")).region);
+        imageLink4.setRegion(SolarLinkImage.valueOf(jsonData.getString("imageLink4")).region);
         animation_status = jsonData.getBoolean("animation_status");
         addedStoC = jsonData.getBoolean("addedStoC");
         addedStoB = jsonData.getBoolean("addedStoB");
@@ -1843,5 +1854,13 @@ public class GameScreen extends AbstractGameScreen {
         dialogShow = jsonData.getBoolean("dialogShow");
         stageTwoClear = jsonData.getBoolean("stageTwoClear");
         stageThreeClear = jsonData.getBoolean("stageThreeClear");
+    }
+
+    private void readLink(JsonValue jsonData) {
+        JsonValue linkJson = jsonData.get("link");
+        link.clear();
+        for (int i = 0; i < linkJson.size; i++) {
+            link.add(SolarState.valueOf(linkJson.get(i).getString("value")));
+        }
     }
 }
