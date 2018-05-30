@@ -9,10 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 
-public class MissionWindow extends Window {
+public class MissionWindow extends Window implements Json.Serializable {
 
     private Label[] labels = new Label[9];
 
@@ -70,5 +72,23 @@ public class MissionWindow extends Window {
     public void setText(String text, int index) {
         labels[index].setText(text);
         pack();
+    }
+
+    @Override
+    public void write(Json json) {
+        for (int i = 0; i < labels.length; i++) {
+            json.writeValue("label" + i, labels[i].getText().toString());
+            json.writeValue("labelColor" + i, Color.rgba8888(labels[i].getColor()));
+        }
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+        for (int i = 0; i < labels.length; i++) {
+            setText(jsonData.getString("label" + i), i);
+            Color labelColor = new Color();
+            Color.rgba8888ToColor(labelColor, jsonData.getInt("labelColor" + i));
+            labels[i].setColor(labelColor);
+        }
     }
 }

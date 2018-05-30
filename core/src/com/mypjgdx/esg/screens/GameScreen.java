@@ -1815,7 +1815,7 @@ public class GameScreen extends AbstractGameScreen {
         json.writeValue("animation_status", animation_status);
 //        json.writeValue("chartWindow", chartWindow);
 //        json.writeValue("statusWindow", statusWindow);
-//        json.writeValue("missionWindow", missionWindow);
+        json.writeValue("missionWindow", missionWindow);
         json.writeValue("addedStoC", addedStoC);
         json.writeValue("addedStoB", addedStoB);
         json.writeValue("addedStoI", addedStoI);
@@ -1905,7 +1905,8 @@ public class GameScreen extends AbstractGameScreen {
         animation_status = jsonData.getBoolean("animation_status");
 //        chartWindow = jsonData.get("chartWindow");
 //        statusWindow = jsonData.get("statusWindow");
-//        missionWindow = jsonData.get("missionWindow");
+        missionWindow.read(null, jsonData.get("missionWindow"));
+
         addedStoC = jsonData.getBoolean("addedStoC");
         addedStoB = jsonData.getBoolean("addedStoB");
         addedStoI = jsonData.getBoolean("addedStoI");

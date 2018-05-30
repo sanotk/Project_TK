@@ -630,40 +630,38 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
 
     @Override
     public void read(Json json, JsonValue jsonData) {
-        JsonValue player = jsonData.get("player");
-        JsonValue positionJson = player.get("position");
+        JsonValue positionJson = jsonData.get("position");
 
-        health = player.getInt("hp");
+        health = jsonData.getInt("hp");
         setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
-        timeCount = player.getInt("timeCount");
+        timeCount = jsonData.getInt("timeCount");
 
-        questScreen1 = player.getBoolean("questScreen1");
-        questScreen2 = player.getBoolean("questScreen2");
-        questScreen3 = player.getBoolean("questScreen3");
-        questScreen4 = player.getBoolean("questScreen4");
-        questScreen5 = player.getBoolean("questScreen5");
-        questScreen6 = player.getBoolean("questScreen6");
-        quest_window_1 = player.getBoolean("quest_window_1");
-        quest_window_2 = player.getBoolean("quest_window_2");
-        quest_window_3 = player.getBoolean("quest_window_3");
-        quest_window_4 = player.getBoolean("quest_window_4");
-        quest_window_5 = player.getBoolean("quest_window_5");
-        quest_window_6 = player.getBoolean("quest_window_6");
-        quest1IsAccept = player.getBoolean("quest1IsAccept");
-        quest2IsAccept = player.getBoolean("quest2IsAccept");
-        quest3IsAccept = player.getBoolean("quest3IsAccept");
-        quest4IsAccept = player.getBoolean("quest4IsAccept");
-        quest5IsAccept = player.getBoolean("quest5IsAccept");
-        quest6IsAccept = player.getBoolean("quest6IsAccept");
+        questScreen1 = jsonData.getBoolean("questScreen1");
+        questScreen2 = jsonData.getBoolean("questScreen2");
+        questScreen3 = jsonData.getBoolean("questScreen3");
+        questScreen4 = jsonData.getBoolean("questScreen4");
+        questScreen5 = jsonData.getBoolean("questScreen5");
+        questScreen6 = jsonData.getBoolean("questScreen6");
+        quest_window_1 = jsonData.getBoolean("quest_window_1");
+        quest_window_2 = jsonData.getBoolean("quest_window_2");
+        quest_window_3 = jsonData.getBoolean("quest_window_3");
+        quest_window_4 = jsonData.getBoolean("quest_window_4");
+        quest_window_5 = jsonData.getBoolean("quest_window_5");
+        quest_window_6 = jsonData.getBoolean("quest_window_6");
+        quest1IsAccept = jsonData.getBoolean("quest1IsAccept");
+        quest2IsAccept = jsonData.getBoolean("quest2IsAccept");
+        quest3IsAccept = jsonData.getBoolean("quest3IsAccept");
+        quest4IsAccept = jsonData.getBoolean("quest4IsAccept");
+        quest5IsAccept = jsonData.getBoolean("quest5IsAccept");
+        quest6IsAccept = jsonData.getBoolean("quest6IsAccept");
 
-        invulnerable = player.getBoolean("invulnerable");
-        knockback = player.getBoolean("knockback");
-        lastInvulnerableTime = player.getLong("lastInvulnerableTime");
-        invulnerableTime = player.getLong("invulnerableTime");
-        movingSpeed = player.getFloat("movingSpeed");
+        invulnerable = jsonData.getBoolean("invulnerable");
+        knockback = jsonData.getBoolean("knockback");
+        lastInvulnerableTime = jsonData.getLong("lastInvulnerableTime");
+        invulnerableTime = jsonData.getLong("invulnerableTime");
+        movingSpeed = jsonData.getFloat("movingSpeed");
 
-        viewDirection = Direction.valueOf(player.getString("viewDirection"));
-
+        viewDirection = Direction.valueOf(jsonData.getString("viewDirection"));
     }
 
     public int getIntitalHealth() {

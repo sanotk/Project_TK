@@ -196,7 +196,7 @@ public abstract class Level implements Json.Serializable {
 
     @Override
     public void read(Json json, JsonValue jsonData) {
-        player.read(null, jsonData);
+        player.read(null, jsonData.get("player"));
         readLinks(jsonData);
         readEnemies(jsonData);
         readCitizens(jsonData);
