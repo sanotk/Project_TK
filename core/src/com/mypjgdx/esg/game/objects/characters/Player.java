@@ -596,6 +596,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         json.writeValue("position", position);
         json.writeValue("timeCount", timeCount);
 
+        json.writeValue("timeClear", timeClear);
+
         json.writeValue("questScreen1", questScreen1);
         json.writeValue("questScreen2", questScreen2);
         json.writeValue("questScreen3", questScreen3);
@@ -640,6 +642,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         health = jsonData.getInt("hp");
         setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
         timeCount = jsonData.getInt("timeCount");
+        timeClear = jsonData.getBoolean("timeClear");
 
         questScreen1 = jsonData.getBoolean("questScreen1");
         questScreen2 = jsonData.getBoolean("questScreen2");
