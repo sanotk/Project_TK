@@ -544,6 +544,13 @@ public class GameScreen extends AbstractGameScreen {
         buttonRefuse.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                buttonAgree.setVisible(false);
+                buttonRefuse.setVisible(false);
+                dialog.hide();
+                worldController.level.player.timeStop = false;
+                dialogShow = false;
+                trapShow = false;
+                swordShow = false;
                 if (trapShow) {
                     worldController.level.player.acceptTrap = false;
                     worldController.level.player.requestTrap = false;
@@ -563,13 +570,6 @@ public class GameScreen extends AbstractGameScreen {
                         }
                     });
                 }
-                buttonAgree.setVisible(false);
-                buttonRefuse.setVisible(false);
-                dialog.hide();
-                worldController.level.player.timeStop = false;
-                dialogShow = false;
-                trapShow = false;
-                swordShow = false;
             }
         });
 
