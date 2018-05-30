@@ -80,17 +80,17 @@ public class WorldController extends InputAdapter {
             level.player.move(Direction.LEFT);
         }
 
-        if (swordAttackButton.isPressed()) {
+        if (swordAttackButton.isJustPressed()) {
             level.player.swordAttack(level.weapons, level.swords);
         }
-        if (swordWaveAttackButton.isPressed()) {
+        if (swordWaveAttackButton.isJustPressed()) {
             level.player.swordWaveAttack(level.weapons, level.swords);
         }
-        if (trapAttackButton.isPressed()) {
+        if (trapAttackButton.isJustPressed()) {
             level.player.trapAttack(level.weapons);
         }
 
-        if (talkButton.isPressed()) {
+        if (talkButton.isJustPressed()) {
             level.player.findItem();
         }
 
