@@ -190,6 +190,7 @@ public abstract class Level implements Json.Serializable {
         json.writeValue("ArrowBar", ArrowBar.instance);
         json.writeValue("SwordWaveBar", SwordWaveBar.instance);
         json.writeValue("TrapBar", TrapBar.instance);
+        json.writeValue("LikingBar", LikingBar.instance);
 
         json.writeValue("name", name);
     }
@@ -208,6 +209,7 @@ public abstract class Level implements Json.Serializable {
         ArrowBar.instance.read(null, jsonData);
         SwordWaveBar.instance.read(null, jsonData);
         TrapBar.instance.read(null, jsonData);
+        LikingBar.instance.read(null, jsonData);
     }
 
     private void readEnemies(JsonValue saveData) {
