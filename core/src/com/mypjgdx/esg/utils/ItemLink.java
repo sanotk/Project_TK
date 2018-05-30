@@ -25,7 +25,7 @@ public class ItemLink {
 
     public float startX,startY,goalX,goalY;
 
-    public SolarState solarState = null;
+    private SolarState solarState = null;
 
     private Direction direction;
 
@@ -56,7 +56,6 @@ public class ItemLink {
         endNode =gameMap.getNode(this.goalX, this.goalY);
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
-        //pathOutput.reverse();
 
         for (int i = 0; i< pathOutput.getCount()-1; i++) {
             nodes.add(pathOutput.get(i));
@@ -98,7 +97,6 @@ public class ItemLink {
         endNode =gameMap.getNode(this.goalX, this.goalY);
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
-        //pathOutput.reverse();
 
         for (int i = 0; i< pathOutput.getCount()-1; i++) {
             nodes.add(pathOutput.get(i));
