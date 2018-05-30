@@ -87,9 +87,6 @@ public class GameScreen extends AbstractGameScreen {
     private Stage stage;
     private Skin skin;
 
-    //TODO: อาจะเกิดบัคก็เป็นได้
-    private ItemLink itemLink;
-
     private Label textBeam;
     private Label textTrap;
     private Label textTime;
@@ -1119,75 +1116,75 @@ public class GameScreen extends AbstractGameScreen {
 
         if (solarState == SolarState.StoC) {
             addedStoC = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
+            ItemLink.linkItem(worldController,
                     level1.solarCell1,
                     level1.charge,
-                    worldController.level.links, solarState);
+                    solarState);
             missionWindow.setCompleted(true, 4);
         } else if (solarState == SolarState.StoB) {
             addedStoB = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
+            ItemLink.linkItem(worldController,
                     level1.solarCell1,
                     level1.battery,
-                    worldController.level.links, solarState);
+                    solarState);
         } else if (solarState == SolarState.StoI) {
             addedStoI = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
+            ItemLink.linkItem(worldController,
                     level1.solarCell1,
                     level1.inverter,
-                    worldController.level.links, solarState);
+                    solarState);
         } else if (solarState == SolarState.StoD) {
             addedStoD = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
+            ItemLink.linkItem(worldController,
                     level1.solarCell1,
                     level1.door,
-                    worldController.level.links, solarState);
+                    solarState);
         } else if (solarState == SolarState.CtoB) {
             addedCtoB = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
+            ItemLink.linkItem(worldController,
                     level1.charge,
                     level1.battery,
-                    worldController.level.links, solarState);
+                    solarState);
             missionWindow.setCompleted(true, 5);
         } else if (solarState == SolarState.CtoI) {
             addedCtoI = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
+            ItemLink.linkItem(worldController,
                     level1.charge,
                     level1.inverter,
-                    worldController.level.links, solarState);
+                    solarState);
             missionWindow.setCompleted(true, 6);
         } else if (solarState == SolarState.CtoD) {
             addedCtoD = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
+            ItemLink.linkItem(worldController,
                     level1.charge,
                     level1.door,
-                    worldController.level.links, solarState);
+                    solarState);
         } else if (solarState == SolarState.BtoI) {
             addedBtoI = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
+            ItemLink.linkItem(worldController,
                     level1.battery,
                     level1.inverter,
-                    worldController.level.links, solarState);
+                    solarState);
         } else if (solarState == SolarState.BtoD) {
             addedBtoD = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
+            ItemLink.linkItem(worldController,
                     level1.battery,
                     level1.door,
-                    worldController.level.links, solarState);
+                    solarState);
         } else if (solarState == SolarState.ItoD) {
             addedItoD = true;
-            itemLink = new ItemLink(worldController.level.mapLayer,
+            ItemLink.linkItem(worldController,
                     level1.inverter,
                     level1.door,
-                    worldController.level.links, solarState);
+                    solarState);
             missionWindow.setCompleted(true, 7);
         }
     }
 
     private void removeGuiLink(SolarState solarState) {
-        for (int i = 0; i < itemLink.linkList.size(); i++) {
-            if (itemLink.linkList.get(i).solarState == solarState) {
-                System.out.print(itemLink.linkList.get(i).solarState);
+        for (int i = 0; i < worldController.level.links.size(); i++) {
+            if (worldController.level.links.get(i).solarState == solarState) {
+                System.out.print(worldController.level.links.get(i).solarState);
                 if (solarState == SolarState.StoC) {
                     missionWindow.setCompleted(false, 4);
                 } else if (solarState == SolarState.CtoB) {
@@ -1197,7 +1194,7 @@ public class GameScreen extends AbstractGameScreen {
                 } else if (solarState == SolarState.ItoD) {
                     missionWindow.setCompleted(false, 7);
                 }
-                itemLink.linkList.remove(i);
+                worldController.level.links.remove(i);
                 i--;
             }
         }

@@ -1584,10 +1584,9 @@ public class GameScreen4 extends AbstractGameScreen {
 
     private void addGuiLink() {
         Level4 level4 = (Level4) worldController.level;
-        itemLink = new ItemLink(level4.mapLayer,
+        ItemLink.linkItem(worldController,
                 level4.hydroPower,
-                level4.pollutionControll,
-                worldController.level.links);
+                level4.pollutionControll);
         textMission2.setStyle(labelStyle2);
     }
 
