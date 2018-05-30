@@ -1432,7 +1432,7 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if (player.stageOneClear) {
+        if (player.stageOneClear && !stageTwoClear) {
             for (int i = 0; i < worldController.level.citizens.size(); i++) {
                 Citizen citizen = worldController.level.citizens.get(i);
                 if (citizen.overlapPlayer && !citizen.runPlayer) {
