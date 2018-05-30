@@ -191,7 +191,7 @@ public abstract class Level implements Json.Serializable {
         json.writeValue("SwordWaveBar", SwordWaveBar.instance);
         json.writeValue("TrapBar", TrapBar.instance);
         json.writeValue("LikingBar", LikingBar.instance);
-        json.writeValue("TemperatureBar", LikingBar.instance);
+        json.writeValue("TemperatureBar", TemperatureBar.instance);
 
         json.writeValue("name", name);
     }

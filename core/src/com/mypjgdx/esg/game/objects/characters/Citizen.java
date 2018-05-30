@@ -441,8 +441,8 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
 
     @Override
     public void write(Json json) {
+        json.writeValue("questIsAccept", questIsAccept);
         json.writeValue("position", position);
-        json.writeValue("running", running);
         json.writeValue("quest", quest);
         json.writeValue("type", type);
         json.writeValue("viewDirection", viewDirection);
