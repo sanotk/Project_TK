@@ -83,4 +83,9 @@ public class StatusWindow extends Window {
                     getStage().getHeight() / 2 - getHeight() / 2);
         }
     }
+
+    public void show(WorldController worldController) {
+        worldController.level.player.timeStop = true;
+        addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+    }
 }

@@ -50,7 +50,8 @@ public class GameScreen extends AbstractGameScreen {
         INVERTER
     }
 
-    /* กลุ่มทีไม่จำเป็นต้อง save */
+    /* กลุ่มที่ไม่จำเป็นต้อง save */
+
     private WorldController worldController;
     private WorldRenderer worldRenderer;
 
@@ -65,42 +66,57 @@ public class GameScreen extends AbstractGameScreen {
     private Label textEnergyProduce;
     private Label textEnergyUse;
     private Label textEnergyStored;
+    private Label textSun;
+    private Label textTemperature;
+    private Label textLiking;
 
-    /* จบกลุ่มที่ไม่จำเป็นต้อง save */
+    private PlayerTouchPad touchPad;
+    private SwordAttackButton swordAttackButton;
+    private SwordWaveAttackButton swordWaveAttackButton;
+    private TrapAttackButton trapAttackButton;
+    private TalkButton talkButton;
+
+    private TextButton buttonAgree;
+    private TextButton buttonRefuse;
 
     private Button iconEnergyLess;
     private Button iconHuman;
     private Button iconItem;
-    private Button buttonControlWindow;
     private Button iconControl;
     private Button iconMission;
     private Button iconGuide;
     private Button iconStatus;
 
-    private boolean controlShow = true;
-    private int timeEvent = 0;
+    private Button buttonControlWindow;
+    private Button buttonGuideWindow;
 
-    private TextButton buttonAgree;
-    private TextButton buttonRefuse;
-
-    public boolean stageFourClear;
-    private boolean dialogCitizen2;
-
-    private Label labelSolarCell1;
-    private Label labelSolarCell2;
-    private Label labelSolarCell3;
-    private Label labelSolarCell4;
+    public Dialog dialog;
 
     private Button solarCellButton1;
     private Button solarCellButton2;
     private Button solarCellButton3;
     private Button solarCellButton4;
 
-    private Label textSun;
-    private Label textTemperature;
-    private Label textLiking;
+    private Label labelSolarCell1;
+    private Label labelSolarCell2;
+    private Label labelSolarCell3;
+    private Label labelSolarCell4;
+
+    private Window optionsWindow;
+    private StatusWindow statusWindow;
+    private ChartWindow chartWindow;
+
+    /* กลุ่มที่ไม่แน่ใจ แต่ต้อง save เพื่อความชัวร์ */
+
+    private MissionWindow missionWindow;
+
+    private boolean controlShow = true;
+    private int timeEvent = 0;
+
+    public boolean stageFourClear;
+    private boolean dialogCitizen2;
+
     private boolean stageTwoAfter;
-    private Button buttonGuideWindow;
     private boolean guideShow;
     private boolean missionStart;
     private boolean trapShow;
@@ -108,7 +124,6 @@ public class GameScreen extends AbstractGameScreen {
     private boolean statusStart;
 
     private SolarState solarState;
-    private SystemWindow solarWindow;
 
     private ArrayList<SolarState> link = new ArrayList<SolarState>();
     private ArrayList<SolarState> isComplete = new ArrayList<SolarState>();
@@ -118,15 +133,9 @@ public class GameScreen extends AbstractGameScreen {
     private TextureRegionDrawable imageLink3;
     private TextureRegionDrawable imageLink4;
 
-    private Window optionsWindow;
-
     private Window solarCellWindow;
 
     private boolean animation_status = false;
-
-    private ChartWindow chartWindow;
-    private StatusWindow statusWindow;
-    private MissionWindow missionWindow;
 
     private boolean addedStoC;
     private boolean addedStoB;
@@ -147,7 +156,6 @@ public class GameScreen extends AbstractGameScreen {
 
     private int trueLink = 0;
 
-    public Dialog dialog;
     private int citizenCount = 0;
 
     private boolean dialogEnemy;
@@ -160,12 +168,6 @@ public class GameScreen extends AbstractGameScreen {
 
     private boolean stageTwoClear;
     private boolean stageThreeClear;
-
-    private PlayerTouchPad touchPad;
-    private SwordAttackButton swordAttackButton;
-    private SwordWaveAttackButton swordWaveAttackButton;
-    private TrapAttackButton trapAttackButton;
-    private TalkButton talkButton;
 
     public GameScreen(final Game game, final Window optionsWindow) {
         super(game);
@@ -470,7 +472,7 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 statusStart = true;
-                showStatusWindow();
+                statusWindow.show(worldController);
             }
         });
 
@@ -478,7 +480,7 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 statusStart = true;
-                showStatusWindow();
+                statusWindow.show(worldController);
             }
         });
 
@@ -698,11 +700,6 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(textEnergyUse);
         stage.addActor(textEnergyStored);
         stage.addActor(textLiking);
-    }
-
-    private void showStatusWindow() {
-        worldController.level.player.timeStop = true;
-        statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
     private Window createGuideWindow() {
@@ -1489,7 +1486,7 @@ public class GameScreen extends AbstractGameScreen {
         if (player.timeCount <= timeEvent && !statusStart && stageThreeClear) {
             System.out.print("status");
             statusStart = true;
-            showStatusWindow();
+            statusWindow.show(worldController);
             player.timeStop = true;
         }
     }
@@ -1525,20 +1522,16 @@ public class GameScreen extends AbstractGameScreen {
                 stage.getHeight() / 2 - solarCellWindow.getHeight() / 2);
         if (!animation_status && player.status_find && stageTwoAfter) {
             if (level1.solarCell1.nearPlayer()) {
-                solarWindow = SystemWindow.SOLAR_CELL;
-                checkButton(solarWindow);
+                checkButton(SystemWindow.SOLAR_CELL);
                 solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else if (level1.charge.nearPlayer()) {
-                solarWindow = SystemWindow.CHARGE_CONTROLLER;
-                checkButton(solarWindow);
+                checkButton(SystemWindow.CHARGE_CONTROLLER);
                 solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else if (level1.battery.nearPlayer()) {
-                solarWindow = SystemWindow.BATTERY;
-                checkButton(solarWindow);
+                checkButton(SystemWindow.BATTERY);
                 solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else if (level1.inverter.nearPlayer()) {
-                solarWindow = SystemWindow.INVERTER;
-                checkButton(solarWindow);
+                checkButton(SystemWindow.INVERTER);
                 solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else {
                 player.status_find = false;
