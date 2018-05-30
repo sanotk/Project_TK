@@ -2,10 +2,12 @@ package com.mypjgdx.esg.game.objects.characters;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.ArrayDeque;
 
-public class PlayerStalkerPosition {
+public class PlayerStalkerPosition implements Json.Serializable {
 
     private static final Color[] colors = new Color[] {
             Color.NAVY,
@@ -59,7 +61,7 @@ public class PlayerStalkerPosition {
         }
     }
 
-    public class IntPosition{
+    public class IntPosition {
         public final int x;
         public final int y;
 
@@ -89,5 +91,25 @@ public class PlayerStalkerPosition {
 
     public ArrayDeque<IntPosition> getPositions() {
         return positions;
+    }
+
+    @Override
+    public void write(Json json) {
+        int i = 0;
+        json.writeValue("size", positions.size());
+        for (IntPosition position : positions) {
+            json.writeValue("x" + i, position.x);
+            json.writeValue("y" + i, position.y);
+            i++;
+        }
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+        int size = jsonData.getInt("size");
+        positions.clear();
+        for (int i = 0; i < size; i++) {
+            positions.add(new IntPosition(jsonData.getInt("x" + i), jsonData.getInt("y" + i)));
+        }
     }
 }
