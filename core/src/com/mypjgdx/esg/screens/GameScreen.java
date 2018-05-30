@@ -551,6 +551,7 @@ public class GameScreen extends AbstractGameScreen {
                     worldController.level.player.acceptSwordWave = false;
                     worldController.level.player.requestSwordWave = false;
                 } else {
+                    GameSaveManager.instance.save();
                     MusicManager.instance.stop();
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
