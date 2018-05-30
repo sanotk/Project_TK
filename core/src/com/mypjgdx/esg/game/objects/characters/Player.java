@@ -626,6 +626,8 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         json.writeValue("movingSpeed", movingSpeed);
 
         json.writeValue("viewDirection", viewDirection);
+
+        json.writeValue("stalkerPosition", stalkerPosition);
     }
 
     @Override
@@ -662,6 +664,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         movingSpeed = jsonData.getFloat("movingSpeed");
 
         viewDirection = Direction.valueOf(jsonData.getString("viewDirection"));
+        stalkerPosition.read(null, jsonData.get("stalkerPosition"));
     }
 
     public int getIntitalHealth() {
