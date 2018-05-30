@@ -2,13 +2,15 @@ package com.mypjgdx.esg.game.objects.weapons;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
 import com.mypjgdx.esg.game.objects.characters.Player;
 
 
-public class SwordWave extends Weapon {
+public class SwordWave extends Weapon implements Json.Serializable {
 
     private static final float SCALE = 0.5f;
 
@@ -156,5 +158,15 @@ public class SwordWave extends Weapon {
     public String getName() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public void write(Json json) {
+
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+
     }
 }

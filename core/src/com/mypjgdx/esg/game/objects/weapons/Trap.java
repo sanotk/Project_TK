@@ -1,12 +1,14 @@
 package com.mypjgdx.esg.game.objects.weapons;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
 import com.mypjgdx.esg.game.objects.characters.Player;
 
 
-public class Trap extends Weapon{
+public class Trap extends Weapon implements Json.Serializable{
 
 	    private static final float SCALE = 0.75f;
 
@@ -68,4 +70,14 @@ public class Trap extends Weapon{
             // TODO Auto-generated method stub
             return null;
         }
+
+    @Override
+    public void write(Json json) {
+	        json.writeValue("damageCount", damageCount);
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+        damageCount = (int) jsonData.get("Trap").getFloat("damageCount");
+    }
 }
