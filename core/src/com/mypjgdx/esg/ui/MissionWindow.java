@@ -14,7 +14,7 @@ import com.mypjgdx.esg.game.WorldController;
 
 public class MissionWindow extends Window {
 
-    private Label[] labels = new Label[8];
+    private Label[] labels = new Label[9];
 
     public MissionWindow(final WorldController worldController) {
         super("รายชื่อภารกิจ", new WindowStyle(Assets.instance.newFont, Color.WHITE, new NinePatchDrawable(Assets.instance.window)));

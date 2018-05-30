@@ -45,6 +45,13 @@ public class GameScreen extends AbstractGameScreen {
     private static final int SCENE_WIDTH = 1024;
     private static final int SCENE_HEIGHT = 576;
 
+    private WorldController worldController;
+    private WorldRenderer worldRenderer;
+
+    private Stage stage;
+    private Skin skin;
+
+
     private Button iconEnergyLess;
     private Button iconHuman;
     private Button iconItem;
@@ -57,36 +64,20 @@ public class GameScreen extends AbstractGameScreen {
     private Button iconGuide;
     private Button buttonStatus;
     private Button iconStatus;
-    private WorldController worldController;
-    private WorldRenderer worldRenderer;
+
     private boolean controlShow = true;
     private ItemLink itemLink;
     private int timeEvent = 0;
 
-    private Stage stage;
-    private Skin skin;
-
     private TextButton buttonAgree;
     private TextButton buttonRefuse;
 
-    private Label.LabelStyle labelStyle;
-    private Label.LabelStyle labelStyle2;
     private Label textBeam;
     private Label textTrap;
     private Label textTime;
     private Label energyLevel;
     private Label energyLevel2;
     private Label energyLevel3;
-
-    private Label text1;
-    private Label text2;
-    private Label text3;
-    private Label text4;
-    private Label text5;
-    private Label text6;
-    private Label text7;
-    private Label text8;
-    private Label text9;
 
     private String textSolarcell = "เชื่อมต่อไปยังแผงโซล่าเซลล์";
     private String textCharge = "เชื่อมต่อไปยังตัวควบคุมการชาร์จ";
@@ -364,7 +355,7 @@ public class GameScreen extends AbstractGameScreen {
         chartWindow = createChartWindow();
         chartWindow.setVisible(false);
 
-        statusWindow = createStatusWindow();
+        statusWindow = new StatusWindow(worldController);
         statusWindow.setVisible(false);
 
         guideWindow = createGuideWindow();
@@ -514,7 +505,7 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 statusStart = true;
-                status();
+                showStatusWindow();
             }
         });
 
@@ -522,7 +513,7 @@ public class GameScreen extends AbstractGameScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 statusStart = true;
-                status();
+                showStatusWindow();
             }
         });
 
@@ -725,7 +716,6 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(iconTemperatureButton);
         stage.addActor(iconCircleButton);
 
-        //  stage.addActor(iconBowButton);
         stage.addActor(iconSwordButton);
         stage.addActor(iconTrapButton);
         stage.addActor(iconTimeButton);
@@ -736,7 +726,6 @@ public class GameScreen extends AbstractGameScreen {
 
         stage.addActor(textSun);
         stage.addActor(textTemperature);
-        //    stage.addActor(textBullet);
         stage.addActor(textBeam);
         stage.addActor(textTrap);
         stage.addActor(textTime);
@@ -744,13 +733,16 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(energyLevel2);
         stage.addActor(energyLevel3);
         stage.addActor(textLiking);
+    }
 
+    private void showStatusWindow() {
+        worldController.level.player.timeStop = true;
+        statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
     private Window createChartWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.window);
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 
@@ -822,88 +814,6 @@ public class GameScreen extends AbstractGameScreen {
         });
 
         return chartWindow;
-    }
-
-    private Window createStatusWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new NinePatchDrawable(Assets.instance.window);
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.WHITE;
-
-        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonChartStyle.up = buttonRegion;
-        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonChartStyle);
-        text1 = new Label("", skin);
-        text2 = new Label("", skin);
-        text3 = new Label("", skin);
-        text4 = new Label("", skin);
-        text5 = new Label("", skin);
-        text6 = new Label("", skin);
-        text7 = new Label("", skin);
-        text8 = new Label("", skin);
-        text9 = new Label("", skin);
-
-        text1.setStyle(labelStyle);
-        text2.setStyle(labelStyle);
-        text3.setStyle(labelStyle);
-        text4.setStyle(labelStyle);
-        text5.setStyle(labelStyle);
-        text6.setStyle(labelStyle);
-        text7.setStyle(labelStyle);
-        text8.setStyle(labelStyle);
-        text9.setStyle(labelStyle);
-
-        final Window statusWindow = new Window("ข้อมูลการใช้พลังงานไฟฟ้า", style);
-        statusWindow.setModal(true);
-        statusWindow.padTop(45);
-        statusWindow.padLeft(40);
-        statusWindow.padRight(40);
-        statusWindow.padBottom(20);
-        statusWindow.getTitleLabel().setAlignment(Align.center);
-        statusWindow.row().padBottom(10).padTop(10);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text1);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text2);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text3);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text4);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text5);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text6);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text7);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text8);
-        statusWindow.row().padTop(10);
-        statusWindow.add(text9);
-        statusWindow.row().padTop(10);
-        statusWindow.add(closeButton).colspan(3);
-        statusWindow.pack();
-
-//        statusWindow.setSize(500, 500);
-//        statusWindow.debugAll();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                statusWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                worldController.level.player.statusEnergyWindow = false;
-                worldController.level.player.timeStop = false;
-            }
-        });
-
-        return statusWindow;
     }
 
     private Window createGuideWindow() {
@@ -1425,37 +1335,6 @@ public class GameScreen extends AbstractGameScreen {
         chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
-    private void status() {
-
-        worldController.level.player.timeStop = true;
-
-        if (EnergyProducedBar.instance.energyProduced == 0) {
-            String textString1 = ("ยังไม่เริ่มการผลิตพลังงาน");
-            text1.setText(textString1);
-        } else {
-            String textString1 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
-            String textString2 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
-            if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse) {
-                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorage() / (((EnergyProducedBar.instance.energyProduced
-                        * SunBar.instance.accelerateTime) - (EnergyUsedBar.instance.energyUse * SunBar.instance.accelerateTime)))) + " วินาทีพลังงานจะหมดลง"));
-                text3.setText(textString3);
-            } else {
-                String textString3 = ("อีก : " + String.valueOf((int) (BatteryBar.instance.getBatteryStorageBlank() / (((EnergyProducedBar.instance.energyProduced
-                        * SunBar.instance.accelerateTime) - (EnergyUsedBar.instance.energyUse * SunBar.instance.accelerateTime)))) + " วินาทีพลังงานจะเต็มแบตเตอรี่"));
-                text3.setText(textString3);
-            }
-            String textString4 = ("กำลังไฟฟ้าที่ผลิตได้หลังจากหักลบแล้ว : " + String.valueOf((EnergyProducedBar.instance.energyProduced - EnergyUsedBar.instance.energyUse)) + " วัตต์");
-            text1.setText(textString1);
-            text2.setText(textString2);
-            text4.setText(textString4);
-        }
-        statusWindow.pack();
-        statusWindow.setPosition(
-                stage.getWidth() / 2 - statusWindow.getWidth() / 2,
-                stage.getHeight() / 2 - statusWindow.getHeight() / 2);
-        statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-    }
-
     private void controlAndDebug() {
 
         Player player = worldController.level.player;
@@ -1739,7 +1618,7 @@ public class GameScreen extends AbstractGameScreen {
         if (player.timeCount <= timeEvent && !statusStart && stageThreeClear) {
             System.out.print("status");
             statusStart = true;
-            status();
+            showStatusWindow();
             player.timeStop = true;
         }
     }
