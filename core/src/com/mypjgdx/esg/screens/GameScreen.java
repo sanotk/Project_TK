@@ -55,13 +55,9 @@ public class GameScreen extends AbstractGameScreen {
     private Button iconHuman;
     private Button iconItem;
     private Button buttonControlWindow;
-    private Button buttonControl;
     private Button iconControl;
-    private Button buttonMission;
     private Button iconMission;
-    private Button buttonGuide;
     private Button iconGuide;
-    private Button buttonStatus;
     private Button iconStatus;
 
     private boolean controlShow = true;
@@ -77,18 +73,6 @@ public class GameScreen extends AbstractGameScreen {
     private Label energyLevel;
     private Label energyLevel2;
     private Label energyLevel3;
-
-    private String textSolarcell = "เชื่อมต่อไปยังแผงโซล่าเซลล์";
-    private String textCharge = "เชื่อมต่อไปยังตัวควบคุมการชาร์จ";
-    private String textBattery = "เชื่อมต่อไปยังแบตเตอรี";
-    private String textInverter = "เชื่อมต่อไปยังเครื่องแปลงกระแสไฟ";
-    private String textDoor = "เชื่อมต่อไปยังสถานที่หลบภัย";
-
-    private String textSolarcell2 = "ยกเลิกการเชื่อมต่อไปยังแผงโซล่าเซลล์";
-    private String textCharge2 = "ยกเลิกการเชื่อมต่อไปยังตัวควบคุมการชาร์จ";
-    private String textBattery2 = "ยกเลิกการเชื่อมต่อไปยังแบตเตอรี";
-    private String textInverter2 = "ยกเลิกการเชื่อมต่อไปยังเครื่องแปลงกระแสไฟ";
-    private String textDoor2 = "ยกเลิกการเชื่อมต่อไปยังสถานที่หลบภัย";
 
     public boolean stageFourClear;
     private boolean dialogCitizen2;
@@ -110,7 +94,6 @@ public class GameScreen extends AbstractGameScreen {
     private Button buttonGuideWindow;
     private boolean guideShow;
     private boolean missionStart;
-    private boolean guideStart;
     private boolean trapShow;
     private boolean swordShow;
     private boolean statusStart;
@@ -124,8 +107,6 @@ public class GameScreen extends AbstractGameScreen {
 
     private SolarState solarState;
     private systemWindow solarWindow;
-
-    private Window guideWindow;
 
     private ArrayList<SolarState> link = new ArrayList<SolarState>();
     private ArrayList<SolarState> isComplete = new ArrayList<SolarState>();
@@ -168,9 +149,6 @@ public class GameScreen extends AbstractGameScreen {
     public Dialog dialog;
     private int citizenCount = 0;
 
-    private String text =
-            "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
-
     private boolean dialogEnemy;
     private boolean dialogCitizen;
     private boolean dialogDoor1;
@@ -181,9 +159,6 @@ public class GameScreen extends AbstractGameScreen {
 
     private boolean stageTwoClear;
     private boolean stageThreeClear;
-
-    private TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
-    private TextButton.TextButtonStyle buttonStyle2 = new TextButton.TextButtonStyle();
 
     private PlayerTouchPad touchPad;
     private SwordAttackButton swordAttackButton;
@@ -241,7 +216,7 @@ public class GameScreen extends AbstractGameScreen {
         TextureRegionDrawable ControlUp = new TextureRegionDrawable(Assets.instance.iconControl);
         buttonControlStyle.up = ControlUp;
         buttonControlStyle.down = ControlUp.tint(Color.LIGHT_GRAY);
-        buttonControl = new Button(buttonControlStyle);
+        Button buttonControl = new Button(buttonControlStyle);
         buttonControl.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 150);
 
         iconControl = new Button(buttonControlStyle);
@@ -253,7 +228,7 @@ public class GameScreen extends AbstractGameScreen {
         TextureRegionDrawable missionUp = new TextureRegionDrawable(Assets.instance.iconMission);
         buttonMissionStyle.up = missionUp;
         buttonMissionStyle.down = missionUp.tint(Color.LIGHT_GRAY);
-        buttonMission = new Button(buttonMissionStyle);
+        Button buttonMission = new Button(buttonMissionStyle);
         buttonMission.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 200);
 
         iconMission = new Button(buttonMissionStyle);
@@ -264,7 +239,7 @@ public class GameScreen extends AbstractGameScreen {
         TextureRegionDrawable GuideUp = new TextureRegionDrawable(Assets.instance.iconGuide);
         buttonGuideStyle.up = GuideUp;
         buttonGuideStyle.down = GuideUp.tint(Color.LIGHT_GRAY);
-        buttonGuide = new Button(buttonGuideStyle);
+        Button buttonGuide = new Button(buttonGuideStyle);
         buttonGuide.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 250);
 
         iconGuide = new Button(buttonGuideStyle);
@@ -275,7 +250,7 @@ public class GameScreen extends AbstractGameScreen {
         TextureRegionDrawable statusUp = new TextureRegionDrawable(Assets.instance.iconStatus);
         buttonStatusStyle.up = statusUp;
         buttonStatusStyle.down = statusUp.tint(Color.LIGHT_GRAY);
-        buttonStatus = new Button(buttonStatusStyle);
+        Button buttonStatus = new Button(buttonStatusStyle);
         buttonStatus.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 300);
 
         iconStatus = new Button(buttonStatusStyle);
@@ -320,22 +295,24 @@ public class GameScreen extends AbstractGameScreen {
         iconItem.setVisible(false);
         iconEnergyLess.setVisible(false);
 
-        buttonStyle.up = new TextureRegionDrawable(Assets.instance.buttonGreen1);
-        buttonStyle.down = new TextureRegionDrawable(Assets.instance.buttonGreen2);
-        buttonStyle.font = font;
+        TextButton.TextButtonStyle buttonAgreeStyle = new TextButton.TextButtonStyle();
+        buttonAgreeStyle.up = new TextureRegionDrawable(Assets.instance.buttonGreen1);
+        buttonAgreeStyle.down = new TextureRegionDrawable(Assets.instance.buttonGreen2);
+        buttonAgreeStyle.font = font;
 
-        buttonStyle2.up = new TextureRegionDrawable(Assets.instance.buttonRed1);
-        buttonStyle2.down = new TextureRegionDrawable(Assets.instance.buttonRed2);
-        buttonStyle2.font = font;
+        TextButton.TextButtonStyle buttonRefuseStyle = new TextButton.TextButtonStyle();
+        buttonRefuseStyle.up = new TextureRegionDrawable(Assets.instance.buttonRed1);
+        buttonRefuseStyle.down = new TextureRegionDrawable(Assets.instance.buttonRed2);
+        buttonRefuseStyle.font = font;
 
-        buttonAgree = new TextButton("ตกลง", buttonStyle);
+        buttonAgree = new TextButton("ตกลง", buttonAgreeStyle);
         buttonAgree.setWidth(50);
         buttonAgree.setHeight(25);
         buttonAgree.setPosition(SCENE_WIDTH / 6 + 20, 120);
 
         buttonAgree.setVisible(false);
 
-        buttonRefuse = new TextButton("ปฎิเสธ", buttonStyle2);
+        buttonRefuse = new TextButton("ปฎิเสธ", buttonRefuseStyle);
         buttonRefuse.setWidth(50);
         buttonRefuse.setHeight(25);
         buttonRefuse.setPosition(SCENE_WIDTH / 4, 120);
@@ -348,7 +325,7 @@ public class GameScreen extends AbstractGameScreen {
         statusWindow = new StatusWindow(worldController);
         statusWindow.setVisible(false);
 
-        guideWindow = createGuideWindow();
+        Window guideWindow = createGuideWindow();
         guideWindow.setVisible(false);
 
         solarCellWindow = createSolarCellWindow();
@@ -850,10 +827,10 @@ public class GameScreen extends AbstractGameScreen {
         solarCellButton3 = new Button(imageLink3);
         solarCellButton4 = new Button(imageLink4);
 
-        labelSolarCell1 = new Label(textCharge, skin);
-        labelSolarCell2 = new Label(textBattery, skin);
-        labelSolarCell3 = new Label(textInverter, skin);
-        labelSolarCell4 = new Label(textDoor, skin);
+        labelSolarCell1 = new Label("เชื่อมต่อไปยังตัวควบคุมการชาร์จ", skin);
+        labelSolarCell2 = new Label("เชื่อมต่อไปยังแบตเตอรี", skin);
+        labelSolarCell3 = new Label("เชื่อมต่อไปยังเครื่องแปลงกระแสไฟ", skin);
+        labelSolarCell4 = new Label("เชื่อมต่อไปยังสถานที่หลบภัย", skin);
 
         labelSolarCell1.setStyle(labelStyle);
         labelSolarCell2.setStyle(labelStyle);
@@ -934,9 +911,10 @@ public class GameScreen extends AbstractGameScreen {
         } else if (level1.inverter.nearPlayer()) {
             solarCellWindow.getTitleLabel().setText("ตัวเลือกการเชื่อมต่อของเครื่องแปลงกระแสไฟ");
         }
+        String textCharge2 = "ยกเลิกการเชื่อมต่อไปยังตัวควบคุมการชาร์จ";
         if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
             imageLink1.setRegion(Assets.instance.buttonChargeAdd);
-            labelSolarCell1.setText(textCharge);
+            labelSolarCell1.setText("เชื่อมต่อไปยังตัวควบคุมการชาร์จ");
         } else if ((solarWindow == systemWindow.solarcell) && (addedStoC)) {
             imageLink1.setRegion(Assets.instance.buttonChargeDel);
             labelSolarCell1.setText(textCharge2);
@@ -944,9 +922,11 @@ public class GameScreen extends AbstractGameScreen {
                 || ((solarWindow == systemWindow.battery) && (!addedStoB))
                 || ((solarWindow == systemWindow.inverter) && (!addedStoI))) {
             imageLink1.setRegion(Assets.instance.buttonSolarcellAdd);
+            String textSolarcell = "เชื่อมต่อไปยังแผงโซล่าเซลล์";
             labelSolarCell1.setText(textSolarcell);
         } else {
             imageLink1.setRegion(Assets.instance.buttonSolarcellDel);
+            String textSolarcell2 = "ยกเลิกการเชื่อมต่อไปยังแผงโซล่าเซลล์";
             labelSolarCell1.setText(textSolarcell2);
         }
         solarCellButton1.clearListeners();
@@ -978,15 +958,16 @@ public class GameScreen extends AbstractGameScreen {
             }
         });
 
+        String textBattery2 = "ยกเลิกการเชื่อมต่อไปยังแบตเตอรี";
         if (((solarWindow == systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoB))) {
             imageLink2.setRegion(Assets.instance.buttonBatteryAdd);
-            labelSolarCell2.setText(textBattery);
+            labelSolarCell2.setText("เชื่อมต่อไปยังแบตเตอรี");
         } else if (((solarWindow == systemWindow.solarcell) && (addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoB))) {
             imageLink2.setRegion(Assets.instance.buttonBatteryDel);
             labelSolarCell2.setText(textBattery2);
         } else if (((solarWindow == systemWindow.battery) && (!addedCtoB)) || ((solarWindow == systemWindow.inverter) && (!addedCtoI))) {
             imageLink2.setRegion(Assets.instance.buttonChargeAdd);
-            labelSolarCell2.setText(textCharge);
+            labelSolarCell2.setText("เชื่อมต่อไปยังตัวควบคุมการชาร์จ");
         } else {
             imageLink2.setRegion(Assets.instance.buttonChargeDel);
             labelSolarCell2.setText(textCharge2);
@@ -1020,14 +1001,15 @@ public class GameScreen extends AbstractGameScreen {
         if (((solarWindow == systemWindow.solarcell) && (!addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoI))
                 || ((solarWindow == systemWindow.battery) && (!addedBtoI))) {
             imageLink3.setRegion(Assets.instance.buttonInverterAdd);
-            labelSolarCell3.setText(textInverter);
+            labelSolarCell3.setText("เชื่อมต่อไปยังเครื่องแปลงกระแสไฟ");
         } else if (((solarWindow == systemWindow.solarcell) && (addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoI))
                 || ((solarWindow == systemWindow.battery) && (addedBtoI))) {
             imageLink3.setRegion(Assets.instance.buttonInverterDel);
+            String textInverter2 = "ยกเลิกการเชื่อมต่อไปยังเครื่องแปลงกระแสไฟ";
             labelSolarCell3.setText(textInverter2);
         } else if ((solarWindow == systemWindow.inverter) && (!addedBtoI)) {
             imageLink3.setRegion(Assets.instance.buttonBatteryAdd);
-            labelSolarCell3.setText(textBattery);
+            labelSolarCell3.setText("เชื่อมต่อไปยังแบตเตอรี");
         } else {
             imageLink3.setRegion(Assets.instance.buttonBatteryDel);
             labelSolarCell3.setText(textBattery2);
@@ -1063,9 +1045,10 @@ public class GameScreen extends AbstractGameScreen {
         if (((solarWindow == systemWindow.solarcell) && (!addedStoD)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoD))
                 || ((solarWindow == systemWindow.battery) && (!addedBtoD)) || ((solarWindow == systemWindow.inverter) && (!addedItoD))) {
             imageLink4.setRegion(Assets.instance.buttonDoorAdd);
-            labelSolarCell4.setText(textDoor);
+            labelSolarCell4.setText("เชื่อมต่อไปยังสถานที่หลบภัย");
         } else {
             imageLink4.setRegion(Assets.instance.buttonDoorDel);
+            String textDoor2 = "ยกเลิกการเชื่อมต่อไปยังสถานที่หลบภัย";
             labelSolarCell4.setText(textDoor2);
 
         }
@@ -1335,6 +1318,7 @@ public class GameScreen extends AbstractGameScreen {
 
         if (!dialogStart) {
             dialogAll();
+            String text = "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
             dialog.addWaitingPage(text);
             dialogStart = true;
             delayMission();
@@ -1778,64 +1762,25 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void write(Json json) {
-//        json.writeValue("buttonPlay", buttonPlay);
-//        json.writeValue("buttonPause", buttonPause);
+//        json.writeValue("iconEnergyLess", iconEnergyLess);
 //        json.writeValue("iconHuman", iconHuman);
 //        json.writeValue("iconItem", iconItem);
 //        json.writeValue("buttonControlWindow", buttonControlWindow);
-//        json.writeValue("buttonControl", buttonControl);
 //        json.writeValue("iconControl", iconControl);
-//        json.writeValue("buttonMission", buttonMission);
 //        json.writeValue("iconMission", iconMission);
-//        json.writeValue("buttonGuide", buttonGuide);
 //        json.writeValue("iconGuide", iconGuide);
-//        json.writeValue("buttonStatus", buttonStatus);
 //        json.writeValue("iconStatus", iconStatus);
-//        json.writeValue("worldController", worldController);
-//        json.writeValue("worldRenderer", worldRenderer);
         json.writeValue("controlShow", controlShow);
 //        json.writeValue("itemLink", itemLink);
         json.writeValue("timeEvent", timeEvent);
-//        json.writeValue("batch", batch);
-//        json.writeValue("bg", bg);
-//        json.writeValue("stage", stage);
-//        json.writeValue("skin", skin);
 //        json.writeValue("buttonAgree", buttonAgree);
 //        json.writeValue("buttonRefuse", buttonRefuse);
-//        json.writeValue("labelStyle", labelStyle);
-//        json.writeValue("labelStyle2", labelStyle2);
 //        json.writeValue("textBeam", textBeam);
 //        json.writeValue("textTrap", textTrap);
 //        json.writeValue("textTime", textTime);
 //        json.writeValue("energyLevel", energyLevel);
 //        json.writeValue("energyLevel2", energyLevel2);
 //        json.writeValue("energyLevel3", energyLevel3);
-//        json.writeValue("textMission1", textMission1);
-//        json.writeValue("textMission2", textMission2);
-//        json.writeValue("textMission3", textMission3);
-//        json.writeValue("textMission4", textMission4);
-//        json.writeValue("textMission5", textMission5);
-//        json.writeValue("textMission6", textMission6);
-//        json.writeValue("textMission7", textMission7);
-//        json.writeValue("text1", text1);
-//        json.writeValue("text2", text2);
-//        json.writeValue("text3", text3);
-//        json.writeValue("text4", text4);
-//        json.writeValue("text5", text5);
-//        json.writeValue("text6", text6);
-//        json.writeValue("text7", text7);
-//        json.writeValue("text8", text8);
-//        json.writeValue("text9", text9);
-        json.writeValue("textSolarcell", textSolarcell);
-        json.writeValue("textCharge", textCharge);
-        json.writeValue("textBattery", textBattery);
-        json.writeValue("textInverter", textInverter);
-        json.writeValue("textDoor", textDoor);
-        json.writeValue("textSolarcell2", textSolarcell2);
-        json.writeValue("textCharge2", textCharge2);
-        json.writeValue("textBattery2", textBattery2);
-        json.writeValue("textInverter2", textInverter2);
-        json.writeValue("textDoor2", textDoor2);
         json.writeValue("stageFourClear", stageFourClear);
         json.writeValue("dialogCitizen2", dialogCitizen2);
 //        json.writeValue("labelSolarCell1", labelSolarCell1);
@@ -1846,44 +1791,31 @@ public class GameScreen extends AbstractGameScreen {
 //        json.writeValue("solarCellButton2", solarCellButton2);
 //        json.writeValue("solarCellButton3", solarCellButton3);
 //        json.writeValue("solarCellButton4", solarCellButton4);
-//        json.writeValue("textChart1", textChart1);
-//        json.writeValue("textChart2", textChart2);
-//        json.writeValue("textChart3", textChart3);
-//        json.writeValue("textChart4", textChart4);
-//        json.writeValue("textChart5", textChart5);
-//        json.writeValue("textChart6", textChart6);
-//        json.writeValue("textChart7", textChart7);
 //        json.writeValue("textSun", textSun);
 //        json.writeValue("textTemperature", textTemperature);
 //        json.writeValue("textLiking", textLiking);
         json.writeValue("stageTwoAfter", stageTwoAfter);
-//        json.writeValue("textMission8", textMission8);
 //        json.writeValue("buttonGuideWindow", buttonGuideWindow);
         json.writeValue("guideShow", guideShow);
         json.writeValue("missionStart", missionStart);
-        json.writeValue("guideStart", guideStart);
         json.writeValue("trapShow", trapShow);
         json.writeValue("swordShow", swordShow);
         json.writeValue("statusStart", statusStart);
-//        json.writeValue("textMission9", textMission9);
 //        json.writeValue("solarState", solarState);
 //        json.writeValue("solarWindow", solarWindow);
-//        json.writeValue("guideWindow", guideWindow);
 //        json.writeValue("link", link);
 //        json.writeValue("isComplete", isComplete);
 //        json.writeValue("imageLink1", imageLink1);
 //        json.writeValue("imageLink2", imageLink2);
 //        json.writeValue("imageLink3", imageLink3);
 //        json.writeValue("imageLink4", imageLink4);
-//        json.writeValue("buttonOption", buttonOption);
 //        json.writeValue("font", font);
 //        json.writeValue("optionsWindow", optionsWindow);
 //        json.writeValue("solarCellWindow", solarCellWindow);
         json.writeValue("animation_status", animation_status);
-//        json.writeValue("buttonRule", buttonRule);
-//        json.writeValue("ruleWindow", ruleWindow);
 //        json.writeValue("chartWindow", chartWindow);
 //        json.writeValue("statusWindow", statusWindow);
+//        json.writeValue("missionWindow", missionWindow);
         json.writeValue("addedStoC", addedStoC);
         json.writeValue("addedStoB", addedStoB);
         json.writeValue("addedStoI", addedStoI);
@@ -1900,10 +1832,7 @@ public class GameScreen extends AbstractGameScreen {
         json.writeValue("enemyKilled", enemyKilled);
         json.writeValue("trueLink", trueLink);
 //        json.writeValue("dialog", dialog);
-//        json.writeValue("dialogStory", dialogStory);
         json.writeValue("citizenCount", citizenCount);
-//        json.writeValue("missionWindow", missionWindow);
-        json.writeValue("text", text);
         json.writeValue("dialogEnemy", dialogEnemy);
         json.writeValue("dialogCitizen", dialogCitizen);
         json.writeValue("dialogDoor1", dialogDoor1);
@@ -1913,12 +1842,6 @@ public class GameScreen extends AbstractGameScreen {
         json.writeValue("dialogShow", dialogShow);
         json.writeValue("stageTwoClear", stageTwoClear);
         json.writeValue("stageThreeClear", stageThreeClear);
-//        json.writeValue("buttonStyle", buttonStyle);
-//        json.writeValue("buttonStyle2", buttonStyle2);
-//        json.writeValue("pauseUp", pauseUp);
-//        json.writeValue("toolUp", toolUp);
-//        json.writeValue("buttonToolStyle", buttonToolStyle);
-//        json.writeValue("buttonPauseStyle", buttonPauseStyle);
 //        json.writeValue("touchPad", touchPad);
 //        json.writeValue("swordAttackButton", swordAttackButton);
 //        json.writeValue("swordWaveAttackButton", swordWaveAttackButton);
@@ -1929,64 +1852,25 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void read(Json json, JsonValue jsonData) {
-//        buttonPlay = jsonData.get("buttonPlay");
-//        buttonPause = jsonData.get("buttonPause");
+//        iconEnergyLess = jsonData.get("iconEnergyLess");
 //        iconHuman = jsonData.get("iconHuman");
 //        iconItem = jsonData.get("iconItem");
 //        buttonControlWindow = jsonData.get("buttonControlWindow");
-//        buttonControl = jsonData.get("buttonControl");
 //        iconControl = jsonData.get("iconControl");
-//        buttonMission = jsonData.get("buttonMission");
 //        iconMission = jsonData.get("iconMission");
-//        buttonGuide = jsonData.get("buttonGuide");
 //        iconGuide = jsonData.get("iconGuide");
-//        buttonStatus = jsonData.get("buttonStatus");
 //        iconStatus = jsonData.get("iconStatus");
-//        worldController = jsonData.get("worldController");
-//        worldRenderer = jsonData.get("worldRenderer");
         controlShow = jsonData.getBoolean("controlShow");
 //        itemLink = jsonData.get("itemLink");
         timeEvent = jsonData.getInt("timeEvent");
-//        batch = jsonData.get("batch");
-//        bg = jsonData.get("bg");
-//        stage = jsonData.get("stage");
-//        skin = jsonData.get("skin");
 //        buttonAgree = jsonData.get("buttonAgree");
 //        buttonRefuse = jsonData.get("buttonRefuse");
-//        labelStyle = jsonData.get("labelStyle");
-//        labelStyle2 = jsonData.get("labelStyle2");
 //        textBeam = jsonData.get("textBeam");
 //        textTrap = jsonData.get("textTrap");
 //        textTime = jsonData.get("textTime");
 //        energyLevel = jsonData.get("energyLevel");
 //        energyLevel2 = jsonData.get("energyLevel2");
 //        energyLevel3 = jsonData.get("energyLevel3");
-//        textMission1 = jsonData.get("textMission1");
-//        textMission2 = jsonData.get("textMission2");
-//        textMission3 = jsonData.get("textMission3");
-//        textMission4 = jsonData.get("textMission4");
-//        textMission5 = jsonData.get("textMission5");
-//        textMission6 = jsonData.get("textMission6");
-//        textMission7 = jsonData.get("textMission7");
-//        text1 = jsonData.get("text1");
-//        text2 = jsonData.get("text2");
-//        text3 = jsonData.get("text3");
-//        text4 = jsonData.get("text4");
-//        text5 = jsonData.get("text5");
-//        text6 = jsonData.get("text6");
-//        text7 = jsonData.get("text7");
-//        text8 = jsonData.get("text8");
-//        text9 = jsonData.get("text9");
-        textSolarcell = jsonData.getString("textSolarcell");
-        textCharge = jsonData.getString("textCharge");
-        textBattery = jsonData.getString("textBattery");
-        textInverter = jsonData.getString("textInverter");
-        textDoor = jsonData.getString("textDoor");
-        textSolarcell2 = jsonData.getString("textSolarcell2");
-        textCharge2 = jsonData.getString("textCharge2");
-        textBattery2 = jsonData.getString("textBattery2");
-        textInverter2 = jsonData.getString("textInverter2");
-        textDoor2 = jsonData.getString("textDoor2");
         stageFourClear = jsonData.getBoolean("stageFourClear");
         dialogCitizen2 = jsonData.getBoolean("dialogCitizen2");
 //        labelSolarCell1 = jsonData.get("labelSolarCell1");
@@ -1997,44 +1881,31 @@ public class GameScreen extends AbstractGameScreen {
 //        solarCellButton2 = jsonData.get("solarCellButton2");
 //        solarCellButton3 = jsonData.get("solarCellButton3");
 //        solarCellButton4 = jsonData.get("solarCellButton4");
-//        textChart1 = jsonData.get("textChart1");
-//        textChart2 = jsonData.get("textChart2");
-//        textChart3 = jsonData.get("textChart3");
-//        textChart4 = jsonData.get("textChart4");
-//        textChart5 = jsonData.get("textChart5");
-//        textChart6 = jsonData.get("textChart6");
-//        textChart7 = jsonData.get("textChart7");
 //        textSun = jsonData.get("textSun");
 //        textTemperature = jsonData.get("textTemperature");
 //        textLiking = jsonData.get("textLiking");
         stageTwoAfter = jsonData.getBoolean("stageTwoAfter");
-//        textMission8 = jsonData.get("textMission8");
 //        buttonGuideWindow = jsonData.get("buttonGuideWindow");
         guideShow = jsonData.getBoolean("guideShow");
         missionStart = jsonData.getBoolean("missionStart");
-        guideStart = jsonData.getBoolean("guideStart");
         trapShow = jsonData.getBoolean("trapShow");
         swordShow = jsonData.getBoolean("swordShow");
         statusStart = jsonData.getBoolean("statusStart");
-//        textMission9 = jsonData.get("textMission9");
 //        solarState = jsonData.get("solarState");
 //        solarWindow = jsonData.get("solarWindow");
-//        guideWindow = jsonData.get("guideWindow");
 //        link = jsonData.get("link");
 //        isComplete = jsonData.get("isComplete");
 //        imageLink1 = jsonData.get("imageLink1");
 //        imageLink2 = jsonData.get("imageLink2");
 //        imageLink3 = jsonData.get("imageLink3");
 //        imageLink4 = jsonData.get("imageLink4");
-//        buttonOption = jsonData.get("buttonOption");
 //        font = jsonData.get("font");
 //        optionsWindow = jsonData.get("optionsWindow");
 //        solarCellWindow = jsonData.get("solarCellWindow");
         animation_status = jsonData.getBoolean("animation_status");
-//        buttonRule = jsonData.get("buttonRule");
-//        ruleWindow = jsonData.get("ruleWindow");
 //        chartWindow = jsonData.get("chartWindow");
 //        statusWindow = jsonData.get("statusWindow");
+//        missionWindow = jsonData.get("missionWindow");
         addedStoC = jsonData.getBoolean("addedStoC");
         addedStoB = jsonData.getBoolean("addedStoB");
         addedStoI = jsonData.getBoolean("addedStoI");
@@ -2051,10 +1922,7 @@ public class GameScreen extends AbstractGameScreen {
         enemyKilled = jsonData.getInt("enemyKilled");
         trueLink = jsonData.getInt("trueLink");
 //        dialog = jsonData.get("dialog");
-//        dialogStory = jsonData.get("dialogStory");
         citizenCount = jsonData.getInt("citizenCount");
-//        missionWindow = jsonData.get("missionWindow");
-        text = jsonData.getString("text");
         dialogEnemy = jsonData.getBoolean("dialogEnemy");
         dialogCitizen = jsonData.getBoolean("dialogCitizen");
         dialogDoor1 = jsonData.getBoolean("dialogDoor1");
@@ -2064,12 +1932,6 @@ public class GameScreen extends AbstractGameScreen {
         dialogShow = jsonData.getBoolean("dialogShow");
         stageTwoClear = jsonData.getBoolean("stageTwoClear");
         stageThreeClear = jsonData.getBoolean("stageThreeClear");
-//        buttonStyle = jsonData.get("buttonStyle");
-//        buttonStyle2 = jsonData.get("buttonStyle2");
-//        pauseUp = jsonData.get("pauseUp");
-//        toolUp = jsonData.get("toolUp");
-//        buttonToolStyle = jsonData.get("buttonToolStyle");
-//        buttonPauseStyle = jsonData.get("buttonPauseStyle");
 //        touchPad = jsonData.get("touchPad");
 //        swordAttackButton = jsonData.get("swordAttackButton");
 //        swordWaveAttackButton = jsonData.get("swordWaveAttackButton");
