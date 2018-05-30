@@ -8,8 +8,6 @@ import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.objects.etcs.Link;
 import com.mypjgdx.esg.game.objects.items.Item;
 
-import java.util.ArrayList;
-
 public class ItemLink {
 
     private ItemLink() {
@@ -43,13 +41,10 @@ public class ItemLink {
 
         pathFinder.searchNodePath(startNode, endNode, heuristic, pathOutput);
 
-        ArrayList<Node> nodes = new ArrayList<Node>();
-        Direction direction;
-
         for (int i = 0; i < pathOutput.getCount() - 1; i++) {
             Node currentNode = pathOutput.get(i);
             Node nextNode = pathOutput.get(i + 1);
-            nodes.add(currentNode);
+            Direction direction;
 
             if ((currentNode.getPositionY() < nextNode.getPositionY())
                     && (currentNode.getPositionX() <= nextNode.getPositionX()))
@@ -68,8 +63,8 @@ public class ItemLink {
 
             worldController.level.links.add(
                     new Link(worldController.level.mapLayer,
-                    nodes.get(i).getPositionX() + 22,
-                            nodes.get(i).getPositionY(),
+                            currentNode.getPositionX() + 22,
+                            currentNode.getPositionY(),
                             direction,
                             solarState));
         }
