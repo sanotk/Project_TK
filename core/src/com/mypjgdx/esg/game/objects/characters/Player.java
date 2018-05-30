@@ -626,6 +626,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         json.writeValue("movingSpeed", movingSpeed);
 
         json.writeValue("isSwitch", isSwitch);
+        json.writeValue("stageOneClear", stageOneClear);
 
         json.writeValue("viewDirection", viewDirection);
 
@@ -665,6 +666,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         invulnerableTime = jsonData.getLong("invulnerableTime");
         movingSpeed = jsonData.getFloat("movingSpeed");
         isSwitch = jsonData.getBoolean("isSwitch");
+        stageOneClear = jsonData.getBoolean("stageOneClear");
 
         viewDirection = Direction.valueOf(jsonData.getString("viewDirection"));
         stalkerPosition.read(null, jsonData.get("stalkerPosition"));
