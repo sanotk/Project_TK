@@ -106,22 +106,9 @@ public class GameScreen extends AbstractGameScreen {
     private StatusWindow statusWindow;
     private ChartWindow chartWindow;
 
-    /* กลุ่มที่ไม่แน่ใจ แต่ต้อง save เพื่อความชัวร์ */
+    /* กลุ่มที่ต้อง save ไว้ก่อนเพื่อความชัวร์ */
 
     private MissionWindow missionWindow;
-
-    private boolean controlShow = true;
-    private int timeEvent = 0;
-
-    public boolean stageFourClear;
-    private boolean dialogCitizen2;
-
-    private boolean stageTwoAfter;
-    private boolean guideShow;
-    private boolean missionStart;
-    private boolean trapShow;
-    private boolean swordShow;
-    private boolean statusStart;
 
     private SolarState solarState;
 
@@ -158,6 +145,18 @@ public class GameScreen extends AbstractGameScreen {
 
     private int citizenCount = 0;
 
+    private boolean controlShow = true;
+    private int timeEvent = 0;
+
+    public boolean stageFourClear;
+    private boolean dialogCitizen2;
+
+    private boolean stageTwoAfter;
+    private boolean guideShow;
+    private boolean missionStart;
+    private boolean trapShow;
+    private boolean swordShow;
+    private boolean statusStart;
     private boolean dialogEnemy;
     private boolean dialogCitizen;
     private boolean dialogDoor1;
@@ -173,7 +172,6 @@ public class GameScreen extends AbstractGameScreen {
         super(game);
 
         stage = new Stage();
-
         skin = new Skin(Gdx.files.internal("uiskin.json"));
 
         touchPad = new PlayerTouchPad();
@@ -1749,62 +1747,18 @@ public class GameScreen extends AbstractGameScreen {
     public Window getOptionWindow() {
         return optionsWindow;
     }
-
     @Override
     public void write(Json json) {
-//        json.writeValue("iconEnergyLess", iconEnergyLess);
-//        json.writeValue("iconHuman", iconHuman);
-//        json.writeValue("iconItem", iconItem);
-//        json.writeValue("buttonControlWindow", buttonControlWindow);
-//        json.writeValue("iconControl", iconControl);
-//        json.writeValue("iconMission", iconMission);
-//        json.writeValue("iconGuide", iconGuide);
-//        json.writeValue("iconStatus", iconStatus);
-        json.writeValue("controlShow", controlShow);
-//        json.writeValue("itemLink", itemLink);
-        json.writeValue("timeEvent", timeEvent);
-//        json.writeValue("buttonAgree", buttonAgree);
-//        json.writeValue("buttonRefuse", buttonRefuse);
-//        json.writeValue("textBeam", textBeam);
-//        json.writeValue("textTrap", textTrap);
-//        json.writeValue("textTime", textTime);
-//        json.writeValue("textEnergyProduce", textEnergyProduce);
-//        json.writeValue("textEnergyUse", textEnergyUse);
-//        json.writeValue("textEnergyStored", textEnergyStored);
-        json.writeValue("stageFourClear", stageFourClear);
-        json.writeValue("dialogCitizen2", dialogCitizen2);
-//        json.writeValue("labelSolarCell1", labelSolarCell1);
-//        json.writeValue("labelSolarCell2", labelSolarCell2);
-//        json.writeValue("labelSolarCell3", labelSolarCell3);
-//        json.writeValue("labelSolarCell4", labelSolarCell4);
-//        json.writeValue("solarCellButton1", solarCellButton1);
-//        json.writeValue("solarCellButton2", solarCellButton2);
-//        json.writeValue("solarCellButton3", solarCellButton3);
-//        json.writeValue("solarCellButton4", solarCellButton4);
-//        json.writeValue("textSun", textSun);
-//        json.writeValue("textTemperature", textTemperature);
-//        json.writeValue("textLiking", textLiking);
-        json.writeValue("stageTwoAfter", stageTwoAfter);
-//        json.writeValue("buttonGuideWindow", buttonGuideWindow);
-        json.writeValue("guideShow", guideShow);
-        json.writeValue("missionStart", missionStart);
-        json.writeValue("trapShow", trapShow);
-        json.writeValue("swordShow", swordShow);
-        json.writeValue("statusStart", statusStart);
+        json.writeValue("missionWindow", missionWindow);
 //        json.writeValue("solarState", solarState);
-//        json.writeValue("solarWindow", solarWindow);
 //        json.writeValue("link", link);
 //        json.writeValue("isComplete", isComplete);
 //        json.writeValue("imageLink1", imageLink1);
 //        json.writeValue("imageLink2", imageLink2);
 //        json.writeValue("imageLink3", imageLink3);
 //        json.writeValue("imageLink4", imageLink4);
-//        json.writeValue("optionsWindow", optionsWindow);
 //        json.writeValue("solarCellWindow", solarCellWindow);
         json.writeValue("animation_status", animation_status);
-//        json.writeValue("chartWindow", chartWindow);
-//        json.writeValue("statusWindow", statusWindow);
-        json.writeValue("missionWindow", missionWindow);
         json.writeValue("addedStoC", addedStoC);
         json.writeValue("addedStoB", addedStoB);
         json.writeValue("addedStoI", addedStoI);
@@ -1820,8 +1774,17 @@ public class GameScreen extends AbstractGameScreen {
         json.writeValue("dialogSwordWave", dialogSwordWave);
         json.writeValue("enemyKilled", enemyKilled);
         json.writeValue("trueLink", trueLink);
-//        json.writeValue("dialog", dialog);
         json.writeValue("citizenCount", citizenCount);
+        json.writeValue("controlShow", controlShow);
+        json.writeValue("timeEvent", timeEvent);
+        json.writeValue("stageFourClear", stageFourClear);
+        json.writeValue("dialogCitizen2", dialogCitizen2);
+        json.writeValue("stageTwoAfter", stageTwoAfter);
+        json.writeValue("guideShow", guideShow);
+        json.writeValue("missionStart", missionStart);
+        json.writeValue("trapShow", trapShow);
+        json.writeValue("swordShow", swordShow);
+        json.writeValue("statusStart", statusStart);
         json.writeValue("dialogEnemy", dialogEnemy);
         json.writeValue("dialogCitizen", dialogCitizen);
         json.writeValue("dialogDoor1", dialogDoor1);
@@ -1831,70 +1794,20 @@ public class GameScreen extends AbstractGameScreen {
         json.writeValue("dialogShow", dialogShow);
         json.writeValue("stageTwoClear", stageTwoClear);
         json.writeValue("stageThreeClear", stageThreeClear);
-//        json.writeValue("touchPad", touchPad);
-//        json.writeValue("swordAttackButton", swordAttackButton);
-//        json.writeValue("swordWaveAttackButton", swordWaveAttackButton);
-//        json.writeValue("trapAttackButton", trapAttackButton);
-//        json.writeValue("talkButton", talkButton);
-//        json.writeValue("game", game);
     }
 
     @Override
     public void read(Json json, JsonValue jsonData) {
-//        iconEnergyLess = jsonData.get("iconEnergyLess");
-//        iconHuman = jsonData.get("iconHuman");
-//        iconItem = jsonData.get("iconItem");
-//        buttonControlWindow = jsonData.get("buttonControlWindow");
-//        iconControl = jsonData.get("iconControl");
-//        iconMission = jsonData.get("iconMission");
-//        iconGuide = jsonData.get("iconGuide");
-//        iconStatus = jsonData.get("iconStatus");
-        controlShow = jsonData.getBoolean("controlShow");
-//        itemLink = jsonData.get("itemLink");
-        timeEvent = jsonData.getInt("timeEvent");
-//        buttonAgree = jsonData.get("buttonAgree");
-//        buttonRefuse = jsonData.get("buttonRefuse");
-//        textBeam = jsonData.get("textBeam");
-//        textTrap = jsonData.get("textTrap");
-//        textTime = jsonData.get("textTime");
-//        textEnergyProduce = jsonData.get("textEnergyProduce");
-//        textEnergyUse = jsonData.get("textEnergyUse");
-//        textEnergyStored = jsonData.get("textEnergyStored");
-        stageFourClear = jsonData.getBoolean("stageFourClear");
-        dialogCitizen2 = jsonData.getBoolean("dialogCitizen2");
-//        labelSolarCell1 = jsonData.get("labelSolarCell1");
-//        labelSolarCell2 = jsonData.get("labelSolarCell2");
-//        labelSolarCell3 = jsonData.get("labelSolarCell3");
-//        labelSolarCell4 = jsonData.get("labelSolarCell4");
-//        solarCellButton1 = jsonData.get("solarCellButton1");
-//        solarCellButton2 = jsonData.get("solarCellButton2");
-//        solarCellButton3 = jsonData.get("solarCellButton3");
-//        solarCellButton4 = jsonData.get("solarCellButton4");
-//        textSun = jsonData.get("textSun");
-//        textTemperature = jsonData.get("textTemperature");
-//        textLiking = jsonData.get("textLiking");
-        stageTwoAfter = jsonData.getBoolean("stageTwoAfter");
-//        buttonGuideWindow = jsonData.get("buttonGuideWindow");
-        guideShow = jsonData.getBoolean("guideShow");
-        missionStart = jsonData.getBoolean("missionStart");
-        trapShow = jsonData.getBoolean("trapShow");
-        swordShow = jsonData.getBoolean("swordShow");
-        statusStart = jsonData.getBoolean("statusStart");
+        missionWindow.read(null, jsonData.get("missionWindow"));
 //        solarState = jsonData.get("solarState");
-//        solarWindow = jsonData.get("solarWindow");
 //        link = jsonData.get("link");
 //        isComplete = jsonData.get("isComplete");
 //        imageLink1 = jsonData.get("imageLink1");
 //        imageLink2 = jsonData.get("imageLink2");
 //        imageLink3 = jsonData.get("imageLink3");
 //        imageLink4 = jsonData.get("imageLink4");
-//        optionsWindow = jsonData.get("optionsWindow");
 //        solarCellWindow = jsonData.get("solarCellWindow");
         animation_status = jsonData.getBoolean("animation_status");
-//        chartWindow = jsonData.get("chartWindow");
-//        statusWindow = jsonData.get("statusWindow");
-        missionWindow.read(null, jsonData.get("missionWindow"));
-
         addedStoC = jsonData.getBoolean("addedStoC");
         addedStoB = jsonData.getBoolean("addedStoB");
         addedStoI = jsonData.getBoolean("addedStoI");
@@ -1910,8 +1823,17 @@ public class GameScreen extends AbstractGameScreen {
         dialogSwordWave = jsonData.getBoolean("dialogSwordWave");
         enemyKilled = jsonData.getInt("enemyKilled");
         trueLink = jsonData.getInt("trueLink");
-//        dialog = jsonData.get("dialog");
         citizenCount = jsonData.getInt("citizenCount");
+        controlShow = jsonData.getBoolean("controlShow");
+        timeEvent = jsonData.getInt("timeEvent");
+        stageFourClear = jsonData.getBoolean("stageFourClear");
+        dialogCitizen2 = jsonData.getBoolean("dialogCitizen2");
+        stageTwoAfter = jsonData.getBoolean("stageTwoAfter");
+        guideShow = jsonData.getBoolean("guideShow");
+        missionStart = jsonData.getBoolean("missionStart");
+        trapShow = jsonData.getBoolean("trapShow");
+        swordShow = jsonData.getBoolean("swordShow");
+        statusStart = jsonData.getBoolean("statusStart");
         dialogEnemy = jsonData.getBoolean("dialogEnemy");
         dialogCitizen = jsonData.getBoolean("dialogCitizen");
         dialogDoor1 = jsonData.getBoolean("dialogDoor1");
@@ -1921,11 +1843,5 @@ public class GameScreen extends AbstractGameScreen {
         dialogShow = jsonData.getBoolean("dialogShow");
         stageTwoClear = jsonData.getBoolean("stageTwoClear");
         stageThreeClear = jsonData.getBoolean("stageThreeClear");
-//        touchPad = jsonData.get("touchPad");
-//        swordAttackButton = jsonData.get("swordAttackButton");
-//        swordWaveAttackButton = jsonData.get("swordWaveAttackButton");
-//        trapAttackButton = jsonData.get("trapAttackButton");
-//        talkButton = jsonData.get("talkButton");
-//        game = jsonData.get("game");
     }
 }
