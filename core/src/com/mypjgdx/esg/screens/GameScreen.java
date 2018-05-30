@@ -51,7 +51,6 @@ public class GameScreen extends AbstractGameScreen {
     private Stage stage;
     private Skin skin;
 
-
     private Button iconEnergyLess;
     private Button iconHuman;
     private Button iconItem;
@@ -91,7 +90,7 @@ public class GameScreen extends AbstractGameScreen {
     private String textInverter2 = "ยกเลิกการเชื่อมต่อไปยังเครื่องแปลงกระแสไฟ";
     private String textDoor2 = "ยกเลิกการเชื่อมต่อไปยังสถานที่หลบภัย";
 
-    private boolean stageFourClear;
+    public boolean stageFourClear;
     private boolean dialogCitizen2;
 
     private Label labelSolarCell1;
@@ -103,14 +102,6 @@ public class GameScreen extends AbstractGameScreen {
     private Button solarCellButton2;
     private Button solarCellButton3;
     private Button solarCellButton4;
-
-    private Label textChart1;
-    private Label textChart2;
-    private Label textChart3;
-    private Label textChart4;
-    private Label textChart5;
-    private Label textChart6;
-    private Label textChart7;
 
     private Label textSun;
     private Label textTemperature;
@@ -151,8 +142,9 @@ public class GameScreen extends AbstractGameScreen {
 
     private boolean animation_status = false;
 
-    private Window chartWindow;
-    private Window statusWindow;
+    private ChartWindow chartWindow;
+    private StatusWindow statusWindow;
+    private MissionWindow missionWindow;
 
     private boolean addedStoC;
     private boolean addedStoB;
@@ -169,14 +161,12 @@ public class GameScreen extends AbstractGameScreen {
     private boolean dialogTrap;
     private boolean dialogSwordWave;
 
-    private int countEnemy;
+    private int enemyKilled;
 
     private int trueLink = 0;
 
-    private Dialog dialog;
+    public Dialog dialog;
     private int citizenCount = 0;
-
-    private MissionWindow missionWindow;
 
     private String text =
             "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
@@ -352,7 +342,7 @@ public class GameScreen extends AbstractGameScreen {
 
         buttonRefuse.setVisible(false);
 
-        chartWindow = createChartWindow();
+        chartWindow = new ChartWindow(this, worldController);
         chartWindow.setVisible(false);
 
         statusWindow = new StatusWindow(worldController);
@@ -740,86 +730,9 @@ public class GameScreen extends AbstractGameScreen {
         statusWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
     }
 
-    private Window createChartWindow() {
-        Window.WindowStyle style = new Window.WindowStyle();
-        style.background = new NinePatchDrawable(Assets.instance.window);
-        style.titleFont = font;
-        style.titleFontColor = Color.WHITE;
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-        labelStyle.fontColor = Color.WHITE;
-
-        Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
-        TextureRegionDrawable buttonRegion = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("button_cross"));
-        buttonChartStyle.up = buttonRegion;
-        buttonChartStyle.down = buttonRegion.tint(Color.LIGHT_GRAY);
-
-        Button closeButton = new Button(buttonChartStyle);
-
-        textChart1 = new Label("สถิติ", skin);
-        textChart2 = new Label("", skin);
-        textChart3 = new Label("", skin);
-        textChart4 = new Label("", skin);
-        textChart5 = new Label("", skin);
-        textChart6 = new Label("", skin);
-        textChart7 = new Label("", skin);
-
-        textChart1.setStyle(labelStyle);
-        textChart2.setStyle(labelStyle);
-        textChart3.setStyle(labelStyle);
-        textChart4.setStyle(labelStyle);
-        textChart5.setStyle(labelStyle);
-        textChart6.setStyle(labelStyle);
-        textChart7.setStyle(labelStyle);
-
-        final Window chartWindow = new Window("ยินดีด้วย คุณได้รับชัยชนะ", style);
-        chartWindow.setModal(true);
-        chartWindow.padTop(45);
-        chartWindow.padLeft(40);
-        chartWindow.padRight(40);
-        chartWindow.padBottom(20);
-        chartWindow.getTitleLabel().setAlignment(Align.center);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart1);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart2);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart3);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart4);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart5);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart6);
-        chartWindow.row().padTop(10);
-        chartWindow.add(textChart7);
-        chartWindow.row().padTop(10);
-        chartWindow.add(closeButton).colspan(3);
-        chartWindow.pack();
-
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                chartWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                stageFourClear = true;
-                worldController.level.player.timeStop = true;
-                String text =
-                        "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
-                dialog.show();
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
-                System.out.print(text);
-            }
-        });
-
-        return chartWindow;
-    }
-
     private Window createGuideWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.window);
-//        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
         style.titleFont = font;
         style.titleFontColor = Color.WHITE;
 
@@ -1312,29 +1225,6 @@ public class GameScreen extends AbstractGameScreen {
         }
     }
 
-    private void chartStatus() {
-        Player player = worldController.level.player;
-        player.timeStop = true;
-        player.timeClear = true;
-        String textString1 = ("เวลาที่ใช้ : " + String.valueOf((player.getIntitalTime() - player.timeCount) + " วินาที"));
-        String textString2 = ("มอนสเตอร์ที่ถูกกำจัด : " + String.valueOf((countEnemy) + " ตัว"));
-        String textString3 = ("กำลังไฟฟ้าผลิต : " + String.valueOf((EnergyProducedBar.instance.energyProduced) + " วัตต์"));
-        String textString4 = ("กำลังไฟฟ้าใช้งานรวม : " + String.valueOf(EnergyUsedBar.instance.energyUse) + " วัตต์");
-        String textString5 = ("พลังงานไฟฟ้าที่ได้รับจากมอนสเตอร์ : " + String.valueOf((countEnemy * 1000) + " จูล"));
-        String textString6 = ("ความพอใจของประชาชน : " + String.valueOf((LikingBar.instance.liking)));
-        textChart2.setText(textString1);
-        textChart3.setText(textString2);
-        textChart4.setText(textString3);
-        textChart5.setText(textString4);
-        textChart6.setText(textString5);
-        textChart7.setText(textString6);
-        chartWindow.pack();
-        chartWindow.setPosition(
-                stage.getWidth() / 2 - chartWindow.getWidth() / 2,
-                stage.getHeight() / 2 - chartWindow.getHeight() / 2);
-        chartWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-    }
-
     private void controlAndDebug() {
 
         Player player = worldController.level.player;
@@ -1627,7 +1517,7 @@ public class GameScreen extends AbstractGameScreen {
 
         Player player = worldController.level.player;
         Level1 level1 = (Level1) worldController.level;
-        if (countEnemy == worldController.level.enemies.size() || worldController.level.enemies.size() == 0) {
+        if (enemyKilled == worldController.level.enemies.size() || worldController.level.enemies.size() == 0) {
             player.stageOneClear = true;
         }
 
@@ -1640,7 +1530,7 @@ public class GameScreen extends AbstractGameScreen {
             if (enemy.stateMachine.getCurrentState() == EnemyState.DIE && !enemy.count) {
                 BatteryBar.instance.addEnergy(1000);
                 enemy.count = true;
-                countEnemy += 1;
+                enemyKilled += 1;
             }
         }
     }
@@ -1677,7 +1567,7 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         if (animation_status && stageThreeClear && !dialogDoor4 && level1.door.nearPlayer() && player.status_find) {
-            chartStatus();
+            chartWindow.show(worldController, enemyKilled);
         }
     }
 
@@ -2007,7 +1897,7 @@ public class GameScreen extends AbstractGameScreen {
         json.writeValue("dialogStart", dialogStart);
         json.writeValue("dialogTrap", dialogTrap);
         json.writeValue("dialogSwordWave", dialogSwordWave);
-        json.writeValue("countEnemy", countEnemy);
+        json.writeValue("enemyKilled", enemyKilled);
         json.writeValue("trueLink", trueLink);
 //        json.writeValue("dialog", dialog);
 //        json.writeValue("dialogStory", dialogStory);
@@ -2158,7 +2048,7 @@ public class GameScreen extends AbstractGameScreen {
         dialogStart = jsonData.getBoolean("dialogStart");
         dialogTrap = jsonData.getBoolean("dialogTrap");
         dialogSwordWave = jsonData.getBoolean("dialogSwordWave");
-        countEnemy = jsonData.getInt("countEnemy");
+        enemyKilled = jsonData.getInt("enemyKilled");
         trueLink = jsonData.getInt("trueLink");
 //        dialog = jsonData.get("dialog");
 //        dialogStory = jsonData.get("dialogStory");
