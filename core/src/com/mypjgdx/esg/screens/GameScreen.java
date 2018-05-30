@@ -5,8 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -45,11 +43,30 @@ public class GameScreen extends AbstractGameScreen {
     private static final int SCENE_WIDTH = 1024;
     private static final int SCENE_HEIGHT = 576;
 
+    public enum SystemWindow {
+        SOLAR_CELL,
+        CHARGE_CONTROLLER,
+        BATTERY,
+        INVERTER
+    }
+
+    /* กลุ่มทีไม่จำเป็นต้อง save */
     private WorldController worldController;
     private WorldRenderer worldRenderer;
 
     private Stage stage;
     private Skin skin;
+
+    private ItemLink itemLink;
+
+    private Label textBeam;
+    private Label textTrap;
+    private Label textTime;
+    private Label textEnergyProduce;
+    private Label textEnergyUse;
+    private Label textEnergyStored;
+
+    /* จบกลุ่มที่ไม่จำเป็นต้อง save */
 
     private Button iconEnergyLess;
     private Button iconHuman;
@@ -61,18 +78,10 @@ public class GameScreen extends AbstractGameScreen {
     private Button iconStatus;
 
     private boolean controlShow = true;
-    private ItemLink itemLink;
     private int timeEvent = 0;
 
     private TextButton buttonAgree;
     private TextButton buttonRefuse;
-
-    private Label textBeam;
-    private Label textTrap;
-    private Label textTime;
-    private Label energyLevel;
-    private Label energyLevel2;
-    private Label energyLevel3;
 
     public boolean stageFourClear;
     private boolean dialogCitizen2;
@@ -98,15 +107,8 @@ public class GameScreen extends AbstractGameScreen {
     private boolean swordShow;
     private boolean statusStart;
 
-    public enum systemWindow {
-        solarcell,
-        chargecontroller,
-        battery,
-        inverter
-    }
-
     private SolarState solarState;
-    private systemWindow solarWindow;
+    private SystemWindow solarWindow;
 
     private ArrayList<SolarState> link = new ArrayList<SolarState>();
     private ArrayList<SolarState> isComplete = new ArrayList<SolarState>();
@@ -116,7 +118,6 @@ public class GameScreen extends AbstractGameScreen {
     private TextureRegionDrawable imageLink3;
     private TextureRegionDrawable imageLink4;
 
-    private BitmapFont font;
     private Window optionsWindow;
 
     private Window solarCellWindow;
@@ -172,9 +173,6 @@ public class GameScreen extends AbstractGameScreen {
         stage = new Stage();
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
-        font = Assets.instance.newFont;
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font.setColor(Color.WHITE);
 
         touchPad = new PlayerTouchPad();
         stage.addActor(touchPad);
@@ -197,7 +195,7 @@ public class GameScreen extends AbstractGameScreen {
         talkButton.setPosition(stage.getWidth() - talkButton.getWidth() - 60, 400);
 
 
-        dialog = new Dialog(font, Assets.instance.dialogTexture, 65f, 120f);
+        dialog = new Dialog(Assets.instance.newFont, Assets.instance.dialogTexture, 65f, 120f);
         dialog.setPosition(
                 SCENE_WIDTH / 2 - Assets.instance.dialogTexture.getWidth() * 0.5f,
                 SCENE_HEIGHT / 4 - Assets.instance.dialogTexture.getHeight() * 0.5f);
@@ -298,12 +296,12 @@ public class GameScreen extends AbstractGameScreen {
         TextButton.TextButtonStyle buttonAgreeStyle = new TextButton.TextButtonStyle();
         buttonAgreeStyle.up = new TextureRegionDrawable(Assets.instance.buttonGreen1);
         buttonAgreeStyle.down = new TextureRegionDrawable(Assets.instance.buttonGreen2);
-        buttonAgreeStyle.font = font;
+        buttonAgreeStyle.font = Assets.instance.newFont;
 
         TextButton.TextButtonStyle buttonRefuseStyle = new TextButton.TextButtonStyle();
         buttonRefuseStyle.up = new TextureRegionDrawable(Assets.instance.buttonRed1);
         buttonRefuseStyle.down = new TextureRegionDrawable(Assets.instance.buttonRed2);
-        buttonRefuseStyle.font = font;
+        buttonRefuseStyle.font = Assets.instance.newFont;
 
         buttonAgree = new TextButton("ตกลง", buttonAgreeStyle);
         buttonAgree.setWidth(50);
@@ -549,10 +547,10 @@ public class GameScreen extends AbstractGameScreen {
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
         buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
-        buttonStyle.font = font;
+        buttonStyle.font = Assets.instance.newFont;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
+        labelStyle.font = Assets.instance.newFont;
 
 
         TextButton.TextButtonStyle buttonSunStyle = new TextButton.TextButtonStyle();
@@ -634,11 +632,11 @@ public class GameScreen extends AbstractGameScreen {
         Button iconEnergyPlusButton = new Button(buttonEnergyPlusStyle);
         iconEnergyPlusButton.setPosition(550, SCENE_HEIGHT - 50);
 
-        energyLevel = new Label("", skin);
-        energyLevel.setColor(0, 0, 0, 1);
-        energyLevel.setStyle(labelStyle);
-        energyLevel.setFontScale(1, 1f);
-        energyLevel.setPosition(575, SCENE_HEIGHT - 42);
+        textEnergyProduce = new Label("", skin);
+        textEnergyProduce.setColor(0, 0, 0, 1);
+        textEnergyProduce.setStyle(labelStyle);
+        textEnergyProduce.setFontScale(1, 1f);
+        textEnergyProduce.setPosition(575, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonEnergyMinusStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconEnergyMinus = new TextureRegionDrawable(Assets.instance.iconEnergyMinus);
@@ -647,11 +645,11 @@ public class GameScreen extends AbstractGameScreen {
         Button iconEnergyMinusButton = new Button(buttonEnergyMinusStyle);
         iconEnergyMinusButton.setPosition(650, SCENE_HEIGHT - 50);
 
-        energyLevel2 = new Label("", skin);
-        energyLevel2.setColor(0, 0, 0, 1);
-        energyLevel2.setStyle(labelStyle);
-        energyLevel2.setFontScale(1, 1f);
-        energyLevel2.setPosition(675, SCENE_HEIGHT - 42);
+        textEnergyUse = new Label("", skin);
+        textEnergyUse.setColor(0, 0, 0, 1);
+        textEnergyUse.setStyle(labelStyle);
+        textEnergyUse.setFontScale(1, 1f);
+        textEnergyUse.setPosition(675, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonBatteryStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconBattery = new TextureRegionDrawable(Assets.instance.iconBattery);
@@ -660,11 +658,11 @@ public class GameScreen extends AbstractGameScreen {
         Button iconBatteryButton = new Button(buttonBatteryStyle);
         iconBatteryButton.setPosition(750, SCENE_HEIGHT - 50);
 
-        energyLevel3 = new Label("", skin);
-        energyLevel3.setColor(0, 0, 0, 1);
-        energyLevel3.setStyle(labelStyle);
-        energyLevel3.setFontScale(1, 1f);
-        energyLevel3.setPosition(775, SCENE_HEIGHT - 42);
+        textEnergyStored = new Label("", skin);
+        textEnergyStored.setColor(0, 0, 0, 1);
+        textEnergyStored.setStyle(labelStyle);
+        textEnergyStored.setFontScale(1, 1f);
+        textEnergyStored.setPosition(775, SCENE_HEIGHT - 42);
 
         TextButton.TextButtonStyle buttonLikingStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconLiking = new TextureRegionDrawable(Assets.instance.iconLiking);
@@ -696,9 +694,9 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(textBeam);
         stage.addActor(textTrap);
         stage.addActor(textTime);
-        stage.addActor(energyLevel);
-        stage.addActor(energyLevel2);
-        stage.addActor(energyLevel3);
+        stage.addActor(textEnergyProduce);
+        stage.addActor(textEnergyUse);
+        stage.addActor(textEnergyStored);
         stage.addActor(textLiking);
     }
 
@@ -710,11 +708,11 @@ public class GameScreen extends AbstractGameScreen {
     private Window createGuideWindow() {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.window);
-        style.titleFont = font;
+        style.titleFont = Assets.instance.newFont;
         style.titleFontColor = Color.WHITE;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
+        labelStyle.font = Assets.instance.newFont;
         labelStyle.fontColor = Color.WHITE;
 
         Button.ButtonStyle buttonChartStyle = new Button.ButtonStyle();
@@ -789,11 +787,11 @@ public class GameScreen extends AbstractGameScreen {
         Window.WindowStyle style = new Window.WindowStyle();
         style.background = new NinePatchDrawable(Assets.instance.window);
 //        style.background = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("window_01"));
-        style.titleFont = font;
+        style.titleFont = Assets.instance.newFont;
         style.titleFontColor = Color.WHITE;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
+        labelStyle.font = Assets.instance.newFont;
         labelStyle.fontColor = Color.WHITE;
 
         Button.ButtonStyle buttonSolarStyle = new Button.ButtonStyle();
@@ -900,7 +898,7 @@ public class GameScreen extends AbstractGameScreen {
         }
     }
 
-    private void checkButton(final systemWindow solarWindow) {
+    private void checkButton(final SystemWindow solarWindow) {
         Level1 level1 = (Level1) worldController.level;
         if (level1.solarCell1.nearPlayer() || level1.solarCell4.nearPlayer() || level1.solarCell7.nearPlayer()) {
             solarCellWindow.getTitleLabel().setText("ตัวเลือกการเชื่อมต่อของแผงโซล่าเซลล์");
@@ -912,15 +910,15 @@ public class GameScreen extends AbstractGameScreen {
             solarCellWindow.getTitleLabel().setText("ตัวเลือกการเชื่อมต่อของเครื่องแปลงกระแสไฟ");
         }
         String textCharge2 = "ยกเลิกการเชื่อมต่อไปยังตัวควบคุมการชาร์จ";
-        if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
+        if ((solarWindow == SystemWindow.SOLAR_CELL) && (!addedStoC)) {
             imageLink1.setRegion(Assets.instance.buttonChargeAdd);
             labelSolarCell1.setText("เชื่อมต่อไปยังตัวควบคุมการชาร์จ");
-        } else if ((solarWindow == systemWindow.solarcell) && (addedStoC)) {
+        } else if ((solarWindow == SystemWindow.SOLAR_CELL) && (addedStoC)) {
             imageLink1.setRegion(Assets.instance.buttonChargeDel);
             labelSolarCell1.setText(textCharge2);
-        } else if (((solarWindow == systemWindow.chargecontroller) && (!addedStoC))
-                || ((solarWindow == systemWindow.battery) && (!addedStoB))
-                || ((solarWindow == systemWindow.inverter) && (!addedStoI))) {
+        } else if (((solarWindow == SystemWindow.CHARGE_CONTROLLER) && (!addedStoC))
+                || ((solarWindow == SystemWindow.BATTERY) && (!addedStoB))
+                || ((solarWindow == SystemWindow.INVERTER) && (!addedStoI))) {
             imageLink1.setRegion(Assets.instance.buttonSolarcellAdd);
             String textSolarcell = "เชื่อมต่อไปยังแผงโซล่าเซลล์";
             labelSolarCell1.setText(textSolarcell);
@@ -933,20 +931,20 @@ public class GameScreen extends AbstractGameScreen {
         solarCellButton1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if ((solarWindow == systemWindow.solarcell) || (solarWindow == systemWindow.chargecontroller)) {
+                if ((solarWindow == SystemWindow.SOLAR_CELL) || (solarWindow == SystemWindow.CHARGE_CONTROLLER)) {
                     solarState = SolarState.StoC;
-                } else if (solarWindow == systemWindow.battery) {
+                } else if (solarWindow == SystemWindow.BATTERY) {
                     solarState = SolarState.StoB;
                 } else {
                     solarState = SolarState.StoI;
                 }
-                if ((solarWindow == systemWindow.solarcell) && (!addedStoC)) {
+                if ((solarWindow == SystemWindow.SOLAR_CELL) && (!addedStoC)) {
                     addLink(solarState);
-                } else if ((solarWindow == systemWindow.solarcell) && (addedStoC)) {
+                } else if ((solarWindow == SystemWindow.SOLAR_CELL) && (addedStoC)) {
                     deleteLink(solarState);
-                } else if (((solarWindow == systemWindow.chargecontroller) && (!addedStoC))
-                        || ((solarWindow == systemWindow.battery) && (!addedStoB))
-                        || ((solarWindow == systemWindow.inverter) && (!addedStoI))) {
+                } else if (((solarWindow == SystemWindow.CHARGE_CONTROLLER) && (!addedStoC))
+                        || ((solarWindow == SystemWindow.BATTERY) && (!addedStoB))
+                        || ((solarWindow == SystemWindow.INVERTER) && (!addedStoI))) {
                     addLink(solarState);
                 } else {
                     deleteLink(solarState);
@@ -959,13 +957,13 @@ public class GameScreen extends AbstractGameScreen {
         });
 
         String textBattery2 = "ยกเลิกการเชื่อมต่อไปยังแบตเตอรี";
-        if (((solarWindow == systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoB))) {
+        if (((solarWindow == SystemWindow.SOLAR_CELL) && (!addedStoB)) || ((solarWindow == SystemWindow.CHARGE_CONTROLLER) && (!addedCtoB))) {
             imageLink2.setRegion(Assets.instance.buttonBatteryAdd);
             labelSolarCell2.setText("เชื่อมต่อไปยังแบตเตอรี");
-        } else if (((solarWindow == systemWindow.solarcell) && (addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoB))) {
+        } else if (((solarWindow == SystemWindow.SOLAR_CELL) && (addedStoB)) || ((solarWindow == SystemWindow.CHARGE_CONTROLLER) && (addedCtoB))) {
             imageLink2.setRegion(Assets.instance.buttonBatteryDel);
             labelSolarCell2.setText(textBattery2);
-        } else if (((solarWindow == systemWindow.battery) && (!addedCtoB)) || ((solarWindow == systemWindow.inverter) && (!addedCtoI))) {
+        } else if (((solarWindow == SystemWindow.BATTERY) && (!addedCtoB)) || ((solarWindow == SystemWindow.INVERTER) && (!addedCtoI))) {
             imageLink2.setRegion(Assets.instance.buttonChargeAdd);
             labelSolarCell2.setText("เชื่อมต่อไปยังตัวควบคุมการชาร์จ");
         } else {
@@ -976,18 +974,18 @@ public class GameScreen extends AbstractGameScreen {
         solarCellButton2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if ((solarWindow == systemWindow.solarcell)) {
+                if ((solarWindow == SystemWindow.SOLAR_CELL)) {
                     solarState = SolarState.StoB;
-                } else if ((solarWindow == systemWindow.chargecontroller) || (solarWindow == systemWindow.battery)) {
+                } else if ((solarWindow == SystemWindow.CHARGE_CONTROLLER) || (solarWindow == SystemWindow.BATTERY)) {
                     solarState = SolarState.CtoB;
                 } else {
                     solarState = SolarState.CtoI;
                 }
-                if (((solarWindow == systemWindow.solarcell) && (!addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoB))) {
+                if (((solarWindow == SystemWindow.SOLAR_CELL) && (!addedStoB)) || ((solarWindow == SystemWindow.CHARGE_CONTROLLER) && (!addedCtoB))) {
                     addLink(solarState);
-                } else if (((solarWindow == systemWindow.solarcell) && (addedStoB)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoB))) {
+                } else if (((solarWindow == SystemWindow.SOLAR_CELL) && (addedStoB)) || ((solarWindow == SystemWindow.CHARGE_CONTROLLER) && (addedCtoB))) {
                     deleteLink(solarState);
-                } else if (((solarWindow == systemWindow.battery) && (!addedCtoB)) || ((solarWindow == systemWindow.inverter) && (!addedCtoI))) {
+                } else if (((solarWindow == SystemWindow.BATTERY) && (!addedCtoB)) || ((solarWindow == SystemWindow.INVERTER) && (!addedCtoI))) {
                     addLink(solarState);
                 } else {
                     deleteLink(solarState);
@@ -998,16 +996,16 @@ public class GameScreen extends AbstractGameScreen {
                 solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
-        if (((solarWindow == systemWindow.solarcell) && (!addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoI))
-                || ((solarWindow == systemWindow.battery) && (!addedBtoI))) {
+        if (((solarWindow == SystemWindow.SOLAR_CELL) && (!addedStoI)) || ((solarWindow == SystemWindow.CHARGE_CONTROLLER) && (!addedCtoI))
+                || ((solarWindow == SystemWindow.BATTERY) && (!addedBtoI))) {
             imageLink3.setRegion(Assets.instance.buttonInverterAdd);
             labelSolarCell3.setText("เชื่อมต่อไปยังเครื่องแปลงกระแสไฟ");
-        } else if (((solarWindow == systemWindow.solarcell) && (addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoI))
-                || ((solarWindow == systemWindow.battery) && (addedBtoI))) {
+        } else if (((solarWindow == SystemWindow.SOLAR_CELL) && (addedStoI)) || ((solarWindow == SystemWindow.CHARGE_CONTROLLER) && (addedCtoI))
+                || ((solarWindow == SystemWindow.BATTERY) && (addedBtoI))) {
             imageLink3.setRegion(Assets.instance.buttonInverterDel);
             String textInverter2 = "ยกเลิกการเชื่อมต่อไปยังเครื่องแปลงกระแสไฟ";
             labelSolarCell3.setText(textInverter2);
-        } else if ((solarWindow == systemWindow.inverter) && (!addedBtoI)) {
+        } else if ((solarWindow == SystemWindow.INVERTER) && (!addedBtoI)) {
             imageLink3.setRegion(Assets.instance.buttonBatteryAdd);
             labelSolarCell3.setText("เชื่อมต่อไปยังแบตเตอรี");
         } else {
@@ -1018,20 +1016,20 @@ public class GameScreen extends AbstractGameScreen {
         solarCellButton3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if ((solarWindow == systemWindow.solarcell)) {
+                if ((solarWindow == SystemWindow.SOLAR_CELL)) {
                     solarState = SolarState.StoI;
-                } else if ((solarWindow == systemWindow.chargecontroller)) {
+                } else if ((solarWindow == SystemWindow.CHARGE_CONTROLLER)) {
                     solarState = SolarState.CtoI;
                 } else {
                     solarState = SolarState.BtoI;
                 }
-                if (((solarWindow == systemWindow.solarcell) && (!addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoI))
-                        || ((solarWindow == systemWindow.battery) && (!addedBtoI))) {
+                if (((solarWindow == SystemWindow.SOLAR_CELL) && (!addedStoI)) || ((solarWindow == SystemWindow.CHARGE_CONTROLLER) && (!addedCtoI))
+                        || ((solarWindow == SystemWindow.BATTERY) && (!addedBtoI))) {
                     addLink(solarState);
-                } else if (((solarWindow == systemWindow.solarcell) && (addedStoI)) || ((solarWindow == systemWindow.chargecontroller) && (addedCtoI))
-                        || ((solarWindow == systemWindow.battery) && (addedBtoI))) {
+                } else if (((solarWindow == SystemWindow.SOLAR_CELL) && (addedStoI)) || ((solarWindow == SystemWindow.CHARGE_CONTROLLER) && (addedCtoI))
+                        || ((solarWindow == SystemWindow.BATTERY) && (addedBtoI))) {
                     deleteLink(solarState);
-                } else if ((solarWindow == systemWindow.inverter) && (!addedBtoI)) {
+                } else if ((solarWindow == SystemWindow.INVERTER) && (!addedBtoI)) {
                     addLink(solarState);
                 } else {
                     deleteLink(solarState);
@@ -1042,8 +1040,8 @@ public class GameScreen extends AbstractGameScreen {
                 solarCellWindow.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
             }
         });
-        if (((solarWindow == systemWindow.solarcell) && (!addedStoD)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoD))
-                || ((solarWindow == systemWindow.battery) && (!addedBtoD)) || ((solarWindow == systemWindow.inverter) && (!addedItoD))) {
+        if (((solarWindow == SystemWindow.SOLAR_CELL) && (!addedStoD)) || ((solarWindow == SystemWindow.CHARGE_CONTROLLER) && (!addedCtoD))
+                || ((solarWindow == SystemWindow.BATTERY) && (!addedBtoD)) || ((solarWindow == SystemWindow.INVERTER) && (!addedItoD))) {
             imageLink4.setRegion(Assets.instance.buttonDoorAdd);
             labelSolarCell4.setText("เชื่อมต่อไปยังสถานที่หลบภัย");
         } else {
@@ -1056,17 +1054,17 @@ public class GameScreen extends AbstractGameScreen {
         solarCellButton4.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if ((solarWindow == systemWindow.solarcell)) {
+                if ((solarWindow == SystemWindow.SOLAR_CELL)) {
                     solarState = SolarState.StoD;
-                } else if ((solarWindow == systemWindow.chargecontroller)) {
+                } else if ((solarWindow == SystemWindow.CHARGE_CONTROLLER)) {
                     solarState = SolarState.CtoD;
-                } else if (solarWindow == systemWindow.battery) {
+                } else if (solarWindow == SystemWindow.BATTERY) {
                     solarState = SolarState.BtoD;
                 } else {
                     solarState = SolarState.ItoD;
                 }
-                if (((solarWindow == systemWindow.solarcell) && (!addedStoD)) || ((solarWindow == systemWindow.chargecontroller) && (!addedCtoD))
-                        || ((solarWindow == systemWindow.battery) && (!addedBtoD)) || ((solarWindow == systemWindow.inverter) && (!addedItoD))) {
+                if (((solarWindow == SystemWindow.SOLAR_CELL) && (!addedStoD)) || ((solarWindow == SystemWindow.CHARGE_CONTROLLER) && (!addedCtoD))
+                        || ((solarWindow == SystemWindow.BATTERY) && (!addedBtoD)) || ((solarWindow == SystemWindow.INVERTER) && (!addedItoD))) {
                     addLink(solarState);
                 } else {
                     deleteLink(solarState);
@@ -1295,7 +1293,6 @@ public class GameScreen extends AbstractGameScreen {
     private void textIconDraw() {
         textSun.setText(String.format(" %d", (int) SunBar.instance.sunTime) + " นาฬิกา");
         textTemperature.setText(String.format(" %d", (int) TemperatureBar.instance.Temperature));
-        //textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
         textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave) + " วัตต์");
         textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap) + " วัตต์");
         textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
@@ -1303,12 +1300,12 @@ public class GameScreen extends AbstractGameScreen {
 
         if (animation_status) {
             EnergyProducedBar.instance.energyProduced = 2700;
-            energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
+            textEnergyProduce.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
         } else {
-            energyLevel.setText(String.format(" %d", 0) + " วัตต์");
+            textEnergyProduce.setText(String.format(" %d", 0) + " วัตต์");
         }
-        energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
-        energyLevel3.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
+        textEnergyUse.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
+        textEnergyStored.setText(String.format(" %d", (int) BatteryBar.instance.getBatteryStorage()) + " จูล");
     }
 
     private void dialogDraw() {
@@ -1528,19 +1525,19 @@ public class GameScreen extends AbstractGameScreen {
                 stage.getHeight() / 2 - solarCellWindow.getHeight() / 2);
         if (!animation_status && player.status_find && stageTwoAfter) {
             if (level1.solarCell1.nearPlayer()) {
-                solarWindow = systemWindow.solarcell;
+                solarWindow = SystemWindow.SOLAR_CELL;
                 checkButton(solarWindow);
                 solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else if (level1.charge.nearPlayer()) {
-                solarWindow = systemWindow.chargecontroller;
+                solarWindow = SystemWindow.CHARGE_CONTROLLER;
                 checkButton(solarWindow);
                 solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else if (level1.battery.nearPlayer()) {
-                solarWindow = systemWindow.battery;
+                solarWindow = SystemWindow.BATTERY;
                 checkButton(solarWindow);
                 solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else if (level1.inverter.nearPlayer()) {
-                solarWindow = systemWindow.inverter;
+                solarWindow = SystemWindow.INVERTER;
                 checkButton(solarWindow);
                 solarCellWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             } else {
@@ -1778,9 +1775,9 @@ public class GameScreen extends AbstractGameScreen {
 //        json.writeValue("textBeam", textBeam);
 //        json.writeValue("textTrap", textTrap);
 //        json.writeValue("textTime", textTime);
-//        json.writeValue("energyLevel", energyLevel);
-//        json.writeValue("energyLevel2", energyLevel2);
-//        json.writeValue("energyLevel3", energyLevel3);
+//        json.writeValue("textEnergyProduce", textEnergyProduce);
+//        json.writeValue("textEnergyUse", textEnergyUse);
+//        json.writeValue("textEnergyStored", textEnergyStored);
         json.writeValue("stageFourClear", stageFourClear);
         json.writeValue("dialogCitizen2", dialogCitizen2);
 //        json.writeValue("labelSolarCell1", labelSolarCell1);
@@ -1809,7 +1806,6 @@ public class GameScreen extends AbstractGameScreen {
 //        json.writeValue("imageLink2", imageLink2);
 //        json.writeValue("imageLink3", imageLink3);
 //        json.writeValue("imageLink4", imageLink4);
-//        json.writeValue("font", font);
 //        json.writeValue("optionsWindow", optionsWindow);
 //        json.writeValue("solarCellWindow", solarCellWindow);
         json.writeValue("animation_status", animation_status);
@@ -1868,9 +1864,9 @@ public class GameScreen extends AbstractGameScreen {
 //        textBeam = jsonData.get("textBeam");
 //        textTrap = jsonData.get("textTrap");
 //        textTime = jsonData.get("textTime");
-//        energyLevel = jsonData.get("energyLevel");
-//        energyLevel2 = jsonData.get("energyLevel2");
-//        energyLevel3 = jsonData.get("energyLevel3");
+//        textEnergyProduce = jsonData.get("textEnergyProduce");
+//        textEnergyUse = jsonData.get("textEnergyUse");
+//        textEnergyStored = jsonData.get("textEnergyStored");
         stageFourClear = jsonData.getBoolean("stageFourClear");
         dialogCitizen2 = jsonData.getBoolean("dialogCitizen2");
 //        labelSolarCell1 = jsonData.get("labelSolarCell1");
@@ -1899,7 +1895,6 @@ public class GameScreen extends AbstractGameScreen {
 //        imageLink2 = jsonData.get("imageLink2");
 //        imageLink3 = jsonData.get("imageLink3");
 //        imageLink4 = jsonData.get("imageLink4");
-//        font = jsonData.get("font");
 //        optionsWindow = jsonData.get("optionsWindow");
 //        solarCellWindow = jsonData.get("solarCellWindow");
         animation_status = jsonData.getBoolean("animation_status");

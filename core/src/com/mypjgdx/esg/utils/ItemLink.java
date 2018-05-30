@@ -1,13 +1,10 @@
 package com.mypjgdx.esg.utils;
 
-import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.mypjgdx.esg.game.objects.characters.Enemy;
-import com.mypjgdx.esg.game.objects.characters.EnemyState;
 import com.mypjgdx.esg.game.objects.etcs.Link;
 import com.mypjgdx.esg.game.objects.items.Item;
 
@@ -18,7 +15,6 @@ public class ItemLink {
 
     private IndexedAStarPathFinder<Node> pathFinder;
     private GameMap gameMap;
-    private DefaultStateMachine<Enemy, EnemyState> stateMachine;
 
     private Node startNode;
     private Node endNode;
