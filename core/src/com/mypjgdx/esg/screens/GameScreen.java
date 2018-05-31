@@ -1373,7 +1373,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor2 = true;
                     dialogAll();
                     String text =
-                            "\"ยังตามหาประชาชนที่ซ่อนตัวอยู่ไม่ครบ กรุณาตามหาให้ครบก่อน\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
+                            "\"ยังตามหาประชาชนที่ซ่อนตัวอยู่ไม่ครบ กรุณาตามหาให้ครบก่อน (ทำได้โดยกดคุยกับประชาชน)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
                     dialog.addWaitingPage(text);
                     delayMission();
                 } else if (stageTwoClear && !stageThreeClear && !dialogDoor3) {
