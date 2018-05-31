@@ -120,7 +120,6 @@ public class WorldController extends InputAdapter {
         }
     }
 
-
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {
