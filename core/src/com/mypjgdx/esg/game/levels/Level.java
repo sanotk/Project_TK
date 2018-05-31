@@ -17,6 +17,7 @@ import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.Bow;
 import com.mypjgdx.esg.game.objects.weapons.Sword;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
+import com.mypjgdx.esg.game.objects.weapons.WeaponSpawner;
 import com.mypjgdx.esg.ui.*;
 
 import java.util.ArrayList;
@@ -161,7 +162,7 @@ public abstract class Level implements Json.Serializable {
             if (!e.isAlive()) enemyIterator.remove();
         }
 
-        player.update(deltaTime, weapons, citizens);
+        player.update(deltaTime, citizens);
 
         for (Link link : links) link.update(deltaTime);
         for (Item i : items) i.update(deltaTime);
@@ -183,6 +184,7 @@ public abstract class Level implements Json.Serializable {
         json.writeValue("enemies", enemies);
         json.writeValue("citizens", citizens);
         json.writeValue("items", items);
+        json.writeValue("weapons", weapons);
 
         json.writeValue("EnergyProducedBar", EnergyProducedBar.instance);
         json.writeValue("EnergyUsedBar", EnergyUsedBar.instance);
@@ -203,6 +205,7 @@ public abstract class Level implements Json.Serializable {
         readEnemies(jsonData);
         readCitizens(jsonData);
         readItems(jsonData);
+        readWeapons(jsonData);
 
         EnergyProducedBar.instance.read(null, jsonData);
         EnergyUsedBar.instance.read(null, jsonData);
@@ -255,6 +258,19 @@ public abstract class Level implements Json.Serializable {
         if (itemsJson.isArray()) {
             for (int i = 0; i < itemsJson.size; i++) {
                 items.get(i).read(null, itemsJson.get(i));
+            }
+        }
+    }
+
+    private void readWeapons(JsonValue saveData) {
+        JsonValue weaponsJson = saveData.get("weapons");
+        if (weaponsJson.isArray()) {
+            weapons.clear();
+            for (int i = 0; i < weaponsJson.size; i++) {
+                Weapon weapon = WeaponSpawner.valueOf(weaponsJson.get(i).getString("type")).spawn();
+                weapon.init(mapLayer, player);
+                weapon.read(null, weaponsJson.get(i));
+                weapons.add(weapon);
             }
         }
     }

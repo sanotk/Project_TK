@@ -103,10 +103,10 @@ public class Link extends AbstractGameObject implements Json.Serializable{
     @Override
     public void read(Json json, JsonValue jsonData) {
         JsonValue positionJson = jsonData.get("position");
-        setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
+        setPosition(positionJson.getFloat("x", 0), positionJson.getFloat("y", 0));
 
         direction = Direction.valueOf(jsonData.getString("direction"));
-        solarState = solarState.valueOf(jsonData.getString("solarState"));
+        solarState = SolarState.valueOf(jsonData.getString("solarState"));
         rotation = jsonData.getFloat("rotation");
     }
 

@@ -112,6 +112,7 @@ public abstract class AbstractGameObject {
         position.set(x, y);
         bounds.set(position.x, position.y, dimension.x, dimension.y);
     }
+
     public void setPositionX(float x) {
         setPosition(x, position.y);
     }

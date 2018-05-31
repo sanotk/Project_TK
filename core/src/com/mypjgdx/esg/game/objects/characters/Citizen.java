@@ -170,11 +170,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
         super.update(deltaTime);
         updateStatus();
 
-        if (player.bounds.overlaps(bounds)){
-            overlapPlayer = true;
-        } else {
-            overlapPlayer = false;
-        }
+        overlapPlayer = player.bounds.overlaps(bounds);
 
         if (!player.timeStop) {
             stateMachine.update();
@@ -457,7 +453,7 @@ public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> i
     @Override
     public void read(Json json, JsonValue jsonData) {
         JsonValue positionJson = jsonData.get("position");
-        setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
+        setPosition(positionJson.getFloat("x", 0), positionJson.getFloat("y", 0));
 
         quest = jsonData.getBoolean("quest");
         type = CitizenType.valueOf(jsonData.getString("type"));

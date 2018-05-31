@@ -17,7 +17,6 @@ import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.*;
-import com.mypjgdx.esg.game.objects.weapons.Weapon.WeaponType;
 import com.mypjgdx.esg.ui.EnergyProducedBar;
 import com.mypjgdx.esg.ui.EnergyUsedBar;
 import com.mypjgdx.esg.ui.SwordWaveBar;
@@ -197,7 +196,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         collisionCheck = new TiledCollisionCheck(walkingBounds, mapLayer);
     }
 
-    public void update(float deltaTime, List<Weapon> weapons, List<Citizen> citizens) {
+    public void update(float deltaTime, List<Citizen> citizens) {
         super.update(deltaTime);
         statusUpdate();
         if (acceptTrap) {
@@ -212,11 +211,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
             item.setPosition(
                     getPositionX() + origin.x - item.origin.x,
                     getPositionY() + origin.y - item.origin.y);
-        for (Weapon w : weapons) {
-            if (bounds.overlaps(w.bounds) && !w.isDestroyed() && w.type == WeaponType.ENEMYBALL) {
-                w.attack(this);
-            }
-        }
+
         if (stageOneClear) {
 
             questScreen1 = false;
@@ -640,7 +635,7 @@ public class Player extends AnimatedObject<PlayerAnimation> implements Damageabl
         JsonValue positionJson = jsonData.get("position");
 
         health = jsonData.getInt("hp");
-        setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
+        setPosition(positionJson.getFloat("x", 0), positionJson.getFloat("y", 0));
         timeCount = jsonData.getInt("timeCount");
         timeClear = jsonData.getBoolean("timeClear");
 

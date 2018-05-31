@@ -1,36 +1,25 @@
 package com.mypjgdx.esg.game.objects.weapons;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
-import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.utils.Direction;
 
-public abstract class Weapon extends AbstractGameObject {
-
-    public enum WeaponType {
-        BULLET,
-        TRAP,
-        BEAM,
-        ENEMYBALL
-    }
+public abstract class Weapon extends AbstractGameObject implements Json.Serializable {
 
     private TextureRegion weaponTexture;
-    private TextureAtlas weaponTextureAtlas;
     private boolean destroyed;
 
-    public WeaponType type;
     protected Player player;
-    protected Enemy enemy;
-    protected float damage;
     public Direction direction;
 
-    public Weapon(TextureRegion weaponTexture,  float scaleX, float scaleY, float frictionX, float frictionY) {
+    public Weapon(TextureRegion weaponTexture, float scaleX, float scaleY, float frictionX, float frictionY) {
         this.weaponTexture = weaponTexture;
 
         scale.set(scaleX, scaleY);
@@ -42,14 +31,12 @@ public abstract class Weapon extends AbstractGameObject {
         friction.set(frictionX, frictionY);
     }
 
-    public void init(TiledMapTileLayer mapLayer ,Player player ,Enemy enemy) {
+    public void init(TiledMapTileLayer mapLayer, Player player) {
         collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
         this.player = player;
-        this.enemy = enemy;
-        spawn();
     }
 
-    protected abstract void spawn();
+    protected abstract void spawn(Direction direction);
 
     @Override
     public void render(SpriteBatch batch) {
@@ -65,4 +52,22 @@ public abstract class Weapon extends AbstractGameObject {
     }
 
     public abstract void attack(Damageable damageable);
+
+    @Override
+    public void write(Json json) {
+        json.writeValue("direction", direction);
+        json.writeValue("position", position);
+        json.writeValue("velocity", velocity);
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+        spawn(Direction.valueOf(jsonData.getString("direction")));
+
+        JsonValue positionJson = jsonData.get("position");
+        setPosition(positionJson.getFloat("x", 0), positionJson.getFloat("y", 0));
+
+        JsonValue velocityJson = jsonData.get("velocity");
+        velocity.set(velocityJson.getFloat("x", 0), velocityJson.getFloat("y", 0));
+    }
 }

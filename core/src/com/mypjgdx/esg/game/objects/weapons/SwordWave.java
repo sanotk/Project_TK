@@ -1,53 +1,60 @@
 package com.mypjgdx.esg.game.objects.weapons;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.Timer;
+import com.mypjgdx.esg.collision.NullCollsionCheck;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
 import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.utils.Direction;
 
-
-public class SwordWave extends Weapon implements Json.Serializable {
+public class SwordWave extends Weapon {
 
     private static final float SCALE = 0.5f;
 
     private static final float INTITAL_FRICTION = 50f;
     private static final float INTITIAL_SPEED = 400f;
 
-    private Damageable target;
-    private boolean damaged;
-    private Vector2 positionToTarget;
     private int damageCount;
+    private float lifeTime = 10;
+
+    SwordWave() {
+        super(Assets.instance.wave, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
+    }
 
     public SwordWave(TiledMapTileLayer mapLayer, Player player) {
         super(Assets.instance.wave, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
-        init(mapLayer, player, enemy);
+        init(mapLayer, player);
+        spawn(player.getViewDirection());
     }
 
     @Override
-    protected void spawn() {
+    public void init(TiledMapTileLayer mapLayer, Player player) {
+        super.init(mapLayer, player);
+        collisionCheck = new NullCollsionCheck();
+    }
 
-        direction = player.getViewDirection();
+    @Override
+    protected void spawn(Direction direction) {
+        this.direction = direction;
 
         switch (direction) {
             case LEFT:
             case RIGHT:
                 setPosition(
-                        player.getPositionX() ,
-                        player.getPositionY() );
+                        player.getPositionX(),
+                        player.getPositionY());
                 break;
             case DOWN:
                 setPosition(
                         player.getPositionX() + player.origin.x - origin.x,
-                        player.getPositionY() + player.origin.y - player.bounds.height/2);
+                        player.getPositionY() + player.origin.y - player.bounds.height / 2);
                 break;
             case UP:
                 setPosition(
                         player.getPositionX() + player.origin.x - origin.x,
-                        player.getPositionY() + player.origin.y + player.bounds.height/2);
+                        player.getPositionY() + player.origin.y + player.bounds.height / 2);
                 break;
 
         }
@@ -71,41 +78,13 @@ public class SwordWave extends Weapon implements Json.Serializable {
             default:
                 break;
         }
-        delay();
     }
 
-    @Override
-    public void update(float deltaTime) {
-        //super.update(deltaTime);
-        updateMotionX(deltaTime);
-        updateMotionY(deltaTime);
-        setPositionX(position.x + velocity.x * deltaTime);
-        setPositionY(position.y + velocity.y * deltaTime);
-        if(target != null){
-            float x = target.getPosition().x + positionToTarget.x;
-            float y = target.getPosition().y + positionToTarget.y;
-            switch (direction) {
-                case LEFT:
-                    x -= 20;
-                    break;
-                case RIGHT:
-                    x += 20;
-                    break;
-                case DOWN:
-                    y -= 20;
-                    break;
-                case UP:
-                    y += 20;
-                    break;
-            }
-            setPosition(x, y);
-        }
-    }
 
     @Override
     public void attack(Damageable damageable) {
         float knockbackSpeed = 100f;
-        if(damageCount<15){
+        if (damageCount < 15) {
             switch (direction) {
                 case DOWN:
                     damageable.takeDamage(1, knockbackSpeed, 270);
@@ -126,14 +105,12 @@ public class SwordWave extends Weapon implements Json.Serializable {
         this.damageCount += 1;
     }
 
-    private void delay(){
-        float delay = 10f; // seconds
-        Timer.schedule(new Timer.Task(){
-            @Override
-            public void run() {
-                destroy();
-            }
-        }, delay);
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        if (lifeTime <= 0)
+            destroy();
+        lifeTime -= deltaTime;
     }
 
     @Override
@@ -162,14 +139,16 @@ public class SwordWave extends Weapon implements Json.Serializable {
 
     @Override
     public void write(Json json) {
+        super.write(json);
         json.writeValue("damageCount", damageCount);
-        json.writeValue("position", position);
+        json.writeValue("lifeTime", lifeTime);
+        json.writeValue("type", WeaponSpawner.SWORD_WAVE);
     }
 
     @Override
     public void read(Json json, JsonValue jsonData) {
-        damageCount = (int) jsonData.get("Trap").getFloat("damageCount");
-        JsonValue positionJson = jsonData.get("position");
-        setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
+        super.read(json, jsonData);
+        damageCount = jsonData.getInt("damageCount");
+        lifeTime = jsonData.getFloat("lifeTime");
     }
 }

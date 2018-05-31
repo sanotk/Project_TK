@@ -2,11 +2,13 @@ package com.mypjgdx.esg.game.objects.weapons;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
 import com.mypjgdx.esg.game.objects.characters.Player;
-
+import com.mypjgdx.esg.utils.Direction;
 
 public class SwordHit extends Weapon {
 
@@ -15,22 +17,20 @@ public class SwordHit extends Weapon {
     private static final float INTITAL_FRICTION = 0f;
     private static final float INTITIAL_SPEED = 0f;
 
-    public float timeSinceCollision = 0;
-
     private int damageCount = 0;
 
     public SwordHit(TiledMapTileLayer mapLayer, Player player) {
         super(Assets.instance.box, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
-        init(mapLayer, player, enemy);
+        init(mapLayer, player);
+        spawn(player.getViewDirection());
     }
 
     @Override
-    protected void spawn() {
+    protected void spawn(Direction direction) {
+        this.direction = direction;
 
         float x = player.getPositionX();
         float y = player .getPositionY();
-
-        direction = player.getViewDirection();
 
         switch (direction) {
             case DOWN:
@@ -120,4 +120,11 @@ public class SwordHit extends Weapon {
         return null;
     }
 
+    @Override
+    public void write(Json json) {
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+    }
 }

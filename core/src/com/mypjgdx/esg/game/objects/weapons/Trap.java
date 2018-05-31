@@ -6,9 +6,9 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
 import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.utils.Direction;
 
-
-public class Trap extends Weapon implements Json.Serializable {
+public class Trap extends Weapon {
 
     private static final float SCALE = 0.75f;
 
@@ -16,18 +16,23 @@ public class Trap extends Weapon implements Json.Serializable {
     private static final float INTITIAL_SPEED = 100f;
     private int damageCount = 0;
 
+    Trap() {
+        super(Assets.instance.trap, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
+    }
+
     public Trap(TiledMapTileLayer mapLayer, Player player) {
         super(Assets.instance.trap, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
-        init(mapLayer, player, enemy);
+        init(mapLayer, player);
+        spawn(player.getViewDirection());
     }
 
     @Override
-    protected void spawn() {
+    protected void spawn(Direction direction) {
+        this.direction = direction;
+
         setPosition(
                 player.getPositionX() + player.origin.x - origin.x,
                 player.getPositionY() + player.origin.y - 9);
-
-        direction = player.getViewDirection();
 
         switch (direction) {
             case DOWN:
@@ -82,14 +87,14 @@ public class Trap extends Weapon implements Json.Serializable {
 
     @Override
     public void write(Json json) {
+        super.write(json);
         json.writeValue("damageCount", damageCount);
-        json.writeValue("position", position);
+        json.writeValue("type", WeaponSpawner.TRAP);
     }
 
     @Override
     public void read(Json json, JsonValue jsonData) {
-        damageCount = (int) jsonData.get("Trap").getFloat("damageCount");
-        JsonValue positionJson = jsonData.get("position");
-        setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
+        super.read(json, jsonData);
+        damageCount = jsonData.getInt("damageCount");
     }
 }

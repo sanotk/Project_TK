@@ -404,9 +404,8 @@ public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Da
 
     @Override
     public void read(Json json, JsonValue jsonData) {
-
         JsonValue positionJson = jsonData.get("position");
-        setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
+        setPosition(positionJson.getFloat("x", 0), positionJson.getFloat("y", 0));
 
         type = EnemyType.valueOf(jsonData.getString("type"));
         viewDirection = Direction.valueOf(jsonData.getString("viewDirection"));

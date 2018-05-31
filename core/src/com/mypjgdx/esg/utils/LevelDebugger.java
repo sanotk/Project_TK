@@ -22,7 +22,6 @@ public class LevelDebugger {
     public static final int ENEMY = 1;
     public static final int ITEM = 2;
     public static final int CITIZEN = 3;
-    public static final int ARROW = 4;
     public static final int TRAP = 5;
     public static final int SWORD_WAVE = 6;
     public static final int SWORD_HIT = 7;
@@ -123,13 +122,6 @@ public class LevelDebugger {
         Color color = Pools.obtain(Color.class).set(1, 0.5f, 0, 0.6f);
         renderer.setColor(color);
         Pools.free(color);
-        if (settings.contains(ARROW)) {
-            for (Weapon weapon : level.weapons) {
-                if (weapon instanceof Arrow) {
-                    drawBounds(weapon.bounds);
-                }
-            }
-        }
         if (settings.contains(SWORD_WAVE)) {
             for (Weapon weapon : level.weapons) {
                 if (weapon instanceof SwordWave) {
