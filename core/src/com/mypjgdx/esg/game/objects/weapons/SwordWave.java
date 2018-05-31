@@ -162,11 +162,14 @@ public class SwordWave extends Weapon implements Json.Serializable {
 
     @Override
     public void write(Json json) {
-
+        json.writeValue("damageCount", damageCount);
+        json.writeValue("position", position);
     }
 
     @Override
     public void read(Json json, JsonValue jsonData) {
-
+        damageCount = (int) jsonData.get("Trap").getFloat("damageCount");
+        JsonValue positionJson = jsonData.get("position");
+        setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
     }
 }

@@ -83,20 +83,13 @@ public class Trap extends Weapon implements Json.Serializable {
     @Override
     public void write(Json json) {
         json.writeValue("damageCount", damageCount);
+        json.writeValue("position", position);
     }
 
     @Override
     public void read(Json json, JsonValue jsonData) {
         damageCount = (int) jsonData.get("Trap").getFloat("damageCount");
-    }
-
-    @Override
-    public float getPositionX() {
-        return super.getPositionX();
-    }
-
-    @Override
-    public float getPositionY() {
-        return super.getPositionY();
+        JsonValue positionJson = jsonData.get("position");
+        setPosition(positionJson.getFloat("x"), positionJson.getFloat("y"));
     }
 }
