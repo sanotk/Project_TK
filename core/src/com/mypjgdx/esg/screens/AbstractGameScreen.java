@@ -15,26 +15,56 @@ public abstract class AbstractGameScreen implements Screen, Json.Serializable {
         this.game = game;
     }
 
-    @Override
-    public void pause () {}
-
-    @Override
-    public void resume () {}
-
-    @Override
-    public void dispose () {}
-
-    @Override
-    public void write(Json json) {}
-
-    @Override
-    public void read(Json json, JsonValue jsonData) {}
-
     public WorldController getWorldController() {
         return null;
     }
 
     public Window getOptionWindow() {
         return null;
+    }
+
+    @Override
+    public void show() {
+        
+    }
+
+    @Override
+    public void render(float delta) {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+
+    @Override
+    public void write(Json json) {
+
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+
     }
 }

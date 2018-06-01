@@ -102,6 +102,8 @@ public class WorldController extends InputAdapter {
 
             if (filppedY > screenHeight * (1.0f - SCREEN_MOVE_EDGE)) level.player.move(Direction.UP);
             else if (filppedY < screenHeight * SCREEN_MOVE_EDGE) level.player.move(Direction.DOWN);
+
+
         } else {
             if (Gdx.input.isKeyPressed(Keys.UP)) level.player.move(Direction.UP);
             if (Gdx.input.isKeyPressed(Keys.DOWN)) level.player.move(Direction.DOWN);
