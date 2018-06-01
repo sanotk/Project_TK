@@ -13,5 +13,6 @@ public class DesktopLauncher {
 		config.height = 576;
 		config.addIcon("icon.png", Files.FileType.Internal);
 		new LwjglApplication(new MyPjGdxGame(), config); //สร้าง application platform desktop
+		System.out.println("เกมเปิดอยู่นะแจ๊ะ");
 	}
 }
