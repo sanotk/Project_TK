@@ -1410,10 +1410,10 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount - 1;
             missionStart = false;
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนแล้วพาไปยังสถานที่หลบภัย (ทำได้เดินไปติดกับประชาชนและกดคุย)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
+                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนทั้งหมด (ทำได้เดินไปติดกับประชาชนและกดคุย)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
             missionWindow.setCompleted(true, 0);
-            missionWindow.setText("ภารกิจที่สอง ตามหาประชาชนในพื้นที่แถบนี้ให้ครบ (ทำได้โดยเดินไปติดกับประชาชนและกดคุย)", 1);
+            missionWindow.setText("ภารกิจที่สอง ตามหาประชาชนที่อยู่ในพื้นที่นี้ให้ครบ (ทำได้โดยเดินไปติดกับประชาชนและกดคุย)", 1);
             delayMission();
         }
 
@@ -1438,7 +1438,7 @@ public class GameScreen extends AbstractGameScreen {
                         dialogCitizen = true;
                         dialogAll();
                         String text =
-                                "\"โปรดตามเรามา เราจะพาท่านไปยังสถานที่ปลอดภัย\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                                "\"ตามมา เราจะพาท่านไปยังสถานที่ปลอดภัย\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
                         LikingBar.instance.liking += 1;
                         citizen.runPlayer = true;
                         citizenCount += 1;
@@ -1458,7 +1458,7 @@ public class GameScreen extends AbstractGameScreen {
                     "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
 
             missionWindow.setCompleted(true, 1);
-            missionWindow.setText("ภารกิจที่สาม พาประชาชนทั้งหมดมายังทางเข้าสถานที่หลบภัย", 2);
+            missionWindow.setText("ภารกิจที่สาม พาประชาชนมายังสถานที่หลบภัย", 2);
             dialog.addWaitingPage(text);
             delayMission();
         }
