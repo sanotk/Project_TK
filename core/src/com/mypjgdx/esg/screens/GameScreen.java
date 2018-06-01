@@ -1458,7 +1458,7 @@ public class GameScreen extends AbstractGameScreen {
                     "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
 
             missionWindow.setCompleted(true, 1);
-            missionWindow.setText("ภารกิจที่สาม พาประชาชนมายังสถานที่หลบภัย", 2);
+            missionWindow.setText("ภารกิจที่สาม พาประชาชนมายังสถานที่หลบภัย (เมื่อมาถึงให้กดคุยกับประตู)", 2);
             dialog.addWaitingPage(text);
             delayMission();
         }
@@ -1474,7 +1474,7 @@ public class GameScreen extends AbstractGameScreen {
             dialogAll();
             timeEvent = player.timeCount - 1;
             String text =
-                    "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว รีบพาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+                    "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว พาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
 
             missionWindow.setCompleted(true, 3);
