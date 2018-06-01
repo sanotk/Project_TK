@@ -1514,7 +1514,7 @@ public class GameScreen4 extends AbstractGameScreen {
             level4.enemies.clear();
             dialogAll();
             String text =
-                    "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
+                    "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองตรวจสอบห้องก่อนดีกว่า\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
             timeEvent = player.timeCount - 1;
             missionStart = false;
