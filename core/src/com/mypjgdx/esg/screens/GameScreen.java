@@ -1323,7 +1323,7 @@ public class GameScreen extends AbstractGameScreen {
 
         if (!dialogStart) {
             dialogAll();
-            String text = "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยต้องอยู่ภายในพื้นที่แถบนี้ รีบเร่งมือค้นหาทางเข้าภายในเวลาที่กำหนด\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
+            String text = "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยอยู่ในพื้นที่แถบนี้ รีบหาทางเข้าไปภายในเวลาที่กำหนด มิเช่นนั้นทุกคนจะตาย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
             dialog.addWaitingPage(text);
             dialogStart = true;
             delayMission();
