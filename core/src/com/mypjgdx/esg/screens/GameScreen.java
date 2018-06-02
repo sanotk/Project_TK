@@ -357,7 +357,7 @@ public class GameScreen extends AbstractGameScreen {
 
         missionWindow = new MissionWindow(worldController);
         missionWindow.setVisible(false);
-        missionWindow.setText("ภารกิจแรก สำรวจพื้นที่พร้อมทั้งกำจัดเหล่ามอนสเตอร์ทั้งหมด", 0);
+        missionWindow.setText("ภารกิจแรก สำรวจพื้นที่และกำจัดมอนสเตอร์ทั้งหมด", 0);
 
         optionsWindow.setVisible(false);
 
@@ -1323,7 +1323,7 @@ public class GameScreen extends AbstractGameScreen {
 
         if (!dialogStart) {
             dialogAll();
-            String text = "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยอยู่ในพื้นที่แถบนี้ รีบหาทางเข้าไปภายในเวลาที่กำหนด มิเช่นนั้นทุกคนจะตาย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
+            String text = "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยอยู่ในพื้นที่แถบนี้ รีบหาทางเข้าไปภายในเวลาที่กำหนด มิเช่นนั้นภารกิจจะล้มเหลว\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
             dialog.addWaitingPage(text);
             dialogStart = true;
             delayMission();
