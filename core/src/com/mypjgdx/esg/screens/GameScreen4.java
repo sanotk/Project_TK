@@ -1520,7 +1520,7 @@ public class GameScreen4 extends AbstractGameScreen {
             missionStart = false;
             System.out.print(player.timeCount);
             textMission1.setStyle(labelStyle2);
-            textMission2.setText("ภารกิจที่สอง สอบถามประชาชนที่เข้ามาอาศัยในที่หลบภัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)");
+            textMission2.setText("ภารกิจที่สอง สำรวจเครื่องมือต่างๆภายในห้อง (สำรวจอุปกรณ์ได้โดยกดปุ่มคุยกับไอเท็ม)");
             delayGuide();
         }
 
@@ -1537,7 +1537,7 @@ public class GameScreen4 extends AbstractGameScreen {
                         "\"ทำได้ดีมาก ดูเหมือนพวกเราจะกลับไปขึ้นไปยังพื้นโลกได้แล้ว\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 dialog.addWaitingPage(text);
                 textMission2.setStyle(labelStyle2);
-                textMission3.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังห้องถัดไปได้แล้ว");
+                textMission3.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถกลับไปยังพื้นโลกได้");
                 delayStatus();
             } else if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
                 dialogStage4fail = true;
