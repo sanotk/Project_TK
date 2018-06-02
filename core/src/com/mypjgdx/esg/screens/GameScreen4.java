@@ -1550,8 +1550,8 @@ public class GameScreen4 extends AbstractGameScreen {
                 String text =
                         "\"ทำได้ดีมาก ดูเหมือนพวกเราจะกลับไปขึ้นไปยังพื้นโลกได้แล้ว\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 dialog.addWaitingPage(text);
-                textMission2.setStyle(labelStyle2);
-                textMission3.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถกลับไปอยู่อาศัยบนพื้นโลกได้แล้ว");
+                textMission3.setStyle(labelStyle2);
+                textMission4.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถกลับไปอยู่อาศัยบนพื้นโลกได้แล้ว");
                 delayStatus();
             } else if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
                 dialogStage4fail = true;
@@ -1561,7 +1561,7 @@ public class GameScreen4 extends AbstractGameScreen {
                         "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานหมดเครื่องระบายอากาศจะหยุดทำงาน\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 level4.gate.state = Item.ItemState.OFF;
                 dialog.addWaitingPage(text);
-                textMission2.setStyle(labelStyle2);
+                textMission3.setStyle(labelStyle2);
                 //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
                 delayStatus();
             }
