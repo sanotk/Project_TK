@@ -1528,13 +1528,13 @@ public class GameScreen4 extends AbstractGameScreen {
             dialogStage3 = true;
             dialogAll();
             String text =
-                    "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองตรวจสอบห้องก่อนดีกว่า\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
+                    "\"เหมือนจะไม่มีพลังงานเพียงพอใช้งานเครื่องปรับสภาพอากาศ ลองเชื่อมต่อกังหันน้ำดู\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
             timeEvent = player.timeCount - 1;
             missionStart = false;
             System.out.print(player.timeCount);
-            textMission1.setStyle(labelStyle2);
-            textMission2.setText("ภารกิจที่สอง สำรวจเครื่องมือต่างๆภายในห้อง (สำรวจอุปกรณ์ได้โดยกดปุ่มคุยกับไอเท็ม)");
+            textMission2.setStyle(labelStyle2);
+            textMission3.setText("ภารกิจที่สาม เชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศเพื่อเปิดใช้งาน (กดเชื่อมต่อโดยคุยกับกังหันน้ำ)");
             delayGuide();
         }
 
