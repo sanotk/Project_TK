@@ -1509,9 +1509,23 @@ public class GameScreen4 extends AbstractGameScreen {
             }
         }
 
-        if (player.stageOneClear && !dialogCitizen && player.isSwitch) {
-            dialogCitizen = true;
+        if (player.stageOneClear && !dialogStage2 && player.isSwitch) {
+            dialogStage2 = true;
             level4.enemies.clear();
+            dialogAll();
+            String text =
+                    "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองตรวจสอบห้องก่อนดีกว่า\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
+            dialog.addWaitingPage(text);
+            timeEvent = player.timeCount - 1;
+            missionStart = false;
+            System.out.print(player.timeCount);
+            textMission1.setStyle(labelStyle2);
+            textMission2.setText("ภารกิจที่สอง สำรวจเครื่องมือต่างๆภายในห้อง (สำรวจอุปกรณ์ได้โดยกดปุ่มคุยกับไอเท็ม)");
+            delayGuide();
+        }
+
+        if (stageTwoClear && !dialogStage3) {
+            dialogStage3 = true;
             dialogAll();
             String text =
                     "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองตรวจสอบห้องก่อนดีกว่า\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
@@ -1537,7 +1551,7 @@ public class GameScreen4 extends AbstractGameScreen {
                         "\"ทำได้ดีมาก ดูเหมือนพวกเราจะกลับไปขึ้นไปยังพื้นโลกได้แล้ว\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 dialog.addWaitingPage(text);
                 textMission2.setStyle(labelStyle2);
-                textMission3.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถกลับไปยังพื้นโลกได้");
+                textMission3.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถกลับไปอยู่อาศัยบนพื้นโลกได้แล้ว");
                 delayStatus();
             } else if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
                 dialogStage4fail = true;
