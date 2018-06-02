@@ -1534,7 +1534,7 @@ public class GameScreen4 extends AbstractGameScreen {
                 level4.gate.state = Item.ItemState.ON;
                 timeEvent = player.timeCount - 1;
                 String text =
-                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+                        "\"ทำได้ดีมาก ดูเหมือนพวกเราจะกลับไปขึ้นไปยังพื้นโลกได้แล้ว\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 dialog.addWaitingPage(text);
                 textMission2.setStyle(labelStyle2);
                 textMission3.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังห้องถัดไปได้แล้ว");
