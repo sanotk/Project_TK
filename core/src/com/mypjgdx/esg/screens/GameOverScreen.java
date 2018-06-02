@@ -14,9 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.mypjgdx.esg.utils.MusicManager;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
+import com.mypjgdx.esg.utils.MusicManager;
 
 public class GameOverScreen extends AbstractGameScreen {
 
@@ -47,7 +47,6 @@ public class GameOverScreen extends AbstractGameScreen {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
         labelStyle.fontColor = Color.RED;
-
 
         text_gameover = new Label("Game Over" ,labelStyle);
         text_gameover.setColor(Color.RED);

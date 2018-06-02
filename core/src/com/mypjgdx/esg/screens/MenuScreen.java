@@ -18,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.ui.LoadTestButton;
 import com.mypjgdx.esg.utils.GameSaveManager;
 import com.mypjgdx.esg.utils.MusicManager;
 import com.mypjgdx.esg.utils.SoundManager;
@@ -27,6 +26,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     public static final int SCENE_WIDTH = 1024; //เซตค่าความกว้างของจอ
     public static final int SCENE_HEIGHT = 576; //เซตค่าความสูงของจอ
+    private TextButton buttonLevel;
     private Stage stage; //
     private Skin skin; //
     private Label text_mainmenu;
@@ -96,6 +96,11 @@ public class MenuScreen extends AbstractGameScreen {
         buttonExit.setHeight(btn_h);
         buttonExit.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 140);
 
+        buttonLevel = new TextButton("เลือกด่าน", buttonStyle);
+        buttonLevel.setWidth(btn_w);
+        buttonLevel.setHeight(btn_h);
+        buttonLevel.setPosition(SCENE_WIDTH / 2 - btn_w / 2, 20);
+
         buttonStart.setStyle(buttonStyle);
         buttonLoad.setStyle(buttonStyle);
         buttonOption.setStyle(buttonStyle);
@@ -107,8 +112,6 @@ public class MenuScreen extends AbstractGameScreen {
         loadWindow = createLoadWindow();
         loadWindow.setVisible(false);
 
-        LoadTestButton loadTestButton = new LoadTestButton();
-
         stage.addActor(text_mainmenu);
         stage.addActor(buttonStart);
         stage.addActor(buttonLoad);
@@ -116,7 +119,7 @@ public class MenuScreen extends AbstractGameScreen {
         stage.addActor(buttonExit);
         stage.addActor(optionsWindow);
         stage.addActor(loadWindow);
-        stage.addActor(loadTestButton);
+        stage.addActor(buttonLevel);
 
         buttonStart.addListener(new ClickListener() {
             @Override
@@ -128,10 +131,7 @@ public class MenuScreen extends AbstractGameScreen {
         buttonLoad.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                loadWindow.setPosition(
-                        Gdx.graphics.getWidth() / 2 - loadWindow.getWidth() / 2,
-                        Gdx.graphics.getHeight() / 2 - loadWindow.getHeight() / 2);
-                loadWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+                GameSaveManager.instance.load();
             }
         });
 
@@ -142,6 +142,16 @@ public class MenuScreen extends AbstractGameScreen {
                         Gdx.graphics.getWidth() / 2 - optionsWindow.getWidth() / 2,
                         Gdx.graphics.getHeight() / 2 - optionsWindow.getHeight() / 2);
                 optionsWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            }
+        });
+
+        buttonLevel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                loadWindow.setPosition(
+                        Gdx.graphics.getWidth() / 2 - loadWindow.getWidth() / 2,
+                        Gdx.graphics.getHeight() / 2 - loadWindow.getHeight() / 2);
+                loadWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             }
         });
 
