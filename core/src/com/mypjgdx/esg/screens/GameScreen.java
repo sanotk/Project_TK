@@ -1413,7 +1413,7 @@ public class GameScreen extends AbstractGameScreen {
                     "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนทั้งหมด (ทำได้เดินไปติดกับประชาชนและกดคุย)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
             missionWindow.setCompleted(true, 0);
-            missionWindow.setText("ภารกิจที่สอง ตามหาประชาชนที่อยู่ในพื้นที่นี้ให้ครบ (ทำได้โดยเดินไปติดกับประชาชนและกดคุย)", 1);
+            missionWindow.setText("ภารกิจที่สอง คุยกับประชาชนที่อยู่ในพื้นที่นี้ให้ครบ (กดปุ่มคุยเมื่อมีสัญลักษณ์ขึ้น)", 1);
             delayMission();
         }
 
