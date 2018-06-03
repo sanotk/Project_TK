@@ -157,7 +157,7 @@ public class GameScreen4 extends AbstractGameScreen {
     private Texture dialogStory;
 
     private String text =
-            "\"ทุกคนให้รออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าที่แห่งนี้ปลอดภัย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
+            "\"รู้สึกถึงความอันตราย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
 
     public QuestState questState = null;
 
@@ -1514,13 +1514,13 @@ public class GameScreen4 extends AbstractGameScreen {
             level4.enemies.clear();
             dialogAll();
             String text =
-                    "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองตรวจสอบห้องก่อนดีกว่า\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
+                    "\"ดูเหมือนจะไม่มีอันตรายแล้ว กรุณาลองตรวจสอบห้อง (กดปุ่มคุยเมื่อมีสัญลักษณ์ขึ้น)\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
             timeEvent = player.timeCount - 1;
             missionStart = false;
             System.out.print(player.timeCount);
             textMission1.setStyle(labelStyle2);
-            textMission2.setText("ภารกิจที่สอง สำรวจเครื่องมือต่างๆภายในห้อง (สำรวจอุปกรณ์ได้โดยกดปุ่มคุยกับไอเท็ม)");
+            textMission2.setText("ภารกิจที่สอง สำรวจสิ่งของภายในห้อง (กดปุ่มคุยเมื่อมีสัญลักษณ์ขึ้น)");
             delayGuide();
         }
 
