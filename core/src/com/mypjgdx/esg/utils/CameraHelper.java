@@ -79,21 +79,21 @@ public class CameraHelper {
         position.x = target.getPositionX() + target.origin.x + 100;
         position.y = target.getPositionY() + target.origin.y;
 
-//        float leftEdge =  map.getTileWidth() * 1 + viewport.getLeftGutterWidth();
-//        float rightEdge = (map.getWidth() - 1) *  map.getTileWidth() - viewport.getRightGutterWidth();
-//        float lowerEdge =  map.getTileHeight() * 1 + viewport.getScreenY() + viewport.getBottomGutterHeight();
-//        float upperEdge = (map.getHeight() - 1) * map.getTileHeight() - viewport.getBottomGutterHeight();
-//        float halfCameraWidth = zoom * viewport.getWorldWidth()/2;
-//        float halfCameraHeight = zoom * viewport.getWorldHeight()/2;
-//
-//        if (position.y + halfCameraHeight > upperEdge)
-//            position.y = upperEdge - halfCameraHeight;
-//        if (position.y - halfCameraHeight < lowerEdge)
-//            position.y = lowerEdge + halfCameraHeight;
-//        if (position.x + halfCameraWidth > rightEdge)
-//            position.x = rightEdge - halfCameraWidth;
-//        if (position.x - halfCameraWidth < leftEdge)
-//            position.x = leftEdge + halfCameraWidth;
+        float leftEdge =  map.getTileWidth() * 1 + viewport.getLeftGutterWidth();
+        float rightEdge = (map.getWidth() - 1) *  map.getTileWidth() - viewport.getRightGutterWidth();
+        float lowerEdge =  map.getTileHeight() * 1 + viewport.getScreenY() + viewport.getBottomGutterHeight();
+        float upperEdge = (map.getHeight() - 1) * map.getTileHeight() - viewport.getBottomGutterHeight();
+        float halfCameraWidth = zoom * viewport.getWorldWidth()/2;
+        float halfCameraHeight = zoom * viewport.getWorldHeight()/2;
+
+        if (position.y + halfCameraHeight > upperEdge)
+            position.y = upperEdge - halfCameraHeight;
+        if (position.y - halfCameraHeight < lowerEdge)
+            position.y = lowerEdge + halfCameraHeight;
+        if (position.x + halfCameraWidth > rightEdge)
+            position.x = rightEdge - halfCameraWidth;
+        if (position.x - halfCameraWidth < leftEdge)
+            position.x = leftEdge + halfCameraWidth;
 
     }
 }
