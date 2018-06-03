@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 import java.util.Comparator;
 
-public abstract class AnimatedObject<E extends Enum<E>> extends AbstractGameObject {
+    public abstract class AnimatedObject<E extends Enum<E>> extends AbstractGameObject {
 
     public static final float START_TIME = 0;
 
