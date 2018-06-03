@@ -1712,7 +1712,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
         if ((player.status_find)) {
             for (Item item : level3.items) {
-                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP && !item.questAccept && !item.quest) {
+                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP && !item.questAccept && !item.quest && !stageThreeClear) {
                     dialogItem = true;
                     String text =
                             "\"ต้องการปิด\"" + item.name + "\"หรือไม่\""
