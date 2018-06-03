@@ -1410,7 +1410,7 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount - 1;
             missionStart = false;
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณาตามหาประชาชนทั้งหมด (ทำได้เดินไปติดกับประชาชนและกดคุย)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
+                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณารวบรวมประชาชนทั้งหมด (ทำได้โดยเดินไปหาประชาชนและกดปุ่มคุยเมื่อมีสัญลักษณ์ขึ้น)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.addWaitingPage(text);
             missionWindow.setCompleted(true, 0);
             missionWindow.setText("ภารกิจที่สอง ตามหาและรวบรวมประชาชนนี่อยู่ในพื้นที่นี้ (กดปุ่มคุยเมื่อมีสัญลักษณ์ขึ้น)", 1);
