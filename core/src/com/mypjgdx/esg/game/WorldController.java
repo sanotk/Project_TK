@@ -3,14 +3,13 @@ package com.mypjgdx.esg.game;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputAdapter;
 import com.mypjgdx.esg.game.levels.Level;
 import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.utils.CameraHelper;
 import com.mypjgdx.esg.utils.Direction;
 import com.mypjgdx.esg.utils.GameSaveManager;
 
-public class WorldController extends InputAdapter {
+public class WorldController {
 
     private static final float CAMERA_SPEED = 200.0f; //กำหนดความเร็วในการเคลื่อนที่ของกล้อง
     private static final float CAMERA_ZOOM_SPEED = 1.0f; //ความเร็วของการซูม
@@ -33,7 +32,6 @@ public class WorldController extends InputAdapter {
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(this.level.player);
         cameraHelper.setMap(this.level.mapLayer);
-        Gdx.input.setInputProcessor(this);
     }
 
     public void update(float deltaTime) {
@@ -120,17 +118,6 @@ public class WorldController extends InputAdapter {
                 GameSaveManager.instance.load();
             }
         }
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        switch (keycode) {
-            case Keys.SPACE: // กด Spacebar เพื่อให้มุมกล้องติดตาม/เลิกติดตาม player
-                if (!cameraHelper.hasTarget()) cameraHelper.setTarget(level.player);
-                else cameraHelper.setTarget(null);
-                break;
-        }
-        return true;
     }
 
 }

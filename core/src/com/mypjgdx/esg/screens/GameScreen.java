@@ -1728,7 +1728,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
-        worldController = new WorldController(new Level1());
+        worldController = new WorldController(new Level1()); // สร้าง worldController
         worldRenderer = new WorldRenderer(worldController);
         worldController.worldRenderer = worldRenderer;
         worldController.touchPad = touchPad;

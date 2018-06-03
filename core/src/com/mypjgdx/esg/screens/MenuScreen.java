@@ -43,6 +43,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     public MenuScreen(final Game game) {
         super(game);
+        System.out.println("menuscreen");
 
         stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT)); //สร้างจุดโฟกัสของหน้าจอ
         Gdx.input.setInputProcessor(stage);

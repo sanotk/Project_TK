@@ -14,5 +14,6 @@ public class DesktopLauncher {
 		config.addIcon("icon.png", Files.FileType.Internal);
 		new LwjglApplication(new MyPjGdxGame(), config); //สร้าง application platform desktop
 		System.out.println("เกมเปิดอยู่นะแจ๊ะ");
+		System.out.println(Thread.currentThread().getName());
 	}
 }
