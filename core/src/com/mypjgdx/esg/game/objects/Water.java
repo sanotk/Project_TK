@@ -7,7 +7,7 @@ import com.mypjgdx.esg.game.Assets;
 public class Water extends AbstractGameObject {
 
     private float flowSpeed = 0.35f;
-    private float scrollY;
+    private float scrollY;  // เปอเซนการเลื่อนแนวตั้ง
     private TextureRegion region;
 
     public Water() {
@@ -25,8 +25,8 @@ public class Water extends AbstractGameObject {
 
     @Override
     public void update(float deltaTime) {
-        final float deltaY = -flowSpeed * deltaTime;
-        scrollY += deltaY;
+        final float deltaY = -flowSpeed * deltaTime;  // ค่าที่จะใช้เลื่อนภาพแนวตั้ง
+        scrollY += deltaY; // เพิ่มการเลื่อนแนวตั้ง
         region.scroll(0, deltaY);
         if (scrollY <= 0.5f) {
             scrollY += 0.5f;

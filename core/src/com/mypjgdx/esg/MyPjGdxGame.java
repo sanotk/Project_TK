@@ -14,7 +14,6 @@ public class MyPjGdxGame extends Game  {
         SettingManager.instance.load();
 
         setScreen(new MenuScreen(this));
-        System.out.println("setscreen");
     }
 
     @Override

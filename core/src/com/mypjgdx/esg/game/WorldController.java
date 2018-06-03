@@ -1,6 +1,5 @@
 package com.mypjgdx.esg.game;
 
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.mypjgdx.esg.game.levels.Level;
@@ -67,14 +66,12 @@ public class WorldController {
         final float MIN_KNOB_PERCENT_TO_MOVE = 0.30f;
         if (touchPad.getKnobPercentY() > MIN_KNOB_PERCENT_TO_MOVE) {
             level.player.move(Direction.UP);
-        }
-        else if (touchPad.getKnobPercentY() < -MIN_KNOB_PERCENT_TO_MOVE) {
+        } else if (touchPad.getKnobPercentY() < -MIN_KNOB_PERCENT_TO_MOVE) {
             level.player.move(Direction.DOWN);
         }
         if (touchPad.getKnobPercentX() > MIN_KNOB_PERCENT_TO_MOVE) {
             level.player.move(Direction.RIGHT);
-        }
-        else if (touchPad.getKnobPercentX() < -MIN_KNOB_PERCENT_TO_MOVE) {
+        } else if (touchPad.getKnobPercentX() < -MIN_KNOB_PERCENT_TO_MOVE) {
             level.player.move(Direction.LEFT);
         }
 
@@ -92,32 +89,21 @@ public class WorldController {
             level.player.findItem();
         }
 
-        if (Gdx.app.getType() == ApplicationType.Android && Gdx.input.isTouched()) {
-            float x = Gdx.input.getX();
-            float filppedY = screenHeight - Gdx.input.getY();
-            if (x > screenWidth * (1.0f - SCREEN_MOVE_EDGE)) level.player.move(Direction.RIGHT);
-            else if (x < screenWidth * SCREEN_MOVE_EDGE) level.player.move(Direction.LEFT);
-
-            if (filppedY > screenHeight * (1.0f - SCREEN_MOVE_EDGE)) level.player.move(Direction.UP);
-            else if (filppedY < screenHeight * SCREEN_MOVE_EDGE) level.player.move(Direction.DOWN);
-
-
-        } else {
-            if (Gdx.input.isKeyPressed(Keys.UP)) level.player.move(Direction.UP);
-            if (Gdx.input.isKeyPressed(Keys.DOWN)) level.player.move(Direction.DOWN);
-            if (Gdx.input.isKeyPressed(Keys.LEFT)) level.player.move(Direction.LEFT);
-            if (Gdx.input.isKeyPressed(Keys.RIGHT)) level.player.move(Direction.RIGHT);
-            if (Gdx.input.isKeyJustPressed(Keys.Z)) level.player.trapAttack(level.weapons);
-            if (Gdx.input.isKeyPressed(Keys.C)) level.player.swordAttack(level.weapons, level.swords);
-            if (Gdx.input.isKeyJustPressed(Keys.X)) level.player.swordWaveAttack(level.weapons, level.swords);
-            if (Gdx.input.isKeyJustPressed(Keys.A)) level.player.findItem();
-            if (Gdx.input.isKeyJustPressed(Keys.B)) {
-                GameSaveManager.instance.save();
-            }
-            if (Gdx.input.isKeyJustPressed(Keys.L)) {
-                GameSaveManager.instance.load();
-            }
+        if (Gdx.input.isKeyPressed(Keys.UP)) level.player.move(Direction.UP);
+        if (Gdx.input.isKeyPressed(Keys.DOWN)) level.player.move(Direction.DOWN);
+        if (Gdx.input.isKeyPressed(Keys.LEFT)) level.player.move(Direction.LEFT);
+        if (Gdx.input.isKeyPressed(Keys.RIGHT)) level.player.move(Direction.RIGHT);
+        if (Gdx.input.isKeyJustPressed(Keys.Z)) level.player.trapAttack(level.weapons);
+        if (Gdx.input.isKeyPressed(Keys.C)) level.player.swordAttack(level.weapons, level.swords);
+        if (Gdx.input.isKeyJustPressed(Keys.X)) level.player.swordWaveAttack(level.weapons, level.swords);
+        if (Gdx.input.isKeyJustPressed(Keys.A)) level.player.findItem();
+        if (Gdx.input.isKeyJustPressed(Keys.B)) {
+            GameSaveManager.instance.save();
         }
+        if (Gdx.input.isKeyJustPressed(Keys.L)) {
+            GameSaveManager.instance.load();
+        }
+
     }
 
 }
