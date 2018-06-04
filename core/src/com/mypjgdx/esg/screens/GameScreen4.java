@@ -660,6 +660,7 @@ public class GameScreen4 extends AbstractGameScreen {
                     item.quest = true;
                     EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
                     item.state = Item.ItemState.ONLOOP;
+                    stageFourClear = true;
                 } else if (dialogLink) {
                     stageThreeClear = true;
                     addGuiLink();
