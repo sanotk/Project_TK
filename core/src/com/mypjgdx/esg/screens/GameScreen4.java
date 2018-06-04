@@ -1713,7 +1713,7 @@ public class GameScreen4 extends AbstractGameScreen {
         }else if (player.status_find && player.stageOneClear && !stageTwoClear && !dialogHydroPower && level4.hydroPower.nearPlayer()) {
             dialogHydroPower = true;
             dialogWater = true;
-            timeEvent = player.timeCount + 1;
+            timeEvent = player.timeCount - 1;
             String text =
                     "\"ดูเหมือนสิ่งนี้คือกังหันผลิตไฟฟ้าพลังงานน้ำ\" \n\"(สามารถผลิตกำลังไฟฟ้าได้ 10500 วัตต์)\"";
             dialogAll();
