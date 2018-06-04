@@ -661,6 +661,7 @@ public class GameScreen4 extends AbstractGameScreen {
                     EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
                     item.state = Item.ItemState.ONLOOP;
                 } else if (dialogLink) {
+                    stageThreeClear = true;
                     addGuiLink();
                     EnergyProducedBar.instance.energyProduced += 10500;
                 } else if (stageFourClear) {
@@ -1512,11 +1513,11 @@ public class GameScreen4 extends AbstractGameScreen {
             player.timeStop = true;
         }
 
-        if (player.timeCount <= timeEvent && !statusStart && stageThreeClear) {
-            statusStart = true;
-            status();
-            player.timeStop = true;
-        }
+//        if (player.timeCount <= timeEvent && !statusStart && stageThreeClear) {
+//            statusStart = true;
+//            status();
+//            player.timeStop = true;
+//        }
     }
 
     private void addGuiLink() {
@@ -1634,7 +1635,7 @@ public class GameScreen4 extends AbstractGameScreen {
             iconItem.setVisible(true);
         }
 
-        if (stageThreeClear){
+        if (stageThreeClear) {
             iconItem.setVisible(false);
         }
 
@@ -1709,7 +1710,7 @@ public class GameScreen4 extends AbstractGameScreen {
             dialogAll();
             dialog.addWaitingPage(text);
             player.status_find = false;
-        }else if (player.status_find && player.stageOneClear && !stageTwoClear && !dialogHydroPower && level4.hydroPower.nearPlayer()) {
+        } else if (player.status_find && player.stageOneClear && !stageTwoClear && !dialogHydroPower && level4.hydroPower.nearPlayer()) {
             dialogHydroPower = true;
             dialogWater = true;
             timeEvent = player.timeCount - 1;
@@ -1720,7 +1721,8 @@ public class GameScreen4 extends AbstractGameScreen {
             player.status_find = false;
         }
 
-        if (player.status_find && stageTwoClear && !stageThreeClear && !dialogLink) {
+        if (player.status_find && stageTwoClear && !stageThreeClear && !dialogLink
+                && (level4.hydroPower.nearPlayer() || level4.pollutionControll.nearPlayer())) {
             dialogLink = true;
             String text =
                     "\"ต้องการเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศหรือไม่\" \n\"(กดปุ่มตกลงเพื่อเชื่อมต่อ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการ)\"";
@@ -1729,10 +1731,15 @@ public class GameScreen4 extends AbstractGameScreen {
             player.status_find = false;
         }
 
-        if (player.status_find && stageThreeClear) {
+        if (stageThreeClear && level4.hydroPower.state == Item.ItemState.OFF) {
+            level4.hydroPower.state = Item.ItemState.ONLOOP;
+        }
+
+        if (player.status_find && stageThreeClear && !stageFourClear) {
             for (Item item : level4.items) {
                 if (item.nearPlayer() && item.state == Item.ItemState.OFF && !item.questAccept && !item.quest) {
                     dialogItem = true;
+                    stageFourClear = true;
                     String text =
                             "\"มีพลังงานเพียงพอแล้ว ต้องการเปิด\"" + item.name + "\"หรือไม่\""
                                     + "\n\"( " + item.name + "\"ใช้กำลังไฟฟ้า\"" + item.getEnergyBurn() + " วัตต์ )\" ";
@@ -1741,13 +1748,6 @@ public class GameScreen4 extends AbstractGameScreen {
                     player.status_find = false;
                     this.item = item;
                 }
-//                else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
-//                    if(!level3.gate.nearPlayer()&&!level3.switchItem.nearPlayer()){
-//                        item.state = Item.ItemState.ONLOOP;
-//                        EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
-//                        player.status_find = false;
-//                    }
-//                }
             }
         }
     }
