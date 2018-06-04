@@ -2030,6 +2030,9 @@ public class GameScreen4 extends AbstractGameScreen {
         json.writeValue("missionStart", missionStart);
         json.writeValue("guideStart", guideStart);
         json.writeValue("statusStart", statusStart);
+        json.writeValue("dialogPollutionControl", dialogPollutionControl);
+        json.writeValue("dialogHydroPower", dialogHydroPower);
+        json.writeValue("dialogLink", dialogLink);
 //        json.writeValue("batch", batch);
 //        json.writeValue("bg", bg);
         json.writeValue("controlShow", controlShow);
@@ -2174,6 +2177,9 @@ public class GameScreen4 extends AbstractGameScreen {
         missionStart = jsonData.getBoolean("missionStart");
         guideStart = jsonData.getBoolean("guideStart");
         statusStart = jsonData.getBoolean("statusStart");
+        dialogHydroPower = jsonData.getBoolean("dialogHydroPower");
+        dialogPollutionControl = jsonData.getBoolean("dialogPollutionControl");
+        dialogLink = jsonData.getBoolean("dialogLink");
 //        batch = jsonData.get("batch");
 //        bg = jsonData.get("bg");
         controlShow = jsonData.getBoolean("controlShow");
