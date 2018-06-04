@@ -1743,8 +1743,8 @@ public class GameScreen4 extends AbstractGameScreen {
                 if (item.nearPlayer() && item.state == Item.ItemState.OFF && !item.questAccept && !item.quest) {
                     dialogItem = true;
                     String text =
-                            "\"มีพลังงานเพียงพอแล้ว ต้องการเปิด\"" + item.name + "\"หรือไม่\""
-                                    + "\n\"( " + item.name + "\"ใช้กำลังไฟฟ้า\"" + item.getEnergyBurn() + " วัตต์ )\" ";
+                            "\"มีพลังงานเพียงพอแล้ว ต้องการเปิด \"" + item.name + "\" หรือไม่\""
+                                    + "\n\"( " + item.name + "\" ใช้กำลังไฟฟ้า \"" + item.getEnergyBurn() + " วัตต์ )\" ";
                     dialogCitizenDetail();
                     dialog.addWaitingPage(text);
                     player.status_find = false;
