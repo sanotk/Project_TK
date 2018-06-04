@@ -178,17 +178,6 @@ public class Level2 extends Level {
                     lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
                     false, true);
             batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-            batch.draw(lightFbo.getColorBufferTexture(),
-                    camera.position.x - camera.viewportWidth * camera.zoom / 2,
-                    camera.position.y - camera.viewportHeight * camera.zoom / 2,
-                    0, 0,
-                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
-                    1 * camera.zoom, 1 * camera.zoom,
-                    0,
-                    0, 0,
-                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
-                    false, true);
-            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             batch.end();
         }
     }
@@ -199,7 +188,6 @@ public class Level2 extends Level {
 
         Gdx.gl.glClearColor(0.05f, 0.05f, 0.05f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         batch.begin();
         batch.setColor(1, 1, 1, 1);
         batch.draw(Assets.instance.light,

@@ -41,8 +41,6 @@ public class WorldRenderer implements Disposable {
 
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setColor(1.0f, 0.0f, 0.0f, 1.0f);
-
-        //batch.setShader(shader);
     }
 
     public void render() {
@@ -60,7 +58,6 @@ public class WorldRenderer implements Disposable {
         shapeRenderer.setProjectionMatrix(camera.combined);
         worldController.level.render(batch, tiledRenderer, shapeRenderer); // วาด Game World
         worldController.level.renderFbo(batch, camera, lightFbo);
-        
     }
 
     private void renderGui() {
