@@ -1776,7 +1776,7 @@ public class GameScreen4 extends AbstractGameScreen {
         if (player.status_find && player.stageOneClear && !dialogStage2 && level4.pollutionControll.nearPlayer()) {
             dialogStage2 = true;
             String text =
-                    "\"ต้องการเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศหรือไม่\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
+                    "\"ดูเหมือนว่าสิ่งนี้คือเครื่องปรับสภาพอากาศ แต่ว่าคงจะไม่มีกำลังไฟฟ้าเพียงพอ\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
             dialogAll();
             dialog.addWaitingPage(text);
             player.status_find = false;
