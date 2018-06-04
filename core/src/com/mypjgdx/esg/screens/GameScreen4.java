@@ -1471,11 +1471,9 @@ public class GameScreen4 extends AbstractGameScreen {
             delayGuide();
         }
 
-        if (questCount == 6 && !animation_status) {
+        if (stageFourClear && !animation_status) {
             if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
                 dialogStage4 = true;
-                stageTwoClear = true;
-                stageThreeClear = true;
                 animation_status = true;
                 dialogAll();
                 level4.gate.state = Item.ItemState.ON;
@@ -1488,7 +1486,6 @@ public class GameScreen4 extends AbstractGameScreen {
                 delayStatus();
             } else if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
                 dialogStage4fail = true;
-                stageTwoClear = true;
                 dialogAll();
                 String text =
                         "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานหมดเครื่องระบายอากาศจะหยุดทำงาน\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
@@ -1514,13 +1511,6 @@ public class GameScreen4 extends AbstractGameScreen {
             missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
             player.timeStop = true;
         }
-
-//        if (player.timeCount <= timeEvent && !guideStart && player.stageOneClear){
-//            guideStart = true;
-//            guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-//            player.timeStop = true;
-//            System.out.print("ทำงาน");
-//        }
 
         if (player.timeCount <= timeEvent && !statusStart && stageThreeClear) {
             statusStart = true;
