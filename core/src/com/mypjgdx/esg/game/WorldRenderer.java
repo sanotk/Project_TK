@@ -59,10 +59,8 @@ public class WorldRenderer implements Disposable {
         tiledRenderer.setView(camera);
         shapeRenderer.setProjectionMatrix(camera.combined);
         worldController.level.render(batch, tiledRenderer, shapeRenderer); // วาด Game World
-        if(!worldController.level.player.isSwitch) {
-            worldController.level.renderFbo(batch, camera, lightFbo);
-        }
-
+        worldController.level.renderFbo(batch, camera, lightFbo);
+        
     }
 
     private void renderGui() {
