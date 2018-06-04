@@ -137,6 +137,7 @@ public class GameScreen4 extends AbstractGameScreen {
     private boolean dialogHydroPower;
     private SolarState solarState;
     private boolean guideShow;
+    private boolean dialogPollutionControl;
 
     public enum systemWindow {
         citizen1,
@@ -1773,17 +1774,17 @@ public class GameScreen4 extends AbstractGameScreen {
             }
         }
 
-        if (player.status_find && player.stageOneClear && !dialogHydroPower && level4.pollutionControll.nearPlayer()) {
-            dialogHydroPower = true;
+        if (player.status_find && player.stageOneClear && !stageTwoClear && !dialogPollutionControl && level4.pollutionControll.nearPlayer()) {
+            dialogPollutionControl = true;
             String text =
-                    "\"ดูเหมือนว่าสิ่งนี้คือเครื่องปรับสภาพอากาศให้กลับไปอาศัยบนพื้นโลกได้\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
+                    "\"ดูเหมือนว่าสิ่งนี้คือเครื่องปรับสภาพอากาศให้กลับไปอาศัยบนพื้นโลกได้\" \n\"(ต้องใช้กำลังไฟฟ้า 11000 วัตต์)\"";
             dialogAll();
             dialog.addWaitingPage(text);
             player.status_find = false;
-        }else if (player.status_find && player.stageOneClear && !dialogStage2 && level4.hydroPower.nearPlayer()) {
-            dialogStage2 = true;
+        }else if (player.status_find && player.stageOneClear && !stageTwoClear && !dialogHydroPower && level4.hydroPower.nearPlayer()) {
+            dialogHydroPower = true;
             String text =
-                    "\"ต้องการเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศหรือไม่\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
+                    "\"ดูเหมือนสิ่งนี้คือกังหันผลิตไฟฟ้าพลังงานน้ำ\" \n\"(สามารถผลิตกำลังไฟฟ้าได้ 10500 วัตต์)\"";
             dialogAll();
             dialog.addWaitingPage(text);
             player.status_find = false;
