@@ -11,12 +11,12 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 import java.util.Comparator;
 
-    public abstract class AnimatedObject<E extends Enum<E>> extends AbstractGameObject {
+    public abstract class AnimatedObject extends AbstractGameObject {
 
     public static final float START_TIME = 0;
 
-    private ObjectMap<E, Animation<TextureRegion>> animations;
-    private E currentAnimation;
+    private ObjectMap<Enum, Animation<TextureRegion>> animations;
+    private Enum currentAnimation;
 
     private Array<AtlasRegion> regions;
     private TextureRegion currentRegion;
@@ -27,7 +27,7 @@ import java.util.Comparator;
     public AnimatedObject(TextureAtlas atlas) {
         super();
 
-        animations = new ObjectMap<E, Animation<TextureRegion>>();
+        animations = new ObjectMap<Enum, Animation<TextureRegion>>();
 
         regions = new Array<AtlasRegion>(atlas.getRegions());
         regions.sort(new RegionComparator());
@@ -48,15 +48,15 @@ import java.util.Comparator;
         render(batch, currentRegion);
     }
 
-    protected void addLoopAnimation(E name, float frameTime, int regionStart, int size) {
+    protected void addLoopAnimation(Enum name, float frameTime, int regionStart, int size) {
         addAnimation(name, frameTime, regionStart, size, PlayMode.LOOP);
     }
 
-    protected void addNormalAnimation(E name, float frameTime, int regionStart, int size) {
+    protected void addNormalAnimation(Enum name, float frameTime, int regionStart, int size) {
         addAnimation(name, frameTime, regionStart, size, PlayMode.NORMAL);
     }
 
-    protected void addAnimation(E name, float frameTime, int regionStart, int size, PlayMode mode) {
+    protected void addAnimation(Enum name, float frameTime, int regionStart, int size, PlayMode mode) {
         Array<AtlasRegion> animationRegions = new Array<AtlasRegion>();
         animationRegions.addAll(regions, regionStart, size);
         animations.put(name, new Animation<TextureRegion>(frameTime, animationRegions, mode));
@@ -75,11 +75,11 @@ import java.util.Comparator;
         animationTime = 0.0f;
     }
 
-    public void setCurrentAnimation(E name) {
+    public void setCurrentAnimation(Enum name) {
         currentAnimation = name;
     }
 
-    public boolean isAnimationFinished(E name) {
+    public boolean isAnimationFinished(Enum name) {
         return animations.get(name).isAnimationFinished(animationTime);
     }
 

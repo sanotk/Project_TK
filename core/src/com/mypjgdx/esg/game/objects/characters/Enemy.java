@@ -18,7 +18,6 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
-import com.mypjgdx.esg.game.objects.characters.Enemy.EnemyAnimation;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.utils.Direction;
 import com.mypjgdx.esg.utils.Distance;
@@ -27,7 +26,7 @@ import com.mypjgdx.esg.utils.Node;
 
 import java.util.List;
 
-public abstract class Enemy extends AnimatedObject<EnemyAnimation> implements Damageable, Json.Serializable {
+public abstract class Enemy extends AnimatedObject implements Damageable, Json.Serializable {
 
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 8.0f;

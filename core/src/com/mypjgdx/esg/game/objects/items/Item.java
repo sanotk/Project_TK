@@ -8,9 +8,8 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Player;
-import com.mypjgdx.esg.game.objects.items.Item.ItemAnimation;
 
-public abstract class Item extends AnimatedObject<ItemAnimation> implements Json.Serializable{
+public abstract class Item extends AnimatedObject implements Json.Serializable{
 
     protected final float FRAME_DURATION = 1.0f / 10.0f;
 
@@ -124,7 +123,7 @@ public abstract class Item extends AnimatedObject<ItemAnimation> implements Json
 
     public void setName(){
         name = "";
-    };
+    }
 
     @Override
     public void write(Json json) {

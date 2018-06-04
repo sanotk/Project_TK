@@ -14,7 +14,6 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
-import com.mypjgdx.esg.game.objects.characters.Player.PlayerAnimation;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.weapons.*;
 import com.mypjgdx.esg.ui.EnergyProducedBar;
@@ -26,7 +25,7 @@ import com.mypjgdx.esg.utils.SoundManager;
 
 import java.util.List;
 
-public class Player extends AnimatedObject<PlayerAnimation> implements Damageable, Json.Serializable {
+public class Player extends AnimatedObject implements Damageable, Json.Serializable {
 
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 16.0f;

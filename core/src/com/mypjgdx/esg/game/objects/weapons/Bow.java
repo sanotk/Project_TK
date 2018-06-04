@@ -9,7 +9,7 @@ import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.utils.Direction;
 
-public abstract class Bow extends AnimatedObject<Bow.BowAnimation>{
+public abstract class Bow extends AnimatedObject {
 
     protected static final float FRAME_DURATION = 0.1f / 2.0f;
 

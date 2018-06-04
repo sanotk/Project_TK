@@ -20,7 +20,7 @@ import com.mypjgdx.esg.utils.Direction;
 import com.mypjgdx.esg.utils.GameMap;
 import com.mypjgdx.esg.utils.Node;
 
-public abstract class Citizen extends AnimatedObject<Citizen.CitizenAnimation> implements Json.Serializable {
+public abstract class Citizen extends AnimatedObject implements Json.Serializable {
 
     // กำหนดจำนวนวินาทีที่แต่ละเฟรมจะถูกแสดง เป็น 1/8 วินาทีต่อเฟรม หรือ 8 เฟรมต่อวินาที (FPS)
     private static final float FRAME_DURATION = 1.0f / 8.0f;
