@@ -293,7 +293,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonGuideWindowStyle.up = guidelWindowUp;
         buttonGuideWindowStyle.down = guidelWindowUp.tint(Color.LIGHT_GRAY);
         buttonGuideWindow = new Button(buttonGuideWindowStyle);
-        buttonGuideWindow.setPosition(SCENE_WIDTH / 4, SCENE_HEIGHT / 4 - 10);
+        buttonGuideWindow.setPosition(SCENE_WIDTH / 5, SCENE_HEIGHT / 4 - 10);
 
         buttonGuideWindow.setVisible(false);
 
@@ -1484,6 +1484,12 @@ public class GameScreen extends AbstractGameScreen {
             missionWindow.setCompleted(true, 7);
             missionWindow.setText("ภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว (กดคุยกับประตูเพื่อเข้าไปยังที่หลบภัย)", 8);
             delayStatus();
+        }
+
+        if (animation_status && player.timeCount <= timeEvent-1 && !guideShow){
+            guideShow = true;
+            buttonGuideWindow.setVisible(true);
+            player.timeStop = true;
         }
 
         if (player.timeCount <= timeEvent && !missionStart) {
