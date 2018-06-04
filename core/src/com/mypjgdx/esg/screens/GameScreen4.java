@@ -1528,7 +1528,7 @@ public class GameScreen4 extends AbstractGameScreen {
             dialogStage3 = true;
             dialogAll();
             String text =
-                    "\"เหมือนจะไม่มีพลังงานเพียงพอใช้งานเครื่องปรับสภาพอากาศ ลองเชื่อมต่อกังหันน้ำดู\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
+                    "\"เหมือนจะไม่มีพลังงานเพียงพอใช้งานเครื่องปรับสภาพอากาศ ต้องเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศ\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
             timeEvent = player.timeCount - 1;
             missionStart = false;
