@@ -549,6 +549,7 @@ public class GameScreen extends AbstractGameScreen {
                     worldController.level.player.acceptSwordWave = false;
                     worldController.level.player.requestSwordWave = false;
                 } else {
+                    dialogShow = false;
                     dialogDoor4 = false;
                     GameSaveManager.instance.save();
                     MusicManager.instance.stop();
