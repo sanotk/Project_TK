@@ -138,6 +138,7 @@ public class GameScreen4 extends AbstractGameScreen {
     private SolarState solarState;
     private boolean guideShow;
     private boolean dialogPollutionControl;
+    private boolean dialogLink;
 
     public enum systemWindow {
         citizen1,
@@ -1735,25 +1736,25 @@ public class GameScreen4 extends AbstractGameScreen {
         if (player.isSwitch) {
             if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
                 String text =
-                        "\"หิวข้าวขัง\"";
+                        "\"เมื่อไหร่จะได้กลับอยู่บนพื้นโลก\"";
                 dialogAll();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen1;
             } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
                 String text =
-                        "\"หิวข้าวขัง\"";
+                        "\"หิวข้าวจังเลย\"";
                 dialogAll();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen2;
             } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
                 String text =
-                        "\"หิวข้าวขัง\"";
+                        "\"ถ้ากลับข้างบนได้เมื่อไหร่บอกด้วยนะหัวหน้า\"";
                 dialogAll();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen3;
             } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
                 String text =
-                        "\"หิวข้าวขัง\"";
+                        "\"พวกมอนสเตอร์มาจากไหนกันนะ\"";
                 dialogAll();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen4;
@@ -1761,13 +1762,13 @@ public class GameScreen4 extends AbstractGameScreen {
                 player.timeStop = true;
                 player.status_find = false;
                 String text =
-                        "\"หิวข้าวขัง\"";
+                        "\"น่าเบื่อจริงๆ\"";
                 dialogAll();
                 citizenQuest = systemWindow.citizen5;
                 dialog.addWaitingPage(text);
             } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
                 String text =
-                        "\"หิวข้าวขัง\"";
+                        "\"พรุ่งนี้จะเป็นยังไงกันนะ\"";
                 dialogAll();
                 dialog.addWaitingPage(text);
                 citizenQuest = systemWindow.citizen6;
@@ -1790,8 +1791,8 @@ public class GameScreen4 extends AbstractGameScreen {
             player.status_find = false;
         }
 
-        if (player.status_find && stageTwoClear && !dialogStage3) {
-            dialogStage3 = true;
+        if (player.status_find && stageTwoClear && !stageThreeClear && !dialogLink) {
+            dialogLink = true;
             String text =
                     "\"ต้องการเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศหรือไม่\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
             dialogCitizenDetail();
