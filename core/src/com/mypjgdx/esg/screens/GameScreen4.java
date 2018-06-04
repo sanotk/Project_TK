@@ -1773,15 +1773,30 @@ public class GameScreen4 extends AbstractGameScreen {
             }
         }
 
-        if (player.status_find && player.stageOneClear && !dialogHydroPower) {
-            dialogHydroPower = true;
+        if (player.status_find && player.stageOneClear && !dialogStage2 && level4.pollutionControll.nearPlayer()) {
+            dialogStage2 = true;
+            String text =
+                    "\"ต้องการเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศหรือไม่\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
+            dialogAll();
+            dialog.addWaitingPage(text);
+            player.status_find = false;
+        }else if (player.status_find && player.stageOneClear && !dialogStage2 && level4.hydroPower.nearPlayer()) {
+            dialogStage2 = true;
+            String text =
+                    "\"ต้องการเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศหรือไม่\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
+            dialogAll();
+            dialog.addWaitingPage(text);
+            player.status_find = false;
+        }
+
+        if (player.status_find && stageTwoClear && !dialogStage3) {
+            dialogStage3 = true;
             String text =
                     "\"ต้องการเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศหรือไม่\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
             dialogCitizenDetail();
             dialog.addWaitingPage(text);
             player.status_find = false;
         }
-
 
         if (player.status_find && player.stageOneClear) {
             for (Item item : level4.items) {
