@@ -573,7 +573,6 @@ public class GameScreen extends AbstractGameScreen {
             }
         });
 
-
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
         buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
@@ -1412,10 +1411,10 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount - 1;
             missionStart = false;
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณารวบรวมประชาชนทั้งหมด (ทำได้โดยเดินไปหาประชาชนและกดปุ่มคุยเมื่อมีสัญลักษณ์ขึ้น)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
+                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณารวบรวมประชาชนทั้งหมด (ทำได้โดยเดินไปหาประชาชนและกดคุยเมื่อมีสัญลักษณ์ขึ้น)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.setText(text);
             missionWindow.setCompleted(true, 0);
-            missionWindow.setText("ภารกิจที่สอง ตามหาและรวบรวมประชาชนนี่อยู่ในพื้นที่นี้ (กดปุ่มคุยเมื่อมีสัญลักษณ์ขึ้น)", 1);
+            missionWindow.setText("ภารกิจที่สอง ตามหาและรวบรวมประชาชนนี่อยู่ในพื้นที่นี้ (กดคุยเมื่อมีสัญลักษณ์ขึ้น)", 1);
             delayMission();
         }
 
@@ -1490,6 +1489,7 @@ public class GameScreen extends AbstractGameScreen {
 
         if (animation_status && player.timeCount <= timeEvent-1 && !guideStart){
             guideStart = true;
+            guideShow = true;
             buttonGuideWindow.setVisible(true);
             player.timeStop = true;
         }
