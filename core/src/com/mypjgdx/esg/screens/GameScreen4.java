@@ -1415,14 +1415,14 @@ public class GameScreen4 extends AbstractGameScreen {
         }
 
         if ((level4.gate.nearPlayer()) && (player.status_find)) {
-            if (!animation_status && stageTwoClear && !stageThreeClear && !dialogDoor3) {
+            if (!animation_status && stageThreeClear && !stageFourClear && !dialogDoor3) {
                 dialogDoor3 = true;
                 dialogAll();
                 String text =
                         "\"ดูเหมือนยังขึ้นไปพื้นโลกไม่ได้\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
                 dialog.addWaitingPage(text);
                 delayMission();
-            } else if (animation_status && stageThreeClear && !dialogDoor4) {
+            } else if (animation_status && stageFourClear && !dialogDoor4) {
                 dialogDoor4 = true;
                 chartStatus();
             }
@@ -1733,7 +1733,7 @@ public class GameScreen4 extends AbstractGameScreen {
             player.status_find = false;
         }
 
-        if (player.status_find && stageTwoClear) {
+        if (player.status_find && stageThreeClear) {
             for (Item item : level4.items) {
                 if (item.nearPlayer() && item.state == Item.ItemState.OFF && !item.questAccept && !item.quest) {
                     dialogItem = true;
