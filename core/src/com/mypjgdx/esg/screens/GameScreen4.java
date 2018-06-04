@@ -1742,7 +1742,6 @@ public class GameScreen4 extends AbstractGameScreen {
             for (Item item : level4.items) {
                 if (item.nearPlayer() && item.state == Item.ItemState.OFF && !item.questAccept && !item.quest) {
                     dialogItem = true;
-                    stageFourClear = true;
                     String text =
                             "\"มีพลังงานเพียงพอแล้ว ต้องการเปิด\"" + item.name + "\"หรือไม่\""
                                     + "\n\"( " + item.name + "\"ใช้กำลังไฟฟ้า\"" + item.getEnergyBurn() + " วัตต์ )\" ";
