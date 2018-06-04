@@ -656,8 +656,9 @@ public class GameScreen4 extends AbstractGameScreen {
                     item.quest = true;
                     EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
                     item.state = Item.ItemState.ONLOOP;
-                } else if (dialogHydroPower) {
+                } else if (dialogLink) {
                     addGuiLink();
+                    EnergyProducedBar.instance.energyProduced += 10500;
                 } else if (stageFourClear) {
                     worldController.level.player.timeClear = false;
                     Gdx.app.postRunnable(new Runnable() {
@@ -716,6 +717,8 @@ public class GameScreen4 extends AbstractGameScreen {
                 trapShow = false;
                 swordShow = false;
                 dialogItem = false;
+                dialogHydroPower = false;
+                dialogPollutionControl = false;
             }
         });
 
@@ -780,6 +783,7 @@ public class GameScreen4 extends AbstractGameScreen {
                 swordShow = false;
                 dialogItem = false;
                 dialogHydroPower = false;
+                dialogPollutionControl = false;
             }
         });
 
@@ -1794,7 +1798,7 @@ public class GameScreen4 extends AbstractGameScreen {
         if (player.status_find && stageTwoClear && !stageThreeClear && !dialogLink) {
             dialogLink = true;
             String text =
-                    "\"ต้องการเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศหรือไม่\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
+                    "\"ต้องการเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศหรือไม่\" \n\"(กดปุ่มตกลงเพื่อเชื่อมต่อ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการ)\"";
             dialogCitizenDetail();
             dialog.addWaitingPage(text);
             player.status_find = false;
