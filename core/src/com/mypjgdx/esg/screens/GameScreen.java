@@ -1699,6 +1699,10 @@ public class GameScreen extends AbstractGameScreen {
             SunBar.instance.timeCount = 0;
         }
 
+        if(dialogShow){
+            player.timeStop = true;
+        }
+
         if (!dialogShow) {
             iconMission.setVisible(false);
             iconStatus.setVisible(false);
