@@ -143,6 +143,7 @@ public class GameScreen4 extends AbstractGameScreen {
     private boolean dialogLink;
     private boolean dialogController;
     private boolean dialogWater;
+    private Label textMission5;
 
     public enum systemWindow {
         citizen1,
@@ -1202,15 +1203,16 @@ public class GameScreen4 extends AbstractGameScreen {
         textMission2 = new Label("", skin);
         textMission3 = new Label("", skin);
         textMission4 = new Label("", skin);
+        textMission5 = new Label("", skin);
 
-        Label textMission5 = new Label("", skin);
-        Label textMission6 = new Label("ต", skin);
-        Label textMission7 = new Label("เ", skin);
+        Label textMission6 = new Label("", skin);
+        Label textMission7 = new Label("", skin);
 
         textMission1.setStyle(labelStyle);
         textMission2.setStyle(labelStyle);
         textMission3.setStyle(labelStyle);
         textMission4.setStyle(labelStyle);
+        textMission5.setStyle(labelStyle);
 
         final Window missionWindow = new Window("รายชื่อภารกิจ", style);
         missionWindow.setModal(true);
@@ -1483,8 +1485,8 @@ public class GameScreen4 extends AbstractGameScreen {
                 String text =
                         "\"ทำได้ดีมาก ดูเหมือนพวกเราจะกลับไปขึ้นไปยังพื้นโลกได้แล้ว\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 dialog.addWaitingPage(text);
-                textMission3.setStyle(labelStyle2);
-                textMission4.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถกลับไปอยู่อาศัยบนพื้นโลกได้แล้ว");
+                textMission4.setStyle(labelStyle2);
+                textMission5.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถกลับไปอยู่อาศัยบนพื้นโลกได้แล้ว");
                 delayStatus();
             } else if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
                 dialogStage4fail = true;
