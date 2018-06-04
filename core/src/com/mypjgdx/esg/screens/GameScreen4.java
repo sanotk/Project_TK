@@ -1644,6 +1644,10 @@ public class GameScreen4 extends AbstractGameScreen {
             iconItem.setVisible(true);
         }
 
+        if (stageThreeClear){
+            iconItem.setVisible(false);
+        }
+
         if (player.energyLess) {
             iconEnergyLess.setVisible(true);
             delay();

@@ -147,6 +147,11 @@
     <property name="pollutioncontrol" value=""/>
    </properties>
   </tile>
+  <tile id="32">
+   <properties>
+    <property name="gate" value=""/>
+   </properties>
+  </tile>
   <tile id="34">
    <properties>
     <property name="blocked" value=""/>
@@ -166,12 +171,12 @@
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt1MsKg0AMheGxoFbU2nrDW20Xff9n9LgQwhCZKDOCxcW3i/6YgKNSajxAA5HATTi3GEijhhfEFr0h0xo+pBaVTIPuzmOs7ZmbnX0OaDyuhrXGj3nmu8JmY6s9u7oa/9VoIRSg7zDNPqHTviOHuwFtmGYLZleSfzttuPi3n+XmlfDuUvrNJffeoyCNBAIHeu0GLk0lYSCJ
+   eJzt1MsKg0AMheFpwbbipd5R21oLvv8zehYKIYxMlJmC4uLbRX9MwE4p1f1BDb7AVTg3e5NGBSkEFn3gyRoeRBYVmgbd3UVjac987jf5OmzM4rNhrTFonukX2GystWVXZ+NYjQbuAvQdptkEWvYdGTwMaMM0m2t2Jfm304aLf/tebl4K7y7Fby659xY5aYRwc+DFbuDSCB3/IMk=
   </data>
  </layer>
  <layer name="map2" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFgxGwADEjFGtikWfEgXEBPjrYgQ0MVzvQ9Q8XO6gBCMXHqB3Dz45RQDxAzru0ig962DEKBgcAAGw9AsI=
+   eJxjYBgFgxGwADEjFGtikWfEgXGp46OhHfjAcLUDXf9wsYMagFB8jNox/OwYBcQD5LxLq/ighx2jYHAAAHwBAsQ=
   </data>
  </layer>
  <layer name="shadow" width="25" height="25">
