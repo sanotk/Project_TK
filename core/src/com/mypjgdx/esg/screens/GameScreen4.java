@@ -1415,7 +1415,7 @@ public class GameScreen4 extends AbstractGameScreen {
         }
 
         if ((level4.gate.nearPlayer()) && (player.status_find)) {
-            if (!animation_status && stageThreeClear && !stageFourClear && !dialogDoor3) {
+            if (!animation_status && !stageFourClear && !dialogDoor3) {
                 dialogDoor3 = true;
                 dialogAll();
                 String text =
@@ -1713,6 +1713,7 @@ public class GameScreen4 extends AbstractGameScreen {
         if (player.status_find && player.stageOneClear && !stageTwoClear && !dialogPollutionControl && level4.pollutionControll.nearPlayer()) {
             dialogPollutionControl = true;
             dialogController = true;
+            timeEvent = player.timeCount + 1;
             String text =
                     "\"ดูเหมือนว่าสิ่งนี้คือเครื่องปรับสภาพอากาศให้กลับไปอาศัยบนพื้นโลกได้\" \n\"(ต้องใช้กำลังไฟฟ้า 11000 วัตต์)\"";
             dialogAll();
@@ -1721,6 +1722,7 @@ public class GameScreen4 extends AbstractGameScreen {
         }else if (player.status_find && player.stageOneClear && !stageTwoClear && !dialogHydroPower && level4.hydroPower.nearPlayer()) {
             dialogHydroPower = true;
             dialogWater = true;
+            timeEvent = player.timeCount + 1;
             String text =
                     "\"ดูเหมือนสิ่งนี้คือกังหันผลิตไฟฟ้าพลังงานน้ำ\" \n\"(สามารถผลิตกำลังไฟฟ้าได้ 10500 วัตต์)\"";
             dialogAll();
