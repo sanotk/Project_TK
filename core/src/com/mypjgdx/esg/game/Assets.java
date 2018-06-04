@@ -163,6 +163,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public Texture waterTexture;
 
     public Texture dialogTexture;
+    public Texture light2;
 
     private Assets() {}
 
@@ -293,6 +294,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("trap.wav", Sound.class);
         manager.load("enemy_ball.wav", Sound.class);
         manager.load("light.png", Texture.class);
+        manager.load("light2.png", Texture.class);
         manager.load("white.png", Texture.class);
 
         manager.load("ui-blue.atlas", TextureAtlas.class);
@@ -325,6 +327,7 @@ public class Assets implements Disposable, AssetErrorListener {
         citizenAltas = manager.get("citizen_pack.atlas");
 
         light = manager.get("light.png");
+        light2 = manager.get("light2.png");
         white = manager.get("white.png");
 
         touchPadKnob = getFilteredTexture("touchpad_knob.png");

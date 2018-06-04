@@ -68,7 +68,7 @@ public class WorldRenderer implements Disposable {
         viewport.update(width, height);
 
         lightFbo.dispose();
-        lightFbo = new FrameBuffer(Pixmap.Format.RGB888, (int) viewport.getWorldWidth(), (int) viewport.getWorldHeight(), false);
+        lightFbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int) viewport.getWorldWidth(), (int) viewport.getWorldHeight(), false);
     }
 
     @Override
