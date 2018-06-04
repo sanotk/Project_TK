@@ -1703,7 +1703,6 @@ public class GameScreen4 extends AbstractGameScreen {
         if (player.status_find && player.stageOneClear && !stageTwoClear && !dialogPollutionControl && level4.pollutionControll.nearPlayer()) {
             dialogPollutionControl = true;
             dialogController = true;
-            stageTwoClear = true;
             timeEvent = player.timeCount - 1;
             String text =
                     "\"ดูเหมือนว่าสิ่งนี้คือเครื่องปรับสภาพอากาศให้กลับไปอาศัยบนพื้นโลกได้\" \n\"(ต้องใช้กำลังไฟฟ้า 11000 วัตต์)\"";
