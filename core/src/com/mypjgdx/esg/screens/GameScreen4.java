@@ -1463,13 +1463,13 @@ public class GameScreen4 extends AbstractGameScreen {
             dialogStage3 = true;
             dialogAll();
             String text =
-                    "\"กรุณาเปิดการทำงานกังหันน้ำและเชื่อมต่อไปยังเครื่องปรับสภาพอากาศ\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
+                    "\"กรุณาเชื่อมต่อกังหันน้ำเพื่อส่งพลังงานไปยังเครื่องปรับสภาพอากาศ\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
             timeEvent = player.timeCount - 1;
             missionStart = false;
             System.out.print(player.timeCount);
             textMission2.setStyle(labelStyle2);
-            textMission3.setText("ภารกิจที่สาม เชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศเพื่อเปิดใช้งาน (กดเชื่อมต่อโดยคุยกับกังหันน้ำ)");
+            textMission3.setText("ภารกิจที่สาม เชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศ (กดเชื่อมต่อโดยคุยกับกังหันน้ำหรือเครื่องปรับสภาพอากาศ)");
             delayGuide();
         }
 
