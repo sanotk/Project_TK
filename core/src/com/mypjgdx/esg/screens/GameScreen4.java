@@ -1423,7 +1423,7 @@ public class GameScreen4 extends AbstractGameScreen {
                 dialogDoor3 = true;
                 dialogAll();
                 String text =
-                        "\"ดูเหมือนยังขึ้นไปพื้นโลกไม่ได้\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
+                        "\"อากาศด้านบนยังเป็นพิษ ดูเหมือนยังขึ้นไปพื้นโลกไม่ได้\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
                 dialog.addWaitingPage(text);
                 delayMission();
             } else if (animation_status && stageFourClear && !dialogDoor4) {
