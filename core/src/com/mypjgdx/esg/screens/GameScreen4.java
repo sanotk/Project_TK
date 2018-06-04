@@ -1457,11 +1457,11 @@ public class GameScreen4 extends AbstractGameScreen {
             delayGuide();
         }
 
-        if (stageTwoClear && !dialogStage3) {
+        if (stageTwoClear && !dialogStage3 && player.timeCount == timeEvent) {
             dialogStage3 = true;
             dialogAll();
             String text =
-                    "\"เหมือนจะไม่มีพลังงานเพียงพอใช้งานเครื่องปรับสภาพอากาศ ลอง\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
+                    "\"กรุณาเปิดการทำงานกังหันน้ำและเชื่อมต่อไปยังเครื่องปรับสภาพอากาศ\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
             timeEvent = player.timeCount - 1;
             missionStart = false;
