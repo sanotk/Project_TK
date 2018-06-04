@@ -1886,7 +1886,6 @@ public class GameScreen4 extends AbstractGameScreen {
             BatteryBar.instance.update(deltaTime);
         }
 
-
         worldController.update(Gdx.graphics.getDeltaTime()); //อัพเดท Game World
         worldRenderer.render();
 
