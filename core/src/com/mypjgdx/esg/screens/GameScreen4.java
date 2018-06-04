@@ -1528,7 +1528,7 @@ public class GameScreen4 extends AbstractGameScreen {
             dialogStage3 = true;
             dialogAll();
             String text =
-                    "\"เหมือนจะไม่มีพลังงานเพียงพอใช้งานเครื่องปรับสภาพอากาศ ต้องเชื่อมต่อกังหันน้ำกับเครื่องปรับสภาพอากาศ\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
+                    "\"เหมือนจะไม่มีพลังงานเพียงพอใช้งานเครื่องปรับสภาพอากาศ ลองเชื่อมต่อกังหันน้ำดู\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.addWaitingPage(text);
             timeEvent = player.timeCount - 1;
             missionStart = false;
@@ -1773,10 +1773,10 @@ public class GameScreen4 extends AbstractGameScreen {
             }
         }
 
-        if (player.status_find && player.stageOneClear && !dialogStage2 && level4.pollutionControll.nearPlayer()) {
-            dialogStage2 = true;
+        if (player.status_find && player.stageOneClear && !dialogHydroPower && level4.pollutionControll.nearPlayer()) {
+            dialogHydroPower = true;
             String text =
-                    "\"ดูเหมือนว่าสิ่งนี้คือเครื่องปรับสภาพอากาศ แต่ว่าคงจะไม่มีกำลังไฟฟ้าเพียงพอ\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
+                    "\"ดูเหมือนว่าสิ่งนี้คือเครื่องปรับสภาพอากาศให้กลับไปอาศัยบนพื้นโลกได้\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
             dialogAll();
             dialog.addWaitingPage(text);
             player.status_find = false;
