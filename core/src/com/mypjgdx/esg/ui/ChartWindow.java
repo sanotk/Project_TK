@@ -40,8 +40,7 @@ public class ChartWindow extends Window {
                 worldController.level.player.timeStop = true;
                 String text = "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
                 gameScreen.dialog.show();
-                gameScreen.dialog.clearPages();
-                gameScreen.dialog.addWaitingPage(text);
+                gameScreen.dialog.setText(text);
             }
         });
 

@@ -1293,7 +1293,7 @@ public class GameScreen extends AbstractGameScreen {
                     swordShow = false;
                 }
             } else {
-                dialog.tryToChangePage();
+                dialog.speedUp();
             }
         }
     }
@@ -1324,7 +1324,7 @@ public class GameScreen extends AbstractGameScreen {
         if (!dialogStart) {
             dialogAll();
             String text = "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยอยู่ในพื้นที่แถบนี้ รีบหาทางเข้าไปภายในเวลาที่กำหนด มิเช่นนั้นภารกิจจะล้มเหลว\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
-            dialog.addWaitingPage(text);
+            dialog.setText(text);
             dialogStart = true;
             delayMission();
             timeEvent = player.timeCount - 1;
@@ -1338,7 +1338,7 @@ public class GameScreen extends AbstractGameScreen {
                     "\"คุณต้องการวางกับดักหรือไม่ กับดัก 1 อันใช้กำลังไฟฟ้า 100 วัตต์ เมื่อกับดักถูกทำลายถึงจะได้กำลังไฟฟ้าที่ใช้อยู่คืน\" \n\"(กดปุ่มตกลงเพื่อวางกับดัก หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการวางกับดัก)\"";
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
-            dialog.addWaitingPage(text);
+            dialog.setText(text);
         } else if (player.requestTrap && dialogTrap) {
             player.requestTrap = false;
             player.acceptTrap = true;
@@ -1353,7 +1353,7 @@ public class GameScreen extends AbstractGameScreen {
                     "\"คุณต้องการใช้ท่าคลื่นดาบหรือไม่ ใช้ 1 ครั้ง เสียกำลังไฟฟ้า 1000 วัตต์ เป็นเวลา 10 วินาที\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
-            dialog.addWaitingPage(text);
+            dialog.setText(text);
         } else if (player.requestSwordWave && dialogSwordWave) {
             player.requestSwordWave = false;
             player.acceptSwordWave = true;
@@ -1367,21 +1367,21 @@ public class GameScreen extends AbstractGameScreen {
                     dialogAll();
                     String text =
                             "\"อันตราย! โปรดกำจัดมอนสเตอร์ให้หมดก่อน แล้วประชาชนที่ซ่อนตัวอยู่จะปรากฏตัวออกมา\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
-                    dialog.addWaitingPage(text);
+                    dialog.setText(text);
                     delayMission();
                 } else if (player.stageOneClear && !stageTwoClear && !dialogDoor2) {
                     dialogDoor2 = true;
                     dialogAll();
                     String text =
                             "\"ยังตามหาประชาชนที่ซ่อนตัวอยู่ไม่ครบ กรุณาตามหาให้ครบก่อน (ทำได้โดยกดคุยกับประชาชน)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
-                    dialog.addWaitingPage(text);
+                    dialog.setText(text);
                     delayMission();
                 } else if (stageTwoClear && !stageThreeClear && !dialogDoor3) {
                     dialogDoor3 = true;
                     dialogAll();
                     String text =
                             "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานเข้าสู่สถานที่หลบภัย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
-                    dialog.addWaitingPage(text);
+                    dialog.setText(text);
                     stageTwoAfter = true;
                     timeEvent = player.timeCount - 1;
                     missionStart = false;
@@ -1400,7 +1400,7 @@ public class GameScreen extends AbstractGameScreen {
                         "\"ยินดีต้อนรับสู่พื้นที่หลบภัย\" \n\"(กดปุ่มตกลงเพื่อเข้าไปยังสถานที่หลบภัย หรือกดปุ่มปฎิเสธเพื่อบันทึกและออกไปหน้าเมนู)\"";
                 buttonAgree.setVisible(true);
                 buttonRefuse.setVisible(true);
-                dialog.addWaitingPage(text);
+                dialog.setText(text);
             }
         }
         if (player.stageOneClear && !dialogCitizen) {
@@ -1411,7 +1411,7 @@ public class GameScreen extends AbstractGameScreen {
             missionStart = false;
             String text =
                     "\"กำจัดมอนสเตอร์หมดแล้ว กรุณารวบรวมประชาชนทั้งหมด (ทำได้โดยเดินไปหาประชาชนและกดปุ่มคุยเมื่อมีสัญลักษณ์ขึ้น)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
-            dialog.addWaitingPage(text);
+            dialog.setText(text);
             missionWindow.setCompleted(true, 0);
             missionWindow.setText("ภารกิจที่สอง ตามหาและรวบรวมประชาชนนี่อยู่ในพื้นที่นี้ (กดปุ่มคุยเมื่อมีสัญลักษณ์ขึ้น)", 1);
             delayMission();
@@ -1425,7 +1425,7 @@ public class GameScreen extends AbstractGameScreen {
                     dialogAll();
                     String text =
                             "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    dialog.addWaitingPage(text);
+                    dialog.setText(text);
                 }
             }
         }
@@ -1442,7 +1442,7 @@ public class GameScreen extends AbstractGameScreen {
                         LikingBar.instance.liking += 1;
                         citizen.runPlayer = true;
                         citizenCount += 1;
-                        dialog.addWaitingPage(text);
+                        dialog.setText(text);
                     }
                 }
             }
@@ -1459,7 +1459,7 @@ public class GameScreen extends AbstractGameScreen {
 
             missionWindow.setCompleted(true, 1);
             missionWindow.setText("ภารกิจที่สาม พาประชาชนมายังสถานที่หลบภัย (เมื่อมาถึงให้กดคุยกับประตู)", 2);
-            dialog.addWaitingPage(text);
+            dialog.setText(text);
             delayMission();
         }
 
@@ -1475,7 +1475,7 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount - 1;
             String text =
                     "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว พาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
-            dialog.addWaitingPage(text);
+            dialog.setText(text);
 
             missionWindow.setCompleted(true, 3);
             missionWindow.setCompleted(true, 4);
@@ -1617,7 +1617,6 @@ public class GameScreen extends AbstractGameScreen {
 
     private void dialogAll() {
         dialog.show();
-        dialog.clearPages();
         dialogShow = true;
         worldController.level.player.timeStop = true;
     }

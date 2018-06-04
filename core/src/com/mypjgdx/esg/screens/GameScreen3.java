@@ -1084,8 +1084,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 buttonAgree.setVisible(true);
                 buttonRefuse.setVisible(true);
                 dialog.show();
-                dialog.clearPages();
-                dialog.addWaitingPage(text);
+                dialog.setText(text);
                 System.out.print(text);
             }
         });
@@ -1420,7 +1419,7 @@ public class GameScreen3 extends AbstractGameScreen {
             dialogItem = false;
             item.quest = false;
         } else {
-            dialog.tryToChangePage();
+            dialog.speedUp();
         }
     }
 
@@ -1443,7 +1442,7 @@ public class GameScreen3 extends AbstractGameScreen {
 
         if (!dialogStart) {
             dialogAll();
-            dialog.addWaitingPage(text);
+            dialog.setText(text);
             dialogStart = true;
             delayMission();
             timeEvent = player.timeCount - 1;
@@ -1457,7 +1456,7 @@ public class GameScreen3 extends AbstractGameScreen {
                     "\"คุณต้องการวางกับดักหรือไม่ กับดัก 1 อันใช้กำลังไฟฟ้า 100 วัตต์ เมื่อกับดักถูกทำลายถึงจะได้กำลังไฟฟ้าที่ใช้อยู่คืน\" \n\"(กดปุ่มตกลงเพื่อวางกับดัก หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการวางกับดัก)\"";
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
-            dialog.addWaitingPage(text);
+            dialog.setText(text);
         } else if (player.requestTrap && dialogTrap) {
             player.requestTrap = false;
             player.acceptTrap = true;
@@ -1472,7 +1471,7 @@ public class GameScreen3 extends AbstractGameScreen {
                     "\"คุณต้องการใช้ท่าคลื่นดาบหรือไม่ ใช้ 1 ครั้ง เสียกำลังไฟฟ้า 1000 วัตต์ เป็นเวลา 10 วินาที\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
-            dialog.addWaitingPage(text);
+            dialog.setText(text);
         } else if (player.requestSwordWave && dialogSwordWave) {
             player.requestSwordWave = false;
             player.acceptSwordWave = true;
@@ -1485,7 +1484,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 dialogAll();
                 String text =
                         "\"พลังงานมีไม่เพียงพอใช้ในห้องถัดไป กรุณาปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเสียก่อน\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
-                dialog.addWaitingPage(text);
+                dialog.setText(text);
                 delayMission();
             } else if (animation_status && stageThreeClear && !dialogDoor4) {
                 dialogDoor4 = true;
@@ -1501,7 +1500,7 @@ public class GameScreen3 extends AbstractGameScreen {
                     dialogAll();
                     String text =
                             "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-                    dialog.addWaitingPage(text);
+                    dialog.setText(text);
                     iconMission.setVisible(false);
                 }
             }
@@ -1513,7 +1512,7 @@ public class GameScreen3 extends AbstractGameScreen {
             dialogAll();
             String text =
                     "\"แย่แล้ว เครื่องใช้ไฟฟ้าจำนวนมากถูกเปิดทิ้งไว้ ต้องรีบปิดก่อนพลังงานจะหมดลง\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
-            dialog.addWaitingPage(text);
+            dialog.setText(text);
             timeEvent = player.timeCount - 1;
             missionStart = false;
             System.out.print(player.timeCount);
@@ -1533,7 +1532,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 timeEvent = player.timeCount - 1;
                 String text =
                         "\"ทำได้ดีมาก ดูเหมือนว่าเครื่องใช้ไฟฟ้าที่ปิดไปจะไม่ส่งผลอะไร\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
-                dialog.addWaitingPage(text);
+                dialog.setText(text);
                 textMission2.setStyle(labelStyle2);
                 textMission3.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังห้องถัดไปได้แล้ว");
                 delayStatus();
@@ -1544,7 +1543,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 String text =
                         "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานหมดเครื่องระบายอากาศจะหยุดทำงาน\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 level3.gate.state = Item.ItemState.OFF;
-                dialog.addWaitingPage(text);
+                dialog.setText(text);
                 textMission2.setStyle(labelStyle2);
                 //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
                 delayStatus();
@@ -1556,7 +1555,7 @@ public class GameScreen3 extends AbstractGameScreen {
             dialogAll();
             String text =
                     "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-            dialog.addWaitingPage(text);
+            dialog.setText(text);
         }
 
         if (player.isSwitch) {
@@ -1564,25 +1563,25 @@ public class GameScreen3 extends AbstractGameScreen {
                 String text =
                         "\"หิวข้าวขัง\"";
                 dialogAll();
-                dialog.addWaitingPage(text);
+                dialog.setText(text);
                 citizenQuest = systemWindow.citizen1;
             } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
                 String text =
                         "\"หิวข้าวขัง\"";
                 dialogAll();
-                dialog.addWaitingPage(text);
+                dialog.setText(text);
                 citizenQuest = systemWindow.citizen2;
             } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
                 String text =
                         "\"หิวข้าวขัง\"";
                 dialogAll();
-                dialog.addWaitingPage(text);
+                dialog.setText(text);
                 citizenQuest = systemWindow.citizen3;
             } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
                 String text =
                         "\"หิวข้าวขัง\"";
                 dialogAll();
-                dialog.addWaitingPage(text);
+                dialog.setText(text);
                 citizenQuest = systemWindow.citizen4;
             } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
                 player.timeStop = true;
@@ -1591,12 +1590,12 @@ public class GameScreen3 extends AbstractGameScreen {
                         "\"หิวข้าวขัง\"";
                 dialogAll();
                 citizenQuest = systemWindow.citizen5;
-                dialog.addWaitingPage(text);
+                dialog.setText(text);
             } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
                 String text =
                         "\"หิวข้าวขัง\"";
                 dialogAll();
-                dialog.addWaitingPage(text);
+                dialog.setText(text);
                 citizenQuest = systemWindow.citizen6;
             }
         }
@@ -1625,7 +1624,6 @@ public class GameScreen3 extends AbstractGameScreen {
 
     private void dialogAll() {
         dialog.show();
-        dialog.clearPages();
         dialogShow = true;
         worldController.level.player.timeStop = true;
         worldController.level.player.status_find = false;
@@ -1668,7 +1666,6 @@ public class GameScreen3 extends AbstractGameScreen {
         dialog.show();
         buttonAgree.setVisible(true);
         buttonRefuse.setVisible(true);
-        dialog.clearPages();
         dialogShow = true;
     }
 
@@ -1718,7 +1715,7 @@ public class GameScreen3 extends AbstractGameScreen {
                             "\"ต้องการปิด\"" + item.name + "\"หรือไม่\""
                                     + "\n\"( " + item.name + "\"ใช้กำลังไฟฟ้า\"" + item.getEnergyBurn() + " วัตต์ )\" ";
                     dialogCitizenDetail();
-                    dialog.addWaitingPage(text);
+                    dialog.setText(text);
                     player.status_find = false;
                     this.item = item;
                 }
