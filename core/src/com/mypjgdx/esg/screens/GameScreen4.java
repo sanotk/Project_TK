@@ -1488,7 +1488,7 @@ public class GameScreen4 extends AbstractGameScreen {
                 dialogStage4fail = true;
                 dialogAll();
                 String text =
-                        "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานหมดเครื่องระบายอากาศจะหยุดทำงาน\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+                        "\"อันตราย รีบปิดเครื่องปรับสภาพอากาศเร็วเข้า เราคงขึ้นไปบนพื้นโลกไม่ได้อีกแล้ว\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 level4.gate.state = Item.ItemState.OFF;
                 dialog.addWaitingPage(text);
                 textMission3.setStyle(labelStyle2);
