@@ -43,6 +43,7 @@ public class GameScreen extends AbstractGameScreen {
 
     private static final int SCENE_WIDTH = 1024;
     private static final int SCENE_HEIGHT = 576;
+    private boolean guideStart;
 
     public enum SystemWindow {
         SOLAR_CELL,
@@ -1486,8 +1487,8 @@ public class GameScreen extends AbstractGameScreen {
             delayStatus();
         }
 
-        if (animation_status && player.timeCount <= timeEvent-1 && !guideShow){
-            guideShow = true;
+        if (animation_status && player.timeCount <= timeEvent-1 && !guideStart){
+            guideStart = true;
             buttonGuideWindow.setVisible(true);
             player.timeStop = true;
         }
@@ -1800,6 +1801,7 @@ public class GameScreen extends AbstractGameScreen {
         json.writeValue("dialogCitizen2", dialogCitizen2);
         json.writeValue("stageTwoAfter", stageTwoAfter);
         json.writeValue("guideShow", guideShow);
+        json.writeValue("guideStart", guideStart);
         json.writeValue("missionStart", missionStart);
         json.writeValue("trapShow", trapShow);
         json.writeValue("swordShow", swordShow);
@@ -1848,6 +1850,7 @@ public class GameScreen extends AbstractGameScreen {
         dialogCitizen2 = jsonData.getBoolean("dialogCitizen2");
         stageTwoAfter = jsonData.getBoolean("stageTwoAfter");
         guideShow = jsonData.getBoolean("guideShow");
+        guideStart = jsonData.getBoolean("guideStart");
         missionStart = jsonData.getBoolean("missionStart");
         trapShow = jsonData.getBoolean("trapShow");
         swordShow = jsonData.getBoolean("swordShow");
