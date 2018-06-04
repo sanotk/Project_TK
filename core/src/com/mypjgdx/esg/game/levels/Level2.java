@@ -187,13 +187,12 @@ public class Level2 extends Level {
     @Override
     public void createFbo(SpriteBatch batch, FrameBuffer lightFbo) {
         lightFbo.begin();
-
+        Color color = Color.valueOf("#20e8ff");
         if (player.isSwitch) {
-            Color color = Color.valueOf("#20e8ff");
-            Gdx.gl.glClearColor(color.r, color.g, color.b, 0.2f);
+            Gdx.gl.glClearColor(color.r, color.g, color.b, 0.1f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         } else {
-            Gdx.gl.glClearColor(0.05f, 0.05f, 0.05f, 1f);
+            Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
             batch.setColor(1, 1, 1, 1);
