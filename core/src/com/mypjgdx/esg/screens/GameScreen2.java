@@ -237,8 +237,8 @@ public class GameScreen2 extends AbstractGameScreen {
         isComplete.add(QuestState.quest1no);
         isComplete.add(QuestState.quest2no);
         isComplete.add(QuestState.quest3no);
-        isComplete.add(QuestState.quest4no);
-        isComplete.add(QuestState.quest5no);
+        isComplete.add(QuestState.quest4yes);
+        isComplete.add(QuestState.quest5yes);
         isComplete.add(QuestState.quest6no);
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
