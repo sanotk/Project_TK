@@ -90,9 +90,9 @@ public class SwordHit extends Weapon {
         }
     }
 
-    public void delay(){
+    public void delay() {
         float delay = 0.1f; // seconds
-        Timer.schedule(new Timer.Task(){
+        Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 destroy();
@@ -102,16 +102,6 @@ public class SwordHit extends Weapon {
 
     public void debug(ShapeRenderer renderer) {
         renderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
-    }
-
-    @Override
-    protected void responseCollisionX(float oldPositionX) {
-        destroy();
-    }
-
-    @Override
-    protected void responseCollisionY(float oldPositionY) {
-        destroy();
     }
 
     @Override
