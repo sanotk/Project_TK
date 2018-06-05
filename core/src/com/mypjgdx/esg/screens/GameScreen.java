@@ -1,5 +1,6 @@
 package com.mypjgdx.esg.screens;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -221,12 +223,35 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
         stage.addActor(talkButton);
         talkButton.setPosition(stage.getWidth() - talkButton.getWidth() - 60, 400);
 
-
         dialog = new Dialog(Assets.instance.newFont, Assets.instance.dialogTexture, 65f, 120f);
         dialog.setPosition(
                 SCENE_WIDTH / 2 - Assets.instance.dialogTexture.getWidth() * 0.5f,
                 SCENE_HEIGHT / 4 - Assets.instance.dialogTexture.getHeight() * 0.5f);
-        dialog.setListener(this);
+        dialog.setDialogListener(this);
+        dialog.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (Gdx.app.getType() == Application.ApplicationType.Android) {
+                    if (dialog.isFinishedTyping()) {
+                        closeDialog();
+                    } else {
+                        dialog.speedUp();
+                    }
+                }
+                return false;
+            }
+        });
+        stage.addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (dialog.isFinishedTyping() && keycode == Keys.ENTER) {
+                    closeDialog();
+                } else {
+                    dialog.speedUp();
+                }
+                return false;
+            }
+        });
 
         this.optionsWindow = optionsWindow;
 
@@ -1217,9 +1242,6 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
     }
 
     private void controlAndDebug() {
-
-        Player player = worldController.level.player;
-
         if (Gdx.input.isKeyJustPressed(Keys.M)) {
             MusicManager.instance.stop();
             Gdx.app.postRunnable(new Runnable() {
@@ -1277,26 +1299,22 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
                 }
             });
         }
+    }
 
-        if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
-            if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-                if (dialogShow) {
-                    dialog.hide();
-                    dialogShow = false;
-                    player.timeStop = false;
-                    player.status_find = false;
-                    buttonAgree.setVisible(false);
-                    buttonRefuse.setVisible(false);
-                    dialogDoor1 = false;
-                    dialogDoor2 = false;
-                    dialogDoor3 = false;
-                    dialogDoor4 = false;
-                    trapShow = false;
-                    swordShow = false;
-                }
-            } else {
-                dialog.speedUp();
-            }
+    private void closeDialog() {
+        if (dialogShow) {
+            dialog.hide();
+            dialogShow = false;
+            worldController.level.player.timeStop = false;
+            worldController.level.player.status_find = false;
+            buttonAgree.setVisible(false);
+            buttonRefuse.setVisible(false);
+            dialogDoor1 = false;
+            dialogDoor2 = false;
+            dialogDoor3 = false;
+            dialogDoor4 = false;
+            trapShow = false;
+            swordShow = false;
         }
     }
 
@@ -1754,6 +1772,7 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
     public Window getOptionWindow() {
         return optionsWindow;
     }
+
     @Override
     public void write(Json json) {
         json.writeValue("missionWindow", missionWindow);

@@ -132,7 +132,7 @@ public class Dialog extends Actor {
         }
     }
 
-    public void setListener(DialogListener listener) {
+    public void setDialogListener(DialogListener listener) {
         this.listener = listener;
     }
 
