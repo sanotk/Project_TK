@@ -662,6 +662,17 @@ public class GameScreen4 extends AbstractGameScreen {
                     EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
                     item.state = Item.ItemState.ONLOOP;
                     stageFourClear = true;
+                } else if (stageFourClear) {
+                    dialogShow = false;
+                    dialogDoor4 = false;
+                    GameSaveManager.instance.save();
+                    MusicManager.instance.stop();
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            game.setScreen(new GameScreen(game, optionsWindow));
+                        }
+                    });
                 } else if (dialogLink) {
                     stageThreeClear = true;
                     addGuiLink();
@@ -693,6 +704,17 @@ public class GameScreen4 extends AbstractGameScreen {
                 } else if (swordShow) {
                     worldController.level.player.acceptSwordWave = false;
                     worldController.level.player.requestSwordWave = false;
+                } else if (stageFourClear) {
+                    dialogShow = false;
+                    dialogDoor4 = false;
+                    GameSaveManager.instance.save();
+                    MusicManager.instance.stop();
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            game.setScreen(new MenuScreen(game));
+                        }
+                    });
                 }
                 questCount += 1;
                 addRequest.add(questState);

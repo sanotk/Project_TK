@@ -646,7 +646,10 @@ public class GameScreen2 extends AbstractGameScreen {
                     worldController.level.player.requestSwordWave = false;
                     dialogSwordWave = true;
                 } else if (stageFourClear) {
-                    worldController.level.player.timeClear = false;
+                    dialogShow = false;
+                    dialogDoor4 = false;
+                    GameSaveManager.instance.save();
+                    MusicManager.instance.stop();
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {

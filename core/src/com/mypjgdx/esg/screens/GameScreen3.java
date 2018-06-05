@@ -655,7 +655,10 @@ public class GameScreen3 extends AbstractGameScreen {
                 } else if (dialogItem) {
                     item.questAccept = true;
                 } else if (stageFourClear) {
-                    worldController.level.player.timeClear = false;
+                    dialogShow = false;
+                    dialogDoor4 = false;
+                    GameSaveManager.instance.save();
+                    MusicManager.instance.stop();
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {
@@ -726,6 +729,17 @@ public class GameScreen3 extends AbstractGameScreen {
                 } else if (swordShow) {
                     worldController.level.player.acceptSwordWave = false;
                     worldController.level.player.requestSwordWave = false;
+                } else if (stageFourClear) {
+                    dialogShow = false;
+                    dialogDoor4 = false;
+                    GameSaveManager.instance.save();
+                    MusicManager.instance.stop();
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            game.setScreen(new MenuScreen(game));
+                        }
+                    });
                 } else if (citizenQuest == systemWindow.citizen1) {
                     worldController.level.player.quest1Cancel = true;
                     worldController.level.player.quest_window_1 = true;
