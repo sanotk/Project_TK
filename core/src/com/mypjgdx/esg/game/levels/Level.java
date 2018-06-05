@@ -161,16 +161,16 @@ public abstract class Level implements Json.Serializable {
             Enemy e = enemyIterator.next();
             if (!e.isAlive()) enemyIterator.remove();
         }
-
         player.update(deltaTime, citizens);
-
         for (Link link : links) link.update(deltaTime);
-        for (Item i : items) i.update(deltaTime);
-        for (Enemy e : enemies) e.update(deltaTime, weapons);
         if (player.stageOneClear) {
             for (Citizen c : citizens) c.update(deltaTime);
         }
-        for (Weapon w : weapons) w.update(deltaTime);
+        if(!player.timeStop){
+            for (Weapon w : weapons) w.update(deltaTime);
+            for (Item i : items) i.update(deltaTime);
+            for (Enemy e : enemies) e.update(deltaTime, weapons);
+        }
         for (Sword s : swords) s.update(deltaTime);
         for (Bow b : bows) b.update(deltaTime);
 
