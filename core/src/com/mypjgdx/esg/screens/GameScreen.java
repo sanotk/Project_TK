@@ -547,6 +547,9 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
                     worldController.level.player.requestSwordWave = false;
                     dialogSwordWave = true;
                 } else {
+                    dialogShow = false;
+                    dialogDoor4 = false;
+                    GameSaveManager.instance.save();
                     MusicManager.instance.stop();
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
