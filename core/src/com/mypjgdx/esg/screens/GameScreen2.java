@@ -1531,7 +1531,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 level2.gate.state = Item.ItemState.ON;
                 timeEvent = player.timeCount - 1;
                 String text =
-                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและไม่มีเหตุการณ์อะไรผิดปกติ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 dialog.setText(text);
                 textMission2.setStyle(labelStyle2);
                 textMission3.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังห้องถัดไปได้แล้ว");
@@ -1541,7 +1541,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 stageTwoClear = true;
                 dialogAll();
                 String text =
-                        "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต หากพลังงานหมดเครื่องระบายอากาศจะหยุดทำงาน\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+                        "\"อันตราย! คุณตามใจประชาชนมากเกินไปทำให้กำลังไฟฟ้าที่ใช้งานมากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
                 level2.gate.state = Item.ItemState.OFF;
                 dialog.setText(text);
                 textMission2.setStyle(labelStyle2);
