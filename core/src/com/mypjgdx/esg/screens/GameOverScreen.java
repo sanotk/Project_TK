@@ -48,7 +48,7 @@ public class GameOverScreen extends AbstractGameScreen {
         labelStyle.font = font;
         labelStyle.fontColor = Color.RED;
 
-        text_gameover = new Label("Game Over" ,labelStyle);
+        text_gameover = new Label("Mission Fail" ,labelStyle);
         text_gameover.setColor(Color.RED);
         text_gameover.setFontScale(1f,1f);
         text_gameover.setPosition(SCENE_WIDTH / 2 - btn_w / 2 , SCENE_HEIGHT - 175);
