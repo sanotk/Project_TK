@@ -8,6 +8,8 @@ import com.mypjgdx.esg.game.objects.characters.Damageable;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.utils.Direction;
 
+import java.util.List;
+
 public class Trap extends Weapon {
 
     private static final float SCALE = 0.75f;
@@ -15,13 +17,16 @@ public class Trap extends Weapon {
     private static final float INTITAL_FRICTION = 50f;
     private static final float INTITIAL_SPEED = 50f;
     private int damageCount = 0;
+    private List<Weapon> weapons;
+    private SwordHit lastSwordHit;
 
     Trap() {
         super(Assets.instance.trap, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
     }
 
-    public Trap(TiledMapTileLayer mapLayer, Player player) {
+    public Trap(TiledMapTileLayer mapLayer, Player player, List<Weapon> weapons) {
         super(Assets.instance.trap, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
+        this.weapons = weapons;
         init(mapLayer, player);
         spawn(player.getViewDirection());
     }
@@ -73,9 +78,24 @@ public class Trap extends Weapon {
             default:
                 break;
         }
+        addDamageCount();
+    }
+
+    private void addDamageCount() {
         this.damageCount += 1;
         if (damageCount == 3) {
             destroy();
+        }
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        for (Weapon weapon : weapons) {
+            if (weapon != lastSwordHit && weapon instanceof SwordHit && weapon.bounds.overlaps(bounds)) {
+                lastSwordHit = (SwordHit) weapon;
+                addDamageCount();
+            }
         }
     }
 

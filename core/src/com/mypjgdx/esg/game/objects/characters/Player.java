@@ -444,7 +444,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
     public void addTrap() {
         state = PlayerState.ATTACK;
         resetAnimation();
-        weapons.add(new Trap(mapLayer, this));
+        weapons.add(new Trap(mapLayer, this, weapons));
         Assets.instance.bulletSound.play();
         SoundManager.instance.play(SoundManager.Sounds.BULLET);
         EnergyUsedBar.instance.energyUse += TrapBar.instance.energyTrap;
