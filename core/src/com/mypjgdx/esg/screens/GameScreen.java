@@ -39,7 +39,7 @@ import com.mypjgdx.esg.utils.SolarState;
 
 import java.util.ArrayList;
 
-public class GameScreen extends AbstractGameScreen {
+public class GameScreen extends AbstractGameScreen implements DialogListener {
 
     private static final int SCENE_WIDTH = 1024;
     private static final int SCENE_HEIGHT = 576;
@@ -226,6 +226,7 @@ public class GameScreen extends AbstractGameScreen {
         dialog.setPosition(
                 SCENE_WIDTH / 2 - Assets.instance.dialogTexture.getWidth() * 0.5f,
                 SCENE_HEIGHT / 4 - Assets.instance.dialogTexture.getHeight() * 0.5f);
+        dialog.setListener(this);
 
         this.optionsWindow = optionsWindow;
 
@@ -257,7 +258,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonMission.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 200);
 
         iconMission = new Button(buttonMissionStyle);
-        iconMission.setPosition(SCENE_WIDTH / 6 + 30, 145);
+        iconMission.setPosition(SCENE_WIDTH / 6 + 34, 145);
         iconMission.setVisible(false);
 
         TextButton.TextButtonStyle buttonGuideStyle = new TextButton.TextButtonStyle();
@@ -279,7 +280,7 @@ public class GameScreen extends AbstractGameScreen {
         buttonStatus.setPosition(SCENE_WIDTH - 48, SCENE_HEIGHT - 300);
 
         iconStatus = new Button(buttonStatusStyle);
-        iconStatus.setPosition(SCENE_WIDTH / 6 + 30, 145);
+        iconStatus.setPosition(SCENE_WIDTH / 6 + 34, 145);
         iconStatus.setVisible(false);
 
         TextButton.TextButtonStyle buttonControlWindowStyle = new TextButton.TextButtonStyle();
@@ -1324,10 +1325,9 @@ public class GameScreen extends AbstractGameScreen {
 
         if (!dialogStart) {
             dialogAll();
-            String text = "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยอยู่ในพื้นที่แถบนี้ รีบหาทางเข้าไปภายในเวลาที่กำหนด มิเช่นนั้นภารกิจจะล้มเหลว\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
+            String text = "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยอยู่ในพื้นที่แถบนี้ รีบหาทางเข้าไปภายในเวลาที่กำหนด มิเช่นนั้นภารกิจจะล้มเหลว\" \n\"(กด @icon(id=mission,space=4) เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
             dialog.setText(text);
             dialogStart = true;
-            delayMission();
             timeEvent = player.timeCount - 1;
         }
 
@@ -1367,26 +1367,23 @@ public class GameScreen extends AbstractGameScreen {
                     dialogDoor1 = true;
                     dialogAll();
                     String text =
-                            "\"อันตราย! โปรดกำจัดมอนสเตอร์ให้หมดก่อน แล้วประชาชนที่ซ่อนตัวอยู่จะปรากฏตัวออกมา\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
+                            "\"อันตราย! โปรดกำจัดมอนสเตอร์ให้หมดก่อน แล้วประชาชนที่ซ่อนตัวอยู่จะปรากฏตัวออกมา\" \n\"(กด @icon(id=mission,space=4) เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
                     dialog.setText(text);
-                    delayMission();
                 } else if (player.stageOneClear && !stageTwoClear && !dialogDoor2) {
                     dialogDoor2 = true;
                     dialogAll();
                     String text =
-                            "\"ยังตามหาประชาชนที่ซ่อนตัวอยู่ไม่ครบ กรุณาตามหาให้ครบก่อน (ทำได้โดยกดคุยกับประชาชน)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
+                            "\"ยังตามหาประชาชนที่ซ่อนตัวอยู่ไม่ครบ กรุณาตามหาให้ครบก่อน (ทำได้โดยกดคุยกับประชาชน)\" \n\"(กด @icon(id=mission,space=4) เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
                     dialog.setText(text);
-                    delayMission();
                 } else if (stageTwoClear && !stageThreeClear && !dialogDoor3) {
                     dialogDoor3 = true;
                     dialogAll();
                     String text =
-                            "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานเข้าสู่สถานที่หลบภัย\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
+                            "\"ไม่มีพลังงานขับเคลื่อนประตู กรุณาเชื่อมต่อระบบโซล่าเซลล์เพื่อผลิตพลังงานเข้าสู่สถานที่หลบภัย\" \n\"(กด @icon(id=mission,space=4) เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
                     dialog.setText(text);
                     stageTwoAfter = true;
                     timeEvent = player.timeCount - 1;
                     missionStart = false;
-                    delayMission();
                     missionWindow.setCompleted(true, 2);
                     missionWindow.setText("ภารกิจที่สี่ เชื่อมต่อระบบโซล่าเซลล์ (ทำได้โดยกดปุ่มคุยกับไอเท็มแล้วเลือกการเชื่อมต่อ)", 3);
                     missionWindow.setText("ภารกิจที่สี่ - หนึ่ง เชื่อมต่อโซล่าเซลล์กับตัวควบคุมการชาร์จ", 4);
@@ -1411,11 +1408,10 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount - 1;
             missionStart = false;
             String text =
-                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณารวบรวมประชาชนทั้งหมด (ทำได้โดยเดินไปหาประชาชนและกดคุยเมื่อมีสัญลักษณ์ขึ้น)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
+                    "\"กำจัดมอนสเตอร์หมดแล้ว กรุณารวบรวมประชาชนทั้งหมด (ทำได้โดยเดินไปหาประชาชนและกดคุยเมื่อมีสัญลักษณ์ขึ้น)\" \n\"(กด @icon(id=mission,space=4) เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.setText(text);
             missionWindow.setCompleted(true, 0);
             missionWindow.setText("ภารกิจที่สอง ตามหาและรวบรวมประชาชนนี่อยู่ในพื้นที่นี้ (กดคุยเมื่อมีสัญลักษณ์ขึ้น)", 1);
-            delayMission();
         }
 
         if (player.timeCount <= 298 && !dialogEnemy && dialogStart) {
@@ -1456,12 +1452,11 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount - 1;
             missionStart = false;
             String text =
-                    "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
+                    "\"รวบรวมประชาชนได้ครบแล้ว ลองไปตรวจสอบที่ประตูทางเข้าสถานที่หลบภัยอีกรอบ\" \n\"(กด @icon(id=mission,space=4) เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
 
             missionWindow.setCompleted(true, 1);
             missionWindow.setText("ภารกิจที่สาม พาประชาชนมายังสถานที่หลบภัย (เมื่อมาถึงให้กดคุยกับประตู)", 2);
             dialog.setText(text);
-            delayMission();
         }
 
         if (trueLink == 4 && !animation_status) {
@@ -1475,7 +1470,7 @@ public class GameScreen extends AbstractGameScreen {
             dialogAll();
             timeEvent = player.timeCount - 1;
             String text =
-                    "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว พาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+                    "\"ยอดเยี่ยม ประตูทางเข้าที่หลบภัยได้เปิดขึ้นแล้ว พาประชาชนเข้าไปสถานที่หลบภัยกันเถอะ\" \n\"(กด @icon(id=status,space=4) เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.setText(text);
 
             missionWindow.setCompleted(true, 3);
@@ -1484,7 +1479,6 @@ public class GameScreen extends AbstractGameScreen {
             missionWindow.setCompleted(true, 6);
             missionWindow.setCompleted(true, 7);
             missionWindow.setText("ภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว (กดคุยกับประตูเพื่อเข้าไปยังที่หลบภัย)", 8);
-            delayStatus();
         }
 
         if (animation_status && player.timeCount <= timeEvent-1 && !guideStart){
@@ -1629,6 +1623,7 @@ public class GameScreen extends AbstractGameScreen {
         worldController.level.player.timeStop = true;
     }
 
+    //TODO: ควรตั้งชื่อ method นี้ให้สื่อความหมาย
     public void delay() {
         float delay = 0.3f; // seconds
         Timer.schedule(new Timer.Task() {
@@ -1636,26 +1631,6 @@ public class GameScreen extends AbstractGameScreen {
             public void run() {
                 iconEnergyLess.setVisible(false);
                 worldController.level.player.energyLess = false;
-            }
-        }, delay);
-    }
-
-    private void delayMission() {
-        float delay = 2f; // seconds
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                iconMission.setVisible(true);
-            }
-        }, delay);
-    }
-
-    private void delayStatus() {
-        float delay = 1.5f; // seconds
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                iconStatus.setVisible(true);
             }
         }, delay);
     }
@@ -1668,6 +1643,15 @@ public class GameScreen extends AbstractGameScreen {
                 iconGuide.setVisible(true);
             }
         }, delay);
+    }
+
+    @Override
+    public void onCommandExecuted(String id) {
+        if (id.equals("mission")) {
+            iconMission.setVisible(true);
+        } else if (id.equals("status")) {
+            iconStatus.setVisible(true);
+        }
     }
 
     @Override
