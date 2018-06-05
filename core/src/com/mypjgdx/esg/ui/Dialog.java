@@ -53,8 +53,8 @@ public class Dialog extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (charIndex < text.length() - 1) {
-            while (charAccumulator >= 1 && charIndex < text.length() - 1) {
+        if (!isFinishedTyping()) {
+            while (charAccumulator >= 1 && !isFinishedTyping()) {
                 charAccumulator--;
                 charIndex++;
                 updateShowingText();
@@ -123,9 +123,9 @@ public class Dialog extends Actor {
         Matcher matcher = pattern.matcher(text);
         commands.clear();
         while (matcher.find()) {
-            String word = matcher.group(0);
-            int beginIndex = text.indexOf(word);
-            int endIndex = beginIndex + word.length() - 1;
+            String command = matcher.group(0);
+            int beginIndex = text.indexOf(command);
+            int endIndex = beginIndex + command.length() - 1;
             String id = matcher.group(1);
             int space = Integer.parseInt(matcher.group(2));
             commands.put(beginIndex, new DialogCommand(id, space, beginIndex, endIndex));
@@ -134,6 +134,10 @@ public class Dialog extends Actor {
 
     public void setListener(DialogListener listener) {
         this.listener = listener;
+    }
+
+    public final boolean isFinishedTyping() {
+        return charIndex >= text.length() - 1;
     }
 
     private static class DialogCommand {
