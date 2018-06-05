@@ -13,7 +13,7 @@ public class Trap extends Weapon {
     private static final float SCALE = 0.75f;
 
     private static final float INTITAL_FRICTION = 50f;
-    private static final float INTITIAL_SPEED = 100f;
+    private static final float INTITIAL_SPEED = 50f;
     private int damageCount = 0;
 
     Trap() {
