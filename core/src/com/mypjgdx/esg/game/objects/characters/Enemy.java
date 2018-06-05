@@ -153,7 +153,7 @@ public abstract class Enemy extends AnimatedObject implements Damageable, Json.S
             attackPlayer();
         }
         for (Weapon w : weapons) {
-            if (bounds.overlaps(w.bounds) && !w.isDestroyed()) {
+            if (bounds.overlaps(w.bounds) && !w.isDestroyed() && stateMachine.getCurrentState() != EnemyState.DIE) {
                 w.attack(this);
             }
         }
