@@ -1638,13 +1638,6 @@ public class GameScreen2 extends AbstractGameScreen {
             player.timeStop = true;
         }
 
-//        if (player.timeCount <= timeEvent && !guideStart && player.stageOneClear){
-//            guideStart = true;
-//            guideWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-//            player.timeStop = true;
-//            System.out.print("ทำงาน");
-//        }
-
         if (player.timeCount <= timeEvent && !statusStart && stageThreeClear) {
             statusStart = true;
             status();
