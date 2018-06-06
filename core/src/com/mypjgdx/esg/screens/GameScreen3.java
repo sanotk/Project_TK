@@ -1609,25 +1609,25 @@ public class GameScreen3 extends AbstractGameScreen {
         if (player.isSwitch) {
             if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
                 String text =
-                        "\"หิวข้าวขัง\"";
+                        "\"เมื่อไหร่จะได้กลับอยู่บนพื้นโลก\"";
                 dialogAll();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen1;
             } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
                 String text =
-                        "\"หิวข้าวขัง\"";
+                        "\"หิวข้าวจังเลย\"";
                 dialogAll();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen2;
             } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
                 String text =
-                        "\"หิวข้าวขัง\"";
+                        "\"ถ้ากลับข้างบนได้เมื่อไหร่บอกด้วยนะหัวหน้า\"";
                 dialogAll();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen3;
             } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
                 String text =
-                        "\"หิวข้าวขัง\"";
+                        "\"พวกมอนสเตอร์มาจากไหนกันนะ\"";
                 dialogAll();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen4;
@@ -1635,13 +1635,13 @@ public class GameScreen3 extends AbstractGameScreen {
                 player.timeStop = true;
                 player.status_find = false;
                 String text =
-                        "\"หิวข้าวขัง\"";
+                        "\"น่าเบื่อจริงๆ\"";
                 dialogAll();
                 citizenQuest = systemWindow.citizen5;
                 dialog.setText(text);
             } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
                 String text =
-                        "\"หิวข้าวขัง\"";
+                        "\"พรุ่งนี้จะเป็นยังไงกันนะ\"";
                 dialogAll();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen6;
