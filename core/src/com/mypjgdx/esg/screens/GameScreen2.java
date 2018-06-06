@@ -1512,7 +1512,7 @@ public class GameScreen2 extends AbstractGameScreen {
                     dialogEnemy = true;
                     dialogAll();
                     String text =
-                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว(กด Enter เพื่อเล่นเกมต่อ)\"";
                     dialog.setText(text);
                     iconMission.setVisible(false);
                 }
@@ -1524,14 +1524,14 @@ public class GameScreen2 extends AbstractGameScreen {
             dialogCitizen = true;
             dialogAll();
             String text =
-                    "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
+                    "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.setText(text);
             timeEvent = player.timeCount - 1;
             missionStart = false;
             System.out.print(player.timeCount);
             textMission1.setStyle(labelStyle2);
             textMission2.setText("ภารกิจที่สอง สอบถามประชาชนที่เข้ามาอาศัยในที่หลบภัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)");
-            delayGuide();
+            delayMission();
         }
 
 
@@ -1584,7 +1584,7 @@ public class GameScreen2 extends AbstractGameScreen {
             dialogWarning = true;
             dialogAll();
             String text =
-                    "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
+                    "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กด Enter เพื่อเล่นเกมต่อ)\"";
             dialog.setText(text);
         }
 
@@ -1598,7 +1598,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 citizenQuest = systemWindow.citizen1;
             } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
                 String text =
-                        "\"ผมหิว อยากใช้ไมโครเวฟอุ่นอาหารแช่แข็งกิน " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
+                        "\"ผมหิว อยากใช้ไมโครเวฟอุ่นอาหารแช่แข็งกินคนเดียว " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen2;

@@ -99,9 +99,7 @@ public class Level1 extends Level {
 
     @Override
     public void renderFbo(SpriteBatch batch, OrthographicCamera camera, FrameBuffer lightFbo) {
-
         batch.begin();
-
         batch.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_COLOR);
         batch.draw(lightFbo.getColorBufferTexture(),
                 camera.position.x - camera.viewportWidth * camera.zoom / 2,
@@ -115,17 +113,14 @@ public class Level1 extends Level {
                 false, true);
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         batch.end();
-
     }
 
 
     @Override
     public void createFbo(SpriteBatch batch, FrameBuffer lightFbo) {
         lightFbo.begin();
-
-        Gdx.gl.glClearColor(0.4f, 0.4f, 0.4f, 1f);
+        Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         FrameBuffer.unbind();
     }
 }
