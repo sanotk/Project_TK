@@ -1540,22 +1540,18 @@ public class GameScreen2 extends AbstractGameScreen {
                 lose = true;
                 dialogAll();
                 String text =
-                        "\"ไม่ได้เอาเสบียงแช่ตู้เย็น ทำให้อาหารทั้งหมดเน่าเสีย ภารกิจล้มเหลว\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+                        "\"ไม่ได้เอาเสบียงแช่ตู้เย็น ทำให้อาหารทั้งหมดเน่าเสีย ภารกิจล้มเหลว\"";
                 level2.gate.state = Item.ItemState.OFF;
                 dialog.setText(text);
                 textMission2.setStyle(labelStyle2);
-                //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
-                delayStatus();
             } else if(level2.riceCooker.state == Item.ItemState.OFF && !lose){
                 lose = true;
                 dialogAll();
                 String text =
-                        "\"ประชาชนไม่ได้กินอาหาร ภารกิจล้มเหลว\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+                        "\"ประชาชนไม่ได้ทานอาหาร ส่งผลต่อเนื่องให้ล้มป่วยและเสียชีวิต ภารกิจล้มเหลว\"";
                 level2.gate.state = Item.ItemState.OFF;
                 dialog.setText(text);
                 textMission2.setStyle(labelStyle2);
-                //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
-                delayStatus();
             } else if (!lose && EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
                 dialogStage4 = true;
                 stageTwoClear = true;
