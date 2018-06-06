@@ -666,48 +666,14 @@ public class GameScreen3 extends AbstractGameScreen {
                             game.setScreen(new GameScreen4(game, optionsWindow));
                         }
                     });
-                } else {
-                    if (citizenQuest == systemWindow.citizen1) {
-                        questState = QuestState.quest1yes;
-                        LikingBar.instance.liking += 0;
-                        worldController.level.player.quest1IsAccept = true;
-                        worldController.level.player.quest_window_1 = true;
-                    } else if (citizenQuest == systemWindow.citizen2) {
-                        questState = QuestState.quest2yes;
-                        LikingBar.instance.liking += 2;
-                        worldController.level.player.quest_window_2 = true;
-                        worldController.level.player.quest2IsAccept = true;
-                    } else if (citizenQuest == systemWindow.citizen3) {
-                        questState = QuestState.quest3yes;
-                        LikingBar.instance.liking += 1;
-                        worldController.level.player.quest_window_3 = true;
-                        worldController.level.player.quest3IsAccept = true;
-                    } else if (citizenQuest == systemWindow.citizen4) {
-                        questState = QuestState.quest4yes;
-                        LikingBar.instance.liking += 2;
-                        worldController.level.player.quest_window_4 = true;
-                        worldController.level.player.quest4IsAccept = true;
-                    } else if (citizenQuest == systemWindow.citizen5) {
-                        questState = QuestState.quest5yes;
-                        LikingBar.instance.liking += 2;
-                        worldController.level.player.quest_window_5 = true;
-                        worldController.level.player.quest5IsAccept = true;
-                    } else if (citizenQuest == systemWindow.citizen6) {
-                        questState = QuestState.quest6yes;
-                        LikingBar.instance.liking += 1;
-                        worldController.level.player.quest_window_6 = true;
-                        worldController.level.player.quest6IsAccept = true;
-                    }
-                    addRequest.add(questState);
-                    System.out.println(questState);
-                    questState = null;
-                    worldController.level.player.questScreen1 = false;
-                    worldController.level.player.questScreen2 = false;
-                    worldController.level.player.questScreen3 = false;
-                    worldController.level.player.questScreen4 = false;
-                    worldController.level.player.questScreen5 = false;
-                    worldController.level.player.questScreen6 = false;
                 }
+                questState = null;
+                worldController.level.player.questScreen1 = false;
+                worldController.level.player.questScreen2 = false;
+                worldController.level.player.questScreen3 = false;
+                worldController.level.player.questScreen4 = false;
+                worldController.level.player.questScreen5 = false;
+                worldController.level.player.questScreen6 = false;
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
                 dialog.hide();
@@ -741,40 +707,7 @@ public class GameScreen3 extends AbstractGameScreen {
                             game.setScreen(new MenuScreen(game));
                         }
                     });
-                } else if (citizenQuest == systemWindow.citizen1) {
-                    worldController.level.player.quest1Cancel = true;
-                    worldController.level.player.quest_window_1 = true;
-                    LikingBar.instance.liking -= 1;
-                    questState = QuestState.quest1no;
-                } else if (citizenQuest == systemWindow.citizen2) {
-                    worldController.level.player.quest2Cancel = true;
-                    worldController.level.player.quest_window_2 = true;
-                    LikingBar.instance.liking -= 2;
-                    questState = QuestState.quest2no;
-                } else if (citizenQuest == systemWindow.citizen3) {
-                    worldController.level.player.quest3Cancel = true;
-                    worldController.level.player.quest_window_3 = true;
-                    LikingBar.instance.liking -= 1;
-                    questState = QuestState.quest3no;
-                } else if (citizenQuest == systemWindow.citizen4) {
-                    worldController.level.player.quest4Cancel = true;
-                    worldController.level.player.quest_window_4 = true;
-                    LikingBar.instance.liking -= 2;
-                    questState = QuestState.quest4no;
-                } else if (citizenQuest == systemWindow.citizen5) {
-                    worldController.level.player.quest5Cancel = true;
-                    worldController.level.player.quest_window_5 = true;
-                    questState = QuestState.quest5no;
-                    LikingBar.instance.liking -= 2;
-                } else if (citizenQuest == systemWindow.citizen6) {
-                    worldController.level.player.quest6Cancel = true;
-                    worldController.level.player.quest_window_6 = true;
-                    questState = QuestState.quest6no;
-                    LikingBar.instance.liking -= 1;
                 }
-                questCount += 1;
-                addRequest.add(questState);
-                System.out.println(questState);
                 questState = null;
                 worldController.level.player.status_find = false;
                 worldController.level.player.status_windows_link = false;
@@ -1433,7 +1366,7 @@ public class GameScreen3 extends AbstractGameScreen {
             swordShow = false;
             dialogItem = false;
             item.quest = false;
-            if(lose){
+            if (lose) {
                 MusicManager.instance.stop();
                 Gdx.app.postRunnable(new Runnable() {
                     @Override
@@ -1545,12 +1478,12 @@ public class GameScreen3 extends AbstractGameScreen {
             missionStart = false;
             System.out.print(player.timeCount);
             textMission1.setStyle(labelStyle2);
-            textMission2.setText("ภารกิจที่สอง ปิดเครื่องใช้ไฟฟ้า 5 ชนิด (ทำได้โดยเข้าเดินไปหาเครื่องใช้ไฟฟ้าแล้วกดคุยเมื่อมีสัญลักษณ์ขึ้น)");
+            textMission2.setText("ภารกิจที่สอง ปิดเครื่องใช้ไฟฟ้า 5 ชนิด (โดยคำนึงถึงความจำเป็น)");
             delayMission();
         }
 
         if (questCount == 5 && !animation_status) {
-            if(!lose && level3.refrigerator.state == Item.ItemState.OFF){
+            if (!lose && level3.refrigerator.state == Item.ItemState.OFF) {
                 lose = true;
                 dialogAll();
                 String text =
@@ -1560,7 +1493,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 textMission2.setStyle(labelStyle2);
                 //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
                 delayStatus();
-            } else if(!lose && level3.waterPump.state == Item.ItemState.OFF){
+            } else if (!lose && level3.waterPump.state == Item.ItemState.OFF) {
                 lose = true;
                 dialogAll();
                 String text =
