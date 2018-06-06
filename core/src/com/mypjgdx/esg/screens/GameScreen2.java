@@ -1536,7 +1536,7 @@ public class GameScreen2 extends AbstractGameScreen {
 
 
         if (questCount == 6 && !animation_status) {
-            if(level2.refrigerator.state == Item.ItemState.OFF){
+            if(level2.refrigerator.state == Item.ItemState.OFF && !lose){
                 lose = true;
                 dialogAll();
                 String text =
@@ -1546,7 +1546,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 textMission2.setStyle(labelStyle2);
                 //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
                 delayStatus();
-            } else if(level2.riceCooker.state == Item.ItemState.OFF){
+            } else if(level2.riceCooker.state == Item.ItemState.OFF && !lose){
                 lose = true;
                 dialogAll();
                 String text =
@@ -1556,7 +1556,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 textMission2.setStyle(labelStyle2);
                 //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
                 delayStatus();
-            } else if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
+            } else if (!lose && EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
                 dialogStage4 = true;
                 stageTwoClear = true;
                 stageThreeClear = true;
@@ -1570,7 +1570,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 textMission2.setStyle(labelStyle2);
                 textMission3.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังห้องถัดไปได้แล้ว");
                 delayStatus();
-            } else if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
+            } else if (!lose && EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
                 dialogStage4fail = true;
                 stageTwoClear = true;
                 dialogAll();
