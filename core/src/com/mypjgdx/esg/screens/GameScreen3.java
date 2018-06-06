@@ -1539,14 +1539,14 @@ public class GameScreen3 extends AbstractGameScreen {
             level3.enemies.clear();
             dialogAll();
             String text =
-                    "\"แย่แล้ว เครื่องใช้ไฟฟ้าจำนวนมากถูกเปิดทิ้งไว้ ต้องรีบปิดก่อนพลังงานจะหมดลง\" \n\"(กด     เพื่อดูคำแนะนำ หรือกด Enter เพื่อเล่นต่อ)\"";
+                    "\"แย่แล้ว เครื่องใช้ไฟฟ้าจำนวนมากถูกเปิดทิ้งไว้ ต้องรีบปิดก่อนพลังงานจะหมดลง\" \n\"(กด     เพื่อดูภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
             dialog.setText(text);
             timeEvent = player.timeCount - 1;
             missionStart = false;
             System.out.print(player.timeCount);
             textMission1.setStyle(labelStyle2);
-            textMission2.setText("ภารกิจที่สอง ปิดเครื่องใช้ไฟฟ้า 5 ชนิด");
-            delayGuide();
+            textMission2.setText("ภารกิจที่สอง ปิดเครื่องใช้ไฟฟ้า 5 ชนิด (ทำได้โดยเข้าเดินไปหาเครื่องใช้ไฟฟ้าแล้วกดคุยเมื่อมีสัญลักษณ์ขึ้น)");
+            delayMission();
         }
 
         if (questCount == 5 && !animation_status) {
@@ -1598,36 +1598,36 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
-        if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogWarning) {
-            dialogWarning = true;
-            dialogAll();
-            String text =
-                    "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กรุณากด Enter เพื่อเล่นเกมต่อ)\"";
-            dialog.setText(text);
-        }
+//        if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogWarning) {
+//            dialogWarning = true;
+//            dialogAll();
+//            String text =
+//                    "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กด Enter เพื่อเล่นเกมต่อ)\"";
+//            dialog.setText(text);
+//        }
 
         if (player.isSwitch) {
             if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
                 String text =
-                        "\"เมื่อไหร่จะได้กลับอยู่บนพื้นโลก\"";
+                        "\"เมื่อไหร่จะได้กลับอยู่บนพื้นโลก\"\n\"(กด Enter เพื่อเล่นเกมต่อ)\"";
                 dialogAll();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen1;
             } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
                 String text =
-                        "\"หิวข้าวจังเลย\"";
+                        "\"หิวข้าวจังเลย\"\n\"(กด Enter เพื่อเล่นเกมต่อ)\"";
                 dialogAll();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen2;
             } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
                 String text =
-                        "\"ถ้ากลับข้างบนได้เมื่อไหร่บอกด้วยนะหัวหน้า\"";
+                        "\"ถ้ากลับข้างบนได้เมื่อไหร่บอกด้วยนะหัวหน้า\"\n\"(กด Enter เพื่อเล่นเกมต่อ)\"";
                 dialogAll();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen3;
             } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
                 String text =
-                        "\"พวกมอนสเตอร์มาจากไหนกันนะ\"";
+                        "\"พวกมอนสเตอร์มาจากไหนกันนะ\"\n\"(กด Enter เพื่อเล่นเกมต่อ)\"";
                 dialogAll();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen4;
@@ -1635,13 +1635,13 @@ public class GameScreen3 extends AbstractGameScreen {
                 player.timeStop = true;
                 player.status_find = false;
                 String text =
-                        "\"น่าเบื่อจริงๆ\"";
+                        "\"น่าเบื่อจริงๆ\"\n\"(กด Enter เพื่อเล่นเกมต่อ)\"";
                 dialogAll();
                 citizenQuest = systemWindow.citizen5;
                 dialog.setText(text);
             } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
                 String text =
-                        "\"พรุ่งนี้จะเป็นยังไงกันนะ\"";
+                        "\"พรุ่งนี้จะเป็นยังไงกันนะ\"\n\"(กด Enter เพื่อเล่นเกมต่อ)\"";
                 dialogAll();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen6;
