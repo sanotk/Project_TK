@@ -1707,7 +1707,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
                     item.state = Item.ItemState.OFF;
                     EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
-                    LikingBar.instance.liking -= 3;
+                    LikingBar.instance.liking -= 1;
                     player.status_find = false;
                 }
 //                 else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
