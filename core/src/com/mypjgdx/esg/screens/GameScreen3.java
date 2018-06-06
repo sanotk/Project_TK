@@ -141,6 +141,7 @@ public class GameScreen3 extends AbstractGameScreen {
     private boolean dialogItem;
     private Item item;
     private boolean guideShow;
+    private boolean lose;
 
     public enum systemWindow {
         citizen1,
@@ -1432,6 +1433,19 @@ public class GameScreen3 extends AbstractGameScreen {
             swordShow = false;
             dialogItem = false;
             item.quest = false;
+            if(lose){
+                MusicManager.instance.stop();
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        game.setScreen(new GameOverScreen(game));
+                        EnergyProducedBar.instance.energyProduced = 0;
+                        EnergyUsedBar.instance.energyUse = 0;
+                        BatteryBar.instance.batteryStorage = 0;
+                        LikingBar.instance.liking = 0;
+                    }
+                });
+            }
         } else {
             dialog.speedUp();
         }
@@ -1536,7 +1550,27 @@ public class GameScreen3 extends AbstractGameScreen {
         }
 
         if (questCount == 5 && !animation_status) {
-            if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
+            if(level3.refrigerator.state == Item.ItemState.OFF){
+                lose = true;
+                dialogAll();
+                String text =
+                        "\"คุณปิดสวิตซ์ตู้เย็น ทำให้อาหารทั้งหมดเน่าเสีย ภารกิจล้มเหลว\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+                level3.gate.state = Item.ItemState.OFF;
+                dialog.setText(text);
+                textMission2.setStyle(labelStyle2);
+                //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
+                delayStatus();
+            } else if(level3.waterPump.state == Item.ItemState.OFF){
+                lose = true;
+                dialogAll();
+                String text =
+                        "\"คุณปิดเครื่องปั๊มน้ำทำให้ไม่มีน้ำใช้ น้ำเป็นหนึ่งในปัจจัยดำรงชีวิต ภารกิจล้มเหลว\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+                level3.gate.state = Item.ItemState.OFF;
+                dialog.setText(text);
+                textMission2.setStyle(labelStyle2);
+                //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
+                delayStatus();
+            } else if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
                 dialogStage4 = true;
                 stageTwoClear = true;
                 stageThreeClear = true;
