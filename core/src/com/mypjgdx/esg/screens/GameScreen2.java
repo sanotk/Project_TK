@@ -666,12 +666,12 @@ public class GameScreen2 extends AbstractGameScreen {
                 } else {
                     if (citizenQuest == systemWindow.citizen1) {
                         questState = QuestState.quest1yes;
-                        LikingBar.instance.liking += 0;
+                        LikingBar.instance.liking += 1;
                         worldController.level.player.quest1IsAccept = true;
                         worldController.level.player.quest_window_1 = true;
                     } else if (citizenQuest == systemWindow.citizen2) {
                         questState = QuestState.quest2yes;
-                        LikingBar.instance.liking += 2;
+                        LikingBar.instance.liking += 1;
                         worldController.level.player.quest_window_2 = true;
                         worldController.level.player.quest2IsAccept = true;
                     } else if (citizenQuest == systemWindow.citizen3) {
@@ -681,12 +681,12 @@ public class GameScreen2 extends AbstractGameScreen {
                         worldController.level.player.quest3IsAccept = true;
                     } else if (citizenQuest == systemWindow.citizen4) {
                         questState = QuestState.quest4yes;
-                        LikingBar.instance.liking += 2;
+                        LikingBar.instance.liking += 6;
                         worldController.level.player.quest_window_4 = true;
                         worldController.level.player.quest4IsAccept = true;
                     } else if (citizenQuest == systemWindow.citizen5) {
                         questState = QuestState.quest5yes;
-                        LikingBar.instance.liking += 2;
+                        LikingBar.instance.liking += 6;
                         worldController.level.player.quest_window_5 = true;
                         worldController.level.player.quest5IsAccept = true;
                     } else if (citizenQuest == systemWindow.citizen6) {
@@ -734,7 +734,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 } else if (citizenQuest == systemWindow.citizen2) {
                     worldController.level.player.quest2Cancel = true;
                     worldController.level.player.quest_window_2 = true;
-                    LikingBar.instance.liking -= 2;
+                    LikingBar.instance.liking -= 1;
                     questState = QuestState.quest2no;
                 } else if (citizenQuest == systemWindow.citizen3) {
                     worldController.level.player.quest3Cancel = true;
@@ -744,13 +744,13 @@ public class GameScreen2 extends AbstractGameScreen {
                 } else if (citizenQuest == systemWindow.citizen4) {
                     worldController.level.player.quest4Cancel = true;
                     worldController.level.player.quest_window_4 = true;
-                    LikingBar.instance.liking -= 2;
+                    LikingBar.instance.liking -= 6;
                     questState = QuestState.quest4no;
                 } else if (citizenQuest == systemWindow.citizen5) {
                     worldController.level.player.quest5Cancel = true;
                     worldController.level.player.quest_window_5 = true;
                     questState = QuestState.quest5no;
-                    LikingBar.instance.liking -= 2;
+                    LikingBar.instance.liking -= 6;
                 } else if (citizenQuest == systemWindow.citizen6) {
                     worldController.level.player.quest6Cancel = true;
                     worldController.level.player.quest_window_6 = true;
