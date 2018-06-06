@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -47,7 +46,6 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
     private static final int SCENE_WIDTH = 1024;
     private static final int SCENE_HEIGHT = 576;
     private boolean guideStart;
-    private SpriteBatch batch;
 
     public enum SystemWindow {
         SOLAR_CELL,
@@ -204,7 +202,6 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
 
         stage = new Stage();
         skin = new Skin(Gdx.files.internal("uiskin.json"));
-        batch = new SpriteBatch();
 
         touchPad = new PlayerTouchPad();
         stage.addActor(touchPad);
@@ -1685,7 +1682,6 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
 
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 
         checkObject();
         controlAndDebug();
