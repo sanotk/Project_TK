@@ -335,7 +335,7 @@ public class MenuScreen extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.1f, 0.2f, 0.4f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(Assets.instance.touchPadBackground, 0, 0);
+        batch.draw(Assets.instance.background, 0, 0);
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
