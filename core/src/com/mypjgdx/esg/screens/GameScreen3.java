@@ -1550,7 +1550,7 @@ public class GameScreen3 extends AbstractGameScreen {
         }
 
         if (questCount == 5 && !animation_status) {
-            if(level3.refrigerator.state == Item.ItemState.OFF){
+            if(!lose && level3.refrigerator.state == Item.ItemState.OFF){
                 lose = true;
                 dialogAll();
                 String text =
@@ -1560,7 +1560,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 textMission2.setStyle(labelStyle2);
                 //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
                 delayStatus();
-            } else if(level3.waterPump.state == Item.ItemState.OFF){
+            } else if(!lose && level3.waterPump.state == Item.ItemState.OFF){
                 lose = true;
                 dialogAll();
                 String text =
@@ -1570,7 +1570,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 textMission2.setStyle(labelStyle2);
                 //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
                 delayStatus();
-            } else if (EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
+            } else if (!lose && EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
                 dialogStage4 = true;
                 stageTwoClear = true;
                 stageThreeClear = true;
@@ -1584,7 +1584,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 textMission2.setStyle(labelStyle2);
                 textMission3.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังห้องถัดไปได้แล้ว");
                 delayStatus();
-            } else if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
+            } else if (!lose && EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
                 dialogStage4fail = true;
                 stageTwoClear = true;
                 dialogAll();
