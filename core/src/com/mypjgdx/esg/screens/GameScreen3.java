@@ -655,6 +655,10 @@ public class GameScreen3 extends AbstractGameScreen {
                     dialogSwordWave = true;
                 } else if (dialogItem) {
                     item.questAccept = true;
+                    item.quest = true;
+                    item.state = Item.ItemState.OFF;
+                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
+                    questCount += 1;
                 } else if (stageFourClear) {
                     dialogShow = false;
                     dialogDoor4 = false;
@@ -1676,15 +1680,6 @@ public class GameScreen3 extends AbstractGameScreen {
             if (item.nearPlayer()) {
                 noItem = false;
                 break;
-            }
-        }
-
-        for (Item item : level3.items) {
-            if (item.questAccept && !item.quest) {
-                item.quest = true;
-                item.state = Item.ItemState.OFF;
-                EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
-                questCount += 1;
             }
         }
 
