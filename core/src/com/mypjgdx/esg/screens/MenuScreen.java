@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -40,6 +41,7 @@ public class MenuScreen extends AbstractGameScreen {
 
     private Window optionsWindow;
     private Window loadWindow;
+    private SpriteBatch batch;
 
     public MenuScreen(final Game game) {
         super(game);
@@ -47,6 +49,7 @@ public class MenuScreen extends AbstractGameScreen {
 
         stage = new Stage(new FitViewport(SCENE_WIDTH, SCENE_HEIGHT)); //สร้างจุดโฟกัสของหน้าจอ
         Gdx.input.setInputProcessor(stage);
+        batch = new SpriteBatch();
 
         font = Assets.instance.newFontBig;
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -331,6 +334,9 @@ public class MenuScreen extends AbstractGameScreen {
     public void render(float deltaTime) {
         Gdx.gl.glClearColor(0.1f, 0.2f, 0.4f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.begin();
+        batch.draw(Assets.instance.touchPadBackground, 0, 0);
+        batch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
