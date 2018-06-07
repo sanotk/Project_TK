@@ -170,13 +170,13 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
 
     private int enemyKilled;
 
+
     private int trueLink = 0;
 
     private int citizenCount = 0;
 
     private boolean controlShow = true;
     private int timeEvent = 0;
-
     public boolean stageFourClear;
     private boolean dialogCitizen2;
 

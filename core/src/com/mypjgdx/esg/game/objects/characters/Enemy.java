@@ -171,7 +171,7 @@ public abstract class Enemy extends AnimatedObject implements Damageable, Json.S
         }
         if ((health <= 0) && (!stateMachine.isInState(EnemyState.DIE))) {
             stateMachine.changeState(EnemyState.DIE);
-        } 
+        }
     }
 
     public boolean isAlive() {
