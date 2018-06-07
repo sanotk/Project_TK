@@ -2,6 +2,7 @@ package com.mypjgdx.esg.game.objects.characters;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.game.objects.items.drop.DroppedItemType;
 
 public class PepoKnight extends Enemy {
 
@@ -10,18 +11,15 @@ public class PepoKnight extends Enemy {
 	public static final float SCALE = 0.8f;
 
     public PepoKnight() {
-        super(Assets.instance.pepoKnightAltas, SCALE, SCALE, null);
+        super(Assets.instance.pepoKnightAltas, SCALE, SCALE);
         this.movingSpeed = MAX_SPEED;
         this.maxHealth = MAX_HEALTH;
+        setDroppedItemType(DroppedItemType.LINK);
     }
 
-    public PepoKnight(TiledMapTileLayer mapLayer,Player player) {
-        super(Assets.instance.pepoKnightAltas, SCALE ,SCALE, mapLayer);
-
+    public PepoKnight(TiledMapTileLayer mapLayer, Player player) {
+        this();
         this.player = player;
-        this.movingSpeed = MAX_SPEED;
-        this.maxHealth = MAX_HEALTH;
-
         init(mapLayer);
     }
 

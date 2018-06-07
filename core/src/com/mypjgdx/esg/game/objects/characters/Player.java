@@ -15,6 +15,8 @@ import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.items.drop.DroppedItem;
+import com.mypjgdx.esg.game.objects.items.drop.DroppedItemType;
 import com.mypjgdx.esg.game.objects.weapons.*;
 import com.mypjgdx.esg.ui.EnergyProducedBar;
 import com.mypjgdx.esg.ui.EnergyUsedBar;
@@ -23,6 +25,7 @@ import com.mypjgdx.esg.ui.TrapBar;
 import com.mypjgdx.esg.utils.Direction;
 import com.mypjgdx.esg.utils.SoundManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends AnimatedObject implements Damageable, Json.Serializable {
@@ -138,6 +141,8 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
     public boolean swordHit = true;
 
     public PlayerStalkerPosition stalkerPosition;
+
+    private List<DroppedItem> droppedItems = new ArrayList<DroppedItem>();
 
     public Player(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         super(Assets.instance.playerAltas);
@@ -627,6 +632,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
         json.writeValue("viewDirection", viewDirection);
 
         json.writeValue("stalkerPosition", stalkerPosition);
+        json.writeValue("droppedItems", droppedItems);
     }
 
     @Override
@@ -667,7 +673,22 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
 
         viewDirection = Direction.valueOf(jsonData.getString("viewDirection"));
         stalkerPosition.read(null, jsonData.get("stalkerPosition"));
+
+        readDroppedItems(jsonData);
     }
+
+    private void readDroppedItems(JsonValue saveData) {
+        JsonValue droppedItemsJson = saveData.get("droppedItems");
+        if (droppedItemsJson.isArray()) {
+            droppedItems.clear();
+            for (int i = 0; i < droppedItemsJson.size; i++) {
+                DroppedItem droppedItem = DroppedItemType.valueOf(droppedItemsJson.get(i).getString("type")).spawn();
+                droppedItem.read(null, droppedItemsJson.get(i));
+                droppedItems.add(droppedItem);
+            }
+        }
+    }
+
 
     public int getIntitalHealth() {
         return INTITAL_HEALTH;

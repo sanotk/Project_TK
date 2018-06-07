@@ -10,18 +10,14 @@ public class PepoDevil extends Enemy{
 	public static final float SCALE = 1f;
 
     public PepoDevil() {
-        super(Assets.instance.pepoDevilAltas, SCALE, SCALE, null);
+        super(Assets.instance.pepoDevilAltas, SCALE, SCALE);
         this.movingSpeed = MAX_SPEED;
         this.maxHealth = MAX_HEALTH;
     }
 
     public PepoDevil(TiledMapTileLayer mapLayer,Player player) {
-        super(Assets.instance.pepoDevilAltas, SCALE ,SCALE, mapLayer);
-
+        this();
         this.player = player;
-        this.movingSpeed = MAX_SPEED;
-        this.maxHealth = MAX_HEALTH;
-
         init(mapLayer);
     }
 

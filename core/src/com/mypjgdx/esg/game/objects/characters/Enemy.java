@@ -1,5 +1,6 @@
 package com.mypjgdx.esg.game.objects.characters;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
@@ -18,6 +19,8 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
+import com.mypjgdx.esg.game.objects.items.drop.DroppedItem;
+import com.mypjgdx.esg.game.objects.items.drop.DroppedItemType;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.utils.Direction;
 import com.mypjgdx.esg.utils.Distance;
@@ -83,7 +86,10 @@ public abstract class Enemy extends AnimatedObject implements Damageable, Json.S
 
     public boolean running;
 
-    public Enemy(TextureAtlas atlas, float scaleX, float scaleY, TiledMapTileLayer mapLayer) {
+    private List<DroppedItem> droppedItems;
+    private DroppedItemType droppedItemType;
+
+    public Enemy(TextureAtlas atlas, float scaleX, float scaleY) {
         super(atlas);
 
         addLoopAnimation(EnemyAnimation.WALK_UP, FRAME_DURATION, 0, 3);
@@ -119,6 +125,10 @@ public abstract class Enemy extends AnimatedObject implements Damageable, Json.S
         stateMachine.setInitialState(EnemyState.WANDER);
     }
 
+    public void setDroppedItems(List<DroppedItem> droppedItems) {
+        this.droppedItems = droppedItems;
+    }
+
     @Override
     protected void setAnimation() {
         unFreezeAnimation();
@@ -143,7 +153,6 @@ public abstract class Enemy extends AnimatedObject implements Damageable, Json.S
             resetAnimation();
         }
     }
-
 
     public void update(float deltaTime, List<Weapon> weapons) {
         super.update(deltaTime);
@@ -317,6 +326,35 @@ public abstract class Enemy extends AnimatedObject implements Damageable, Json.S
 
     public void die() {
         color = Color.GRAY;
+        dropItem();
+    }
+
+    public void dropItem() {
+        if (droppedItemType != null) {
+            DroppedItem droppedItem = droppedItemType.spawn();
+            droppedItem.setPosition(position.x, position.y);
+            droppedItems.add(droppedItem);
+
+            switch (viewDirection) {
+                case LEFT:
+                    droppedItem.velocity.x = -200;
+                    break;
+                case RIGHT:
+                    droppedItem.velocity.x = 200;
+                    break;
+                case DOWN:
+                    droppedItem.velocity.y = -200;
+                    break;
+                case UP:
+                    droppedItem.velocity.y = 200;
+                    break;
+            }
+            Gdx.app.log("dropItem", droppedItemType.name());
+        }
+    }
+
+    public void setDroppedItemType(DroppedItemType droppedItemType) {
+        this.droppedItemType = droppedItemType;
     }
 
     private void randomPosition(TiledMapTileLayer mapLayer) {
@@ -341,7 +379,6 @@ public abstract class Enemy extends AnimatedObject implements Damageable, Json.S
     public boolean takeDamage(float damage, float knockbackSpeed, float knockbackAngle) {
         if ((health <= 0) && (!stateMachine.isInState(EnemyState.DIE))) {
             stateMachine.changeState(EnemyState.DIE);
-            die();
             return true;
         } else if (stateMachine.isInState(EnemyState.DIE)) return true;
         health -= damage;

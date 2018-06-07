@@ -7,10 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.objects.characters.Citizen;
-import com.mypjgdx.esg.game.objects.characters.Citizen1;
-import com.mypjgdx.esg.game.objects.characters.Pepo;
-import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.game.objects.weapons.NormalBow;
 import com.mypjgdx.esg.game.objects.weapons.NormalSword;
@@ -40,6 +37,9 @@ public class LevelTraining extends Level {
         television.setEnergyBurn(100);
 
         enemies.add(new Pepo(mapLayer, player));
+        for (Enemy enemy : enemies) {
+            enemy.setDroppedItems(droppedItems);
+        }
 
         citizen1 = new Citizen1(mapLayer, player);
 

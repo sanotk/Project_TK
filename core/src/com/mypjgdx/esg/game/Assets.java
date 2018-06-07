@@ -166,6 +166,10 @@ public class Assets implements Disposable, AssetErrorListener {
     public Texture dialogTexture;
     public Texture light2;
 
+    public TextureRegion droppedLink;
+    public TextureRegion droppedTurbine;
+    public TextureRegion droppedGenerator;
+
     private Assets() {}
 
     public void init() {
@@ -310,7 +314,15 @@ public class Assets implements Disposable, AssetErrorListener {
 
         manager.load("dialogStory.png", Texture.class);
 
+        manager.load("droppedLink.png", Texture.class);
+        manager.load("droppedTurbine.png", Texture.class);
+        manager.load("droppedGenerator.png", Texture.class);
+
         manager.finishLoading();
+
+        droppedLink = new TextureRegion((Texture) manager.get("droppedLink.png"));
+        droppedTurbine = new TextureRegion((Texture) manager.get("droppedTurbine.png"));
+        droppedGenerator = new TextureRegion((Texture) manager.get("droppedGenerator.png"));
 
         dialogTexture = manager.get("dialogStory.png");
         dialogTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);

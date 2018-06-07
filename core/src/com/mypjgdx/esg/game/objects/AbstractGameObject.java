@@ -24,7 +24,7 @@ public abstract class AbstractGameObject {
 
     protected CollisionCheck collisionCheck;
 
-    public AbstractGameObject () {
+    public AbstractGameObject() {
         position = new Vector2();
         dimension = new Vector2();
         origin = new Vector2();
@@ -38,7 +38,7 @@ public abstract class AbstractGameObject {
         collisionCheck = new NullCollsionCheck();
     }
 
-        public void update(float deltaTime) {
+    public void update(float deltaTime) {
         float oldPositionX = position.x;
         float oldPositionY = position.y;
 
@@ -56,13 +56,13 @@ public abstract class AbstractGameObject {
         }
     }
 
-    public abstract void render (SpriteBatch batch);
+    public abstract void render(SpriteBatch batch);
 
-    protected void responseCollisionX (float oldPositionX) {
+    protected void responseCollisionX(float oldPositionX) {
         setPositionX(oldPositionX);
     }
 
-    protected void responseCollisionY (float oldPositionY) {
+    protected void responseCollisionY(float oldPositionY) {
         setPositionY(oldPositionY);
     }
 
@@ -73,15 +73,13 @@ public abstract class AbstractGameObject {
                 1.0f, 1.0f, rotation);
     }
 
-    protected void updateMotionX (float deltaTime) {
+    protected void updateMotionX(float deltaTime) {
         if (velocity.x != 0) {
             // คิดแรงเสียดทานแกน X
             if (velocity.x > 0) {
                 // ป้องกันไม่ให้แรงเสียดทาน ทำให้ความเร็วกล้บทิศ
                 velocity.x = Math.max(velocity.x - friction.x * deltaTime, 0);
-            }
-            else
-            {
+            } else {
                 // ป้องกันไม่ให้แรงเสียดทาน ทำให้ความเร็วกล้บทิศ
                 velocity.x = Math.min(velocity.x + friction.x * deltaTime, 0);
             }
@@ -90,15 +88,13 @@ public abstract class AbstractGameObject {
         velocity.x += acceleration.x * deltaTime;
     }
 
-    protected void updateMotionY (float deltaTime) {
+    protected void updateMotionY(float deltaTime) {
         if (velocity.y != 0) {
             // คิดแรงเสียดทานแกน Y
             if (velocity.y > 0) {
                 // ป้องกันไม่ให้แรงเสียดทาน ทำให้ความเร็วกล้บทิศ
                 velocity.y = Math.max(velocity.y - friction.y * deltaTime, 0);
-            }
-            else
-            {
+            } else {
                 // ป้องกันไม่ให้แรงเสียดทาน ทำให้ความเร็วกล้บทิศ
                 velocity.y = Math.min(velocity.y + friction.y * deltaTime, 0);
             }
@@ -130,13 +126,15 @@ public abstract class AbstractGameObject {
     }
 
     protected void setDimension(float width, float height) {
-        dimension.x =  width * scale.x;
-        dimension.y =  height * scale.y;
+        dimension.x = width * scale.x;
+        dimension.y = height * scale.y;
 
         // อัพเดทจุด origin อยู่ตรงกึ่งกลางภาพ
         origin.set(dimension.x / 2, dimension.y / 2);
     }
 
-    public abstract String getName();
+    public String getName() {
+        return getClass().getName();
+    }
 
 }

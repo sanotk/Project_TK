@@ -14,6 +14,8 @@ import com.mypjgdx.esg.game.objects.AbstractGameObject;
 import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.etcs.Link;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.items.drop.DroppedItem;
+import com.mypjgdx.esg.game.objects.items.drop.DroppedItemType;
 import com.mypjgdx.esg.game.objects.weapons.Bow;
 import com.mypjgdx.esg.game.objects.weapons.Sword;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
@@ -38,6 +40,7 @@ public abstract class Level implements Json.Serializable {
     public TiledMapTileLayer mapLayer;
 
     public List<AbstractGameObject> objects;
+    public List<DroppedItem> droppedItems;
 
     public boolean hasSolarCell;
 
@@ -54,13 +57,7 @@ public abstract class Level implements Json.Serializable {
         citizens = new ArrayList<Citizen>();
 
         objects = new ArrayList<AbstractGameObject>();
-
-        init();
-    }
-
-    public void init() {
-        weapons.clear();
-        links.clear();
+        droppedItems = new ArrayList<DroppedItem>();
     }
 
     public void render(SpriteBatch batch, OrthogonalTiledMapRenderer tiledRenderer, ShapeRenderer shapeRenderer) {
@@ -72,6 +69,7 @@ public abstract class Level implements Json.Serializable {
         for (Weapon w : weapons) w.render(batch);
         for (Link e : links) e.render(batch);
         for (AbstractGameObject o : objects) o.render(batch);
+        for (DroppedItem droppedItem : droppedItems) droppedItem.render(batch);
         for (Item i : items) i.render(batch);
         for (Enemy e : enemies) e.render(batch);
         if (player.stageOneClear) {
@@ -167,6 +165,7 @@ public abstract class Level implements Json.Serializable {
         }
         if(!player.timeStop){
             for (Weapon w : weapons) w.update(deltaTime);
+            for (DroppedItem droppedItem : droppedItems) droppedItem.update(deltaTime);
             for (Item i : items) i.update(deltaTime);
             for (Enemy e : enemies) e.update(deltaTime, weapons);
         }
@@ -184,6 +183,7 @@ public abstract class Level implements Json.Serializable {
         json.writeValue("citizens", citizens);
         json.writeValue("items", items);
         json.writeValue("weapons", weapons);
+        json.writeValue("droppedItems", droppedItems);
 
         json.writeValue("EnergyProducedBar", EnergyProducedBar.instance);
         json.writeValue("EnergyUsedBar", EnergyUsedBar.instance);
@@ -206,6 +206,7 @@ public abstract class Level implements Json.Serializable {
         readCitizens(jsonData);
         readItems(jsonData);
         readWeapons(jsonData);
+        readDroppedItems(jsonData);
 
         EnergyProducedBar.instance.read(null, jsonData);
         EnergyUsedBar.instance.read(null, jsonData);
@@ -226,6 +227,7 @@ public abstract class Level implements Json.Serializable {
                 Enemy enemy = EnemySpawner.valueOf(enemiesJson.get(i).getString("type")).spawn();
                 enemy.setPlayer(player);
                 enemy.init(mapLayer);
+                enemy.setDroppedItems(droppedItems);
                 enemy.read(null, enemiesJson.get(i));
                 enemies.add(enemy);
             }
@@ -272,6 +274,18 @@ public abstract class Level implements Json.Serializable {
                 weapon.init(mapLayer, player);
                 weapon.read(null, weaponsJson.get(i));
                 weapons.add(weapon);
+            }
+        }
+    }
+
+    private void readDroppedItems(JsonValue saveData) {
+        JsonValue droppedItemsJson = saveData.get("droppedItems");
+        if (droppedItemsJson.isArray()) {
+            droppedItems.clear();
+            for (int i = 0; i < droppedItemsJson.size; i++) {
+                DroppedItem droppedItem = DroppedItemType.valueOf(droppedItemsJson.get(i).getString("type")).spawn();
+                droppedItem.read(null, droppedItemsJson.get(i));
+                droppedItems.add(droppedItem);
             }
         }
     }
