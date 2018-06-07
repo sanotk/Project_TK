@@ -1032,7 +1032,7 @@ public class GameScreen3 extends AbstractGameScreen {
                 stageFourClear = true;
                 worldController.level.player.timeStop = true;
                 String text =
-                        "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\"(กดปุ่มตกลงเพื่อเข้าไปยังห้องถัดไป หรือกดปุ่มปฎิเสธเพื่อบันทึกและออกไปหน้าเมนู)\"";
+                        "\"ต้องการเข้าประตูไปยังห้องถัดไปหรือไม่\" \n\"(กดปุ่มตกลงเพื่อเข้าไปยังห้องถัดไป หรือกดปุ่มปฎิเสธเพื่อบันทึกและออกไปหน้าเมนู)\"";
                 buttonAgree.setVisible(true);
                 buttonRefuse.setVisible(true);
                 dialog.show();
@@ -1433,7 +1433,7 @@ public class GameScreen3 extends AbstractGameScreen {
             swordShow = true;
             dialogAll();
             String text =
-                    "\"คุณต้องการใช้ท่าคลื่นดาบหรือไม่ ใช้ 1 ครั้ง เสียกำลังไฟฟ้า 1000 วัตต์ เป็นเวลา 10 วินาที\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
+                    "\"ต้องการใช้ท่าคลื่นดาบพลังสูงหรือไม่ ใช้ 1 ครั้ง เสียกำลังไฟฟ้า 1000 วัตต์ เป็นเวลา 10 วินาที\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.setText(text);
@@ -1727,7 +1727,7 @@ public class GameScreen3 extends AbstractGameScreen {
             }
         }
 
-        if (!noItem && stageThreeClear) {
+        if (!noItem && player.stageOneClear && !stageThreeClear) {
             iconItem.setVisible(true);
         }
 
