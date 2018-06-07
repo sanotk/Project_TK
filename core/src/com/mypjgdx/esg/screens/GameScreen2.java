@@ -1081,7 +1081,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 stageFourClear = true;
                 worldController.level.player.timeStop = true;
                 String text =
-                        "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\"(กดปุ่มตกลงเพื่อเข้าไปยังห้องถัดไป หรือกดปุ่มปฎิเสธเพื่อบันทึกและออกไปหน้าเมนู)\"";
+                        "\"ต้องการเข้าประตูไปยังห้องถัดไปหรือไม่\" \n\"(กดปุ่มตกลงเพื่อเข้าไปยังห้องถัดไป หรือกดปุ่มปฎิเสธเพื่อบันทึกและออกไปหน้าเมนู)\"";
                 buttonAgree.setVisible(true);
                 buttonRefuse.setVisible(true);
                 dialog.show();
