@@ -38,13 +38,7 @@ public class Level4 extends Level {
         items.add(pollutionControll);
         items.add(gate);
         items.add(hydroPower);
-
-        pollutionControll.setEnergyBurn(10000);
-
-        enemies.add(new Pepo(mapLayer, player));
-        enemies.add(new Pepo(mapLayer, player));
-        enemies.add(new Pepo(mapLayer, player));
-        enemies.add(new Pepo(mapLayer, player));
+        pollutionControll.setEnergyBurn(10900);
         enemies.add(new PepoKnight(mapLayer, player));
         enemies.add(new PepoKnight(mapLayer, player));
         enemies.add(new PepoDevil(mapLayer, player));
