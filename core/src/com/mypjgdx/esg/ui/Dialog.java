@@ -82,13 +82,12 @@ public class Dialog extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        Color color = getColor();
-        batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+        batch.setColor(1, 1, 1, 1 * parentAlpha);
         batch.draw(dialogTexture, getX(), getY(), getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 
-        Color fontColor = font.getColor();
-        font.setColor(fontColor.r, fontColor.g, fontColor.b, color.a*parentAlpha);
+        Color color = getColor();
+        font.setColor(color.r, color.g, color.b, color.a * parentAlpha);
         font.draw(batch, cachedShowingText,
                 getX() + textStartX,
                 getY() + textStartY,

@@ -49,7 +49,7 @@ public class IntroScreen extends AbstractGameScreen {
 
         font = Assets.instance.newFont;
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font.setColor(Color.BLACK);
+//        font.setColor(Color.BLACK);
 
 		dialogBackground = new Texture("dialog.png");
 		dialogBackground.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -61,6 +61,7 @@ public class IntroScreen extends AbstractGameScreen {
 		        SCENE_WIDTH/2-dialogBackground.getWidth()*0.5f,
 		        SCENE_HEIGHT/2-dialogBackground.getHeight()*0.5f);
 		dialog.setText(text);
+		dialog.setColor(Color.LIME);
 
         dialog.addListener(new InputListener() {
             @Override
