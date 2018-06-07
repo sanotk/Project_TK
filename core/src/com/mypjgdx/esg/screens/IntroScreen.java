@@ -56,12 +56,12 @@ public class IntroScreen extends AbstractGameScreen {
 
         this.optionsWindow = optionsWindow;
 
-		dialog = new Dialog(font, dialogBackground, 65f, 220f);
+		dialog = new Dialog(font, dialogBackground, 65f, 225f);
 		dialog.setPosition(
 		        SCENE_WIDTH/2-dialogBackground.getWidth()*0.5f,
 		        SCENE_HEIGHT/2-dialogBackground.getHeight()*0.5f);
 		dialog.setText(text);
-		dialog.setColor(Color.LIME);
+		dialog.setColor(Color.BLACK);
 
         dialog.addListener(new InputListener() {
             @Override
