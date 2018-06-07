@@ -13,6 +13,7 @@ import com.mypjgdx.esg.game.levels.Level;
 import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.items.Item;
+import com.mypjgdx.esg.game.objects.items.drop.DroppedItem;
 import com.mypjgdx.esg.game.objects.weapons.*;
 
 public class LevelDebugger {
@@ -27,6 +28,7 @@ public class LevelDebugger {
     public static final int SWORD_HIT = 7;
     public static final int BOW = 8;
     public static final int SWORD = 9;
+    public static final int DROPPED_ITEM = 51;
 
     public static final int MAP_GRID = 10;
     public static final int MAP_BLOCKED = 11;
@@ -268,6 +270,11 @@ public class LevelDebugger {
         if (settings.contains(ITEM)) {
             for (Item item : level.items) {
                 drawBounds(item.bounds);
+            }
+        }
+        if (settings.contains(DROPPED_ITEM)) {
+            for (DroppedItem droppedItem : level.droppedItems) {
+                drawBounds(droppedItem.bounds);
             }
         }
 

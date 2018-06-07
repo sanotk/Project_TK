@@ -3,6 +3,7 @@ package com.mypjgdx.esg.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.mypjgdx.esg.game.levels.Level;
+import com.mypjgdx.esg.game.objects.items.drop.DroppedItemType;
 import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.utils.CameraHelper;
 import com.mypjgdx.esg.utils.Direction;
@@ -96,13 +97,23 @@ public class WorldController {
         if (Gdx.input.isKeyJustPressed(Keys.Z)) level.player.trapAttack(level.weapons);
         if (Gdx.input.isKeyPressed(Keys.C)) level.player.swordAttack(level.weapons, level.swords);
         if (Gdx.input.isKeyJustPressed(Keys.X)) level.player.swordWaveAttack(level.weapons, level.swords);
-        if (Gdx.input.isKeyJustPressed(Keys.A)) level.player.findItem();
+        if (Gdx.input.isKeyJustPressed(Keys.A)) {
+            if (level.player.pickDroppedItem(level.droppedItems)) return;
+            level.player.findItem();
+        }
         if (Gdx.input.isKeyJustPressed(Keys.B)) {
             GameSaveManager.instance.save();
         }
         if (Gdx.input.isKeyJustPressed(Keys.L)) {
             GameSaveManager.instance.load();
         }
+
+        //TODO: for debug only
+        if (Gdx.input.isKeyJustPressed(Keys.NUM_8))
+            level.player.spawnDroppedItem(DroppedItemType.LINK);
+        if (Gdx.input.isKeyJustPressed(Keys.NUM_9))
+            level.player.useDroppedItem(DroppedItemType.LINK);
+
 
     }
 

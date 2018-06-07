@@ -21,6 +21,7 @@ import com.mypjgdx.esg.game.objects.weapons.Sword;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.game.objects.weapons.WeaponSpawner;
 import com.mypjgdx.esg.ui.*;
+import com.mypjgdx.esg.utils.LevelDebugger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -116,8 +117,9 @@ public abstract class Level implements Json.Serializable {
 //        LevelDebugger.instance.enable(LevelDebugger.SWORD_WAVE);
 //        LevelDebugger.instance.enable(LevelDebugger.SWORD);
 //        LevelDebugger.instance.enable(LevelDebugger.BOW);
+        LevelDebugger.instance.enable(LevelDebugger.DROPPED_ITEM);
 //        LevelDebugger.instance.enable(LevelDebugger.MAP_ALL);
-//        LevelDebugger.instance.debug(this, shapeRenderer);
+        LevelDebugger.instance.debug(this, shapeRenderer);
     }
 
     public void renderFbo(SpriteBatch batch, OrthographicCamera camera, FrameBuffer lightFbo) {
@@ -284,6 +286,7 @@ public abstract class Level implements Json.Serializable {
             droppedItems.clear();
             for (int i = 0; i < droppedItemsJson.size; i++) {
                 DroppedItem droppedItem = DroppedItemType.valueOf(droppedItemsJson.get(i).getString("type")).spawn();
+                droppedItem.init(mapLayer);
                 droppedItem.read(null, droppedItemsJson.get(i));
                 droppedItems.add(droppedItem);
             }

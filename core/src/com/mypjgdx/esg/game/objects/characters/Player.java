@@ -142,7 +142,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
 
     public PlayerStalkerPosition stalkerPosition;
 
-    private List<DroppedItem> droppedItems = new ArrayList<DroppedItem>();
+    private List<DroppedItem> inventory = new ArrayList<DroppedItem>();
 
     public Player(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         super(Assets.instance.playerAltas);
@@ -632,7 +632,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
         json.writeValue("viewDirection", viewDirection);
 
         json.writeValue("stalkerPosition", stalkerPosition);
-        json.writeValue("droppedItems", droppedItems);
+        json.writeValue("inventory", inventory);
     }
 
     @Override
@@ -678,17 +678,17 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
     }
 
     private void readDroppedItems(JsonValue saveData) {
-        JsonValue droppedItemsJson = saveData.get("droppedItems");
+        JsonValue droppedItemsJson = saveData.get("inventory");
         if (droppedItemsJson.isArray()) {
-            droppedItems.clear();
+            inventory.clear();
             for (int i = 0; i < droppedItemsJson.size; i++) {
                 DroppedItem droppedItem = DroppedItemType.valueOf(droppedItemsJson.get(i).getString("type")).spawn();
+                droppedItem.init(mapLayer);
                 droppedItem.read(null, droppedItemsJson.get(i));
-                droppedItems.add(droppedItem);
+                inventory.add(droppedItem);
             }
         }
     }
-
 
     public int getIntitalHealth() {
         return INTITAL_HEALTH;
@@ -696,6 +696,54 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
 
     public int getIntitalTime() {
         return INTITAL_TIME;
+    }
+
+    public void spawnDroppedItem(DroppedItemType type){
+        inventory.add(type.spawn());
+        Gdx.app.log("เสกไอเทมแล้ว", type.name());
+    }
+
+    public boolean pickDroppedItem(List<DroppedItem> levelDroppedItems) {
+        DroppedItem foundDrop = null;
+        for (DroppedItem droppedItem : levelDroppedItems) {
+            if (droppedItem.bounds.overlaps(bounds)) {
+                foundDrop = droppedItem;
+                break;
+            }
+        }
+        if (foundDrop != null) {
+            inventory.add(foundDrop);
+            levelDroppedItems.remove(foundDrop);
+            Gdx.app.log("เก็บไอเทมแล้ว", foundDrop.getType().name());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean useDroppedItem(DroppedItemType type) {
+        DroppedItem foundDrop = null;
+        for (DroppedItem droppedItem : inventory) {
+            if (droppedItem.getType() == type) {
+                foundDrop = droppedItem;
+                break;
+            }
+        }
+        if (foundDrop != null) {
+            inventory.remove(foundDrop);
+            Gdx.app.log("ใช้ไอเทมแล้ว", foundDrop.getType().name());
+            return true;
+        }
+        return false;
+    }
+
+    public int findDroppedItemCount(DroppedItemType type) {
+        int count = 0;
+        for (DroppedItem droppedItem : inventory) {
+            if (droppedItem.getType() == type) {
+                count++;
+            }
+        }
+        return count;
     }
 
 }

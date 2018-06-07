@@ -1758,6 +1758,7 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
         MusicManager.instance.play(MusicManager.Musics.MUSIC_2, true);
 
         createButton();
+        stage.addActor(new PlayerInventoryDebugUI(worldController.level.player));
     }
 
     @Override

@@ -335,6 +335,7 @@ public abstract class Enemy extends AnimatedObject implements Damageable, Json.S
     public void dropItem() {
         if (droppedItemType != null) {
             DroppedItem droppedItem = droppedItemType.spawn();
+            droppedItem.init(mapLayer);
             droppedItem.setPosition(position.x, position.y);
             droppedItems.add(droppedItem);
 

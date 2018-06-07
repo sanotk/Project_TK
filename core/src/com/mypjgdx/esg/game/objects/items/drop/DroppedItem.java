@@ -2,8 +2,10 @@ package com.mypjgdx.esg.game.objects.items.drop;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
 
 public class DroppedItem extends AbstractGameObject implements Json.Serializable {
@@ -15,6 +17,10 @@ public class DroppedItem extends AbstractGameObject implements Json.Serializable
         this.iconRegion = iconRegion;
         friction.set(500, 500);
         setDimension(iconRegion.getRegionWidth(), iconRegion.getRegionHeight());
+    }
+
+    public void init(TiledMapTileLayer mapLayer) {
+        collisionCheck = new TiledCollisionCheck(bounds, mapLayer);
     }
 
     @Override
@@ -36,5 +42,9 @@ public class DroppedItem extends AbstractGameObject implements Json.Serializable
 
         JsonValue velocityJson = jsonData.get("velocity");
         velocity.set(velocityJson.getFloat("x", 0), velocityJson.getFloat("y", 0));
+    }
+
+    public DroppedItemType getType() {
+        return type;
     }
 }
