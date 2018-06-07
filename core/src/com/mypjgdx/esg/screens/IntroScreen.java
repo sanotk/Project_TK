@@ -4,6 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -46,9 +47,9 @@ public class IntroScreen extends AbstractGameScreen {
 		batch = new SpriteBatch();
 		stage = new Stage(viewport, batch);
 
-		font = new BitmapFont(Gdx.files.internal("thai24.fnt"));
-		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		font.setColor(0.4f,0,0,1);
+        font = Assets.instance.newFont;
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font.setColor(Color.BLACK);
 
 		dialogBackground = new Texture("dialog.png");
 		dialogBackground.setFilter(TextureFilter.Linear, TextureFilter.Linear);
