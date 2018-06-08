@@ -136,6 +136,8 @@ public class GameScreen2 extends AbstractGameScreen {
     private Button buttonGuideWindow;
     private boolean guideShow;
     private boolean lose;
+    private boolean dialogItem;
+    private Item item;
 
     public enum systemWindow {
         citizen1,
@@ -653,6 +655,11 @@ public class GameScreen2 extends AbstractGameScreen {
                     worldController.level.player.acceptSwordWave = true;
                     worldController.level.player.requestSwordWave = false;
                     dialogSwordWave = true;
+                } else if (dialogItem) {
+                    item.questAccept = true;
+                    item.quest = true;
+                    item.state = Item.ItemState.OFF;
+                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
                 } else if (stageFourClear) {
                     dialogShow = false;
                     dialogDoor4 = false;
@@ -713,6 +720,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialogShow = false;
                 trapShow = false;
                 swordShow = false;
+                dialogItem = false;
             }
         });
 
@@ -775,6 +783,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialogShow = false;
                 trapShow = false;
                 swordShow = false;
+                dialogItem = false;
             }
         });
 
@@ -1417,6 +1426,7 @@ public class GameScreen2 extends AbstractGameScreen {
             dialogDoor4 = false;
             trapShow = false;
             swordShow = false;
+            dialogItem = false;
             if(lose){
                 MusicManager.instance.stop();
                 Gdx.app.postRunnable(new Runnable() {
@@ -1724,18 +1734,24 @@ public class GameScreen2 extends AbstractGameScreen {
             }
         }
 
-        if ((stageTwoClear) && (player.status_find)) {
+        if ((player.status_find)) {
             for (Item item : level2.items) {
-                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP) {
-                    item.state = Item.ItemState.OFF;
-                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
-                    LikingBar.instance.liking -= 1;
+                if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP && !item.questAccept && !item.quest && stageTwoClear) {
+                    dialogItem = true;
+                    String text =
+                            "\"ต้องการปิด\"" + item.name + "\"หรือไม่\""
+                                    + "\n\"( " + item.name + "\"ใช้กำลังไฟฟ้า\"" + item.getEnergyBurn() + " วัตต์ )\" ";
+                    dialogCitizenDetail();
+                    dialog.setText(text);
                     player.status_find = false;
+                    this.item = item;
                 }
-//                 else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
-//                    item.state = Item.ItemState.ONLOOP;
-//                    EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
-//                    player.status_find = false;
+//                else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
+//                    if(!level3.gate.nearPlayer()&&!level3.switchItem.nearPlayer()){
+//                        item.state = Item.ItemState.ONLOOP;
+//                        EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
+//                        player.status_find = false;
+//                    }
 //                }
             }
         }
