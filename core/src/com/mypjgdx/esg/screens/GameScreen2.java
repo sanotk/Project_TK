@@ -1476,7 +1476,7 @@ public class GameScreen2 extends AbstractGameScreen {
             trapShow = true;
             dialogAll();
             String text =
-                    "\"คุณต้องการวางกับดักหรือไม่ กับดัก 1 อันใช้กำลังไฟฟ้า 100 วัตต์ เมื่อกับดักถูกทำลายถึงจะได้กำลังไฟฟ้าที่ใช้อยู่คืน\" \n\"(กดปุ่มตกลงเพื่อวางกับดัก หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการวางกับดัก)\"";
+                    "\"ต้องการวางกับดักหรือไม่ กับดัก 1 อันใช้กำลังไฟฟ้า 100 วัตต์ เมื่อกับดักถูกทำลายถึงจะได้กำลังไฟฟ้าที่ใช้อยู่คืน\" \n\"(กดปุ่มตกลงเพื่อวางกับดัก หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการวางกับดัก)\"";
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.setText(text);
@@ -1491,7 +1491,7 @@ public class GameScreen2 extends AbstractGameScreen {
             swordShow = true;
             dialogAll();
             String text =
-                    "\"คุณต้องการใช้ท่าคลื่นดาบหรือไม่ ใช้ 1 ครั้ง เสียกำลังไฟฟ้า 1000 วัตต์ เป็นเวลา 10 วินาที\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
+                    "\"ต้องการใช้ท่าคลื่นดาบหรือไม่ ใช้ 1 ครั้ง เสียกำลังไฟฟ้า 1000 วัตต์ เป็นเวลา 10 วินาที\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
             buttonAgree.setVisible(true);
             buttonRefuse.setVisible(true);
             dialog.setText(text);
@@ -1601,26 +1601,26 @@ public class GameScreen2 extends AbstractGameScreen {
         if (player.isSwitch) {
             if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
                 String text =
-                        "\"ผมเป็นคนไม่ชอบความร้อน ขอเปิดแอร์ได้รึเปล่า\""
+                        "\"ต้องการเปิดเครื่องปรับอากาศให้อุณหภูมิซัก 15 องศา เพราะผมชอบที่หนาวๆ\""
                                 + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า " + level2.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen1;
             } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
                 String text =
-                        "\"ผมหิว อยากใช้ไมโครเวฟอุ่นอาหารแช่แข็งกินคนเดียว " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
+                        "\"ผมหิว อยากใช้ไมโครเวฟอุ่นอาหารแช่แข็งกินเพียงคนเดียว " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen2;
             } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
                 String text =
-                        "\"น่าเบื่อมาก ผมอยากใช้งานคอมพิวเตอร์\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
+                        "\"น่าเบื่อมาก ผมอยากเล่นเกมคอมพิวเตอร์\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level2.computer.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen3;
             } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
                 String text =
-                        "\"ผมคิดว่าพวกเราน่าจะนำเสบียงอาหารที่เหลือไปแช่ตู้เย็นเพื่อถนอมไว้\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
+                        "\"ผมคิดว่าพวกเราน่าจะนำเสบียงอาหารที่เหลือไปแช่ตู้เย็นเพื่อถนอมไว้กินนานๆ\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level2.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen4;
@@ -1634,7 +1634,7 @@ public class GameScreen2 extends AbstractGameScreen {
                 dialog.setText(text);
             } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
                 String text =
-                        "\"ผมขอเปิดโทรทัศน์ดูได้รึเปล่า\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level2.television.getEnergyBurn() + " วัตต์ )\" ";
+                        "\"ผมขอเปิดโทรทัศน์ดูหนังได้รึเปล่า\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level2.television.getEnergyBurn() + " วัตต์ )\" ";
                 dialogCitizenDetail();
                 dialog.setText(text);
                 citizenQuest = systemWindow.citizen6;
