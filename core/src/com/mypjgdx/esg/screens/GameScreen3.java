@@ -656,9 +656,14 @@ public class GameScreen3 extends AbstractGameScreen {
                 } else if (dialogItem) {
                     item.questAccept = true;
                     item.quest = true;
-                    item.state = Item.ItemState.OFF;
-                    EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
-                    questCount += 1;
+                    if(item.state == Item.ItemState.OFF){
+                        item.state = Item.ItemState.ONLOOP;
+                        EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
+                    }else{
+                        item.state = Item.ItemState.OFF;
+                        EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
+                        questCount += 1;
+                    }
                 } else if (stageFourClear) {
                     dialogShow = false;
                     dialogDoor4 = false;
@@ -1688,20 +1693,23 @@ public class GameScreen3 extends AbstractGameScreen {
                 if (item.nearPlayer() && item.state == Item.ItemState.ONLOOP && !item.questAccept && !item.quest && !stageThreeClear) {
                     dialogItem = true;
                     String text =
-                            "\"ต้องการปิด\"" + item.name + "\"หรือไม่\""
-                                    + "\n\"( " + item.name + "\"ใช้กำลังไฟฟ้า\"" + item.getEnergyBurn() + " วัตต์ )\" ";
+                            "\"ต้องการปิด \"" + item.name + "\" หรือไม่\""
+                                    + "\n\"( " + item.name + "\" ใช้กำลังไฟฟ้า \"" + item.getEnergyBurn() + " วัตต์ )\" ";
                     dialogCitizenDetail();
                     dialog.setText(text);
                     player.status_find = false;
                     this.item = item;
                 }
-//                else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
-//                    if(!level3.gate.nearPlayer()&&!level3.switchItem.nearPlayer()){
-//                        item.state = Item.ItemState.ONLOOP;
-//                        EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
-//                        player.status_find = false;
-//                    }
-//                }
+                else if (item.nearPlayer() && item.state == Item.ItemState.OFF && !item.questAccept && !item.quest && !stageThreeClear) {
+                    dialogItem = true;
+                    String text =
+                            "\"ต้องการเปิด \"" + item.name + "\" หรือไม่\""
+                                    + "\n\"( " + item.name + "\" ใช้กำลังไฟฟ้า \"" + item.getEnergyBurn() + " วัตต์ )\" ";
+                    dialogCitizenDetail();
+                    dialog.setText(text);
+                    player.status_find = false;
+                    this.item = item;
+                }
             }
         }
 
