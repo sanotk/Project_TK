@@ -660,6 +660,7 @@ public class GameScreen2 extends AbstractGameScreen {
                     item.quest = true;
                     item.state = Item.ItemState.OFF;
                     EnergyUsedBar.instance.energyUse -= item.getEnergyBurn();
+                    LikingBar.instance.liking -= 6;
                 } else if (stageFourClear) {
                     dialogShow = false;
                     dialogDoor4 = false;
