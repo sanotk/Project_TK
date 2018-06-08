@@ -90,10 +90,6 @@ public class IntroScreen extends AbstractGameScreen {
 
 		stage.addActor(dialog);
         Gdx.input.setInputProcessor(stage);
-        Assets.instance.music.dispose();
-        Assets.instance.introGame.play();
-        Assets.instance.introGame.setPan(0.0f, 0.2f);
-        Assets.instance.introGame.setLooping(true);
     }
 
     private void closeDialog() {
