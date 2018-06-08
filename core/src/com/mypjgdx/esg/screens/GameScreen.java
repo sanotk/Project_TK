@@ -1754,9 +1754,6 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
         worldController.talkButton = talkButton;
         Gdx.input.setInputProcessor(stage);
 
-        MusicManager.instance.stop();
-        MusicManager.instance.play(MusicManager.Musics.MUSIC_2, true);
-
         createButton();
         stage.addActor(new PlayerInventoryDebugUI(worldController.level.player));
     }

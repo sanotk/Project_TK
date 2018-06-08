@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.ui.Dialog;
+import com.mypjgdx.esg.utils.MusicManager;
 
 public class IntroScreen extends AbstractGameScreen {
 
@@ -111,7 +112,10 @@ public class IntroScreen extends AbstractGameScreen {
     }
 
     @Override
-    public void show() {}
+    public void show() {
+        MusicManager.instance.stop();
+        MusicManager.instance.play(MusicManager.Musics.MUSIC_2, true);
+    }
 
     @Override
     public void hide() {
