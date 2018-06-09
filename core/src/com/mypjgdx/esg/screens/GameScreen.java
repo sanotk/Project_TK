@@ -1432,7 +1432,7 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
                     "\"กำจัดมอนสเตอร์หมดแล้ว กรุณารวบรวมประชาชนทั้งหมด (ทำได้โดยเดินไปหาประชาชนและกดคุยเมื่อมีสัญลักษณ์ขึ้น)\" \n\"(กด @icon(id=mission,space=4) เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นตอ)\"";
             dialog.setText(text);
             missionWindow.setCompleted(true, 0);
-            missionWindow.setText("ภารกิจที่สอง ตามหาและรวบรวมประชาชนนี่อยู่ในพื้นที่นี้ (กดคุยเมื่อมีสัญลักษณ์ขึ้น)", 1);
+            missionWindow.setText("ภารกิจที่สอง รวบรวมประชาชนนี่อยู่ในพื้นที่นี้ (กดคุยเมื่อมีสัญลักษณ์ขึ้น)", 1);
         }
 
         if (player.timeCount <= 298 && !dialogEnemy && dialogStart) {
