@@ -38,8 +38,8 @@ public class IntroScreen extends AbstractGameScreen {
     private Window optionsWindow;
 
     private String text =
-		        "\"ในปี พ.ศ.2xxx ได้เกิดสงครามโลกครั้งที่ 3\" \n\"โดยมีการใช้อาวุธนิวเคลียร์ ทำให้ทั่วทั้งโลกเกิดสภาวะอากาศเป็นพิษ\" \n\"ทำให้ผู้คนไม่สามารถอาศัยอยู่บนพื้นโลกได้นานนัก \"\n\"ทำให้ผู้คนต้องไปอยู่ในสถานที่หลบภัยใต้ดิน\""
-		        + "\n\"คุณคือเจ้าหน้าที่หน่วยพิเศษที่ต้องไปทำภารกิจสำรวจสถานที่หลบภัยแห่งหนึ่ง\"\n\"และพาประชาชนในพื้นที่เข้าไปหลบภัยในสถานที่หลบภัยแห่งนั้น \"\n\"เอาล่ะ ตอนนี้พร้อมแล้ว (กด Enter เพื่อเริ่มเกม)\"";
+		        "\"ในปี พ.ศ.2xxx ได้เกิดสงครามโลกครั้งที่ 3\" \n\"โดยมีการใช้อาวุธนิวเคลียร์ ทำให้ทั่วทั้งโลกเกิดสภาวะอากาศเป็นพิษ\" \n\"หลังจากสงครามจบลงบนพื้นโลกไม่สามารถอาศัยอยู่ได้ \"\n\"ผู้คนจึงต้องไปอาศัยอยู่ภายในสถานที่หลบภัย\""
+		        + "\n\"คุณคือเจ้าหน้าที่หน่วยพิเศษที่ต้องไปทำภารกิจสำรวจ\"\n\"และพาประชาชนในพื้นที่เข้าไปหลบภัยในสถานที่หลบภัยใต้ดิน\"\n\"พร้อมทั้งตามหาเครื่องปรับสภาพอากาศเพื่อเปิดใช้งาน\"\n\"เพื่อให้สามารถกลับมาอาศัยบนพื้นโลกบริเวณนั้นได้\"\n\"เอาล่ะ ตอนนี้พร้อมแล้ว (กด Enter เพื่อเริ่มเกม)\"";
 
     public IntroScreen(final Game game, final Window optionsWindow) {
         super(game);
@@ -57,7 +57,7 @@ public class IntroScreen extends AbstractGameScreen {
 
         this.optionsWindow = optionsWindow;
 
-		dialog = new Dialog(font, dialogBackground, 65f, 225f);
+		dialog = new Dialog(font, dialogBackground, 65f, 250f);
 		dialog.setPosition(
 		        SCENE_WIDTH/2-dialogBackground.getWidth()*0.5f,
 		        SCENE_HEIGHT/2-dialogBackground.getHeight()*0.5f);
