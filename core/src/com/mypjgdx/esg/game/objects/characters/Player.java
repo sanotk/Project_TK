@@ -40,7 +40,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
     private static final float INITIAL_MOVING_SPEED = 120f;
 
     private static final int INTITAL_HEALTH = 10;
-    private static final int INTITAL_TIME = 300;
+    private static final int INTITAL_TIME = 60;
 
     public boolean status_find;
     public boolean status_windows_link;
