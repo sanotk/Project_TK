@@ -1355,7 +1355,7 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
 
         if (!dialogStart2 && timeEvent == player.timeCount) {
             dialogAll();
-            String text = "\"เหมือนมีอะไรตกอยู่ ลองไปตรวจสอบดูดีกว่า\" \n\"(Enter)\"";
+            String text = "\"เหมือนมีอะไรตกอยู่ข้างต้นไม้ ลองไปตรวจสอบดูดีกว่า\" \n\"(Enter)\"";
             dialog.setText(text);
             dialogStart2 = true;
             timeEvent = player.timeCount - 1;
