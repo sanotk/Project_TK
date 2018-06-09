@@ -46,6 +46,7 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
     private static final int SCENE_WIDTH = 1024;
     private static final int SCENE_HEIGHT = 576;
     private boolean guideStart;
+    private boolean dialogStart2;
 
     public enum SystemWindow {
         SOLAR_CELL,
@@ -1349,6 +1350,14 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
             String text = "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยอยู่ในพื้นที่แถบนี้ รีบหาทางเข้าไปภายในเวลาที่กำหนด มิเช่นนั้นภารกิจจะล้มเหลว\" \n\"(กด @icon(id=mission,space=4) เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
             dialog.setText(text);
             dialogStart = true;
+            timeEvent = player.timeCount - 1;
+        }
+
+        if (!dialogStart2 && timeEvent == player.timeCount) {
+            dialogAll();
+            String text = "\"เหมือนมีอะไรตกอยู่ ลองไปตรวจสอบดูดีกว่า\" \n\"(Enter)\"";
+            dialog.setText(text);
+            dialogStart2 = true;
             timeEvent = player.timeCount - 1;
         }
 
