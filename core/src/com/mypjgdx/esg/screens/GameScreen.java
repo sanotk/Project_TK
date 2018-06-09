@@ -1346,7 +1346,7 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
 
         if (!dialogStart) {
             dialogAll();
-            String text = "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยอยู่ในพื้นที่แถบนี้ รีบหาทางเข้าไปภายในเวลาที่กำหนด มิเช่นนั้นภารกิจจะล้มเหลว\" \n\"(กด @icon(id=mission,space=4) เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
+            String text = "\"จากข้อมูลที่ได้รับมา สถานที่หลบภัยอยู่ในพื้นที่แถบนี้ รีบหาทางเข้าไปภายในเวลาที่กำหนด มิเช่นนั้นจะถือว่าทำภารกิจจะล้มเหลว\" \n\"(กด @icon(id=mission,space=4) เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเริ่มเกม)\"";
             dialog.setText(text);
             dialogStart = true;
             timeEvent = player.timeCount - 1;
