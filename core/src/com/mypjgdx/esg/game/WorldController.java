@@ -47,7 +47,6 @@ public class WorldController {
 
     private void handleCameraInput(float deltaTime) {
         if (cameraHelper.hasTarget()) return; // มุมกล้องติดตาม player อยู่จะใช้ Input เลื่อนมุมกล้องเองไม่ได้
-
         if (Gdx.input.isKeyPressed(Keys.UP)) cameraHelper.addPostion(0, CAMERA_SPEED * deltaTime); //กดลูกศรขึ้น
         if (Gdx.input.isKeyPressed(Keys.DOWN)) cameraHelper.addPostion(0, -CAMERA_SPEED * deltaTime);//กดลูกศรลง
         if (Gdx.input.isKeyPressed(Keys.LEFT)) cameraHelper.addPostion(-CAMERA_SPEED * deltaTime, 0);//กดลูกศรซ้าย
@@ -57,12 +56,9 @@ public class WorldController {
     }
 
     private void handlePlayerInput() { // ควบคุม player
+
         if (!cameraHelper.hasTarget()) return; // มุมกล้องติดตาม player อยู่ถึงจะควมคุม player ได้
         if (level.player.timeStop) return;
-
-        final int screenWidth = Gdx.graphics.getWidth();
-        final int screenHeight = Gdx.graphics.getHeight();
-        final float SCREEN_MOVE_EDGE = 0.4f;
 
         final float MIN_KNOB_PERCENT_TO_MOVE = 0.30f;
         if (touchPad.getKnobPercentY() > MIN_KNOB_PERCENT_TO_MOVE) {
@@ -112,7 +108,7 @@ public class WorldController {
             level.player.spawnDroppedItem(DroppedItemType.LINK);
         if (Gdx.input.isKeyJustPressed(Keys.NUM_9))
             level.player.useDroppedItem(DroppedItemType.LINK);
-        
+
     }
 
 }
