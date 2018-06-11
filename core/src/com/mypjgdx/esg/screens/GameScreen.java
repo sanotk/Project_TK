@@ -199,6 +199,8 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
 
     private boolean stageTwoClear;
     private boolean stageThreeClear;
+    private boolean isOverOne;
+    private boolean isOverTwo;
 
     public GameScreen(final Game game, final Window optionsWindow) {
         super(game);
