@@ -108,13 +108,11 @@ public class WorldController {
             GameSaveManager.instance.load();
         }
 
-        //TODO: for debug only
         if (Gdx.input.isKeyJustPressed(Keys.NUM_8))
             level.player.spawnDroppedItem(DroppedItemType.LINK);
         if (Gdx.input.isKeyJustPressed(Keys.NUM_9))
             level.player.useDroppedItem(DroppedItemType.LINK);
-
-
+        
     }
 
 }
