@@ -47,6 +47,7 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
     private static final int SCENE_HEIGHT = 576;
     private boolean guideStart;
     private boolean dialogStart2;
+    private int overLink;
 
     public enum SystemWindow {
         SOLAR_CELL,
@@ -139,6 +140,7 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
 
     private Window solarCellWindow;
     private ArrayList<SolarState> isComplete = new ArrayList<SolarState>();
+    private ArrayList<SolarState> isOverLink = new ArrayList<SolarState>();
 
     /* กลุ่มที่ต้อง save ไว้ก่อนเพื่อความชัวร์ */
 
@@ -260,6 +262,9 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
         isComplete.add(SolarState.CtoB);
         isComplete.add(SolarState.CtoI);
         isComplete.add(SolarState.ItoD);
+
+        isOverLink.add(SolarState.StoI);
+        isOverLink.add(SolarState.ItoD);
     }
 
     private void createButton() {
@@ -1233,12 +1238,18 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
 
     private void checkGameComplete() {
         trueLink = 0;
+        overLink = 0;
         if ((link.size() != 0) && (link.size() <= 4)) {
             for (SolarState aLink : link) {
                 for (SolarState anIsComplete : isComplete) {
                     if (aLink == anIsComplete) {
                         trueLink += 1;
                         System.out.println(trueLink);
+                    }
+                }
+                for (SolarState asOverLink : isOverLink){
+                    if(aLink == asOverLink){
+                        overLink += 1;
                     }
                 }
             }
