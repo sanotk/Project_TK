@@ -21,7 +21,7 @@ import com.mypjgdx.esg.utils.CameraHelper;
 public class Level1 extends Level {
 
 
-    private static final float FADE_IN_TIME = 3f;
+    private static final float FADE_IN_TIME = 5f;
 
     public Item solarCell1;
     public Item solarCell2;
