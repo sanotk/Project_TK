@@ -48,6 +48,7 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
     private boolean guideStart;
     private boolean dialogStart2;
     private int overLink;
+    private boolean isOverThree;
 
     public enum SystemWindow {
         SOLAR_CELL,
@@ -554,17 +555,25 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
                     worldController.level.player.acceptSwordWave = true;
                     worldController.level.player.requestSwordWave = false;
                     dialogSwordWave = true;
-                } else {
+                } else if (animation_status){
                     dialogShow = false;
                     dialogDoor4 = false;
-                    GameSaveManager.instance.save();
-                    MusicManager.instance.stop();
-                    Gdx.app.postRunnable(new Runnable() {
-                        @Override
-                        public void run() {
-                            game.setScreen(new GameScreen2(game, optionsWindow));
-                        }
-                    });
+                    if(stageFourClear){
+                        GameSaveManager.instance.save();
+                        MusicManager.instance.stop();
+                        Gdx.app.postRunnable(new Runnable() {
+                            @Override
+                            public void run() {
+                                game.setScreen(new GameScreen2(game, optionsWindow));
+                            }
+                        });
+                    }else if(isOverOne){
+                        
+                    }else if(isOverTwo){
+
+                    }else if(isOverThree){
+
+                    }
                 }
                 buttonAgree.setVisible(false);
                 buttonRefuse.setVisible(false);
