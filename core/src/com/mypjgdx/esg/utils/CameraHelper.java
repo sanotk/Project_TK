@@ -17,6 +17,13 @@ public class CameraHelper {
     private TiledMapTileLayer map;
     private AbstractGameObject target; //  Object เป้าหมายที่จะให้ติดตาม
 
+    public float leftEdge;
+    public float rightEdge;
+    public float lowerEdge;
+    public float upperEdge;
+    public float halfCameraWidth;
+    public float halfCameraHeight;
+
     public CameraHelper () { //สร้าง instance ของ class Vector2 เพื่อใช้เก็บตำแหน่งตัวช่วยมุมกล้อง
         position = new Vector2();
         zoom = 1;
@@ -79,12 +86,12 @@ public class CameraHelper {
         position.x = target.getPositionX() + target.origin.x + 100;
         position.y = target.getPositionY() + target.origin.y;
 
-        float leftEdge =  map.getTileWidth() * 1 + viewport.getLeftGutterWidth();
-        float rightEdge = (map.getWidth() - 1) *  map.getTileWidth() - viewport.getRightGutterWidth();
-        float lowerEdge =  map.getTileHeight() * 1 + viewport.getScreenY() + viewport.getBottomGutterHeight();
-        float upperEdge = (map.getHeight() - 1) * map.getTileHeight() - viewport.getBottomGutterHeight();
-        float halfCameraWidth = zoom * viewport.getWorldWidth()/2;
-        float halfCameraHeight = zoom * viewport.getWorldHeight()/2;
+        leftEdge = map.getTileWidth() * 1 + viewport.getLeftGutterWidth();
+        rightEdge = (map.getWidth() - 1) *  map.getTileWidth() - viewport.getRightGutterWidth();
+        lowerEdge = map.getTileHeight() * 1 + viewport.getScreenY() + viewport.getBottomGutterHeight();
+        upperEdge = (map.getHeight() - 1) * map.getTileHeight() - viewport.getBottomGutterHeight();
+        halfCameraWidth = zoom * viewport.getWorldWidth()/2;
+        halfCameraHeight = zoom * viewport.getWorldHeight()/2;
 
         if (position.y + halfCameraHeight > upperEdge)
             position.y = upperEdge - halfCameraHeight;

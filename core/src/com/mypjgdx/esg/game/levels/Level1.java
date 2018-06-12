@@ -1,18 +1,27 @@
 package com.mypjgdx.esg.game.levels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Vector2;
 import com.mypjgdx.esg.game.Assets;
+import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.*;
 import com.mypjgdx.esg.game.objects.weapons.NormalBow;
 import com.mypjgdx.esg.game.objects.weapons.NormalSword;
+import com.mypjgdx.esg.utils.CameraHelper;
 
 public class Level1 extends Level {
+
+
+    private static final float FADE_IN_TIME = 3f;
 
     public Item solarCell1;
     public Item solarCell2;
@@ -34,6 +43,9 @@ public class Level1 extends Level {
     public Citizen citizen4;
     public Citizen citizen5;
     public Citizen citizen6;
+
+    private float elapsedTime;
+    private Sprite blackScreen;
 
     public Level1() {
         name = "Level1";
@@ -101,6 +113,9 @@ public class Level1 extends Level {
 
         bows.add(new NormalBow(mapLayer, player));
         swords.add(new NormalSword(mapLayer, player));
+
+        blackScreen = new Sprite(Assets.instance.white);
+        blackScreen.setColor(Color.BLACK);
     }
 
     @Override
@@ -118,6 +133,7 @@ public class Level1 extends Level {
                 lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
                 false, true);
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        blackScreen.draw(batch);
         batch.end();
     }
 
@@ -128,5 +144,22 @@ public class Level1 extends Level {
         Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         FrameBuffer.unbind();
+    }
+
+    @Override
+    public void update(float deltaTime, WorldController worldController) {
+        super.update(deltaTime, worldController);
+        elapsedTime += deltaTime;
+
+        CameraHelper cameraHelper = worldController.cameraHelper;
+        float width = cameraHelper.rightEdge - cameraHelper.leftEdge;
+        float height = cameraHelper.upperEdge - cameraHelper.lowerEdge;
+        Vector2 cameraPosition = cameraHelper.getPosition();
+
+        blackScreen.setPosition(
+                cameraPosition.x - cameraHelper.halfCameraWidth,
+                cameraPosition.y - cameraHelper.halfCameraHeight);
+        blackScreen.setSize(width, height);
+        blackScreen.setAlpha(Interpolation.fade.apply(Math.max(1 - elapsedTime / FADE_IN_TIME, 0f)));
     }
 }

@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.objects.AbstractGameObject;
 import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.etcs.Link;
@@ -128,7 +129,7 @@ public abstract class Level implements Json.Serializable {
     public void createFbo(SpriteBatch batch, FrameBuffer lightFbo) {
     }
 
-    public void update(float deltaTime) {
+    public void update(float deltaTime, WorldController worldController) {
 
         Iterator<Weapon> weaponIterator = weapons.iterator();
         Iterator<Link> etcIterator = links.iterator();

@@ -36,7 +36,7 @@ public class WorldController {
 
     public void update(float deltaTime) {
         handleInput(deltaTime);
-        level.update(deltaTime);
+        level.update(deltaTime, this);
         cameraHelper.update(worldRenderer.viewport);
     }
 
