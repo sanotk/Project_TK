@@ -1524,6 +1524,22 @@ public class GameScreen extends AbstractGameScreen implements DialogListener {
             missionWindow.setText("ภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังพื้นที่ที่หลบภัยได้แล้ว (กดคุยกับประตูเพื่อเข้าไปยังที่หลบภัย)", 8);
         }
 
+        if (overLink == 2 && !animation_status) {
+            for (Item item : level1.items) {
+                item.state = Item.ItemState.ONLOOP;
+                item.resetAnimation();
+            }
+            isOverOne = true;
+            level1.door.state = Item.ItemState.ON;
+            animation_status = true;
+            dialogAll();
+            timeEvent = player.timeCount - 1;
+            String text =
+                    "\"เยี่ยม ประตูเปิดออกแล้ว แต่ถ้าเข้าไปที่หลบภัยตอนนี้อาจพบปัญหาร้ายแรงในตอนกลางคืน\" \n\"(กด @icon(id=status,space=4) เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+            dialog.setText(text);
+            missionWindow.setCompleted(true, 7);
+        }
+
         if (animation_status && player.timeCount <= timeEvent-1 && !guideStart){
             guideStart = true;
             guideShow = true;
