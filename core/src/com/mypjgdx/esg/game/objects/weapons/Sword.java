@@ -1,60 +1,52 @@
 package com.mypjgdx.esg.game.objects.weapons;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
-import com.mypjgdx.esg.game.objects.characters.Damageable;
-import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.characters.Player;
 import com.mypjgdx.esg.utils.Direction;
 
-public abstract class Sword extends AnimatedObject {
+public class Sword extends AnimatedObject {
 
-    protected static final float FRAME_DURATION = 0.1f / 2.0f;
+    private static final float FRAME_DURATION = 0.1f / 2.0f;
+    private static final float SCALE = 0.5f;
+    private static final float INIT_POSITION_X = 1700f;
+    private static final float INIT_POSITION_Y = 950f;
 
-    protected Player player;
-    protected Enemy enemy;
-    public Direction direction;
+    private Player player;
+    private Direction direction;
 
     public enum SwordAnimation {
-        OFF,
-        HIT
+        IDLE,
+        ATTACK
     }
 
     public enum SwordState {
-        OFF,
-        HIT
+        IDLE,
+        ATTACK
     }
 
     public SwordState state;
 
-    public Sword(TextureAtlas atlas, float scaleX, float scaleY , float P_X , float P_Y) {
-        super(atlas);
+    public Sword(Player player) {
+        super(Assets.instance.sword);
 
-        addLoopAnimation(SwordAnimation.OFF, FRAME_DURATION, 3, 1);
-        addNormalAnimation(SwordAnimation.HIT, FRAME_DURATION, 0, 3);
+        addLoopAnimation(SwordAnimation.IDLE, FRAME_DURATION, 3, 1);
+        addNormalAnimation(SwordAnimation.ATTACK, FRAME_DURATION, 0, 3);
 
-        setPosition(P_X, P_Y);
+        setPosition(INIT_POSITION_X, INIT_POSITION_Y);
 
-        scale.set(scaleX, scaleY);
-    }
+        scale.set(SCALE, SCALE);
 
-    public void init(Player player) {
-        state = SwordState.OFF;
-        setCurrentAnimation(SwordAnimation.OFF);
+        state = SwordState.IDLE;
+        setCurrentAnimation(SwordAnimation.IDLE);
         this.player = player;
-        spawn();
     }
-
-    protected abstract void spawn();
-
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        if(state == SwordState.HIT){
-            if(isAnimationFinished(SwordAnimation.HIT)){
-                state = SwordState.OFF;
-            }
+        if (state == SwordState.ATTACK && isAnimationFinished(SwordAnimation.ATTACK)) {
+            state = SwordState.IDLE;
         }
         direction = player.getViewDirection();
         switch(direction){
@@ -84,8 +76,8 @@ public abstract class Sword extends AnimatedObject {
     protected void setAnimation() {
         unFreezeAnimation();
         switch (state) {
-            case OFF: setCurrentAnimation(SwordAnimation.OFF); break;
-            case HIT: setCurrentAnimation(SwordAnimation.HIT); break;
+            case IDLE: setCurrentAnimation(SwordAnimation.IDLE); break;
+            case ATTACK: setCurrentAnimation(SwordAnimation.ATTACK); break;
             default:
                 break;
         }
@@ -94,8 +86,4 @@ public abstract class Sword extends AnimatedObject {
     public void debug(ShapeRenderer renderer) {
         renderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
     }
-
-    public abstract void activate();
-
-    public abstract void attack(Damageable damageable);
 }

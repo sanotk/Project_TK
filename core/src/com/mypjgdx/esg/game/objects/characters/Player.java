@@ -188,7 +188,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
         invulnerableTime = 0;
         setPosition(positionX, positionY);
 
-        sword = new NormalSword(this);
+        sword = new Sword(this);
     }
 
     public void CollisionCheck() {
@@ -408,7 +408,8 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
     public void swordAttack(List<Weapon> weapons) {
         if (state != PlayerState.ATTACK) {
             state = PlayerState.ATTACK;
-            sword.state = Sword.SwordState.HIT;
+            sword.resetAnimation();
+            sword.state = Sword.SwordState.ATTACK;
             weapons.add(new SwordHit(mapLayer, this));
             SoundManager.instance.play(SoundManager.Sounds.BEAM);
             resetAnimation();
@@ -429,7 +430,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
     private void addSwordWave() {
         state = PlayerState.ATTACK;
         sword.resetAnimation();
-        sword.state = Sword.SwordState.HIT;
+        sword.state = Sword.SwordState.ATTACK;
         weapons.add(new SwordWave(mapLayer, this));
         EnergyUsedBar.instance.energyUse += SwordWaveBar.instance.energySwordWave;
         energyLess = false;
@@ -523,6 +524,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
 
     public void debug(ShapeRenderer renderer) {
         stalkerPosition.debug(renderer);
+        sword.debug(renderer);
     }
 
     @Override
