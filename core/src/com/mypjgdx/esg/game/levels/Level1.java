@@ -73,7 +73,6 @@ public class Level1 extends Level {
         items.add(charge);
         items.add(door);
 
-        hasSolarCell = false;
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));

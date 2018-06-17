@@ -44,8 +44,6 @@ public abstract class Level implements Json.Serializable {
     public List<AbstractGameObject> objects;
     public List<DroppedItem> droppedItems;
 
-    public boolean hasSolarCell;
-
     protected String name;
 
     public Level() {
