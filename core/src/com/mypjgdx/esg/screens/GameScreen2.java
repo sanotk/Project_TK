@@ -1747,13 +1747,6 @@ public class GameScreen2 extends AbstractGameScreen {
                     player.status_find = false;
                     this.item = item;
                 }
-//                else if ((player.status_find) && item.nearPlayer() && item.state == Item.ItemState.OFF) {
-//                    if(!level3.gate.nearPlayer()&&!level3.switchItem.nearPlayer()){
-//                        item.state = Item.ItemState.ONLOOP;
-//                        EnergyUsedBar.instance.energyUse += item.getEnergyBurn();
-//                        player.status_find = false;
-//                    }
-//                }
             }
         }
 

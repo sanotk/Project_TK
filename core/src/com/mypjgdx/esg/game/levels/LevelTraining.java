@@ -9,8 +9,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.*;
-import com.mypjgdx.esg.game.objects.weapons.NormalBow;
-import com.mypjgdx.esg.game.objects.weapons.NormalSword;
 
 public class LevelTraining extends Level {
 
@@ -44,9 +42,6 @@ public class LevelTraining extends Level {
         citizen1 = new Citizen1(mapLayer, player);
 
         citizens.add(citizen1);
-
-        bows.add(new NormalBow(mapLayer, player));
-        swords.add(new NormalSword(mapLayer, player));
     }
 
     @Override
