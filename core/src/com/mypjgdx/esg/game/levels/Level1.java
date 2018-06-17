@@ -11,8 +11,6 @@ import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.*;
-import com.mypjgdx.esg.game.objects.weapons.NormalBow;
-import com.mypjgdx.esg.game.objects.weapons.NormalSword;
 
 public class Level1 extends Level {
 
@@ -99,9 +97,6 @@ public class Level1 extends Level {
         citizens.add(citizen4);
         citizens.add(citizen5);
         citizens.add(citizen6);
-
-        bows.add(new NormalBow(mapLayer, player));
-        swords.add(new NormalSword(mapLayer, player));
 
         BlackScreen.instance.reset();
         BlackScreen.instance.setFadeOutTime(5f);

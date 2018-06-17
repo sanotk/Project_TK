@@ -2,7 +2,6 @@ package com.mypjgdx.esg.game.objects.weapons;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.characters.Damageable;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
@@ -16,7 +15,6 @@ public abstract class Sword extends AnimatedObject {
     protected Player player;
     protected Enemy enemy;
     public Direction direction;
-    private boolean destroyed;
 
     public enum SwordAnimation {
         OFF,
@@ -41,7 +39,7 @@ public abstract class Sword extends AnimatedObject {
         scale.set(scaleX, scaleY);
     }
 
-    public void init(TiledMapTileLayer mapLayer, Player player) {
+    public void init(Player player) {
         state = SwordState.OFF;
         setCurrentAnimation(SwordAnimation.OFF);
         this.player = player;

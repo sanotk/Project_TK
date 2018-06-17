@@ -1,8 +1,8 @@
 package com.mypjgdx.esg.game.objects.characters;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
@@ -14,7 +14,6 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.mypjgdx.esg.collision.TiledCollisionCheck;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
-import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.items.drop.DroppedItem;
 import com.mypjgdx.esg.game.objects.items.drop.DroppedItemType;
 import com.mypjgdx.esg.game.objects.weapons.*;
@@ -44,7 +43,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
 
     public boolean status_find;
     public boolean status_windows_link;
-    private float Countdown;
+    private float countdown;
 
     public boolean isSwitch = false;
     public boolean stageOneClear = false;
@@ -89,10 +88,6 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
         STAND, ATTACK
     }
 
-    private List<Sword> swords;
-
-    private Item item;
-
     private PlayerState state;
     private int health;
     public int timeCount;
@@ -109,8 +104,6 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
 
     private TiledMapTileLayer mapLayer;
     private Direction viewDirection;
-
-    public boolean status_citizen = false;
 
     public boolean questScreen1 = false;
     public boolean questScreen2 = false;
@@ -138,11 +131,11 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
 
     public List<Weapon> weapons;
 
-    public boolean swordHit = true;
-
     public PlayerStalkerPosition stalkerPosition;
 
     private List<DroppedItem> inventory = new ArrayList<DroppedItem>();
+
+    private Sword sword;
 
     public Player(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         super(Assets.instance.playerAltas);
@@ -194,6 +187,8 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
         lastInvulnerableTime = 0;
         invulnerableTime = 0;
         setPosition(positionX, positionY);
+
+        sword = new NormalSword(this);
     }
 
     public void CollisionCheck() {
@@ -211,10 +206,6 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
             addSwordWave();
             acceptSwordWave = false;
         }
-        if (item != null) // ถ้ามีไอเทม
-            item.setPosition(
-                    getPositionX() + origin.x - item.origin.x,
-                    getPositionY() + origin.y - item.origin.y);
 
         if (stageOneClear) {
 
@@ -279,22 +270,20 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
             }
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
-            System.out.println("\n" + questScreen1);
-            System.out.println("" + questScreen2);
-            System.out.println("" + questScreen3);
-            System.out.println("" + questScreen4);
-            System.out.println("" + questScreen5);
-            System.out.println("" + questScreen6);
-        }
-
-        Countdown += deltaTime;
-        if ((!timeStop) && (Countdown >= 1) && !timeClear) {
+        countdown += deltaTime;
+        if ((!timeStop) && (countdown >= 1) && !timeClear) {
             timeCount--;
-            Countdown = 0;
+            countdown = 0;
         }
 
         stalkerPosition.update();
+        sword.update(deltaTime);
+    }
+
+    @Override
+    public void render(SpriteBatch batch) {
+        super.render(batch);
+        sword.render(batch);
     }
 
     public void move(Direction direction) {
@@ -328,42 +317,23 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
     protected void setAnimation() {
         if (state == PlayerState.STAND && velocity.x == 0 && velocity.y == 0) {
             unFreezeAnimation();
-            if (item == null) {
-                switch (viewDirection) {
-                    case DOWN:
-                        setCurrentAnimation(PlayerAnimation.STAND_DOWN);
-                        break;
-                    case LEFT:
-                        setCurrentAnimation(PlayerAnimation.STAND_LEFT);
-                        break;
-                    case RIGHT:
-                        setCurrentAnimation(PlayerAnimation.STAND_RIGHT);
-                        break;
-                    case UP:
-                        setCurrentAnimation(PlayerAnimation.STAND_UP);
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                switch (viewDirection) {
-                    case DOWN:
-                        setCurrentAnimation(PlayerAnimation.ITEM_STAND_DOWN);
-                        break;
-                    case LEFT:
-                        setCurrentAnimation(PlayerAnimation.ITEM_STAND_LEFT);
-                        break;
-                    case RIGHT:
-                        setCurrentAnimation(PlayerAnimation.ITEM_STAND_RIGHT);
-                        break;
-                    case UP:
-                        setCurrentAnimation(PlayerAnimation.ITEM_STAND_UP);
-                        break;
-                    default:
-                        break;
-                }
+            switch (viewDirection) {
+                case DOWN:
+                    setCurrentAnimation(PlayerAnimation.STAND_DOWN);
+                    break;
+                case LEFT:
+                    setCurrentAnimation(PlayerAnimation.STAND_LEFT);
+                    break;
+                case RIGHT:
+                    setCurrentAnimation(PlayerAnimation.STAND_RIGHT);
+                    break;
+                case UP:
+                    setCurrentAnimation(PlayerAnimation.STAND_UP);
+                    break;
+                default:
+                    break;
             }
-        } else if (state == PlayerState.ATTACK && item == null) {
+        } else if (state == PlayerState.ATTACK) {
             unFreezeAnimation();
             switch (viewDirection) {
                 case DOWN:
@@ -387,28 +357,6 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
             }
             if (isAnimationFinished(PlayerAnimation.ATK_UP) || isAnimationFinished(PlayerAnimation.ATK_DOWN)) {
                 state = PlayerState.STAND;
-                resetAnimation();
-            }
-        } else if (item != null) {
-            unFreezeAnimation();
-            switch (viewDirection) {
-                case DOWN:
-                    setCurrentAnimation(PlayerAnimation.ITEM_DOWN);
-                    break;
-                case LEFT:
-                    setCurrentAnimation(PlayerAnimation.ITEM_LEFT);
-                    break;
-                case RIGHT:
-                    setCurrentAnimation(PlayerAnimation.ITEM_RIGHT);
-                    break;
-                case UP:
-                    setCurrentAnimation(PlayerAnimation.ITEM_UP);
-                    break;
-                default:
-                    break;
-            }
-            if (velocity.x == 0 && velocity.y == 0) {
-                freezeAnimation();
                 resetAnimation();
             }
         } else {
@@ -436,7 +384,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
     }
 
     public void trapAttack(List<Weapon> weapons) {
-        if (state != PlayerState.ATTACK && item == null) {
+        if (state != PlayerState.ATTACK) {
             this.weapons = weapons;
             if (EnergyProducedBar.instance.energyProduced != 0) {
                 requestTrap = true;
@@ -457,23 +405,19 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
         acceptTrap = false;
     }
 
-    public void swordAttack(List<Weapon> weapons, List<Sword> swords) {
+    public void swordAttack(List<Weapon> weapons) {
         if (state != PlayerState.ATTACK) {
             state = PlayerState.ATTACK;
-            for (Sword sword : swords) {
-                sword.resetAnimation();
-                sword.state = Sword.SwordState.HIT;
-                weapons.add(new SwordHit(mapLayer, this));
-                SoundManager.instance.play(SoundManager.Sounds.BEAM);
-                resetAnimation();
-            }
+            sword.state = Sword.SwordState.HIT;
+            weapons.add(new SwordHit(mapLayer, this));
+            SoundManager.instance.play(SoundManager.Sounds.BEAM);
+            resetAnimation();
         }
     }
 
-    public void swordWaveAttack(List<Weapon> weapons, List<Sword> swords) {
+    public void swordWaveAttack(List<Weapon> weapons) {
         if (state != PlayerState.ATTACK) {
             this.weapons = weapons;
-            this.swords = swords;
             if (EnergyProducedBar.instance.energyProduced != 0) {
                 requestSwordWave = true;
             } else {
@@ -484,17 +428,15 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
 
     private void addSwordWave() {
         state = PlayerState.ATTACK;
-        for (Sword sword : swords) {
-            sword.resetAnimation();
-            sword.state = Sword.SwordState.HIT;
-            weapons.add(new SwordWave(mapLayer, this));
-            EnergyUsedBar.instance.energyUse += SwordWaveBar.instance.energySwordWave;
-            energyLess = false;
-            weapons.add(new SwordHit(mapLayer, this));
-            SoundManager.instance.play(SoundManager.Sounds.BEAM);
-            resetAnimation();
-            acceptSwordWave = false;
-        }
+        sword.resetAnimation();
+        sword.state = Sword.SwordState.HIT;
+        weapons.add(new SwordWave(mapLayer, this));
+        EnergyUsedBar.instance.energyUse += SwordWaveBar.instance.energySwordWave;
+        energyLess = false;
+        weapons.add(new SwordHit(mapLayer, this));
+        SoundManager.instance.play(SoundManager.Sounds.BEAM);
+        resetAnimation();
+        acceptSwordWave = false;
     }
 
     public void statusUpdate() {
@@ -561,11 +503,11 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
     }
 
     public void statusEnergy() {
-        statusEnergyWindow = statusEnergyWindow != true;
+        statusEnergyWindow = !statusEnergyWindow;
     }
 
     public void solarCellGuide() {
-        solarCellGuideWindow = solarCellGuideWindow != true;
+        solarCellGuideWindow = !solarCellGuideWindow;
     }
 
     @Override

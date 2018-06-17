@@ -17,8 +17,6 @@ import com.mypjgdx.esg.game.objects.etcs.Link;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.items.drop.DroppedItem;
 import com.mypjgdx.esg.game.objects.items.drop.DroppedItemType;
-import com.mypjgdx.esg.game.objects.weapons.Bow;
-import com.mypjgdx.esg.game.objects.weapons.Sword;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.game.objects.weapons.WeaponSpawner;
 import com.mypjgdx.esg.ui.*;
@@ -36,8 +34,6 @@ public abstract class Level implements Json.Serializable {
     public List<Enemy> enemies;
     public List<Citizen> citizens;
     public List<Weapon> weapons;
-    public List<Sword> swords;
-    public List<Bow> bows;
     public List<Link> links;
     public TiledMapTileLayer mapLayer;
 
@@ -48,8 +44,6 @@ public abstract class Level implements Json.Serializable {
 
     public Level() {
         weapons = new ArrayList<Weapon>();
-        swords = new ArrayList<Sword>();
-        bows = new ArrayList<Bow>();
 
         links = new ArrayList<Link>();
         items = new ArrayList<Item>();
@@ -76,48 +70,15 @@ public abstract class Level implements Json.Serializable {
             for (Citizen c : citizens) c.render(batch);
         }
         player.render(batch);
-        for (Sword s : swords) s.render(batch);
-        for (Bow b : bows) b.render(batch);
 
         batch.end();
 
         shapeRenderer.begin(ShapeType.Filled);
         player.showHp(shapeRenderer);
         for (Enemy e : enemies) e.showHp(shapeRenderer);
-        //for (Item i: items) i.debug(shapeRenderer);
-//        player.debug(shapeRenderer);
         shapeRenderer.end();
 
-
-//        shapeRenderer.begin(ShapeType.Line);
-
-//
-//        for (Sword s : swords) s.debug(shapeRenderer);
-//        for (Bow b : bows) b.debug(shapeRenderer);
-//        for (Enemy e : enemies) e.debug(shapeRenderer);
-//
-//        for (Weapon weapon : weapons) {
-//            if (weapon instanceof SwordHit) {
-//                SwordHit swordHit = (SwordHit) weapon;
-//                swordHit.debug(shapeRenderer);
-//            }
-//        }
-//        player.debug(shapeRenderer);
-//        for (Citizen citizen : citizens) {
-//            citizen.debug(shapeRenderer);
-//        }
-//        shapeRenderer.end();
-//
-//        LevelDebugger.instance.enable(LevelDebugger.PLAYER);
-//        LevelDebugger.instance.enable(LevelDebugger.ENEMY);
-//        LevelDebugger.instance.enable(LevelDebugger.CITIZEN);
-//        LevelDebugger.instance.enable(LevelDebugger.TRAP);
-//        LevelDebugger.instance.enable(LevelDebugger.SWORD_HIT);
-//        LevelDebugger.instance.enable(LevelDebugger.SWORD_WAVE);
-//        LevelDebugger.instance.enable(LevelDebugger.SWORD);
-//        LevelDebugger.instance.enable(LevelDebugger.BOW);
         LevelDebugger.instance.enable(LevelDebugger.DROPPED_ITEM);
-//        LevelDebugger.instance.enable(LevelDebugger.MAP_ALL);
         LevelDebugger.instance.debug(this, shapeRenderer);
     }
 
@@ -128,11 +89,9 @@ public abstract class Level implements Json.Serializable {
     }
 
     public void update(float deltaTime, WorldController worldController) {
-
         Iterator<Weapon> weaponIterator = weapons.iterator();
         Iterator<Link> etcIterator = links.iterator();
         Iterator<Enemy> enemyIterator = enemies.iterator();
-        Iterator<Citizen> citizenIterator = citizens.iterator();
 
         while (weaponIterator.hasNext()) {
             Weapon w = weaponIterator.next();
@@ -170,8 +129,6 @@ public abstract class Level implements Json.Serializable {
             for (Item i : items) i.update(deltaTime);
             for (Enemy e : enemies) e.update(deltaTime, weapons);
         }
-        for (Sword s : swords) s.update(deltaTime);
-        for (Bow b : bows) b.update(deltaTime);
 
         for (AbstractGameObject o : objects) o.update(deltaTime);
     }
