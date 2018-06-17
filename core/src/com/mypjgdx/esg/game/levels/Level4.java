@@ -11,8 +11,6 @@ import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.Water;
 import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.*;
-import com.mypjgdx.esg.game.objects.weapons.NormalBow;
-import com.mypjgdx.esg.game.objects.weapons.NormalSword;
 
 public class Level4 extends Level {
 
@@ -59,9 +57,6 @@ public class Level4 extends Level {
         citizens.add(citizen4);
         citizens.add(citizen5);
         citizens.add(citizen6);
-
-        bows.add(new NormalBow(mapLayer, player));
-        swords.add(new NormalSword(mapLayer, player));
 
         addWater(100, 450, 3, 12, 1f);
         addWater(100, 200, 3, 2, 1f);

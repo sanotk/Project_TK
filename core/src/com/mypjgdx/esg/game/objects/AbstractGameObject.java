@@ -22,6 +22,8 @@ public abstract class AbstractGameObject {
     public Vector2 acceleration;
     public Rectangle bounds;
 
+    public int zOrder;
+
     protected CollisionCheck collisionCheck;
 
     public AbstractGameObject() {

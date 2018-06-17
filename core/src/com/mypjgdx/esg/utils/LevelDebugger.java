@@ -14,7 +14,10 @@ import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.items.drop.DroppedItem;
-import com.mypjgdx.esg.game.objects.weapons.*;
+import com.mypjgdx.esg.game.objects.weapons.SwordHit;
+import com.mypjgdx.esg.game.objects.weapons.SwordWave;
+import com.mypjgdx.esg.game.objects.weapons.Trap;
+import com.mypjgdx.esg.game.objects.weapons.Weapon;
 
 public class LevelDebugger {
     public static final LevelDebugger instance = new LevelDebugger();
@@ -275,20 +278,6 @@ public class LevelDebugger {
         if (settings.contains(DROPPED_ITEM)) {
             for (DroppedItem droppedItem : level.droppedItems) {
                 drawBounds(droppedItem.bounds);
-            }
-        }
-
-        renderer.setColor(Color.BLUE);
-        if (settings.contains(BOW)) {
-            for (Bow bow : level.bows) {
-                drawBounds(bow.bounds);
-            }
-        }
-
-        renderer.setColor(Color.CYAN);
-        if (settings.contains(SWORD)) {
-            for (Sword sword : level.swords) {
-                drawBounds(sword.bounds);
             }
         }
     }
