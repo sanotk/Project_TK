@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 import java.util.Comparator;
 
-    public abstract class AnimatedObject extends AbstractGameObject {
+public abstract class AnimatedObject extends AbstractGameObject {
 
     public static final float START_TIME = 0;
 
@@ -62,11 +62,12 @@ import java.util.Comparator;
         animations.put(name, new Animation<TextureRegion>(frameTime, animationRegions, mode));
     }
 
-    protected abstract void setAnimation ();
+    protected abstract void setAnimation();
 
     protected void freezeAnimation() {
         freeze = true;
     }
+
     protected void unFreezeAnimation() {
         freeze = false;
     }
@@ -92,6 +93,11 @@ import java.util.Comparator;
 
     protected void updateBounds() {
         updateKeyFrame(START_TIME);
+        bounds.set(position.x, position.y, dimension.x, dimension.y);
+    }
+
+    protected int getKeyFrameIndex(Enum name) {
+        return animations.get(name).getKeyFrameIndex(animationTime);
     }
 
     private static class RegionComparator implements Comparator<AtlasRegion> {

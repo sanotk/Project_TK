@@ -1,6 +1,7 @@
 package com.mypjgdx.esg.game.objects.weapons;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.mypjgdx.esg.game.Assets;
@@ -10,7 +11,7 @@ import com.mypjgdx.esg.utils.Direction;
 
 import java.util.List;
 
-public class Trap extends Weapon {
+public class Trap extends Weapon implements Damageable {
 
     private static final float SCALE = 0.75f;
 
@@ -18,7 +19,6 @@ public class Trap extends Weapon {
     private static final float INTITIAL_SPEED = 50f;
     private int damageCount = 0;
     private List<Weapon> weapons;
-    private SwordHit lastSwordHit;
 
     Trap() {
         super(Assets.instance.trap, SCALE, SCALE, INTITAL_FRICTION, INTITAL_FRICTION);
@@ -91,17 +91,29 @@ public class Trap extends Weapon {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        for (Weapon weapon : weapons) {
-            if (weapon != lastSwordHit && weapon instanceof SwordHit && weapon.bounds.overlaps(bounds)) {
-                lastSwordHit = (SwordHit) weapon;
-                addDamageCount();
-            }
+        if (player.getSword().attackAreaOverlaps(bounds)) {
+            player.getSword().damageTo(this);
         }
     }
 
     @Override
+    public boolean takeDamage(float damage, float knockbackSpeed, float knockbackAngle) {
+        addDamageCount();
+        return true;
+    }
+
+    @Override
+    public Direction getViewDirection() {
+        return player.getViewDirection();
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    @Override
     public String getName() {
-        // TODO Auto-generated method stub
         return null;
     }
 

@@ -14,7 +14,6 @@ import com.mypjgdx.esg.game.objects.characters.Citizen;
 import com.mypjgdx.esg.game.objects.characters.Enemy;
 import com.mypjgdx.esg.game.objects.items.Item;
 import com.mypjgdx.esg.game.objects.items.drop.DroppedItem;
-import com.mypjgdx.esg.game.objects.weapons.SwordHit;
 import com.mypjgdx.esg.game.objects.weapons.SwordWave;
 import com.mypjgdx.esg.game.objects.weapons.Trap;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
@@ -130,13 +129,6 @@ public class LevelDebugger {
         if (settings.contains(SWORD_WAVE)) {
             for (Weapon weapon : level.weapons) {
                 if (weapon instanceof SwordWave) {
-                    drawBounds(weapon.bounds);
-                }
-            }
-        }
-        if (settings.contains(SWORD_HIT)) {
-            for (Weapon weapon : level.weapons) {
-                if (weapon instanceof SwordHit) {
                     drawBounds(weapon.bounds);
                 }
             }

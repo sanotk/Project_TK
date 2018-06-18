@@ -16,7 +16,10 @@ import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.AnimatedObject;
 import com.mypjgdx.esg.game.objects.items.drop.DroppedItem;
 import com.mypjgdx.esg.game.objects.items.drop.DroppedItemType;
-import com.mypjgdx.esg.game.objects.weapons.*;
+import com.mypjgdx.esg.game.objects.weapons.Sword;
+import com.mypjgdx.esg.game.objects.weapons.SwordWave;
+import com.mypjgdx.esg.game.objects.weapons.Trap;
+import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.ui.EnergyProducedBar;
 import com.mypjgdx.esg.ui.EnergyUsedBar;
 import com.mypjgdx.esg.ui.SwordWaveBar;
@@ -137,6 +140,10 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
 
     private Sword sword;
 
+    private float trapChannelingTime;
+    private boolean trapReleased;
+    private boolean trapKeyDown;
+
     public Player(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         super(Assets.instance.playerAltas);
 
@@ -206,6 +213,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
             addSwordWave();
             acceptSwordWave = false;
         }
+        updateTrapKey(deltaTime);
 
         if (stageOneClear) {
 
@@ -275,9 +283,37 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
             timeCount--;
             countdown = 0;
         }
-
         stalkerPosition.update();
         sword.update(deltaTime);
+    }
+
+    private void updateTrapKey(float deltaTime) {
+        if (trapChannelingTime >= 1 && !trapReleased) {
+            if (EnergyProducedBar.instance.energyProduced != 0) {
+                requestTrap = true;
+                trapReleased = true;
+            } else {
+                energyLess = true;
+            }
+        }
+        if (trapKeyDown) {
+            trapChannelingTime += deltaTime;
+            trapKeyDown = false;
+        } else {
+            trapChannelingTime = 0;
+            trapReleased = false;
+        }
+    }
+
+    public void showChannelingBar(ShapeRenderer shapeRenderer) {
+        if (trapChannelingTime > 0.0001f) {
+            shapeRenderer.setColor(Color.BLACK);
+            shapeRenderer.rect(getPositionX(), getPositionY() + 75, bounds.width, 5);
+            shapeRenderer.setColor(Color.TEAL);
+            shapeRenderer.rect(
+                    getPositionX(), getPositionY() + 75,
+                    bounds.width * Math.min(1, trapChannelingTime / 1f), 5);
+        }
     }
 
     @Override
@@ -385,12 +421,8 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
 
     public void trapAttack(List<Weapon> weapons) {
         if (state != PlayerState.ATTACK) {
+            trapKeyDown = true;
             this.weapons = weapons;
-            if (EnergyProducedBar.instance.energyProduced != 0) {
-                requestTrap = true;
-            } else {
-                energyLess = true;
-            }
         }
     }
 
@@ -405,12 +437,10 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
         acceptTrap = false;
     }
 
-    public void swordAttack(List<Weapon> weapons) {
+    public void swordAttack() {
         if (state != PlayerState.ATTACK) {
             state = PlayerState.ATTACK;
-            sword.resetAnimation();
-            sword.state = Sword.SwordState.ATTACK;
-            weapons.add(new SwordHit(mapLayer, this));
+            sword.swing();
             SoundManager.instance.play(SoundManager.Sounds.BEAM);
             resetAnimation();
         }
@@ -429,12 +459,10 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
 
     private void addSwordWave() {
         state = PlayerState.ATTACK;
-        sword.resetAnimation();
-        sword.state = Sword.SwordState.ATTACK;
+        sword.swing();
         weapons.add(new SwordWave(mapLayer, this));
         EnergyUsedBar.instance.energyUse += SwordWaveBar.instance.energySwordWave;
         energyLess = false;
-        weapons.add(new SwordHit(mapLayer, this));
         SoundManager.instance.play(SoundManager.Sounds.BEAM);
         resetAnimation();
         acceptSwordWave = false;
@@ -690,4 +718,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
         return count;
     }
 
+    public Sword getSword() {
+        return sword;
+    }
 }
