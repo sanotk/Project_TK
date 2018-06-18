@@ -131,7 +131,6 @@ public abstract class AbstractGameObject {
         dimension.x = width * scale.x;
         dimension.y = height * scale.y;
 
-        // อัพเดทจุด origin อยู่ตรงกึ่งกลางภาพ
         origin.set(dimension.x / 2, dimension.y / 2);
     }
 
