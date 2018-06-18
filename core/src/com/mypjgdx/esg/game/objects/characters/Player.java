@@ -140,6 +140,10 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
 
     private Sword sword;
 
+    private float trapChannelingTime;
+    private boolean trapReleased;
+    private boolean trapKeyDown;
+
     public Player(TiledMapTileLayer mapLayer, float positionX, float positionY) {
         super(Assets.instance.playerAltas);
 
@@ -209,6 +213,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
             addSwordWave();
             acceptSwordWave = false;
         }
+        updateTrapKey(deltaTime);
 
         if (stageOneClear) {
 
@@ -278,9 +283,37 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
             timeCount--;
             countdown = 0;
         }
-
         stalkerPosition.update();
         sword.update(deltaTime);
+    }
+
+    private void updateTrapKey(float deltaTime) {
+        if (trapChannelingTime >= 1 && !trapReleased) {
+            if (EnergyProducedBar.instance.energyProduced != 0) {
+                requestTrap = true;
+                trapReleased = true;
+            } else {
+                energyLess = true;
+            }
+        }
+        if (trapKeyDown) {
+            trapChannelingTime += deltaTime;
+            trapKeyDown = false;
+        } else {
+            trapChannelingTime = 0;
+            trapReleased = false;
+        }
+    }
+
+    public void showChannelingBar(ShapeRenderer shapeRenderer) {
+        if (trapChannelingTime > 0.0001f) {
+            shapeRenderer.setColor(Color.BLACK);
+            shapeRenderer.rect(getPositionX(), getPositionY() + 75, bounds.width, 5);
+            shapeRenderer.setColor(Color.TEAL);
+            shapeRenderer.rect(
+                    getPositionX(), getPositionY() + 75,
+                    bounds.width * Math.min(1, trapChannelingTime / 1f), 5);
+        }
     }
 
     @Override
@@ -388,12 +421,8 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
 
     public void trapAttack(List<Weapon> weapons) {
         if (state != PlayerState.ATTACK) {
+            trapKeyDown = true;
             this.weapons = weapons;
-            if (EnergyProducedBar.instance.energyProduced != 0) {
-                requestTrap = true;
-            } else {
-                energyLess = true;
-            }
         }
     }
 

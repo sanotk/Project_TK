@@ -78,7 +78,7 @@ public class WorldController {
         if (swordWaveAttackButton.isJustPressed()) {
             level.player.swordWaveAttack(level.weapons);
         }
-        if (trapAttackButton.isJustPressed()) {
+        if (trapAttackButton.isPressed()) {
             level.player.trapAttack(level.weapons);
         }
 
@@ -90,7 +90,7 @@ public class WorldController {
         if (Gdx.input.isKeyPressed(Keys.DOWN)) level.player.move(Direction.DOWN);
         if (Gdx.input.isKeyPressed(Keys.LEFT)) level.player.move(Direction.LEFT);
         if (Gdx.input.isKeyPressed(Keys.RIGHT)) level.player.move(Direction.RIGHT);
-        if (Gdx.input.isKeyJustPressed(Keys.Z)) level.player.trapAttack(level.weapons);
+        if (Gdx.input.isKeyPressed(Keys.Z)) level.player.trapAttack(level.weapons);
         if (Gdx.input.isKeyPressed(Keys.C)) level.player.swordAttack();
         if (Gdx.input.isKeyJustPressed(Keys.X)) level.player.swordWaveAttack(level.weapons);
         if (Gdx.input.isKeyJustPressed(Keys.A)) {
