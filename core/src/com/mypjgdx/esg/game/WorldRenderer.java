@@ -40,7 +40,7 @@ public class WorldRenderer implements Disposable {
         lightFbo = new FrameBuffer(Pixmap.Format.RGB888, (int) viewport.getMinWorldWidth(), (int) viewport.getMinWorldHeight(), false);
 
         shapeRenderer = new ShapeRenderer();
-        shapeRenderer.setColor(1.0f, 0.0f, 0.0f, 1.0f);
+        shapeRenderer.setColor(0.0f, 0.0f, 0.0f, 1.0f);
     }
 
     public void render() {
@@ -77,6 +77,5 @@ public class WorldRenderer implements Disposable {
         batch.dispose();
         lightFbo.dispose();
     }
-
 
 }
