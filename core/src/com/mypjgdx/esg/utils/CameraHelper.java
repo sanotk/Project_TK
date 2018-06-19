@@ -83,7 +83,7 @@ public class CameraHelper {
     public void update (Viewport viewport) {  // อัพมุมกล้องให้ติดตามเป้าหมาย
         if (!hasTarget()) return;
 
-        position.x = target.getPositionX() + target.origin.x + 100;
+        position.x = target.getPositionX() + target.origin.x;
         position.y = target.getPositionY() + target.origin.y;
 
         leftEdge = map.getTileWidth() * 1 + viewport.getLeftGutterWidth();
