@@ -77,6 +77,7 @@ public class IntroScreen extends AbstractGameScreen {
                 return false;
             }
         });
+        
         stage.addListener(new InputListener() {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {

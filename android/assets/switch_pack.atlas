@@ -17,18 +17,18 @@ switch_on
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
-  index: 2
+  index: 1
 switch_on
   rotate: false
   xy: 106, 2
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
-  index: 3
+  index: 2
 switch_on
   rotate: false
   xy: 158, 2
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
-  index: 1
+  index: 3
