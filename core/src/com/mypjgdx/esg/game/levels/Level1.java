@@ -1,32 +1,17 @@
 package com.mypjgdx.esg.game.levels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.mypjgdx.esg.BlackScreen;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.WorldController;
 import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.*;
 
 public class Level1 extends Level {
-
-    public Item solarCell1;
-    public Item solarCell2;
-    public Item solarCell3;
-    public Item solarCell4;
-    public Item solarCell5;
-    public Item solarCell6;
-    public Item solarCell7;
-    public Item solarCell8;
-    public Item solarCell9;
-    public Item inverter;
-    public Item battery;
-    public Item charge;
-    public Item door;
 
     public Citizen citizen1;
     public Citizen citizen2;
@@ -34,43 +19,78 @@ public class Level1 extends Level {
     public Citizen citizen4;
     public Citizen citizen5;
     public Citizen citizen6;
+    public Item switchItem;
+    public Item television;
+    public Item microwave;
+    public Item waterPump;
+    public Item airConditioner;
+    public Item computer;
+    public Item fan1;
+    public Item fan2;
+    public Item refrigerator;
+    public Item riceCooker;
+    public Item gate;
+    public Item lamp1;
+    public Item lamp2;
+    public Item lamp3;
+    public Item lamp4;
+    public Item lamp5;
+    public Item lamp6;
+    public Item lamp7;
+    public Item lamp8;
+    public Item lamp9;
 
     public Level1() {
-        name = "Level1";
+        name = "Level2";
 
-        map = Assets.instance.map1;
+        map = Assets.instance.map2;
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
-        player = new Player(mapLayer, 100, 100);
+        player = new Player(mapLayer, 100, 1000);
 
-        solarCell1 = new SolarCell(mapLayer, player);
-        solarCell2 = new SolarCell(mapLayer, player ,1500f ,1145f);
-        solarCell3 = new SolarCell(mapLayer, player ,1500f ,1195f);
-        solarCell4 = new SolarCell(mapLayer, player ,1400f ,1095f);
-        solarCell5 = new SolarCell(mapLayer, player ,1400f ,1145f);
-        solarCell6 = new SolarCell(mapLayer, player ,1400f ,1195f);
-        solarCell7 = new SolarCell(mapLayer, player ,1300f ,1095f);
-        solarCell8 = new SolarCell(mapLayer, player ,1300f ,1145f);
-        solarCell9 = new SolarCell(mapLayer, player ,1300f ,1195f);
-        inverter = new Inverter(mapLayer, player);
-        battery = new Battery(mapLayer, player);
-        charge = new Charge(mapLayer, player);
-        door = new Door(mapLayer, player);
+        switchItem = new Switch(mapLayer, player);
+        television = new Television(mapLayer, player);
+        microwave = new Microwave(mapLayer, player);
+        waterPump = new Waterpump(mapLayer, player);
+        airConditioner = new AirConditioner(mapLayer, player);
+        computer = new Computer(mapLayer, player);
+        fan1 = new Fan(mapLayer, player);
+        fan2 = new Fan(mapLayer, player, 750, 850);
+        refrigerator = new Refrigerator(mapLayer, player);
+        riceCooker = new RiceCooker(mapLayer, player);
+        gate = new Gate(mapLayer, player);
+        lamp1 = new Lamp(mapLayer, player, 100f, 1150f);
+        lamp2 = new Lamp(mapLayer, player, 400f, 1150f);
+        lamp3 = new Lamp(mapLayer, player, 700f, 1150f);
+        lamp4 = new Lamp(mapLayer, player, 1000f, 1150f);
+        lamp5 = new Lamp(mapLayer, player, 1300f, 1150f);
+        lamp6 = new Lamp(mapLayer, player, 100f, 750f);
+        lamp7 = new Lamp(mapLayer, player, 400f, 750f);
+        lamp8 = new Lamp(mapLayer, player, 900f, 200f);
+        lamp9 = new Lamp(mapLayer, player, 1200f, 200f);
 
-        items.add(solarCell1);
-        items.add(solarCell2);
-        items.add(solarCell3);
-        items.add(solarCell4);
-        items.add(solarCell5);
-        items.add(solarCell6);
-        items.add(solarCell7);
-        items.add(solarCell8);
-        items.add(solarCell9);
-        items.add(inverter);
-        items.add(battery);
-        items.add(charge);
-        items.add(door);
+        items.add(switchItem);
+        items.add(television);
+        items.add(microwave);
+        items.add(waterPump);
+        items.add(airConditioner);
+        items.add(computer);
+        items.add(fan1);
+        items.add(fan2);
+        items.add(refrigerator);
+        items.add(riceCooker);
+        items.add(gate);
+        items.add(lamp1);
+        items.add(lamp2);
+        items.add(lamp3);
+        items.add(lamp4);
+        items.add(lamp5);
+        items.add(lamp6);
+        items.add(lamp7);
+        items.add(lamp8);
+        items.add(lamp9);
 
+        enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));
@@ -98,41 +118,93 @@ public class Level1 extends Level {
         citizens.add(citizen5);
         citizens.add(citizen6);
 
-        BlackScreen.instance.reset();
-        BlackScreen.instance.setFadeOutTime(5f);
+        citizen1.setGoalItem(airConditioner);
+        citizen2.setGoalItem(microwave);
+        citizen3.setGoalItem(computer);
+        citizen4.setGoalItem(refrigerator);
+        citizen5.setGoalItem(riceCooker);
+        citizen6.setGoalItem(television);
+
+        television.setEnergyBurn(100);
+        microwave.setEnergyBurn(800);
+        waterPump.setEnergyBurn(250);
+        airConditioner.setEnergyBurn(1450);
+        computer.setEnergyBurn(500);
+        fan1.setEnergyBurn(60);
+        fan2.setEnergyBurn(60);
+        refrigerator.setEnergyBurn(150);
+        riceCooker.setEnergyBurn(800);
+        lamp1.setEnergyBurn(28);
+        lamp2.setEnergyBurn(28);
+        lamp3.setEnergyBurn(28);
+        lamp4.setEnergyBurn(28);
+        lamp5.setEnergyBurn(28);
+        lamp6.setEnergyBurn(28);
+        lamp7.setEnergyBurn(28);
+        lamp8.setEnergyBurn(28);
+        lamp9.setEnergyBurn(28);
     }
 
     @Override
     public void renderFbo(SpriteBatch batch, OrthographicCamera camera, FrameBuffer lightFbo) {
-        batch.begin();
-        batch.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_COLOR);
-        batch.draw(lightFbo.getColorBufferTexture(),
-                camera.position.x - camera.viewportWidth * camera.zoom / 2,
-                camera.position.y - camera.viewportHeight * camera.zoom / 2,
-                0, 0,
-                lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
-                1 * camera.zoom, 1 * camera.zoom,
-                0,
-                0, 0,
-                lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
-                false, true);
-        batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        BlackScreen.instance.draw(batch);
-        batch.end();
+        if(player.isSwitch){
+            batch.begin();
+            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            batch.draw(lightFbo.getColorBufferTexture(),
+                    camera.position.x - camera.viewportWidth * camera.zoom / 2,
+                    camera.position.y - camera.viewportHeight * camera.zoom / 2,
+                    0, 0,
+                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
+                    1 * camera.zoom, 1 * camera.zoom,
+                    0,
+                    0, 0,
+                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
+                    false, true);
+            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            batch.end();
+        }
+        else {
+            batch.begin();
+            batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
+            batch.draw(lightFbo.getColorBufferTexture(),
+                    camera.position.x - camera.viewportWidth * camera.zoom / 2,
+                    camera.position.y - camera.viewportHeight * camera.zoom / 2,
+                    0, 0,
+                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
+                    1 * camera.zoom, 1 * camera.zoom,
+                    0,
+                    0, 0,
+                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
+                    false, true);
+            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            batch.end();
+        }
     }
-
 
     @Override
     public void createFbo(SpriteBatch batch, FrameBuffer lightFbo) {
         lightFbo.begin();
-        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Color color = Color.valueOf("#20e8ff");
+        if (player.isSwitch) {
+            Gdx.gl.glClearColor(color.r, color.g, color.b, 0.15f);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        } else {
+            Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.begin();
+            batch.setColor(1, 1, 1, 1);
+            batch.draw(Assets.instance.light,
+                    player.getPositionX() + player.origin.x
+                            - Assets.instance.light.getWidth() / 2f,
+                    player.getPositionY() + player.origin.y
+                            - Assets.instance.light.getHeight() / 2f);
+            batch.draw(Assets.instance.light,
+                    switchItem.p_x + switchItem.origin.x
+                            - Assets.instance.light.getWidth() / 2f,
+                    switchItem.p_y + switchItem.origin.y
+                            - Assets.instance.light.getHeight() / 2f);
+            batch.end();
+        }
         FrameBuffer.unbind();
-    }
-
-    @Override
-    public void update(float deltaTime, WorldController worldController) {
-        super.update(deltaTime, worldController);
-        BlackScreen.instance.update(deltaTime, worldController.cameraHelper);
     }
 }
