@@ -789,7 +789,6 @@ public class GameScreen extends AbstractGameScreen {
             }
         });
 
-
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_04"));
         buttonStyle.down = new NinePatchDrawable(Assets.instance.uiBlue.createPatch("button_03"));
@@ -797,7 +796,6 @@ public class GameScreen extends AbstractGameScreen {
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
-
 
         TextButton.TextButtonStyle buttonSunStyle = new TextButton.TextButtonStyle();
         TextureRegionDrawable iconSun = new TextureRegionDrawable(Assets.instance.iconSun);
