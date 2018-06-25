@@ -36,11 +36,11 @@ public class ChartWindow extends Window {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
-                gameScreen.stageFourClear = true;
-                worldController.level.player.timeStop = true;
-                String text = "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
-                gameScreen.dialog.show();
-                gameScreen.dialog.setText(text);
+//                gameScreen.stageFourClear = true;
+//                worldController.level.player.timeStop = true;
+//                String text = "\"ยินดีต้อนรับสู่่สถานที่หลบภัย\" \n\" (กรุณากด Enter เพื่อไปยังด่านถัดไป หรือกด ESC เพื่อบันทึกและกลับไปหน้าเมนู)\"";
+//                gameScreen.dialog.show();
+//                gameScreen.dialog.setText(text);
             }
         });
 
