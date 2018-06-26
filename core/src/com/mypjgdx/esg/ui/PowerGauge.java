@@ -74,18 +74,8 @@ public class PowerGauge extends Table {
             elapsed = 0;
         }
         elapsed += delta;
-        currentPercent = Interpolation.smooth.apply(startPercent, endPercent, Math.min(1f, elapsed/1f));
+        currentPercent = Math.min(1f, Interpolation.elasticOut.apply(startPercent, endPercent, Math.min(1f, elapsed/3f)));
         setGaugePercent(currentPercent);
-
-        if (energyUse > limit) {
-            setBackground(redBg);
-            leftBar.setDrawable(leftRedGauge);
-            rightBar.setDrawable(rightRedGauge);
-        } else {
-            setBackground(blueBg);
-            leftBar.setDrawable(leftBlueGauge);
-            rightBar.setDrawable(rightBlueGauge);
-        }
     }
 
     private void setGaugePercent(float gaugePercent) {
@@ -105,6 +95,17 @@ public class PowerGauge extends Table {
         leftBar.pack();
         limitImage.pack();
         rightBar.pack();
+
+
+        if (currentPercent > limitPercent) {
+            setBackground(redBg);
+            leftBar.setDrawable(leftRedGauge);
+            rightBar.setDrawable(rightRedGauge);
+        } else {
+            setBackground(blueBg);
+            leftBar.setDrawable(leftBlueGauge);
+            rightBar.setDrawable(rightBlueGauge);
+        }
     }
 
     @Override
