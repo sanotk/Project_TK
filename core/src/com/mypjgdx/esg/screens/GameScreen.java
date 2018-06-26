@@ -232,6 +232,9 @@ public class GameScreen extends AbstractGameScreen {
     private TrapAttackButton trapAttackButton;
     private TalkButton talkButton;
 
+
+    private PowerGauge powerGauge;
+
     public GameScreen(final Game game, final Window optionsWindow) {
         super(game);
 
@@ -470,6 +473,10 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(statusWindow);
         stage.addActor(guideWindow);
         stage.addActor(missionWindow);
+
+        powerGauge = new PowerGauge();
+        stage.addActor(powerGauge);
+        powerGauge.setPosition(stage.getWidth()/2, stage.getHeight()/2, Align.center);
 
         buttonOption.addListener(new ClickListener() {
             @Override

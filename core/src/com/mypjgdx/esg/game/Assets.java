@@ -170,6 +170,10 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureRegion droppedTurbine;
     public TextureRegion droppedGenerator;
 
+    public Texture redPowerGauge;
+    public Texture bluePowerGauge;
+    public Texture limit;
+
     private Assets() {}
 
     public void init() {
@@ -181,6 +185,10 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("map3.tmx", TiledMap.class);
         manager.load("map4.tmx", TiledMap.class);
         manager.load("mapTraining.tmx", TiledMap.class);
+
+        manager.load("limit.png", Texture.class);
+        manager.load("red_power_gauge.png", Texture.class);
+        manager.load("blue_power_gauge.png", Texture.class);
 
         manager.load("rule1.png" , Texture.class);
 
@@ -334,6 +342,10 @@ public class Assets implements Disposable, AssetErrorListener {
         map3 = manager.get("map3.tmx");
         map4 = manager.get("map4.tmx");
         mapTraining = manager.get("mapTraining.tmx");
+
+        redPowerGauge = manager.get("red_power_gauge.png");
+        bluePowerGauge = manager.get("blue_power_gauge.png");
+        limit = manager.get("limit.png");
 
         rule1 = manager.get("rule1.png");
 
