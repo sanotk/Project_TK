@@ -1,8 +1,8 @@
 package com.mypjgdx.esg.ui;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -23,7 +23,6 @@ public class PowerGauge extends Table {
     private TextureRegionDrawable redBg = new TextureRegionDrawable(new TextureRegion(Assets.instance.redPowerGauge));
     private TextureRegionDrawable blueBg = new TextureRegionDrawable(new TextureRegion(Assets.instance.bluePowerGauge));
 
-
     private TextureRegionDrawable whiteDrawable = new TextureRegionDrawable(new TextureRegion(Assets.instance.white));
 
     private Drawable leftBlueGauge;
@@ -35,8 +34,12 @@ public class PowerGauge extends Table {
     private Image limitImage;
     private Image rightBar;
 
-    public PowerGauge() {
+    private float startPercent;
+    private float endPercent;
+    private float currentPercent;
+    private float elapsed;
 
+    public PowerGauge() {
         leftBlueGauge = whiteDrawable.tint(blue);
         leftRedGauge =  whiteDrawable.tint(red);
         rightBlueGauge = whiteDrawable.tint(blue);
@@ -58,24 +61,21 @@ public class PowerGauge extends Table {
         add(limitImage);
         add(rightBar);
 
-        updateGauge(max);
+        setGaugePercent(1);
         pack();
+        setGaugePercent(0);
     }
 
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-
-    }
-
-    private void updateGauge(float energyUse) {
+    private void updateGauge(float delta, float energyUse) {
         float gaugePercent = Math.min((energyUse/ max), 1f);
-        float limitPercent = Math.min((limit / max), 1f);
-        float leftPercent = Math.min(gaugePercent, limitPercent);
-        float rightPercent = Math.max(gaugePercent - limitPercent, 0f);
-
-        float leftWidth = GAUGE_WIDTH * leftPercent;
-        float rightWidth = GAUGE_WIDTH * rightPercent;
+        if (Math.abs(endPercent - gaugePercent) > 0.01f) {
+            endPercent = gaugePercent;
+            startPercent = currentPercent;
+            elapsed = 0;
+        }
+        elapsed += delta;
+        currentPercent = Interpolation.smooth.apply(startPercent, endPercent, Math.min(1f, elapsed/1f));
+        setGaugePercent(currentPercent);
 
         if (energyUse > limit) {
             setBackground(redBg);
@@ -86,6 +86,15 @@ public class PowerGauge extends Table {
             leftBar.setDrawable(leftBlueGauge);
             rightBar.setDrawable(rightBlueGauge);
         }
+    }
+
+    private void setGaugePercent(float gaugePercent) {
+        float limitPercent = Math.min((limit / max), 1f);
+        float leftPercent = Math.min(gaugePercent, limitPercent);
+        float rightPercent = Math.max(gaugePercent - limitPercent, 0f);
+
+        float leftWidth = GAUGE_WIDTH * leftPercent;
+        float rightWidth = GAUGE_WIDTH * rightPercent;
 
         leftBlueGauge.setMinWidth(leftWidth);
         rightBlueGauge.setMinWidth(rightWidth);
@@ -101,6 +110,6 @@ public class PowerGauge extends Table {
     @Override
     public void act(float delta) {
         super.act(delta);
-        updateGauge(EnergyUsedBar.instance.energyUse);
+        updateGauge(delta, EnergyUsedBar.instance.energyUse);
     }
 }
