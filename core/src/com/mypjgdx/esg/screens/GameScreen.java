@@ -476,7 +476,7 @@ public class GameScreen extends AbstractGameScreen {
 
         powerGauge = new PowerGauge();
         stage.addActor(powerGauge);
-        powerGauge.setPosition(stage.getWidth()/2, stage.getHeight()/2, Align.center);
+        powerGauge.setPosition(stage.getWidth()/2f, stage.getHeight()/1.075f, Align.center);
         powerGauge.setPosition((int)powerGauge.getX(), (int)powerGauge.getY());
 
         buttonOption.addListener(new ClickListener() {
