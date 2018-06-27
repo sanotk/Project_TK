@@ -1327,7 +1327,7 @@ public class GameScreen extends AbstractGameScreen {
 //        //textBullet.setText(String.format(" %d", (int) ArrowBar.instance.energyArrow));
 //        textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave) + " วัตต์");
 //        textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap) + " วัตต์");
-//        textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
+        textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
 //        textLiking.setText(String.format(" %d", (int) LikingBar.instance.liking));
 //        energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
 //        energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
