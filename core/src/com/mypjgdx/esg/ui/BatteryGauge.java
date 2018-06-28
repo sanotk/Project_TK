@@ -74,7 +74,7 @@ public class BatteryGauge extends Table {
             elapsed = 0;
         }
         elapsed += delta;
-        currentPercent = Math.min(1f, Interpolation.elasticOut.apply(startPercent, endPercent, Math.min(1f, elapsed/3f)));
+        currentPercent = Math.min(1f, Interpolation.exp5.apply(startPercent, endPercent, Math.min(1f, elapsed/3f)));
         setGaugePercent(currentPercent);
     }
 
