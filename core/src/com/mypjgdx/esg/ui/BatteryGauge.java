@@ -96,7 +96,7 @@ public class BatteryGauge extends Table {
         limitImage.pack();
         rightBar.pack();
 
-        if (currentPercent > limitPercent) {
+        if (currentPercent < limitPercent) {
             setBackground(redBg);
             leftBar.setDrawable(leftRedGauge);
             rightBar.setDrawable(rightRedGauge);
