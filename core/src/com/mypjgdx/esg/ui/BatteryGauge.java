@@ -66,8 +66,8 @@ public class BatteryGauge extends Table {
         setGaugePercent(0);
     }
 
-    private void updateGauge(float delta, float energyUse) {
-        float gaugePercent = Math.min((energyUse/ max), 1f);
+    private void updateGauge(float delta, float battery) {
+        float gaugePercent = Math.min((battery/ max), 1f);
         if (Math.abs(endPercent - gaugePercent) > 0.01f) {
             endPercent = gaugePercent;
             startPercent = currentPercent;
@@ -96,7 +96,6 @@ public class BatteryGauge extends Table {
         limitImage.pack();
         rightBar.pack();
 
-
         if (currentPercent > limitPercent) {
             setBackground(redBg);
             leftBar.setDrawable(leftRedGauge);
@@ -111,6 +110,6 @@ public class BatteryGauge extends Table {
     @Override
     public void act(float delta) {
         super.act(delta);
-        updateGauge(delta, EnergyUsedBar.instance.energyUse);
+        updateGauge(delta, BatteryBar.instance.batteryStorage);
     }
 }
