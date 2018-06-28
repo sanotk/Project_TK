@@ -199,8 +199,17 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("limit.png", Texture.class);
         manager.load("red_power_gauge.png", Texture.class);
         manager.load("blue_power_gauge.png", Texture.class);
+        manager.load("red_battery_gauge.png", Texture.class);
+        manager.load("blue_battery_gauge.png", Texture.class);
 
         manager.load("rule1.png" , Texture.class);
+
+        manager.load("icon_food_off.png", Texture.class);
+        manager.load("icon_food_on.png", Texture.class);
+        manager.load("icon_tem_off.png", Texture.class);
+        manager.load("icon_tem_on.png", Texture.class);
+        manager.load("icon_water_off.png", Texture.class);
+        manager.load("icon_water_on.png", Texture.class);
 
         manager.load("player_pack.atlas", TextureAtlas.class);
         manager.load("citizen_pack.atlas", TextureAtlas.class);
@@ -355,7 +364,16 @@ public class Assets implements Disposable, AssetErrorListener {
 
         redPowerGauge = manager.get("red_power_gauge.png");
         bluePowerGauge = manager.get("blue_power_gauge.png");
+        redBatteryGauge = manager.get("red_battery_gauge.png");
+        blueBatteryGauge = manager.get("blue_battery_gauge.png");
         limit = manager.get("limit.png");
+        
+        icon_food_off = manager.get("icon_food_off.png");
+        icon_food_on = manager.get("icon_food_on.png");
+        icon_temp_off = manager.get("icon_temp_off.png");
+        icon_temp_on = manager.get("icon_temp_on.png");
+        icon_water_off = manager.get("icon_water_off.png");
+        icon_water_on = manager.get("icon_water_on.png");
 
         rule1 = manager.get("rule1.png");
 
