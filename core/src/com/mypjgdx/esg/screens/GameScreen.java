@@ -489,6 +489,20 @@ public class GameScreen extends AbstractGameScreen {
         batteryGauge.setPosition(stage.getWidth()/3.5f, stage.getHeight()/1.075f, Align.center);
         batteryGauge.setPosition((int)batteryGauge.getX(), (int)batteryGauge.getY());
 
+        textBattery = new Label("", skin);
+        textBattery.setColor(0, 0, 0, 1);
+        textBattery.setStyle(labelStyle);
+        textBattery.setFontScale(1f, 1f);
+        textBattery.setPosition(475, SCENE_HEIGHT - 42);
+        //textBattery.setPosition((int)textBattery.getX(), (int)textBattery.getY());
+
+        textPower = new Label("", skin);
+        textPower.setColor(0, 0, 0, 1);
+        textPower.setStyle(labelStyle);
+        textPower.setFontScale(1f, 1f);
+        textPower.setPosition(475, SCENE_HEIGHT - 42);
+        //textPower.setPosition((int)textBattery.getX(), (int)textBattery.getY());
+
         buttonOption.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -827,18 +841,6 @@ public class GameScreen extends AbstractGameScreen {
         textTime.setStyle(labelStyle);
         textTime.setFontScale(1f, 1f);
         textTime.setPosition(475, SCENE_HEIGHT - 42);
-
-        textBattery = new Label("", skin);
-        textBattery.setColor(0, 0, 0, 1);
-        textBattery.setStyle(labelStyle);
-        textBattery.setFontScale(1f, 1f);
-        textBattery.setPosition(475, SCENE_HEIGHT - 42);
-
-        textPower = new Label("", skin);
-        textPower.setColor(0, 0, 0, 1);
-        textPower.setStyle(labelStyle);
-        textPower.setFontScale(1f, 1f);
-        textPower.setPosition(475, SCENE_HEIGHT - 42);
 
         stage.addActor(iconTimeButton);
 
