@@ -41,7 +41,7 @@ public class Level1 extends Level {
     public Item lamp9;
 
     public Level1() {
-        name = "Level2";
+        name = "Level1";
 
         map = Assets.instance.map2;
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
@@ -134,15 +134,15 @@ public class Level1 extends Level {
         fan2.setEnergyBurn(60);
         refrigerator.setEnergyBurn(150);
         riceCooker.setEnergyBurn(800);
-        lamp1.setEnergyBurn(28);
-        lamp2.setEnergyBurn(28);
-        lamp3.setEnergyBurn(28);
-        lamp4.setEnergyBurn(28);
-        lamp5.setEnergyBurn(28);
-        lamp6.setEnergyBurn(28);
-        lamp7.setEnergyBurn(28);
-        lamp8.setEnergyBurn(28);
-        lamp9.setEnergyBurn(28);
+        lamp1.setEnergyBurn(30);
+        lamp2.setEnergyBurn(30);
+        lamp3.setEnergyBurn(30);
+        lamp4.setEnergyBurn(30);
+        lamp5.setEnergyBurn(30);
+        lamp6.setEnergyBurn(30);
+        lamp7.setEnergyBurn(30);
+        lamp8.setEnergyBurn(30);
+        lamp9.setEnergyBurn(30);
     }
 
     @Override
@@ -188,6 +188,13 @@ public class Level1 extends Level {
         if (player.isSwitch) {
             Gdx.gl.glClearColor(color.r, color.g, color.b, 0.15f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.begin();
+            batch.draw(Assets.instance.light,
+                    player.getPositionX() + player.origin.x
+                            - Assets.instance.light.getWidth() / 2f,
+                    player.getPositionY() + player.origin.y
+                            - Assets.instance.light.getHeight() / 2f);
+            batch.end();
         } else {
             Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
