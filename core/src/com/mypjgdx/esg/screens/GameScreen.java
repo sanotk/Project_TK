@@ -138,6 +138,8 @@ public class GameScreen extends AbstractGameScreen {
     private boolean lose;
     private boolean dialogItem;
     private Item item;
+    private Label textBattery;
+    private Label textPower;
 
     public enum systemWindow {
         citizen1,
@@ -826,9 +828,23 @@ public class GameScreen extends AbstractGameScreen {
         textTime.setFontScale(1f, 1f);
         textTime.setPosition(475, SCENE_HEIGHT - 42);
 
+        textBattery = new Label("", skin);
+        textBattery.setColor(0, 0, 0, 1);
+        textBattery.setStyle(labelStyle);
+        textBattery.setFontScale(1f, 1f);
+        textBattery.setPosition(475, SCENE_HEIGHT - 42);
+
+        textPower = new Label("", skin);
+        textPower.setColor(0, 0, 0, 1);
+        textPower.setStyle(labelStyle);
+        textPower.setFontScale(1f, 1f);
+        textPower.setPosition(475, SCENE_HEIGHT - 42);
+
         stage.addActor(iconTimeButton);
 
         stage.addActor(textTime);
+        stage.addActor(textBattery);
+        stage.addActor(textPower);
     }
 
     private Window createGuideWindow() {
@@ -1336,6 +1352,7 @@ public class GameScreen extends AbstractGameScreen {
 //        textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave) + " วัตต์");
 //        textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap) + " วัตต์");
         textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
+        textBattery.setText(String.format(" %d", BatteryBar.instance.batteryStorage) + " / " + BatteryBar.instance.BATTERY_MAX);
 //        textLiking.setText(String.format(" %d", (int) LikingBar.instance.liking));
 //        energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
 //        energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
