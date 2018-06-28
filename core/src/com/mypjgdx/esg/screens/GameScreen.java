@@ -240,6 +240,8 @@ public class GameScreen extends AbstractGameScreen {
         super(game);
 
         stage = new Stage();
+        
+        BatteryBar.instance.batteryStorage = 1200000;
 
         isComplete.add(QuestState.quest1no);
         isComplete.add(QuestState.quest2no);
@@ -477,12 +479,12 @@ public class GameScreen extends AbstractGameScreen {
 
         powerGauge = new PowerGauge();
         stage.addActor(powerGauge);
-        powerGauge.setPosition(stage.getWidth()/2f, stage.getHeight()/1.075f, Align.center);
+        powerGauge.setPosition(stage.getWidth()/8f, stage.getHeight()/1.075f, Align.center);
         powerGauge.setPosition((int)powerGauge.getX(), (int)powerGauge.getY());
 
         batteryGauge = new BatteryGauge();
         stage.addActor(batteryGauge);
-        batteryGauge.setPosition(stage.getWidth()/1.5f, stage.getHeight()/1.075f, Align.center);
+        batteryGauge.setPosition(stage.getWidth()/3.5f, stage.getHeight()/1.075f, Align.center);
         batteryGauge.setPosition((int)batteryGauge.getX(), (int)batteryGauge.getY());
 
         buttonOption.addListener(new ClickListener() {

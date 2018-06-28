@@ -17,8 +17,8 @@ public class BatteryGauge extends Table {
     private static final int GAUGE_WIDTH = 88;
     private static final int GAUGE_HEIGHT = 22;
 
-    private float max = 1800000;
-    private float limit = 10000;
+    private float max = 7000000;
+    private float limit = 1000000;
 
     private TextureRegionDrawable redBg = new TextureRegionDrawable(new TextureRegion(Assets.instance.redBatteryGauge));
     private TextureRegionDrawable blueBg = new TextureRegionDrawable(new TextureRegion(Assets.instance.blueBatteryGauge));
