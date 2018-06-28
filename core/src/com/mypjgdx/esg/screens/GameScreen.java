@@ -493,15 +493,15 @@ public class GameScreen extends AbstractGameScreen {
         textBattery.setColor(0, 0, 0, 1);
         textBattery.setStyle(labelStyle);
         textBattery.setFontScale(1f, 1f);
-        textBattery.setPosition(475, SCENE_HEIGHT - 42);
-        //textBattery.setPosition((int)textBattery.getX(), (int)textBattery.getY());
+        textBattery.setPosition(stage.getWidth()/3f, stage.getHeight()/1.075f, Align.center);
+        textBattery.setPosition((int)textBattery.getX(), (int)textBattery.getY());
 
         textPower = new Label("", skin);
         textPower.setColor(0, 0, 0, 1);
         textPower.setStyle(labelStyle);
         textPower.setFontScale(1f, 1f);
-        textPower.setPosition(475, SCENE_HEIGHT - 42);
-        //textPower.setPosition((int)textBattery.getX(), (int)textBattery.getY());
+        textPower.setPosition(stage.getWidth()/7.5f, stage.getHeight()/1.075f, Align.center);
+        textPower.setPosition((int)textPower.getX(), (int)textPower.getY());
 
         buttonOption.addListener(new ClickListener() {
             @Override
@@ -1354,8 +1354,8 @@ public class GameScreen extends AbstractGameScreen {
 //        textBeam.setText(String.format(" %d", (int) SwordWaveBar.instance.energySwordWave) + " วัตต์");
 //        textTrap.setText(String.format(" %d", (int) TrapBar.instance.energyTrap) + " วัตต์");
         textTime.setText(String.format(" %d", worldController.level.player.timeCount) + " วินาที");
-        textBattery.setText(String.format(" %d", BatteryBar.instance.batteryStorage) + " / " + String.format(" %d", BatteryBar.instance.BATTERY_MAX) + "จูล");
-        textPower.setText(String.format(" %d", EnergyUsedBar.instance.energyUse) + " / " + String.format(" %d", EnergyProducedBar.instance.energyProduced) + "วัตต์");
+        textBattery.setText(String.format(" %d", (int)BatteryBar.instance.batteryStorage) + " / " + String.format(" %d", (int)BatteryBar.instance.BATTERY_MAX) + "จูล");
+        textPower.setText(String.format(" %d", (int)EnergyUsedBar.instance.energyUse) + " / " + String.format(" %d", (int)EnergyProducedBar.instance.energyProduced) + "วัตต์");
 //        textLiking.setText(String.format(" %d", (int) LikingBar.instance.liking));
 //        energyLevel.setText(String.format(" %d", (int) EnergyProducedBar.instance.energyProduced) + " วัตต์");
 //        energyLevel2.setText(String.format(" %d", (int) EnergyUsedBar.instance.energyUse) + " วัตต์");
