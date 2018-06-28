@@ -367,11 +367,11 @@ public class Assets implements Disposable, AssetErrorListener {
         redBatteryGauge = manager.get("red_battery_gauge.png");
         blueBatteryGauge = manager.get("blue_battery_gauge.png");
         limit = manager.get("limit.png");
-        
+
         icon_food_off = manager.get("icon_food_off.png");
         icon_food_on = manager.get("icon_food_on.png");
-        icon_temp_off = manager.get("icon_temp_off.png");
-        icon_temp_on = manager.get("icon_temp_on.png");
+        icon_temp_off = manager.get("icon_tem_off.png");
+        icon_temp_on = manager.get("icon_tem_on.png");
         icon_water_off = manager.get("icon_water_off.png");
         icon_water_on = manager.get("icon_water_on.png");
 
