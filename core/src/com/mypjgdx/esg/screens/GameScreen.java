@@ -234,6 +234,7 @@ public class GameScreen extends AbstractGameScreen {
 
 
     private PowerGauge powerGauge;
+    private BatteryGauge batteryGauge;
 
     public GameScreen(final Game game, final Window optionsWindow) {
         super(game);
@@ -478,6 +479,11 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(powerGauge);
         powerGauge.setPosition(stage.getWidth()/2f, stage.getHeight()/1.075f, Align.center);
         powerGauge.setPosition((int)powerGauge.getX(), (int)powerGauge.getY());
+
+        batteryGauge = new BatteryGauge();
+        stage.addActor(batteryGauge);
+        batteryGauge.setPosition(stage.getWidth()/1.5f, stage.getHeight()/1.075f, Align.center);
+        batteryGauge.setPosition((int)batteryGauge.getX(), (int)batteryGauge.getY());
 
         buttonOption.addListener(new ClickListener() {
             @Override
