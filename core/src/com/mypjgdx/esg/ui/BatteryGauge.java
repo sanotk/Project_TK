@@ -20,8 +20,8 @@ public class BatteryGauge extends Table {
     private float max = 1800000;
     private float limit = 10000;
 
-    private TextureRegionDrawable redBg = new TextureRegionDrawable(new TextureRegion(Assets.instance.redPowerGauge));
-    private TextureRegionDrawable blueBg = new TextureRegionDrawable(new TextureRegion(Assets.instance.bluePowerGauge));
+    private TextureRegionDrawable redBg = new TextureRegionDrawable(new TextureRegion(Assets.instance.redBatteryGauge));
+    private TextureRegionDrawable blueBg = new TextureRegionDrawable(new TextureRegion(Assets.instance.blueBatteryGauge));
 
     private TextureRegionDrawable whiteDrawable = new TextureRegionDrawable(new TextureRegion(Assets.instance.white));
 
