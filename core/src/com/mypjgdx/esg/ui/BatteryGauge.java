@@ -40,6 +40,7 @@ public class BatteryGauge extends Table {
     private float elapsed;
 
     public BatteryGauge() {
+        
         leftBlueGauge = whiteDrawable.tint(blue);
         leftRedGauge =  whiteDrawable.tint(red);
         rightBlueGauge = whiteDrawable.tint(blue);
@@ -67,18 +68,22 @@ public class BatteryGauge extends Table {
     }
 
     private void updateGauge(float delta, float battery) {
+
         float gaugePercent = Math.min((battery/ max), 1f);
+
         if (Math.abs(endPercent - gaugePercent) > 0.01f) {
             endPercent = gaugePercent;
             startPercent = currentPercent;
             elapsed = 0;
         }
+
         elapsed += delta;
         currentPercent = Math.min(1f, Interpolation.exp5.apply(startPercent, endPercent, Math.min(1f, elapsed/5f)));
         setGaugePercent(currentPercent);
     }
 
     private void setGaugePercent(float gaugePercent) {
+
         float limitPercent = Math.min((limit / max), 1f);
         float leftPercent = Math.min(gaugePercent, limitPercent);
         float rightPercent = Math.max(gaugePercent - limitPercent, 0f);
@@ -105,6 +110,7 @@ public class BatteryGauge extends Table {
             leftBar.setDrawable(leftBlueGauge);
             rightBar.setDrawable(rightBlueGauge);
         }
+
     }
 
     @Override
