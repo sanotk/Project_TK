@@ -40,7 +40,7 @@ public class BatteryGauge extends Table {
     private float elapsed;
 
     public BatteryGauge() {
-        
+
         leftBlueGauge = whiteDrawable.tint(blue);
         leftRedGauge =  whiteDrawable.tint(red);
         rightBlueGauge = whiteDrawable.tint(blue);
