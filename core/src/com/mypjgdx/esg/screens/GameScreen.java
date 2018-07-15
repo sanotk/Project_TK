@@ -140,6 +140,15 @@ public class GameScreen extends AbstractGameScreen {
     private Item item;
     private Label textBattery;
     private Label textPower;
+    private TextButton.TextButtonStyle buttonFoodStyle;
+    private TextButton.TextButtonStyle buttonWaterStyle;
+    private TextButton.TextButtonStyle buttonTempStyle;
+    private TextureRegionDrawable foodUp;
+    private TextureRegionDrawable waterUp;
+    private TextureRegionDrawable tempUp;
+    private Button buttonFood;
+    private Button buttonWater;
+    private Button buttonTemp;
 
     public enum systemWindow {
         citizen1,
