@@ -177,12 +177,12 @@ public class Assets implements Disposable, AssetErrorListener {
     public Texture blueBatteryGauge;
     public Texture redBatteryGauge;
 
-    public Texture icon_food_off;
-    public Texture icon_food_on;
-    public Texture icon_temp_off;
-    public Texture icon_temp_on;
-    public Texture icon_water_off;
-    public Texture icon_water_on;
+    public TextureRegion icon_food_off;
+    public TextureRegion icon_food_on;
+    public TextureRegion icon_temp_off;
+    public TextureRegion icon_temp_on;
+    public TextureRegion icon_water_off;
+    public TextureRegion icon_water_on;
 
     private Assets() {}
 

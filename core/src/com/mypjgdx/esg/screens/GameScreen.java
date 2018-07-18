@@ -314,21 +314,21 @@ public class GameScreen extends AbstractGameScreen {
     private void createButton() {
 
         buttonFoodStyle = new TextButton.TextButtonStyle();
-        foodUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_food_off"));
+        foodUp = new TextureRegionDrawable(Assets.instance.icon_food_off);
         buttonFoodStyle.up = toolUp;
         buttonFoodStyle.down = toolUp.tint(Color.LIME);
         buttonFood = new Button(buttonToolStyle);
         buttonFood.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 50);
 
         buttonTempStyle = new TextButton.TextButtonStyle();
-        tempUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_temp_off"));
+        tempUp = new TextureRegionDrawable(Assets.instance.icon_temp_off);
         buttonTempStyle.up = toolUp;
         buttonTempStyle.down = toolUp.tint(Color.LIME);
         buttonTemp = new Button(buttonToolStyle);
         buttonTemp.setPosition(SCENE_WIDTH - 50, SCENE_HEIGHT - 50);
 
         buttonWaterStyle = new TextButton.TextButtonStyle();
-        waterUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_water_off"));
+        waterUp = new TextureRegionDrawable(Assets.instance.icon_water_off);
         buttonWaterStyle.up = toolUp;
         buttonWaterStyle.down = toolUp.tint(Color.LIME);
         buttonWater = new Button(buttonToolStyle);
