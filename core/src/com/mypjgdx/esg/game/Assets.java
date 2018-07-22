@@ -368,12 +368,12 @@ public class Assets implements Disposable, AssetErrorListener {
         blueBatteryGauge = manager.get("blue_battery_gauge.png");
         limit = manager.get("limit.png");
 
-        icon_food_off = manager.get("icon_food_off.png");
-        icon_food_on = manager.get("icon_food_on.png");
-        icon_temp_off = manager.get("icon_tem_off.png");
-        icon_temp_on = manager.get("icon_tem_on.png");
-        icon_water_off = manager.get("icon_water_off.png");
-        icon_water_on = manager.get("icon_water_on.png");
+        icon_food_off = new TextureRegion((Texture)manager.get("icon_food_off.png"));
+        icon_food_on =  new TextureRegion((Texture)manager.get("icon_food_on.png"));
+        icon_temp_off =  new TextureRegion((Texture)manager.get("icon_tem_off.png"));
+        icon_temp_on =  new TextureRegion((Texture)manager.get("icon_tem_on.png"));
+        icon_water_off =  new TextureRegion((Texture)manager.get("icon_water_off.png"));
+        icon_water_on =  new TextureRegion((Texture)manager.get("icon_water_on.png"));
 
         rule1 = manager.get("rule1.png");
 

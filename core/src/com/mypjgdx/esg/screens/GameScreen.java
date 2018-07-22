@@ -315,23 +315,23 @@ public class GameScreen extends AbstractGameScreen {
 
         buttonFoodStyle = new TextButton.TextButtonStyle();
         foodUp = new TextureRegionDrawable(Assets.instance.icon_food_off);
-        buttonFoodStyle.up = toolUp;
-        buttonFoodStyle.down = toolUp.tint(Color.LIME);
-        buttonFood = new Button(buttonToolStyle);
+        buttonFoodStyle.up = foodUp;
+        buttonFoodStyle.down = foodUp.tint(Color.LIME);
+        buttonFood = new Button(buttonFoodStyle);
         buttonFood.setPosition(SCENE_WIDTH - SCENE_WIDTH/1.5f, SCENE_HEIGHT - SCENE_HEIGHT/10);
 
         buttonTempStyle = new TextButton.TextButtonStyle();
         tempUp = new TextureRegionDrawable(Assets.instance.icon_temp_off);
-        buttonTempStyle.up = toolUp;
-        buttonTempStyle.down = toolUp.tint(Color.LIME);
-        buttonTemp = new Button(buttonToolStyle);
+        buttonTempStyle.up = tempUp;
+        buttonTempStyle.down = tempUp.tint(Color.LIME);
+        buttonTemp = new Button(buttonTempStyle);
         buttonTemp.setPosition(SCENE_WIDTH - SCENE_WIDTH/1.5f, SCENE_HEIGHT - SCENE_HEIGHT/10);
 
         buttonWaterStyle = new TextButton.TextButtonStyle();
         waterUp = new TextureRegionDrawable(Assets.instance.icon_water_off);
-        buttonWaterStyle.up = toolUp;
-        buttonWaterStyle.down = toolUp.tint(Color.LIME);
-        buttonWater = new Button(buttonToolStyle);
+        buttonWaterStyle.up = waterUp;
+        buttonWaterStyle.down = waterUp.tint(Color.LIME);
+        buttonWater = new Button(buttonWaterStyle);
         buttonWater.setPosition(SCENE_WIDTH - SCENE_WIDTH/1.5f, SCENE_HEIGHT - SCENE_HEIGHT/10);
 
         buttonToolStyle = new TextButton.TextButtonStyle();
