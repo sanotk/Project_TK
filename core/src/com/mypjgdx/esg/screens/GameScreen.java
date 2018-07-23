@@ -484,6 +484,9 @@ public class GameScreen extends AbstractGameScreen {
 
         stage.addActor(dialog);
 
+        stage.addActor(buttonWater);
+        stage.addActor(buttonTemp);
+        stage.addActor(buttonFood);
         stage.addActor(buttonOption);
         stage.addActor(buttonAgree);
         stage.addActor(buttonRefuse);
