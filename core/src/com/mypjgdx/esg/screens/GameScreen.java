@@ -318,21 +318,21 @@ public class GameScreen extends AbstractGameScreen {
         buttonFoodStyle.up = foodUp;
         buttonFoodStyle.down = foodUp.tint(Color.LIME);
         buttonFood = new Button(buttonFoodStyle);
-        buttonFood.setPosition(SCENE_WIDTH - SCENE_WIDTH/1.5f, SCENE_HEIGHT - SCENE_HEIGHT/10);
+        buttonFood.setPosition(SCENE_WIDTH - SCENE_WIDTH/2.5f, SCENE_HEIGHT - SCENE_HEIGHT/10);
 
         buttonTempStyle = new TextButton.TextButtonStyle();
         tempUp = new TextureRegionDrawable(Assets.instance.icon_temp_off);
         buttonTempStyle.up = tempUp;
         buttonTempStyle.down = tempUp.tint(Color.LIME);
         buttonTemp = new Button(buttonTempStyle);
-        buttonTemp.setPosition(SCENE_WIDTH - SCENE_WIDTH/1.5f, SCENE_HEIGHT - SCENE_HEIGHT/10);
+        buttonTemp.setPosition(SCENE_WIDTH - SCENE_WIDTH/3f, SCENE_HEIGHT - SCENE_HEIGHT/10);
 
         buttonWaterStyle = new TextButton.TextButtonStyle();
         waterUp = new TextureRegionDrawable(Assets.instance.icon_water_off);
         buttonWaterStyle.up = waterUp;
         buttonWaterStyle.down = waterUp.tint(Color.LIME);
         buttonWater = new Button(buttonWaterStyle);
-        buttonWater.setPosition(SCENE_WIDTH - SCENE_WIDTH/1.5f, SCENE_HEIGHT - SCENE_HEIGHT/10);
+        buttonWater.setPosition(SCENE_WIDTH - SCENE_WIDTH/3.5f, SCENE_HEIGHT - SCENE_HEIGHT/10);
 
         buttonToolStyle = new TextButton.TextButtonStyle();
         toolUp = new TextureRegionDrawable(Assets.instance.uiBlue.findRegion("icon_tools"));
