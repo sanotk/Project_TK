@@ -1,9 +1,9 @@
 package com.mypjgdx.esg.utils;
 
-public class Focus {
+public class FocusCamera {
     public boolean focus1;
 
-    public Focus(){
-        
+    public FocusCamera(){
+
     }
 }
