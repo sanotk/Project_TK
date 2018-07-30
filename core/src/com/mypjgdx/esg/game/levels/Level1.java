@@ -162,8 +162,9 @@ public class Level1 extends Level {
                     false, true);
             batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             batch.end();
-        }
-        else {
+        }else if(player.focus1){
+
+        }else {
             batch.begin();
             batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
             batch.draw(lightFbo.getColorBufferTexture(),
