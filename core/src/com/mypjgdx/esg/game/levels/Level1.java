@@ -10,9 +10,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.*;
+import com.mypjgdx.esg.utils.FocusCamera;
 
 public class Level1 extends Level {
 
+    public FocusCamera focusCamera;
     public Citizen citizen1;
     public Citizen citizen2;
     public Citizen citizen3;
@@ -162,7 +164,7 @@ public class Level1 extends Level {
                     false, true);
             batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             batch.end();
-        }else if(player.focus1){
+        }else if(focusCamera.getFocus1()){
 
         }else {
             batch.begin();
