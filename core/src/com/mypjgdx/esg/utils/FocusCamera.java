@@ -6,4 +6,8 @@ public class FocusCamera {
     public FocusCamera(){
 
     }
+
+    public void update(){
+        
+    }
 }
