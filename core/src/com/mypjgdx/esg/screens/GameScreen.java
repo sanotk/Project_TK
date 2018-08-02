@@ -254,6 +254,7 @@ public class GameScreen extends AbstractGameScreen {
         super(game);
 
         stage = new Stage();
+        
         focusCamera = new FocusCamera();
         focusCamera.setFocus1(true);
 
