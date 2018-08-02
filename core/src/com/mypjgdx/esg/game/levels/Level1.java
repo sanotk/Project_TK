@@ -102,9 +102,10 @@ public class Level1 extends Level {
         enemies.add(new PepoKnight(mapLayer, player));
         enemies.add(new PepoKnight(mapLayer, player));
         enemies.add(new PepoKnight(mapLayer, player));
-        for (Enemy enemy : enemies) {
-            enemy.setDroppedItems(droppedItems);
-        }
+
+//        for (Enemy enemy : enemies) {
+//            enemy.setDroppedItems(droppedItems);
+//        }
 
         citizen1 = new Citizen1(mapLayer, player);
         citizen2 = new Citizen2(mapLayer, player);
