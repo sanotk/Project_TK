@@ -49,6 +49,7 @@ public class Level1 extends Level {
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
         player = new Player(mapLayer, 100, 1000);
+        focusCamera = new FocusCamera();
 
         switchItem = new Switch(mapLayer, player);
         television = new Television(mapLayer, player);
@@ -150,7 +151,7 @@ public class Level1 extends Level {
 
     @Override
     public void renderFbo(SpriteBatch batch, OrthographicCamera camera, FrameBuffer lightFbo) {
-        if(player.isSwitch){
+        if (player.isSwitch) {
             batch.begin();
             batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             batch.draw(lightFbo.getColorBufferTexture(),
@@ -165,11 +166,22 @@ public class Level1 extends Level {
                     false, true);
             batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             batch.end();
-        }
-//          else if(focusCamera.getFocus1()){
-//
-//        }
-            else {
+        } else if (focusCamera.getFocus1()) {
+            batch.begin();
+            batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
+            batch.draw(lightFbo.getColorBufferTexture(),
+                    camera.position.x - camera.viewportWidth * camera.zoom / 2,
+                    camera.position.y - camera.viewportHeight * camera.zoom / 2,
+                    0, 0,
+                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
+                    1 * camera.zoom, 1 * camera.zoom,
+                    0,
+                    0, 0,
+                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
+                    false, true);
+            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            batch.end();
+        } else {
             batch.begin();
             batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
             batch.draw(lightFbo.getColorBufferTexture(),
@@ -199,6 +211,22 @@ public class Level1 extends Level {
                     player.getPositionX() + player.origin.x
                             - Assets.instance.light.getWidth() / 2f,
                     player.getPositionY() + player.origin.y
+                            - Assets.instance.light.getHeight() / 2f);
+            batch.end();
+        } else if (focusCamera.getFocus1()) {
+            Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.begin();
+            batch.setColor(1, 1, 1, 1);
+            batch.draw(Assets.instance.light,
+                    player.getPositionX() + player.origin.x
+                            - Assets.instance.light.getWidth() / 2f,
+                    player.getPositionY() + player.origin.y
+                            - Assets.instance.light.getHeight() / 2f);
+            batch.draw(Assets.instance.light,
+                    microwave.p_x + switchItem.origin.x
+                            - Assets.instance.light.getWidth() / 2f,
+                    microwave.p_y + switchItem.origin.y
                             - Assets.instance.light.getHeight() / 2f);
             batch.end();
         } else {
