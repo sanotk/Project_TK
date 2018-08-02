@@ -224,9 +224,9 @@ public class Level1 extends Level {
                     player.getPositionY() + player.origin.y
                             - Assets.instance.light.getHeight() / 2f);
             batch.draw(Assets.instance.light,
-                    microwave.p_x + switchItem.origin.x
+                    microwave.p_x + microwave.origin.x
                             - Assets.instance.light.getWidth() / 2f,
-                    microwave.p_y + switchItem.origin.y
+                    microwave.p_y + microwave.origin.y
                             - Assets.instance.light.getHeight() / 2f);
             batch.end();
         } else {
