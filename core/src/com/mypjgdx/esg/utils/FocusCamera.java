@@ -9,7 +9,7 @@ public class FocusCamera {
 //    private boolean focus5;
 
     public void setFocus1(boolean focus1){
-        focus1 = focus1;
+        this.focus1 = focus1;
     }
 
     public boolean getFocus1(){
