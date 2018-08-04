@@ -13,6 +13,7 @@ public class FocusCamera {
     }
 
     public boolean getFocus1(){
+
         return focus1;
     }
 }
