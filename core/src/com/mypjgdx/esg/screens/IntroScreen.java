@@ -31,38 +31,38 @@ public class IntroScreen extends AbstractGameScreen {
 	private Viewport viewport;
     private Stage stage;
 
-	private BitmapFont font;
-	private Texture dialogBackground;
-	private Dialog dialog;
+        private BitmapFont font;
+        private Texture dialogBackground;
+        private Dialog dialog;
 
-    private Window optionsWindow;
+        private Window optionsWindow;
 
-    private String text =
-		        "\"ในปี พ.ศ.2xxx ได้เกิดสงครามโลกครั้งที่ 3\" \n\"โดยมีการใช้อาวุธนิวเคลียร์\" \n\"ส่งผลให้พื้นที่ส่วนใหญ่ในโลกเกิดสภาวะอากาศปนเปื้อน\" \n\"หลังจากสงครามจบลงบนพื้นโลกไม่สามารถอาศัยอยู่ได้ \"\n\"มนุษย์จึงต้องอพยพไปอาศัยอยู่ภายในสถานที่หลบภัย\""
-		        + "\n\"คุณคือเจ้าหน้าที่หน่วยพิเศษที่ต้องไปทำภารกิจสำรวจที่หลบภัย\"\n\"และใช้ทรัพยากรที่มีอยู่อย่างจำกัดในทีหลบภัย\"\n\"ทำให้ทุกคนในที่หลบภัยใช้ชีวิตอยู่ได้อย่างปกติสุข\"\n\"";
+        private String text =
+                "\"ในปี พ.ศ.2xxx ได้เกิดสงครามโลกครั้งที่ 3\" \n\"โดยมีการใช้อาวุธนิวเคลียร์\" \n\"ส่งผลให้พื้นที่ส่วนใหญ่ในโลกเกิดสภาวะอากาศปนเปื้อน\" \n\"หลังจากสงครามจบลงบนพื้นโลกไม่สามารถอาศัยอยู่ได้ \"\n\"มนุษย์จึงต้องอพยพไปอาศัยอยู่ภายในสถานที่หลบภัย\""
+                        + "\n\"คุณคือเจ้าหน้าที่หน่วยพิเศษที่ต้องไปทำภารกิจสำรวจที่หลบภัย\"\n\"และใช้ทรัพยากรที่มีอยู่อย่างจำกัดในทีหลบภัย\"\n\"ทำให้ทุกคนในที่หลบภัยใช้ชีวิตอยู่ได้อย่างปกติสุข\"\n\"";
 
     public IntroScreen(final Game game, final Window optionsWindow) {
-        super(game);
-        camera = new OrthographicCamera();
-        viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT, camera);
-		batch = new SpriteBatch();
-		stage = new Stage(viewport, batch);
+            super(game);
+            camera = new OrthographicCamera();
+            viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT, camera);
+            batch = new SpriteBatch();
+            stage = new Stage(viewport, batch);
 
-        font = Assets.instance.newFont;
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            font = Assets.instance.newFont;
+            font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 //        font.setColor(Color.BLACK);
 
-		dialogBackground = new Texture("dialog.png");
-		dialogBackground.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+            dialogBackground = new Texture("dialog.png");
+            dialogBackground.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-        this.optionsWindow = optionsWindow;
+            this.optionsWindow = optionsWindow;
 
-		dialog = new Dialog(font, dialogBackground, 65f, 250f);
-		dialog.setPosition(
-		        SCENE_WIDTH/2-dialogBackground.getWidth()*0.5f,
-		        SCENE_HEIGHT/2-dialogBackground.getHeight()*0.5f);
-		dialog.setText(text);
-		dialog.setColor(Color.BLACK);
+            dialog = new Dialog(font, dialogBackground, 65f, 250f);
+            dialog.setPosition(
+                    SCENE_WIDTH/2-dialogBackground.getWidth()*0.5f,
+                    SCENE_HEIGHT/2-dialogBackground.getHeight()*0.5f);
+            dialog.setText(text);
+            dialog.setColor(Color.BLACK);
 
         dialog.addListener(new InputListener() {
             @Override
