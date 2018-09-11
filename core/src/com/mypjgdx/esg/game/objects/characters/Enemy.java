@@ -336,7 +336,7 @@ public abstract class Enemy extends AnimatedObject implements Damageable, Json.S
 
     public void die() {
         color = Color.GRAY;
-        dropItem();
+        //dropItem();
     }
 
     public void dropItem() {
