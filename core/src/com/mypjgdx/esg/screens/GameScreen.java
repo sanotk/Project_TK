@@ -496,20 +496,20 @@ public class GameScreen extends AbstractGameScreen {
         stage.addActor(buttonOption);
         stage.addActor(buttonAgree);
         stage.addActor(buttonRefuse);
-        stage.addActor(buttonMission);
-        stage.addActor(buttonControl);
-        stage.addActor(buttonStatus);
-        stage.addActor(buttonGuide);
+//        stage.addActor(buttonMission);
+//        stage.addActor(buttonControl);
+//        stage.addActor(buttonStatus);
+//        stage.addActor(buttonGuide);
         stage.addActor(buttonControlWindow);
         stage.addActor(iconHuman);
         stage.addActor(iconItem);
         stage.addActor(buttonPlay);
         stage.addActor(buttonPause);
         stage.addActor(iconEnergyLess);
-        stage.addActor(iconGuide);
-        stage.addActor(iconControl);
-        stage.addActor(iconMission);
-        stage.addActor(iconStatus);
+//        stage.addActor(iconGuide);
+//        stage.addActor(iconControl);
+//        stage.addActor(iconMission);
+//        stage.addActor(iconStatus);
         stage.addActor(buttonGuideWindow);
 
         stage.addActor(optionsWindow);
