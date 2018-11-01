@@ -51,7 +51,7 @@ public class GameOverScreen extends AbstractGameScreen {
         text_gameover = new Label("ภารกิจล้มเหลว!" ,labelStyle);
         text_gameover.setColor(Color.RED);
         text_gameover.setFontScale(1f,1f);
-        text_gameover.setPosition(SCENE_WIDTH / 2 - btn_w / 1.6f , SCENE_HEIGHT - 175);
+        text_gameover.setPosition(SCENE_WIDTH / 2 - btn_w / 1.6f - 20, SCENE_HEIGHT - 175);
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = new NinePatchDrawable(Assets.instance.uiRed.createPatch("button_04"));
