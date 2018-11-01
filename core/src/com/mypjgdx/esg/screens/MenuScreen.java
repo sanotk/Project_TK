@@ -71,7 +71,7 @@ public class MenuScreen extends AbstractGameScreen {
         text_mainmenu = new Label("เกมประหยัดพลังงาน", skin);
         text_mainmenu.setColor(1, 1, 1, 1);
         text_mainmenu.setFontScale(1f, 1f);
-        text_mainmenu.setPosition(SCENE_WIDTH / 3+43, 450);
+        text_mainmenu.setPosition(SCENE_WIDTH / 3+30, 450);
 
         text_mainmenu.setStyle(labelStyle);
 

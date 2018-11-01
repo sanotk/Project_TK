@@ -1406,196 +1406,196 @@ public class GameScreen extends AbstractGameScreen {
         Player player = worldController.level.player;
         Level1 level1= (Level1) worldController.level;
 
-        if (!dialogStart) {
-            dialogAll();
-            dialog.setText(text);
-            dialogStart = true;
-            delayMission();
-            timeEvent = player.timeCount - 1;
-        }
-
-        if (player.requestTrap && !dialogTrap) {
-            player.requestTrap = false;
-            trapShow = true;
-            dialogAll();
-            String text =
-                    "\"ต้องการวางกับดักหรือไม่ กับดัก 1 อันใช้กำลังไฟฟ้า 100 วัตต์ เมื่อกับดักถูกทำลายถึงจะได้กำลังไฟฟ้าที่ใช้อยู่คืน\" \n\"(กดปุ่มตกลงเพื่อวางกับดัก หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการวางกับดัก)\"";
-            buttonAgree.setVisible(true);
-            buttonRefuse.setVisible(true);
-            dialog.setText(text);
-        } else if (player.requestTrap && dialogTrap) {
-            player.requestTrap = false;
-            player.acceptTrap = true;
-            trapShow = false;
-        }
-
-        if (player.requestSwordWave && !dialogSwordWave) {
-            player.requestSwordWave = false;
-            swordShow = true;
-            dialogAll();
-            String text =
-                    "\"ต้องการใช้ท่าคลื่นดาบหรือไม่ ใช้ 1 ครั้ง เสียกำลังไฟฟ้า 1000 วัตต์ เป็นเวลา 10 วินาที\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
-            buttonAgree.setVisible(true);
-            buttonRefuse.setVisible(true);
-            dialog.setText(text);
-        } else if (player.requestSwordWave && dialogSwordWave) {
-            player.requestSwordWave = false;
-            player.acceptSwordWave = true;
-            swordShow = false;
-        }
-
-        if ((level1.gate.nearPlayer()) && (player.status_find)) {
-            if (!animation_status && stageTwoClear && !stageThreeClear && !dialogDoor3) {
-                dialogDoor3 = true;
-                dialogAll();
-                String text =
-                        "\"พลังงานมีไม่เพียงพอใช้ในห้องถัดไป กรุณาปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเสียก่อน\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
-                dialog.setText(text);
-                delayMission();
-            } else if (animation_status && stageThreeClear && !dialogDoor4) {
-                dialogDoor4 = true;
-                chartStatus();
-            }
-        }
-
-        if (!dialogEnemy && player.timeCount <= 298) {
-            for (int i = 0; i < worldController.level.enemies.size(); i++) {
-                Enemy enemy = worldController.level.enemies.get(i);
-                if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
-                    dialogEnemy = true;
-                    dialogAll();
-                    String text =
-                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว(กด Enter เพื่อเล่นเกมต่อ)\"";
-                    dialog.setText(text);
-                    iconMission.setVisible(false);
-                }
-            }
-        }
-
-        if (player.stageOneClear && !dialogCitizen && player.isSwitch) {
-            level1.enemies.clear();
-            dialogCitizen = true;
-            dialogAll();
-            String text =
-                    "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
-            dialog.setText(text);
-            timeEvent = player.timeCount - 1;
-            missionStart = false;
-            System.out.print(player.timeCount);
-            textMission1.setStyle(labelStyle2);
-            textMission2.setText("ภารกิจที่สอง สอบถามประชาชนที่เข้ามาอาศัยในที่หลบภัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)");
-            delayMission();
-        }
-
-
-        if (questCount == 6 && !animation_status) {
-            if(level1.refrigerator.state == Item.ItemState.OFF && !lose){
-                lose = true;
-                dialogAll();
-                String text =
-                        "\"ไม่ได้เอาเสบียงแช่ตู้เย็น ทำให้อาหารทั้งหมดเน่าเสีย ภารกิจล้มเหลว\"";
-                level1.gate.state = Item.ItemState.OFF;
-                dialog.setText(text);
-                textMission2.setStyle(labelStyle2);
-            } else if(level1.riceCooker.state == Item.ItemState.OFF && !lose){
-                lose = true;
-                dialogAll();
-                String text =
-                        "\"ประชาชนไม่ได้ทานอาหาร ส่งผลต่อเนื่องให้ล้มป่วยและเสียชีวิต ภารกิจล้มเหลว\"";
-                level1.gate.state = Item.ItemState.OFF;
-                dialog.setText(text);
-                textMission2.setStyle(labelStyle2);
-            } else if (!lose && EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
-                dialogStage4 = true;
-                stageTwoClear = true;
-                stageThreeClear = true;
-                animation_status = true;
-                dialogAll();
-                level1.gate.state = Item.ItemState.ON;
-                timeEvent = player.timeCount - 1;
-                String text =
-                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและไม่มีเหตุการณ์อะไรผิดปกติ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
-                dialog.setText(text);
-                textMission2.setStyle(labelStyle2);
-                textMission3.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังห้องถัดไปได้แล้ว");
-                delayStatus();
-            } else if (!lose && EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
-                dialogStage4fail = true;
-                stageTwoClear = true;
-                dialogAll();
-                String text =
-                        "\"อันตราย! คุณตามใจประชาชนมากเกินไปทำให้กำลังไฟฟ้าที่ใช้งานมากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
-                level1.gate.state = Item.ItemState.OFF;
-                dialog.setText(text);
-                textMission2.setStyle(labelStyle2);
-                //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
-                delayStatus();
-            }
-        }
-
-        if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogWarning) {
-            dialogWarning = true;
-            dialogAll();
-            String text =
-                    "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กด Enter เพื่อเล่นเกมต่อ)\"";
-            dialog.setText(text);
-        }
-
-        if (player.isSwitch) {
-            if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
-                String text =
-                        "\"ต้องการเปิดเครื่องปรับอากาศให้อุณหภูมิซัก 15 องศา เพราะผมชอบที่หนาวๆ\""
-                                + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า " + level1.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
-                dialogCitizenDetail();
-                dialog.setText(text);
-                citizenQuest = systemWindow.citizen1;
-            } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
-                String text =
-                        "\"ผมหิว อยากใช้ไมโครเวฟอุ่นอาหารแช่แข็งกินเพียงคนเดียว " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level1.computer.getEnergyBurn() + " วัตต์ )\" ";
-                dialogCitizenDetail();
-                dialog.setText(text);
-                citizenQuest = systemWindow.citizen2;
-            } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
-                String text =
-                        "\"น่าเบื่อมาก ผมอยากเล่นเกมคอมพิวเตอร์\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level1.computer.getEnergyBurn() + " วัตต์ )\" ";
-                dialogCitizenDetail();
-                dialog.setText(text);
-                citizenQuest = systemWindow.citizen3;
-            } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
-                String text =
-                        "\"ผมคิดว่าพวกเราน่าจะนำเสบียงอาหารที่เหลือไปแช่ตู้เย็นเพื่อถนอมไว้กินนานๆ\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level1.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
-                dialogCitizenDetail();
-                dialog.setText(text);
-                citizenQuest = systemWindow.citizen4;
-            } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
-                player.timeStop = true;
-                player.status_find = false;
-                String text =
-                        "\"พวกเราหลายคนน่าจะเริ่มหิวกันแล้ว ผมอยากหุงข้าวกินกันกับทุกคน\" " + "\n\"( หม้อหุงข้าวใช้กำลังไฟฟ้า " + level1.riceCooker.getEnergyBurn() + " วัตต์ )\" ";
-                dialogCitizenDetail();
-                citizenQuest = systemWindow.citizen5;
-                dialog.setText(text);
-            } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
-                String text =
-                        "\"ผมขอเปิดโทรทัศน์ดูหนังได้รึเปล่า\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level1.television.getEnergyBurn() + " วัตต์ )\" ";
-                dialogCitizenDetail();
-                dialog.setText(text);
-                citizenQuest = systemWindow.citizen6;
-            }
-        }
-
-        if (player.timeCount <= timeEvent && !missionStart) {
-            missionStart = true;
-            missionWindow.pack();
-            missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            player.timeStop = true;
-        }
-
-        if (player.timeCount <= timeEvent && !statusStart && stageThreeClear) {
-            statusStart = true;
-            status();
-            player.timeStop = true;
-        }
+//        if (!dialogStart) {
+//            dialogAll();
+//            dialog.setText(text);
+//            dialogStart = true;
+//            delayMission();
+//            timeEvent = player.timeCount - 1;
+//        }
+//
+//        if (player.requestTrap && !dialogTrap) {
+//            player.requestTrap = false;
+//            trapShow = true;
+//            dialogAll();
+//            String text =
+//                    "\"ต้องการวางกับดักหรือไม่ กับดัก 1 อันใช้กำลังไฟฟ้า 100 วัตต์ เมื่อกับดักถูกทำลายถึงจะได้กำลังไฟฟ้าที่ใช้อยู่คืน\" \n\"(กดปุ่มตกลงเพื่อวางกับดัก หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการวางกับดัก)\"";
+//            buttonAgree.setVisible(true);
+//            buttonRefuse.setVisible(true);
+//            dialog.setText(text);
+//        } else if (player.requestTrap && dialogTrap) {
+//            player.requestTrap = false;
+//            player.acceptTrap = true;
+//            trapShow = false;
+//        }
+//
+//        if (player.requestSwordWave && !dialogSwordWave) {
+//            player.requestSwordWave = false;
+//            swordShow = true;
+//            dialogAll();
+//            String text =
+//                    "\"ต้องการใช้ท่าคลื่นดาบหรือไม่ ใช้ 1 ครั้ง เสียกำลังไฟฟ้า 1000 วัตต์ เป็นเวลา 10 วินาที\" \n\"(กดปุ่มตกลงเพื่อใช้ท่าคลื่นดาบ หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการใช้)\"";
+//            buttonAgree.setVisible(true);
+//            buttonRefuse.setVisible(true);
+//            dialog.setText(text);
+//        } else if (player.requestSwordWave && dialogSwordWave) {
+//            player.requestSwordWave = false;
+//            player.acceptSwordWave = true;
+//            swordShow = false;
+//        }
+//
+//        if ((level1.gate.nearPlayer()) && (player.status_find)) {
+//            if (!animation_status && stageTwoClear && !stageThreeClear && !dialogDoor3) {
+//                dialogDoor3 = true;
+//                dialogAll();
+//                String text =
+//                        "\"พลังงานมีไม่เพียงพอใช้ในห้องถัดไป กรุณาปิดเครื่องใช้ไฟฟ้าที่ไม่จำเป็นเสียก่อน\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
+//                dialog.setText(text);
+//                delayMission();
+//            } else if (animation_status && stageThreeClear && !dialogDoor4) {
+//                dialogDoor4 = true;
+//                chartStatus();
+//            }
+//        }
+//
+//        if (!dialogEnemy && player.timeCount <= 298) {
+//            for (int i = 0; i < worldController.level.enemies.size(); i++) {
+//                Enemy enemy = worldController.level.enemies.get(i);
+//                if (enemy.stateMachine.getCurrentState() == EnemyState.RUN_TO_PLAYER && !enemy.count) {
+//                    dialogEnemy = true;
+//                    dialogAll();
+//                    String text =
+//                            "\"ได้ยินเสียงของอะไรบางอย่างกำลังเคลื่อนไหวใกล้เข้ามา\" \n\"โปรดระวังตัว(กด Enter เพื่อเล่นเกมต่อ)\"";
+//                    dialog.setText(text);
+//                    iconMission.setVisible(false);
+//                }
+//            }
+//        }
+//
+//        if (player.stageOneClear && !dialogCitizen && player.isSwitch) {
+//            level1.enemies.clear();
+//            dialogCitizen = true;
+//            dialogAll();
+//            String text =
+//                    "\"ดูเหมือนจะไม่มีอันตรายแล้ว ลองสอบถามประชาชนที่เข้ามาอาศัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)\" \n\"(กด     เพื่อตรวจสอบภารกิจ หรือกด Enter เพื่อเล่นต่อ)\"";
+//            dialog.setText(text);
+//            timeEvent = player.timeCount - 1;
+//            missionStart = false;
+//            System.out.print(player.timeCount);
+//            textMission1.setStyle(labelStyle2);
+//            textMission2.setText("ภารกิจที่สอง สอบถามประชาชนที่เข้ามาอาศัยในที่หลบภัย (สอบถามได้โดยกดปุ่มคุยกับประชาชน)");
+//            delayMission();
+//        }
+//
+//
+//        if (questCount == 6 && !animation_status) {
+//            if(level1.refrigerator.state == Item.ItemState.OFF && !lose){
+//                lose = true;
+//                dialogAll();
+//                String text =
+//                        "\"ไม่ได้เอาเสบียงแช่ตู้เย็น ทำให้อาหารทั้งหมดเน่าเสีย ภารกิจล้มเหลว\"";
+//                level1.gate.state = Item.ItemState.OFF;
+//                dialog.setText(text);
+//                textMission2.setStyle(labelStyle2);
+//            } else if(level1.riceCooker.state == Item.ItemState.OFF && !lose){
+//                lose = true;
+//                dialogAll();
+//                String text =
+//                        "\"ประชาชนไม่ได้ทานอาหาร ส่งผลต่อเนื่องให้ล้มป่วยและเสียชีวิต ภารกิจล้มเหลว\"";
+//                level1.gate.state = Item.ItemState.OFF;
+//                dialog.setText(text);
+//                textMission2.setStyle(labelStyle2);
+//            } else if (!lose && EnergyProducedBar.instance.energyProduced > EnergyUsedBar.instance.energyUse && !dialogStage4) {
+//                dialogStage4 = true;
+//                stageTwoClear = true;
+//                stageThreeClear = true;
+//                animation_status = true;
+//                dialogAll();
+//                level1.gate.state = Item.ItemState.ON;
+//                timeEvent = player.timeCount - 1;
+//                String text =
+//                        "\"ทำได้ดีมาก ดูเหมือนว่าประชาชนจะพอใจและไม่มีเหตุการณ์อะไรผิดปกติ\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+//                dialog.setText(text);
+//                textMission2.setStyle(labelStyle2);
+//                textMission3.setText("ยินดีด้วยคุณทำภารกิจทั้งหมดเสร็จสิ้น สามารถเข้าไปยังห้องถัดไปได้แล้ว");
+//                delayStatus();
+//            } else if (!lose && EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogStage4fail) {
+//                dialogStage4fail = true;
+//                stageTwoClear = true;
+//                dialogAll();
+//                String text =
+//                        "\"อันตราย! คุณตามใจประชาชนมากเกินไปทำให้กำลังไฟฟ้าที่ใช้งานมากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กด     เพื่อดูข้อมูลการใช้พลังงาน หรือกด Enter เพื่อเล่นตอ)\"";
+//                level1.gate.state = Item.ItemState.OFF;
+//                dialog.setText(text);
+//                textMission2.setStyle(labelStyle2);
+//                //textMission3.setText("ภารกิจที่สาม รีบปิดเครื่องใช้ไฟ");
+//                delayStatus();
+//            }
+//        }
+//
+//        if (EnergyProducedBar.instance.energyProduced < EnergyUsedBar.instance.energyUse && !dialogWarning) {
+//            dialogWarning = true;
+//            dialogAll();
+//            String text =
+//                    "\"อันตราย! กำลังไฟฟ้าที่ใช้มากกว่ากำลังไฟฟ้าที่ผลิต\" \n\"(กด Enter เพื่อเล่นเกมต่อ)\"";
+//            dialog.setText(text);
+//        }
+//
+//        if (player.isSwitch) {
+//            if (player.stageOneClear && player.status_find && player.questScreen1 && !player.quest_window_1) {
+//                String text =
+//                        "\"ต้องการเปิดเครื่องปรับอากาศให้อุณหภูมิซัก 15 องศา เพราะผมชอบที่หนาวๆ\""
+//                                + "\n\"( เครื่องปรับอากาศใช้พลังงานไฟฟ้า " + level1.airConditioner.getEnergyBurn() + " วัตต์ )\" ";
+//                dialogCitizenDetail();
+//                dialog.setText(text);
+//                citizenQuest = systemWindow.citizen1;
+//            } else if (player.stageOneClear && player.status_find && player.questScreen2 && !player.quest_window_2) {
+//                String text =
+//                        "\"ผมหิว อยากใช้ไมโครเวฟอุ่นอาหารแช่แข็งกินเพียงคนเดียว " + "\n\"( ไมโครเวฟใช้กำลังไฟฟ้า " + level1.computer.getEnergyBurn() + " วัตต์ )\" ";
+//                dialogCitizenDetail();
+//                dialog.setText(text);
+//                citizenQuest = systemWindow.citizen2;
+//            } else if (player.stageOneClear && player.status_find && player.questScreen3 && !player.quest_window_3) {
+//                String text =
+//                        "\"น่าเบื่อมาก ผมอยากเล่นเกมคอมพิวเตอร์\"" + "\n\"( คอมพิวเตอร์ใช้กำลังไฟฟ้า " + level1.computer.getEnergyBurn() + " วัตต์ )\" ";
+//                dialogCitizenDetail();
+//                dialog.setText(text);
+//                citizenQuest = systemWindow.citizen3;
+//            } else if (player.stageOneClear && player.status_find && player.questScreen4 && !player.quest_window_4) {
+//                String text =
+//                        "\"ผมคิดว่าพวกเราน่าจะนำเสบียงอาหารที่เหลือไปแช่ตู้เย็นเพื่อถนอมไว้กินนานๆ\" \"" + "\n\"( ตู้เย็นใช้กำลังไฟฟ้า " + level1.refrigerator.getEnergyBurn() + " วัตต์ )\" ";
+//                dialogCitizenDetail();
+//                dialog.setText(text);
+//                citizenQuest = systemWindow.citizen4;
+//            } else if (player.stageOneClear && player.status_find && player.questScreen5 && !player.quest_window_5) {
+//                player.timeStop = true;
+//                player.status_find = false;
+//                String text =
+//                        "\"พวกเราหลายคนน่าจะเริ่มหิวกันแล้ว ผมอยากหุงข้าวกินกันกับทุกคน\" " + "\n\"( หม้อหุงข้าวใช้กำลังไฟฟ้า " + level1.riceCooker.getEnergyBurn() + " วัตต์ )\" ";
+//                dialogCitizenDetail();
+//                citizenQuest = systemWindow.citizen5;
+//                dialog.setText(text);
+//            } else if (player.stageOneClear && player.status_find && player.questScreen6 && !player.quest_window_6) {
+//                String text =
+//                        "\"ผมขอเปิดโทรทัศน์ดูหนังได้รึเปล่า\" " + "\n\"( โทรทัศน์ใช้กำลังไฟฟ้า " + level1.television.getEnergyBurn() + " วัตต์ )\" ";
+//                dialogCitizenDetail();
+//                dialog.setText(text);
+//                citizenQuest = systemWindow.citizen6;
+//            }
+//        }
+//
+//        if (player.timeCount <= timeEvent && !missionStart) {
+//            missionStart = true;
+//            missionWindow.pack();
+//            missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+//            player.timeStop = true;
+//        }
+//
+//        if (player.timeCount <= timeEvent && !statusStart && stageThreeClear) {
+//            statusStart = true;
+//            status();
+//            player.timeStop = true;
+//        }
     }
 
     private void dialogAll() {

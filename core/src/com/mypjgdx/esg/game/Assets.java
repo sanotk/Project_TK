@@ -522,10 +522,10 @@ public class Assets implements Disposable, AssetErrorListener {
         parameter2.size = 45;
         parameter1.characters = characters;
         parameter2.characters = characters;
-        newFont = generator2.generateFont(parameter1); // font size 12 pixels
+        newFont = generator1.generateFont(parameter1); // font size 12 pixels
         newFont.getData().setLineHeight(25f);
         newFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        newFontBig = generator2.generateFont(parameter2); // font size 12 pixels
+        newFontBig = generator1.generateFont(parameter2); // font size 12 pixels
         newFontBig.getData().setLineHeight(25f);
         newFontBig.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         generator1.dispose(); // don't forget to dispose to avoid memory leaks!
