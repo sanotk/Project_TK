@@ -159,6 +159,8 @@ public class MenuScreen extends AbstractGameScreen {
             }
         });
 
+        buttonLevel.setVisible(false);
+
         buttonExit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
