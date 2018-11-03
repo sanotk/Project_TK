@@ -279,15 +279,15 @@ public class GameScreen extends AbstractGameScreen {
 
         swordAttackButton = new SwordAttackButton();
         stage.addActor(swordAttackButton);
-        swordAttackButton.setPosition(stage.getWidth() - swordAttackButton.getWidth(), 140);
+        swordAttackButton.setPosition(stage.getWidth() - swordAttackButton.getWidth() -20, 160);
 
         swordWaveAttackButton = new SwordWaveAttackButton();
         stage.addActor(swordWaveAttackButton);
-        swordWaveAttackButton.setPosition(stage.getWidth() - swordWaveAttackButton.getWidth() - 140, 20);
+        swordWaveAttackButton.setPosition(stage.getWidth() - swordWaveAttackButton.getWidth() - 100, 120);
 
         trapAttackButton = new TrapAttackButton();
         stage.addActor(trapAttackButton);
-        trapAttackButton.setPosition(stage.getWidth() - trapAttackButton.getWidth() - 100, 120);
+        trapAttackButton.setPosition(stage.getWidth() - trapAttackButton.getWidth(), 140);
 
         talkButton = new TalkButton();
         stage.addActor(talkButton);
