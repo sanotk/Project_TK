@@ -291,7 +291,7 @@ public class GameScreen extends AbstractGameScreen {
 
         talkButton = new TalkButton();
         stage.addActor(talkButton);
-        talkButton.setPosition(stage.getWidth() - talkButton.getWidth() - 60, 400);
+        talkButton.setPosition(stage.getWidth() - talkButton.getWidth() - 60, 200);
 
         EnergyProducedBar.instance.energyProduced = 2700;
         LikingBar.instance.liking = 6;
