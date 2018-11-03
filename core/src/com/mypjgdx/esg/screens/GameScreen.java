@@ -279,19 +279,19 @@ public class GameScreen extends AbstractGameScreen {
 
         swordAttackButton = new SwordAttackButton();
         stage.addActor(swordAttackButton);
-        swordAttackButton.setPosition(stage.getWidth() - swordAttackButton.getWidth() - 20, 20);
+        swordAttackButton.setPosition(stage.getWidth() - swordAttackButton.getWidth(), 140);
 
         swordWaveAttackButton = new SwordWaveAttackButton();
         stage.addActor(swordWaveAttackButton);
-        swordWaveAttackButton.setPosition(stage.getWidth() - swordWaveAttackButton.getWidth() - 140, 40);
+        swordWaveAttackButton.setPosition(stage.getWidth() - swordWaveAttackButton.getWidth() - 140, 20);
 
         trapAttackButton = new TrapAttackButton();
         stage.addActor(trapAttackButton);
-        trapAttackButton.setPosition(stage.getWidth() - trapAttackButton.getWidth() - 60, 135);
+        trapAttackButton.setPosition(stage.getWidth() - trapAttackButton.getWidth() - 100, 120);
 
         talkButton = new TalkButton();
         stage.addActor(talkButton);
-        talkButton.setPosition(stage.getWidth() - talkButton.getWidth() - 60, 200);
+        talkButton.setPosition(stage.getWidth() - talkButton.getWidth() - 20, 20);
 
         EnergyProducedBar.instance.energyProduced = 2700;
         LikingBar.instance.liking = 6;
