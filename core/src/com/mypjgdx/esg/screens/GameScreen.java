@@ -464,14 +464,14 @@ public class GameScreen extends AbstractGameScreen {
         buttonAgree = new TextButton("ตกลง", buttonStyle);
         buttonAgree.setWidth(50);
         buttonAgree.setHeight(25);
-        buttonAgree.setPosition(SCENE_WIDTH / 6 + 20, 120);
+        buttonAgree.setPosition(SCENE_WIDTH - SCENE_WIDTH / 4.2f, SCENE_HEIGHT/3.9f);
 
         buttonAgree.setVisible(false);
 
         buttonRefuse = new TextButton("ปฎิเสธ", buttonStyle2);
         buttonRefuse.setWidth(50);
         buttonRefuse.setHeight(25);
-        buttonRefuse.setPosition(SCENE_WIDTH / 4, 120);
+        buttonRefuse.setPosition(SCENE_WIDTH - SCENE_WIDTH / 4.2f, SCENE_HEIGHT/5.2f);
 
         buttonRefuse.setVisible(false);
 
