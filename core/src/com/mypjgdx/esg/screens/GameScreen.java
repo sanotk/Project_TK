@@ -1288,13 +1288,11 @@ public class GameScreen extends AbstractGameScreen {
             trapAttackButton.setVisible(false);
             talkButton.setVisible(false);
         } else {
-            if (dialogShow){
-                touchPad.setVisible(true);
-                swordAttackButton.setVisible(true);
-                swordWaveAttackButton.setVisible(true);
-                trapAttackButton.setVisible(true);
-                talkButton.setVisible(true);
-            }
+            touchPad.setVisible(true);
+            swordAttackButton.setVisible(true);
+            swordWaveAttackButton.setVisible(true);
+            trapAttackButton.setVisible(true);
+            talkButton.setVisible(true);
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
