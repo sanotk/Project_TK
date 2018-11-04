@@ -66,9 +66,10 @@ public abstract class Level implements Json.Serializable {
         for (DroppedItem droppedItem : droppedItems) droppedItem.render(batch);
         for (Item i : items) i.render(batch);
         for (Enemy e : enemies) e.render(batch);
-        if (player.stageOneClear) {
-            for (Citizen c : citizens) c.render(batch);
-        }
+//        if (player.stageOneClear) {
+//            
+//        }
+        for (Citizen c : citizens) c.render(batch);
         player.render(batch);
 
         batch.end();
