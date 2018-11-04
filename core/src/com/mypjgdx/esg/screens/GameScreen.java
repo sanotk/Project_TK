@@ -1604,12 +1604,12 @@ public class GameScreen extends AbstractGameScreen {
             }
         }
 
-        if (player.timeCount <= timeEvent && !missionStart) {
-            missionStart = true;
-            missionWindow.pack();
-            missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
-            player.timeStop = true;
-        }
+//        if (player.timeCount <= timeEvent && !missionStart) {
+//            missionStart = true;
+//            missionWindow.pack();
+//            missionWindow.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+//            player.timeStop = true;
+//        }
 
         if (player.timeCount <= timeEvent && !statusStart && stageThreeClear) {
             statusStart = true;
