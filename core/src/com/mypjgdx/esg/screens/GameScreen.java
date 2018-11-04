@@ -1282,17 +1282,17 @@ public class GameScreen extends AbstractGameScreen {
         }
 
         if (dialogShow){
-            touchPad.setVisible(false);
-            swordAttackButton.setVisible(false);
-            swordWaveAttackButton.setVisible(false);
-            trapAttackButton.setVisible(false);
-            talkButton.setVisible(false);
+            touchPad.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+            swordAttackButton.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+            swordWaveAttackButton.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+            trapAttackButton.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
+            talkButton.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.visible(false)));
         } else {
-            touchPad.setVisible(true);
-            swordAttackButton.setVisible(true);
-            swordWaveAttackButton.setVisible(true);
-            trapAttackButton.setVisible(true);
-            talkButton.setVisible(true);
+            touchPad.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            swordAttackButton.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            swordWaveAttackButton.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            trapAttackButton.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
+            talkButton.addAction(Actions.sequence(Actions.visible(true), Actions.fadeIn(0.2f)));
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
