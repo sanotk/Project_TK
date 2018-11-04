@@ -304,7 +304,7 @@ public class GameScreen extends AbstractGameScreen {
         dialogStory = new Texture("dialogStory.png");
         dialogStory.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        dialog = new Dialog(font, dialogStory, 65f, 120f);
+        dialog = new Dialog(font, dialogStory, 150f, 120f);
         dialog.setPosition(
                 SCENE_WIDTH / 2 - dialogStory.getWidth() * 0.5f,
                 SCENE_HEIGHT / 4 - dialogStory.getHeight() * 0.5f);
