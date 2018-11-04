@@ -283,7 +283,7 @@ public class GameScreen extends AbstractGameScreen {
 
         swordWaveAttackButton = new SwordWaveAttackButton();
         stage.addActor(swordWaveAttackButton);
-        swordWaveAttackButton.setPosition(stage.getWidth() - swordWaveAttackButton.getWidth() - 110, 120);
+        swordWaveAttackButton.setPosition(stage.getWidth() - swordWaveAttackButton.getWidth() - 110, 110);
 
         trapAttackButton = new TrapAttackButton();
         stage.addActor(trapAttackButton);
@@ -1278,6 +1278,22 @@ public class GameScreen extends AbstractGameScreen {
         if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
             for (Enemy enemy : worldController.level.enemies) {
                 enemy.getStateMachine().changeState(EnemyState.DIE);
+            }
+        }
+
+        if (dialogShow){
+            touchPad.setVisible(false);
+            swordAttackButton.setVisible(false);
+            swordWaveAttackButton.setVisible(false);
+            trapAttackButton.setVisible(false);
+            talkButton.setVisible(false);
+        } else {
+            if (dialogShow){
+                touchPad.setVisible(true);
+                swordAttackButton.setVisible(true);
+                swordWaveAttackButton.setVisible(true);
+                trapAttackButton.setVisible(true);
+                talkButton.setVisible(true);
             }
         }
 
