@@ -172,7 +172,7 @@ public class GameScreen extends AbstractGameScreen {
     private Texture dialogStory;
 
     private String text =
-            "\"ทุกคนให้รออยู่ตรงนี้ก่อน จนกว่าเราจะตรวจสอบแล้วว่าที่แห่งนี้ปลอดภัย\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
+            "\"ทุกคนรออยู่จุดนี้ก่อน จนกว่าที่แห่งนี้จะถูกตรวจสอบแล้วว่าปลอดภัย\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
 
     public QuestState questState = null;
 
