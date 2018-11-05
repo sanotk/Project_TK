@@ -48,6 +48,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
     public boolean status_find;
     public boolean status_windows_link;
     public FocusCamera focusCamera;
+    public boolean stageStartClear;
     private float countdown;
 
     public boolean isSwitch = false;
