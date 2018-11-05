@@ -253,7 +253,7 @@ public class GameScreen extends AbstractGameScreen {
 
         stage = new Stage();
 
-        BatteryBar.instance.batteryStorage = 1200000;
+        BatteryBar.instance.batteryStorage = 7000000;
 
         isComplete.add(QuestState.quest1no);
         isComplete.add(QuestState.quest2no);
