@@ -224,9 +224,9 @@ public class Level1 extends Level {
                     player.getPositionY() + player.origin.y
                             - Assets.instance.light.getHeight() / 2f);
             batch.draw(Assets.instance.light,
-                    microwave.p_x + microwave.origin.x
+                    switchItem.p_x + switchItem.origin.x
                             - Assets.instance.light.getWidth() / 2f,
-                    microwave.p_y + microwave.origin.y
+                    switchItem.p_y + switchItem.origin.y
                             - Assets.instance.light.getHeight() / 2f);
             batch.end();
         } else {
@@ -234,16 +234,16 @@ public class Level1 extends Level {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
             batch.setColor(1, 1, 1, 1);
-            batch.draw(Assets.instance.light,
-                    player.getPositionX() + player.origin.x
-                            - Assets.instance.light.getWidth() / 2f,
-                    player.getPositionY() + player.origin.y
-                            - Assets.instance.light.getHeight() / 2f);
-            batch.draw(Assets.instance.light,
-                    switchItem.p_x + switchItem.origin.x
-                            - Assets.instance.light.getWidth() / 2f,
-                    switchItem.p_y + switchItem.origin.y
-                            - Assets.instance.light.getHeight() / 2f);
+//            batch.draw(Assets.instance.light,
+//                    player.getPositionX() + player.origin.x
+//                            - Assets.instance.light.getWidth() / 2f,
+//                    player.getPositionY() + player.origin.y
+//                            - Assets.instance.light.getHeight() / 2f);
+//            batch.draw(Assets.instance.light,
+//                    switchItem.p_x + switchItem.origin.x
+//                            - Assets.instance.light.getWidth() / 2f,
+//                    switchItem.p_y + switchItem.origin.y
+//                            - Assets.instance.light.getHeight() / 2f);
             batch.end();
         }
         FrameBuffer.unbind();
