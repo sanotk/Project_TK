@@ -874,13 +874,13 @@ public class GameScreen extends AbstractGameScreen {
         buttonTimeStyle.up = iconTime;
         buttonTimeStyle.over = iconTime.tint(Color.LIME);
         Button iconTimeButton = new Button(buttonTimeStyle);
-        iconTimeButton.setPosition(450, SCENE_HEIGHT - 50);
+        iconTimeButton.setPosition(SCENE_WIDTH/2.2f, SCENE_HEIGHT - SCENE_HEIGHT / 10);
 
         textTime = new Label("", skin);
         textTime.setColor(0, 0, 0, 1);
         textTime.setStyle(labelStyle);
         textTime.setFontScale(1f, 1f);
-        textTime.setPosition(475, SCENE_HEIGHT - 42);
+        textTime.setPosition(SCENE_WIDTH/2, SCENE_HEIGHT /10);
 
         stage.addActor(iconTimeButton);
 
