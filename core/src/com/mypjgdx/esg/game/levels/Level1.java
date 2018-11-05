@@ -204,11 +204,11 @@ public class Level1 extends Level {
             Gdx.gl.glClearColor(color.r, color.g, color.b, 0.15f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
-            batch.draw(Assets.instance.light,
-                    player.getPositionX() + player.origin.x
-                            - Assets.instance.light.getWidth() / 2f,
-                    player.getPositionY() + player.origin.y
-                            - Assets.instance.light.getHeight() / 2f);
+//            batch.draw(Assets.instance.light,
+//                    player.getPositionX() + player.origin.x
+//                            - Assets.instance.light.getWidth() / 2f,
+//                    player.getPositionY() + player.origin.y
+//                            - Assets.instance.light.getHeight() / 2f);
             batch.end();
         } else if (player.focusCamera.getFocus1()) {
             Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
