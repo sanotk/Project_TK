@@ -880,7 +880,7 @@ public class GameScreen extends AbstractGameScreen {
         textTime.setColor(0, 0, 0, 1);
         textTime.setStyle(labelStyle);
         textTime.setFontScale(1f, 1f);
-        textTime.setPosition(SCENE_WIDTH/2, SCENE_HEIGHT /10);
+        textTime.setPosition(SCENE_WIDTH/2, SCENE_HEIGHT - SCENE_HEIGHT /10);
 
         stage.addActor(iconTimeButton);
 
