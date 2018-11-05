@@ -168,7 +168,7 @@ public class Level1 extends Level {
             batch.end();
         } else if (focusCamera.getFocus1()) {
             batch.begin();
-            batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
+            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             batch.draw(lightFbo.getColorBufferTexture(),
                     camera.position.x - camera.viewportWidth * camera.zoom / 2,
                     camera.position.y - camera.viewportHeight * camera.zoom / 2,
@@ -213,22 +213,6 @@ public class Level1 extends Level {
                     player.getPositionY() + player.origin.y
                             - Assets.instance.light.getHeight() / 2f);
             batch.end();
-        } else if (focusCamera.getFocus1()) {
-            Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            batch.begin();
-            batch.setColor(1, 1, 1, 1);
-            batch.draw(Assets.instance.light,
-                    player.getPositionX() + player.origin.x
-                            - Assets.instance.light.getWidth() / 2f,
-                    player.getPositionY() + player.origin.y
-                            - Assets.instance.light.getHeight() / 2f);
-            batch.draw(Assets.instance.light,
-                    switchItem.p_x + switchItem.origin.x
-                            - Assets.instance.light.getWidth() / 2f,
-                    switchItem.p_y + switchItem.origin.y
-                            - Assets.instance.light.getHeight() / 2f);
-            batch.end();
         } else {
             Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -245,6 +229,7 @@ public class Level1 extends Level {
 //                    switchItem.p_y + switchItem.origin.y
 //                            - Assets.instance.light.getHeight() / 2f);
             batch.end();
+            System.out.print("มา");
         }
         FrameBuffer.unbind();
     }
