@@ -215,18 +215,34 @@ public class Level1 extends Level {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
             batch.setColor(1, 1, 1, 1);
-            batch.draw(Assets.instance.light,
-                    player.getPositionX() + player.origin.x
-                            - Assets.instance.light.getWidth() / 2f,
-                    player.getPositionY() + player.origin.y
-                            - Assets.instance.light.getHeight() / 2f);
+//            batch.draw(Assets.instance.light,
+//                    player.getPositionX() + player.origin.x
+//                            - Assets.instance.light.getWidth() / 2f,
+//                    player.getPositionY() + player.origin.y
+//                            - Assets.instance.light.getHeight() / 2f);
             batch.draw(Assets.instance.light,
                     switchItem.p_x + switchItem.origin.x
                             - Assets.instance.light.getWidth() / 2f,
                     switchItem.p_y + switchItem.origin.y
                             - Assets.instance.light.getHeight() / 2f);
             batch.end();
-        } else {
+        } else if (player.focusCamera.getFocus1()) {
+            Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.begin();
+            batch.setColor(1, 1, 1, 1);
+                batch.draw(Assets.instance.light,
+                        player.getPositionX() + player.origin.x
+                                - Assets.instance.light.getWidth() / 2f,
+                        player.getPositionY() + player.origin.y
+                                - Assets.instance.light.getHeight() / 2f);
+            batch.draw(Assets.instance.light,
+                    switchItem.p_x + switchItem.origin.x
+                            - Assets.instance.light.getWidth() / 2f,
+                    switchItem.p_y + switchItem.origin.y
+                            - Assets.instance.light.getHeight() / 2f);
+            batch.end();
+        }else {
             Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
