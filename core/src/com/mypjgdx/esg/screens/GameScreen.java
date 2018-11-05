@@ -152,6 +152,7 @@ public class GameScreen extends AbstractGameScreen {
     private Button buttonFood;
     private Button buttonWater;
     private Button buttonTemp;
+    private boolean Focus1;
 
     public enum systemWindow {
         citizen1,
@@ -256,7 +257,6 @@ public class GameScreen extends AbstractGameScreen {
         stage = new Stage();
 
         focusCamera = new FocusCamera();
-        focusCamera.setFocus1(true);
 
         BatteryBar.instance.batteryStorage = 1200000;
 
@@ -1432,6 +1432,10 @@ public class GameScreen extends AbstractGameScreen {
             dialogStart = true;
             delayMission();
             timeEvent = player.timeCount - 1;
+        }
+
+        if(dialogStart && Focus1){
+            focusCamera.setFocus1(true);
         }
 
         if (player.requestTrap && !dialogTrap) {

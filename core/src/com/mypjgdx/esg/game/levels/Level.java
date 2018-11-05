@@ -65,8 +65,8 @@ public abstract class Level implements Json.Serializable {
         for (AbstractGameObject o : objects) o.render(batch);
         for (DroppedItem droppedItem : droppedItems) droppedItem.render(batch);
         for (Item i : items) i.render(batch);
-        for (Enemy e : enemies) e.render(batch);
         if (player.stageOneClear) {
+            for (Enemy e : enemies) e.render(batch);
             for (Citizen c : citizens) c.render(batch);
         }
         player.render(batch);
@@ -121,14 +121,14 @@ public abstract class Level implements Json.Serializable {
         }
         player.update(deltaTime, citizens);
         for (Link link : links) link.update(deltaTime);
-        if (player.stageOneClear) {
+        if (player.stageOneClear && !player.timeStop) {
             for (Citizen c : citizens) c.update(deltaTime);
+            for (Enemy e : enemies) e.update(deltaTime, weapons);
         }
         if(!player.timeStop){
             for (Weapon w : weapons) w.update(deltaTime);
             for (DroppedItem droppedItem : droppedItems) droppedItem.update(deltaTime);
             for (Item i : items) i.update(deltaTime);
-            for (Enemy e : enemies) e.update(deltaTime, weapons);
         }
 
         for (AbstractGameObject o : objects) o.update(deltaTime);
