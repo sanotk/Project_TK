@@ -242,7 +242,6 @@ public class Level1 extends Level {
 //                    switchItem.p_y + switchItem.origin.y
 //                            - Assets.instance.light.getHeight() / 2f);
             batch.end();
-            System.out.print("มา");
         }
         FrameBuffer.unbind();
     }
