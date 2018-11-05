@@ -226,7 +226,7 @@ public class Level1 extends Level {
                     switchItem.p_y + switchItem.origin.y
                             - Assets.instance.light.getHeight() / 2f);
             batch.end();
-        } else if (player.focusCamera.getFocus1()) {
+        } else if (player.focusCamera.getFocus2()) {
             Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
