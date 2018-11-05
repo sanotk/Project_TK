@@ -276,28 +276,22 @@ public class GameScreen extends AbstractGameScreen {
         touchPad = new PlayerTouchPad();
         stage.addActor(touchPad);
         touchPad.setPosition(20, 20);
-        touchPad.setVisible(false);
 
         swordAttackButton = new SwordAttackButton();
         stage.addActor(swordAttackButton);
         swordAttackButton.setPosition(stage.getWidth() - swordAttackButton.getWidth() -120, 10);
-        swordAttackButton.setVisible(false);
 
         swordWaveAttackButton = new SwordWaveAttackButton();
         stage.addActor(swordWaveAttackButton);
         swordWaveAttackButton.setPosition(stage.getWidth() - swordWaveAttackButton.getWidth() - 110, 110);
-        swordWaveAttackButton.setVisible(false);
 
         trapAttackButton = new TrapAttackButton();
         stage.addActor(trapAttackButton);
         trapAttackButton.setPosition(stage.getWidth() - trapAttackButton.getWidth()-10, 130);
-        trapAttackButton.setVisible(false);
 
         talkButton = new TalkButton();
         stage.addActor(talkButton);
         talkButton.setPosition(stage.getWidth() - talkButton.getWidth() - 10, 20);
-        talkButton.setVisible(false);
-        dialogShow = false;
 
         EnergyProducedBar.instance.energyProduced = 2700;
         LikingBar.instance.liking = 6;
