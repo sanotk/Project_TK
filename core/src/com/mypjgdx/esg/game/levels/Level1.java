@@ -10,11 +10,9 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.*;
-import com.mypjgdx.esg.utils.FocusCamera;
 
 public class Level1 extends Level {
 
-    public FocusCamera focusCamera;
     public Citizen citizen1;
     public Citizen citizen2;
     public Citizen citizen3;
@@ -49,7 +47,6 @@ public class Level1 extends Level {
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
         player = new Player(mapLayer, 100, 1000);
-        focusCamera = new FocusCamera();
 
         switchItem = new Switch(mapLayer, player);
         television = new Television(mapLayer, player);
@@ -166,7 +163,7 @@ public class Level1 extends Level {
                     false, true);
             batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             batch.end();
-        } else if (focusCamera.getFocus1()) {
+        } else if (player.focusCamera.getFocus1()) {
             batch.begin();
             batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
             batch.draw(lightFbo.getColorBufferTexture(),
@@ -203,7 +200,6 @@ public class Level1 extends Level {
     public void createFbo(SpriteBatch batch, FrameBuffer lightFbo) {
         lightFbo.begin();
         Color color = Color.valueOf("#20e8ff");
-        System.out.print(focusCamera.getFocus1());
         if (player.isSwitch) {
             Gdx.gl.glClearColor(color.r, color.g, color.b, 0.15f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -214,7 +210,7 @@ public class Level1 extends Level {
                     player.getPositionY() + player.origin.y
                             - Assets.instance.light.getHeight() / 2f);
             batch.end();
-        } else if (focusCamera.getFocus1()) {
+        } else if (player.focusCamera.getFocus1()) {
             Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
@@ -230,7 +226,6 @@ public class Level1 extends Level {
                     switchItem.p_y + switchItem.origin.y
                             - Assets.instance.light.getHeight() / 2f);
             batch.end();
-            System.out.print("มา");
         } else {
             Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

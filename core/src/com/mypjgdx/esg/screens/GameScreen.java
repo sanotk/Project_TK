@@ -34,7 +34,6 @@ import com.mypjgdx.esg.game.objects.weapons.Trap;
 import com.mypjgdx.esg.game.objects.weapons.Weapon;
 import com.mypjgdx.esg.ui.*;
 import com.mypjgdx.esg.ui.Dialog;
-import com.mypjgdx.esg.utils.FocusCamera;
 import com.mypjgdx.esg.utils.GameSaveManager;
 import com.mypjgdx.esg.utils.MusicManager;
 import com.mypjgdx.esg.utils.QuestState;
@@ -65,8 +64,6 @@ public class GameScreen extends AbstractGameScreen {
     private Button iconGuide;
     private Button buttonStatus;
     private Button iconStatus;
-
-    private FocusCamera focusCamera;
 
     private boolean missionStart;
     private boolean guideStart;
@@ -255,8 +252,6 @@ public class GameScreen extends AbstractGameScreen {
         super(game);
 
         stage = new Stage();
-
-        focusCamera = new FocusCamera();
 
         BatteryBar.instance.batteryStorage = 1200000;
 
@@ -1436,7 +1431,7 @@ public class GameScreen extends AbstractGameScreen {
 
         if(dialogStart && !Focus1){
             Focus1 = true;
-            focusCamera.setFocus1(Focus1);
+            player.focusCamera.setFocus1(Focus1);
         }
 
         if (player.requestTrap && !dialogTrap) {

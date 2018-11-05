@@ -25,6 +25,7 @@ import com.mypjgdx.esg.ui.EnergyUsedBar;
 import com.mypjgdx.esg.ui.SwordWaveBar;
 import com.mypjgdx.esg.ui.TrapBar;
 import com.mypjgdx.esg.utils.Direction;
+import com.mypjgdx.esg.utils.FocusCamera;
 import com.mypjgdx.esg.utils.SoundManager;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
 
     public boolean status_find;
     public boolean status_windows_link;
-    public boolean focus1;
+    public FocusCamera focusCamera;
     private float countdown;
 
     public boolean isSwitch = false;
