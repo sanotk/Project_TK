@@ -184,6 +184,8 @@ public class Player extends AnimatedObject implements Damageable, Json.Serializa
         this.mapLayer = mapLayer;
         CollisionCheck();
 
+        focusCamera = new FocusCamera();
+
         state = PlayerState.STAND;
         setCurrentAnimation(PlayerAnimation.STAND_DOWN);
         viewDirection = Direction.UP;

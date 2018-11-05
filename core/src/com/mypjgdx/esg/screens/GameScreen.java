@@ -1429,7 +1429,7 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount - 1;
         }
 
-        if(dialogStart && !Focus1){
+        if(dialogStart && !Focus1 && player.timeCount <= 299){
             Focus1 = true;
             player.focusCamera.setFocus1(Focus1);
         }
