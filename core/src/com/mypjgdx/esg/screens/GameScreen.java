@@ -1444,6 +1444,7 @@ public class GameScreen extends AbstractGameScreen {
                     "\"ลองเคลื่อนทีตัวละครด้วยปุ่มลูกศรดูสิ \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
             dialog.setText(text);
             tutorFirst = true;
+            tutorFinish = true;
         }
 
 //        if(dialogStart && tutorFirst && !tutorSecond && player.timeCount <= 299){
