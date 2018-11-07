@@ -150,6 +150,7 @@ public class GameScreen extends AbstractGameScreen {
     private Button buttonWater;
     private Button buttonTemp;
     private boolean Focus1;
+    private boolean TutorFinish;
 
     public enum systemWindow {
         citizen1,
@@ -1429,7 +1430,14 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount - 1;
         }
 
-        if(dialogStart && !Focus1 && player.timeCount <= 299){
+        if(dialogStart && !TutorFinish && player.timeCount <= 299){
+            dialogAll();
+            String text =
+                    "\"ลองเคลื่อนทีตัวละครด้วยปุ่มลูกศรดูสิ \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
+            dialog.setText(text);
+        }
+
+        if(TutorFinish && !Focus1 && player.timeCount <= 299){
             dialogAll();
             String text =
                     "\"บริเวณนี้มืดมาก เอ๊ะ เหมือนเห็นแสงสว่างจากที่ไกลๆ ลองเดินไปสำรวจกันเถอะ \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
