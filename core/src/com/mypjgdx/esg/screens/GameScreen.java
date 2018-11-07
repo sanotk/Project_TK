@@ -150,7 +150,15 @@ public class GameScreen extends AbstractGameScreen {
     private Button buttonWater;
     private Button buttonTemp;
     private boolean Focus1;
-    private boolean TutorFinish;
+    private boolean tutorFinish;
+    private boolean tutorFirst;
+    private boolean tutorSecond;
+    private boolean tutorThird;
+    private boolean tutorFourth;
+    private boolean tutorFifth;
+    private boolean tutorSixth;
+    private boolean tutorSeventh;
+    private boolean tutorEighth;
 
     public enum systemWindow {
         citizen1,
@@ -1430,14 +1438,29 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount - 1;
         }
 
-        if(dialogStart && !TutorFinish && player.timeCount <= 299){
+        if(dialogStart && !tutorFirst && player.timeCount <= 299){
             dialogAll();
             String text =
                     "\"ลองเคลื่อนทีตัวละครด้วยปุ่มลูกศรดูสิ \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
             dialog.setText(text);
+            tutorFirst = true;
         }
 
-        if(TutorFinish && !Focus1 && player.timeCount <= 299){
+        if(dialogStart && tutorFirst && !tutorSecond && player.timeCount <= 299){
+            dialogAll();
+            String text =
+                    "\"กดหรือดึงลูกศรไปทางขวาค้างเพื่อเคลื่อนที่ไปทางขวา \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
+            dialog.setText(text);
+        }
+
+        if(dialogStart && tutorSecond && !tutorThird && player.timeCount <= 299){
+            dialogAll();
+            String text =
+                    "\"กดหรือดึงลูกศรไปทางขวาค้างเพื่อเคลื่อนที่ไปทางขวา \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
+            dialog.setText(text);
+        }
+
+        if(tutorFinish && !Focus1 && player.timeCount <= 299){
             dialogAll();
             String text =
                     "\"บริเวณนี้มืดมาก เอ๊ะ เหมือนเห็นแสงสว่างจากที่ไกลๆ ลองเดินไปสำรวจกันเถอะ \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
