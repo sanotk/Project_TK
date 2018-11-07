@@ -1432,7 +1432,7 @@ public class GameScreen extends AbstractGameScreen {
         if(dialogStart && !Focus1 && player.timeCount <= 299){
             dialogAll();
             String text =
-                    "\"บริเวณนี้มืดมาก ตรงนั้นมีแสงลองเดินไปดูกันเถอะ\" \n\"(กดปุ่มตกลงเพื่อวางกับดัก หรือกดปุ่มปฎิเสธเมื่อไม่ต้องการวางกับดัก)\"";
+                    "\"บริเวณนี้มืดมาก ตรงนั้นมีแสงลองเดินไปดูกันเถอะ เผื่อจะทำอะไรได้บ้าง\" \n\"(กด Enter เพื่อเล่นต่อ)\"";
             dialog.setText(text);
             Focus1 = true;
             player.focusCamera.setFocus1(Focus1);
