@@ -1445,6 +1445,7 @@ public class GameScreen extends AbstractGameScreen {
             dialog.setText(text);
             tutorFirst = true;
             //tutorFinish = true;
+            timeEvent = player.timeCount - 1;
         }
 
         if(dialogStart && tutorFirst && !tutorSecond && player.timeCount <= 299){
@@ -1453,6 +1454,7 @@ public class GameScreen extends AbstractGameScreen {
                     "\"กดหรือดึงลูกศรไปทางขวาค้างเพื่อเคลื่อนที่ไปทางขวา \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
             dialog.setText(text);
             tutorSecond = true;
+            timeEvent = player.timeCount - 1;
         }
 
         if(dialogStart && tutorSecond && !tutorThird && player.timeCount <= timeEvent){
@@ -1461,6 +1463,7 @@ public class GameScreen extends AbstractGameScreen {
                     "\"กดหรือดึงลูกศรไปข้างล่างเพื่อเคลื่อนที่ไปด้านล่าง \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
             dialog.setText(text);
             tutorThird = true;
+            timeEvent = player.timeCount - 1;
         }
 
         if(dialogStart && tutorThird && !tutorFourth && player.timeCount <= timeEvent){
@@ -1469,6 +1472,7 @@ public class GameScreen extends AbstractGameScreen {
                     "\"กดหรือดึงลูกศรไปทางซ้ายค้างเพื่อเคลื่อนที่ไปทางซ้าย \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
             dialog.setText(text);
             tutorFourth = true;
+            timeEvent = player.timeCount - 1;
         }
 
         if(dialogStart && tutorFourth && !tutorFifth && player.timeCount <= timeEvent){
@@ -1477,6 +1481,7 @@ public class GameScreen extends AbstractGameScreen {
                     "\"กดหรือดึงลูกศรไปข้างบนเพื่อเคลื่อนที่ไปด้านบน \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
             dialog.setText(text);
             tutorFifth = true;
+            timeEvent = player.timeCount - 1;
         }
 
         if(tutorFinish && !Focus1 && player.timeCount <= timeEvent){
@@ -1486,6 +1491,7 @@ public class GameScreen extends AbstractGameScreen {
             dialog.setText(text);
             Focus1 = true;
             player.focusCamera.setFocus1(Focus1);
+            timeEvent = player.timeCount - 1;
         }
 
         if (player.requestTrap && !dialogTrap) {
