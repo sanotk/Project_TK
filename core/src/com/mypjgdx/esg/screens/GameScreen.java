@@ -1468,7 +1468,7 @@ public class GameScreen extends AbstractGameScreen {
             String text =
                     "\"กดหรือดึงลูกศรไปทางซ้ายค้างเพื่อเคลื่อนที่ไปทางซ้าย \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
             dialog.setText(text);
-            tutorThird = true;
+            tutorFourth = true;
         }
 
         if(dialogStart && tutorFourth && !tutorFifth && player.timeCount <= 299){
@@ -1476,7 +1476,7 @@ public class GameScreen extends AbstractGameScreen {
             String text =
                     "\"กดหรือดึงลูกศรไปข้างบนเพื่อเคลื่อนที่ไปด้านบน \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
             dialog.setText(text);
-            tutorThird = true;
+            tutorFifth = true;
         }
 
         if(tutorFinish && !Focus1 && player.timeCount <= 299){
