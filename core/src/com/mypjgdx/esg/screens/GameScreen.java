@@ -1455,7 +1455,7 @@ public class GameScreen extends AbstractGameScreen {
             tutorSecond = true;
         }
 
-        if(dialogStart && tutorSecond && !tutorThird && player.timeCount <= 299){
+        if(dialogStart && tutorSecond && !tutorThird && player.timeCount <= timeEvent){
             dialogAll();
             String text =
                     "\"กดหรือดึงลูกศรไปข้างล่างเพื่อเคลื่อนที่ไปด้านล่าง \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
@@ -1463,7 +1463,7 @@ public class GameScreen extends AbstractGameScreen {
             tutorThird = true;
         }
 
-        if(dialogStart && tutorThird && !tutorFourth && player.timeCount <= 299){
+        if(dialogStart && tutorThird && !tutorFourth && player.timeCount <= timeEvent){
             dialogAll();
             String text =
                     "\"กดหรือดึงลูกศรไปทางซ้ายค้างเพื่อเคลื่อนที่ไปทางซ้าย \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
@@ -1471,7 +1471,7 @@ public class GameScreen extends AbstractGameScreen {
             tutorFourth = true;
         }
 
-        if(dialogStart && tutorFourth && !tutorFifth && player.timeCount <= 299){
+        if(dialogStart && tutorFourth && !tutorFifth && player.timeCount <= timeEvent){
             dialogAll();
             String text =
                     "\"กดหรือดึงลูกศรไปข้างบนเพื่อเคลื่อนที่ไปด้านบน \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
@@ -1479,7 +1479,7 @@ public class GameScreen extends AbstractGameScreen {
             tutorFifth = true;
         }
 
-        if(tutorFinish && !Focus1 && player.timeCount <= 299){
+        if(tutorFinish && !Focus1 && player.timeCount <= timeEvent){
             dialogAll();
             String text =
                     "\"บริเวณนี้มืดมาก เอ๊ะ เหมือนเห็นแสงสว่างจากที่ไกลๆ ลองเดินไปสำรวจกันเถอะ \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
