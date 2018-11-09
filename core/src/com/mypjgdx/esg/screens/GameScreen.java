@@ -1447,19 +1447,37 @@ public class GameScreen extends AbstractGameScreen {
             //tutorFinish = true;
         }
 
-//        if(dialogStart && tutorFirst && !tutorSecond && player.timeCount <= 299){
-//            dialogAll();
-//            String text =
-//                    "\"กดหรือดึงลูกศรไปทางขวาค้างเพื่อเคลื่อนที่ไปทางขวา \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
-//            dialog.setText(text);
-//        }
-//
-//        if(dialogStart && tutorSecond && !tutorThird && player.timeCount <= 299){
-//            dialogAll();
-//            String text =
-//                    "\"กดหรือดึงลูกศรไปข้างล่างเพื่อเคลื่อนที่ไปด้านล่าง \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
-//            dialog.setText(text);
-//        }
+        if(dialogStart && tutorFirst && !tutorSecond && player.timeCount <= 299){
+            dialogAll();
+            String text =
+                    "\"กดหรือดึงลูกศรไปทางขวาค้างเพื่อเคลื่อนที่ไปทางขวา \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
+            dialog.setText(text);
+            tutorSecond = true;
+        }
+
+        if(dialogStart && tutorSecond && !tutorThird && player.timeCount <= 299){
+            dialogAll();
+            String text =
+                    "\"กดหรือดึงลูกศรไปข้างล่างเพื่อเคลื่อนที่ไปด้านล่าง \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
+            dialog.setText(text);
+            tutorThird = true;
+        }
+
+        if(dialogStart && tutorThird && !tutorFourth && player.timeCount <= 299){
+            dialogAll();
+            String text =
+                    "\"กดหรือดึงลูกศรไปทางซ้ายค้างเพื่อเคลื่อนที่ไปทางซ้าย \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
+            dialog.setText(text);
+            tutorThird = true;
+        }
+
+        if(dialogStart && tutorFourth && !tutorFifth && player.timeCount <= 299){
+            dialogAll();
+            String text =
+                    "\"กดหรือดึงลูกศรไปข้างบนเพื่อเคลื่อนที่ไปด้านบน \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
+            dialog.setText(text);
+            tutorThird = true;
+        }
 
         if(tutorFinish && !Focus1 && player.timeCount <= 299){
             dialogAll();
