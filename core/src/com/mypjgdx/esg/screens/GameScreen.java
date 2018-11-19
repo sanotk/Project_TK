@@ -1448,7 +1448,7 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount - 1;
         }
 
-        if(dialogStart && tutorFirst && !tutorSecond && player.timeCount <= 299){
+        if(tutorFirst && !tutorSecond && player.timeCount <= 299){
             dialogAll();
             String text =
                     "\"กดหรือดึงลูกศรไปทางขวาค้างเพื่อเคลื่อนที่ไปทางขวา \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
@@ -1457,7 +1457,7 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount - 1;
         }
 
-        if(dialogStart && tutorSecond && !tutorThird && player.timeCount <= timeEvent){
+        if(tutorSecond && !tutorThird && player.timeCount <= timeEvent){
             dialogAll();
             String text =
                     "\"กดหรือดึงลูกศรไปข้างล่างเพื่อเคลื่อนที่ไปด้านล่าง \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
@@ -1466,7 +1466,7 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount - 1;
         }
 
-        if(dialogStart && tutorThird && !tutorFourth && player.timeCount <= timeEvent){
+        if(tutorThird && !tutorFourth && player.timeCount <= timeEvent){
             dialogAll();
             String text =
                     "\"กดหรือดึงลูกศรไปทางซ้ายค้างเพื่อเคลื่อนที่ไปทางซ้าย \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
@@ -1475,7 +1475,7 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount - 1;
         }
 
-        if(dialogStart && tutorFourth && !tutorFifth && player.timeCount <= timeEvent){
+        if(tutorFourth && !tutorFifth && player.timeCount <= timeEvent){
             dialogAll();
             String text =
                     "\"กดหรือดึงลูกศรไปข้างบนเพื่อเคลื่อนที่ไปด้านบน \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
