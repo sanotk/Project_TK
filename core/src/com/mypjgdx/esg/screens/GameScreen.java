@@ -179,7 +179,7 @@ public class GameScreen extends AbstractGameScreen {
     private Texture dialogStory;
 
     private String text =
-            "\"ทุกคนรออยู่จุดนี้ก่อน จนกว่าที่แห่งนี้จะถูกตรวจสอบแล้วว่าปลอดภัย\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
+            "\"ทุกคนโปรดรออยู่ตรงนี้ก่อน จนกว่าที่แห่งนี้จะถูกตรวจสอบแล้วว่าปลอดภัย\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
 
     public QuestState questState = null;
 
@@ -1447,43 +1447,7 @@ public class GameScreen extends AbstractGameScreen {
             //tutorFinish = true;
             timeEvent = player.timeCount - 1;
         }
-
-        if(tutorFirst && !tutorSecond && player.timeCount <= 299){
-            dialogAll();
-            String text =
-                    "\"กดหรือดึงลูกศรไปทางขวาค้างเพื่อเคลื่อนที่ไปทางขวา \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
-            dialog.setText(text);
-            tutorSecond = true;
-            timeEvent = player.timeCount - 1;
-        }
-
-        if(tutorSecond && !tutorThird && player.timeCount <= timeEvent){
-            dialogAll();
-            String text =
-                    "\"กดหรือดึงลูกศรไปข้างล่างเพื่อเคลื่อนที่ไปด้านล่าง \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
-            dialog.setText(text);
-            tutorThird = true;
-            timeEvent = player.timeCount - 1;
-        }
-
-        if(tutorThird && !tutorFourth && player.timeCount <= timeEvent){
-            dialogAll();
-            String text =
-                    "\"กดหรือดึงลูกศรไปทางซ้ายค้างเพื่อเคลื่อนที่ไปทางซ้าย \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
-            dialog.setText(text);
-            tutorFourth = true;
-            timeEvent = player.timeCount - 1;
-        }
-
-        if(tutorFourth && !tutorFifth && player.timeCount <= timeEvent){
-            dialogAll();
-            String text =
-                    "\"กดหรือดึงลูกศรไปข้างบนเพื่อเคลื่อนที่ไปด้านบน \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
-            dialog.setText(text);
-            tutorFifth = true;
-            timeEvent = player.timeCount - 1;
-        }
-
+        
         if(tutorFinish && !Focus1 && player.timeCount <= timeEvent){
             dialogAll();
             String text =
