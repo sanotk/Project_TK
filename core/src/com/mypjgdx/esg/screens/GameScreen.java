@@ -1447,7 +1447,7 @@ public class GameScreen extends AbstractGameScreen {
             //tutorFinish = true;
             timeEvent = player.timeCount - 1;
         }
-        
+
         if(tutorFinish && !Focus1 && player.timeCount <= timeEvent){
             dialogAll();
             String text =
