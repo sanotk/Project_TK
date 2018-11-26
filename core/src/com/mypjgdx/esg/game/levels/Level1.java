@@ -8,10 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
-import com.mypjgdx.esg.game.objects.characters.Citizen;
-import com.mypjgdx.esg.game.objects.characters.Pepo;
-import com.mypjgdx.esg.game.objects.characters.PepoKnight;
-import com.mypjgdx.esg.game.objects.characters.Player;
+import com.mypjgdx.esg.game.objects.characters.*;
 import com.mypjgdx.esg.game.objects.items.Gate;
 import com.mypjgdx.esg.game.objects.items.Item;
 
@@ -60,6 +57,27 @@ public class Level1 extends Level {
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new PepoKnight(mapLayer, player));
+
+        citizen1 = new Citizen1(mapLayer, player);
+        citizen2 = new Citizen2(mapLayer, player);
+        citizen3 = new Citizen3(mapLayer, player);
+        citizen4 = new Citizen4(mapLayer, player);
+        citizen5 = new Citizen5(mapLayer, player);
+        citizen6 = new Citizen6(mapLayer, player);
+
+        citizens.add(citizen1);
+        citizens.add(citizen2);
+        citizens.add(citizen3);
+        citizens.add(citizen4);
+        citizens.add(citizen5);
+        citizens.add(citizen6);
+
+        citizen1.setGoalItem(gate);
+        citizen2.setGoalItem(gate);
+        citizen3.setGoalItem(gate);
+        citizen4.setGoalItem(gate);
+        citizen5.setGoalItem(gate);
+        citizen6.setGoalItem(gate);
 
 //        for (Enemy enemy : enemies) {
 //            enemy.setDroppedItems(droppedItems);
