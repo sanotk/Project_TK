@@ -221,9 +221,24 @@ public class Level1 extends Level {
 //                    player.getPositionY() + player.origin.y
 //                            - Assets.instance.light.getHeight() / 2f);
             batch.draw(Assets.instance.light,
-                    switchItem.p_x + switchItem.origin.x
+                    television.p_x + television.origin.x
                             - Assets.instance.light.getWidth() / 2f,
-                    switchItem.p_y + switchItem.origin.y
+                    television.p_y + television.origin.y
+                            - Assets.instance.light.getHeight() / 2f);
+            batch.draw(Assets.instance.light,
+                    computer.p_x + computer.origin.x
+                            - Assets.instance.light.getWidth() / 2f,
+                    computer.p_y + computer.origin.y
+                            - Assets.instance.light.getHeight() / 2f);
+            batch.draw(Assets.instance.light,
+                    fan1.p_x + fan1.origin.x
+                            - Assets.instance.light.getWidth() / 2f,
+                    fan1.p_y + fan1.origin.y
+                            - Assets.instance.light.getHeight() / 2f);
+            batch.draw(Assets.instance.light,
+                    fan2.p_x + fan2.origin.x
+                            - Assets.instance.light.getWidth() / 2f,
+                    fan2.p_y + fan2.origin.y
                             - Assets.instance.light.getHeight() / 2f);
             batch.end();
         } else if (player.focusCamera.getFocus2()) {
