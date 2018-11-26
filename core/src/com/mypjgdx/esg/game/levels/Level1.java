@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mypjgdx.esg.game.Assets;
 import com.mypjgdx.esg.game.objects.characters.*;
-import com.mypjgdx.esg.game.objects.items.Gate;
+import com.mypjgdx.esg.game.objects.items.Door;
 import com.mypjgdx.esg.game.objects.items.Item;
 
 public class Level1 extends Level {
@@ -20,26 +20,8 @@ public class Level1 extends Level {
     public Citizen citizen4;
     public Citizen citizen5;
     public Citizen citizen6;
-    public Item switchItem;
-    public Item television;
-    public Item microwave;
-    public Item waterPump;
-    public Item airConditioner;
-    public Item computer;
-    public Item fan1;
-    public Item fan2;
-    public Item refrigerator;
-    public Item riceCooker;
-    public Item gate;
-    public Item lamp1;
-    public Item lamp2;
-    public Item lamp3;
-    public Item lamp4;
-    public Item lamp5;
-    public Item lamp6;
-    public Item lamp7;
-    public Item lamp8;
-    public Item lamp9;
+
+    public Item door;
 
     public Level1() {
         name = "Level1";
@@ -50,9 +32,9 @@ public class Level1 extends Level {
         player = new Player(mapLayer, 100, 1000);
 
 
-        gate = new Gate(mapLayer, player);
+        door = new Door(mapLayer, player);
 
-        items.add(gate);
+        items.add(door);
 
         enemies.add(new Pepo(mapLayer, player));
         enemies.add(new Pepo(mapLayer, player));
@@ -72,12 +54,12 @@ public class Level1 extends Level {
         citizens.add(citizen5);
         citizens.add(citizen6);
 
-        citizen1.setGoalItem(gate);
-        citizen2.setGoalItem(gate);
-        citizen3.setGoalItem(gate);
-        citizen4.setGoalItem(gate);
-        citizen5.setGoalItem(gate);
-        citizen6.setGoalItem(gate);
+        citizen1.setGoalItem(door);
+        citizen2.setGoalItem(door);
+        citizen3.setGoalItem(door);
+        citizen4.setGoalItem(door);
+        citizen5.setGoalItem(door);
+        citizen6.setGoalItem(door);
 
 //        for (Enemy enemy : enemies) {
 //            enemy.setDroppedItems(droppedItems);
