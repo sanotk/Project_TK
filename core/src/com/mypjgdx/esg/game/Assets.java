@@ -29,6 +29,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public Texture trapAttackButtonBackground;
     public Texture talkButtonBackground;
     public Texture background;
+    public Texture bggame;
 
     public Texture touchPadBackground;
     public Texture touchPadKnob;
@@ -392,6 +393,7 @@ public class Assets implements Disposable, AssetErrorListener {
         trapAttackButtonBackground = getFilteredTexture("trap_attack_button.png");
         talkButtonBackground = getFilteredTexture("talk_button.png");
         background = getFilteredTexture("background.png");
+        bggame = getFilteredTexture("bggame");
 
         window = new NinePatch((Texture) manager.get("window.png"), 9, 9, 44, 8);
 
