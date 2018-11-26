@@ -1458,16 +1458,6 @@ public class GameScreen extends AbstractGameScreen {
 //            timeEvent = player.timeCount - 1;
 //        }
 
-        level1.computer.state = Item.ItemState.ONLOOP;
-        level1.fan1.state = Item.ItemState.ONLOOP;
-        level1.fan2.state = Item.ItemState.ONLOOP;
-        level1.television.state = Item.ItemState.ONLOOP;
-
-        player.isSwitch = true;
-
-//        Focus1 = true;
-//        player.focusCamera.setFocus1(Focus1);
-
         if (player.requestTrap && !dialogTrap) {
             player.requestTrap = false;
             trapShow = true;
