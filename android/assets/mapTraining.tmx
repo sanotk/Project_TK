@@ -229,17 +229,17 @@
  </tileset>
  <layer name="map" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJyTY2BgkKMDlgBiThpgGSQ7xIBYEIi5qYhlgZgfzQ4dIDYBYl4isQkUayBhEyRsjcUOFiBmpAIugGJXLHZQw3xkzEdFO5DDaijbAcIeNA4resTHYLODWvlj1I5RO0btIN0OSSAWBWJ2IrEUEWICUDGYHUJAzEEDLIxkBw8Qs9EASyPZQWsMAGjdGaQ=
+   eJyTY2BgkKMDdqUhHox2uA0Tf4zawcCgDcQaQMxIJvbAIsYHxPxUtAMbHrVj1I5RO0aeHW40xMPJDlqaj+wPWmMAck9WYg==
   </data>
  </layer>
  <layer name="item" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF5AATKmJCgJEIDAPKSDgfizwy0CbGozhAPpHqyLUjDwnTyo5EJEwLO0BhVIKGqW0HLG7zGRDxTSs7GOlkBzJNTcCIxibGDmR1+PIdpe7C5m9a2oGNPZztIMV+Yu0gVB6DaBUK7QCBfCxyyGK47CAHYLOfGnbo4cGjgDIAAKMKDyU=
+   eJxjYBgF5ABXAtiNCDUwTK4d2MxQRsL5BOwh132k+oEcQIzZpKijVK82GeaDwr8EDVPbDkYku/KR+LSwg5FOdiDT1ASMaGxi7EBWx4gFU8td2PxNSzuwsYezHaTYT6wd2NIDunoVCu0AgXwscshiuOwgB7hBMboYuh2k1E2k4uFmB60BADT5Kao=
   </data>
  </layer>
  <layer name="map2" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFIwHw4ZFjRKIZ0cQI6RkFuAEjFjwKaANGw3cUDEagMmrHKKAxAACgEwCH
+   eJxjYBgFtABuA+0AJODGgNs9blTEowAVMGLBo4A2YDR8R8FgBCqjdowCGgMARokGeA==
   </data>
  </layer>
 </map>

@@ -1438,17 +1438,17 @@ public class GameScreen extends AbstractGameScreen {
             timeEvent = player.timeCount - 1;
         }
 
-        if(dialogStart && !tutorFirst && player.timeCount <= 299){
-            dialogAll();
-            String text =
-                    "\"ลองเคลื่อนทีตัวละครด้วยปุ่มลูกศรดูสิ \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
-            dialog.setText(text);
-            tutorFirst = true;
-            //tutorFinish = true;
-            timeEvent = player.timeCount - 1;
-        }
+//        if(dialogStart && !tutorFirst && player.timeCount <= 299){
+//            dialogAll();
+//            String text =
+//                    "\"ลองเคลื่อนทีตัวละครด้วยปุ่มลูกศรดูสิ \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
+//            dialog.setText(text);
+//            tutorFirst = true;
+//            //tutorFinish = true;
+//            timeEvent = player.timeCount - 1;
+//        }
 
-        if(tutorFinish && !Focus1 && player.timeCount <= timeEvent){
+        if(!Focus1 && player.timeCount <= timeEvent){
             dialogAll();
             String text =
                     "\"บริเวณนี้มืดมาก เอ๊ะ เหมือนเห็นแสงสว่างจากที่ไกลๆ ลองเดินไปสำรวจกันเถอะ \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
