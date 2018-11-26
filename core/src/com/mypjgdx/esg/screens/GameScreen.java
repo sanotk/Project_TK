@@ -272,8 +272,7 @@ public class GameScreen extends AbstractGameScreen {
         isComplete.add(QuestState.quest6no);
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
-        bg = new Texture("bg1.png");
-
+        bg = new Texture("bg.png");
         font = Assets.instance.newFont;
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.setColor(Color.WHITE);

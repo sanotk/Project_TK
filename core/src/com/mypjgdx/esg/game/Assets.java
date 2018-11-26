@@ -228,6 +228,7 @@ public class Assets implements Disposable, AssetErrorListener {
         manager.load("trap_attack_button.png",Texture.class);
         manager.load("talk_button.png",Texture.class);
         manager.load("background.png",Texture.class);
+        manager.load("bggame.png",Texture.class);
 
         manager.load("icon_sword.png",Texture.class);
         manager.load("icon_bow.png",Texture.class);
@@ -393,7 +394,7 @@ public class Assets implements Disposable, AssetErrorListener {
         trapAttackButtonBackground = getFilteredTexture("trap_attack_button.png");
         talkButtonBackground = getFilteredTexture("talk_button.png");
         background = getFilteredTexture("background.png");
-        bggame = getFilteredTexture("bggame");
+        bggame = getFilteredTexture("bggame.png");
 
         window = new NinePatch((Texture) manager.get("window.png"), 9, 9, 44, 8);
 
