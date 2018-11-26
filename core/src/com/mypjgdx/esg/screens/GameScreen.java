@@ -179,7 +179,7 @@ public class GameScreen extends AbstractGameScreen {
     private Texture dialogStory;
 
     private String text =
-            "\"ทุกคนโปรดรออยู่ตรงนี้ก่อน จนกว่าที่แห่งนี้จะถูกตรวจสอบแล้วว่าปลอดภัย\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
+            "\"มาถึงที่หลบภัยแล้วสินะ เอาล่ะเหมือนเห็นแสงจากที่ไกลๆ\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
 
     public QuestState questState = null;
 
@@ -1448,15 +1448,17 @@ public class GameScreen extends AbstractGameScreen {
 //            timeEvent = player.timeCount - 1;
 //        }
 
-        if(!Focus1 && player.timeCount <= timeEvent){
-            dialogAll();
-            String text =
-                    "\"บริเวณนี้มืดมาก เอ๊ะ เหมือนเห็นแสงสว่างจากที่ไกลๆ ลองเดินไปสำรวจกันเถอะ \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
-            dialog.setText(text);
-            Focus1 = true;
-            player.focusCamera.setFocus1(Focus1);
-            timeEvent = player.timeCount - 1;
-        }
+//        if(!Focus1 && player.timeCount <= timeEvent){
+//            dialogAll();
+//            String text =
+//                    "\"วิสัยทัศน์ค่อนข้างมองเห็นลำบาก เหมือนเห็นแสงสว่างจากที่ไกลๆ ลองเดินไปสำรวจกันเถอะ \" \n\"(กด Enter เพื่อเล่นต่อ)\"";
+//            dialog.setText(text);
+//            Focus1 = true;
+//            player.focusCamera.setFocus1(Focus1);
+//            timeEvent = player.timeCount - 1;
+//        }
+
+        Focus1 = true;
 
         if (player.requestTrap && !dialogTrap) {
             player.requestTrap = false;
