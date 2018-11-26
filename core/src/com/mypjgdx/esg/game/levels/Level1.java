@@ -43,7 +43,7 @@ public class Level1 extends Level {
     public Level1() {
         name = "Level1";
 
-        map = Assets.instance.map2;
+        map = Assets.instance.map1;
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
         player = new Player(mapLayer, 100, 1000);

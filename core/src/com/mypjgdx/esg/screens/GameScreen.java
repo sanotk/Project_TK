@@ -179,7 +179,7 @@ public class GameScreen extends AbstractGameScreen {
     private Texture dialogStory;
 
     private String text =
-            "\"มาถึงที่หลบภัยแล้วสินะ เสียงดังมาก ต้องไปดูซักหน่อยว่าทำอะไรกันอยุ่\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
+            "\"ตามแผนที่ทางเข้าสถานที่หลบภัยน่าจะอยู่ข้างหน้านี้แหละ\" \n\"(กด Enter เพื่อเริ่มเกม)\"";
 
     public QuestState questState = null;
 

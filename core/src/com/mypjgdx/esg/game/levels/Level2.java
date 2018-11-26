@@ -41,7 +41,7 @@ public class Level2 extends Level {
     public Item lamp9;
 
     public Level2() {
-        name = "Level2";
+        name = "Level1";
 
         map = Assets.instance.map2;
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
@@ -100,9 +100,10 @@ public class Level2 extends Level {
         enemies.add(new PepoKnight(mapLayer, player));
         enemies.add(new PepoKnight(mapLayer, player));
         enemies.add(new PepoKnight(mapLayer, player));
-        for (Enemy enemy : enemies) {
-            enemy.setDroppedItems(droppedItems);
-        }
+
+//        for (Enemy enemy : enemies) {
+//            enemy.setDroppedItems(droppedItems);
+//        }
 
         citizen1 = new Citizen1(mapLayer, player);
         citizen2 = new Citizen2(mapLayer, player);
@@ -134,20 +135,20 @@ public class Level2 extends Level {
         fan2.setEnergyBurn(60);
         refrigerator.setEnergyBurn(150);
         riceCooker.setEnergyBurn(800);
-        lamp1.setEnergyBurn(28);
-        lamp2.setEnergyBurn(28);
-        lamp3.setEnergyBurn(28);
-        lamp4.setEnergyBurn(28);
-        lamp5.setEnergyBurn(28);
-        lamp6.setEnergyBurn(28);
-        lamp7.setEnergyBurn(28);
-        lamp8.setEnergyBurn(28);
-        lamp9.setEnergyBurn(28);
+        lamp1.setEnergyBurn(30);
+        lamp2.setEnergyBurn(30);
+        lamp3.setEnergyBurn(30);
+        lamp4.setEnergyBurn(30);
+        lamp5.setEnergyBurn(30);
+        lamp6.setEnergyBurn(30);
+        lamp7.setEnergyBurn(30);
+        lamp8.setEnergyBurn(30);
+        lamp9.setEnergyBurn(30);
     }
 
     @Override
     public void renderFbo(SpriteBatch batch, OrthographicCamera camera, FrameBuffer lightFbo) {
-        if(player.isSwitch){
+        if (player.isSwitch) {
             batch.begin();
             batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             batch.draw(lightFbo.getColorBufferTexture(),
@@ -162,8 +163,22 @@ public class Level2 extends Level {
                     false, true);
             batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             batch.end();
-        }
-        else {
+        } else if (player.focusCamera.getFocus1()) {
+            batch.begin();
+            batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
+            batch.draw(lightFbo.getColorBufferTexture(),
+                    camera.position.x - camera.viewportWidth * camera.zoom / 2,
+                    camera.position.y - camera.viewportHeight * camera.zoom / 2,
+                    0, 0,
+                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
+                    1 * camera.zoom, 1 * camera.zoom,
+                    0,
+                    0, 0,
+                    lightFbo.getColorBufferTexture().getWidth(), lightFbo.getColorBufferTexture().getHeight(),
+                    false, true);
+            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            batch.end();
+        } else {
             batch.begin();
             batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
             batch.draw(lightFbo.getColorBufferTexture(),
@@ -188,21 +203,75 @@ public class Level2 extends Level {
         if (player.isSwitch) {
             Gdx.gl.glClearColor(color.r, color.g, color.b, 0.15f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        } else {
+            batch.begin();
+//            batch.draw(Assets.instance.light,
+//                    player.getPositionX() + player.origin.x
+//                            - Assets.instance.light.getWidth() / 2f,
+//                    player.getPositionY() + player.origin.y
+//                            - Assets.instance.light.getHeight() / 2f);
+            batch.end();
+        } else if (player.focusCamera.getFocus1()) {
+            Gdx.gl.glClearColor(color.r, color.g, color.b, 0.15f);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.begin();
+            batch.setColor(1, 1, 1, 1);
+//            batch.draw(Assets.instance.light,
+//                    player.getPositionX() + player.origin.x
+//                            - Assets.instance.light.getWidth() / 2f,
+//                    player.getPositionY() + player.origin.y
+//                            - Assets.instance.light.getHeight() / 2f);
+            batch.draw(Assets.instance.light,
+                    television.p_x + television.origin.x
+                            - Assets.instance.light.getWidth() / 2f,
+                    television.p_y + television.origin.y
+                            - Assets.instance.light.getHeight() / 2f);
+            batch.draw(Assets.instance.light,
+                    computer.p_x + computer.origin.x
+                            - Assets.instance.light.getWidth() / 2f,
+                    computer.p_y + computer.origin.y
+                            - Assets.instance.light.getHeight() / 2f);
+            batch.draw(Assets.instance.light,
+                    fan1.p_x + fan1.origin.x
+                            - Assets.instance.light.getWidth() / 2f,
+                    fan1.p_y + fan1.origin.y
+                            - Assets.instance.light.getHeight() / 2f);
+            batch.draw(Assets.instance.light,
+                    fan2.p_x + fan2.origin.x
+                            - Assets.instance.light.getWidth() / 2f,
+                    fan2.p_y + fan2.origin.y
+                            - Assets.instance.light.getHeight() / 2f);
+            batch.end();
+        } else if (player.focusCamera.getFocus2()) {
             Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
             batch.setColor(1, 1, 1, 1);
-            batch.draw(Assets.instance.light,
-                    player.getPositionX() + player.origin.x
-                            - Assets.instance.light.getWidth() / 2f,
-                    player.getPositionY() + player.origin.y
-                            - Assets.instance.light.getHeight() / 2f);
+                batch.draw(Assets.instance.light,
+                        player.getPositionX() + player.origin.x
+                                - Assets.instance.light.getWidth() / 2f,
+                        player.getPositionY() + player.origin.y
+                                - Assets.instance.light.getHeight() / 2f);
             batch.draw(Assets.instance.light,
                     switchItem.p_x + switchItem.origin.x
                             - Assets.instance.light.getWidth() / 2f,
                     switchItem.p_y + switchItem.origin.y
                             - Assets.instance.light.getHeight() / 2f);
+            batch.end();
+        }else {
+            Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.begin();
+            batch.setColor(1, 1, 1, 1);
+//            batch.draw(Assets.instance.light,
+//                    player.getPositionX() + player.origin.x
+//                            - Assets.instance.light.getWidth() / 2f,
+//                    player.getPositionY() + player.origin.y
+//                            - Assets.instance.light.getHeight() / 2f);
+//            batch.draw(Assets.instance.light,
+//                    switchItem.p_x + switchItem.origin.x
+//                            - Assets.instance.light.getWidth() / 2f,
+//                    switchItem.p_y + switchItem.origin.y
+//                            - Assets.instance.light.getHeight() / 2f);
             batch.end();
         }
         FrameBuffer.unbind();
