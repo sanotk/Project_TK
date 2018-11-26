@@ -200,7 +200,7 @@ public class Level1 extends Level {
     public void createFbo(SpriteBatch batch, FrameBuffer lightFbo) {
         lightFbo.begin();
         Color color = Color.valueOf("#20e8ff");
-        if (player.isSwitch) {
+        if (!player.isSwitch) {
             Gdx.gl.glClearColor(color.r, color.g, color.b, 0.15f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
@@ -210,8 +210,8 @@ public class Level1 extends Level {
 //                    player.getPositionY() + player.origin.y
 //                            - Assets.instance.light.getHeight() / 2f);
             batch.end();
-        } else if (player.focusCamera.getFocus1()) {
-            Gdx.gl.glClearColor(0.05f, 0.05f, 0.1f, 1f);
+        } else if (player.isSwitch) {
+            Gdx.gl.glClearColor(color.r, color.g, color.b, 0.15f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
             batch.setColor(1, 1, 1, 1);
