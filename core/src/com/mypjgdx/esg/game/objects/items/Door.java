@@ -8,7 +8,7 @@ import com.mypjgdx.esg.game.objects.characters.Player;
 public class Door extends Item{
 
     private static final float SCALE = 1f;
-    public static final float P_X = 1000f;
+    public static final float P_X = 1600f;
     public static final float P_Y = 200f;
 
 	public Door(TiledMapTileLayer mapLayer, Player player){
