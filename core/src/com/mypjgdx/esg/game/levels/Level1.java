@@ -29,7 +29,7 @@ public class Level1 extends Level {
         map = Assets.instance.map1;
         mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
 
-        player = new Player(mapLayer, 100, 1000);
+        player = new Player(mapLayer, 100, 100);
 
 
         door = new Door(mapLayer, player);
