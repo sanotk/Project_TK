@@ -51,7 +51,7 @@ public class WorldRenderer implements Disposable {
     private void renderWorld() {
         worldController.level.createFbo(batch, lightFbo);
         viewport.apply();
-        worldController.cameraHelper.setZoom(1f);
+        worldController.cameraHelper.setZoom(0.5f);
         worldController.cameraHelper.applyTo(camera); //อัพเดทมุมกล้อง
         batch.setProjectionMatrix(viewport.getCamera().combined);
         tiledRenderer.setView(camera);
