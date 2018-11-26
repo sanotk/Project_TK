@@ -1465,8 +1465,8 @@ public class GameScreen extends AbstractGameScreen {
 
         player.isSwitch = true;
 
-        Focus1 = true;
-        player.focusCamera.setFocus1(Focus1);
+//        Focus1 = true;
+//        player.focusCamera.setFocus1(Focus1);
 
         if (player.requestTrap && !dialogTrap) {
             player.requestTrap = false;
