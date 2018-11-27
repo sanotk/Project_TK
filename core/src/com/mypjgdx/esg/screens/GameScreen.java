@@ -1740,6 +1740,10 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        batch.begin();
+        batch.draw(Assets.instance.bggame, 0, 0);
+        batch.end();
+
         Player player = worldController.level.player;
         Level1 level1 = (Level1) worldController.level;
 
