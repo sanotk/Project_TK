@@ -120,7 +120,7 @@ public class Level1 extends Level {
     @Override
     public void createFbo(SpriteBatch batch, FrameBuffer lightFbo) {
         lightFbo.begin();
-        Color color = Color.valueOf("#20e8ff");
+        Color color = Color.valueOf("#00004d");
         Gdx.gl.glClearColor(color.r, color.g, color.b, 0.15f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
