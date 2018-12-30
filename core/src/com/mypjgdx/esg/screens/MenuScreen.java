@@ -63,7 +63,7 @@ public class MenuScreen extends AbstractGameScreen {
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
-        labelStyle.fontColor = Color.GREEN;
+        labelStyle.fontColor = Color.WHITE;
 
         int btn_w = 220;
         int btn_h = 60;
@@ -71,7 +71,7 @@ public class MenuScreen extends AbstractGameScreen {
         text_mainmenu = new Label("เกมประหยัดพลังงาน", skin);
         text_mainmenu.setColor(1, 1, 1, 1);
         text_mainmenu.setFontScale(1f, 1f);
-        text_mainmenu.setPosition(SCENE_WIDTH / 3+30, 450);
+        text_mainmenu.setPosition(SCENE_WIDTH / 3.5f, SCENE_HEIGHT - SCENE_HEIGHT / 5);
 
         text_mainmenu.setStyle(labelStyle);
 
@@ -337,7 +337,7 @@ public class MenuScreen extends AbstractGameScreen {
         Gdx.gl.glClearColor(0.1f, 0.2f, 0.4f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(Assets.instance.background, 0, 0);
+        batch.draw(Assets.instance.bggame, 0, 0);
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
